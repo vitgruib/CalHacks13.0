@@ -20,6 +20,7 @@ Scope, features and kickoff prompts: `docs/MASTER-PLAN.md`. The shared
 contract is Track A's SpacetimeDB schema and actions in `server/`.
 
 ## In progress
+- [ ] T20 [web] Demo script, backup video, Devpost draft — needs: T17 — done when: Devpost draft up by Sat 10 PM — @ethan/claude — owns: `docs/submission/` — scope now: Devpost draft text, demo script, interview + booth prep (async parts of @ethan HUMAN_TODO); recording/submitting stays human
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
 
 ## Up next (priority order)
@@ -41,7 +42,6 @@ contract is Track A's SpacetimeDB schema and actions in `server/`.
 - [ ] T17 ★ [web] Live updates + Inbox actions — needs: T7 (stub ok) — done when: an Inbox decision (reason required) calls an action and every window updates live
 - [ ] T18 ★ [web] Test lab: drop in events + fast-forward clock — needs: T3 (stub ok) — done when: cancellation, court order, payment and bad invoice can be injected from the UI
 - [ ] T19 ★ [web] Answer key + scorecard in the check command — needs: T8 — done when: the check replays the seed and prints caught / missed / false alarms
-- [ ] T20 [web] Demo script, backup video, Devpost draft — needs: T17 — done when: Devpost draft up by Sat 10 PM
 
 ## Requests (cross-lane asks / blockers)
 <!-- - @alex → contracts lane: need optional `score` on Result (blocks T9) -->
