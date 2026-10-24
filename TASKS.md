@@ -23,6 +23,7 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
+- [ ] T15 [app] Apify scraper for cancellation lists, in `scrapers/`; posts status readings through Track A's action — needs: T3 (stub ok) — done when: a scraper run posts readings for the lab's grant IDs, and T10 picks them up — @ethan/claude — owns: `scrapers/`, `.env.example` (additive)
 - [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag — @nathan/claude — owns: `agents/` — stubbed: Track A contract (readings, status events, flags, check requests added to `agents/src/db/stub.ts`)
 - [ ] T23 [hero] Five 3D hero-dashboard mockups (lab of researchers ↔ network of finance agents; requests flow out, bought / rerouted / blocked / held flow back) on one localhost gallery — needs: — — done when: `npm --prefix hero run dev` shows all 5 switchable, each driven by one shared scripted feed shaped like the `request`/`hold`/`status_event` tables; humans pick one to port into `web/` with @ethan — @nathan/claude-hero (own clone) — owns: `hero/` (new top-level dir, no lane owns it) — stubbed: live data (scripted feed; SpacetimeDB adapter later)
 - [ ] T11 ★ [agents] Purchasing agent — needs: T6 (stub ok) — done when: a typed request gets a grant, a rule verdict and an explanation citing the rule; unclear or over-limit requests go to the Inbox — @nathan/claude-t11 — owns: `agents/src/agents/purchasing.ts`, `agents/test/purchasing.test.ts`, `agents/src/prompts/purchasing.ts`
@@ -34,7 +35,6 @@ All three tracks are technical only. Presentation and submission work
 
 ## Up next (priority order)
 - [ ] T4 ★ [all] Thin end-to-end demo path on stubs — needs: T3, T9, T16 — done when: a request submitted in the UI shows a stub agent finding in the Inbox and a Log row
-- [ ] T15 [app] Apify scraper for cancellation lists, in `scrapers/`; posts status readings through Track A's action — needs: T3 (stub ok) — done when: a scraper run posts readings for the lab's grant IDs, and T10 picks them up
 
 ## Outside the tracks (unassigned; not for track agents)
 - [ ] T20 [submission] Demo script, backup video, Devpost draft — needs: T17 — done when: Devpost draft up by Sat 10 PM — drafts done in `docs/submission/` (DEVPOST-DRAFT, DEMO-SCRIPT, INTERVIEW-KIT); left: fill `[TBD]`/`[needs Tn]` once T17/T19 land, paste into Devpost, record video
