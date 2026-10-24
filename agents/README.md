@@ -26,6 +26,9 @@ Node 22 or later.
 | `src/identity.ts` | Saves each agent's token so restarts keep the same identities |
 | `src/worker.ts` | Connects the three agents and starts their loops |
 | `src/agents/stub-agent.ts` | Placeholder purchasing agent (replaced by T11) |
+| `src/agents/bookkeeping.ts` | Fund tracker loop: daily, on "check now", and before money moves |
+| `src/tracker/compare.ts` | What counts as a change, which changes become status events, when sources disagree |
+| `src/sources/` | Source clients (RePORTER, USAspending) and the saved-copy HTTP helper |
 
 ## Environment
 
@@ -33,6 +36,8 @@ Node 22 or later.
 |---|---|---|
 | `GG_DB` | `stub` | `stub` = in-memory stand-in. `spacetime` = Track A's module (after T3) |
 | `GG_STATE_DIR` | `agents/.state` | Where agent tokens are saved. Tokens are credentials; the folder is git-ignored |
+| `GG_SOURCES` | `live` | `live` = ask the government sites, falling back to saved copies. `offline` = saved copies only |
+| `GG_CACHE_DIR` | `agents/cache` | Saved copies of every source answer (public data, committed so the demo works offline) |
 
 ## What's stubbed
 
