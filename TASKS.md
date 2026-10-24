@@ -23,6 +23,7 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
+- [ ] T18 ★ [app] Test lab: drop in events + fast-forward clock — needs: T3 (stub ok) — done when: cancellation, court order, payment and bad invoice can be injected from the UI — @ethan/claude — owns: `web/src/windows/TestLab*`, `web/src/data/store.tsx` — stubbed: Track A actions (local store mirrors `inject_status_event`, `inject_invoice`, `advance_days` from the generated bindings)
 - [ ] T3 ★ [db] Shared contract: tables + action stubs + fixtures for 2 grants (MASTER-PLAN §6 Track A) — needs: T2 — done when: B and C can call the stubs and read fixture data — @ethan/claude-a (covering Track A for @suhu) — owns: `server/`
 - [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag — @nathan/claude — owns: `agents/` — stubbed: Track A contract (readings, status events, flags, check requests added to `agents/src/db/stub.ts`)
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
@@ -39,7 +40,6 @@ All three tracks are technical only. Presentation and submission work
 - [ ] T22 ★ [agents] Swap the agent worker's stub DB for Track A's generated SpacetimeDB bindings (`GG_DB=spacetime`) — needs: T3 — done when: `npm --prefix agents run demo` passes against the local module, 3 identities registered there
 - [ ] T15 [app] Apify scraper for cancellation lists, in `scrapers/`; posts status readings through Track A's action — needs: T3 (stub ok) — done when: a scraper run posts readings for the lab's grant IDs, and T10 picks them up
 - [ ] T17 ★ [app] Live updates + Inbox actions — needs: T7 (stub ok) — done when: an Inbox decision (reason required) calls an action and every window updates live
-- [ ] T18 ★ [app] Test lab: drop in events + fast-forward clock — needs: T3 (stub ok) — done when: cancellation, court order, payment and bad invoice can be injected from the UI
 - [ ] T19 ★ [app] Answer key + scorecard in the check command — needs: T8 — done when: the check replays the seed and prints caught / missed / false alarms
 - [ ] T21 [db] Deploy: publish the module to hosted SpacetimeDB and host the web build, in `deploy/` — needs: T7, T17 — done when: a public URL runs the demo path from a fresh browser, and the URL is in README.md
 
