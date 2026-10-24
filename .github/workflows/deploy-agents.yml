@@ -1,0 +1,40 @@
+# Update the agent worker on the Azure VM whenever main changes it (T26):
+# SSH in and run deploy/agent-worker/update.sh (pull, install, restart).
+# Needs repo secrets AZURE_VM_HOST (IP or DNS name) and AZURE_VM_SSH_KEY (a
+# private key whose public half is in the VM user's authorized_keys); optional
+# AZURE_VM_USER (default azureuser). Skips cleanly until they exist.
+name: Deploy agents
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'agents/**'
+      - 'server/**'
+      - 'sim/**'
+      - 'deploy/agent-worker/**'
+      - '.github/workflows/deploy-agents.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-agents
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      HOST: ${{ secrets.AZURE_VM_HOST }}
+      KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
+      VM_USER: ${{ secrets.AZURE_VM_USER || 'azureuser' }}
+    steps:
+      - name: Skip until the VM secrets exist
+        if: env.HOST == '' || env.KEY == ''
+        run: echo "::notice::AZURE_VM_HOST / AZURE_VM_SSH_KEY not set; nothing to deploy"
+      - name: Update the VM
+        if: env.HOST != '' && env.KEY != ''
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$KEY" > ~/.ssh/id_vm && chmod 600 ~/.ssh/id_vm
+          ssh-keyscan -H "$HOST" >> ~/.ssh/known_hosts 2>/dev/null
+          ssh -i ~/.ssh/id_vm "$VM_USER@$HOST" /opt/grantguard/deploy/agent-worker/update.sh

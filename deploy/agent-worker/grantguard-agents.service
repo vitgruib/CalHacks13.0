@@ -1,0 +1,16 @@
+# systemd unit for the agent worker (T26); setup.sh fills in @USER@.
+[Unit]
+Description=GrantGuard agent worker
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=@USER@
+WorkingDirectory=/opt/grantguard
+EnvironmentFile=/etc/grantguard/agents.env
+ExecStart=/usr/bin/npm --prefix agents start
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
