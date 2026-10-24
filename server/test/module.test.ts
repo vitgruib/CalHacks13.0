@@ -168,3 +168,92 @@ test('a payment after the court order closes the "no payment yet" flag', () => {
   moneyArrivesOnA();
   expect(rows('flag').filter(f => f.grantId === A && f.kind === 'court_order_no_payment' && f.open)).toEqual([]);
 });
+
+// ── Smoke-test fixes (T36) ────────────────────────────────────────────────
+
+const B = 'R21AI182745';
+// A $400 invoice on o1, an open $380 order: held for the amount.
+function heldInvoiceOnO1(): { inv: any; hold: any } {
+  call('gm', mod.inject_invoice, { orderId: 'o1', amount: 400 });
+  const inv = rows('invoice').find(i => i.orderId === 'o1' && !i.checked);
+  call('bk', mod.check_invoice, { invoiceId: inv.id });
+  return { inv, hold: rows('hold').find(x => x.kind === 'invoice' && x.refId === inv.id && x.open) };
+}
+const openInvoiceHolds = (invoiceId: string) => rows('hold').filter(x => x.kind === 'invoice' && x.refId === invoiceId && x.open);
+
+test('asking the vendor keeps an Inbox item open whose decision settles the invoice', () => {
+  const { inv, hold } = heldInvoiceOnO1();
+  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'ask_vendor', reason: 'Asking LabSource why it is $20 more.' });
+  const [waiting] = openInvoiceHolds(inv.id);
+  expect(waiting.title).toMatch(/^Waiting on LabSource about inv\d+/);
+  expect(waiting.options).toEqual(['approve', 'reject']);
+  expect(db().invoice.id.find(inv.id).state).toBe('held');
+
+  call('gm', mod.decide_hold, { holdId: waiting.id, choice: 'approve', reason: 'Vendor says a shipping fee was agreed.' });
+  expect(db().invoice.id.find(inv.id).state).toBe('paid');
+  expect(openInvoiceHolds(inv.id)).toEqual([]);
+});
+
+test("the vendor's corrected invoice replaces the one asked about, so the order can be paid and claimed", () => {
+  const { inv, hold } = heldInvoiceOnO1();
+  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'ask_vendor', reason: 'Asking for a corrected invoice.' });
+  call('gm', mod.inject_invoice, { orderId: 'o1', amount: 380 });
+  expect(db().invoice.id.find(inv.id).state).toBe('rejected');
+  expect(openInvoiceHolds(inv.id)).toEqual([]);
+
+  const corrected = rows('invoice').find(i => i.orderId === 'o1' && !i.checked);
+  call('bk', mod.check_invoice, { invoiceId: corrected.id });
+  expect(db().invoice.id.find(corrected.id).state).toBe('paid');
+});
+
+test('the "which source is right" item shows each source once, at its latest reading', () => {
+  const read = (source: string, status: string) =>
+    call('bk', mod.post_source_reading, { grantId: A, source, status, url: 'https://example.org' });
+  read('NIH RePORTER', 'canceled');
+  read('USAspending', 'active');
+  call('bk', mod.raise_flag, { grantId: A, kind: 'sources_disagree', summary: 'They disagree.' });
+  const hold = rows('hold').find(x => x.kind === 'source_disagreement' && x.open && x.why.startsWith('They disagree.'));
+  const labels = hold.evidence.map((e: any) => e.label);
+  expect(labels).toEqual([...new Set(labels)]);
+  expect(hold.evidence.find((e: any) => e.label === 'NIH RePORTER').value).toMatch(/^canceled/);
+  expect(hold.evidence.find((e: any) => e.label === 'USAspending').value).toMatch(/^active/);
+});
+
+test('canceling the only order of a bought request marks the request canceled', () => {
+  call('sci', mod.submit_request, { item: 'Freezer service', category: 'equipment service', price: 300, grantId: B, purpose: 'Aim 1', sharedWith: [] });
+  const rq = lastRequest();
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', vendor: 'LabSource', explanation: 'Every rule passes.' });
+  const [o] = ordersFor(rq.id);
+  call('gm', mod.cancel_order, { orderId: o.id });
+  expect(db().request.id.find(rq.id).state).toBe('canceled');
+});
+
+test('the Test lab refuses impossible dates and invoices of $0 or less', () => {
+  expect(() => call('gm', mod.set_today, { day: '2026-13-45' })).toThrow(/real date/);
+  expect(() => call('gm', mod.set_today, { day: '2026-02-30' })).toThrow(/real date/);
+  call('gm', mod.set_today, { day: '2026-02-28' });
+  expect(() => call('gm', mod.inject_invoice, { orderId: 'o1', amount: 0 })).toThrow(/more than \$0/);
+  expect(() => call('gm', mod.inject_invoice, { orderId: 'o1', amount: -5 })).toThrow(/more than \$0/);
+});
+
+test('money in module-written text has thousands separators and cents only when there are any', () => {
+  call('gm', mod.inject_invoice, { orderId: 'o1', amount: 6_200.5 });
+  const inv = rows('invoice').find(i => i.orderId === 'o1' && !i.checked);
+  call('bk', mod.check_invoice, { invoiceId: inv.id });
+  const hold = rows('hold').find(x => x.refId === inv.id && x.open);
+  expect(hold.title).toBe('Pay LabSource $6,200.50?');
+  expect(hold.why).toBe('Invoice is $6,200.50 but the approved amount is $380.');
+});
+
+test('a purchase the grant manager approves is explained as approved and bought, not held', () => {
+  call('sci', mod.submit_request, { item: 'Plate reader service', category: 'equipment service', price: 6_000, grantId: B, purpose: 'Aim 2', sharedWith: [] });
+  const rq = lastRequest();
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: B, vendor: 'V', explanation: `Held ${rq.item} ($6,000) on ${B} for the grant manager.` });
+  const hold = rows('hold').find(x => x.refId === rq.id && x.open);
+  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'Needed for Aim 2.' });
+  const after = db().request.id.find(rq.id);
+  expect(after.state).toBe('bought');
+  expect(after.explanation).not.toMatch(/^Held/);
+  expect(after.explanation).toMatch(/approved/i);
+  expect(after.explanation).toContain('Needed for Aim 2.');
+});

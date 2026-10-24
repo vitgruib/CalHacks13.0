@@ -287,7 +287,7 @@ test('paying_an_order_does_not_recheck_its_other_held_invoice', async () => {
   await settle();
 });
 
-test('a_hold_the_grant_manager_answered_with_ask_vendor_is_not_reopened', async () => {
+test('a_hold_the_grant_manager_answered_with_ask_vendor_is_not_reopened_and_waits_for_the_vendor', async () => {
   const { conn, lab } = await oneOrderWorld(700);
   await lab.call('inject_invoice', { orderId: 'o-1', amount: 750 });
   await world!.worker.idle();
@@ -296,7 +296,10 @@ test('a_hold_the_grant_manager_answered_with_ask_vendor_is_not_reopened', async 
 
   await lab.call('decide_hold', { holdId: hold.id, choice: 'ask_vendor', reason: 'Asking the vendor for a corrected invoice.' });
   await world!.worker.idle();
-  assert.deepEqual(invoiceHolds(conn, inv.id).filter((row) => row.open), []);
+  // The module keeps one item open for the vendor's answer (T36); the agent doesn't reopen the decided one.
+  const waiting = openHold(conn, inv.id);
+  assert.notEqual(waiting.id, hold.id);
+  assert.match(waiting.title, /^Waiting on /);
   assert.equal(invoice(conn, inv.id).timeline.at(-1)?.what, 'Grant manager asked the vendor');
   assert.equal(heldLogs(conn, inv.id).length, 1);
   await settle();

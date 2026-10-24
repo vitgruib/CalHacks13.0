@@ -158,7 +158,7 @@ const request = table(
     sharedWith: t.array(t.string()), // grants the item serves; 2+ = a shared cost
     split: t.array(Split), // how a shared cost is charged; shares sum to 1
     purpose: t.string(),
-    state: t.string(), // submitted | bought | blocked | rerouted | waiting_on_manager | rejected
+    state: t.string(), // submitted | bought | blocked | rerouted | waiting_on_manager | rejected | canceled
     verdicts: t.array(Verdict), // written by the module's rules (T6)
     explanation: t.string(), // purchasing agent's plain-language reason
   }

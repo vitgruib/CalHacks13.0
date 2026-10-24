@@ -11,6 +11,7 @@ const stateLabel: Record<RequestState, string> = {
   rerouted: 'Rerouted',
   waiting_on_manager: 'Waiting for the grant manager',
   rejected: 'Rejected',
+  canceled: 'Order canceled',
 }
 
 const stateTone: Record<RequestState, Tone> = {
@@ -20,6 +21,7 @@ const stateTone: Record<RequestState, Tone> = {
   rejected: 'bad',
   waiting_on_manager: 'warn',
   rerouted: 'warn',
+  canceled: 'neutral',
 }
 
 const CATEGORIES = ['lab supplies', 'equipment', 'equipment service', 'reagents', 'software', 'travel', 'general office', 'other']

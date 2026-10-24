@@ -25,6 +25,7 @@ const requestState: Record<PurchaseRequest['state'], string> = {
   rerouted: 'moved to another grant',
   waiting_on_manager: 'waiting for your grant manager',
   rejected: 'turned down',
+  canceled: 'not bought: its order was canceled',
 }
 
 function Check({ ok }: { ok: boolean }) {

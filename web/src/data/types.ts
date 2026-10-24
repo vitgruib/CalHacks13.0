@@ -60,7 +60,7 @@ export interface Flag {
   open: boolean
 }
 
-export type RequestState = 'submitted' | 'bought' | 'blocked' | 'rerouted' | 'waiting_on_manager' | 'rejected'
+export type RequestState = 'submitted' | 'bought' | 'blocked' | 'rerouted' | 'waiting_on_manager' | 'rejected' | 'canceled'
 
 export interface RuleVerdict {
   rule: string // e.g. "Not in the grant's last 90 days"

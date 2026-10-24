@@ -18,7 +18,9 @@ import {
   checkInvoice,
   checkPaper,
   freezeState,
+  isRealDay,
   spendingVerdicts,
+  usd,
   type GrantForRules,
   type Verdict,
 } from './rules';
@@ -176,7 +178,7 @@ function closePurchaseHolds(ctx: Ctx, requestId: string): void {
   }
 }
 
-const DONE_STATES = ['bought', 'rerouted', 'rejected'];
+const DONE_STATES = ['bought', 'rerouted', 'rejected', 'canceled'];
 
 // ── Lifecycle ─────────────────────────────────────────────────────────────
 
@@ -237,7 +239,7 @@ export const submit_request = spacetimedb.reducer(
       price: a.price, grantId: a.grantId, chargedGrantId: undefined, sharedWith: a.sharedWith, split: [],
       purpose: a.purpose, state: 'submitted', verdicts: [], explanation: '',
     });
-    writeLog(ctx, who, `Asked to buy ${a.item} ($${a.price})`, a.purpose || 'No purpose given.', { refId: id });
+    writeLog(ctx, who, `Asked to buy ${a.item} (${usd(a.price)})`, a.purpose || 'No purpose given.', { refId: id });
   }),
 );
 
@@ -247,7 +249,7 @@ export const push_back = spacetimedb.reducer({ requestId: t.string(), message: t
   const r = ctx.db.request.id.find(requestId) ?? fail(`No request ${requestId}.`);
   if (!r.requestedBy || !r.requestedBy.isEqual(ctx.sender)) fail('Only the person who asked can push back.');
   if (!message.trim()) fail('Say what changed.');
-  if (r.state === 'bought' || r.state === 'rerouted') fail(`Already ${r.state}.`);
+  if (r.state === 'bought' || r.state === 'rerouted' || r.state === 'canceled') fail(`Already ${r.state}.`);
   ctx.db.request.id.update({ ...r, state: 'submitted' });
   writeLog(ctx, who, `Pushed back on ${r.item}`, message, { refId: requestId });
 }));
@@ -306,7 +308,7 @@ export const act_on_request = spacetimedb.reducer(
         chargedGrantId: gid, verdicts: vrows(verdicts), explanation: a.explanation,
       });
       closePurchaseHolds(ctx, r.id);
-      writeLog(ctx, role, `${action === 'reroute' ? `Rerouted to ${gid} and bought` : 'Bought'} ${r.item} ($${r.price})`, a.explanation, {
+      writeLog(ctx, role, `${action === 'reroute' ? `Rerouted to ${gid} and bought` : 'Bought'} ${r.item} (${usd(r.price)})`, a.explanation, {
         rule: 'All rules pass, under card limit', refId: r.id,
       });
       return;
@@ -316,7 +318,7 @@ export const act_on_request = spacetimedb.reducer(
       const failed = verdicts.filter(v => !v.pass);
       raiseHoldRow(ctx, {
         kind: 'purchase', refId: r.id, grantId: gid, raisedBy: role,
-        title: `Buy ${r.item} ($${r.price}) on ${gid}?`, why: a.explanation,
+        title: `Buy ${r.item} (${usd(r.price)}) on ${gid}?`, why: a.explanation,
         evidence: (failed.length ? failed : verdicts).map(v => ({ label: v.rule, value: v.detail })),
         options: ['approve', 'reject', 'override'],
       });
@@ -385,6 +387,8 @@ export const decide_hold = spacetimedb.reducer(
   }),
 );
 
+const ASKED_VENDOR = 'Grant manager asked the vendor';
+
 function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: string }, c: string, reason: string, who: string): void {
   switch (h.kind) {
     case 'purchase': {
@@ -408,8 +412,11 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
         return;
       }
       placeOrder(ctx, { ...r, chargedGrantId: gid }, 'Vendor', who);
-      ctx.db.request.id.update({ ...ctx.db.request.id.find(r.id)!, verdicts: vrows(verdicts), state: 'bought', chargedGrantId: gid });
-      writeLog(ctx, 'system', `Bought ${r.item} ($${r.price}) on ${gid}`, c === 'override' ? `Overridden by the grant manager: ${reason}` : 'Approved; rules rechecked.', { refId: r.id });
+      const explanation = c === 'override'
+        ? `The grant manager overrode the rules and bought it on ${gid}: ${reason}`
+        : `The grant manager approved it (${reason}); the rules were rechecked and it was bought on ${gid}.`;
+      ctx.db.request.id.update({ ...ctx.db.request.id.find(r.id)!, verdicts: vrows(verdicts), state: 'bought', chargedGrantId: gid, explanation });
+      writeLog(ctx, 'system', `Bought ${r.item} (${usd(r.price)}) on ${gid}`, c === 'override' ? `Overridden by the grant manager: ${reason}` : 'Approved; rules rechecked.', { refId: r.id });
       return;
     }
     case 'invoice': {
@@ -417,7 +424,20 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       if (!inv) return;
       if (c === 'approve' || c === 'override') payInvoice(ctx, inv.id);
       else if (c === 'reject') ctx.db.invoice.id.update({ ...inv, state: 'rejected' });
-      else if (c === 'ask_vendor') ctx.db.invoice.id.update({ ...inv, timeline: [...inv.timeline, { day: today(ctx), what: 'Grant manager asked the vendor' }] });
+      else if (c === 'ask_vendor') {
+        // Not a dead end: the invoice stays held and the Inbox keeps an item
+        // for the vendor's answer. A corrected invoice for the order replaces
+        // this one instead (inject_invoice).
+        const timeline = [...inv.timeline, { day: today(ctx), what: ASKED_VENDOR }];
+        ctx.db.invoice.id.update({ ...inv, timeline });
+        raiseHoldRow(ctx, {
+          kind: 'invoice', refId: inv.id, grantId: h.grantId, raisedBy: 'bookkeeping', // the invoice check's item, continued
+          title: `Waiting on ${inv.vendor} about ${inv.id}: record their answer`,
+          why: `You asked ${inv.vendor} about this invoice (${usd(inv.amount)}): ${inv.mismatch ?? 'it did not match.'} Approve pays it as billed if they confirm it; reject refuses it. A corrected invoice from them replaces this one.`,
+          evidence: timeline.map(e => ({ label: e.day, value: e.what })),
+          options: ['approve', 'reject'],
+        });
+      }
       return;
     }
     case 'payment_request': {
@@ -495,6 +515,14 @@ export const post_status_event = spacetimedb.reducer(
   (ctx, a) => guard(() => insertStatusEvent(ctx, requireAgent(ctx, 'bookkeeping'), a)),
 );
 
+/** Each source's latest reading of a grant (ids only grow, so the highest id is the latest). */
+function latestReadings(ctx: Ctx, grantId: string) {
+  const byId = [...ctx.db.sourceReading.grantId.filter(grantId)].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  const latest = new Map<string, (typeof byId)[number]>();
+  for (const r of byId) latest.set(r.source, r);
+  return [...latest.values()];
+}
+
 /** Bookkeeping agent: flag a problem. A sources_disagree flag freezes the grant and goes to the Inbox. */
 export const raise_flag = spacetimedb.reducer(
   { grantId: t.string(), kind: t.string(), summary: t.string() },
@@ -508,7 +536,7 @@ export const raise_flag = spacetimedb.reducer(
       raiseHoldRow(ctx, {
         kind: 'source_disagreement', refId: f.id.toString(), grantId, raisedBy: role,
         title: `Which source is right about ${grantId}?`, why: `${summary} Spending stays frozen until you decide.`,
-        evidence: [...ctx.db.sourceReading.grantId.filter(grantId)].slice(-5).map(r => ({ label: r.source, value: `${r.status ?? 'no status'} (${r.day})` })),
+        evidence: latestReadings(ctx, grantId).map(r => ({ label: r.source, value: `${r.status ?? 'no status'} (${r.day})` })),
         options: ['pick_source', 'override'],
       });
     }
@@ -565,7 +593,7 @@ export const check_invoice = spacetimedb.reducer({ invoiceId: t.string() }, (ctx
     writeLog(ctx, role, `Held invoice ${inv.id}`, v.mismatch!, { rule: 'Invoice needs an open order and the approved amount', refId: inv.id });
     raiseHoldRow(ctx, {
       kind: 'invoice', refId: inv.id, grantId: o?.grantId, raisedBy: role,
-      title: `Pay ${inv.vendor} $${inv.amount}?`, why: v.mismatch!,
+      title: `Pay ${inv.vendor} ${usd(inv.amount)}?`, why: v.mismatch!,
       evidence: v.timeline.map(e => ({ label: e.day, value: e.what })),
       options: ['approve', 'reject', 'ask_vendor'],
     });
@@ -615,12 +643,12 @@ export const draft_payment_request = spacetimedb.reducer(
       id, grantId: a.grantId, from: a.from, to: a.to, amount, explanation: a.explanation,
       includedRequestIds: included, includedPayrollIds: pay.map(p => p.id), excluded, state: 'waiting_on_manager',
     });
-    writeLog(ctx, role, `Drafted payment request ${id} ($${amount})`, `${included.length} purchases, ${pay.length} payroll rows, ${excluded.length} left out.`, {
+    writeLog(ctx, role, `Drafted payment request ${id} (${usd(amount)})`, `${included.length} purchases, ${pay.length} payroll rows, ${excluded.length} left out.`, {
       rule: 'Held spending is left out', refId: id,
     });
     raiseHoldRow(ctx, {
       kind: 'payment_request', refId: id, grantId: a.grantId, raisedBy: role,
-      title: `Send payment request ${id} ($${amount})?`, why: 'Payment requests always need the grant manager.',
+      title: `Send payment request ${id} (${usd(amount)})?`, why: 'Payment requests always need the grant manager.',
       evidence: [
         { label: 'Period', value: `${a.from} to ${a.to}` },
         { label: 'Left out', value: excluded.length ? excluded.map(e => `${e.requestId}: ${e.why}`).join('; ') : 'nothing' },
@@ -690,7 +718,7 @@ export const record_paper_facts = spacetimedb.reducer(
 /** Set the simulated date. */
 export const set_today = spacetimedb.reducer({ day: t.string() }, (ctx, { day }) => guard(() => {
   const who = requirePerson(ctx);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) fail('Day must be YYYY-MM-DD.');
+  if (!isRealDay(day)) fail(`Day must be a real date written YYYY-MM-DD; got "${day}".`);
   ctx.db.clock.id.update({ id: 0, today: day });
   writeLog(ctx, who, `Set the clock to ${day}`, 'Test lab.');
   for (const g of [...ctx.db.grant.iter()]) recomputeGrant(ctx, g.id);
@@ -717,12 +745,20 @@ export const inject_invoice = spacetimedb.reducer(
   (ctx, a) => guard(() => {
     const who = requirePerson(ctx);
     const o = ctx.db.order.id.find(a.orderId) ?? fail(`No order ${a.orderId}.`);
+    if (!(Number.isFinite(a.amount) && a.amount > 0)) fail('An invoice must be for more than $0.');
     const id = nextId(ctx, 'inv', x => !!ctx.db.invoice.id.find(x));
     ctx.db.invoice.insert({
       id, orderId: o.id, vendor: o.vendor, amount: a.amount, received: today(ctx), state: 'held',
-      mismatch: undefined, timeline: [{ day: today(ctx), what: `Invoice arrived for $${a.amount}` }], checked: false,
+      mismatch: undefined, timeline: [{ day: today(ctx), what: `Invoice arrived for ${usd(a.amount)}` }], checked: false,
     });
-    writeLog(ctx, who, `Dropped in invoice ${id} ($${a.amount}) for ${o.id}`, 'Test lab.', { refId: id });
+    writeLog(ctx, who, `Dropped in invoice ${id} (${usd(a.amount)}) for ${o.id}`, 'Test lab.', { refId: id });
+    // The vendor's answer to "ask the vendor": this invoice replaces the held one.
+    for (const old of [...ctx.db.invoice.iter()]) {
+      if (old.orderId !== o.id || old.state !== 'held' || old.timeline.at(-1)?.what !== ASKED_VENDOR) continue;
+      ctx.db.invoice.id.update({ ...old, state: 'rejected', timeline: [...old.timeline, { day: today(ctx), what: `Replaced by the vendor's corrected invoice ${id}` }] });
+      for (const hd of [...ctx.db.hold.iter()]) if (hd.open && hd.kind === 'invoice' && hd.refId === old.id) ctx.db.hold.id.update({ ...hd, open: false });
+      writeLog(ctx, who, `Replaced invoice ${old.id} with ${id}`, `${o.vendor} sent a corrected invoice after the grant manager asked.`, { refId: old.id });
+    }
   }),
 );
 
@@ -734,6 +770,12 @@ export const cancel_order = spacetimedb.reducer({ orderId: t.string() }, (ctx, {
   ctx.db.order.id.update({ ...o, state: 'canceled', canceledOn: today(ctx) });
   adjustMoney(ctx, o.grantId, { promised: -(o.changedAmount ?? o.amount) });
   writeLog(ctx, who, `Canceled order ${o.id}`, 'Test lab.', { refId: o.id });
+  // Every order of its request canceled: nothing was bought after all.
+  const r = ctx.db.request.id.find(o.requestId);
+  const orders = [...ctx.db.order.iter()].filter(x => x.requestId === o.requestId);
+  if (r && (r.state === 'bought' || r.state === 'rerouted') && orders.every(x => x.state === 'canceled')) {
+    ctx.db.request.id.update({ ...r, state: 'canceled', explanation: `${r.explanation} Then its order ${o.id} was canceled on ${today(ctx)}, so nothing was bought.`.trim() });
+  }
 }));
 
 /** Reset to the built-in 2-grant fixtures. */

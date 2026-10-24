@@ -31,7 +31,19 @@ export const daysBetween = (from: string, to: string): number =>
 export const addDays = (day: string, n: number): string =>
   new Date(Date.parse(day) + n * 86_400_000).toISOString().slice(0, 10);
 
-const usd = (n: number) => `$${Math.round(n).toLocaleString('en-US')}`;
+/** Money as the agents write it: thousands separators, cents only when there are any ($6,200, $640.50). */
+export function usd(n: number): string {
+  const value = Math.round(n * 100) / 100;
+  const digits = Number.isInteger(value) ? 0 : 2;
+  return `$${value.toLocaleString('en-US', { minimumFractionDigits: digits, maximumFractionDigits: digits })}`;
+}
+
+/** A real calendar day written YYYY-MM-DD (2026-02-30 and 2026-13-45 are not). */
+export const isRealDay = (day: string): boolean => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) return false;
+  const t = Date.parse(`${day}T00:00:00Z`);
+  return Number.isFinite(t) && new Date(t).toISOString().slice(0, 10) === day;
+};
 
 // ── Fund tracker (T5) ─────────────────────────────────────────────────────
 
