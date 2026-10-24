@@ -23,6 +23,7 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
+- [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag — @nathan/claude — owns: `agents/` — stubbed: Track A contract (readings, status events, flags, check requests added to `agents/src/db/stub.ts`)
 - [ ] T16 ★ [app] The 8 windows on fixture data (MASTER-PLAN §4) — needs: T3 (stub ok) — done when: every window renders fixtures; only the Inbox has decision buttons — @ethan/claude — owns: `web/` — stubbed: Track A contract (local typed fixtures in `web/src/data/` until T3 lands)
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
 
@@ -34,7 +35,6 @@ All three tracks are technical only. Presentation and submission work
 - [ ] T6 ★ [db] Spending rules + hard limits (MASTER-PLAN §2, §3.2) — needs: T3 — done when: each rule rejects its planted case and passes its decoy; self-approval and agent self-approval are rejected
 - [ ] T7 ★ [db] Approval gate + log — needs: T3 — done when: hold → decide (approve / reject / override, reason required) → recheck → act; every action writes a log row
 - [ ] T8 [app] Fake university data with planted mistakes (MASTER-PLAN §3), in `sim/` — needs: T3 (stub ok) — done when: seed loads orders, invoices, approvals and payroll with every planted mistake and decoy
-- [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag
 - [ ] T11 ★ [agents] Purchasing agent — needs: T6 (stub ok) — done when: a typed request gets a grant, a rule verdict and an explanation citing the rule; unclear or over-limit requests go to the Inbox
 - [ ] T12 [agents] Invoice check (P4) — needs: T8 (stub ok) — done when: canceled-order and wrong-amount invoices are held with a timeline; the decoy passes
 - [ ] T13 [agents] Payment request writer (P5) — needs: T5 (stub ok) — done when: a draft of ≤1,000 characters from purchase records, held items left out; a follow-up answered with exact purchases; both wait in the Inbox
