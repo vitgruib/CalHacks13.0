@@ -54,6 +54,25 @@ body {
   opacity: 0.55;
 }
 
+/* Phones: numbers only, except the open one, so all six fit without scrolling. */
+@media (max-width: 640px) {
+  .gallery a:not([aria-current='page']) {
+    padding: 8px 12px;
+  }
+  .gallery a:not([aria-current='page']) .gallery-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .gallery a:not([aria-current='page']) kbd {
+    font-size: 13px;
+    opacity: 0.85;
+  }
+}
+
 .gallery-loading {
   position: fixed;
   inset: 0;

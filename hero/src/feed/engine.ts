@@ -9,6 +9,7 @@ import {
   canBuyAlone,
   checkInvoice,
   checkPaper,
+  daysBetween,
   freezeState,
   rerouteTarget,
   spendingVerdicts,
@@ -194,8 +195,8 @@ export class Feed {
   // ── The story ───────────────────────────────────────────────────────────
 
   private story() {
-    const R01 = 'R01GM000001'
-    const R21 = 'R21AI000002'
+    const R01 = 'R01GM061721'
+    const R21 = 'R21AI182745'
     const steps: [number, () => void][] = [
       [400, () => this.beat('A normal week in the Ortiz Lab', 'Five researchers, two NIH grants, three AI agents keeping the books. Every request runs through the same spending rules the database enforces.')],
       [1200, () => this.dailyReading()],
@@ -230,7 +231,7 @@ export class Feed {
         this.statusEvent(R01, 'payment_received', 'Payment system', 'Payment of $18,600 received.', 18600)
       }],
       [12500, () => {
-        this.beat('Rerouted to a grant with time left', `Priya’s agar plates are supplies on a grant that ends in 45 days. Auditors disallowed exactly that at WVU and Delaware, so the agent charges ${R01} instead.`)
+        this.beat('Rerouted to a grant with time left', `Priya’s agar plates are supplies on a grant that ends in ${daysBetween(this.w.today, this.grantMap().get(R21)?.end ?? this.w.today)} days. Auditors disallowed exactly that at WVU and Delaware, so the agent charges ${R01} instead.`)
         this.submit(SEED.agar, { id: SEED.agar.id })
       }],
       [10500, () => {

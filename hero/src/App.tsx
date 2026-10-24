@@ -44,12 +44,12 @@ export default function App() {
         <nav className="gallery" aria-label="Hero mockups">
           <a href="#overview" aria-current={current ? undefined : 'page'}>
             <kbd>0</kbd>
-            All five
+            <span className="gallery-name">All five</span>
           </a>
           {demos.map((d, i) => (
             <a key={d.id} href={`#${d.id}`} aria-current={d === current ? 'page' : undefined} title={d.thesis}>
               <kbd>{i + 1}</kbd>
-              {d.name}
+              <span className="gallery-name">{d.name}</span>
             </a>
           ))}
         </nav>

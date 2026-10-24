@@ -151,7 +151,7 @@ const KEY_NOTE = {
 const GROUPS: { title: string; glyph: string; ids: string[] }[] = [
   { title: 'The lab', glyph: 'house', ids: ['r:ortiz', 'r:okafor', 'r:raman', 'r:silva', 'r:park'] },
   { title: 'The grant office', glyph: 'observatory', ids: ['a:purchasing', 'a:bookkeeping', 'a:payment_report', 'p:grant_manager'] },
-  { title: 'The grants', glyph: 'mesa', ids: ['g:R01GM000001', 'g:R21AI000002'] },
+  { title: 'The grants', glyph: 'mesa', ids: ['g:R01GM061721', 'g:R21AI182745'] },
   { title: 'Outside', glyph: 'station', ids: ['s:reporter', 's:usaspending', 's:cancellations', 's:court', 's:payments', 'p:funder', 'v:vendors'] },
 ]
 

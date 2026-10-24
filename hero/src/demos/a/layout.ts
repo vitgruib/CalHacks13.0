@@ -60,8 +60,8 @@ export const BOOKKEEPING: V3 = [5.55, 0, -1.55]
 export const PAYMENT_REPORT: V3 = [8.25, 0, -1.25]
 export const GM_DESK: V3 = [3.45, 0, -2.2]
 export const RESERVOIRS: Record<string, V3> = {
-  R01GM000001: [5.25, 0, 1.35],
-  R21AI000002: [7.55, 0, 1.35],
+  R01GM061721: [5.25, 0, 1.35],
+  R21AI182745: [7.55, 0, 1.35],
 }
 export const SOURCES: Record<string, V3> = {
   's:reporter': [4.75, 0, -2.85],

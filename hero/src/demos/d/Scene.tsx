@@ -618,7 +618,7 @@ function GrantVault({ id }: { id: string }) {
   useEffect(() => {
     const tag = el('div', 'dd-tag dd-tag-grant')
     tag.dataset.id = `g:${id}`
-    tag.dataset.side = id === 'R01GM000001' ? 'l' : 'r'
+    tag.dataset.side = id === 'R01GM061721' ? 'l' : 'r'
     const g0 = feed.getWorld().grants.find(g => g.id === id)
     const head = el('div', 'dd-vault-head')
     head.append(el('b', 'dd-id', id), el('span', 'dd-tag-sub', g0?.title ?? ''))
@@ -956,8 +956,8 @@ export function Scene() {
         <ModelView key={m.id} m={m} />
       ))}
       <RulePanel />
-      <GrantVault id="R01GM000001" />
-      <GrantVault id="R21AI000002" />
+      <GrantVault id="R01GM061721" />
+      <GrantVault id="R21AI182745" />
       <Packets />
     </>
   )

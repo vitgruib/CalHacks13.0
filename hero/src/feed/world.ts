@@ -4,14 +4,14 @@
 
 import type { FinanceAgent, FlowNode, Grant, Preset, Researcher, RequestInput } from './types'
 
-export const R01 = 'R01GM000001'
-export const R21 = 'R21AI000002'
+export const R01 = 'R01GM061721'
+export const R21 = 'R21AI182745'
 
 /** Both grants on 2026-03-09, the day before the cancellation (sim/seed.json numbers). */
 export const startGrants = (): Grant[] => [
   {
     id: R01,
-    title: 'Protein folding dynamics in bacterial membranes',
+    title: 'Biogenesis of the mitochondrial inner membrane',
     pi: 'Dr. Lena Ortiz',
     agency: 'NIH / NIGMS',
     awarded: 420000,
@@ -20,13 +20,13 @@ export const startGrants = (): Grant[] => [
     promised: 0,
     available: 314695,
     start: '2025-01-01',
-    end: '2027-12-31',
+    end: '2027-07-31',
     status: 'active',
     frozen: false,
   },
   {
     id: R21,
-    title: 'Rapid antimicrobial susceptibility assay',
+    title: 'Investigating ploidy modulation as a strategy to improve antibiotic activity',
     pi: 'Dr. Lena Ortiz',
     agency: 'NIH / NIAID',
     awarded: 275000,
@@ -35,7 +35,7 @@ export const startGrants = (): Grant[] => [
     promised: 9590,
     available: 132800,
     start: '2024-08-01',
-    end: '2026-08-01',
+    end: '2026-08-31',
     status: 'active',
     frozen: false,
   },
