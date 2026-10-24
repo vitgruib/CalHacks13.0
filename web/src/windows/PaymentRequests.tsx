@@ -10,7 +10,7 @@ const LIMIT = 1_000
 const requestState: Record<PaymentRequest['state'], { label: string; tone: Tone }> = {
   drafted: { label: 'Drafted', tone: 'neutral' },
   waiting_on_manager: { label: 'Waiting on you', tone: 'warn' },
-  sent: { label: 'Sent to funder', tone: 'neutral' },
+  sent: { label: 'Sent to the agency', tone: 'neutral' },
   paid: { label: 'Paid', tone: 'good' },
 }
 
@@ -118,13 +118,13 @@ function RequestCard({ pr }: { pr: PaymentRequest }) {
       </div>
 
       <h3>Follow-up questions ({pr.followUps.length})</h3>
-      {pr.followUps.length === 0 ? <Empty>The funder has not asked anything yet.</Empty> : pr.followUps.map(fu => {
+      {pr.followUps.length === 0 ? <Empty>The agency has not asked anything yet.</Empty> : pr.followUps.map(fu => {
         const fs = fu.state === 'drafted' && !fu.answerDraft ? { label: 'Not answered yet', tone: 'warn' as Tone } : followUpState[fu.state]
         const fuHold = db.holds.find(h => h.kind === 'follow_up' && h.refId === fu.id && !h.decision)
         return (
           <article key={fu.id} className="pr-fu">
             <header><Badge tone={fs.tone}>{fs.label}</Badge><InboxLink waiting={fu.state === 'waiting_on_manager' || !!fuHold} /></header>
-            <p><span className="pr-label">Funder asked</span>{fu.question}</p>
+            <p><span className="pr-label">Agency asked</span>{fu.question}</p>
             <p><span className="pr-label">Drafted answer</span>{fu.answerDraft ?? <em className="pr-muted">Not drafted yet.</em>}</p>
           </article>
         )
