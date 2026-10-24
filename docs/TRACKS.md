@@ -50,10 +50,16 @@ core works without, so cutting it costs nothing.
 | **Atlassian Agentic Workforce** | AirPods Max per winner | **Must be a Forge app** on Jira and/or Confluence (Node 22/24, Forge CLI ≥14, `forge site provision` demo site). Pick Track 1 (agents that do the work) or Track 2 (security/governance: prompt-injection defense, audit + selective rollback). Our fit: escalations become **Jira issues** the controller approves by transitioning them, and accounting policies + the close checklist live in **Confluence**, so the agent cites the exact policy page behind each call. Track 2's "audit and reversion" is our audit trail. SpacetimeDB stays the system of record, with Jira/Confluence as the human-facing surface behind an adapter. Judging: creativity, usefulness, technical use of Forge APIs; "leave the team with less work, not more". **Devpost needs a ≤3-min video + repo link.** Brief: Google Doc `12Y2Vamxbm9W_l2Eo4AM530R7HfNAYCXI-UI6F6Xnggw`; starter: github.com/atlassian-labs/forge-inspired; help: #spons-atlassian. | Atlassian API token (Forge scopes), demo site, Forge CLI; external-fetch permission for the model API; watch Forge invocation time limits |
 | **Cartesia** (voice) | Meta glasses (TBD) | Voice must be core for this track, so only do it if a voice surface clearly helps. E.g. the controller questions a decision out loud and the agent defends it from the audit trail. Track rules: 2-min demo-first pitch; README with setup, Cartesia features used, known limitations; no keys in repo. | Cartesia API key |
 
+### Undecided
+
+| Track | Prize | Rules | Our possible fit | Concerns |
+| --- | --- | --- | --- | --- |
+| **Bright Data: Best Use of Public Web Data in an App** | 1st $1.5k credits + $500 Amazon; 2nd $1k + $350; 3rd $500 + $250 | Live public web data must be **essential**: remove it and the product stops working. Must run live in the demo and handle blocks, slow responses and empty results. Extra credit for picking and combining the right Bright Data tools, with a 2-min story using real results. **Disqualified for:** scraping behind a login or paywall, collecting non-public personal data, **mocked or hardcoded data in the demo**, or a README-only mention. Hackpack: github.com/ScrapeAlchemist/public-data-hackpack. $300 credits via promo. DevRel at their table. | Counterparty vetting against the live web: check that a bank-change request matches the vendor's real public site and contacts; watch for news of a customer's distress (closures, layoffs, lawsuits) and cut their credit limit. | Our counterparties would have to be **real public companies**, while the rest of our world (ledger, CRS test identities) is simulated. Live scraping adds demo-day failure risk. It does the same job as **Apify**, so pick at most one. |
+
 ### Waiting on docs (check the Live Site at kickoff)
 
 Armadin (Security), Elastic,
-Bright Data, Convex, Creao (AI-First Disruptor / Team Empowerment,
+Convex, Creao (AI-First Disruptor / Team Empowerment,
 likely require their platform).
 
 ### Eliminated (don't spend time on these)
