@@ -23,13 +23,12 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
-- [ ] T2 ★ [db] Pin SpacetimeDB version, pick module language, scaffold + run script + check command — needs: — — done when: fresh clone runs and check passes; version and language in AGENTS.md §0 and DECISIONS.md — @ethan/claude-a (covering Track A for @suhu, per @ethan) — owns: `server/`, `package.json` scripts for the check
+- [ ] T3 ★ [db] Shared contract: tables + action stubs + fixtures for 2 grants (MASTER-PLAN §6 Track A) — needs: T2 — done when: B and C can call the stubs and read fixture data — @ethan/claude-a (covering Track A for @suhu) — owns: `server/`
 - [ ] T8 [app] Fake university data with planted mistakes (MASTER-PLAN §3), in `sim/` — needs: T3 (stub ok) — done when: seed loads orders, invoices, approvals and payroll with every planted mistake and decoy — @ethan/claude — owns: `sim/`, `web/src/data/` — stubbed: Track A contract (seed is JSON shaped like `web/src/data/types.ts`; T3 loader comes when the contract lands)
 - [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag — @nathan/claude — owns: `agents/` — stubbed: Track A contract (readings, status events, flags, check requests added to `agents/src/db/stub.ts`)
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
 
 ## Up next (priority order)
-- [ ] T3 ★ [db] Shared contract: tables + action stubs + fixtures for 2 grants (MASTER-PLAN §6 Track A) — needs: T2 — done when: B and C can call the stubs and read fixture data
 - [ ] T4 ★ [all] Thin end-to-end demo path on stubs — needs: T3, T9, T16 — done when: a request submitted in the UI shows a stub agent finding in the Inbox and a Log row
 - [ ] T5 ★ [db] Fund tracker math + freeze rule — needs: T3 — done when: truly available = awarded − spent − promised per grant; a cancellation freezes spending, a court order doesn't unfreeze it, a payment does
 - [ ] T6 ★ [db] Spending rules + hard limits (MASTER-PLAN §2, §3.2) — needs: T3 — done when: each rule rejects its planted case and passes its decoy; self-approval and agent self-approval are rejected
@@ -53,6 +52,7 @@ All three tracks are technical only. Presentation and submission work
 <!-- - @alex → contracts lane: need optional `score` on Result (blocks T9) -->
 
 ## Done
+- [x] T2 ★ [db] Pin SpacetimeDB version, pick module language, scaffold + run script + check command — needs: — — done when: fresh clone runs and check passes; version and language in AGENTS.md §0 and DECISIONS.md — @ethan/claude-a — 2.13.0, TypeScript, `./check.sh`, `npm --prefix server run dev`; left: run script not yet tried against a real CLI (not installed on this machine)
 - [x] T16 ★ [app] The 8 windows on fixture data (MASTER-PLAN §4) — needs: T3 (stub ok) — done when: every window renders fixtures; only the Inbox has decision buttons — @ethan/claude — owns: `web/` — on local fixtures; swap to T3 bindings in T17
 - [x] T9 ★ [agents] Worker with one identity per agent + stub agent — @nathan/claude — on the in-memory stub (`agents/src/db/stub.ts`): 3 agents register as separate identities, keep them across restarts, and the stub agent raises a hold (Inbox item) per request plus log rows; 8 tests in `npm --prefix agents run check`. Real SpacetimeDB connection is T22
 - [x] T1 ★ [all] Fill in AGENTS.md §0 + Lanes table — @nathan/claude — product, demo path and contract filled; stack version, run and check commands come with T2
