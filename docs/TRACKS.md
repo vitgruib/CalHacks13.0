@@ -47,11 +47,12 @@ core works without, so cutting it costs nothing.
 | Track | Prize | Plan | Needs |
 | --- | --- | --- | --- |
 | **Factory Droid SDK** | $2,000 + credits | Droid (Factory's agent harness, headless via the TS/Python SDK) is an automated **finance-systems seat**. When a class of exceptions recurs, Droid writes a new matching/policy rule as a diff; the controller approves; the rule ships. That's Hyphenate's "automated colleague". Track rules: real work in the running product, a trigger we designed, scoped permissions, visible plans/diffs. **The README must explain where and how Droid is used.** | `FACTORY_API_KEY`, `droid` CLI |
+| **Atlassian Agentic Workforce** *(proposed, not yet decided)* | AirPods Max per winner | **Must be a Forge app** on Jira and/or Confluence (Node 22/24, Forge CLI ≥14, `forge site provision` demo site). Pick Track 1 (agents that do the work) or Track 2 (security/governance: prompt-injection defense, audit + selective rollback). Our fit: escalations become **Jira issues** the controller approves by transitioning them, and accounting policies + the close checklist live in **Confluence**, so the agent cites the exact policy page behind each call. Track 2's "audit and reversion" is our audit trail. SpacetimeDB stays the system of record, with Jira/Confluence as the human-facing surface behind an adapter. Judging: creativity, usefulness, technical use of Forge APIs; "leave the team with less work, not more". **Devpost needs a ≤3-min video + repo link.** Brief: Google Doc `12Y2Vamxbm9W_l2Eo4AM530R7HfNAYCXI-UI6F6Xnggw`; starter: github.com/atlassian-labs/forge-inspired; help: #spons-atlassian. | Atlassian API token (Forge scopes), demo site, Forge CLI; external-fetch permission for the model API; watch Forge invocation time limits |
 | **Cartesia** (voice) | Meta glasses (TBD) | Voice must be core for this track, so only do it if a voice surface clearly helps. E.g. the controller questions a decision out loud and the agent defends it from the audit trail. Track rules: 2-min demo-first pitch; README with setup, Cartesia features used, known limitations; no keys in repo. | Cartesia API key |
 
 ### Waiting on docs (check the Live Site at kickoff)
 
-Atlassian ("Agentic Workforce", promising), Armadin (Security), Elastic,
+Armadin (Security), Elastic,
 Bright Data, Convex, Creao (AI-First Disruptor / Team Empowerment,
 likely require their platform).
 
