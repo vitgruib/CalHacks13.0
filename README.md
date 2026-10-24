@@ -92,7 +92,7 @@ The demo runs on the sim world (`sim/seed.json`, simulated today
 On the live site, "Load demo seed" in the status bar resets the world to the
 sim seed. The live site is one shared world: anyone with the link acts as the
 grant manager, and the Test lab changes the world for everyone. Presenter
-cautions: [docs/TRACK-B-MANUAL.md#demo-cautions](docs/TRACK-B-MANUAL.md#demo-cautions).
+checklist and known edge cases: [docs/EDGE-TESTING.md](docs/EDGE-TESTING.md).
 
 ## How it works
 
@@ -410,66 +410,65 @@ freeze is 7:00 AM; judging is 10:30 to 12:30 with a live demo.
 
 ## Documentation index
 
-### Plan and scope
-
-| Doc | What it's for | Who it's for |
-|---|---|---|
-| [docs/MASTER-PLAN.md](docs/MASTER-PLAN.md) | Locked scope: seats, features, windows, the demo path, build tracks, kickoff prompts. Newest source of scope | Everyone |
-| [docs/FEATURES.md](docs/FEATURES.md) | Feature IDs (P1 to P6, B1 to B7, S1 to S5) cited in tasks and commits; older than the master plan | Builders |
-| [docs/HYPHENATE.md](docs/HYPHENATE.md) | The Hyphenate brief and judging criteria, verbatim, with what they mean for us | Everyone, pitch |
-| [docs/TRACKS.md](docs/TRACKS.md) | Event rules, the other prize tracks we target, and tracks we cut | Submission |
+```
+README.md                  you are here: what it is, the demo, how it works, how to run it
+docs/
+  MASTER-PLAN.md           the product spec: seats, features, rules, planted mistakes, windows, demo path
+  ARCHITECTURE.md          stack, identities and where tokens live, with diagrams
+  EDGE-TESTING.md          known edge cases and the pre-demo checklist
+  HYPHENATE.md             the primary track's brief and judging criteria, and how we answer each
+  TRACKS.md                event rules and the other prize tracks we enter
+  submission/              what judges and Devpost see
+  research/                the evidence behind every claim
+server/ agents/ sim/ scrapers/   component READMEs, below
+AGENTS.md TASKS.md ...     team process, below
+```
 
 ### Submission
 
-| Doc | What it's for | Who it's for |
-|---|---|---|
-| [docs/submission/DEMO-SCRIPT.md](docs/submission/DEMO-SCRIPT.md) | 3-minute live demo, backup video shot list, judge-scenario playbook, pre-record checklist | Presenters |
-| [docs/submission/DEVPOST-DRAFT.md](docs/submission/DEVPOST-DRAFT.md) | Paste-ready Devpost text, track pitches, sources; still has `[TBD]` fields | Whoever submits |
-| [docs/submission/IMPACT-EVIDENCE.md](docs/submission/IMPACT-EVIDENCE.md) | Problem size, market and measured results, each with source and date | Judges, pitch |
-| [docs/submission/INTERVIEW-KIT.md](docs/submission/INTERVIEW-KIT.md) | Hyphenate booth sheet, interview guide, unsent outreach drafts | Whoever interviews |
+| Doc | What it's for |
+|---|---|
+| [DEMO-SCRIPT.md](docs/submission/DEMO-SCRIPT.md) | 3-minute live demo, backup video shot list, judge-scenario playbook, pre-record checklist |
+| [DEVPOST-DRAFT.md](docs/submission/DEVPOST-DRAFT.md) | Paste-ready Devpost text, track pitches, sources; still has `[TBD]` fields |
+| [IMPACT-EVIDENCE.md](docs/submission/IMPACT-EVIDENCE.md) | Problem size, market and measured results, each with source and date |
+| [INTERVIEW-KIT.md](docs/submission/INTERVIEW-KIT.md) | Hyphenate booth sheet, interview guide, unsent outreach drafts |
 
 ### Research and evidence
 
 Read [docs/research/README.md](docs/research/README.md) before citing
 anything: every figure needs a source and a tag ([verified], [scrape],
-[agent-reported], [unverified]).
+[agent-reported], [unverified]). It indexes the pain points and the real
+audit findings behind each planted mistake.
 
-| Doc | What it's for |
+| Pain point | In one line |
 |---|---|
-| [docs/research/README.md](docs/research/README.md) | Evidence rules, pain-point index, tools that worked |
-| [docs/research/MVP-REPORT.md](docs/research/MVP-REPORT.md) | Pain points mapped to features, the demo moment and the planted-error set |
 | [01 No source of truth](docs/research/pain-points/01-no-source-of-truth.md) | Nobody has a complete list of which grants were cut |
 | [02 Status reversals](docs/research/pain-points/02-status-reversals.md) | A canceled grant might not stay canceled |
-| [03 Stranded trials](docs/research/pain-points/03-stranded-trials.md) | Patients stranded in defunded clinical trials |
-| [04 Foundation data gaps](docs/research/pain-points/04-foundation-data-gaps.md) | Replacement money is years stale and doesn't name the lab |
-| [05 Overhead mismatch](docs/research/pain-points/05-overhead-mismatch.md) | A foundation dollar isn't worth a federal dollar |
 | [06 Awarded vs paid](docs/research/pain-points/06-awarded-vs-paid.md) | The amount on paper isn't the money actually paid |
 | [07 Balance visibility](docs/research/pain-points/07-balance-visibility-admin-burden.md) | Researchers can't see trustworthy balances; admin eats their time |
 | [08 Unallowable purchases](docs/research/pain-points/08-unallowable-purchases-audits.md) | The same lab-spending mistakes keep failing audits |
-| [09 ERP outages](docs/research/pain-points/09-erp-outages.md) | Finance-system rollouts freeze purchasing and billing |
+| [09 ERP outages](docs/research/pain-points/09-erp-outages.md) | Finance-system rollouts freeze purchasing and billing (context) |
 | [10 Drawdown justification](docs/research/pain-points/10-drawdown-justification.md) | Every federal drawdown now needs a written justification |
-| [docs/research/cut/README.md](docs/research/cut/README.md) | Why pain points 11 to 14 were cut: [11](docs/research/cut/11-award-limbo-backlogs.md), [12](docs/research/cut/12-workforce-loss.md), [13](docs/research/cut/13-keyword-screening.md), [14](docs/research/cut/14-application-treadmill.md) |
-| [docs/research/visa-pipeline.md](docs/research/visa-pipeline.md) | How automated card purchasing would work (cut from scope with B3) |
-| [docs/research/sources/](docs/research/sources/) | Raw text behind the claims: audits, surveys, letters, Reddit scrapes |
+
+Raw text behind the claims (audits, surveys, letters, Reddit scrapes) is in
+[docs/research/sources/](docs/research/sources/).
 
 ### Component docs
 
-| Doc | What it's for | Who it's for |
-|---|---|---|
-| [agents/README.md](agents/README.md) | Agent worker: run commands, code layout, every environment variable | Track B, operators |
-| [agents/src/sources/papers.md](agents/src/sources/papers.md) | The real papers verified for the report checker, with their API calls | Track B |
-| [sim/README.md](sim/README.md) | The simulated lab, the planted cases and the rule assumptions | Track C, judges |
-| [scrapers/README.md](scrapers/README.md) | The cancellation-list scraper: source, row shape, local runs, publishing | Track C |
-| [scrapers/.actor/README.md](scrapers/.actor/README.md) | Apify Store page text for the Actor (the Actor is still private) | Apify users |
-| [docs/TRACK-B-MANUAL.md](docs/TRACK-B-MANUAL.md) | Track B setup only a person can do, dashboards, demo cautions | @nathan, presenters |
+| Doc | What it's for |
+|---|---|
+| [agents/README.md](agents/README.md) | Agent worker: run commands, code layout, every environment variable |
+| [agents/src/sources/papers.md](agents/src/sources/papers.md) | The real papers verified for the report checker, with their API calls |
+| [sim/README.md](sim/README.md) | The simulated lab, the planted cases and the rule assumptions |
+| [scrapers/README.md](scrapers/README.md) | The cancellation-list scraper: source, row shape, local runs, publishing |
+| [scrapers/.actor/README.md](scrapers/.actor/README.md) | Apify Store page text for the Actor (the Actor is still private) |
 
-### Team process and history
+### Team process
 
 | Doc | What it's for |
 |---|---|
 | [AGENTS.md](AGENTS.md), [CLAUDE.md](CLAUDE.md) | Rules for every agent and human in the repo |
-| [TASKS.md](TASKS.md), [HUMAN_TODO.md](HUMAN_TODO.md) | Live work queues for agents and for people |
+| [TASKS.md](TASKS.md) | Live work queue for agents, lanes and cross-lane requests |
+| [HUMAN_TODO.md](HUMAN_TODO.md) | What only people can do: submission, setup, VM access, dashboards |
 | [PROGRESS.md](PROGRESS.md) | What landed, when, and how it was checked |
-| [DECISIONS.md](DECISIONS.md) | Why the stack and scope are what they are |
-| [docs/IDEAS.md](docs/IDEAS.md) | The kickoff idea brainstorm (GrantGuard was picked) |
-| [docs/REPORT-grantguard.md](docs/REPORT-grantguard.md) | An earlier pre-award "certification desk" proposal; source of the future proposal checker (P8) |
+| [DECISIONS.md](DECISIONS.md) | Why the stack and scope are what they are, including what was cut |

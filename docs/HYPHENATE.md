@@ -119,17 +119,19 @@ person Fri 10/23, 7 PM** ("an hour after hacking starts", so hacking starts
 
 ## What this means for us
 
-| Their requirement | What we build |
+How GrantGuard answers each requirement (details in `docs/MASTER-PLAN.md`).
+
+| Their requirement | GrantGuard |
 | --- | --- |
-| Build the company too | A simulated company world: chart of accounts, GL + subledger, a bank feed, contracts/vendors/customers, and **simulated people** (model-played approver, controller, colleague, auditor) with their own goals and response delays. |
-| Several seats, not one | 2–3 cooperating agent seats with **different permissions** that hand work to each other and to humans. |
-| Picks up work on its own | Event- and schedule-driven: a new bank line, a bill arriving, or day 3 of close starts the work. No chat prompt needed. |
-| Sources disagree | Each fact has a source + trust ranking. The agent records which source it relied on and why. |
-| Time | Simulated clock across months. Memory of past events (a vendor's history, a customer's payment pattern) changes later decisions. Closed periods are locked, so corrections post to the open period. |
-| Limits / SoD | Permissions enforced **in the backend**, not in the prompt. A requester can't approve their own request, even if the model tries. |
-| Explainable & accountable | An append-only audit trail linking every entry → decision → evidence (data, rule, or person). A UI answers "why?" for any entry, however old. |
-| Ask at the right moment | Escalation thresholds (materiality, novelty, policy conflict). Handles "no" from the controller and replans. |
-| The moment | One seeded scenario where it catches what a rule engine misses, *and* one where it recovers from failure, *and* the "why?" defense. The demo video opens with it. |
-| Judge's scenario | A live "inject an event" control: a new bill, bank line, email or contract change goes through the same pipeline. |
-| Proof | Planted errors + answer key run on every build. Optionally score on one public benchmark (BenchRec fits reconciliation). Show catch rate / false positives / escalations in the README and the UI. |
-| Something new | The novelty comes mostly from **which company** and **which corner**. AP bank-change fraud is their own listed example, so expect many teams to build it. |
+| Build the company too | A simulated university lab on two real NIH grant records: orders, invoices, approvals, payroll, papers, a simulated clock, and the grant manager and researchers it answers to (§1, §2) |
+| Several seats, not one | Purchasing agent, grant accountant (bookkeeping), payment and report preparer, each its own database identity (§2) |
+| Picks up work on its own | Agents react to new rows (a request, an invoice, a status change, a month end) and to the daily source check; no chat prompt needed |
+| Sources disagree | RePORTER, USAspending and the cancellation list are compared; a disagreement freezes spending and asks the grant manager which source is right (§3.1) |
+| Time | A cancellation in March freezes June's purchases until a payment lands; the last-90-days rule; the 90-day cost-transfer limit (§3.1, §3.2, §3.5) |
+| Limits / SoD | Enforced in the module, not the prompt: nobody approves their own request, agents can't decide Inbox items, a buy over the card limit waits (§2) |
+| Explainable & accountable | Every action writes a Log row with the rule and reason; "why?" on any row (§3.6) |
+| Ask at the right moment | Over the limit, unclear, or a source disagreement goes to the Inbox with its evidence; a reason is required to decide (§3) |
+| The moment | A court restores a canceled grant, and the agent still won't spend until the money arrives; then it buys on its own (§5) |
+| Judge's scenario | The Test lab injects cancellations, court orders, payments and invoices; anyone can submit a request (§5) |
+| Proof | 14 planted mistakes and 5 decoys from real audit findings, scored on every `./check.sh` (README, Scorecard) |
+| Something new | The corner: the post-award grant office during the 2025–2026 grant cancellations, where status is a dated timeline, not a field |

@@ -23,47 +23,25 @@ $8,000 / $5,000 / $3,000, plus expedited interviews for the top 5. **The full
 brief, judging criteria, deliverables, resources and our build implications
 are in `docs/HYPHENATE.md`.** Read it before building anything.
 
-## Tracks that stack naturally with Hyphenate
+## Tracks we also enter
 
-Ranked by how much extra work each costs us. Each one requires *meaningful*
-use, so only pick tracks that are core to the build. Check whether Devpost
-caps the number of tracks per entry.
+Each one requires *meaningful* use, so we enter only tracks that are core to
+the build.
 
-| Track | Prize | Why it fits | Extra cost |
+| Track | Prize | What judges want | How GrantGuard uses it |
 | --- | --- | --- | --- |
-| **Microsoft: Built for the Real World** ✅ kept (+ Customer Impact Award) | **2 ways to place.** Grand: Surface laptop per member + remote talk at a Microsoft Delta/Frontier Co. FDE tech talk + 1:1 mentorship with senior FDEs. Customer Impact Award: the talk + mentorship (no hardware). | "Production-minded AI agent that solves a meaningful problem in finance…". Criteria: 1) customer understanding, 2) measurable usefulness, 3) path from prototype to production, 4) responsible design, 5) end-to-end functionality. **No Azure requirement stated**; Azure for Students credits are optional. Same evidence Hyphenate wants. | ~Free. Add to README/Devpost: who the customer is (named seat + company), metrics from the planted-error eval (catch rate, false positives, escalations, time saved), a path-to-production section (real bank/ERP swap-in, auth, monitoring, rollout), and responsible design (backend-enforced limits, audit trail, human approval). Customer Impact Award favors real user interviews. |
-| **Anthropic** ✅ kept | $5k Claude credits + Max 20x | If Claude is the model. Needs a **named community** and a real problem someone lived. Claude must matter, and we must know where it can go wrong. | Low: pick a narrow user and talk to one. Write up the failure modes. |
-| **SpacetimeDB** ✅ chosen backend | $2,048 / $1,024 / $512 (**3 places**) | Must be the **core** real-time backend; their criteria name AI agent coordination, live dashboards and financial-style apps. We'll keep the company world in it: ledger, subledgers, inbox, audit trail, simulated clock. Reducers enforce double-entry balance + segregation of duties server-side, so limits live in the backend, not the prompt. Reducers can't make network calls, so the agent loop runs in a **separate worker** that connects as a client, one connection (identity) per seat. Pin one SpacetimeDB version at setup. | ~Free if we need a backend anyway. |
-| **Apify** ✅ kept | $2k / $1k / $800 / $400 / $400 | Scraping real public data (vendor registries, sanctions lists, SEC filings) makes it "real enough". | Medium. |
-| **General: Most Technically Complex / People-First** | Prizes | Automatic consideration. | Free. |
+| **Microsoft: Built for the Real World** (+ Customer Impact Award) | Grand: Surface laptop per member, a Microsoft FDE tech talk, 1:1 mentorship with senior FDEs. Customer Impact Award: the talk and mentorship | A production-minded finance agent: customer understanding, measurable usefulness, path to production, responsible design, end-to-end function. No Azure requirement | The agent worker runs always-on on an Azure VM; the scorecard is the measurement; limits live in the database; real-user interviews feed the Customer Impact Award |
+| **Anthropic** | $5k Claude credits + Max 20x | A **named community** with a real problem someone lived; Claude must matter; know where it fails | Research administrators and PIs; Claude reads requests and writes explanations, checked against the records |
+| **SpacetimeDB** | $2,048 / $1,024 / $512 | The **core** real-time backend; agent coordination, live dashboards, financial apps | The whole grant office (20 tables, 27 actions); rules and limits enforced in the module; one identity per agent |
+| **Apify** | $2k / $1k / $800 / $400 / $400 (+ Best Actor) | Real scraped public data | Our Actor scrapes the Grant Witness NIH cancellation list for the fund tracker (`scrapers/`) |
+| **Meta** | See the hacker guide | Human connection | Re-added Sat by Ethan; how GrantGuard fits is still to be written |
+| **Meta** (back in, `DECISIONS.md`) | [TBD: check the Live Site] | Judged on human connection | [TBD: the team's angle] |
+| **General: Most Technically Complex / People-First** | Prizes | Automatic consideration | — |
 
-### Stretch goals (only after the core demo path works end to end)
+## Cut tracks
 
-Never put these on the critical path. Build each one behind an interface the
-core works without, so cutting it costs nothing.
-
-| Track | Prize | Plan | Needs |
-| --- | --- | --- | --- |
-| **Factory Droid SDK** | $2,000 + credits | Droid (Factory's agent harness, headless via the TS/Python SDK) is an automated **finance-systems seat**. When a class of exceptions recurs, Droid writes a new matching/policy rule as a diff; the controller approves; the rule ships. That's Hyphenate's "automated colleague". Track rules: real work in the running product, a trigger we designed, scoped permissions, visible plans/diffs. **The README must explain where and how Droid is used.** | `FACTORY_API_KEY`, `droid` CLI |
-| **Capital One Nessie: Best Use of the Nessie API** | $300 Giftogram/person (number of winners unconfirmed) | Capital One's mock bank API, relaunched at **nessieisreal.com** (log in with GitHub to get a key and see `/docs`, `/sdk`, `/examples`; API host `prod-api.nessieisreal.com`). Resources (from their SDKs; confirm in the new docs): customers, accounts, **bills**, **transfers**, **deposits**, withdrawals, **purchases**, **merchants**, ATMs, branches. Map for us: our company = a Nessie customer with checking/savings; vendors = merchants; AP payments = bills/transfers; customer payments = deposits; card spend = purchases. Nessie is the **bank feed**, the source that disagrees with our SpacetimeDB ledger. Build only after the core demo path works; until then the core uses our own simulated bank feed behind the same adapter. | Low: one integration-lane adapter. Risks: it's consumer-shaped (no business accounts, so we label the mapping), a shared sandbox can be slow or down, so record fixtures and keep a stub fallback. Show live calls in the demo where it's safe. |
-| **Fetch.ai** (conditional) | $1,250 / $750 / $500 + internship interview; two $250 special prizes | One Python uAgent, e.g. "ask our finance team", registered on Agentverse and chat-enabled for ASI:One. It reads from SpacetimeDB and answers "why?" questions with evidence. The core never depends on it. **Only if the hackpack's rules allow this light build**; if it requires their model or several Fetch agents, cut it. | Hackpack/booth check, Agentverse account, ~3–4 h for one person |
-| **Cartesia** (voice) | Meta glasses (TBD) | Voice must be core for this track, so only do it if a voice surface clearly helps. E.g. the controller questions a decision out loud and the agent defends it from the audit trail. Track rules: 2-min demo-first pitch; README with setup, Cartesia features used, known limitations; no keys in repo. | Cartesia API key |
-
-### Eliminated (don't spend time on these)
-
-| Track | Why |
-| --- | --- |
-| SpaceXAI | Requires building with Cursor + the Grok Imagine/Voice API, space theme |
-| Meta | Judged on human connection, which conflicts with finance autonomy |
-| Mana.space | Must build *with* Mana and link Mana chats as proof |
-| Notability | Needs notes from the first sketch on, and after-the-fact notes score poorly |
-| Creao (all three tracks) | One-Person: we're a team. Others: a Creao-built agent must do the core work, which competes with Claude + our backend. Team decision: cut |
-| Best Solo / Hardware / Planet-First | Not solo, no hardware, not climate |
-| Bitdeer, Moss | Compete with our model choice (Claude) or don't fit the theme |
-| Visa, Figma | Team decision: cut |
-| Convex | $5k but **one winner only**, and a crowded track. Lost the backend decision to SpacetimeDB (3 places); only one backend can be core |
-| Atlassian Agentic Workforce | Team decision: out (Forge app is a separate build) |
-| Bright Data | Fewer prizes than Apify (3 vs 5 + Best Actor) and DQs mocked demo data |
-| Armadin (Security), Elastic | Team decision: cut |
-| Coinbase x402 | Team decision: cut (crypto rails off our finance story, extra deliverables) |
-| CRS Credit API | Team decision: cut. Must be central, but the grant-office MVP has no credit/identity need; supplier vetting would be bolted on |
+Not entered (reasons in `DECISIONS.md`): SpaceXAI, Mana.space,
+Notability, Creao, Best Solo / Hardware / Planet-First, Bitdeer, Moss, Visa,
+Figma, Convex, Atlassian, Bright Data, Armadin, Elastic, Coinbase x402, CRS,
+and the former stretch tracks Factory Droid, Capital One Nessie, Fetch.ai
+and Cartesia.

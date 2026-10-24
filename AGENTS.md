@@ -36,7 +36,7 @@ file wins inside this repo**.
   Feature freeze 7:00 AM. Draft submission up by Sat night. Judging is
   10:30–12:30 with the whole team present and a live demo.
 - **Target tracks:** Hyphenate (primary) plus stackable tracks. See
-  `docs/HYPHENATE.md` and `docs/TRACKS.md`. Ideas are in `docs/IDEAS.md`. Every feature should
+  `docs/HYPHENATE.md` and `docs/TRACKS.md`. Every feature should
   serve the primary track's judging criteria.
 - **Research / evidence:** pain points, user quotes and sources live in
   `docs/research/`. Read `docs/research/README.md` before citing a claim or

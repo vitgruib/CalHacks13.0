@@ -106,7 +106,7 @@ the Apify actor `harshmaur/reddit-scraper` worked) and save the text.
 ```markdown
 # NN. <Pain point in plain words>
 
-**Status:** core | stretch | new
+**Status:** core | supporting
 **One-liner:** <what hurts, for whom, in one sentence a judge gets>
 
 ## What happens (plain language)
