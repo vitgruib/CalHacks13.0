@@ -118,10 +118,10 @@ function buildStructure(): Part[] {
   tree(27.8, -5.6, 1.25)
 
   // The pneumatic tube network: acrylic runs, joints, and the exchange's diverters
-  for (const [a, b] of tubeRuns()) k.rod('acrylic', a, b, 0.17, 14)
+  for (const [a, b] of tubeRuns()) k.rod('acrylic', a, b, 0.24, 14)
   const joints = new Map<string, THREE.Vector3>()
   for (const [a, b] of tubeRuns()) for (const p of [a, b]) joints.set(`${p.x.toFixed(2)},${p.y.toFixed(2)}`, p)
-  for (const p of joints.values()) k.ball('acrylic', p.x, p.y, p.z, 0.17, 12)
+  for (const p of joints.values()) k.ball('acrylic', p.x, p.y, p.z, 0.24, 12)
   for (const j of junctions()) k.box('wood', j.x, j.y, j.z, 0.62, 0.5, 0.5)
 
   return k.build()

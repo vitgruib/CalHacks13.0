@@ -1035,7 +1035,7 @@
   border-radius: 4px;
   background: rgb(9 14 24 / 0.93);
   border: 1px solid rgb(242 232 213 / 0.18);
-  translate: -100% -50%;
+  translate: -50% -100%;
   opacity: 0;
   transition: opacity 260ms ease;
 }
@@ -1332,4 +1332,124 @@
 }
 .demo-c .c-levels.is-left.is-on {
   translate: -100% 0;
+}
+
+/* A researcher's task and latest answer float above their label on a leader line,
+   so a flash never widens the label into its neighbours. */
+.demo-c .c-labwrap {
+  position: relative;
+  translate: 0 -50%;
+}
+.demo-c .c-labwrap > .c-tag {
+  translate: none;
+}
+.demo-c .c-bubble {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 26px);
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 1px;
+  padding: 5px 10px 6px;
+  border: 1px solid rgb(255 179 71 / 0.45);
+  border-radius: 3px;
+  background: #160f08;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: c-rise 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.demo-c .c-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  width: 1px;
+  height: 26px;
+  background: rgb(255 179 71 / 0.55);
+}
+.demo-c .c-bubble .c-tag__task {
+  margin-top: 0;
+}
+.demo-c .c-bubble[data-tone='accept'] {
+  border-color: var(--gold);
+}
+.demo-c .c-bubble[data-tone='refine'] {
+  border-color: var(--verdigris);
+  background: #0c1a14;
+}
+.demo-c .c-bubble[data-tone='reject'] {
+  border-color: var(--madder);
+  background: #1e0d09;
+}
+.demo-c .c-bubble[data-tone='hold'] {
+  border-color: var(--lantern);
+  background: #19152c;
+}
+@keyframes c-rise {
+  from {
+    opacity: 0;
+    translate: -50% 6px;
+  }
+}
+
+.demo-c .c-ledger {
+  bottom: 22px;
+  padding: 10px 14px 11px;
+}
+.demo-c .c-ledger ol {
+  gap: 5px;
+}
+
+@media (max-width: 720px) {
+  .demo-c .c-hero h1 {
+    margin-top: 16px;
+    font-size: 22px;
+    line-height: 1.06;
+  }
+  .demo-c .c-lede {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.32;
+  }
+  .demo-c .c-actions {
+    margin-top: 12px;
+  }
+  .demo-c .c-btn {
+    min-height: 40px;
+  }
+  .demo-c .c-hud > .c-scrim {
+    background: linear-gradient(180deg, rgb(9 14 24 / 0.94) 0%, rgb(9 14 24 / 0.8) 28%, rgb(9 14 24 / 0) 42%);
+  }
+  .demo-c .c-hud.has-sheet .c-hero > :not(.c-brand),
+  .demo-c .c-hud.has-sheet .c-story,
+  .demo-c .c-hud.has-sheet .c-inbox {
+    display: none;
+  }
+  .demo-c .c-hud.has-sheet > .c-scrim {
+    background: linear-gradient(180deg, rgb(9 14 24 / 0.85) 0, rgb(9 14 24 / 0) 72px);
+  }
+  .demo-c .c-sheet {
+    max-height: 58vh;
+  }
+  .demo-c .c-bubble {
+    bottom: calc(100% + 14px);
+    padding: 3px 7px 4px;
+  }
+  .demo-c .c-bubble::after {
+    height: 14px;
+  }
+  .demo-c .c-bubble .c-tag__task {
+    display: none;
+  }
+  .demo-c .c-bubble .c-tag__flash {
+    margin-top: 0;
+    font-size: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-c .c-bubble {
+    animation: none;
+  }
 }

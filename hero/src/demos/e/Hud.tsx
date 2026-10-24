@@ -52,7 +52,7 @@ function Hero({ compact }: { compact: boolean }) {
       </div>
       <h1 className="e-h1">An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
       <p className="e-lede">
-        Every request rolls through six spending rules and comes back bought, rerouted, blocked or held, while three agents keep the books and only a human grant manager approves exceptions.
+        Every request rolls through six spending rules and comes back bought, rerouted, blocked or held. Only a human grant manager approves exceptions.
       </p>
       <div className="e-ctas">
         <button
@@ -264,6 +264,7 @@ function Ledger({ w, rows = 3 }: { w: World; rows?: number }) {
         <span className="e-count">Every action, with its reason</span>
       </div>
       <ol className="e-panel-body e-rows" aria-live="off">
+        {w.log.length === 0 && <li className="e-row e-muted">Nothing yet. Every action lands here with its reason.</li>}
         {w.log.slice(0, rows).map(r => (
           <li key={r.id} className="e-row">
             <div className="e-row-top">
@@ -512,7 +513,19 @@ function useGateReadout(w: World) {
       })
     }
   })
-  const req = run ? w.requests.find(r => r.id === run.id) : undefined
+  // Mounted mid-story (or before any rule event), show the latest checked
+  // request straight from the world.
+  if (!run) {
+    const last = w.requests.find(r => r.verdicts.length > 0)
+    if (!last) return { run: null, req: undefined }
+    const v: (Verdict | undefined)[] = GATES.map(() => undefined)
+    for (const vd of last.verdicts) {
+      const g = gateOf(vd.rule)
+      if (!v[g] || v[g]?.pass) v[g] = vd
+    }
+    return { run: { id: last.id, v }, req: last }
+  }
+  const req = w.requests.find(r => r.id === run.id)
   return { run, req }
 }
 
@@ -525,7 +538,7 @@ function Story({ w }: { w: World }) {
     <section className="e-story e-panel" aria-label="What is happening">
       <Transport w={w} />
       {run && req && (
-        <div className="e-gates">
+        <div className={`e-gates${decided ? ' is-done' : ''}`}>
           <p className="e-gates-t">
             <span className="e-gates-item">{req.item.split(',')[0]}</span>
             <span className="e-muted">

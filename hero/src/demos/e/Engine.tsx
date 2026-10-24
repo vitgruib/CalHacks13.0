@@ -27,7 +27,7 @@ import {
   type BufferGeometry,
   type Material,
 } from 'three'
-import { feed, progress, R01, useFlow, type FlowEvent, type Outcome, type Packet, type Request } from '../../feed'
+import { feed, progress, R01, useFlow, type FlowEvent, type Outcome, type Packet, type Request, type World } from '../../feed'
 import { COL, M, clamp01, easeInOut, fx, gravity, pulse, resetFx, roll, uiStore } from './kit'
 import { feedRate } from './Parts'
 import {
@@ -129,8 +129,13 @@ class Machine {
   landed: Landed[] = []
   beads: Bead[] = []
   frozen: Record<string, boolean> = {}
+  pending: Record<string, number> = {}
+  synced = false
+  syncT = 0
 
   reset() {
+    this.pending = {}
+    this.synced = false
     this.balls.clear()
     this.binMain = []
     this.binGm = []
@@ -198,11 +203,13 @@ class Machine {
       const color = kind === 'canceled' ? COL.red : kind === 'court_order' ? COL.cobalt : kind === 'payment_received' ? COL.yellow : COL.grey
       if (was && !e.grant.frozen) for (const b of this.balls.values()) if (b.phase === 'loop' && b.grantId === g) b.steps.push({ k: 'rerun' })
       const frozen = e.grant.frozen
+      this.pending[g] = (this.pending[g] ?? 0) + 1
       this.beads.push({
         curve: rounded(signalLine(g), 0.3),
         t: 0,
         color,
         onEnd: () => {
+          this.pending[g] = Math.max(0, (this.pending[g] ?? 1) - 1)
           const L = fx.lock[g]
           if (!L) return
           const at = v(HOPPER[g].x, FUNNEL_TOP + 0.05, HOPPER[g].z)
@@ -248,6 +255,50 @@ class Machine {
   }
 
   // ── Per-frame ────────────────────────────────────────────────────────
+
+  /** Persistent state comes from the world, so a mount mid-story (or a missed
+   *  event) still shows the right padlocks, parked balls and bin contents.
+   *  Events only add the motion on top. */
+  sync(w: World, dt: number) {
+    for (const g of w.grants) {
+      const L = fx.lock[g.id]
+      if (!L) continue
+      if (!this.synced) {
+        L.frozen = g.frozen
+        L.a.x = g.frozen ? 0 : 1.62
+        L.a.v = 0
+        this.frozen[g.id] = g.frozen
+      } else if (!this.pending[g.id] && L.frozen !== g.frozen) {
+        L.frozen = g.frozen
+        if (!g.frozen) L.a.v = 6
+      }
+    }
+    this.syncT -= dt
+    if (this.synced && this.syncT > 0) return
+    this.syncT = 0.3
+    const first = !this.synced
+    this.synced = true
+    for (const r of w.requests) {
+      const where: Phase | undefined =
+        r.state === 'waiting_on_manager' ? 'cradle' : r.state === 'submitted' && r.outcome === 'hold' && r.holdFor === 'payment' ? 'loop' : undefined
+      const b = this.balls.get(r.id)
+      if (where && !b) {
+        const nb = this.make(r.id, r.researcherId, where === 'loop' ? LOOP.c : CRADLE, where)
+        nb.grantId = r.grantId
+        nb.loopA = Math.PI * (0.5 + this.balls.size * 0.7)
+        continue
+      }
+      if (b && (b.phase === 'loop' || b.phase === 'cradle') && b.phase !== where && !b.segs.length && !b.steps.length && b.wait <= 0 && b.idle > 4) b.phase = 'gone'
+      const binned = (r.state === 'blocked' && r.outcome === 'reject') || r.state === 'rejected'
+      if (first && !b && binned) {
+        const gm = r.state === 'rejected'
+        const list = gm ? this.binGm : this.binMain
+        if (list.length >= 9) continue
+        list.push(r.id)
+        this.make(r.id, r.researcherId, binSlot(list.length - 1, gm ? GM_BIN : BIN), 'bin')
+      }
+    }
+  }
 
   update(dt: number, packets: Packet[]) {
     for (const p of packets) {
@@ -582,7 +633,8 @@ export function Engine() {
 
   useFrame((st, dt) => {
     const w = feed.getWorld()
-    const d = Math.min(dt, 0.05) * feedRate()
+    machine.sync(w, Math.min(dt, 0.1))
+    const d = Math.min(dt, 0.1) * feedRate()
     machine.update(d, w.packets)
     const follow = uiStore.get().follow
     machine.followState(follow)

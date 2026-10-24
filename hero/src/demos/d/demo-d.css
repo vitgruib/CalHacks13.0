@@ -93,6 +93,10 @@
   width: 0;
   height: 0;
   will-change: transform;
+  transition: opacity 0.25s;
+}
+.demo-d .dd-anchor[data-cull='1'] {
+  opacity: 0;
 }
 
 .demo-d .dd-zone {
@@ -129,7 +133,7 @@
 .demo-d .dd-tag::after {
   content: '';
   position: absolute;
-  left: var(--lx, 50%);
+  left: clamp(4px, calc(var(--lx, 50%) - var(--dx, 0px)), calc(100% - 4px));
   top: 100%;
   width: 1px;
   height: calc(var(--lead, 8px) + 1px);
@@ -348,9 +352,9 @@
 /* Paper notes pinned beside a vault (court order, payment). */
 .demo-d .dd-note {
   position: absolute;
-  right: 14px;
-  top: 0;
-  transform: translateY(-50%) rotate(-1.5deg);
+  left: 0;
+  bottom: 84px;
+  transform: translateX(-50%) rotate(-1.5deg);
   width: 232px;
   padding: 8px 11px 9px;
   background: var(--paper);
@@ -363,15 +367,18 @@
 .demo-d .dd-note::after {
   content: '';
   position: absolute;
-  right: -14px;
-  top: 50%;
-  width: 14px;
-  height: 1px;
+  left: calc(50% - var(--dx, 0px));
+  top: 100%;
+  width: 1.5px;
+  height: var(--tick, 12px);
   background: var(--paper);
+}
+.demo-d .dd-note[data-kind='paid'] {
+  --tick: 52px;
 }
 .demo-d .dd-note[data-on='1'] {
   opacity: 1;
-  transform: translateY(-50%) rotate(-1.5deg);
+  transform: translateX(-50%) rotate(-1.5deg);
 }
 .demo-d .dd-note[data-kind='court'][data-on='1'] {
   animation: dd-pin 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
@@ -379,11 +386,11 @@
 @keyframes dd-pin {
   from {
     opacity: 0;
-    transform: translate(-20px, -50%) rotate(-6deg);
+    transform: translate(-50%, -18px) rotate(-6deg);
   }
   to {
     opacity: 1;
-    transform: translateY(-50%) rotate(-1.5deg);
+    transform: translateX(-50%) rotate(-1.5deg);
   }
 }
 
@@ -717,6 +724,10 @@
     opacity: 1;
     transform: scale(1) rotate(var(--r));
   }
+}
+.demo-d .dd-land[data-flip='1'] .dd-land-slip {
+  bottom: auto;
+  top: calc(14px + var(--i, 0) * 30px);
 }
 .demo-d .dd-land[data-o='reject'] .dd-land-slip {
   animation: dd-slip-in 0.18s cubic-bezier(0.5, 0, 0.9, 0.5) both, dd-shake 0.42s 0.5s ease-in-out;
@@ -1656,15 +1667,26 @@
     width: 150px;
   }
   .demo-d .dd-tag-grant[data-side='l'] {
-    transform: translateX(-85%);
-    --lx: 85%;
+    transform: translateX(-92%);
+    --lx: 92%;
   }
   .demo-d .dd-tag-grant[data-side='r'] {
-    transform: translateX(-15%);
-    --lx: 15%;
+    transform: translateX(-8%);
+    --lx: 8%;
+  }
+  .demo-d .dd-tag.dd-tb {
+    --lead: 10px !important;
+  }
+  .demo-d .dd-note {
+    display: none;
   }
   .demo-d .dd-vault-status {
     display: none;
+  }
+  .demo-d .dd-vault-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
   }
   .demo-d .dd-vault-k {
     font-size: 9.5px;
@@ -1759,16 +1781,16 @@
     transform-origin: 80% 80%;
     scale: 0.82;
   }
-  .demo-d .dd-note {
-    width: 170px;
-    font-size: 11px;
-  }
   .demo-d .dd-seal {
-    width: 84px;
-    height: 84px;
+    width: 74px;
+    height: 74px;
   }
   .demo-d .dd-seal-word {
-    font-size: 21px;
+    font-size: 18px;
+  }
+  .demo-d .dd-seal-why {
+    max-width: 52px;
+    font-size: 7.5px;
   }
 }
 

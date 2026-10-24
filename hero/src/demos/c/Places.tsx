@@ -238,18 +238,24 @@ function ResearcherLabel({ id }: { id: string }) {
   if (!r) return null
   return (
     <Html position={[0, 2.0, 0]} center zIndexRange={[16, 0]}>
-      <button className={`c-tag c-tag--lab${on ? ' is-on' : ''}${flash ? ' is-flash' : ''}`} {...tagProps(nid)}>
-        <span className="c-tag__name c-wide">{r.name}</span>
-        <span className="c-tag__name c-narrow">{r.name.split(' ').pop()}</span>
-        <span className="c-tag__sub">{r.role}</span>
-        {(on || flash) && <span className="c-tag__task">{task}</span>}
-        {flash && (
-          <span className={`c-tag__flash is-${flash.tone}`}>
-            {flash.tone !== 'send' && <Glyph name={flash.tone} />}
-            {flash.text}
-          </span>
+      <div className="c-labwrap">
+        {(on || flash) && (
+          <div className="c-bubble" data-tone={flash?.tone ?? 'idle'}>
+            <span className="c-tag__task">{task}</span>
+            {flash && (
+              <span className={`c-tag__flash is-${flash.tone}`}>
+                {flash.tone !== 'send' && <Glyph name={flash.tone} />}
+                {flash.text}
+              </span>
+            )}
+          </div>
         )}
-      </button>
+        <button className={`c-tag c-tag--lab${on ? ' is-on' : ''}${flash ? ' is-flash' : ''}`} {...tagProps(nid)}>
+          <span className="c-tag__name c-wide">{r.name}</span>
+          <span className="c-tag__name c-narrow">{r.name.split(' ').pop()}</span>
+          <span className="c-tag__sub">{r.role}</span>
+        </button>
+      </div>
     </Html>
   )
 }
@@ -495,7 +501,7 @@ function RuleCard() {
   const p = AGENT_SPOTS.purchasing
   return (
     <group position={[p.x, terrainHeight(p.x, p.z), p.z]}>
-      <Html position={[-1.3, 2.2, 0]} zIndexRange={[18, 0]} style={{ pointerEvents: 'none' }}>
+      <Html position={[0, 4.6, -0.6]} zIndexRange={[18, 0]} style={{ pointerEvents: 'none' }}>
         <div className={`c-rulecard${card ? ' is-on' : ''}`} aria-hidden>
           {card && (
             <>

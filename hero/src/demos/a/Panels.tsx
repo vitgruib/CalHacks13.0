@@ -7,7 +7,7 @@ import { PRESETS, feed, usd } from '../../feed'
 import type { Hold, Outcome, Request } from '../../feed'
 import { LedgerRows, fmtDay } from './bits'
 import { IconClose, TokenIcon, outcomeWord } from './icons'
-import { selectNode, ui, useFeed, useUi } from './store'
+import { act, selectNode, ui, useFeed, useUi } from './store'
 
 const LIKELY: Record<Outcome, string> = {
   accept: 'Likely bought',
@@ -50,7 +50,7 @@ function Composer() {
   const [who, setWho] = useState(() => preset0 ?? PRESETS[0].researcherId)
   const p = PRESETS[pick]
   const send = () => {
-    const id = feed.submit({ ...p, researcherId: who })
+    const id = act(() => feed.submit({ ...p, researcherId: who }))
     ui.set({ mine: [id, ...ui.get().mine].slice(0, 6), panel: null, selected: null, composeFor: null })
   }
   return (
@@ -107,7 +107,7 @@ function HoldCard({ h }: { h: Hold }) {
   const [reason, setReason] = useState('')
   const [err, setErr] = useState<string | null>(null)
   const decide = (choice: 'approve' | 'reject') => {
-    const e = feed.decide(h.id, choice, reason)
+    const e = act(() => feed.decide(h.id, choice, reason))
     setErr(e ?? null)
   }
   const fieldId = `a-reason-${h.id}`

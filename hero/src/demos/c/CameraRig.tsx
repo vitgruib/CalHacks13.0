@@ -31,12 +31,21 @@ export function CameraRig() {
   const anim = useRef<{ from: Shot; to: Shot; t0: number; dur: number; lift: number; intro?: boolean } | null>(null)
 
   // Shift the picture off-centre so the copy has room: right on desktop, down on a phone.
+  // On a phone an open sheet takes the bottom half, so the picture moves up into the top half.
   useLayoutEffect(() => {
     const cam = camera as THREE.PerspectiveCamera
-    cam.fov = wide ? 40 : 54
-    if (wide) cam.setViewOffset(size.width, size.height, -size.width * 0.17, 0, size.width, size.height)
-    else cam.setViewOffset(size.width, size.height, 0, -size.height * 0.07, size.width, size.height)
-    cam.updateProjectionMatrix()
+    let sheet: boolean | null = null
+    const apply = () => {
+      const open = !wide && ui.get().panel !== null
+      if (open === sheet) return
+      sheet = open
+      cam.fov = wide ? 40 : 54
+      if (wide) cam.setViewOffset(size.width, size.height, -size.width * 0.17, 0, size.width, size.height)
+      else cam.setViewOffset(size.width, size.height, 0, size.height * (open ? 0.24 : -0.08), size.width, size.height)
+      cam.updateProjectionMatrix()
+    }
+    apply()
+    return ui.subscribe(apply)
   }, [camera, size.width, size.height, wide])
 
   useEffect(() => {
@@ -72,7 +81,7 @@ export function CameraRig() {
         const m = MESAS[i]
         const H = mesaHeights[i]
         const target = new THREE.Vector3(m.cx + (window.innerWidth >= 900 ? 3 : 0), MESA_BASE + H * 0.5, m.cz)
-        to = { target, pos: target.clone().add(new THREE.Vector3(m.cx * 0.25, 9 + H * 0.5, 16)) }
+        to = { target, pos: target.clone().add(new THREE.Vector3(m.cx * 0.25, 9 + H * 0.5, 16).multiplyScalar(window.innerWidth >= 900 ? 1 : 2.1)) }
       }
       const instant = reducedMotion()
       anim.current = { from, to, t0: performance.now(), dur: instant ? 1 : 1900, lift: i >= 0 ? 2.5 : 1.5 }

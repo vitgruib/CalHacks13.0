@@ -34,7 +34,7 @@ export function Hud() {
   const open = w.holds.filter(h => h.open)
 
   return (
-    <div className="c-hud">
+    <div className={`c-hud${panel ? ' has-sheet' : ''}`}>
       <div className="c-scrim" aria-hidden />
       <header className="c-hero">
         <p className="c-brand">

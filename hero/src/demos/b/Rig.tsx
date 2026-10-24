@@ -29,11 +29,12 @@ export function homeView(width: number, height: number): View {
   const fov = portrait ? 34 : 26
   const vt = Math.tan((fov * Math.PI) / 360)
   const ht = vt * aspect
-  const W = portrait ? 30 : 44
-  const H = portrait ? 15 : 26
+  // a phone is too narrow for the whole section: frame the two wings and let the edges crop (drag to see them)
+  const W = portrait ? 23.5 : 44
+  const H = portrait ? 16 : 26
   const dist = Math.max(W / (2 * ht), H / (2 * vt))
   // on desktop the model sits low, so the top band is sky for the title and ledger
-  const target = portrait ? V(0, 4.2, 0) : V(0.2, dist * vt - 5.8, 0)
+  const target = portrait ? V(0, 4.4, 0) : V(0.2, dist * vt - 5.8, 0)
   return { fov, target, pos: target.clone().addScaledVector(DIR, dist), dist, portrait }
 }
 

@@ -232,7 +232,7 @@ function Sheet() {
     const zones = [
       { text: 'Ortiz Lab: five researchers', at: new THREE.Vector3(ROOM.x0 + 0.2, 0, ROOM.z1 + 0.75) },
       { text: 'Grant office: three AI agents, one grant manager', at: new THREE.Vector3(-1.6, 0, 7.95) },
-      { text: 'Outside sources', at: new THREE.Vector3(-2.2, 0, -5.75) },
+      { text: 'Outside sources', at: new THREE.Vector3(-2.6, 0, -7.4) },
     ]
     const anchors = zones.map(z => overlay.add(el('div', 'dd-zone', z.text), () => z.at))
     return () => anchors.forEach(a => overlay.remove(a))
@@ -306,7 +306,7 @@ function nodeTag(m: Model) {
   if (m.id.startsWith('s:')) {
     const i = ['s:reporter', 's:usaspending', 's:cancellations', 's:court', 's:payments'].indexOf(m.id)
     tag.classList.add('dd-tb')
-    tag.style.setProperty('--lead', i % 2 ? '44px' : '10px')
+    tag.style.setProperty('--lead', i % 2 ? '50px' : '10px')
     tag.append(el('span', 'dd-tb-k', `S-${i + 1}`), el('span', 'dd-tb-v', node?.label ?? m.id))
     if (node?.sub) tag.append(el('span', 'dd-tb-s', node.sub.replace(' scraper', '')))
     return { tag, task: null as HTMLElement | null }
@@ -639,11 +639,14 @@ function GrantVault({ id }: { id: string }) {
     const v1 = new THREE.Vector3()
     const v2 = new THREE.Vector3()
     const v3 = new THREE.Vector3()
-    const lvl = objs.level
     const anchors = [
       overlay.add(tag, () => v1.set(m.at[0] + 0.1, (VAULT.base + VAULT.h + 0.55) * stage.yScale, m.at[1])),
-      overlay.add(seal, () => v2.set(m.at[0], 1.45 * stage.yScale, m.at[1] + VAULT.r)),
-      overlay.add(note, () => v3.set(m.at[0] - VAULT.r - 0.2, lvl.position.y * stage.yScale, m.at[1] + 0.4)),
+      overlay.add(seal, () => v2.set(m.at[0] + 0.7, (innerWidth <= 760 ? 0.8 : 1.2) * stage.yScale, m.at[1] + 0.71)),
+      overlay.add(note, () => {
+        // the note is pinned where the news came from: the court notice, or the payment system
+        const src = MODEL_BY_ID.get(note.dataset.kind === 'paid' ? 's:payments' : 's:court')
+        return src ? v3.set(src.at[0], 1.75 * stage.yScale, src.at[1]) : null
+      }),
     ]
     const off = feed.on(e => {
       if (e.type === 'reset') st.current.snap = true
@@ -787,6 +790,7 @@ function Packets() {
   const free = useRef<number[]>(Array.from({ length: 40 }, (_, i) => i))
   const ringNext = useRef(0)
 
+  const landing = useRef<{ args: Parameters<typeof landStamp>; t: number }[]>([])
   const ring = (at: THREE.Vector3, color: string) => {
     const r = pool.ringLines[ringNext.current++ % pool.ringLines.length]
     r.at = now()
@@ -804,6 +808,7 @@ function Packets() {
       live.current.clear()
       free.current = Array.from({ length: 40 }, (_, i) => i)
       overlay.clear(a => a.el.classList.contains('dd-land'))
+      landing.current.length = 0
       return
     }
     if (e.type !== 'arrive') return
@@ -813,7 +818,7 @@ function Packets() {
     if (p.kind === 'verdict' && p.to.startsWith('r:')) {
       ring(at, INK.red)
       const req = feed.getWorld().requests.find(r => r.id === p.refId)
-      landStamp(p, req, at)
+      landing.current.push({ args: [p, req, at.clone()], t: feed.now() })
     } else if (p.kind === 'payment' || p.kind === 'charge') ring(at, INK.amber)
     else if (p.kind !== 'reading' && p.kind !== 'recheck') ring(at, INK.chalk)
   })
@@ -821,6 +826,11 @@ function Packets() {
   useFrame(() => {
     const w = feed.getWorld()
     const t = now()
+    if (landing.current.length) {
+      // a ?at jump replays minutes of arrivals in one tick: stamp only the recent ones
+      for (const l of landing.current) if (feed.now() - l.t < 2500) landStamp(...l.args)
+      landing.current.length = 0
+    }
     const seen = new Set<string>()
     for (const p of w.packets) {
       seen.add(p.id)

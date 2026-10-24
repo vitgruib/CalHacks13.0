@@ -6,7 +6,7 @@ import { feed } from '../../feed'
 import { IconInbox, IconLedger, IconList, IconPause, IconPlay, IconReplay, Mark, TokenIcon, outcomeWord } from './icons'
 import { PanelHost } from './Panels'
 import { LedgerRows, fmtDay } from './bits'
-import { openPanel, selectNode, ui, useFeed, useUi } from './store'
+import { act, openPanel, selectNode, ui, useFeed, useUi } from './store'
 
 const APP_URL = import.meta.env.VITE_APP_URL ?? 'http://localhost:5173'
 
@@ -49,12 +49,12 @@ function Bar() {
         <span className="a-demo">Demo data</span>
       </div>
       <div className="a-bar-row">
-        <button type="button" className="a-iconbtn" aria-label={playing ? 'Pause the story' : 'Play the story'} onClick={() => (playing ? feed.pause() : feed.play())}>
+        <button type="button" className="a-iconbtn" aria-label={playing ? 'Pause the story' : 'Play the story'} onClick={() => act(() => (playing ? feed.pause() : feed.play()))}>
           {playing ? <IconPause /> : <IconPlay />}
         </button>
         <div className="a-seg" role="group" aria-label="Speed">
           {[1, 2, 4].map(n => (
-            <button key={n} type="button" aria-pressed={speed === n} onClick={() => feed.setSpeed(n)}>
+            <button key={n} type="button" aria-pressed={speed === n} onClick={() => act(() => feed.setSpeed(n))}>
               {n}x
             </button>
           ))}
@@ -154,9 +154,13 @@ function Ledger() {
 /** Keeps the pointer and a few root attributes in sync without re-rendering the scene. */
 function RootSync({ root }: { root: RefObject<HTMLDivElement | null> }) {
   const hovered = useUi(s => s.hovered)
+  const panel = useUi(s => s.panel)
   useEffect(() => {
     root.current?.toggleAttribute('data-hover', !!hovered)
   }, [hovered, root])
+  useEffect(() => {
+    root.current?.toggleAttribute('data-panel', !!panel)
+  }, [panel, root])
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && (ui.get().panel || ui.get().selected)) selectNode(null)

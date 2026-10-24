@@ -63,7 +63,6 @@ export interface Effect {
   key: string
 }
 export const effects: Effect[] = []
-export const parked = new Map<string, string>() // request id -> researcher node, a held answer waiting
 export const vaultHoldUntil: Record<string, number> = {} // vault stays frosted until the money slug lands
 export const vaultShake: Record<string, number> = {} // a court order rattles the shutter; it stays shut
 
@@ -87,7 +86,6 @@ export function resetScene() {
   run.visible = false
   run.outAt = 0
   effects.length = 0
-  parked.clear()
   for (const k of Object.keys(vaultHoldUntil)) delete vaultHoldUntil[k]
   for (const k of Object.keys(vaultShake)) delete vaultShake[k]
 }

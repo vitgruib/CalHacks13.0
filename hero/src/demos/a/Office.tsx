@@ -123,7 +123,7 @@ function RulePanel() {
       let r = run.cur
       if (!r || r.requestId !== e.requestId || e.index === 0) {
         const req = feed.getWorld().requests.find(q => q.id === e.requestId)
-        r = { requestId: e.requestId, label: req ? `${req.item.split(',')[0]} · ${usd(req.price)}` : e.requestId, total: e.total, verdicts: [], last: now() }
+        r = { requestId: e.requestId, label: req ? `${req.item.split(',')[0]} · ${usd(req.price)}` : e.requestId, total: e.total, verdicts: req ? req.verdicts.slice(0, e.index) : [], last: now() }
         run.cur = r
       }
       r.verdicts[e.index] = e.verdict
@@ -293,9 +293,9 @@ function Reservoir({ gid }: { gid: string }) {
     m.opacity = 0
     return m
   }, [])
-  const st = useRef({ frozen: false, at: -1e9 })
+  const st = useRef({ seen: false, frozen: false, at: -1e9 })
   useFlow(e => {
-    if (e.type === 'reset') st.current = { frozen: false, at: -1e9 }
+    if (e.type === 'reset') st.current = { seen: false, frozen: false, at: -1e9 }
   })
 
   useFrame((_, dt) => {
@@ -304,13 +304,21 @@ function Reservoir({ gid }: { gid: string }) {
     const t = now()
     const ratio = clamp01(g.available / g.awarded)
     const h = Math.max(0.02, 0.84 * ratio)
+    const s = st.current
+    if (!s.seen) {
+      // Mounting mid-story: show the current state as settled, no drop.
+      s.seen = true
+      s.frozen = g.frozen
+      s.at = -1e9
+      fill.current.scale.y = h
+      fillMat.color.copy(g.frozen ? iceColor : moneyColor)
+    }
     const cur = fill.current.scale.y
     const next = cur + (h - cur) * Math.min(1, dt * 3)
     fill.current.scale.y = next
     fill.current.position.y = 0.12 + next / 2
     fillMat.color.lerp(g.frozen ? iceColor : moneyColor, Math.min(1, dt * 2))
 
-    const s = st.current
     if (g.frozen !== s.frozen) {
       s.frozen = g.frozen
       // Freezing is immediate; thawing waits for the coin to land first.
@@ -325,6 +333,10 @@ function Reservoir({ gid }: { gid: string }) {
       const fall = d < 0.72 ? (d / 0.72) ** 2 : 1 - 0.07 * Math.sin(((d - 0.72) / 0.28) * Math.PI)
       y = 3.4 * (1 - fall)
       op = 0.12 + 0.46 * clamp01(k / 1500)
+      if (s.at < -1e8) {
+        y = 0
+        op = 0.58
+      }
     } else {
       const d = clamp01(k / 1400)
       y = 3.6 * easeInOut(d)
@@ -372,7 +384,7 @@ function GrantChip({ gid, at, side }: { gid: string; at: V3; side: 'l' | 'r' }) 
   const g = useFeed(w => w.grants.find(x => x.id === gid))
   const on = useUi(s => s.hovered === `g:${gid}` || s.selected === `g:${gid}`)
   if (!g) return null
-  const state = !g.frozen ? (g.status === 'active' ? 'Active' : g.status === 'restored_by_court' ? 'Restored and paid' : g.status) : g.status === 'restored_by_court' ? 'Restored by court, still frozen' : 'Canceled: spending frozen'
+  const state = !g.frozen ? (g.status === 'active' ? 'Active' : g.status === 'restored_by_court' ? 'Restored and paid' : g.status) : g.status === 'restored_by_court' ? 'Restored by court,\nstill frozen' : 'Canceled,\nspending frozen'
   return (
     <Html position={at} zIndexRange={[23, 21]} wrapperClass="a-html" pointerEvents="none">
       <div className={`a-chip a-chip--grant${g.frozen ? ' is-frozen' : ''}${on ? ' is-on' : ''}`} data-side={side}>
@@ -381,7 +393,6 @@ function GrantChip({ gid, at, side }: { gid: string; at: V3; side: 'l' | 'r' }) 
           <span>Truly available</span> {usd(g.available)}
         </span>
         <span className="a-chip-state">{state}</span>
-        {g.frozen && g.status === 'restored_by_court' && <span className="a-chip-note">A court order isn’t cash.</span>}
       </div>
     </Html>
   )
@@ -397,7 +408,7 @@ const SOURCE_LABEL: Record<string, string> = {
   's:payments': 'Payment system',
 }
 
-function SourcePost({ id, p }: { id: string; p: V3 }) {
+function SourcePost({ id, p, lift }: { id: string; p: V3; lift: number }) {
   const cap = useRef<Mesh>(null)
   const flash = useFlash(id)
   const on = useUi(s => s.hovered === id || s.selected === id)
@@ -415,7 +426,7 @@ function SourcePost({ id, p }: { id: string; p: V3 }) {
           <cylinderGeometry args={[0.17, 0.17, 0.07, 28]} />
         </mesh>
       </group>
-      <Html position={[p[0], 3.4, p[2]]} zIndexRange={[20, 10]} wrapperClass="a-html" pointerEvents="none">
+      <Html position={[p[0], 4.0 + lift, p[2]]} zIndexRange={[20, 10]} wrapperClass="a-html" pointerEvents="none">
         <div className={`a-chip a-chip--dark a-chip--source${flash || on ? '' : ' is-hidden'}`}>
           <span className="a-chip-title">{SOURCE_LABEL[id]}</span>
         </div>
@@ -432,7 +443,7 @@ function Vendors() {
       <B p={[x - 0.35, y + 0.22, z - 0.1]} s={[0.6, 0.44, 0.55]} m={M.porcelain} r={0.04} />
       <B p={[x + 0.32, y + 0.17, z + 0.2]} s={[0.5, 0.34, 0.5]} m={M.chalk} r={0.04} />
       <B p={[x - 0.3, y + 0.6, z - 0.08]} s={[0.46, 0.32, 0.44]} m={M.clay} r={0.04} />
-      <Chip id="v:vendors" at={[x, y + 1.25, z]} title="Vendors" sub="Orders and invoices" minor />
+      <Chip id="v:vendors" at={[x, y + 1.25, z]} title="Vendors" sub="Orders and invoices" minor hoverSub />
     </Pick>
   )
 }
@@ -451,7 +462,7 @@ function Funder() {
       <mesh position={[x, y + 1.04, z]} rotation={[0, Math.PI / 4, 0]} material={M.chalk} castShadow>
         <cylinderGeometry args={[0.001, 0.82, 0.22, 4, 1]} />
       </mesh>
-      <Chip id="p:funder" at={[x, y + 1.75, z]} title="NIH funder" sub="Asks follow-up questions" minor />
+      <Chip id="p:funder" at={[x, y + 1.75, z]} title="NIH funder" sub="Asks follow-up questions" minor hoverSub />
     </Pick>
   )
 }
@@ -468,16 +479,17 @@ export const OfficePlinth = memo(function OfficePlinth() {
       {Object.keys(RESERVOIRS).map(gid => (
         <Reservoir key={gid} gid={gid} />
       ))}
-      {Object.entries(SOURCES).map(([id, p]) => (
-        <SourcePost key={id} id={id} p={p} />
+      {Object.entries(SOURCES).map(([id, p], i) => (
+        // Neighbouring posts often report together; alternate heights so their labels don't stack.
+        <SourcePost key={id} id={id} p={p} lift={i % 2 ? 0.6 : 0} />
       ))}
       <Vendors />
       <Funder />
       <RulePanel />
-      <Chip id="a:purchasing" at={[PURCHASING[0] - 0.5, 2.55, PURCHASING[2]]} title="Purchasing agent" sub="Runs the spending rules" minor />
-      <Chip id="a:bookkeeping" at={[BOOKKEEPING[0], 2.9, BOOKKEEPING[2]]} title="Bookkeeping agent" sub="Fund tracker, invoices" minor />
-      <Chip id="a:payment_report" at={[PAYMENT_REPORT[0], 2.9, PAYMENT_REPORT[2]]} title="Payment & report agent" sub="Payment requests, papers" minor />
-      <Chip id="p:grant_manager" at={[GM_DESK[0], 2.15, GM_DESK[2] - 0.6]} title="Grant manager" sub="That’s you" tone="dark" minor />
+      <Chip id="a:purchasing" at={[PURCHASING[0] - 0.5, 2.55, PURCHASING[2]]} title="Purchasing agent" sub="Runs the spending rules" minor hoverSub />
+      <Chip id="a:bookkeeping" at={[BOOKKEEPING[0], 3.35, BOOKKEEPING[2]]} title="Bookkeeping agent" sub="Fund tracker, invoices" minor hoverSub nudge={-0.6} />
+      <Chip id="a:payment_report" at={[PAYMENT_REPORT[0], 3.35, PAYMENT_REPORT[2]]} title="Payment & report agent" sub="Payment requests, papers" minor hoverSub nudge={-0.42} />
+      <Chip id="p:grant_manager" at={[GM_DESK[0], 2.15, GM_DESK[2] - 0.6]} title="Grant manager (you)" sub="Approves exceptions, with a reason" tone="dark" minor hoverSub nudge={-1} />
       <Html position={[OFFICE_X, -0.5, PLINTH_D / 2 + 0.02]} zIndexRange={[19, 10]} wrapperClass="a-html" pointerEvents="none">
         <div className="a-plaque a-plaque--dark">
           <span>The grant office</span> three AI agents, one human

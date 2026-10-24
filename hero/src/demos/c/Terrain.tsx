@@ -13,7 +13,18 @@ import { ui, useUI } from './store'
 
 /** Per-landform animation state, advanced in feed time so it pauses and speeds up with the story. */
 export const fx = MESAS.map(() => ({ frost: 0, thaw: 0, melt: 0, court: 0, water: 0, pool: 0, hover: 0 }))
-const resetFx = () => fx.forEach(f => Object.assign(f, { frost: 0, thaw: 0, melt: 0, court: 0, water: 0, pool: 0 }))
+// After a reset or a jump in feed time, the next frame settles the ice from world state instead of replaying it.
+let unsettled = true
+const resetFx = () => {
+  unsettled = true
+}
+function settle(g: Grant | undefined, f: (typeof fx)[number], thawed: boolean) {
+  Object.assign(f, { frost: 0, thaw: 0, melt: 0, court: 0, water: 0, pool: 0 })
+  if (g?.frozen) {
+    f.frost = FROST_FULL
+    f.court = g.status === 'restored_by_court' ? 1 : 0
+  } else if (thawed) f.pool = 0.4 // a landform that was frozen and paid keeps its meltwater moat
+}
 
 const FROST_FULL = 1.35
 const THAW_FULL = 1.75
@@ -41,7 +52,7 @@ function step(g: Grant | undefined, f: (typeof fx)[number], dt: number) {
       f.thaw = 0
     }
   } else {
-    f.melt = Math.max(0, f.melt - dt * 0.07)
+    f.melt = Math.max(0, f.melt - dt * 0.2)
     f.water = Math.max(0, f.water - dt * 0.12)
     f.court = Math.max(0, f.court - dt * 0.12)
   }
@@ -71,13 +82,21 @@ export function Terrain() {
   useFrame((state, delta) => {
     const w = feed.getWorld()
     const now = feed.now()
+    const jump = now < last.current || now - last.current > 1500
     const dt = Math.min(0.25, Math.max(0, (now - last.current) / 1000))
     last.current = now
     const s = ui.get()
+    const fresh = unsettled || jump
+    unsettled = false
     MESAS.forEach((m, i) => {
       const g = w.grants.find(x => x.id === m.id)
-      if (g) mesaHeights[i] += (g.available / UNIT - mesaHeights[i]) * Math.min(1, delta * 2.2)
-      step(g, fx[i], dt)
+      if (fresh) {
+        settle(g, fx[i], w.statusEvents.some(e => e.grantId === m.id && e.kind === 'canceled'))
+        if (g) mesaHeights[i] = g.available / UNIT
+      } else {
+        if (g) mesaHeights[i] += (g.available / UNIT - mesaHeights[i]) * Math.min(1, delta * 2.2)
+        step(g, fx[i], dt)
+      }
       const lit = s.hovered === `g:${m.id}` || s.selected === `g:${m.id}` ? 1 : 0
       fx[i].hover += (lit - fx[i].hover) * Math.min(1, delta * 6)
     })
@@ -110,6 +129,7 @@ export function Pools() {
       mesh.visible = lv > 0.01
       mesh.position.y = MESA_BASE - 0.2 + 0.32 * lv
       it.mat.uniforms.uLevel.value = lv
+      it.mat.uniforms.uGlow.value = fx[i].melt
       it.mat.uniforms.uTime.value = state.clock.elapsedTime
     })
   })
@@ -137,7 +157,7 @@ export function GrantPaths() {
   const mats = useMemo(
     () =>
       MESAS.map(() => ({
-        court: trailMaterial(new THREE.Color(1.3, 1.05, 0.55), { dash: 140, len: 8, alpha: 0.95 }),
+        court: trailMaterial(new THREE.Color(2.1, 1.5, 0.6), { dash: 140, len: 8, alpha: 1 }),
         water: trailMaterial(new THREE.Color(0.55, 1.05, 1.35), { flow: 90, len: 8, alpha: 0.9 }),
       })),
     [],
@@ -162,7 +182,7 @@ export function GrantPaths() {
       const active = f.court > 0.001 || f.water > 0.001
       if (active && !built.current[i]) {
         const curve = new THREE.CatmullRomCurve3(grantPath(i))
-        const thin = new THREE.TubeGeometry(curve, 320, 0.035, 5, false)
+        const thin = new THREE.TubeGeometry(curve, 320, 0.05, 5, false)
         const wide = new THREE.TubeGeometry(curve, 320, 0.085, 6, false)
         built.current[i] = [thin, wide]
         grp.add(new THREE.Mesh(thin, mats[i].court), new THREE.Mesh(wide, mats[i].water))

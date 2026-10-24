@@ -12,7 +12,7 @@ import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import { Flow } from './Flow'
 import { LabPlinth } from './Lab'
 import { OfficePlinth } from './Office'
-import { OPENING, PAL, STATIONS, anchorOf, floorOf, heroFor, type Framing } from './layout'
+import { HERO_TALL, OPENING, PAL, STATIONS, anchorOf, floorOf, heroFor, type Framing } from './layout'
 import { reducedMotion, ui } from './store'
 
 function Backdrop() {
@@ -92,6 +92,8 @@ function focusFor(id: string, hero: Framing) {
     target = anchorOf(id).setY(1)
     dist = 9.5
   } else target = anchorOf(id).setY(0.8)
+  // A phone's narrow lens needs more distance to hold the same subject.
+  if (hero === HERO_TALL) dist *= 2.1
   return { pos: target.clone().addScaledVector(dir, dist), target }
 }
 
@@ -100,7 +102,7 @@ function Rig() {
   const { camera, size } = useThree()
   const tween = useRef<Tween | null>(null)
   const applied = useRef({ w: 0, h: 0, sx: 0, sy: 0, fov: 0 })
-  const shift = useRef<[number, number]>([0, 0])
+  const shift = useRef<[number, number]>([...heroFor(size.width / size.height).shift])
   const still = useMemo(reducedMotion, [])
   const heroRef = useRef<Framing>(heroFor(size.width / size.height))
 
@@ -144,7 +146,7 @@ function Rig() {
     }
   }, [])
 
-  useFrame(() => {
+  useFrame((_, dt) => {
     const c = controls.current
     if (!c) return
     const cam = camera as PerspectiveCamera
@@ -159,10 +161,13 @@ function Rig() {
     const s = ui.get()
     const panelOpen = s.panel !== null
     const wide = size.width >= 900
-    const tx = hero.shift[0] - (panelOpen && wide ? 0.15 : 0)
-    const ty = hero.shift[1]
-    shift.current[0] += (tx - shift.current[0]) * 0.08
-    shift.current[1] += (ty - shift.current[1]) * 0.08
+    // Wide: the panel sits on the right, so slide left. Phone: the sheet covers the
+    // bottom, so centre whatever is in focus in the strip above it.
+    const tx = panelOpen ? (wide ? hero.shift[0] - 0.15 : 0) : hero.shift[0]
+    const ty = panelOpen && !wide ? -0.27 : hero.shift[1]
+    const k = 1 - Math.exp(-Math.min(dt, 0.1) * 6)
+    shift.current[0] += (tx - shift.current[0]) * k
+    shift.current[1] += (ty - shift.current[1]) * k
     const a = applied.current
     const sx = Math.round(shift.current[0] * size.width)
     const sy = Math.round(shift.current[1] * size.height)

@@ -49,8 +49,26 @@ export const selectNode = (id: string | null) => ui.set({ selected: id, panel: i
 export const openPanel = (panel: PanelKind | null) => ui.set({ panel, selected: panel === 'detail' ? state.selected : null })
 
 /** A slice of the feed's World. The selector must return a primitive or an existing reference. */
+// The feed tells subscribers about changes on its clock tick, so a decision made while the
+// story is paused would not show until play. Viewer actions go through `act`, which has
+// every subscriber re-read the world straight away.
+const nudged = new Set<() => void>()
+const subscribe = (fn: () => void) => {
+  const off = feed.subscribeWorld(fn)
+  nudged.add(fn)
+  return () => {
+    off()
+    nudged.delete(fn)
+  }
+}
+export function act<T>(f: () => T): T {
+  const r = f()
+  for (const fn of [...nudged]) fn()
+  return r
+}
+
 export function useFeed<T>(sel: (w: World) => T): T {
-  return useSyncExternalStore(feed.subscribeWorld, () => sel(feed.getWorld()))
+  return useSyncExternalStore(subscribe, () => sel(feed.getWorld()))
 }
 
 export const reducedMotion = () => typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches

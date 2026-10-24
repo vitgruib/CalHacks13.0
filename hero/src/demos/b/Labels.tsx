@@ -60,7 +60,7 @@ ANTENNAS.forEach((a, i) =>
 ANCHORS.push({ key: 'out:v:vendors', pos: V((TRUCK.x0 + TRUCK.x1) / 2 + 0.6, 2.75, -0.3), node: 'v:vendors', mode: 'always' })
 ANCHORS.push({ key: 'out:p:funder', pos: V((FUNDER.x0 + FUNDER.x1) / 2, 4.45, 0), node: 'p:funder', mode: 'always' })
 STATION_X.forEach((x, i) =>
-  ANCHORS.push({ key: `st:${i}`, pos: i % 2 ? V(x, 3.2 + 0.4, 0.9) : V(x, RULE_Y + 0.92, TRACK_Z), node: 'a:purchasing', mode: 'active', follow: true, station: i }),
+  ANCHORS.push({ key: `st:${i}`, pos: V(x, RULE_Y + 0.92, TRACK_Z), node: 'a:purchasing', mode: 'active', follow: true, station: i }),
 )
 
 const els = new Map<string, HTMLElement>()
@@ -272,7 +272,10 @@ export function LabelLayer() {
           ref={el => {
             tagEls[i] = el
           }}
-        />
+        >
+          <b />
+          <span />
+        </div>
       ))}
     </div>
   )

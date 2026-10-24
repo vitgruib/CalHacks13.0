@@ -167,13 +167,13 @@ export function terrainMaterial(lamps: THREE.Vector3[]) {
         return vec3(sqrt(d1), sqrt(d2), id);
       }
 
-      // frost, rim, drain, wet, stream, hover
+      // frost, rim, drain, wet, stream, hover, seam (the warm edge where ice gives way to money)
       void iceOf(vec4 M, vec4 F, vec2 seed, float H, vec2 xz, float y, float slope, float n1,
-                 out float frost, out float rim, out float drain, out float wet, out float stream, out float hover) {
+                 out float frost, out float rim, out float drain, out float wet, out float stream, out float hover, out float seam) {
         float r = length(xz - M.xy) / M.z;
         float region = 1.0 - smoothstep(1.2, 1.5, r);
         hover = F.w * (1.0 - smoothstep(1.02, 1.2, r));
-        frost = 0.0; rim = 0.0; drain = 0.0; wet = 0.0; stream = 0.0;
+        frost = 0.0; rim = 0.0; drain = 0.0; wet = 0.0; stream = 0.0; seam = 0.0;
         if (region <= 0.0) return;
         float elev = clamp((y - uBase) / max(H, 0.2), 0.0, 1.0);
         if (F.x > 0.0) {
@@ -185,20 +185,23 @@ export function terrainMaterial(lamps: THREE.Vector3[]) {
             float md = r * 0.6 + (1.0 - elev) * 0.45 + 0.22 * (n1 - 0.5);
             float cleared = 1.0 - smoothstep(F.y - 0.08, F.y, md);
             float front = smoothstep(F.y - 0.16, F.y - 0.04, md) * (1.0 - smoothstep(F.y - 0.04, F.y + 0.02, md));
+            seam = region * front * frost;
             frost *= 1.0 - cleared;
-            rim = max(rim * (1.0 - cleared), front * frost * 1.4);
+            rim = rim * (1.0 - cleared);
             drain *= 1.0 - cleared * 0.85;
           }
         }
         if (F.z > 0.0) {
           vec2 d = xz - M.xy;
           float ang = atan(d.y, d.x);
-          float k = floor(M.z * 5.0);
-          float ch = smoothstep(0.55, 0.97, sin(ang * k + n1 * 7.0));
-          float lane = hash(vec2(floor((ang + 3.1416) / 6.2832 * k), M.x));
-          float flow = fract(y * 1.25 + uTime * (0.8 + lane) + lane * 3.0);
-          float run = smoothstep(0.0, 0.2, flow) * (1.0 - smoothstep(0.5, 1.0, flow));
-          stream = F.z * region * smoothstep(0.08, 0.35, slope) * ch * (0.3 + 0.7 * run);
+          // A handful of meandering rivulets down the cliffs, with pulses running downhill.
+          float k = 7.0;
+          float wob = 0.6 * sin(y * 2.1 + n1 * 5.0) + 0.9 * (n1 - 0.5);
+          float ch = smoothstep(0.9, 0.99, cos(ang * k + wob + M.x));
+          float lane = hash(vec2(floor((ang + 3.1416) / 6.2832 * k + 0.5), M.x));
+          float flow = fract(y * 0.9 + uTime * (0.9 + 0.6 * lane) + lane * 3.0);
+          float run = smoothstep(0.0, 0.12, flow) * (1.0 - smoothstep(0.3, 0.85, flow));
+          stream = F.z * region * smoothstep(0.15, 0.4, slope) * ch * (0.35 + 0.65 * run);
           wet = F.z * region * (0.5 + 0.5 * (1.0 - elev));
         }
       }
@@ -236,10 +239,11 @@ export function terrainMaterial(lamps: THREE.Vector3[]) {
         }
         lit += col * vec3(1.0, 0.56, 0.2) * pool * 1.6;
 
-        float f0, r0, d0, w0, s0, h0;
-        float f1, r1, d1, w1, s1, h1;
-        iceOf(uM0, uFx0, uSeed0, uH.x, xz, y, slope, n1, f0, r0, d0, w0, s0, h0);
-        iceOf(uM1, uFx1, uSeed1, uH.y, xz, y, slope, n1, f1, r1, d1, w1, s1, h1);
+        float f0, r0, d0, w0, s0, h0, e0;
+        float f1, r1, d1, w1, s1, h1, e1;
+        iceOf(uM0, uFx0, uSeed0, uH.x, xz, y, slope, n1, f0, r0, d0, w0, s0, h0, e0);
+        iceOf(uM1, uFx1, uSeed1, uH.y, xz, y, slope, n1, f1, r1, d1, w1, s1, h1, e1);
+        float seam = max(e0, e1);
         float frost = max(f0, f1);
         float rim = max(r0, r1);
         float drain = max(d0, d1);
@@ -268,11 +272,14 @@ export function terrainMaterial(lamps: THREE.Vector3[]) {
         }
         lit += vec3(0.62, 0.86, 1.0) * rim * 1.1;
 
-        // Wet earth darkens; meltwater catches the sky
-        lit *= 1.0 - 0.32 * wet * (1.0 - frost);
+        // Money lands: a warm seam where the ice gives way, the plateau warms, meltwater runs down
+        lit += vec3(1.0, 0.68, 0.28) * seam * 1.7;
+        float warm = wet * onMesa * (1.0 - frost);
+        lit *= 1.0 - 0.28 * wet * (1.0 - frost);
+        lit += vec3(0.62, 0.38, 0.12) * warm * (1.0 - smoothstep(0.1, 0.3, slope)) * 0.55;
         vec3 water = vec3(0.40, 0.74, 0.9);
-        lit = mix(lit, water * 0.7, stream * 0.8);
-        lit += water * stream * 0.55;
+        lit = mix(lit, water * 0.55, stream * 0.7);
+        lit += vec3(0.75, 0.92, 1.0) * stream * 0.55;
 
         // Contour lines: one every $25,000 of money elevation, an index line every $100,000
         float cv = (y - uBase) / 0.5;
@@ -282,8 +289,9 @@ export function terrainMaterial(lamps: THREE.Vector3[]) {
         float fw4 = max(fwidth(cv4), 1e-4);
         float idx = 1.0 - smoothstep(0.0, 1.0, abs(fract(cv4 - 0.5) - 0.5) / (fw4 * 2.2));
         float fade = (1.0 - smoothstep(0.3, 0.85, fw)) * (1.0 - 0.85 * smoothstep(0.3, 0.75, slope));
-        float strength = mix(0.15, 0.4, onMesa) + hover * 0.45;
+        float strength = mix(0.15, 0.4, onMesa) + hover * 0.45 + warm * 0.4;
         vec3 inkc = mix(vec3(0.95, 0.83, 0.6), vec3(0.86, 0.95, 1.0), frost);
+        inkc = mix(inkc, vec3(1.25, 0.9, 0.42), clamp(warm * 1.6, 0.0, 1.0));
         float a = clamp(max(line * strength, idx * (strength + 0.18 * onMesa + 0.06)) * fade, 0.0, 1.0);
         lit = mix(lit, inkc * mix(0.75, 1.25, hover), a);
 
@@ -304,7 +312,7 @@ export function poolMaterial(R: number) {
   return new THREE.ShaderMaterial({
     transparent: true,
     depthWrite: false,
-    uniforms: { uTime: { value: 0 }, uLevel: { value: 0 }, uR: { value: R } },
+    uniforms: { uTime: { value: 0 }, uLevel: { value: 0 }, uGlow: { value: 0 }, uR: { value: R } },
     vertexShader: /* glsl */ `
       varying vec2 vP;
       varying vec3 vWorld;
@@ -318,20 +326,22 @@ export function poolMaterial(R: number) {
     fragmentShader: /* glsl */ `
       uniform float uTime;
       uniform float uLevel;
+      uniform float uGlow;
       uniform float uR;
       varying vec2 vP;
       varying vec3 vWorld;
       void main() {
         float r = length(vP) / uR;
-        float edge = 1.0 - smoothstep(1.25, 1.6, r);
+        float edge = 1.0 - smoothstep(1.3, 1.6, r);
         vec3 V = normalize(cameraPosition - vWorld);
-        float fres = pow(1.0 - max(V.y, 0.0), 3.0);
-        float rip = sin(length(vP) * 9.0 - uTime * 1.6) * 0.5 + 0.5;
-        vec3 deep = vec3(0.03, 0.08, 0.13);
-        vec3 skyc = vec3(0.32, 0.42, 0.6);
-        vec3 col = mix(deep, skyc, 0.25 + fres * 0.6) + vec3(0.55, 0.8, 0.95) * rip * 0.06;
-        col += vec3(1.0, 0.6, 0.3) * pow(fres, 2.0) * 0.18;
-        gl_FragColor = vec4(col, edge * smoothstep(0.0, 0.15, uLevel) * 0.88);
+        float fres = pow(1.0 - max(V.y, 0.0), 2.0);
+        float rip = pow(0.5 + 0.5 * sin(length(vP) * 7.0 - uTime * 2.2), 6.0) * (1.0 - smoothstep(1.1, 1.6, r));
+        vec3 deep = vec3(0.05, 0.12, 0.19);
+        vec3 skyc = vec3(0.44, 0.54, 0.74);
+        vec3 col = mix(deep, skyc, 0.3 + fres * 0.55);
+        col += vec3(0.7, 0.9, 1.0) * rip * (0.12 + 0.2 * uGlow);
+        col += vec3(1.0, 0.66, 0.3) * (0.14 + 0.55 * uGlow) * pow(fres, 1.5);
+        gl_FragColor = vec4(col, edge * smoothstep(0.0, 0.15, uLevel) * 0.9);
         #include <tonemapping_fragment>
         #include <colorspace_fragment>
       }

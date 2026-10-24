@@ -126,7 +126,7 @@ export interface Framing {
 }
 
 export const HERO_WIDE: Framing = { pos: new Vector3(-3.2, 15.3, 26.3), target: new Vector3(1.7, -0.4, 0), fov: 30, shift: [0.03, 0.1] }
-export const HERO_TALL: Framing = { pos: new Vector3(-49.9, 61.0, 36.7), target: new Vector3(1.4, -0.3, 0), fov: 28, shift: [0.024, 0.018] }
+export const HERO_TALL: Framing = { pos: new Vector3(-46.8, 53.7, 27.7), target: new Vector3(1.4, -0.3, 0), fov: 28, shift: [0.066, 0.002] }
 export const OPENING = { pos: new Vector3(-8.6, 2.4, 5.4), target: new Vector3(-6.6, 0.9, 0.2) }
 
 export const heroFor = (aspect: number) => (aspect < 0.85 ? HERO_TALL : HERO_WIDE)

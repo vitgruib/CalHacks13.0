@@ -63,14 +63,39 @@ export function useFlash(id: string, ms = 3600) {
   return on
 }
 
-export function Chip({ id, at, title, sub, tone = 'light', quiet = false, minor = false, children }: { id: string; at: V3; title: string; sub?: string; tone?: 'light' | 'dark'; quiet?: boolean; minor?: boolean; children?: ReactNode }) {
+export function Chip({
+  id,
+  at,
+  title,
+  sub,
+  tone = 'light',
+  quiet = false,
+  minor = false,
+  hoverSub = false,
+  nudge,
+  children,
+}: {
+  id: string
+  at: V3
+  title: string
+  sub?: string
+  tone?: 'light' | 'dark'
+  quiet?: boolean
+  minor?: boolean
+  hoverSub?: boolean
+  nudge?: number
+  children?: ReactNode
+}) {
   const on = useUi(s => s.hovered === id || s.selected === id)
   const flash = useFlash(id)
   return (
     <Html position={at} zIndexRange={[20, 10]} wrapperClass="a-html" pointerEvents="none">
-      <div className={`a-chip a-chip--${tone}${on ? ' is-on' : ''}${quiet && !on ? ' is-quiet' : ''}${minor ? ' is-minor' : ''}${flash ? ' is-flash' : ''}`}>
+      <div
+        className={`a-chip a-chip--${tone}${on ? ' is-on' : ''}${quiet && !on ? ' is-quiet' : ''}${minor ? ' is-minor' : ''}${flash ? ' is-flash' : ''}`}
+        style={nudge === undefined ? undefined : { translate: `${nudge * 100}% -100%` }}
+      >
         <span className="a-chip-title">{title}</span>
-        {sub && <span className="a-chip-sub">{sub}</span>}
+        {sub && (!hoverSub || on) && <span className="a-chip-sub">{sub}</span>}
         {children}
       </div>
     </Html>

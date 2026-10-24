@@ -677,6 +677,7 @@ export class Feed {
       const dt = Math.min(100, now - this.lastReal) // a hidden tab doesn't fast-forward on return
       this.lastReal = now
       if (this.w.playing) this.advance(dt * this.w.speed)
+      else this.flush() // decisions, requests and speed changes made while paused still reach the screen
       requestAnimationFrame(loop)
     }
     requestAnimationFrame(loop)

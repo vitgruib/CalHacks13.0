@@ -161,6 +161,13 @@
 .demo-a .a-hero {
   position: relative;
   margin-top: 30px;
+  transition: opacity 240ms ease, visibility 0s linear 0s;
+}
+/* Once someone opens a panel they are exploring; the copy steps aside for the scene. */
+.demo-a[data-panel] .a-hero {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 240ms ease, visibility 0s linear 240ms;
 }
 .demo-a .a-hero::before {
   /* A soft scrim of the studio's own colour, so the copy holds if a plinth drifts behind it. */
@@ -981,6 +988,7 @@
 }
 .demo-a .a-chip-task {
   display: block;
+  width: max-content;
   max-width: 190px;
   margin-top: 2px;
   font-size: 11.5px;
@@ -991,6 +999,7 @@
 .demo-a .a-chip--grant {
   justify-items: start;
   gap: 1px;
+  width: max-content;
   max-width: 158px;
   padding: 7px 11px 8px;
   text-align: left;
@@ -1029,6 +1038,7 @@
   color: var(--ink-3);
 }
 .demo-a .a-chip-state {
+  white-space: pre-line;
   font-size: 11.5px;
   font-weight: 650;
   color: var(--celadon-ink);
@@ -1076,7 +1086,7 @@
 /* Rule checks beside the purchasing column. */
 .demo-a .a-rules {
   width: 258px;
-  transform: translate(-45%, calc(-100% - 4px));
+  transform: translate(-90%, calc(-100% - 4px));
   padding: 10px 12px 11px;
   border-radius: 12px;
   background: var(--porcelain);
@@ -1339,26 +1349,32 @@
     font-size: 17px;
   }
   .demo-a .a-hero {
-    margin-top: 14px;
+    margin-top: 12px;
+  }
+  .demo-a .a-hero::before {
+    display: none;
   }
   .demo-a .a-hero h1 {
-    font-size: 25px;
-    line-height: 1.06;
+    font-size: 24px;
+    line-height: 1.05;
     letter-spacing: -0.025em;
   }
   .demo-a .a-hero p {
-    margin-top: 10px;
-    font-size: 13.5px;
-    line-height: 1.42;
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.4;
   }
   .demo-a .a-cta {
-    margin-top: 14px;
+    margin-top: 12px;
     gap: 8px 16px;
   }
   .demo-a .a-hero .a-btn--primary {
-    min-height: 40px;
-    padding: 8px 14px;
+    min-height: 38px;
+    padding: 7px 14px;
     font-size: 14.5px;
+  }
+  .demo-a .a-chip--source {
+    display: none;
   }
   .demo-a .a-link {
     font-size: 14px;
@@ -1411,7 +1427,7 @@
     font-size: 13px;
     line-height: 1.4;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -1430,10 +1446,10 @@
     right: 8px;
     bottom: 76px;
     width: auto;
-    max-height: 62vh;
+    max-height: 52vh;
   }
   .demo-a .a-chip.is-quiet:not(.is-on),
-  .demo-a .a-chip.is-minor:not(.is-on):not(.is-flash) {
+  .demo-a .a-chip.is-minor:not(.is-on) {
     display: none;
   }
   .demo-a .a-chip-sub {
@@ -1447,10 +1463,13 @@
     padding: 4px 8px 5px;
   }
   .demo-a .a-chip--grant[data-side='l'] {
-    translate: calc(-50% + 16px) 46px;
+    translate: -28% 54px;
   }
   .demo-a .a-chip--grant[data-side='r'] {
-    translate: -20% -100%;
+    translate: -50% -100%;
+  }
+  .demo-a .a-chip--grant:not(.is-frozen) .a-chip-state {
+    display: none;
   }
   .demo-a .a-chip-id,
   .demo-a .a-chip-state {
@@ -1467,7 +1486,7 @@
   .demo-a .a-rules {
     width: 214px;
     padding: 8px 9px;
-    transform: translate(-40%, 42px);
+    transform: translate(calc(-100% + 8px), -18%);
   }
   .demo-a .a-rules li {
     font-size: 11px;

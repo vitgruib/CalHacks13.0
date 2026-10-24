@@ -38,10 +38,9 @@ const smooth = (a: number, b: number, t: number) => {
 
 export const BODY = new THREE.CapsuleGeometry(0.17, 0.8, 4, 12)
 export const HEAD = new THREE.SphereGeometry(0.135, 14, 10)
-export const CAPSULE = new THREE.CapsuleGeometry(0.15, 0.5, 4, 12)
-export const CAP = new THREE.CylinderGeometry(0.158, 0.158, 0.22, 16)
-export const BAND = new THREE.CylinderGeometry(0.157, 0.157, 0.11, 16)
-export const INSERT = new THREE.CylinderGeometry(0.085, 0.085, 0.56, 10)
+export const CAPSULE = new THREE.CapsuleGeometry(0.19, 0.62, 4, 14)
+export const CAP = new THREE.CylinderGeometry(0.2, 0.2, 0.3, 18)
+export const BAND = new THREE.CylinderGeometry(0.2, 0.2, 0.12, 18)
 
 const LIT = new THREE.Color('#ffd9a0')
 const AGENT_LAMP: Record<string, [number, number, number]> = {
@@ -72,6 +71,7 @@ function RoomView({ room }: { room: Room }) {
   const dark = room.kind === 'confocal'
   const wallMat = useMemo(() => (dark ? M.chipDark : M.wall).clone(), [dark])
   const lampMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#f6efe2', emissive: new THREE.Color('#ffe7bd'), emissiveIntensity: 0.2, roughness: 0.4 }), [])
+  const stripMat = useMemo(() => new THREE.MeshStandardMaterial({ color: '#e9e6df', emissive: new THREE.Color('#ffd28a'), emissiveIntensity: 0, roughness: 0.5 }), [])
   const outer = useRef<THREE.Group>(null)
   const frame = useRef<THREE.Group>(null)
   const w = room.x1 - room.x0
@@ -87,8 +87,9 @@ function RoomView({ room }: { room: Room }) {
     pull[room.node] = p
     if (outer.current) outer.current.position.z = p
     const a = activity[room.node] ?? 0
-    wallMat.emissive.copy(LIT).multiplyScalar((dark ? 0.32 : 0.2) * a)
+    wallMat.emissive.copy(LIT).multiplyScalar((dark ? 0.5 : 0.42) * a)
     lampMat.emissiveIntensity = 0.25 + a * 2.2
+    stripMat.emissiveIntensity = a * 2.4
     if (frame.current) frame.current.visible = sel || ui.hovered === room.node
   })
 
@@ -100,6 +101,11 @@ function RoomView({ room }: { room: Room }) {
       <mesh position={[cx, room.y0 + 0.12 + ih / 2, ZB + 0.06]} material={wallMat} receiveShadow>
         <boxGeometry args={[w - 0.12, ih, 0.08]} />
       </mesh>
+      {room.kind !== 'vault' && (
+        <mesh position={[cx, room.y0 + FH - 0.2, -0.6]} material={stripMat}>
+          <boxGeometry args={[w - 1.2, 0.06, 0.36]} />
+        </mesh>
+      )}
       {lamp && (
         <mesh position={lamp} material={lampMat}>
           <sphereGeometry args={[0.13, 16, 12]} />
@@ -270,9 +276,8 @@ function Stations() {
         </group>
       ))}
       <group ref={cap} position={[INTAKE_X, RULE_Y, TRACK_Z]} rotation-z={-Math.PI / 2} visible={false}>
-        <mesh geometry={CAPSULE} material={M.acrylic} />
-        <mesh geometry={INSERT} material={M.paper} />
-        <mesh geometry={CAP} material={M.ink} position-y={0.2} />
+        <mesh geometry={CAPSULE} material={M.capsule} castShadow />
+        <mesh geometry={CAP} material={M.ink} position-y={0.34} />
       </group>
     </>
   )

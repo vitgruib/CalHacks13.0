@@ -93,6 +93,7 @@
 .demo-b .b-labels {
   position: absolute;
   inset: 0;
+  isolation: isolate;
   pointer-events: none;
   overflow: hidden;
   opacity: 0;
@@ -150,6 +151,9 @@
 }
 
 /* Leader-line notes, only while a room is busy or under the pointer */
+.demo-b .b-note[data-on='1'] {
+  z-index: 3;
+}
 .demo-b .b-note > div {
   left: -6px;
   bottom: 30px;
@@ -281,11 +285,21 @@
   line-height: 1.25;
   color: var(--b-ink);
 }
-.demo-b .b-station.high > div {
+.demo-b .b-station > div {
   bottom: 0;
 }
-.demo-b .b-station.low > div {
-  top: 0;
+/* near: names alternate on two rows so they never overlap; a leader joins the upper row */
+.demo-b .b-labels[data-zoom='near'] .b-station.low > div {
+  bottom: 30px;
+}
+.demo-b .b-labels[data-zoom='near'] .b-station.low::after {
+  content: '';
+  position: absolute;
+  left: -0.5px;
+  bottom: 0;
+  width: 1px;
+  height: 30px;
+  background: var(--b-ink-2);
 }
 .demo-b .b-station b {
   font-variant-numeric: tabular-nums;
@@ -451,21 +465,39 @@
 
 /* Tags riding the capsules */
 .demo-b .b-cap {
-  translate: -50% calc(-100% - 12px);
-  padding: 1px 7px 1px 18px;
+  z-index: 4;
+  translate: -50% calc(-100% - 16px);
+  padding: 2px 8px 2px 20px;
   background: var(--b-paper);
-  border: 1px solid var(--b-ink-2);
+  border: 1.5px solid var(--b-ink);
   border-radius: 2px;
-  font-size: 11.5px;
-  font-weight: 600;
+  font-size: 12.5px;
+  font-weight: 650;
+  line-height: 1.3;
   white-space: nowrap;
   color: var(--b-ink);
-  box-shadow: 0 1px 2px rgb(24 32 42 / 0.15);
+  box-shadow: 0 1px 3px rgb(24 32 42 / 0.22);
+}
+.demo-b .b-cap b {
+  font-weight: inherit;
+}
+.demo-b .b-cap span {
+  font-weight: 500;
+  opacity: 0.86;
+}
+.demo-b .b-cap::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 0.75px);
+  top: 100%;
+  width: 1.5px;
+  height: 14px;
+  background: var(--b-ink-2);
 }
 .demo-b .b-cap::before {
   content: '';
   position: absolute;
-  left: 6px;
+  left: 7px;
   top: 50%;
   width: 7px;
   height: 7px;
@@ -766,11 +798,14 @@
 /* Ledger */
 .demo-b .b-log {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
 }
 .demo-b .b-top-right .b-ledger {
-  width: 300px;
+  width: min(300px, calc(100vw - 32px));
+  overflow: hidden;
 }
 .demo-b .b-log li {
+  min-width: 0;
   padding: 7px 12px 8px;
   border-top: 1px solid var(--b-line);
 }
@@ -779,6 +814,7 @@
 }
 .demo-b .b-log-head {
   display: flex;
+  min-width: 0;
   align-items: baseline;
   gap: 7px;
   font-family: var(--b-label);
@@ -805,10 +841,12 @@
   margin-top: 2px;
   font-size: 12.5px;
   line-height: 1.35;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-b .b-detail .b-log p {
+  white-space: normal;
 }
 .demo-b .b-ledger .b-log li:nth-child(n + 4) {
   display: none;

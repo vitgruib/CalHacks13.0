@@ -394,11 +394,11 @@ export function buildModels(): Model[] {
   out.push({ id: 'a:purchasing', at: [1.3, 0.4], parts: purchasing(), shadows: [{ foot: rect(0, 0, 2.9, 2.0), h: 0.3 }, { foot: circle(-0.5, -0.25, 0.74), h: 1.9 }, { foot: rect(0.82, 0.58, 0.95, 0.1), h: 2.9 }], port: [-0.5, 1.95, -0.25], label: [-0.5, 2.25, -0.25], hit: { c: [0, 0, 0], s: [2.9, 2.9, 2.0] } })
   out.push({ id: 'p:grant_manager', at: [1.6, 5.4], parts: managerDesk(), shadows: [{ foot: rect(0, 0, 2.1, 0.9), h: 0.78 }, { foot: rect(0, -0.75, 0.38, 0.2), h: 1.75 }], port: [0.55, 0.95, 0.1], label: [0, 2.15, -0.75], hit: { c: [0, 0, -0.2], s: [2.2, 2.0, 1.8] } })
   out.push({ id: 'a:bookkeeping', at: [6.4, -3.2], parts: bookkeeping(), shadows: [{ foot: rect(0, 0, 2.6, 1.8), h: 1.45 }], port: [0, 1.45, 0], label: [0, 2.05, 0], hit: { c: [0, 0, 0], s: [2.6, 1.9, 1.8] } })
-  out.push({ id: 'a:payment_report', at: [6.9, 3.9], parts: paymentReport(), shadows: [{ foot: rect(0, 0, 2.5, 1.7), h: 0.3 }, { foot: rect(0, 0, 1.36, 0.22), h: 2.2 }], port: [0, 1.3, 0.45], label: [0, 2.85, 0], hit: { c: [0, 0, 0], s: [2.5, 2.6, 1.7] } })
+  out.push({ id: 'a:payment_report', at: [5.2, 4.4], parts: paymentReport(), shadows: [{ foot: rect(0, 0, 2.5, 1.7), h: 0.3 }, { foot: rect(0, 0, 1.36, 0.22), h: 2.2 }], port: [0, 1.3, 0.45], label: [0, 2.85, 0], hit: { c: [0, 0, 0], s: [2.5, 2.6, 1.7] } })
   out.push({ id: 'g:R01GM000001', at: [10.6, -0.6], parts: vault(), shadows: [{ foot: circle(0, 0, 1.3), h: 2.9 }], port: [0, 3.05, 0], label: [0, 3.55, 0], hit: { c: [0, 0, 0], s: [2.6, 3.1, 2.6] } })
   out.push({ id: 'g:R21AI000002', at: [14.3, 1.3], parts: vault(), shadows: [{ foot: circle(0, 0, 1.3), h: 2.9 }], port: [0, 3.05, 0], label: [0, 3.55, 0], hit: { c: [0, 0, 0], s: [2.6, 3.1, 2.6] } })
   const sources = ['s:reporter', 's:usaspending', 's:cancellations', 's:court', 's:payments']
-  sources.forEach((id, i) => out.push({ id, at: [-0.6 + i * 3.3, -7.3], parts: source(), shadows: [{ foot: rect(0, 0, 0.95, 0.6), h: 0.55 }], port: [0, 0.8, 0.2], label: [0, 1.75, 0], hit: { c: [0, 0, 0], s: [1.2, 1.7, 1.0] } }))
+  sources.forEach((id, i) => out.push({ id, at: [-0.6 + i * 3.3, -8.6], parts: source(), shadows: [{ foot: rect(0, 0, 0.95, 0.6), h: 0.55 }], port: [0, 0.8, 0.2], label: [0, 1.75, 0], hit: { c: [0, 0, 0], s: [1.2, 1.7, 1.0] } }))
   out.push({ id: 'p:funder', at: [16.2, -4.4], parts: funder(), shadows: [{ foot: rect(0, 0, 2.7, 1.7), h: 2.3 }], port: [0, 2.0, 0.75], label: [0, 2.85, 0], hit: { c: [0, 0, 0], s: [2.8, 2.4, 1.8] } })
   out.push({ id: 'v:vendors', at: [12.2, 5.3], parts: vendors(), shadows: [{ foot: rect(0, 0, 2.4, 1.6), h: 1.4 }], port: [-0.2, 1.65, -0.2], label: [0, 2.2, 0], hit: { c: [0, 0, 0], s: [2.4, 1.7, 1.6] } })
   return out

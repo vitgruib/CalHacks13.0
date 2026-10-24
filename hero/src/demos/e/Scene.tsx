@@ -16,10 +16,16 @@ import { Projector } from './Labels'
 import { FOOT, FOOT_SIZE, v } from './layout'
 import { Ground, Hardware, Marker, Pulses } from './Parts'
 
-const WIDE = { pos: v(-1.2, 28.5, 31.5), target: v(-1.2, 0.4, -4.2), fov: 34 }
-const TALL = { pos: v(37.4, 46.1, -0.9), target: v(1.7, 0.4, -0.9), fov: 50 }
+// Framed so every plate clears the HUD at 1440x900 and 390x844.
+const WIDE = { pos: v(-1.2, 27.6, 31.5), target: v(-1.2, -0.4, -4.4), fov: 34 }
+const TALL = { pos: v(38.2, 42.1, -3.7), target: v(1, 0.4, 0), fov: 50 }
 const INTRO_FROM = { pos: v(-9.6, 5.2, 7.6), target: v(-14.2, 3.4, -1.2) }
-const BOUNDS = { min: v(-19, 0, -13), max: v(19, 6, 8) }
+const BOUNDS = { min: v(-19, -1, -13), max: v(19, 6, 8) }
+// The crane and the pull-back run on wall-clock time, so a slow first
+// second (shader compile, a busy machine) never stretches them out.
+const INTRO_S = 3.6
+const RETURN_S = 2.0
+const now = () => performance.now() / 1000
 
 type Mode = 'intro' | 'free' | 'follow' | 'return'
 
@@ -29,6 +35,7 @@ function Rig() {
   const size = useThree(s => s.size)
   const mode = useRef<Mode>(reducedMotion() ? 'free' : 'intro')
   const t = useRef(0)
+  const t0 = useRef(0)
   const settle = useRef(0)
   const from = useRef({ pos: new Vector3(), target: new Vector3() })
   const home = () => (size.width / size.height < 0.8 ? TALL : WIDE)
@@ -43,6 +50,7 @@ function Rig() {
     camera.position.copy(start.pos)
     c?.target.copy(start.target)
     camera.lookAt(start.target)
+    t0.current = now()
   }
 
   useEffect(
@@ -72,7 +80,7 @@ function Rig() {
     }
     if (!intro.current) begin()
     if (mode.current === 'intro') {
-      t.current += dt / 6
+      t.current = (now() - t0.current) / INTRO_S
       const k = easeInOut(Math.min(1, t.current))
       intro.current?.getPoint(k, camera.position)
       c.target.lerpVectors(INTRO_FROM.target, h.target, easeInOut(Math.min(1, t.current * 1.15)))
@@ -83,7 +91,7 @@ function Rig() {
     if (mode.current === 'follow') {
       if (!uiStore.get().follow) {
         mode.current = 'return'
-        t.current = 0
+        t0.current = now()
         from.current.pos.copy(camera.position)
         from.current.target.copy(c.target)
         return
@@ -100,7 +108,7 @@ function Rig() {
       return
     }
     if (mode.current === 'return') {
-      t.current += dt / 2.4
+      t.current = (now() - t0.current) / RETURN_S
       const k = easeInOut(Math.min(1, t.current))
       camera.position.lerpVectors(from.current.pos, h.pos, k)
       c.target.lerpVectors(from.current.target, h.target, k)

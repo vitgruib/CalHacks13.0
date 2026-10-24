@@ -1,15 +1,13 @@
 // Turns feed events into scene-local state: which rooms are lit, what the
-// rule stations show, which answers are parked, what lands where.
+// rule stations show, what lands where. Rooms with a packet in flight stay lit.
 
 import { useEffect } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { useFlow } from '../../feed'
+import { feed, progress, useFlow } from '../../feed'
 import { stationOf } from './layout'
 import { C } from './materials'
 import { ringColor } from './Capsules'
-import { activity, bump, clock, effects, nextKey, parked, resetScene, run, stations, vaultHoldUntil, vaultShake } from './state'
-
-const DONE = new Set(['bought', 'rerouted', 'blocked', 'rejected'])
+import { activity, bump, clock, effects, nextKey, resetScene, run, stations, vaultHoldUntil, vaultShake } from './state'
 
 export function Director() {
   useEffect(() => resetScene(), [])
@@ -30,13 +28,8 @@ export function Director() {
         const p = e.packet
         bump(p.to, 1)
         effects.push({ kind: 'ring', t: now, node: p.to, color: ringColor(p), key: nextKey(), packet: p })
-        if (p.kind === 'verdict' && p.refId) {
-          if (p.outcome === 'hold') parked.set(p.refId, p.to)
-          else {
-            parked.delete(p.refId)
-            effects.push({ kind: p.outcome ?? 'accept', t: now, node: p.to, color: ringColor(p), key: nextKey(), packet: p, outcome: p.outcome })
-          }
-        }
+        if (p.kind === 'verdict' && p.refId && p.outcome !== 'hold')
+          effects.push({ kind: p.outcome ?? 'accept', t: now, node: p.to, color: ringColor(p), key: nextKey(), packet: p, outcome: p.outcome })
         if ((p.kind === 'request' || p.kind === 'pushback') && p.to === 'a:purchasing' && p.refId) {
           run.refId = p.refId
           run.visible = true
@@ -59,9 +52,6 @@ export function Director() {
         bump('a:purchasing', 1)
         break
       }
-      case 'request':
-        if (DONE.has(e.request.state)) parked.delete(e.request.id)
-        break
       case 'grant': {
         const node = `g:${e.grant.id}`
         bump(node, 1)
@@ -89,6 +79,11 @@ export function Director() {
 
   useFrame((_, dt) => {
     for (const k in activity) activity[k] = Math.max(0, activity[k] - dt * 0.2)
+    const t = feed.now()
+    for (const p of feed.getWorld().packets) {
+      activity[p.from] = Math.max(activity[p.from] ?? 0, 0.85)
+      activity[p.to] = Math.max(activity[p.to] ?? 0, 0.55 + 0.45 * progress(p, t))
+    }
     const now = clock()
     while (effects.length && now - effects[0].t > 12) effects.shift()
   })
