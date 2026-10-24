@@ -1,0 +1,29 @@
+{
+  "task": "report-checker.explain",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:21.706Z",
+  "input": {
+    "paperId": "p-04",
+    "title": "Folding kinetics of OmpF under osmotic stress",
+    "doi": "10.5555/gg.2025.0004",
+    "reportGrantId": "R01GM061721",
+    "creditsGrantId": "R01GM061721",
+    "creditedIsLabGrant": true,
+    "failed": [
+      {
+        "check": "No undisclosed correction",
+        "detail": "Correction (2026-03-02): the Figure 3 rate constants were re-measured; the folding rate changes by about 40% and one conclusion in the abstract is revised. Not disclosed in the report."
+      }
+    ],
+    "rule": "Only a material correction holds the report",
+    "correctionKind": "material",
+    "costMoves": [],
+    "asks": [
+      "Disclose the correction in the report: what changed and when."
+    ],
+    "draft": "p-04 (\"Folding kinetics of OmpF under osmotic stress\") is in R01GM061721's progress report. The check \"No undisclosed correction\" failed: Correction (2026-03-02): the Figure 3 rate constants were re-measured; the folding rate changes by about 40% and one conclusion in the abstract is revised. Not disclosed in the report. Rule: Only a material correction holds the report, and this one is material. To do: Disclose the correction in the report: what changed and when. Approve once it is fixed (the paper then shows as a note); reject to keep it held."
+  },
+  "answer": {
+    "why": "Paper p-04, \"Folding kinetics of OmpF under osmotic stress\" (DOI 10.5555/gg.2025.0004), is held in progress report R01GM061721. The failed check \"No undisclosed correction\" shows a public correction dated 2026-03-02: the Figure 3 rate constants were re-measured, the folding rate changes by about 40%, and one conclusion in the abstract is revised. The report does not disclose this. The module's rule is \"Only a material correction holds the report,\" and this correction is material. To release the hold, disclose the correction in the report, stating what changed and when. Approve once that is fixed, and the paper will show as a note. Reject to keep the paper held. No cost moves are proposed."
+  }
+}

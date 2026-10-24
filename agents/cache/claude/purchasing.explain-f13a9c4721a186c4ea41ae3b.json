@@ -1,0 +1,42 @@
+{
+  "task": "purchasing.explain",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:31.751Z",
+  "input": {
+    "request": {
+      "id": "rq-104",
+      "item": "Confocal microscope service contract, 12 months",
+      "category": "equipment service",
+      "price": 3600,
+      "purpose": "Annual service of the shared confocal microscope; imaging for both R01GM061721 (membrane folding) and R21AI182745 (assay imaging)"
+    },
+    "action": "hold",
+    "grantId": "R01GM061721",
+    "split": [
+      {
+        "grantId": "R01GM061721",
+        "percent": 100
+      }
+    ],
+    "failed": [
+      {
+        "rule": "Grant is active and not frozen",
+        "detail": "Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen."
+      },
+      {
+        "rule": "Shared cost split across the grants it serves",
+        "detail": "Serves R01GM061721 and R21AI182745 but is charged to R01GM061721 only.",
+        "auditCase": "NSF OIG audit summary: shared costs charged 100% to one award"
+      }
+    ],
+    "passed": [
+      "Enough truly available money",
+      "Category allowed",
+      "Under the card limit ($5,000)"
+    ],
+    "next": "It serves R01GM061721 and R21AI182745, so its cost has to be split between them by use before it can be bought; send the split and it will be checked again."
+  },
+  "answer": {
+    "explanation": "Request rq-104, a 12-month confocal microscope service contract for $3600, was held for the grant manager and not bought. It failed the rule \"Grant is active and not frozen\": R01GM061721 was canceled 2026-03-10, a court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. It also failed \"Shared cost split across the grants it serves\" because the service serves R01GM061721 and R21AI182745 but is charged 100% to R01GM061721, which matches the NSF OIG audit summary on shared costs charged 100% to one award. Next, the cost must be split between the two grants by use; once the split is sent, it will be checked again."
+  }
+}

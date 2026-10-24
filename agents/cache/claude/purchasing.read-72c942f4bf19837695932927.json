@@ -1,0 +1,58 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:38.040Z",
+  "input": {
+    "request": {
+      "item": "Proteomics core: 10 hours of mass spec",
+      "category": "core facility services",
+      "price": 1800,
+      "purpose": "Samples from both projects: 6 hours for R01GM061721, 4 hours for R21AI182745",
+      "askedForGrant": "R01GM061721",
+      "declaredSharedWith": [],
+      "split": [
+        {
+          "grantId": "R01GM061721",
+          "share": 0.6
+        },
+        {
+          "grantId": "R21AI182745",
+          "share": 0.4
+        }
+      ]
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R01GM061721",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R01GM061721",
+      "R21AI182745"
+    ],
+    "split": [
+      {
+        "grantId": "R01GM061721",
+        "share": 0.6
+      },
+      {
+        "grantId": "R21AI182745",
+        "share": 0.4
+      }
+    ],
+    "splitSource": "request",
+    "note": "Scientist asked for R01GM061721 and the purpose states 6 hours for it and 4 hours for R21AI182745, so the cost is shared 0.6/0.4."
+  }
+}

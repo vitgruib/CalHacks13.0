@@ -1,0 +1,23 @@
+{
+  "task": "report-checker.correction",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:22.937Z",
+  "input": {
+    "paper": {
+      "doi": "10.5555/gg.2025.0005",
+      "title": "Periplasmic chaperone binding seen by single-molecule FRET"
+    },
+    "notices": [
+      {
+        "kind": "correction",
+        "date": "2026-01-15",
+        "title": "one author's affiliation was corrected.",
+        "source": "Crossref"
+      }
+    ]
+  },
+  "answer": {
+    "kind": "minor",
+    "reason": "The sole notice's title states that one author's affiliation was corrected, which is an affiliation change that alters no data, analysis, figure, table, result or conclusion."
+  }
+}

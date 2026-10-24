@@ -1,0 +1,79 @@
+{
+  "task": "payment_request.explain",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:27.205Z",
+  "input": {
+    "grant": {
+      "id": "R21AI182745",
+      "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+      "agency": "NIH / NIAID"
+    },
+    "period": {
+      "from": "2026-05-01",
+      "to": "2026-05-31"
+    },
+    "total": "$7,060",
+    "personnelTotal": "$5,130",
+    "personnel": [
+      {
+        "role": "Research technician",
+        "effort": "60%",
+        "amount": "$2,880",
+        "payPeriods": 1
+      },
+      {
+        "role": "Graduate researcher",
+        "effort": "50%",
+        "amount": "$2,250",
+        "payPeriods": 1
+      }
+    ],
+    "categories": [
+      {
+        "category": "equipment service",
+        "subtotal": "$1,290",
+        "purchases": [
+          {
+            "requestId": "rq-036",
+            "item": "Ultra-low freezer service contract",
+            "aim": "Keeping isolate stocks at -80 C",
+            "vendor": "CoolChain",
+            "ordered": "2026-05-01",
+            "amount": "$1,290",
+            "changedFrom": "$1,150"
+          }
+        ]
+      },
+      {
+        "category": "core facility services",
+        "subtotal": "$640",
+        "purchases": [
+          {
+            "requestId": "rq-038",
+            "item": "Genomics core: sequencing run for 24 isolates",
+            "aim": "Confirming resistance genes",
+            "vendor": "Campus Genomics Core",
+            "ordered": "2026-05-20",
+            "amount": "$640"
+          }
+        ]
+      }
+    ],
+    "leftOut": [
+      {
+        "requestId": "rq-037",
+        "item": "Mueller-Hinton broth, 12 bottles",
+        "amount": "$1,460",
+        "why": "invoice inv-037 is on hold (Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460))"
+      }
+    ],
+    "rule": "Held spending is left out",
+    "limits": {
+      "total": 1000
+    }
+  },
+  "answer": {
+    "claimed": "Grant R21AI182745, Investigating ploidy modulation as a strategy to improve antibiotic activity (NIH / NIAID), for the period 2026-05-01 to 2026-05-31. Total requested: $7,060. Personnel (subtotal $5,130): research technician at 60% effort, $2,880, one pay period; graduate researcher at 50% effort, $2,250, one pay period. Equipment service (subtotal $1,290): rq-036, ultra-low freezer service contract from CoolChain, ordered 2026-05-01, $1,290 (changed from $1,150), aim: keeping isolate stocks at -80 C. Core facility services (subtotal $640): rq-038, genomics core sequencing run for 24 isolates from Campus Genomics Core, ordered 2026-05-20, $640, aim: confirming resistance genes.",
+    "leftOut": "rq-037 (Mueller-Hinton broth, 12 bottles, $1,460) is left out because held spending is left out; its invoice inv-037 is on hold after being billed for 24 bottles ($2,920) rather than the 12 bottles ordered ($1,460)."
+  }
+}

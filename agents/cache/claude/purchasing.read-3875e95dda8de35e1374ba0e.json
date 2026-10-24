@@ -1,0 +1,39 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:21.357Z",
+  "input": {
+    "request": {
+      "item": "Agar plates, 40 packs",
+      "category": "lab supplies",
+      "price": 1180,
+      "purpose": "Assay validation runs before the grant ends",
+      "askedForGrant": "R21AI182745",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R21AI182745",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R21AI182745"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist explicitly asked for R21AI182745; no push-backs or stated split, so charged to that grant only."
+  }
+}

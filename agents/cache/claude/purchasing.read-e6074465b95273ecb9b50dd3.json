@@ -1,0 +1,39 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:35.604Z",
+  "input": {
+    "request": {
+      "item": "Membrane protein detergent screening kit, 4 plates",
+      "category": "reagents",
+      "price": 5000,
+      "purpose": "BamA detergent screen, round 2",
+      "askedForGrant": "R01GM061721",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R01GM061721",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R01GM061721"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist asked for R01GM061721 directly; no push backs or stated split, so the purchase is charged to that grant alone."
+  }
+}

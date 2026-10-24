@@ -1,0 +1,40 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:29.857Z",
+  "input": {
+    "request": {
+      "item": "Confocal microscope service contract, 12 months",
+      "category": "equipment service",
+      "price": 3600,
+      "purpose": "Annual service of the shared confocal microscope; imaging for both R01GM061721 (membrane folding) and R21AI182745 (assay imaging)",
+      "askedForGrant": "R01GM061721",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R01GM061721",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R01GM061721",
+      "R21AI182745"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist asked for R01GM061721 and the purpose names both grants for the shared confocal service, but no proportions are stated, so no split is applied."
+  }
+}
