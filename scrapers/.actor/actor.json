@@ -5,6 +5,7 @@
   "description": "Reads Grant Witness's public list of disrupted NIH grants (terminated, frozen, reinstated, unfrozen) and returns one row per core project number, with a normalized status. Built for GrantGuard's fund tracker.",
   "version": "0.1",
   "buildTag": "latest",
+  "readme": "./README.md",
   "input": "./input_schema.json",
   "dockerfile": "./Dockerfile",
   "storages": {
@@ -14,9 +15,24 @@
         "overview": {
           "title": "Listed grants",
           "transformation": {
-            "fields": ["grantId", "status", "listStatus", "terminatedOn", "restoredOn", "restoredBy", "supplement", "institution", "title", "url", "fetchedAt", "savedCopy"]
+            "fields": [
+              "grantId",
+              "status",
+              "listStatus",
+              "terminatedOn",
+              "restoredOn",
+              "restoredBy",
+              "supplement",
+              "institution",
+              "title",
+              "url",
+              "fetchedAt",
+              "savedCopy"
+            ]
           },
-          "display": { "component": "table" }
+          "display": {
+            "component": "table"
+          }
         }
       }
     }

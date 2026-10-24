@@ -109,6 +109,7 @@ npx apify-cli push             # builds .actor/Dockerfile on the platform
 
 Then run it in the Apify console. A cloud run pushes rows to its dataset and
 writes no file. To have the tracker read the cloud copy, set
-`GG_APIFY_DATASET=<dataset id>` and `APIFY_TOKEN` in `.env.local`. The Actor
-is private by default. Make it public only if we enter Apify's Best Actor
-prize (open item in `HUMAN_TODO.md`).
+`GG_APIFY_DATASET=<dataset id>` and `APIFY_TOKEN` in `.env.local`. The Actor is
+deployed as `nathanqiu/nih-grant-cancellation-list` (private until the
+account has a public profile; see `HUMAN_TODO.md`). Its Store page is
+`.actor/README.md`.
