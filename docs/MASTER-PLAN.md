@@ -395,6 +395,10 @@ needs its own clone (`git clone ... CalHacks13.0-2`) and its own claim.
 - **Reading messy text (S5):** paste a court notice or agency letter into
   the Test lab; Claude works out which grant and what changed and posts it
   as a status event. Until then, court orders arrive as ready-made events.
+- **Grant splits (S6):** the scientist states how a shared cost divides
+  across grants when submitting (optional `split` on `submit_request`); the
+  purchasing agent checks it instead of proposing one. Until then the split
+  rides in the purpose text and the grant manager decides it in the Inbox.
 
 **Future, not built this weekend:**
 - **Proposal checker (P8):** before the lab applies for a new grant, checks

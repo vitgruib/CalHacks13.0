@@ -234,12 +234,13 @@ export const submit_request = spacetimedb.reducer(
     if (!(a.price > 0)) fail('Price must be more than $0.');
     if (a.grantId) getGrant(ctx, a.grantId);
     const id = nextId(ctx, 'rq', x => !!ctx.db.request.id.find(x));
+    const name = ctx.db.person.identity.find(ctx.sender)?.name ?? who;
     ctx.db.request.insert({
       id, day: today(ctx), requester: who, requestedBy: ctx.sender, item: a.item, category: a.category,
       price: a.price, grantId: a.grantId, chargedGrantId: undefined, sharedWith: a.sharedWith, split: [],
-      purpose: a.purpose, state: 'submitted', verdicts: [], explanation: '',
+      purpose: a.purpose, state: 'submitted', verdicts: [], explanation: '', requesterName: name,
     });
-    writeLog(ctx, who, `Asked to buy ${a.item} (${usd(a.price)})`, a.purpose || 'No purpose given.', { refId: id });
+    writeLog(ctx, who, `${name} asked to buy ${a.item} (${usd(a.price)})`, a.purpose || 'No purpose given.', { refId: id });
   }),
 );
 

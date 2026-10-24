@@ -28,7 +28,7 @@ export interface Seed {
   })[];
   flags: (Opt & { id: string; grantId: string; day: Day; kind: string; summary: string; open: boolean; raisedBy?: string })[];
   requests: (Opt & {
-    id: string; day: Day; requester: string; item: string; category: string; price: number;
+    id: string; day: Day; requester: string; requesterName?: string; item: string; category: string; price: number;
     grantId?: string | null; chargedGrantId?: string; sharedWith?: string[];
     split?: { grantId: string; share: number }[]; purpose: string; state: string;
     verdicts?: { rule: string; pass: boolean; detail: string; auditCase?: string }[]; explanation?: string;
@@ -128,6 +128,7 @@ export function loadSeed(ctx: Ctx, seed: Seed): void {
       grantId: opt(r.grantId), chargedGrantId: r.chargedGrantId,
       sharedWith: r.sharedWith ?? [], split: r.split ?? [], purpose: r.purpose,
       state: r.state, verdicts: (r.verdicts ?? []).map(v => ({ ...v, auditCase: v.auditCase })), explanation: r.explanation ?? '',
+      requesterName: r.requesterName ?? '',
     });
   }
   for (const o of seed.orders) {

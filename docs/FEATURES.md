@@ -126,6 +126,7 @@ stretch goals (only after the demo path works end to end).
 | S3 | Factory Droid writes new policy rules from recurring exceptions | `docs/TRACKS.md` |
 | S4 | Fetch.ai "why?" agent, Cartesia voice | `docs/TRACKS.md` |
 | S5 | Claude reads a pasted court notice or agency letter, works out which grant and what changed, and posts a status event | `docs/MASTER-PLAN.md` §3.1 |
+| S6 | Grant splits: the scientist states how a shared cost divides across the grants it serves (e.g. 60% A / 40% B) when submitting; the purchasing agent checks that split against the shared-cost rule instead of proposing one. Needs an optional `split` on `submit_request` (additive) and a split field in the web forms. Today the stated split only rides in the purpose text, so with Claude off a shared cost goes to the grant manager | `docs/MASTER-PLAN.md` §3.2, `TASKS.md` Requests (T35) |
 
 Nessie (a mock consumer bank) was a stretch goal for the earlier AP idea; it
 has no natural role in a grant office, so it isn't listed.

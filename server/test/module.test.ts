@@ -67,6 +67,18 @@ test('nobody approves their own request', () => {
   expect(() => call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'mine' })).toThrow(/own request/);
 });
 
+test('each request names the researcher who asked, and only they can push back on it', () => {
+  call('priya', mod.register_person, { role: 'scientist', name: 'Dr. Priya Nair' });
+  call('marcus', mod.register_person, { role: 'scientist', name: 'Marcus Webb' });
+  submit('priya', A, 7_000);
+  const rq = lastRequest();
+  expect(rq.requesterName).toBe('Dr. Priya Nair');
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: A, vendor: 'V', explanation: 'Over the card limit.' });
+  expect(() => call('marcus', mod.push_back, { requestId: rq.id, message: 'Needed for aim 3' })).toThrow(/person who asked/);
+  call('priya', mod.push_back, { requestId: rq.id, message: 'Needed for aim 3' });
+  expect(rows('log').some(l => l.refId === rq.id && l.action.startsWith('Dr. Priya Nair asked to buy'))).toBe(true);
+});
+
 test('the purchasing agent cannot buy over the card limit on its own', () => {
   submit('sci', 'R21AI182745', 5_001);
   const rq = lastRequest();

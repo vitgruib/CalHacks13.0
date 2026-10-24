@@ -1,0 +1,44 @@
+{
+  "task": "invoices.note",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-24T23:15:18.635Z",
+  "input": {
+    "finding": "The order was canceled on 2026-03-02, before this invoice arrived.",
+    "rule": "Invoice needs an open order and the approved amount",
+    "item": "Ceftazidime-avibactam reference powder",
+    "invoice": {
+      "id": "inv-030",
+      "vendor": "BioReagents Inc",
+      "amount": 2400,
+      "received": "2026-06-11"
+    },
+    "order": {
+      "id": "o-030",
+      "requestId": "rq-030",
+      "grantId": "R21AI182745",
+      "amount": 2400,
+      "changedAmount": null,
+      "placed": "2026-02-20",
+      "state": "canceled",
+      "canceledOn": "2026-03-02"
+    },
+    "approvals": [],
+    "timeline": [
+      {
+        "day": "2026-02-20",
+        "what": "Order placed ($2,400)"
+      },
+      {
+        "day": "2026-03-02",
+        "what": "Order canceled"
+      },
+      {
+        "day": "2026-06-11",
+        "what": "Invoice arrived for $2,400"
+      }
+    ]
+  },
+  "answer": {
+    "note": "Invoice inv-030 for $2,400 conflicts with order o-030, which was canceled before the invoice arrived, and no approval record exists for it. Before deciding, ask BioReagents Inc whether they received any cancellation notice for o-030 and whether they hold a valid order or approval reference for rq-030 under grant R21AI182745."
+  }
+}
