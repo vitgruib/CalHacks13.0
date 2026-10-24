@@ -24,7 +24,12 @@ posts the reading, the `canceled` status event and any `sources_disagree`
 flag itself, only when something changed. It reads either:
 
 - `scrapers/out/cancellations.json` (default; written by every local run), or
-- an Apify dataset, when `GG_APIFY_DATASET` (+ `APIFY_TOKEN`) is set.
+- the cloud copy: the latest successful run of the Actor, when
+  `GG_APIFY_ACTOR=nathanqiu~nih-grant-cancellation-list` (+ `APIFY_TOKEN`) is
+  set, or one pinned run with `GG_APIFY_DATASET`. The tracker asks for just
+  the four fields it reads (about 40 KB gzipped for the whole list),
+  downloads it once per check, and saves only `GG_LAB_GRANTS` in
+  `agents/cache/` for offline use.
 
 The tracker picks the rows up on its daily read, on "check now", and before
 money moves. It only looks up the lab's own grants.

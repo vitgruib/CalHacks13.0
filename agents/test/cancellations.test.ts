@@ -75,6 +75,38 @@ test('the_apify_token_is_sent_in_a_header_and_never_saved', async () => {
   assert.equal((await offline.read(TEST_GRANT))?.status, 'canceled', 'the saved copy serves the demo offline');
 });
 
+test('reads_only_the_needed_fields_of_the_actor_s_latest_run_once_per_check', async () => {
+  const urls: string[] = [];
+  const fetchImpl: typeof fetch = async (input) => {
+    urls.push(String(input));
+    return Response.json([
+      { grantId: TEST_GRANT, status: 'canceled', url: 'https://list.test/a' },
+      { grantId: 'R21AI000002', status: 'active', url: 'https://list.test/b' },
+    ]);
+  };
+  const source = createCancellationListSource({ actor: 'someone~cancellation-list', fetchImpl, cacheDir: scratch(), mode: 'live' });
+  assert.equal((await source.read(TEST_GRANT))?.status, 'canceled');
+  assert.equal((await source.read('R21AI000002'))?.status, 'active');
+  assert.equal(urls.length, 1, 'one download serves every grant in a check');
+  const url = new URL(urls[0]);
+  assert.equal(url.pathname, '/v2/acts/someone~cancellation-list/runs/last/dataset/items');
+  assert.equal(url.searchParams.get('status'), 'SUCCEEDED');
+  assert.equal(url.searchParams.get('fields'), 'grantId,status,url,listedOn');
+});
+
+test('the_saved_copy_keeps_only_the_lab_s_grants', async () => {
+  const cacheDir = scratch();
+  const fetchImpl: typeof fetch = async () =>
+    Response.json([
+      { grantId: TEST_GRANT, status: 'canceled', url: 'https://list.test/a' },
+      { grantId: 'R01GM000009', status: 'canceled', url: 'https://list.test/other-lab' },
+    ]);
+  await createCancellationListSource({ actor: 'someone~list', grants: [TEST_GRANT], fetchImpl, cacheDir, mode: 'live' }).read(TEST_GRANT);
+  const saved = readdirSync(cacheDir).map((name) => readFileSync(join(cacheDir, name), 'utf8')).join('\n');
+  assert.match(saved, /list\.test\/a/);
+  assert.doesNotMatch(saved, /other-lab/);
+});
+
 test('the_scraper_s_cancellation_disagreeing_with_reporter_raises_a_flag', async () => {
   const reporter: SourceClient = {
     source: 'NIH RePORTER',

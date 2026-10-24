@@ -8,8 +8,14 @@
 // mapped to ours. A grant that isn't on the list gets no reading: absence
 // says nothing either way.
 //
-// GG_APIFY_DATASET (+ APIFY_TOKEN): read that Apify dataset, cached like the
-//   government sites (the token goes in a header, never in agents/cache/).
+// GG_APIFY_ACTOR (+ APIFY_TOKEN), e.g. nathanqiu~nih-grant-cancellation-list:
+//   read the latest successful run of that Actor, so a scheduled run keeps it
+//   fresh. GG_APIFY_DATASET instead pins one run's dataset. Either is cached
+//   like the government sites (the token goes in a header, never in
+//   agents/cache/), asks only for the fields read here (~40 KB gzipped for the
+//   whole list), and is downloaded once per check, not once per grant.
+// GG_LAB_GRANTS (comma-separated): the saved copy keeps only these grants, so
+//   agents/cache/ doesn't hold the whole list.
 // GG_CANCELLATIONS_FILE: read a local file instead (default
 //   scrapers/out/cancellations.json; no file means no readings).
 
@@ -64,7 +70,9 @@ export function parseList(raw: unknown): ListedGrant[] {
 }
 
 export interface CancellationListOptions {
+  actor?: string;
   dataset?: string;
+  grants?: string[];
   token?: string;
   file?: string;
   fetchImpl?: typeof fetch;
@@ -74,21 +82,43 @@ export interface CancellationListOptions {
 
 export function createCancellationListSource(options: CancellationListOptions = {}): SourceClient {
   const dataset = options.dataset ?? process.env.GG_APIFY_DATASET;
+  const actor = options.actor ?? process.env.GG_APIFY_ACTOR;
   const token = options.token ?? process.env.APIFY_TOKEN;
   const file = options.file ?? process.env.GG_CANCELLATIONS_FILE ?? DEFAULT_FILE;
+  const grantList = options.grants ?? process.env.GG_LAB_GRANTS?.split(',');
+  const lab = grantList ? new Set(grantList.map((id) => grantIdOf(id.trim())).filter((id) => id !== null)) : null;
+
+  const items = dataset
+    ? `datasets/${encodeURIComponent(dataset)}/items?`
+    : actor
+      ? `acts/${encodeURIComponent(actor)}/runs/last/dataset/items?status=SUCCEEDED&`
+      : null;
+
+  // A check reads every grant within moments; the list changes at most daily.
+  const FRESH_MS = 10 * 60_000;
+  let loaded: { at: number; rows: Promise<ListedGrant[]> } | undefined;
+
+  async function fetchList(): Promise<ListedGrant[]> {
+    const url = `https://api.apify.com/v2/${items}clean=true&format=json&fields=grantId,status,url,listedOn`;
+    const raw = await fetchJson(url, {
+      fetchImpl: options.fetchImpl,
+      cacheDir: options.cacheDir,
+      mode: options.mode,
+      headers: token ? { authorization: `Bearer ${token}` } : {},
+      // Saved without anything the tracker doesn't read.
+      select: (json) => parseList(json).filter((row) => !lab || lab.has(row.grantId)),
+    });
+    return parseList(raw);
+  }
 
   async function load(): Promise<ListedGrant[]> {
-    if (dataset) {
-      const url = `https://api.apify.com/v2/datasets/${encodeURIComponent(dataset)}/items?clean=true&format=json`;
-      const raw = await fetchJson(url, {
-        fetchImpl: options.fetchImpl,
-        cacheDir: options.cacheDir,
-        mode: options.mode,
-        headers: token ? { authorization: `Bearer ${token}` } : {},
-        // Saved without anything the tracker doesn't read.
-        select: (json) => parseList(json),
-      });
-      return parseList(raw);
+    if (items) {
+      if (!loaded || Date.now() - loaded.at > FRESH_MS) {
+        const rows = fetchList();
+        loaded = { at: Date.now(), rows };
+        rows.catch(() => (loaded = undefined)); // a failed download isn't remembered
+      }
+      return loaded.rows;
     }
     let text: string;
     try {
