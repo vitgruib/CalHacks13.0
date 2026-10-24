@@ -55,12 +55,11 @@ core works without, so cutting it costs nothing.
 | Track | Prize | Rules | Our possible fit | Concerns |
 | --- | --- | --- | --- | --- |
 | **Bright Data: Best Use of Public Web Data in an App** | 1st $1.5k credits + $500 Amazon; 2nd $1k + $350; 3rd $500 + $250 | Live public web data must be **essential**: remove it and the product stops working. Must run live in the demo and handle blocks, slow responses and empty results. Extra credit for picking and combining the right Bright Data tools, with a 2-min story using real results. **Disqualified for:** scraping behind a login or paywall, collecting non-public personal data, **mocked or hardcoded data in the demo**, or a README-only mention. Hackpack: github.com/ScrapeAlchemist/public-data-hackpack. $300 credits via promo. DevRel at their table. | Counterparty vetting against the live web: check that a bank-change request matches the vendor's real public site and contacts; watch for news of a customer's distress (closures, layoffs, lawsuits) and cut their credit limit. | Our counterparties would have to be **real public companies**, while the rest of our world (ledger, CRS test identities) is simulated. Live scraping adds demo-day failure risk. It does the same job as **Apify**, so pick at most one. |
+| **Creao: AI-First Disruptor / Team Empowerment** | $2,500 / $1,000 cash + CREAO Launchpad (1 yr Pro Max, mentorship, interviews) | **At least one CREAO agent, built on agent.creao.ai, must do the core work.** Put the agent ID + a run share link in the Devpost README and select the CREAO track. (One-Person Company, $1,500, is already cut.) Starter pack: community.creao.ai/CalHacks2026. | Team Empowerment theme ("AI that makes people work better together") matches our multi-seat handoffs. | The core work would run on *their* platform, which competes with Claude doing the core work (Anthropic track) and with permissions enforced in our own backend (Hyphenate). **Leaning cut.** |
 
 ### Waiting on docs (check the Live Site at kickoff)
 
-Armadin (Security), Elastic,
-Convex, Creao (AI-First Disruptor / Team Empowerment,
-likely require their platform).
+Armadin (Security), Elastic, Convex.
 
 ### Eliminated (don't spend time on these)
 
