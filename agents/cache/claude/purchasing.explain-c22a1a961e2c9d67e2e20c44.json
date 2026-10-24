@@ -1,0 +1,44 @@
+{
+  "task": "purchasing.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:44:03.227Z",
+  "input": {
+    "request": {
+      "id": "rq-107",
+      "item": "Proteomics core: 10 hours of mass spec",
+      "category": "core facility services",
+      "price": 1800,
+      "purpose": "Samples from both projects: 6 hours for R01GM000001, 4 hours for R21AI000002"
+    },
+    "action": "hold",
+    "grantId": "R01GM000001",
+    "split": [
+      {
+        "grantId": "R01GM000001",
+        "percent": 60
+      },
+      {
+        "grantId": "R21AI000002",
+        "percent": 40
+      }
+    ],
+    "failed": [
+      {
+        "rule": "Grant is active and not frozen (R01GM000001)",
+        "detail": "Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen."
+      }
+    ],
+    "passed": [
+      "Enough truly available money (R01GM000001)",
+      "Grant is active and not frozen (R21AI000002)",
+      "Enough truly available money (R21AI000002)",
+      "Category allowed",
+      "Under the card limit ($5,000)",
+      "Shared cost split across the grants it serves"
+    ],
+    "next": "Every other rule passes, so it will be bought automatically once R01GM000001 unfreezes."
+  },
+  "answer": {
+    "explanation": "The $1,800 proteomics core purchase (60% R01GM000001, 40% R21AI000002) was held for the grant manager. It failed the rule \"Grant is active and not frozen (R01GM000001)\": the grant was canceled 2026-03-10 and a court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. Every other rule passes, so it will be bought automatically once R01GM000001 unfreezes."
+  }
+}

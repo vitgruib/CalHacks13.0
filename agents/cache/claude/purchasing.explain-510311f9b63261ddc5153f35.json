@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:43:46.978Z",
+  "input": {
+    "request": {
+      "id": "rq-103",
+      "item": "Espresso machine for the lab",
+      "category": "general office",
+      "price": 890,
+      "purpose": "Lab morale during the final push"
+    },
+    "action": "block",
+    "grantId": "R21AI000002",
+    "split": [],
+    "failed": [
+      {
+        "rule": "Category allowed",
+        "detail": "general office is not an allowable direct cost on a federal grant.",
+        "auditCase": "NSF OIG audit of UC Davis: unallowable items charged to awards"
+      }
+    ],
+    "passed": [
+      "Grant is active and not frozen",
+      "Enough truly available money",
+      "Under the card limit ($5,000)"
+    ],
+    "next": "It cannot be charged to a federal grant."
+  },
+  "answer": {
+    "explanation": "The $890 espresso machine request (rq-103) was blocked on grant R21AI000002. It failed the Category allowed rule: general office is not an allowable direct cost on a federal grant, a problem seen in the NSF OIG audit of UC Davis: unallowable items charged to awards. It cannot be charged to a federal grant."
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "task": "purchasing.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:43:43.521Z",
+  "input": {
+    "request": {
+      "id": "rq-102",
+      "item": "Agar plates, 40 packs",
+      "category": "lab supplies",
+      "price": 1180,
+      "purpose": "Assay validation runs before the grant ends"
+    },
+    "action": "block",
+    "grantId": "R21AI000002",
+    "split": [],
+    "failed": [
+      {
+        "rule": "Not in the grant's last 90 days",
+        "detail": "R21AI000002 ends 2026-08-01, 47 days away.",
+        "auditCase": "NSF OIG audits of WVU and Delaware: supplies bought in a grant's last months were disallowed"
+      }
+    ],
+    "passed": [
+      "Grant is active and not frozen",
+      "Enough truly available money",
+      "Category allowed",
+      "Under the card limit ($5,000)"
+    ],
+    "next": "R01GM000001 has the time and money for it but is frozen, so it will be rerouted there once R01GM000001 unfreezes."
+  },
+  "answer": {
+    "explanation": "The $1,180 purchase of agar plates was blocked on grant R21AI000002 because it failed the rule \"Not in the grant's last 90 days\": R21AI000002 ends 2026-08-01, 47 days away, and NSF OIG audits of WVU and Delaware disallowed supplies bought in a grant's last months. Next, R01GM000001 has the time and money for it but is frozen, so it will be rerouted there once R01GM000001 unfreezes."
+  }
+}

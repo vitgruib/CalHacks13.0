@@ -1,0 +1,79 @@
+{
+  "task": "payment_request.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:43:41.621Z",
+  "input": {
+    "grant": {
+      "id": "R21AI000002",
+      "title": "Rapid antimicrobial susceptibility assay",
+      "agency": "NIH / NIAID"
+    },
+    "period": {
+      "from": "2026-05-01",
+      "to": "2026-05-31"
+    },
+    "total": "$7,060",
+    "personnelTotal": "$5,130",
+    "personnel": [
+      {
+        "role": "Research technician",
+        "effort": "60%",
+        "amount": "$2,880",
+        "payPeriods": 1
+      },
+      {
+        "role": "Graduate researcher",
+        "effort": "50%",
+        "amount": "$2,250",
+        "payPeriods": 1
+      }
+    ],
+    "categories": [
+      {
+        "category": "equipment service",
+        "subtotal": "$1,290",
+        "purchases": [
+          {
+            "requestId": "rq-036",
+            "item": "Ultra-low freezer service contract",
+            "aim": "Keeping isolate stocks at -80 C",
+            "vendor": "CoolChain",
+            "ordered": "2026-05-01",
+            "amount": "$1,290",
+            "changedFrom": "$1,150"
+          }
+        ]
+      },
+      {
+        "category": "core facility services",
+        "subtotal": "$640",
+        "purchases": [
+          {
+            "requestId": "rq-038",
+            "item": "Genomics core: sequencing run for 24 isolates",
+            "aim": "Confirming resistance genes",
+            "vendor": "Campus Genomics Core",
+            "ordered": "2026-05-20",
+            "amount": "$640"
+          }
+        ]
+      }
+    ],
+    "leftOut": [
+      {
+        "requestId": "rq-037",
+        "item": "Mueller-Hinton broth, 12 bottles",
+        "amount": "$1,460",
+        "why": "invoice inv-037 is on hold (Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460))"
+      }
+    ],
+    "rule": "Held spending is left out",
+    "limits": {
+      "total": 1000
+    }
+  },
+  "answer": {
+    "claimed": "The lab requests repayment under NIH/NIAID grant R21AI000002, Rapid antimicrobial susceptibility assay, for 2026-05-01 to 2026-05-31, totaling $7,060. Personnel, $5,130: a research technician at 60% effort ($2,880, 1 pay period) and a graduate researcher at 50% effort ($2,250, 1 pay period). Equipment service, $1,290: rq-036, ultra-low freezer service contract, $1,290, keeping isolate stocks at -80 C. Core facility services, $640: rq-038, genomics core sequencing run for 24 isolates, $640, confirming resistance genes.",
+    "leftOut": "Under the rule that held spending is left out, rq-037 (Mueller-Hinton broth, 12 bottles, $1,460) is excluded because invoice inv-037 is on hold: it billed for 24 bottles ($2,920) but the order was for 12 bottles ($1,460)."
+  }
+}

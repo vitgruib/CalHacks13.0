@@ -1,0 +1,23 @@
+{
+  "task": "report-checker.correction",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:43:38.249Z",
+  "input": {
+    "paper": {
+      "doi": "10.5555/gg.2025.0004",
+      "title": "Folding kinetics of OmpF under osmotic stress"
+    },
+    "notices": [
+      {
+        "kind": "correction",
+        "date": "2026-03-02",
+        "title": "the Figure 3 rate constants were re-measured; the folding rate changes by about 40% and one conclusion in the abstract is revised.",
+        "source": "Crossref"
+      }
+    ]
+  },
+  "answer": {
+    "kind": "material",
+    "reason": "The notice title states that the Figure 3 rate constants were re-measured, the folding rate changes by about 40%, and an abstract conclusion is revised, so data, a figure and a conclusion all change."
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "task": "invoices.note",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:43:37.868Z",
+  "input": {
+    "finding": "Invoice is $6,200 but the approved amount is $5,800.",
+    "rule": "Invoice needs an open order and the approved amount",
+    "item": "Orbital plate shaker",
+    "invoice": {
+      "id": "inv-034",
+      "vendor": "SpinWorks",
+      "amount": 6200,
+      "received": "2026-06-09"
+    },
+    "order": {
+      "id": "o-034",
+      "requestId": "rq-034",
+      "grantId": "R21AI000002",
+      "amount": 6200,
+      "changedAmount": null,
+      "placed": "2026-04-22",
+      "state": "open",
+      "canceledOn": null
+    },
+    "approvals": [
+      {
+        "id": "ap-034",
+        "amount": 5800,
+        "by": "grant_manager",
+        "day": "2026-04-21"
+      }
+    ],
+    "timeline": [
+      {
+        "day": "2026-04-21",
+        "what": "Change to $5,800 approved by the grant manager"
+      },
+      {
+        "day": "2026-04-22",
+        "what": "Order placed ($6,200)"
+      },
+      {
+        "day": "2026-06-09",
+        "what": "Invoice arrived for $6,200"
+      }
+    ]
+  },
+  "answer": {
+    "note": "Invoice inv-034 and order o-034 both show $6,200, while approval ap-034 (2026-04-21) covers $5,800 and the order was placed the next day with no changed amount recorded. Look for any later approval or written change request tied to rq-034 that covers $6,200. Also ask SpinWorks whether a revised quote or price change exists for the shaker."
+  }
+}

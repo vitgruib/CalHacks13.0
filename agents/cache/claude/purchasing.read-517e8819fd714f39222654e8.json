@@ -1,0 +1,39 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:43:45.209Z",
+  "input": {
+    "request": {
+      "item": "Espresso machine for the lab",
+      "category": "general office",
+      "price": 890,
+      "purpose": "Lab morale during the final push",
+      "askedForGrant": "R21AI000002",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM000001",
+        "title": "Protein folding dynamics in bacterial membranes",
+        "end": "2027-12-31"
+      },
+      {
+        "id": "R21AI000002",
+        "title": "Rapid antimicrobial susceptibility assay",
+        "end": "2026-08-01"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R21AI000002",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R21AI000002"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist asked for R21AI000002; purpose is general lab morale with no second grant named and no proportions stated."
+  }
+}

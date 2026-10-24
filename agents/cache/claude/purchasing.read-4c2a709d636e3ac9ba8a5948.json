@@ -1,0 +1,40 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:43:48.549Z",
+  "input": {
+    "request": {
+      "item": "Confocal microscope service contract, 12 months",
+      "category": "equipment service",
+      "price": 3600,
+      "purpose": "Annual service of the shared confocal microscope; imaging for both R01GM000001 (membrane folding) and R21AI000002 (assay imaging)",
+      "askedForGrant": "R01GM000001",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM000001",
+        "title": "Protein folding dynamics in bacterial membranes",
+        "end": "2027-12-31"
+      },
+      {
+        "id": "R21AI000002",
+        "title": "Rapid antimicrobial susceptibility assay",
+        "end": "2026-08-01"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R01GM000001",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R01GM000001",
+      "R21AI000002"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist asked for R01GM000001; purpose names both grants as users of the confocal, but no proportions were stated so no split is given."
+  }
+}

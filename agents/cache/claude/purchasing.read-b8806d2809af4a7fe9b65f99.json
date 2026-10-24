@@ -1,0 +1,39 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T08:43:52.325Z",
+  "input": {
+    "request": {
+      "item": "Peristaltic pump with controller",
+      "category": "equipment",
+      "price": 6850,
+      "purpose": "Continuous-flow folding experiments, aim 3",
+      "askedForGrant": "R01GM000001",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM000001",
+        "title": "Protein folding dynamics in bacterial membranes",
+        "end": "2027-12-31"
+      },
+      {
+        "id": "R21AI000002",
+        "title": "Rapid antimicrobial susceptibility assay",
+        "end": "2026-08-01"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R01GM000001",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R01GM000001"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist requested R01GM000001 and the purpose (folding experiments) matches its work; no sharing or split stated."
+  }
+}
