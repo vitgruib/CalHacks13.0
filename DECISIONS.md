@@ -20,3 +20,5 @@ changes, cut features. Newest at the bottom.
 - Fri @ethan — **Apify kept**, Bright Data cut. — Apify has more placing prizes (5 + Best Actor vs 3) and no anti-mock DQ
 - Fri @ethan — **Microsoft kept** (2 placing awards, no Azure requirement, criteria overlap Hyphenate). — fits the win-anything priority at ~zero extra build
 - Fri @ethan — **Nessie is a stretch goal**, behind a bank-feed adapter. — the core ships with our own simulated bank feed; Nessie swaps in once the demo path works
+- Fri @ethan — **Fetch.ai is a conditional stretch goal** (one Agentverse uAgent that answers "why?" from SpacetimeDB), only if the hackpack allows a light build. — team decision
+- Fri @ethan — Armadin (Security) and Elastic cut. — team decision

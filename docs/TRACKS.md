@@ -47,17 +47,8 @@ core works without, so cutting it costs nothing.
 | --- | --- | --- | --- |
 | **Factory Droid SDK** | $2,000 + credits | Droid (Factory's agent harness, headless via the TS/Python SDK) is an automated **finance-systems seat**. When a class of exceptions recurs, Droid writes a new matching/policy rule as a diff; the controller approves; the rule ships. That's Hyphenate's "automated colleague". Track rules: real work in the running product, a trigger we designed, scoped permissions, visible plans/diffs. **The README must explain where and how Droid is used.** | `FACTORY_API_KEY`, `droid` CLI |
 | **Capital One Nessie: Best Use of the Nessie API** | $300 Giftogram/person (number of winners unconfirmed) | Capital One's mock bank API, relaunched at **nessieisreal.com** (log in with GitHub to get a key and see `/docs`, `/sdk`, `/examples`; API host `prod-api.nessieisreal.com`). Resources (from their SDKs; confirm in the new docs): customers, accounts, **bills**, **transfers**, **deposits**, withdrawals, **purchases**, **merchants**, ATMs, branches. Map for us: our company = a Nessie customer with checking/savings; vendors = merchants; AP payments = bills/transfers; customer payments = deposits; card spend = purchases. Nessie is the **bank feed**, the source that disagrees with our SpacetimeDB ledger. Build only after the core demo path works; until then the core uses our own simulated bank feed behind the same adapter. | Low: one integration-lane adapter. Risks: it's consumer-shaped (no business accounts, so we label the mapping), a shared sandbox can be slow or down, so record fixtures and keep a stub fallback. Show live calls in the demo where it's safe. |
+| **Fetch.ai** (conditional) | $1,250 / $750 / $500 + internship interview; two $250 special prizes | One Python uAgent, e.g. "ask our finance team", registered on Agentverse and chat-enabled for ASI:One. It reads from SpacetimeDB and answers "why?" questions with evidence. The core never depends on it. **Only if the hackpack's rules allow this light build**; if it requires their model or several Fetch agents, cut it. | Hackpack/booth check, Agentverse account, ~3–4 h for one person |
 | **Cartesia** (voice) | Meta glasses (TBD) | Voice must be core for this track, so only do it if a voice surface clearly helps. E.g. the controller questions a decision out loud and the agent defends it from the audit trail. Track rules: 2-min demo-first pitch; README with setup, Cartesia features used, known limitations; no keys in repo. | Cartesia API key |
-
-### Undecided
-
-| Track | Prize | Rules | Our possible fit | Concerns |
-| --- | --- | --- | --- | --- |
-| **Fetch.ai** | $1,250 / $750 / $500 + internship interview; two $250 special prizes | Agent platform: Agentverse (directory + hosting for agents), ASI:One (their LLM/assistant that discovers agents), uAgents framework. The event page lists **no eligibility or judging rules**; they're in the hackpack. | Weak: our seats would have to become Fetch agents. | A second agent framework alongside our own. |
-
-### Waiting on docs (check the Live Site at kickoff)
-
-Armadin (Security), Elastic.
 
 ### Eliminated (don't spend time on these)
 
@@ -74,4 +65,5 @@ Armadin (Security), Elastic.
 | Convex | $5k but **one winner only**, and a crowded track. Lost the backend decision to SpacetimeDB (3 places); only one backend can be core |
 | Atlassian Agentic Workforce | Team decision: out (Forge app is a separate build) |
 | Bright Data | Fewer prizes than Apify (3 vs 5 + Best Actor) and DQs mocked demo data |
+| Armadin (Security), Elastic | Team decision: cut |
 | Coinbase x402 | Team decision: cut (crypto rails off our finance story, extra deliverables) |
