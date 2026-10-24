@@ -118,3 +118,16 @@ test('a held invoice goes to the Inbox; a matched one is paid and moves money fr
   expect(db().invoice.id.find(bad.id).state).toBe('held');
   expect(rows('hold').some(x => x.refId === bad.id && x.open)).toBe(true);
 });
+
+test('same-day grant events apply in the order they happened', () => {
+  const B = 'R21AI000002'; // fixtures: active
+  const event = (kind: string, amount?: number) =>
+    call('gm', mod.inject_status_event, { grantId: B, kind, source: 'Payment system', summary: kind, amount });
+  for (let i = 0; i < 3; i++) {
+    event('payment_received', 1_000);
+    event('canceled');
+    expect(db().grant.id.find(B)).toMatchObject({ status: 'canceled', frozen: true });
+    event('payment_received', 1_000);
+    expect(db().grant.id.find(B)).toMatchObject({ status: 'active', frozen: false });
+  }
+});

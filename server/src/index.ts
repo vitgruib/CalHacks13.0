@@ -118,7 +118,9 @@ function getGrant(ctx: Ctx, id: string) {
  */
 function recomputeGrant(ctx: Ctx, id: string, actor = 'system'): void {
   const g = getGrant(ctx, id);
-  const events = [...ctx.db.statusEvent.grantId.filter(id)];
+  // Index order is not insertion order; ids only grow, so sort by id to
+  // replay same-day events in the order they happened.
+  const events = [...ctx.db.statusEvent.grantId.filter(id)].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const disagree = [...ctx.db.flag.grantId.filter(id)].some(f => f.open && f.kind === 'sources_disagree');
   const ended = g.status === 'ended' || today(ctx) > g.end;
   const fs = freezeState(ended ? 'ended' : 'active', events, disagree);
