@@ -1,0 +1,48 @@
+# Publish the server module to maincloud (`grantguard`) whenever `main`
+# changes it, so the hosted database never lags the web app Vercel builds
+# from the same commit (T25). Runs the server check first; a red check or a
+# schema change maincloud can't migrate without wiping data fails the run
+# and leaves the old module live (wipe by hand: deploy/publish-module.sh --reset).
+# Needs the repo secret SPACETIMEDB_TOKEN: the token of the identity that owns
+# the database (`spacetimedb_token` in ~/.config/spacetime/cli.toml).
+name: Publish module
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+      - 'deploy/publish-module.sh'
+      - '.github/workflows/publish-module.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: publish-module
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci
+        working-directory: server
+      - run: npm run check
+        working-directory: server
+      - name: Install SpacetimeDB CLI 2.13.0
+        run: |
+          curl -sSf https://install.spacetimedb.com | sh -s -- --yes
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/spacetime" version install 2.13.0 --use --yes
+      - name: Log in
+        env:
+          SPACETIMEDB_TOKEN: ${{ secrets.SPACETIMEDB_TOKEN }}
+        run: |
+          [ -n "$SPACETIMEDB_TOKEN" ] || { echo "::error::Add the SPACETIMEDB_TOKEN repo secret"; exit 1; }
+          spacetime login --token "$SPACETIMEDB_TOKEN"
+      - run: deploy/publish-module.sh
