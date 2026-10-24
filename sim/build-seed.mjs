@@ -21,6 +21,8 @@ const addDays = (day, n) => {
   return d.toISOString().slice(0, 10)
 }
 const money = n => `$${n.toLocaleString('en-US')}`
+// The two researchers with their own portal (T39): each asks for their own grant's work.
+const researcherFor = grantId => (grantId === B ? 'Sofia Alvarez' : 'Dr. Priya Nair')
 const pad = (n, w = 3) => String(n).padStart(w, '0')
 
 const grantMeta = {
@@ -110,14 +112,14 @@ background.forEach(([grantId, day, item, vendor, category, price, purpose], i) =
   const overLimit = price > 5_000
   const split = n === 11 ? [{ grantId: A, share: 0.5 }, { grantId: B, share: 0.5 }] : undefined
   db.requests.push({
-    id, day, requester: 'scientist', item, category, price, grantId, ...(split ? { split } : {}), purpose,
+    id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, ...(split ? { split } : {}), purpose,
     state: 'bought', verdicts: passVerdicts(price, category),
     explanation: overLimit
       ? `Over the $5,000 card limit, so I paused it for the grant manager, who approved it at ${money(price)}. Then I ordered it.`
       : split ? 'Every rule passed. A shared cost, so I split it 50/50 by the hours each project used.'
         : 'Every rule passed and it is under the card limit, so I bought it.',
   })
-  log(day, 'scientist', `Submitted request: ${item}`, purpose, id)
+  log(day, 'scientist', `${researcherFor(grantId)} asked to buy ${item} (${money(price)})`, purpose, id)
 
   let placed = day
   if (overLimit) {
@@ -211,7 +213,7 @@ background.forEach(([grantId, day, item, vendor, category, price, purpose], i) =
 // PLANTED (fund tracker): a purchase while the grant was canceled. Charged on
 // the department card outside GrantGuard; arrives through the university ledger.
 db.requests.push({
-  id: 'rq-050', day: '2026-03-18', requester: 'scientist', item: 'DDM detergent, 5 g', category: 'reagents', price: 890, grantId: A,
+  id: 'rq-050', day: '2026-03-18', requester: 'scientist', requesterName: 'Dr. Priya Nair', item: 'DDM detergent, 5 g', category: 'reagents', price: 890, grantId: A,
   purpose: 'Solubilizing outer membrane proteins', state: 'bought', verdicts: [],
   explanation: 'Charged directly on the department purchasing card on 2026-03-18, outside GrantGuard. Imported from the university ledger.',
 })
@@ -231,8 +233,8 @@ const raw = [
   ['rq-107', '2026-06-12', 'Proteomics core: 10 hours of mass spec', 'core facility services', 1_800, A, [{ grantId: A, share: 0.6 }, { grantId: B, share: 0.4 }], `Samples from both projects: 6 hours for ${A}, 4 hours for ${B}`],
 ]
 for (const [id, day, item, category, price, grantId, split, purpose] of raw) {
-  db.requests.push({ id, day, requester: 'scientist', item, category, price, grantId, ...(split ? { split } : {}), purpose, state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' })
-  log(day, 'scientist', `Submitted request: ${item}`, purpose, id)
+  db.requests.push({ id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, ...(split ? { split } : {}), purpose, state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' })
+  log(day, 'scientist', `${researcherFor(grantId)} asked to buy ${item} (${money(price)})`, purpose, id)
 }
 
 // ---------------------------------------------------------------------------
