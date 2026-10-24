@@ -1,0 +1,77 @@
+                        Payment Management System Changes
+Background
+The U.S. Department of Labor (DOL) uses the U.S. Department of Health and Human Services (HHS)
+Payment Management System (PMS) to disburse funds to its grant recipients. A grant recipient submits a
+payment request to PMS which is approved or rejected by PMS staff based on grant recipient’s payment
+history, authorized grant amount and remaining balances.
+Starting on March 17, 2025, grant recipients are required to submit a justification with each payment
+request submitted to PMS.
+PMS has created a new mandatory field on the payment request screen that requires for grant recipients to
+provide a brief justification for each payment request submitted for approval. This new field is part of the
+implementation of section 3 of Executive Order (EO) 14222 — Implementing the President's
+"Department of Government Efficiency" Cost Efficiency Initiative, which requires a brief, written
+justification for each payment be submitted by the agency employee who approved the payment. The
+grant recipient justification will help inform the agency employee justification of the payment.
+The process and technologies to fully comply with the EO requirements are still under development. In
+the interim, the following list of questions and answers have been developed to provide initial guidance to
+grant recipients on this new PMS process. This document may be periodically updated to provide
+additional answers to questions received in the future.
+
+
+
+                                 Frequently Asked Questions
+Notification of Change/Effective Date
+
+Has HHS/PMS notified all grant recipients of the payment request justification requirement?
+Yes. On March 14, 2025, PMS issued an email alert to all users introducing the new mandatory field in
+the payment request screen at the subaccount level to capture a justification from the grant recipient
+explaining the purpose of the payment.
+When is the new requirement effective?
+Immediately. Per the PMS email alert, the mandatory field for the payment request justification went live
+on Monday, March 17, 2025.
+
+How to Comply with the Justification Requirement/Associated Training
+
+What should grant recipients provide in the justification?
+Please refer to the PMS email alert for examples of justifications.
+Payment justifications should describe the reason for the request for payment. At a minimum, the grant
+recipient should provide information on the main budget item that the payment request is for along with
+the date range (i.e., This payment request is to cover salary expense and equipment for the week ending
+3/14/25). Please note, the field to capture the payment justification in PMS is limited to 1,000 characters.
+Will PMS offer training specific to the new payment justification requirement?
+No. To date, PMS has no plans to offer training specific to the payment request justification requirement.
+However, PMS continues to offer monthly recipient training. To register for training, recipients should
+visit the PMS website for available training dates: Grant Recipient Training | HHS PSC FMP Payment
+Management Services.
+Will DOL offer training specific to the new payment justification requirement?
+Please contact your Federal Project Officer (FPO) or designated DOL contact for technical assistance on
+this requirement. If DOL identifies a widespread need for technical assistance, training sessions will be
+scheduled in the future.
+
+Justification Requirement Applicability
+
+Can grant recipient payment requests be processed without a justification?
+No. The new payment justification field is mandatory. PMS will not process any payment requests
+without a justification. Payment requests submitted to PMS without a justification will be rejected.
+Does this new requirement affect grant recipients on drawdown restriction?
+Yes. Grant recipients that are on drawdown restriction need to comply with the new payment justification
+requirement just like all other grant recipients. However, they should continue to work with their
+designated FPO or DOL staff and follow existing procedures to submit documentation supporting the
+payment request for pre-approval. Once DOL approval is received, grant recipients can then submit their
+payment request into PMS with appropriate justification.
+
+Post-Justification Submission
+
+How much time can a grant recipient expect to elapse between when a justification is submitted and
+when the funds will be released by PMS?
+PMS has not informed DOL regarding a delay or any other impact with the disbursement of funds due to
+the implementation of this new requirement. Currently, grant recipients can expect to have the same
+turnaround times to access their funds in PMS once the required justification has been submitted.
+
+Will PMS notify DOL staff when a payment request is rejected?
+No. PMS will continue to follow its existing operating procedures. When a payment request is rejected,
+PMS will notify the grant recipient and provide a reason for the rejection.
+PMS does not send the notification of a payment rejection to awarding agencies; therefore, grant
+recipients are requested to contact the FPO or designated DOL staff if they need technical assistance or to
+report on issues with PMS.
+

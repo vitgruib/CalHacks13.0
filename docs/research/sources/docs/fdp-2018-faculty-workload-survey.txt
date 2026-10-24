@@ -1,0 +1,2541 @@
+FEDERAL DEMONSTRATION PARTNERSHIP (FDP)
+
+
+
+
+    2018 Faculty Workload Survey
+
+    RESEARCH REPORT: Primary Findings
+
+
+
+
+                           Prepared by
+
+       Sandra L. Schneider (Principal Investigator), etc.
+
+
+                  University of South Florida
+
+
+
+
+       © Copyright FDP Foundation, 2020. All rights reserved.
+                                       2018 FDP Faculty Workload Survey: Report of Primary Findings / 1
+
+
+                                                        Table of Contents
+Executive Summary ........................................................................................................................ 3
+Overview ......................................................................................................................................... 8
+    Study Description and Rationale ................................................................................................ 8
+    Background ................................................................................................................................ 8
+    Method...................................................................................................................................... 11
+        Participants ........................................................................................................................... 11
+        Design and Procedure .......................................................................................................... 13
+Respondent Characteristics ........................................................................................................... 14
+    Institution Characteristics ......................................................................................................... 14
+    Individual Characteristics ......................................................................................................... 15
+Time Lost from Federally-Funded Research ................................................................................ 17
+    Difference Across Surveys in Estimates of Time Lost ............................................................ 17
+    Check on Percent of Time Measure ......................................................................................... 18
+    Effect Size of Difference in Time Lost Estimates .................................................................... 19
+Time Spent on Requirements Associated with Federally-Funded Research ................................ 21
+    Proposal Preparation and Report Writing ................................................................................ 22
+    Pre-award and Post-award Administration............................................................................... 25
+        General Research Administration Responsibilities ............................................................. 27
+        Compliance Responsibilities ................................................................................................ 34
+        Safety and Security Responsibilities.................................................................................... 40
+        Summary .............................................................................................................................. 42
+Federal Agency Requirements for Grants and Contracts ............................................................. 44
+    Proposal Preparation and Related Pre-Award Responsibilities ............................................... 44
+    Report Preparation and Related Post-Award Responsibilities ................................................. 45
+Perceptions of the Climate for Research ....................................................................................... 47
+    Institution Priority on Research ................................................................................................ 47
+    Outlook on Research Career..................................................................................................... 48
+    Institution Effectiveness in Alleviating Administrative Workload .......................................... 49
+    Institution Research Culture ..................................................................................................... 50
+Conclusions ................................................................................................................................... 52
+
+
+                              © Copyright FDP Foundation, 2020. All rights reserved.
+                                       2018 FDP Faculty Workload Survey: Report of Primary Findings / 2
+
+References ..................................................................................................................................... 54
+
+
+
+
+Disclaimers:
+
+Views expressed herein are not necessarily those of the FDP member organizations, GUIRR, or the
+National Academies. Responsibility for the content of this publication rests entirely with the author.
+
+
+
+
+                              © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 3
+
+
+                                    Executive Summary
+
+The Federal Demonstration Partnership (FDP; Phase VI) is a cooperative initiative among 10
+federal agencies and 154 institutional recipients of federal funds, convened by the National
+Academies and its Government-University-Industry Research Roundtable, with a purpose of
+reducing administrative burdens associated with federal research grants and contracts. In
+early 2018, the FDP conducted a survey of principal investigators (PIs) of federally-funded
+projects to gather empirical evidence to inform efforts to help streamline the research process.
+The goal of the survey was to determine researcher perceptions of the amount of time taken from
+active research by the various administrative and related requirements associated with federally-
+funded research. This was a follow-up survey to the 2005 and 2012 FDP Faculty Workload
+Surveys of federally-funded investigators (see Decker et al., 2007; Schneider et al., 2014).
+
+Response Rate. In the current survey, responses were obtained from 11,167 PIs with active
+federal grants during the 2016-17 academic year from 111 (non-federal) FDP member
+institutions. The response rate was roughly 20%, which is typical for online surveys, but
+slightly less than in the previous two surveys (24% with 12,816 respondents in 2012 and 26%
+with 6,081 respondents in 2005). The large number of respondents from a variety of institutions
+across the country provides a rich set of data, though the response rate suggests that caution in
+interpretation is warranted as some views may not be represented.
+
+Respondent Characteristics. Respondent characteristics were remarkably similar across the three
+time periods, with a minimal increase in diversity with time across cohorts. The modal
+participant was a PI at a public university (70%) that was deemed a Very High Research (84%)
+institution based on the Carnegie Classification of Institutions of Higher Education (2017). Most
+commonly, the institution had upward of $500 million in annual research expenditures and had a
+medical school. The typical respondent was a white (79%), male (62%), full (49%) professor
+with an average age of 52 years. The PI typically had 1 to 3 federal grants during the 2016-17
+academic year with less than $500,000 in annual direct costs. The principal field of research was
+most likely to be biological and biomedical sciences (40%) or physics, math, and engineering
+(28%). Funding was most often provided by the National Institutes of Health (NIH, 47%) or the
+National Science Foundation (NSF, 33%).
+
+Time Taken from Research by Requirements. The previous surveys in both 2005 and 2012
+revealed that faculty researchers estimated that approximately 42.3% of their research time was
+devoted to fulfilling administrative and other requirements associated with obtaining and
+managing federally-funded projects. In 2018, this value increased by 2% (or about 30 minutes
+per week), with PIs estimating that an average of 44.3% of their research time associated with
+federally-funded projects was spent on meeting requirements rather than conducting active
+research. Thus, the trend seems to be that time taken from research by requirements is
+increasing, not decreasing. PIs reported that almost half of their available research time for
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                           2018 FDP Faculty Workload Survey: Report of Primary Findings / 4
+
+federal projects had to be allocated to fulfilling requirements instead of focusing on the content
+of their research projects.
+
+A comparison of the reported time taken by activities associated with conducting federally
+funded research is summarized below for 2012 and the current survey. In both time periods,
+proposal preparation and post-award administration tended to take the largest portions of time
+away from research. A slight uptick since 2012 in reported time away from research was evident
+in all areas except post-award administration.
+                                              2012           2018
+       Proposal preparation                   15.4%          16.0%
+       Pre-award administration                5.7%           6.3%
+       Post-award administration              13.6%          13.7%
+       Report preparation                      7.6%           8.3%
+       Active Research                        57.7%          55.7%
+Proposal Preparation. Proposal preparation took the largest portion of time away from active
+research. However, some of this time may contribute to shaping the content of the PI’s research
+program. We asked PIs to report how much of their proposal preparation time contributed to
+their scholarly efforts. On average, they reported that as much as 38.7% of their proposal
+preparation time (or 6.2% of their overall research time) contributed to their scholarship.
+Nevertheless, the number of proposals submitted in the last 3 years (median = 4) was one of
+the strongest predictors of reported time away from research (r=.20), and was often cited as
+a particularly egregious burden on time given the low likelihood of receiving funding based on
+the associated effort.
+Administrative Requirements. As in the 2012 survey, PIs were asked about the workload
+associated with as many as 22 different pre-award and post-award administrative
+responsibilities. On average, researchers reported having to fulfill 9.2 of these responsibilities
+within the one-year time frame of the survey, which was an increase from 8.7 in 2012.
+Researchers estimated that additional administrative assistance could reduce their time spent
+on administrative responsibilities by an average of 29%, which was similar to 2012.
+As in 2012, the most commonly experienced administrative responsibilities included those
+related to federal project finances, personnel, and effort reporting. These were also among the
+most time-consuming responsibilities. For researchers engaged in projects that required animal
+or human subjects, the related IACUC (Institutional Animal Care and Use Committee) and
+IRB (Institutional Review Board) requirements were by far the most time-consuming. Other
+areas viewed as particularly time consuming were those involving clinical trials, subcontracts,
+data management, and biosafety. Since 2012, we observed substantial increases in both the
+prevalence (% experiencing responsibility) and intensity (% reporting substantial workload) of
+responsibilities associated with data management and conflicts of interest, with smaller
+increases in both measures for subcontracts, project finances, responsible conduct of research,
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 5
+
+and clinical trials. There were few decreases in percent reporting substantial workload and all
+were small.
+When asked about which administrative workload areas were high priority areas to reduce
+administrative burden, IACUC/Animal Subjects was most likely to be identified, with 42% of
+those experiencing these responsibilities rating it as high priority and 35% rating it the single
+highest priority area in need of change. Clinical trials, IRB/Human subjects, and project finances
+were also among those areas most commonly identified as high priorities for change to reduce
+unnecessary burden. Additional drilldowns provide detailed input for several of these areas.
+Consistent with 2012 findings, several differences in administrative workload were found as a
+function of research assignment, amount of funding, principal field of research, funding
+agency, and institution characteristics. Most often these differences were particularly
+pronounced in the areas of post-award administration and proposal preparation, followed by
+interim/final report preparation. Many of the same variables cited above influenced not only the
+overall amount, but the patterns, of research-related administrative workload.
+Agency-Specific Requirements. In a newly developed addition to previous surveys, PIs were
+asked to answer a series of questions about agency-specific requirements with respect to a
+federal agency that was currently funding their research. PIs rated both pre-award and post-
+award requirements for the agency that they perceived to have the most burdensome
+requirements.
+Among those PIs who experienced the responsibility, pre-award agency-specific requirements
+associated with animal research and human subjects research were most likely to be rated as
+high priority needs for change to alleviate unnecessary burden. Twenty-seven percent of
+researchers with animal care and use requirements and 27% of researchers with human subjects
+protections requirements reported that these areas are high priority needs for change at the
+agency level (independent of the IACUC and IRB procedures implemented at the university
+level). Other agency-level pre-award responsibilities commonly seen by PIs as having a high
+priority need for change included budgets and justifications (25% of those experiencing this
+responsibility), data management plans (20%), and collaborators/affiliates forms (18%).
+The post-award agency-level requirement that was most commonly identified as having a high
+priority need for change was clinical trial monitoring (24%). Post-award requirements for
+animal care and use (23%) as well as human subjects protections (21%) were also frequently
+deemed to have a high priority need for change. Interim/final report narratives (20%) and
+expenditure reports (17%) as well as subcontract/subaward monitoring (17%) were also
+commonly viewed as high priorities for reducing administrative burden at the agency level.
+Perceived of the Climate for Research. In 2018, we repeated several opinion items regarding
+perceived research climate, and included additional new items focused on aspects of the
+institution’s research administration. Generally small but consistent changes were observed in
+responses to the items repeated from 2012. Although most respondents (79%) reported that they
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 6
+
+continued to be committed to their own academic/research careers, 45% were concerned that the
+administrative workload associated with research is discouraging graduate students from
+pursuing academic careers. This value was 33% in 2012. Most respondents (75%) also agreed
+that administrative workload associated with federally-funded research has increased in the
+past 5 to 6 years, with as many as 31% suggesting that this increased workload was
+discouraging them from submitting federal grant proposals, up from 26% in 2012. In
+addition, 62% believed that administrative burden associated with federally-funded research
+seriously compromises research productivity.
+
+New items focusing on the institution’s climate revealed that roughly 60% felt that their
+institution effectively assists faculty with applying for and managing federally funded
+grants and contracts, and that their institution has a culture of trust in researchers. Just less
+than half reported that their institution makes it straightforward to find answers about federal
+regulations related to research (48%) and that their institution works to alleviate hurdles in
+collaborative research (44%). Even fewer (41%) agreed that their institution ensures that
+researchers have an active voice on issues affecting research. Only 30% felt that their
+institution avoids overreactions based on audit or legal concerns and less than one quarter
+(22%) felt that their institution regularly explores ways to reduce administrative burden on
+researchers.
+
+Emergent Themes. Qualitative measures were also used to identify areas of focus with respect
+to alleviating administrative burden associated with federally-funded research. These included
+open-ended suggestions and reports of most and least helpful administrative institution research
+practices. In general, the results were similar to those found in 2012.
+
+Approximately one-third of almost 3,500 suggestions targeted institution-specific roles and
+another one-third targeted agency-specific roles. Twenty percent reported a general sense of
+futility due to perceptions of wasted time through inefficient processes and lack of a connection
+between effort and achievement of goals (e.g., unnecessary forms, IRB practices that do not
+contribute to subject protections). About 36% of suggestions involved issues related to either
+proposal or report preparation. In addition, 12% of open-ended responses focused on
+administrative support, 10% referenced IRB processes, 8% discussed aspects of requirements
+regarding the management of finances on federally funded projects, and 6% referenced IACUC
+processes. (The IRB and IACUC suggestion rates are noteworthy given that only a minority of
+investigators experience these responsibilities [~45% IRB, ~25% IACUC].)
+Emergent themes were also identified regarding the ways in which the PI’s institution was most
+or least helpful in alleviating administrative burden associated with federally-funded research.
+Within the 3,565 responses, PIs were most likely to report that some aspect of administrative
+support or personnel provided the most helpful contribution to alleviating unnecessary
+burden (36%). PIs also commonly reported appreciation for help with some aspect of managing
+finances (30%) or some contribution to proposal preparation (24%).
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 7
+
+The 3,348 responses regarding least helpful practices had almost the same pattern. Roughly
+25% complained about some aspect of administrative support or personnel. Another 25% were
+concerned with some aspect of managing finances and 13% were concerned with proposal
+preparation issues. This suggests that assistance from administrative personnel, especially with
+regard to finances and proposal preparation, are particularly important in shaping PI perceptions
+of the institution’s effectiveness in reducing unnecessary administrative burden associated with
+federally-funded research. One exception to similarities among most and least helpful areas was
+the pervasive presence of statements among the least helpful group that reflected a sense of
+futility surrounding efforts to obtain and manage federal funding, with 27% reporting
+discouragement with what was perceived as unnecessary or futile workload.
+
+Conclusions. Reducing the administrative workload associated with federally-funded projects is
+one of the primary ways of increasing the efficiency and effectiveness of research. The most
+recent FDP Faculty Workload Survey suggests that this administrative workload may be
+increasing, further reducing the ability of highly qualified scientists and other investigators to
+focus on the content of their research. Our results identify numerous areas at the level of the
+institution and agency that could be improved to substantially reduce unnecessary workload on
+investigators. Solutions may differ somewhat across fields and types of research, and the most
+effective interventions may differ based on the characteristics and needs of the funding agency,
+recipient institution, and PI. Nevertheless, the need for larger-scale collaborative solutions, in
+addition to more focused initiatives, continues to be evident by the growing PI dismay with the
+sense that valuable research time is being wasted, and that heavy administrative workloads
+coupled with the uncertainties of research funding are threatening the viability and
+attractiveness of research career paths. The details of this survey can provide empirical input
+to the FDP and others for devising methods to gain efficiencies in processes associated with
+obtaining and managing federally-funded research, allowing more time for scientific discovery.
+
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 8
+
+
+                       Federal Demonstration Partnership
+                         2018 Faculty Workload Survey
+                           Report of Primary Findings
+
+                                           Overview
+
+Study Description and Rationale
+Through its partnership with research institutions and federal agencies, the Federal
+Demonstration Partnership (FDP) has maintained a longstanding interest in reducing unnecessary
+administrative burdens associated with conducting federally-funded research. To this end, the
+Faculty Committee of the FDP administered its third in a series of national web-based surveys to
+explore the impact of federal regulations on the time faculty spend pursuing active research. In
+both the 2005 and 2012 FDP Faculty Workload Surveys, it was estimated by respondents that an
+average of 42.3% of faculty research time related to federally funded projects was spent
+completing required tasks associated with the administration of research rather than actively
+conducting research.
+
+The 2018 Faculty Workload Survey provides a re-assessment of estimates of research
+workload surrounding federally-funded projects. Volunteers were solicited from among a pool
+of federally-funded research personnel working as Principal Investigators during the 2016-2017
+academic year within 111 FDP member organizations. Almost 12,000 investigators provided
+responses to the survey. The results of the survey suggest that, if anything, time taken away
+from research by administrative and other requirements has increased, with average
+estimates of 44.3% of faculty research time related to federally-funded projects dedicated
+to fulfilling these requirements. The detailed findings extend the earlier survey findings by (1)
+evaluating perceived priorities for reducing excessive administrative burden, (2) examining
+views on the workload associated with various agency requirements, and (3) exploring variations
+in workload across institution types, research areas, and funding sources. The results of this
+study will be used by the FDP to strategically plan activities for Phase VII, and prioritize new
+demonstrations examining areas to reduce administrative burden.
+
+The current report summarizes the primary findings involving estimated research workload
+related to federally-funded projects, along with providing a description of the methodology and
+the respondents. Separate reports provide detailed results concerning perceptions of the current
+climate for research, priorities for reducing administrative burden, and agency-specific workload.
+
+Background
+The Federal Demonstration Partnership is a cooperative initiative among 10 federal agencies
+and 154 institutional recipients of federal funds, now in Phase VI of its 30-year history. The FDP
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                         2018 FDP Faculty Workload Survey: Report of Primary Findings / 9
+
+is a program sponsored by the Government, University, Industry Research Roundtable (GUIRR)
+of the National Academies of Sciences, Engineering, and Medicine. Its purpose is to improve the
+productivity of federally-funded research, in part, by increasing efficiency and reducing
+administrative burdens associated with research grants and contracts. The interaction between
+FDP’s 500 or more university and federal representatives of member institutions takes place
+during FDP’s three annual meetings and, more extensively, in the many collaborative working
+groups and task forces that meet often by conference calls and video conferencing in order to
+develop specific demonstrations and work products. The FDP is a unique forum for
+administrative, faculty, and technical representatives from universities and nonprofit research
+organizations to work collaboratively with federal agency officials to improve the national
+research enterprise.
+
+About 25 years ago, the FDP (at that time called the Federal Demonstration Project) completed a
+survey of faculty from FDP institutions to evaluate the value of the “expanded authorities” that
+had recently been negotiated between FDP organizations, participating federal agencies, and the
+Office of Management and Budget (OMB). The primary focus of that survey was to determine
+whether changes in the requirements affecting federally-funded research, specifically those
+aimed at reducing burden associated with prior approvals, pre-award costs, no-cost extensions,
+and the carryover of unexpended funds, had saved faculty time and, if so, whether the saved time
+had been re-invested in research activities.
+
+Over 2,500 faculty responded to that survey confirming that the new, more flexible policies
+saved researchers significant time. Of this liberated time, it was estimated that 90% was
+refocused toward scholarly activity and of that 90%, 73% was spent directly conducting
+research. These observations implied that research productivity could be increased by
+widespread adoption of these types of “expanded authorities” across federal agencies. However,
+open-ended comments from among the surveyed faculty indicated that a substantial portion of
+the free time resulting from implementation of the “expanded authorities” was likely to be re-
+allocated to other research administrative duties, such as IRB- or IACUC-related tasks and
+research safety issues.
+
+During the decade following this early FDP survey, several new federal regulations were added
+to the workload of investigators pursuing or working on federal grants and contracts, which put
+further pressure on the amount of time that researchers could allocate to active research. In
+addition, changes in cost accounting standards no longer offered most researchers the option of
+using a portion of their direct costs to shift the ever-increasing administrative workload to
+administrative staff. In 2005, FDP conducted the first Faculty Workload Survey, which asked
+faculty investigators to estimate how they allocated their research time. Among the roughly
+6,000 investigators who participated, the average estimate of the percent of their research
+time focused on federal projects which was spent completing tasks related to research
+requirements (rather than actively conducting research) was 42.3% (see Decker et al., 2007,
+downloadable from the Federal Demonstration Partnership (FDP)). The results were highlighted
+in flagship journals of the American Association for the Advancement of Science (AAAS; Lane
+
+
+
+
+                   © Copyright FDP Foundation, 2020. All rights reserved.
+                         2018 FDP Faculty Workload Survey: Report of Primary Findings / 10
+
+& Bertuzzi, 2011; Leshner, 2008) and the National Council of University Research
+Administrators (NCURA; Rockwell, 2009; Sedwick, 2009).
+
+In 2012, a second Faculty Workload Survey suggested that the time taken away from active
+research by requirements associated with federally-funded research remained unchanged.
+Again, with respect to federally-funded projects, the average estimate of faculty research
+time spent on research requirements rather than active research was 42.3%. The largest
+component of this time was devoted to preparing proposals, which was viewed by many as
+particularly wasteful given low funding rates and the focus on many details that would only
+become relevant if the project were selected for funding. Among the other most common and
+time-consuming administrative responsibilities were those associated with managing project
+budgets and expenditures, dealing with issues related to project and support personnel, and
+completing effort reports. In addition, for those working with animal or human subjects, there
+was a pronounced burden associated with excessively time-consuming administrative
+requirements for IACUC and IRB review, even for minimal risk research.
+
+Detailed analyses of results for these and other requirements can be found in the 2012 Faculty
+Workload Survey Research Report (see Schneider et al., 2014). The results of this report have
+been used to inform several FDP activities and have been cited in a broad range of national
+efforts to reduce research-related administrative burden. These include reports of the National
+Science Board (2014), the Government Accountability Office (GAO; 2016), and the National
+Academies (2016). The findings of the survey also contributed to the inclusion of Section 2034,
+calling for a reduction in administrative burden for researchers, into the 21st Century Cures Act
+which was signed into law in December, 2016.
+
+The 2018 rendition of the survey was designed to determine whether ongoing efforts had reduced
+reports of the administrative workload associated with federally-funded research or whether
+changes in the research environment since 2012 had resulted in an uptick. Several revisions
+were made to improve the current survey. These additions included a focus on perceived
+priorities for changes in specific responsibilities, a new section concerning agency-specific pre-
+award and post-award responsibilities, new items assessing perceptions of institution climate for
+research, and an exploratory study of the alignment between percentage and hourly estimates of
+research time spent per week, as well as an initial attempt to separate the time spent on proposal
+writing that contributes to scholarship from the time that does not. At the same time, we
+remained particularly interested in historically high-burden areas such as those associated with
+human and animal subjects research as well as highly prevalent responsibilities especially those
+related to project finances. As in previous surveys, we were interested in exploring differences
+in estimates of time taken from active research as a function of type of institution, funding
+agency, field of research, and various professional and demographic variables. In addition to
+quantitative summaries, we also evaluated qualitative assessments of priorities and suggestions
+for streamlining the research process.
+
+The current report starts with a summary of the methodology, followed by a review of the
+characteristics of respondents and how they compare to those of previous surveys. It then
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 11
+
+provides details of estimates of time taken away from active research by various requirements
+associated with federally-funded research. Results provide insight into priorities for change
+associated with specific administrative responsibilities at the level of the institution as well as the
+federal agency. Finally, the report explores the perceived climate for research in general and
+within the institution. Supplementary reports are available with detailed results concerning (a)
+demographic variables; (b) variations in time lost as a function of several different variables
+including institution characteristics, funding agency, workload assignment, type of research,
+principal field, and basic demographic categories; (c) breakdowns of priorities for reducing
+administrative workload for requirements at specific agencies; and (d) open-ended suggestions
+for improving the research process and reducing unnecessary burden in administrative workload.
+
+Method
+
+Participants
+A request was made to each of the non-federal member institutions of the FDP to provide a list
+of all university personnel who were serving as principal investigators (PIs) on U.S. federally-
+funded projects (including both contracts and grants) which were active at any point during the
+2016-2017 academic year, including projects that were in no-cost extensions. (Neither
+fellowships nor federal pass-through funds managed by a third party were considered projects.)
+Lists were provided by 111 of the 154 member institutions (72%). As shown in Table 1, this
+level of institution participation was similar to 2005, but less than 2012.
+
+Table 1. Comparison of Response Rates across Three Faculty Workload Surveys
+
+
+
+
+Note. AY=Academic Year (12-months), PI=Principal Investigator. Some FDP Member Institutions
+represent university systems which may be broken out into specific locations within other
+institution counts.
+
+In total, we solicited participation from 56,869 investigators. Approximately 500 of those could
+not be contacted due to address-related problems. A total of 15,847 potential participants entered
+the survey, with 13,056 of those providing their consent to participate and continuing on to take
+the survey. This yielded an overall response rate of 23%. Of those, 11,705 provided content-
+related data (i.e., answered more than the first few descriptive items). When post-doctoral
+students and part-time personnel were removed (to be analyzed separately), the final number of
+
+
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                            2018 FDP Faculty Workload Survey: Report of Primary Findings / 12
+
+base respondents for analyses was 11,167, yielding a final faculty PI response rate of
+approximately 20%. As shown in Table 1, this response rate was slightly lower than either the
+2012 or 2006 Faculty Workload Survey. This response rate is typical of online surveys, which
+tend to have lower response rates than other survey formats, but may also reflect the consistent
+national trend of declining response rates in surveys across all formats (Couper & Miller, 2008;
+Daikeler et al., 2019). Despite this, a 20% response rate still provides a rich dataset representing
+a sizable portion of the population of interest. At the same time, it is important to keep in mind
+throughout that the results reported here may not accurately reflect the views of other members
+of the population.
+
+As outlined in Table 2, most of the participants (84%) were from very high research (VHR)
+universities (54 public and 25 private) as identified by the 2015 Carnegie Classifications Data
+
+Table 2. Number and Type of Institution with Corresponding Number of Respondents
+
+
+
+
+Note. Institution categories were assigned according to the updated 2015 Carnegie Classifications for which
+Medical School includes granting of MD, DDS, DMD, DO, and/or DVM degrees; dollar amounts listed correspond to
+institution expenditures (in M=millions) reported by NSF for Higher Education Research and Development: Fiscal
+Year 2016. Wherever feasible, institution systems are separated into individual locations.
+
+File Version 14 (http://carnegieclassifications.iu.edu/downloads.php; as updated February 24,
+2017). This is not surprising as these institutions are engaged in large amounts of research, and
+tend to be larger universities with large numbers of active researchers. Nine percent of the
+respondents were from 26 high or 4 medium research doctoral research universities, 6% were
+from 8 independent health research institutes or 8 special focus medical schools/centers, and the
+remaining 1% represented 24 non-doctoral colleges or universities.
+
+
+                      © Copyright FDP Foundation, 2020. All rights reserved.
+                         2018 FDP Faculty Workload Survey: Report of Primary Findings / 13
+
+
+Design and Procedure
+Like the previous versions, the 2018 Faculty Workload Survey was a web-based multi-item
+survey. Participants were asked to respond with respect to their research activity during the
+2016-2017 academic year. The survey consisted of six sections: Background, Your Work, Your
+Research, Research Responsibilities (General Research Administration, Compliance, Safety and
+Security), Federal Agency Requirements, and About You. The question formats included
+multiple choice, fill-in, and open-ended text entry items. The length of the survey varied for
+each participant depending primarily on which federal regulations applied to their research.
+Respondents were asked detailed questions only about regulations relevant to their own projects.
+Placement of items inquiring about gender, age, and ethnic background were varied to diminish
+any biasing effects that these might have on proximal items. From start to finish the survey took
+approximately 20-30 minutes to complete.
+
+The survey was administered by SoundRocket (https://www.soundrocket.com/; previously
+Survey Sciences Group, LLC (SSG)), a full-service survey research provider located in Ann
+Arbor, Michigan. (SoundRocket, as SSG, was also involved in 2005/2006 and 2011/2012 when
+the previous FDP Faculty Workload Surveys were conducted.) SoundRocket contracted with
+FDP to provide professional survey research services. The survey was programmed using best
+practice web survey design methods and made use of interactive capabilities to minimize
+respondent burden.
+
+In late January of 2018, all 56,869 PIs on the lists provided by participating institutions were sent
+an email from the research team announcing the upcoming survey. (It is estimated that no more
+than 1% of these remained undeliverable after attempts to remedy any address-related problems.)
+During the following week, the official email invitation was sent, which provided potential
+participants with a unique randomly-assigned study identification (ID) number and directed them
+to the survey website. When potential participants entered the website, they were prompted to
+enter their ID number. Once they typed in their ID number, and consented to participate, they
+were able to begin the survey. Over the course of approximately four weeks, email reminders
+were sent out routinely to all those who had not yet completed the survey. Data collection was
+completed within about two months of the mailing of the initial letter of invitation to
+participants.
+
+All questions in the survey were optional; each question could be skipped by simply clicking the
+“Next” button without entering an answer. The only exception to this was the first question
+which asked for the participant’s consent to participate in the survey. Participants were required
+to consent before they were able to proceed. If a participant encountered a problem during the
+survey, support information was made available throughout the survey and in all respondent
+communications to contact support staff.
+
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 14
+
+
+                                 Respondent Characteristics
+
+Institution Characteristics
+The institution characteristics of respondents in 2018 were similar to those in 2012, as shown in
+Table 3. In both surveys, almost three fourths of respondents were from public institutions,
+with a large majority from Very High Research (VHR) institutions as defined by the
+Carnegie classification. The difference in percentage in the “VHR with Medical School”
+category is due to the addition of programs in Veterinary Medicine into the Carnegie
+classification of Medical School following the 2012 survey (i.e., institutions with Veterinary
+Medicine as their primary medical program were characterized as without a medical school in
+2012, but as having a medical school in 2018).
+
+The percentage of participants from institutions having greater the $800 million increased
+by 12% from about one quarter of participants in 2012 to about one third in 2018. In 2006, 71%
+of respondents worked at public institutions and 67% were at institutions with over $200 million
+in federal funding (compared to 80% in 2012 and 82% in 2018).
+
+Table 3. Comparison of Participant’s Institution Characteristics across the 2012 and 2018 Surveys.
+
+
+
+
+Note. N= Number of participants; VHR=Very High Research, HR=High Research, MR=Medium Research,
+M=million, w/= with, w/o=without.
+
+
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 15
+
+Table 4 compares the number of institutions with participant representation across the three
+different surveys. About half of the respondents in the 2018 survey came from one of 42
+institutions that participated in all three surveys. Responses from these regularly participating
+institutions made up about half of the data in 2018. An additional 33% of respondents came
+from one of 43 institutions that also participated in either the 2012 or 2006 survey, and the final
+17% of respondents came from one of 27 institutions that participated for the first time in 2018.
+
+Table 4. Participating Institutions across the Three Faculty Workload Surveys
+
+
+
+
+Note. For inclusion in the count for any given year, institutions were required to have a minimum of 10
+respondents.
+
+Individual Characteristics
+Professional characteristics of respondents were similar to previous surveys. Just over half of
+the respondents (52%) were on 12-month appointments, with 41% on 9-month appointments.
+A large majority (77%) were tenured or on tenure track, and almost half (49%) were at the
+rank of full professor. About 20% held an academic administrative role (e.g., chair, dean, etc.),
+and about 20% reported serving as a center or program director. Across the three survey time
+periods, the participant pool gradually progressed toward a slightly higher percentage of 12-
+month appointments and a lower percentage of appointments to tenure track positions, with
+minimal differences across surveys in the percentages of appointments at the full, associate, and
+assistant professor levels.
+
+Estimates of the typical division of work time into different types of tasks yielded an average of
+49% of all work time devoted to research responsibilities, 18% to general instruction, 10% to
+service directly related to research, and the remainder used for other forms of service, as well as
+administrative, clinical, and other responsibilities. About 30% of respondents reported their
+primary field as the biological or biomedical sciences, with between 10 and 15% in each of
+the following disciplinary groups: physical sciences and mathematics (15%), psychological and
+social sciences (14%), engineering and computer sciences (13%), clinical sciences and medicine
+(10%).
+
+With respect to general demographic characteristics, the modal respondent was a white male.
+Nevertheless, the proportion of females was higher in the 2018 survey (38%) than in previous
+surveys (34% in 2012, 27% in 2006). There was also a slight increase in the proportion of non-
+white groups over time, from a low of 16% in 2006 up to 21% in 2018. Median age inched up
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                        2018 FDP Faculty Workload Survey: Report of Primary Findings / 16
+
+from 50 in 2006, to 51 in 2012, and to 52 in 2018. These demographic differences across
+surveys are consistent with national demographic trends in postsecondary full-time faculty
+(see, e.g., Ma, 2004; Miller & Topper, 2017).
+
+On average, 70% of respondents’ research time was funded by federal sources, with modal
+funding of one project (with a median of 2 projects) and between $100,000 and $299,999 in
+annual direct costs. This represented a slight tendency over time toward fewer projects with
+slightly higher funding amounts. Almost half of all respondents reported funding from the
+National Institutes of Health (NIH), and about one third reported funding from the
+National Science Foundation (NSF). The Department of Defense (DOD) was the next most
+common federal funding source, with 11% reporting active DOD projects during the reporting
+period. These proportions were relatively stable across survey timepoints.
+
+About 60% of respondents reported having at least one project which primarily involved basic
+research. This was a relatively sharp decrease from 2012 when 67% reported at least one basic
+research project. About 50% reported at least one applied project, and about 25% reported at
+least one project focused on service, training, curriculum development, or other unspecified
+topics. These latter two proportions were virtually unchanged from 2012.
+
+Just over one third (36%) of respondents reported federally-funded projects with human
+subjects, 14% reported research with animal subjects, and 10% reported both. Thus, about
+40% of respondents did not have any federally-funded research involving animal or human
+subjects. Over time, there was a steady increase in the number reporting the use of human
+subjects (from 27% to 36%), whereas animal subject research rates remained relatively stable.
+
+Additional details regarding professional, general demographic, funding, and project
+characteristics of respondents can be found in the later chapter comparing respondent
+characteristics across surveys.
+
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 17
+
+
+                                       Time Lost from Federally-Funded Research
+
+This section provides the primary results from the three FDP Faculty Workload Surveys
+investigating the views of principal investigators (PIs) on federally-funded grants and contracts
+active during the year immediately prior to administration of the survey. The primary analysis
+explores the amount of time spent on active research compared with other activities associated
+with the administrative responsibilities related to federal grants. Survey respondents were asked
+to divide the work time they spent on federally-funded research into the following categories (as
+described; with the exception that in 2006 survey combined both pre-award items into one and
+both post-award items into one):
+
+                  • Active research: Reviewing literature, designing studies, running experiments, collecting/analyzing
+                    data, writing up findings, presenting and publishing research, etc.
+                  • Pre-award proposal preparation activities: Writing/submitting proposals and budgets
+                  • Pre-award administrative activities: Applying for approvals, developing protocols, drafting
+                    security plans, etc.
+                  • Post-award administrative activities: Purchasing supplies/equipment, supervising budgets,
+                    managing project personnel, complying with regulations, monitoring safety/security plans, etc.
+                  • Post-award report preparation activities: Writing/submitting required progress/final reports
+
+Difference Across Surveys in Estimates of Time Lost
+The primary measure of interest is the sum of the 4 pre-award and post-award items that
+represent time lost or taken away from active research (i.e., 100% of research time minus percent
+of active research time). Figure 1 below shows these average estimates of time lost from
+research compared across the three surveys. In both 2006 and 2012, the estimate of time lost
+from research was 42.3%, whereas by 2018, this value had increased by 2% to 44.3%.
+
+                                      Time Lost from Active Research
+                                60%
+
+
+
+
+  Percentage of Research Time
+                                50%
+
+
+                                40%
+
+
+                                30%
+
+
+                                20%
+                                      2006                  2012                    2018
+Figure 1. Average estimates of percentage of research time related to federally-funded research that
+was devoted to tasks other than active research across the three surveys.
+
+
+                                      © Copyright FDP Foundation, 2020. All rights reserved.
+                         2018 FDP Faculty Workload Survey: Report of Primary Findings / 18
+
+In terms of hours, participants estimated an average 54.3 hour work week. This suggests that, on
+average, participants spent about 12 of their 27 hours reserved for research on
+requirements, leaving only 15 hours for active research (assuming the mean 49.3% research
+assignment). The 2% increase in time taken from research amounts to an increase of about one
+half hour per week since 2012.
+
+An evaluation of variables that predicted higher requirement-related workload for the PI
+included the following:
+•   Research being conducted at
+        o public universities (versus private universities or health research institutes),
+        o universities outside the Very High Research (VHR) Carnegie classification,
+        o universities with lower levels of annual research expenditures.
+•   Funding from
+        o Department of Education,
+        o Department of Health and Human Services (non-NIH),
+        o National Endowment for the Humanities or National Endowment for the Arts,
+        o Department of Transportation,
+        o US Department of Agriculture/National Institute of Food and Agriculture,
+        o more than one agency.
+•   Projects focused on
+        o research fields other than physics and math,
+        o applied research, or especially training, curriculum, or service projects
+        o animal or human research.
+•   Funding with
+        o multiple grants/contracts,
+        o greater than $500,000 in annual direct costs.
+•   PI who
+        o has administrative role,
+        o has smaller research assignment,
+        o is female,
+        o is not White or Asian,
+        o is not a full professor.
+Additional details of these differences can be found in a supplementary chapter.
+
+Check on Percent of Time Measure
+As a check on the percent of time measure, 10% of participants in the 2018 survey were asked to
+verify their percent time estimates by reviewing the implied hours for each task given their own
+overall estimate of hours in their work week and the relevant percent of time for each activity.
+These participants were then given an opportunity to alter their percent time estimates to better
+correspond to estimated weekly hours (which would dynamically update on the screen when any
+changes in percent time were entered). Only 2% of participants felt the need to update any of
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 19
+
+their percent time estimates, and only 1% updated their estimate of time spent on active
+research. Roughly half of the active research changes increased the estimated time spent on
+active research and the other half updated by decreasing active research time. Thus,
+participants seemed widely satisfied that their percent time estimates accurately captured
+the average number of hours spent on activities.
+
+Effect Size of Difference in Time Lost Estimates
+Although the observed 2% difference from 42.3 % to 44.3% time lost is highly significant in a
+standard null hypothesis test (p < .0001), the positive statistical test result is not especially
+instructive given that even the smallest differences are likely to be significant with such high
+numbers of respondents. The test suggests that a difference exists, but it is the size of the
+difference that is of interest.
+
+To better characterize the impact of this 2% difference (44.3% research time lost in 2018 vs.
+42.3% in both 2012 and 2006), estimates of effect size were computed at the level of
+comparisons across surveys, institutions, and respondents. These were assessed using Cohen’s d
+(e.g., Cohen 1992) which characterizes effects in standardized units. In measures of human
+behavior, Cohen’s norms are commonly adopted, considering effects of d = 0.2 to be small in
+size, d = 0.5 to be medium, and d = 0.8 to be large. The larger the effect size, the more likely it is
+to represent a meaningful difference. However, whether a difference is meaningful will also
+depend on the level of analysis.
+
+Table 5 below shows the size of average differences needed for documenting effects of each of
+these sizes in the context of the Faculty Workload Survey findings of time taken from federally-
+funded research across the three surveys. Three different perspectives are represented. The two
+“Survey” columns in the table indicate effect sizes when viewing the overall survey as the
+observation of interest. Effect size depends on variations among observations, and this variation
+was estimated using two different methods: the “Surveys (Stat.)” method estimated survey
+standard deviation as the computed standard error of the mean based on the average standard
+deviation for institutions (which is more conservative value compared to respondents), and the
+“Surveys (Obs.)” method estimated the survey standard deviation by computing it directly from
+the sample of three surveys (with survey treated as observation). Based on either method, these
+estimates suggest that the observed difference in overall survey averages of time taken from
+research between 2018 and the earlier surveys is exceedingly large, if not huge. This means
+that a survey with roughly 10,000 respondents is expected to converge very closely onto the true
+average of a population for whom the respondents are representative. Thus, a difference as large
+as 2% is a highly noteworthy event, representing a large shift from the earlier surveys to 2018
+given the expected stability of averages within very large datasets.
+
+
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 20
+
+Table 5. Participating Institutions across the Three Faculty Workload Surveys
+
+
+
+
+The “Institution” column considers the effect size with respect to differences in these averages
+across institutions participating in the survey. The standard deviation here represents the
+variation in institution average estimates of time taken from research and was computed as the
+average of the three institution-level standard deviations computed in each survey. This standard
+deviation suggests that it would be typical for any given institution to vary by about ±5.0% from
+the overall survey average of time lost, with roughly 70% of institution average time lost values
+expected to be within this range. In accord with this, roughly 70% of institution averages in the
+current 2018 survey would be expected to fall between 39.3% and 49.3% time lost (44.3%
+±5.0%), and in fact, 80 of 112 or 71% of institution averages in the 2018 survey fall within these
+bounds. From this perspective, the observed 2% difference in the overall survey averages
+represents a small- to medium-sized effect. At the level of the institution, a 2% difference in
+estimated time lost from research is generally noteworthy, and would typically be
+considered a modest difference.
+
+The “Respondents” column considers the effect size with respect to differences in these averages
+across respondents. The standard deviation here suggests that it would be typical for any given
+respondent to vary by ±22.3% from the overall survey average. Roughly 70% of respondent
+average time lost values would be expected to be within the range of 22.0% and 66.6%--a very
+wide range indeed. This demonstrates the very wide range across respondents in estimates of
+how much time is taken from research by requirements, which is not especially surprising given
+the many differences in circumstances from respondent to respondent (e.g., institution,
+professional, demographic, funding, and project characteristics). From this perspective, a 2%
+difference in the survey averages across individual respondents represents a very small effect.
+
+The appropriate level of analysis will depend on the goal of the evaluation. For present
+purposes, evaluation from the institution and survey levels seems most applicable, suggesting
+that the observed differences in survey averages can be viewed at the least as modest, but
+perhaps more reasonably as quite large. In either event, the trend is alarming as it shows that,
+even with efforts to limit time taken from research by requirements, estimates of time spent
+on these requirements is increasing with the implications that there is less time remaining
+for active research.
+
+
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                                                    2018 FDP Faculty Workload Survey: Report of Primary Findings / 21
+
+
+      Time Spent on Requirements Associated with Federally-Funded Research
+
+Figure 2, displayed below, compares the research workload distribution data from the 2012 and
+2018 Faculty Workload Surveys to see where the 2% increase in time taken from research is
+most obvious. The increase in time lost was split relatively evenly across three of the four
+responsibilities: proposal preparation, pre-award administration, and report writing. As
+was the case in 2012, proposal preparation continues to take up the vast majority of the time
+spent on pre-award activities, and pre-award administration is the least time consuming of the
+four requirements. Of the post-award requirements, post-award administration takes the most
+time and is the only requirement that was virtually unchanged across surveys. Post-award report
+writing increased somewhat across surveys, commensurate with increases seen in both pre-award
+responsibilities.
+
+Additional details broken out by respondent characteristics can be found in the
+supplementary chapter on break outs of time away from research.
+
+
+                                     20%
+
+
+
+
+  Percent Time Taken from Research
+                                                                                          2012     2018
+
+                                     15%
+
+
+
+                                     10%
+
+
+
+                                     5%
+
+
+
+                                     0%
+                                             Pre-award      Pre-award        Post-award       Post-award
+                                           Proposal Prep      Admin            Admin          Report Prep
+
+Figure 2. Average estimates of percentage of research time that was devoted to four requirements of
+federally-funded research. Prep=preparation; Admin=Administration.
+
+
+
+
+                                                © Copyright FDP Foundation, 2020. All rights reserved.
+                                              2018 FDP Faculty Workload Survey: Report of Primary Findings / 22
+
+
+Proposal Preparation and Report Writing
+Taken together, proposal preparation and post-award report writing were estimated to take up
+roughly one quarter of the research time available for work on federally-funded projects. Two-
+thirds of the increase from 2012 to 2018 was observed in these areas. Nevertheless, these areas
+are often discounted in assessments of time taken away from active research.
+
+It could be argued that portions of these tasks do not constitute activities associated with a strict
+definition of "administrative workload” and that some aspects of these activities may contribute
+to the scholarly endeavors of the researcher. Some argue that these portions should not be
+included as part of the estimate of time taken from active research as the scholarly portion
+contributes directly to active research. In order to get a sense of this, participants in 2018 were
+asked to estimate the percentage of their proposal preparation time that “contributed
+substantively to the development of your scholarship or your research program.” On average,
+participants estimated that 38.7% of proposal preparation time--or 6.2% of their overall
+research time (about 1 ½ hours per week)—contributes directly to their scholarship.
+Although not measured in the survey, there may also be a scholarly contribution associated with
+parts of post-award report writing requirements.
+
+Participants were also asked about the number of proposals they had written in the last three
+years and the disposition of those proposals. As shown in Figure 3 below, the results regarding
+number of submitted proposals were highly skewed. On average, respondents reported that 6
+proposals were submitted over the previous three years (i.e., about 2 per year), with a median of
+4. Using the median estimates, it was reported that medians of two proposals were rejected, one
+was accepted, and one was pending. Given that having at least one funded project (i.e., one
+accepted proposal) was a requirement for participating in the survey, these values substantially
+overestimate funding rates as all those with no proposals accepted are not represented here.
+
+                                 % of Respondents with Given Number of Proposals
+                          40%
+
+
+
+
+ Percent of Respondents
+                          30%
+
+
+                          20%
+
+
+                          10%
+
+
+                          0%
+                                Less than 3        3 to 5          6 to 10         11 to 19      20 or more
+                                                 Number of Proposals Submitted in Last 3 Years
+Figure 3. Percentage of 2018 survey respondents who reported a given number of proposals for
+federal funding over the previous three years.
+
+
+                                       © Copyright FDP Foundation, 2020. All rights reserved.
+                                                    2018 FDP Faculty Workload Survey: Report of Primary Findings / 23
+
+Even so, these values highlight the fact that well over 50% of proposals (probably closer to
+80-90%) are not funded, and in this sense, the time spent on these proposals is largely a
+waste of research time as the work cannot be completed, regardless of its scholarly value.
+Moreover, this is an especially burdensome requirement, as these efforts are not funded by
+federal agencies, and the costs associated with proposal preparation are thus shouldered
+entirely by the institution.
+
+In future surveys, greater attention needs to be given to post-award report writing, as there was a
+noticeable increase in workload since 2012. To the extent that scholarly contribution may also
+exist within portions of required reports, these may be useful in preparing scholarly publications
+as well, which is generally not true for the content of proposals (at least until or unless the work
+can be completed). Additional items in the future may help clarify these impacts on research.
+
+Returning to proposals, Figure 4 below provides an indication of the relationship of number of
+proposals submitted in the previous three years (bars) to the number of federal grants/contracts
+held in the previous year (line) and the amount of direct costs on those grants/contracts during
+that time (x-axis categories). As would be expected, a higher number of active federal awards is
+associated with a larger amount in annual direct costs, with a moderate correlation of r = .36
+(using the center of the category range to represent annual direct cost and applying a square root
+transformation to the number of grants variable to reduce the impact of skew).
+
+                             9
+
+                             8            Mean # of Proposals (last 3 years)
+                                          Mean # of Grants (last 1 year)
+
+
+
+
+Number of Proposals/Grants
+                             7
+
+                             6
+
+                             5
+
+                             4
+
+                             3
+
+                             2
+
+                             1
+                                 < $50K     $50-99K $100-199K $200-299K $300-399K $500-999K $1M-3M      > $3M
+                                 N=900      N=1241   N=2157    N=1766    N=1856    N=1608    N=982      N=275
+                                               Total Direct Costs on Federal Awards in Previous Year
+Figure 4. Number of proposals for federal funding over the previous three years and number of
+federal grants/contracts in the previous year graphed as a function of the amount of total direct costs
+on federal grants/contracts in the previous year.
+
+Of more direct interest here, the number of proposals submitted over the last three years also
+relates to both of these variables as can be seen in the increase in the number of submitted
+
+
+                                               © Copyright FDP Foundation, 2020. All rights reserved.
+                                                      2018 FDP Faculty Workload Survey: Report of Primary Findings / 24
+
+proposals as annual direct costs increase, which closely resembles the increase observed in
+number of grants as annual direct costs increase. There is a moderate correlation of r = .32
+between the number of proposals submitted and the number of active grants/contracts (with
+square root transformations applied to both variables) and a smaller but still evident correlation
+of r = .16 between the number of proposals and annual direct costs. These associations suggest
+that there may be at least some value in submitting multiple proposals. Even though the absolute
+amount of time spent is much larger when writing a larger number of proposals--with much
+of the time wasted on non-funded projects--there is also an upside in that the overall number of
+funded projects is likely to be higher (with perhaps more funds in aggregate) than for those
+who submit fewer proposals.
+
+A final question of interest with respect to number of submitted proposals concerns the
+relationship of proposal submissions to time away from active research. Figure 5 below provides
+a depiction of this relationship. For those who reported writing less than one proposal per year
+(less than 3 in 3 years), average time away from research drops by about 6% from the average of
+44.3% to an average of 38.4%, whereas for those who write more than 6 proposals per year (or
+20 or more in 3 years), average time away jumps up by more than 10% to 54.7%. Those who
+prepare four or more proposals per year can expect to spend less than half of their time on
+active research. This highlights the heavy toll that proposal preparation adds to the workload
+associated with obtaining federally-funded grants and contracts.
+
+Interestingly, the relationship between estimated time away from active research and number of
+proposals (r = .20) is stronger than the corresponding relationship between time away and
+
+                                   60
+
+
+
+
+% Time Away from Active Research
+                                   50
+
+
+
+
+                                   40
+
+
+
+
+                                   30
+                                        Less than 3        3 to 5         6 to 10         11 to 19      20 or more
+                                                        Number of Proposals Submitted in Last 3 Years
+Figure 5. Average estimate of time taken away from active research in the previous year as a function
+of number of proposals submitted for federal funding over the previous three years. The black line
+represents the 44.3% average estimate of time taken away from research by requirements.
+
+
+                                               © Copyright FDP Foundation, 2020. All rights reserved.
+                           2018 FDP Faculty Workload Survey: Report of Primary Findings / 25
+
+number of actual grants/contracts (r = .07) or between time away and amount of annual direct costs (r =
+.10). This suggests that the pre-award workload of the proposal writing requirement is likely to be
+a stronger predictor of time away from active research than the post-award requirements
+associated with number of grants or amount of annual direct costs. This is yet another indicator of
+the importance of attending to proposal writing when attempting to address the workload that limits
+investigators’ ability to focus on active research.
+
+Pre-award and Post-award Administration
+Time taken from research by pre-award administration increased between 2012 and 2018, whereas
+investigators reported spending roughly equivalent amounts of time on post-award administration in
+2012 and 2018. Together, these tasks consumed about one fifth or 20% of the amount of time PIs devote
+to research (just over 5 hours per week on average).
+
+Table 6 on the next page lists three major areas of administrative requirements, comprising a total of 22
+specific administrative responsibilities commonly associated with federally-funded research. These
+make up the primary responsibilities included in pre-award and post-award administration. To assess the
+prevalence of each responsibility, respondents were asked to indicate via a yes or no answer whether
+each responsibility and/or requirement applied to any of their federal grants or contracts during the
+previous academic year.
+
+For each affirmative answer, respondents were asked follow up questions. The first follow-up question
+asked respondents to rate how much time was taken away from active research by the responsibility
+using a 5-point rating scale: not at all (1), a little bit (2), some (3), quite a bit (4), or very much (5). This
+was summarized in a substantial workload measure which was computed as the percentage who
+reported at least a 3 (some) out of those who experienced the responsibility. The second follow-up
+question asked respondents to report the priority that they would place on reducing the administrative
+burden for that responsibility. Respondents assigned the responsibility with a high priority, a medium
+priority, a low priority, or no change needed. Of the responsibilities that were assigned a high priority,
+respondents reported which responsibility they felt had the highest priority for change.
+
+On average, respondents reported experiencing 9.16 of the 22 responsibilities on average
+(median=9), which was an increase from the 8.67 average of experienced responsibilities
+reported in 2012. This represents corroborating evidence of the increase in workload from 2012
+to 2018. Moreover, researchers estimated that additional administrative assistance could
+reduce their time spent on administrative responsibilities by an average of 29% (from an
+average of 44% to approximately 31%). This was virtually unchanged from the 2012 survey.
+
+In what follows, each of the three major areas will be reviewed in terms of the prevalence of
+responsibilities, the likelihood of substantial workload from the responsibilities, and reports of high
+priority needs for change in these responsibilities in order to reduce administrative burden.
+
+
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                           2018 FDP Faculty Workload Survey: Report of Primary Findings / 26
+
+Table 6. List of Administrative Requirements Associated with Federally-funded Research
+GENERAL RESEARCH ADMINISTRATION
+ Project Finances: Managing project budgets and grant/contract expenditures
+ Project Personnel: Personnel administrative issues (including hiring, managing, visas, evaluation)
+ Effort Reporting: Federal time and effort reporting, including training
+ Data Management: Meeting federal requirements for resource and data storage and sharing
+ Subcontracts: Responsibilities associated with managing subcontracts to other entities
+ Intellectual Property: (including patent/copyright applications, licensing agreements, invention,
+        disclosures, Materials Transfer Agreements, etc.)
+
+COMPLIANCE
+ IACUC: Meeting federal animal care and use requirements
+ IRB: Meeting federal human subjects research requirements
+ Clinical Trials: Responsibilities associated specifically with conducting clinical trials (excluding HIPAA-
+        related requirements)
+ HIPAA: Meeting Health Insurance Portability and Accountability Act (HIPAA) requirements
+ COI: Meeting federal conflict of interest requirements
+ RCR: Meeting Responsible Conduct of Research requirements for trainees on federally funded projects
+
+SAFETY/SECURITY
+ General Laboratory Safety/Security (including laboratory surveys)
+ Biosafety (including biohazards and blood-borne pathogens)
+ Chemical Safety (including chemical inventory management)
+ Information or Infrastructure Security
+ Laboratory Access Controls
+ Radiation Safety (including high magnetic fields, lasers, & radioisotopes)
+ Controlled Substances/Narcotics
+ Recombinant DNA
+ Select Agents/DURC (Dual Use Research of Concern)
+ Export Controls
+
+Within each major area, a subset of responsibilities was explored further to learn more about
+which particular functions or tasks were deemed most in need of change to reduce unnecessary
+burden. For each of the selected responsibilities, all those who reported the responsibility as
+high need for change were asked to also rate the need for change for a series of four to ten
+specific functions or tasks within that area. These drilldowns were included for seven
+responsibilities: IACUC/animal subjects, IRB/human subjects, project finances, subcontracts,
+data management, conflict of interest, and intellectual property. These seven responsibilities
+were selected for more in-depth exploration based largely on the results of the 2012 survey.
+
+In addition, open-ended responses were analyzed as a function of each of these responsibilities.
+This analysis appears in a separate chapter.
+
+
+
+
+                      © Copyright FDP Foundation, 2020. All rights reserved.
+                                                  2018 FDP Faculty Workload Survey: Report of Primary Findings / 27
+
+
+General Research Administration Responsibilities
+Figure 6 below displays the percentage of respondents who reported experiencing each of the 6
+general research administration responsibilities. Responsibilities are ordered from the most
+prevalent on the top to the least prevalent on the bottom.
+
+                                                       Prevalence of General Research Admin. Requirements
+                                  Project Finances
+
+
+
+
+  Administrative Workload Type
+                                   Effort Reporting
+
+                                 Project Personnel
+
+                                 Data Management
+
+                                      Subcontracts
+                                                                                                        2018
+                         Intellectual Property                                                          2012
+
+                                                      0%   10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+                                                                       % of Respondents
+Figure 6. Prevalence of six general research administration responsibilities as reported in 2018 and
+2012 surveys. Admin.=Administration.
+
+The three most commonly experienced responsibilities among the overall set of 22 were
+project finances, effort reporting, and project personnel. Over 80% of respondents reported
+having to deal with these responsibilities in both 2012 and 2018. There was a very large
+upsurge in reports of experiencing data management responsibilities, with an increase from
+49% in 2012 to 68% in 2018. The prevalence of experiencing subcontract responsibilities
+increased by about 5% to 50%, whereas the prevalence of intellectual property responsibilities
+remained relatively stable at about 35%.
+
+
+
+
+                                             © Copyright FDP Foundation, 2020. All rights reserved.
+                                                    2018 FDP Faculty Workload Survey: Report of Primary Findings / 28
+
+Figure 7 below displays the likelihood of substantial workload for each of the 6 general research
+administration responsibilities. Likelihood of substantial workload is represented as the
+percentage of respondents who reported some (3) to very much (5) time taken away from active
+research out of those experiencing the given responsibility. Responsibilities are ordered from the
+most likely to be rated as substantial workload on the top to the least likely on the bottom.
+
+
+
+                                                 Substantial Workload for General Research Admin. Reqs.
+                                   Project Personnel
+
+
+
+
+ Administrative Workload Type
+                                    Project Finances
+
+                                       Subcontracts
+
+                                    Effort Reporting
+
+                                 Data Management
+                                                                                                          2018
+                                Intellectual Property                                                     2012
+
+                                                        0%   10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+                                                                % Among Those Experiencing Responsibility
+Figure 7. Prevalence of six general research administration responsibilities as reported in 2018 and
+2012 surveys. Admin. Reqs.=Administration Requirements.
+
+In both surveys, among all 22 responsibilities, project personnel and project finances were
+among the top three (along with IACUC) in terms of likelihood to involve substantial
+workload. Nevertheless, this percentage was slightly higher in 2018 than it had been in 2012,
+increasing from about 67% to 73% reporting substantial workload from project personnel and
+project finances. Slight increases were also observed for subcontracts (58% to 61%) and for
+effort reporting (49% to 50%). By far the largest increase across all 22 responsibilities in the
+percentage of affected respondents reporting substantial workload from 2012 to 2018 was
+for data management, wherein the percent increased from 38% of those experiencing data
+management responsibilities in 2012 to 50% in 2018. Intellectual property was the only
+responsibility that did not see an uptick in percent reporting substantial workload, staying at
+roughly 44% of respondents who experienced the responsibility.
+
+Finally, respondents reported whether each of the general research administration responsibilities
+were low, medium, or high priority for change to reduce administrative burden. Among the
+requirements within this group that were rated as high priority by a given respondent, the
+
+
+                                               © Copyright FDP Foundation, 2020. All rights reserved.
+                                                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 29
+
+respondent was then asked to isolate the single highest priority or most important responsibility
+in need of addressing to reduce administrative burden. Figure 8 below shows the percent who
+rated each requirement as a high priority for change and, within that, the percent who rated the
+particular requirement as the highest priority within the general research administration group.
+
+                                                          High Priority for Change in General Research Administration Requirements
+
+                                 Project Finances
+
+
+
+
+ Administrative Workload Type
+                                     Subcontracts
+
+
+                                  Effort Reporting
+
+
+                                Project Personnel
+
+
+                                Data Management
+
+                                                                                                                      High Priority
+                    Intellectual Property
+                                                                                                                      Highest Priority
+
+                                                     0%      5%      10%     15%      20%      25%      30%      35%         40%         45%
+                                                                           % Among Those Experiencing Reponsibility
+Figure 8. Percent rating each requirement as high and/or highest priority for change in order to
+reduce unnecessary administrative burden.
+
+One of the most important observations is that the percent reporting that any of the general
+administration requirements as high priority for change was nowhere more than 30%. This
+suggests that the sense of urgency varies across researchers, though there is a sizable minority
+who perceive these needs as seriously disruptive and detrimental to time available for research.
+
+Administration of project finances had the dubious distinction of being one of the most prevalent
+and most workload heavy areas that is also among the most common to be rated as a high
+priority for change. Almost 30% of all respondents who were dealing with project finance
+responsibilities considered them high priorities for change. This area was more likely than any
+of the other general administration requirements to be considered the single highest priority for
+change to reduce administrative burden. Given that this requirement is ubiquitous, any
+improvements (or, for that matter, added workload) would affect almost all federally-funded
+researchers.
+
+Although less commonly experienced, of those who were dealing with subcontracts, 25% felt
+that this was the area most in need of change to reduce administrative workload, with just over
+10% of those dealing with subcontracts considering them the most important of the general
+administration requirements for making changes to reduce burden on investigators. For both
+
+
+                                                     © Copyright FDP Foundation, 2020. All rights reserved.
+                                             2018 FDP Faculty Workload Survey: Report of Primary Findings / 30
+
+effort reporting and project personnel, 20% of those experiencing the responsibility judged it to
+be a high priority for change, with about 10% felling it is the highest priority. Although data
+management was time consuming for many, only 15% rated it as a high priority for change, with
+7% rating it the highest priority. Intellectual property had the lowest rate in this category for
+high priority with only 10% feeling that there was a high need for change, and less than 5%
+rating it as the highest priority for change to alleviate administrative burden.
+
+Based on findings from the 2012 survey, a subset of responsibility areas were explored further to
+learn more about which particular functions or tasks were deemed most in need of change to
+reduce unnecessary burden. Among the general administrative responsibilities, breakdowns by
+specific subareas were conducted for project finances, subcontracts, data management, and
+intellectual property.
+
+
+                                           Components of Project Finances Responsibilities
+
+Figure 9 below displays priority for change ratings for six components of project finance
+responsibilities. Responses for this subset of items were solicited from all of those respondents
+who reported a high need for change in project finances to reduce unnecessary administrative
+workload. Responsibilities are ordered from those of greatest concern on the top to those least
+likely to be seen as high priority for change on the bottom.
+
+
+                 Grant expenditure balances
+             (transparency, accuracy, timeliness)
+                                Grant expenditure approval
+                                 and justification process
+
+
+
+
+  Responsibility Subcategory
+                               Proposal budget preparation
+
+                                         Grant-related
+                                     purchasing procedures
+                                           Issues related to
+                                           payroll on grants
+                                                                                             % High Priority
+                               Proposal institutional routing
+                                                                                             % Highest Priority
+                                                           0% 10% 20% 30% 40% 50% 60% 70% 80%
+                                             % Out of Those Reporting High Need for Change in Finances (N=2719)
+Figure 9. Percent rating each component of project finance responsibilities as high and/or highest
+priority for change in order to reduce unnecessary administrative burden.
+
+
+
+
+                                         © Copyright FDP Foundation, 2020. All rights reserved.
+                                                 2018 FDP Faculty Workload Survey: Report of Primary Findings / 31
+
+When asked about which of the finance subcomponents was most in need of change, the
+availability of transparent, accurate, and timely reports of grant expenditure balances was
+the most commonly reported item. Almost 60% agreed that this is an especially high priority for
+change. Grant expenditure approvals and justifications were also identified at a high rate,
+with half of respondents considering this an especially high priority. Just under 50% reported
+particular concerns with excessive workload associated with proposal budget preparation and
+with grant-related purchasing procedures. Roughly one third expressed concern over a high need
+to change issues related to payroll on grants or proposal institutional routing in order to reduce
+unnecessary workload.
+
+                                                 Components of Subcontracts Responsibilities
+
+Within the general administrative responsibilities, subcontracts was second to project finances in
+the proportion of affected researchers who perceived this area as a high need for change to
+reduce time taken away from research. Figure 10 below displays ratings by this subset of
+researchers concerning priority for change within the seven components that comprise
+subcontracts responsibilities. Responsibilities are ordered from those that were identified as
+greatest concern on the top to those least likely to be seen as high priority for change on the
+bottom.
+
+
+                                  Getting subcontract agreements
+                                              in place
+
+Overseeing subcontract financial matters
+   (e.g., budgets, expenditures, etc.)
+
+
+
+
+  Responsibility Subcategory
+                                        Including subcontract
+                                     documentation in proposals
+
+                                      Documenting subcontractor
+                                            monitoring
+
+                                     Overseeing and reporting
+                                   on subcontractor performance
+
+                               Overseeing subcontract compliance
+                                   and safety/security issues
+                                                                                                   % High Priority
+ Managing issues specific to international
+              subcontracts                                                                         % Highest Priority
+
+                                                                0% 10% 20% 30% 40% 50% 60% 70% 80%
+                                                   % Out of Those Reporting High Need for Change in Subcontracts (N=1277)
+
+Figure 10. Percent rating each component of subcontracts responsibilities as high and/or highest
+priority for change in order to reduce unnecessary administrative burden.
+
+
+                                            © Copyright FDP Foundation, 2020. All rights reserved.
+                                                    2018 FDP Faculty Workload Survey: Report of Primary Findings / 32
+
+Almost 70% of researchers in this group reported that getting subcontract agreements in place
+is in especially high need of change to prevent subcontracts from interfering with research
+progress. Almost 60% reported that overseeing subcontract financial matters was of special
+importance in remedying subcontract-related burden, with 45% reporting that including
+subcontract documentation in proposals is a high priority area for changes that could
+substantially decrease unnecessary workload. Between 25% and 35% reported each of the
+remaining items, including documentation of subcontractor monitoring, oversight and reporting
+on subcontractor performance, oversight of subcontractor compliance and safety/security issues,
+and management of issues specific to international subcontracts.
+
+
+                                                Components of Data Management Responsibilities
+
+Given the increase in the number of researchers reporting substantial workload from data
+management responsibilities, it seems particularly worthwhile to get a sense of which specific
+responsibilities are especially in need of change. Figure 11 below displays priority for change
+ratings for five data management subcomponents, which were completed by researchers who
+perceived this area as a high need for change to reduce unnecessary burden. As in the previous
+graphs, responsibilities are ordered from those that were identified as greatest concern on the top
+to those least likely to be seen as high priority for change on the bottom.
+
+
+                                 Developing data management plans
+
+
+                                 Identifying appropriate external
+
+
+
+
+Responsibility Subcategory
+                             data repositories and uploading the data
+
+
+                              Institutional resources for data sharing
+
+
+                          Developing information security plans
+                        to satisfy applicable laws and regulations
+
+                                De-identifying/cleaning data to meet                                    % High Priority
+                                federal requirements for data sharing                                   % Highest Priority
+
+                                                                    0%            20%          40%          60%          80%
+                                                    % Out of Those Reporting High Need for Change in Data Management (N=1078)
+Figure 11. Percent rating each component of data management responsibilities as high and/or highest
+priority for change in order to reduce unnecessary administrative burden.
+
+Three different components of data management were identified by just over 50% of respondents
+as especially high need for change to reduce burden. These include: (1) developing data
+management plans, (2) identifying appropriate external data repositories and uploading
+
+
+                                               © Copyright FDP Foundation, 2020. All rights reserved.
+                                                    2018 FDP Faculty Workload Survey: Report of Primary Findings / 33
+
+the data, and (3) availability and adequacy of institutional resources for data sharing.
+Close to 45% reported a high priority need for change in the two remaining areas of developing
+information security plans to satisfy applicable laws and regulations as well as de-identifying and
+cleaning data to meet federal requirements for data sharing.
+
+                                                Components of Intellectual Property Responsibilities
+
+Although fewer researchers reported intellectual property responsibilities, approximately 45% of
+those researchers reported substantial workload. To our surprise, only about 10% of these
+researchers reported that this workload seemed a high priority for change. This suggests that, in
+general, these researchers may see much of the workload associated with intellectual property as
+necessary, even if time consuming. Nevertheless, we asked the subset who judged this area to be
+a high priority need for change to evaluate the subcomponents to identify those areas of
+particular concern. The results are shown in Figure 12.
+
+
+
+                              Materials Transfer Agreements
+
+
+
+
+ Responsibility Subcategory
+                               Licensing and use agreements
+
+
+
+                               Patent/copyright applications
+
+
+
+                                       Invention disclosures                                        % High Priority
+                                                                                                    % Highest Priority
+
+                                   0%             20%             40%              60%              80%
+                          % Out of Those Reporting High Need for Change in Intellectual Property (N=367)
+Figure 12. Percent rating each component of intellectual property responsibilities as high and/or
+highest priority for change in order to reduce unnecessary administrative burden.
+
+
+About half of the group who perceived excessive unnecessary workload associated with
+intellectual property requirements reported that Materials Transfer Agreements were a high
+priority need for change to reduce this workload. About 40% identified licensing and use
+agreements or patent/copyright applications as high priority areas in need of change. About one
+third felt invention disclosures were in particular need of attention to reduce unnecessary burden
+on investigators.
+
+
+
+
+                                               © Copyright FDP Foundation, 2020. All rights reserved.
+                                                    2018 FDP Faculty Workload Survey: Report of Primary Findings / 34
+
+
+Compliance Responsibilities
+Figure 13 below displays the percentage of respondents who reported experiencing each of the 6
+compliance responsibilities. Responsibilities are ordered from the most prevalent on the top to
+the least prevalent on the bottom.
+
+                                                                Prevalence of Compliance Requirements
+                      Conflict of Interest (COI)
+
+
+
+
+ Administrative Workload Type
+                                Resp. Conduct of Rsrch
+
+                                  IRB/Human Subjects
+
+                                                HIPAA
+
+                                IACUC/Animal Subjects
+                                                                                                          2018
+                                         Clinical Trials                                                  2012
+
+                                                           0%   10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+                                                                          % of Respondents
+Figure 13. Prevalence of six compliance responsibilities as reported in 2018 and 2012 surveys.
+Resp.=Responsible, Rsrch=Research.
+
+The most commonly experienced responsibility in the compliance group was conflict of interest
+(COI) with nearly 80% reporting these responsibilities. COI’s prevalence increased by more
+than 15% since 2012, most likely due to the introduction by the Department of Health and
+Human Services in 2011 of Financial Conflict of Interest (FCOI) Regulations for public health
+service research. Responsible conduct of research rules were experienced by just over 60% of
+respondents, which was up more than 5% from 2012. The remaining compliance areas had
+similar prevalence rates across both surveys, with just under half of participants engaging in
+human subjects research and about one quarter engaging in animal subjects research. Almost
+30% of respondents had to comply with HIPAA (Health Insurance Portability and Accountability
+Act) requirements for protecting health-related information, and about 15%, which was a small
+increase from 2012, were conducting clinical trials research.
+
+
+
+
+                                              © Copyright FDP Foundation, 2020. All rights reserved.
+                                                    2018 FDP Faculty Workload Survey: Report of Primary Findings / 35
+
+Figure 14 below displays the likelihood of substantial workload (i.e., some to very much time
+taken from research) for each of the 6 compliance responsibilities. Responsibilities are ordered
+from the most likely to be rated as substantial workload on the top to the least likely on the
+bottom.
+
+                                                                Substantial Workload of Compliance Requirements
+                                IACUC/Animal Subjects
+
+
+
+
+ Administrative Workload Type
+                                         Clinical Trials
+
+                                  IRB/Human Subjects
+
+                                                HIPAA
+
+                                Resp. Conduct of Rsrch
+                                                                                                          2018
+                  Conflict of Interest (COI)                                                              2012
+
+                                                           0%    10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+                                                                    % Among Those Experiencing Responsibility
+Figure 14. Prevalence of six compliance responsibilities as reported in 2018 and 2012 surveys.
+Resp.=Responsible, Rsrch=Research.
+
+Although only about 25% of respondents were engaged in animal subjects research, it
+surfaced both in 2012 and 2018 as the most likely to involve substantial workload, with over
+75% of affected researchers reporting substantial time taken from research by IACUC/animal
+subjects compliance responsibilities. Nevertheless, there was a small decrease (3%) from 2012 to
+2018 in the percentage in this group. Both clinical trials and IRB/human subjects
+responsibilities were also high intensity responsibilities, with just under 70% of affected
+researchers reporting substantial workload in these areas. If anything, substantial workload rates
+had increased slightly for clinical trials, but decreased slightly for IRB/human subjects. HIPAA
+requirements remained relatively stable with about 40% of those experiencing the responsibility
+reporting substantial workload. Both responsible conduct of research (RCR) and COI
+responsibilities were slightly more likely to be rated as substantial workload in 2018, with about
+35% reporting substantial workload from RCR responsibilities and just over 20% reporting
+substantial workload from COI responsibilities.
+
+Finally, respondents reported whether each of the compliance responsibilities were low, medium,
+or high priority for change to reduce administrative burden, and then selected the one highest
+priority among them. Figure 15 below shows the percent who rated each requirement as a high
+
+
+
+                                               © Copyright FDP Foundation, 2020. All rights reserved.
+                                                               2018 FDP Faculty Workload Survey: Report of Primary Findings / 36
+
+priority for change and, within that, the percent who rated the particular requirement as the
+highest priority within the compliance group.
+
+                                                                    High Priority for Change in Compliance Requirements
+
+                                 IACUC/Animal Subjects
+
+
+
+
+ Administrative Workload Type
+                                            Clinical Trials
+
+
+                                   IRB/Human Subjects
+
+
+                                                   HIPAA
+
+
+             Resp. Conduct of Research
+
+                                                                                                                     High Priority
+                                Conflict of Interest (COI)
+                                                                                                                     Highest Priority
+
+                                                              0%    5%     10%     15%     20%      25%     30%     35%     40%         45%
+                                                                              % Among Those Experiencing Reponsibility
+Figure 15. Percent rating each requirement as high and/or highest priority for change in order to
+reduce unnecessary administrative burden. Resp.=Responsible.
+
+The responsibility that was by far the most likely out of all 22 responsibilities to be
+considered a high priority need for change to reduce unnecessary administrative burden
+was IACUC/animal subjects compliance. Almost 45% of those working with animal subjects
+reported this area as a high priority for change, and 36% felt that this was the single most
+important compliance area for reducing administrative burden. Clinical trials and IRB/human
+subjects responsibilities were virtually tied as the second (and third) most likely to be considered
+high priorities for change, with both identified by about one third of affected respondents as
+critical areas for burden reduction. Roughly one quarter of human subjects researchers felt that
+this area was the single most important and about 20% of those conducting clinical trials felt that
+the compliance responsibilities in this area were the most important for reducing burden. The
+remaining compliance areas had fewer than 15% of affected researchers identifying the area as
+high priority for change, and 5% or less selecting the area as the highest priority for reducing
+burden.
+
+Based largely on findings from the 2012 survey, a subset of responsibility areas were explored
+further to learn more about which particular functions or tasks were deemed most in need of
+change to reduce unnecessary burden. Among the compliance responsibilities, breakdowns by
+specific subareas were conducted for IACUC/animal subjects, IRB/human subjects, and conflict
+of interest.
+
+
+
+                                                       © Copyright FDP Foundation, 2020. All rights reserved.
+                                                     2018 FDP Faculty Workload Survey: Report of Primary Findings / 37
+
+                                             Components of IACUC/Animal Subjects Responsibilities
+
+Although only about 25% of researchers experienced IACUC/animal subjects responsibilities, of
+those who did, roughly 75% reported substantial workload as a result. Almost half of these
+researchers reported high or highest priority need for change in requirements associated with
+IACUC/animal subjects. Figure 16 below displays priority for change ratings by this subset of
+researchers for ten subcomponents that make up IACUC/animal subjects responsibilities.
+Responsibilities are ordered from those of greatest concern on the top to those least likely to be
+seen as high priority for change on the bottom.
+
+
+Three-year re-writes of IACUC protocols
+
+                               Protocol for initial IACUC review
+
+                                Rules regarding minor changes
+
+
+
+
+  Responsibility Subcategory
+                                      to IACUC protocols
+
+                                       IACUC software or forms
+
+                                    Turn-around time of IACUC
+                                       applications/revisions
+                                  Fit of IACUC processes to
+                               type of research and level of risk
+
+                                         Annual IACUC reviews
+
+        Quality (e.g., experience, knowledge)
+                 of IACUC reviewers
+        Quality (e.g., experience, knowledge)
+        of veterinary and husbandry support                                                                   % High Priority
+
+                                Training in animal care and use                                               % Highest Priority
+
+                                                                    0%           20%            40%            60%              80%
+                                                                    % Out of Those Reporting High Need for Change in IACUC (N=1052)
+
+Figure 16. Percent rating each component of IACUC/animal subjects responsibilities as high and/or
+highest priority for change in order to reduce unnecessary administrative burden.
+
+
+Almost 75% of respondents reported that three-year re-writes of IACUC protocols was an
+especially high priority area in need of change, closely followed by rules regarding minor
+changes to IACUC protocols. Approximately 55% reported a high need to focus on excess
+unnecessary workload related to IACUC software and forms or to turn-around time of IACUC
+applications and revisions. About half raised a high level of concern over unnecessary workload
+from a lack of fit of IACUC processes to type of research and level of risk or from annual
+IACUC reviews. Almost 40% reported a high priority need to change associated with the quality
+
+
+                                               © Copyright FDP Foundation, 2020. All rights reserved.
+                                                      2018 FDP Faculty Workload Survey: Report of Primary Findings / 38
+
+of IACUC reviewers, with about 25% raising particular concern over problems with the quality
+of veterinary and husbandry support or with training in animal care and use.
+
+                                                 Components of IRB/Human Subjects Responsibilities
+
+Among respondents working with human subjects, almost 70% reported substantial workload
+associated with IRB oversight. Figure 17 below displays priority for change ratings for nine
+components of IRB/human subjects responsibilities. Responses for this subset of items were
+solicited from all of those respondents who reported a high need for change in IRB/human
+subjects responsibilities to reduce unnecessary administrative workload. Responsibilities are
+ordered from those of greatest concern on the top to those least likely to be seen as high priority
+for change on the bottom.
+
+
+                                   Fit of IRB processes to type of
+                                      research and level of risk
+                                         Turn-around time of IRB
+                                          applications/revisions
+
+
+
+
+  Responsibility Subcategory
+                                   Protocols for initial IRB review
+
+                                  Rules regarding minor changes
+                                         to IRB protocols
+
+                                          IRB software and forms
+
+
+                                   IRB continuing review process
+
+
+                               Consent form for initial IRB review
+
+        Quality (e.g., experience, knowledge)
+             of review board members                                                                            % High Priority
+                                      Training in human subjects
+                                              protections
+                                                                                                                % Highest Priority
+
+                                                                      0%           20%            40%             60%             80%
+                                                                       % Out of Those Reporting High Need for Change in IRB (N=1533)
+
+Figure 17. Percent rating each component of IRB/human subjects responsibilities as high and/or
+highest priority for change in order to reduce unnecessary administrative burden.
+
+Three components were all judged to be high priority areas for change by 60% of
+respondents. These included: (1) the lack of fit between IRB processes to type of research
+and level of risk, (2) turn-around time of IRB applications and revisions, and (3) problems
+associated with protocols for initial IRB review. Just over half also raised particular concerns
+over workload associated with rules regarding minor changes to IRB protocols. Just over 40%
+reported high priority need for changes in IRB software and forms, in the ITB continuing review
+
+
+                                                 © Copyright FDP Foundation, 2020. All rights reserved.
+                                                  2018 FDP Faculty Workload Survey: Report of Primary Findings / 39
+
+process, or in the consent form for initial IRB review. One third raised concerns over the quality
+of IRB reviews and almost 25% reported a high priority need for change regarding training in
+human subjects protections.
+
+                                              Components of Conflict of Interest Responsibilities
+
+Conflict of interest (COI) is the most prevalent compliance requirement, but it is less likely to be
+perceived as especially burdensome. Nevertheless, Figure 18 below displays results from asking
+those who experience COI as a high need for change, which among four components seem of
+particularly high priority. Responsibilities are ordered from those of greatest concern on the top
+to those least likely to be seen as high priority for change on the bottom.
+
+
+                                        Level of detail required
+                                   in COI report (e.g., travel, meals)
+
+
+
+
+ Responsibility Subcategory
+                          Filing annual and transactional disclosures
+
+
+                                      Development of management
+                                                plans
+
+
+                                        Terms of management plans                                         % High Priority
+                                                                                                          % Highest Priority
+
+                                                                     0%            20%          40%          60%           80%
+                                                                   % Out of Those Reporting High Need for Change in COI (N=517)
+Figure 18. Percent rating each component of conflict of interest responsibilities as high and/or highest
+priority for change in order to reduce unnecessary administrative burden.
+
+
+The most common item to be rated high priority for change was easily the level of detail
+required in COI reporting for items such as travel and meals. Approximately 60% of
+respondents reported this as especially burdensome. About 50% raised concern over workload
+associated with filing annual and transactional COI disclosures. Roughly 40% identified
+development of management plans as an area of high priority for change, and about 35%
+identified the terms of management plans as in need of a reduction in unnecessary workload.
+
+
+
+
+                                            © Copyright FDP Foundation, 2020. All rights reserved.
+                                                   2018 FDP Faculty Workload Survey: Report of Primary Findings / 40
+
+
+Safety and Security Responsibilities
+Figure 19 below displays the percentage of respondents who reported experiencing each of the
+10 safety and security responsibilities. Responsibilities are again ordered from the most prevalent
+on the top to the least prevalent on the bottom.
+
+                                                               Prevalence of Safety/Security Requirements
+                                General Laboratory Safety
+
+                                          Chemical Safety
+
+                                                Biosafety
+
+         Info/Infrastructure Security*
+
+
+
+
+ Administrative Workload Type
+                                     Lab Access Controls*
+
+                                        Recombinant DNA
+
+                                          Radiation Safety
+
+                                          Export Controls
+
+                                Controlled Subs./Narcotics                                               2018
+
+                                      Select Agents/DURC                                                 2012
+
+                                                             0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+                                                                           % of Respondents
+Figure 19. Prevalence of ten safety and security responsibilities as reported in 2018 and 2012 surveys.
+Info=Information, Subs.=Substances. *Items were not included in 2012 survey.
+
+The most commonly experienced responsibility in the safety and security group was general
+laboratory safety with about 50% reporting this responsibility. Here and for the other safety and
+security responsibilities, prevalence was relatively stable across surveys or slightly lower in
+2018. About 40% of respondents had chemical safety responsibilities, and about 30% had
+biosafety or information/infrastructure security responsibilities. About 20% of respondents
+reported having responsibilities associated with laboratory access controls, recombinant DNA, or
+radiation safety. Less than 20% reported responsibilities related to export controls, controlled
+substances/narcotics, or select agents/DURC (Dual Use Research of Concern).
+
+Figure 20 below displays the likelihood of substantial workload (i.e., some to very much time
+taken from research) for each of the 10 safety and security responsibilities. Responsibilities are
+
+
+
+
+                                               © Copyright FDP Foundation, 2020. All rights reserved.
+                                     2018 FDP Faculty Workload Survey: Report of Primary Findings / 41
+
+ordered from the most likely to be rated as substantial workload on the top to the least likely on
+the bottom.
+
+                                         Substantial Workload of Safety/Security Requirements
+                                  Biosafety
+
+                  Controlled Subs./Narcotics
+
+
+ Workload Type
+                            Chemical Safety
+
+                  General Laboratory Safety
+
+     Info/Infrastructure Security*
+
+
+
+
+ Administrative
+                          Recombinant DNA
+
+                            Radiation Safety
+
+                            Export Controls
+
+                        Select Agents/DURC                                                 2018
+
+                       Lab Access Controls*                                                2012
+
+                                               0% 10% 20% 30% 40% 50% 60% 70% 80% 90% 100%
+                                                    % Among Those Experiencing Responsibility
+Figure 20. Prevalence of six safety and security responsibilities as reported in 2018 and 2012 surveys.
+Info=Information, Subs.=Substances. *Items were not included in 2012 survey.
+
+Although never exceeding 50%, increases in the number reporting substantial workload
+were observed for several safety/security responsibilities. Biosafety responsibilities were the
+most likely among this group to involve substantial workload, with half of affected investigators
+reporting some to very much time taken to address biosafety concerns. This is a 7% increase
+from 2012. Similarly, a 9% increase in the percent of those reporting substantial workload (from
+39% to 48%) was observed for controlled substances/narcotics responsibilities. Smaller increases
+were also observed for chemical safety, general laboratory safety, and recombinant DNA
+requirements. The only decreases across surveys were for select agents/DURC and possibly
+radiation safety. In all cases, between one third and half of the affected respondents experienced
+substantial time away from research in order to complete the given responsibility.
+
+Finally, respondents reported whether each of the safety and security responsibilities were low,
+medium, or high priority for change to reduce administrative burden, and then selected the one
+highest priority among them. Figure 21 below shows the percent who rated each requirement as
+
+
+
+                                 © Copyright FDP Foundation, 2020. All rights reserved.
+                                              2018 FDP Faculty Workload Survey: Report of Primary Findings / 42
+
+a high priority for change and, within that, the percent who rated the particular requirement as
+the highest priority for the safety and security group.
+
+                                                   High Priority for Change in Safety/Security Requirements
+                           Export Controls
+
+                         Recombinant DNA
+
+
+
+Workload Type
+                 Controlled Subs./Narcotics
+
+                                 Biosafety
+
+             Info/Infrastructure Security
+
+
+
+
+Administrative
+                           Chemical Safety
+
+                       Select Agents/DURC
+
+                 General Laboratory Safety
+
+                           Radiation Safety                                                              High Priority
+                       Lab Access Controls                                                               Highest Priority
+
+                                              0%    5%      10%     15%      20%       25%     30%       35%     40%        45%
+                                                              % Among Those Experiencing Reponsibility
+Figure 21. Percent rating each requirement as high and/or highest priority for change in order to
+reduce unnecessary administrative burden. Resp.=Responsible, Rsrch=Research.
+
+Priority ratings were typically lower for the safety/security area than for compliance or general
+research administration. Although one of the least commonly experienced responsibilities,
+export controls had the largest percentage among the safety/security group, with 17%
+reporting a high priority for change to reduce administrative burden. Similar values were
+observed for recombinant DNA, controlled substances/narcotics, and biosafety. Values for the
+remaining areas were all lower than 15%, suggesting that a relatively small minority of affected
+researchers experience these responsibilities as key areas for needed change.
+
+Summary
+As in 2012, project finances and project personnel were two of the most commonly experienced
+responsibilities that also had high rates of substantial workload. The new high priority for change
+question on the 2018 survey revealed that, despite the similarity in workload, project finances
+requirements were much more likely than project personnel to be considered a high priority need
+for change to reduce administrative burden.
+Although less commonly experienced, IACUC/ animal subjects compliance is clearly the highest
+priority of all of the requirements for changes to address unnecessary workload, closely followed
+by IRB/human subjects and clinical trials. Subcontracts also surface as an area of concern,
+followed by effort reporting and project personnel. All of the remaining responsibilities are
+considered high priority for change by 15% or fewer. Workloads for the various responsibilities
+were more likely than not to have increased over time (13 of 20, with 2 measured for the first
+
+
+
+                                      © Copyright FDP Foundation, 2020. All rights reserved.
+                            2018 FDP Faculty Workload Survey: Report of Primary Findings / 43
+
+time in 2018), particularly for data management. Prevalence of data management
+responsibilities, as well as conflict of interest responsibilities, increased markedly from the 2012
+to the 2018 survey.
+A summary of particular components that were identified as especially in need of change by at
+least half of those who reported high levels of concern appears in Table 7 below.
+Table 7. Responsibility Components Identified as High Priority by at Least 50% of Those Asked
+ Responsibility               High Priority Area of Concern
+ Project Finances             Grant expenditure balances (transparency, accuracy, timeliness)
+                              Grant expenditure approval and justification process
+ IRB/Human Subjects           Fit of IRB processes to type of research and level of risk
+                              Turn-around time of IRB applications/revisions
+                              Protocols for initial IRB review
+                              Rules regarding minor changes to IRB protocols
+ IACUC/Animal Subjects        Three-year re-writes of IACUC protocols
+                              Protocol for initial IACUC review
+                              Rules regarding minor changes to IACUC protocols
+                              IACUC software or forms
+                              Turn-around time of IACUC applications/revisions
+                              Fit of IACUC processes to type of research and level of risk
+ Subcontracts                 Getting subcontract agreements in place
+                              Overseeing subcontract financial matters (e.g., budgets, expenditures, etc.)
+ Data Management              Developing data management plans
+                              Identifying appropriate external data repositories and uploading the data
+                              Institutional resources for data sharing
+ Conflict of Interest         Level of detail required in COI report (e.g., travel, meals)
+                              Filing annual and transactional disclosures
+ Intellectual Property        Materials Transfer Agreements
+Note. Items in bolded italic were identified by at least 60% as high priority need for change.
+
+
+
+
+                        © Copyright FDP Foundation, 2020. All rights reserved.
+                            2018 FDP Faculty Workload Survey: Report of Primary Findings / 44
+
+
+              Federal Agency Requirements for Grants and Contracts
+
+In 2018, participants were asked to respond to items specific to pre-award and post-award
+requirements of individual agencies. Participants indicated which of their funding agencies had
+the most burdensome administrative requirements (if they reported more than 1 funding agency
+[n=3621]). Then, with respect to that agency (or their only funding agency [n=7519]), they were
+asked the priority for change to reduce unnecessary administrative workload associated with
+each requirement. Participants completed two sets of items: (1) of pre-award requirements
+typically associated with proposal preparation and submission and (2) post-award requirements
+associated with managing and reporting on the grant.
+
+Proposal Preparation and Related Pre-Award Responsibilities
+Figure 22 below shows the averaged researcher ratings of perceived need for change concerning
+agency-specific pre-award responsibilities. As was found among general compliance-related
+responsibilities, agency-required animal and human subjects responsibilities--above and beyond
+locally monitored IRB and IACUC requirements—were the pre-award responsibilities most
+commonly judged to be high priority for change to reduce unnecessary burden. Agency
+requirements concerning both animal care and use protections and human subjects protections
+were rated by over 25% of respondents as high or highest priority for a reduction in excess and
+unnecessary workload.
+
+
+                                                    Combined Agency Averages
+   Animal Care and Use Protections
+        Human Subjects Protections
+          Budgets and Justifications
+           Data Management Plans
+     Collaborators/Affiliation Forms
+   Responsible Conduct of Research
+      Postdoctoral Mentoring Plans
+                         Biosketches
+       Financial Conflicts of Interest
+    Research Plan/Project Narrative                           Highest Priority   High Priority
+
+                                         0%    5%    10%     15%     20%     25%     30%     35%
+                                          Percent Reporting High Priority Need for Change
+Figure 22. Averages for percent of respondents rating each pre-award agency requirement as high
+priority for change to reduce administrative burden.
+
+
+
+                      © Copyright FDP Foundation, 2020. All rights reserved.
+                             2018 FDP Faculty Workload Survey: Report of Primary Findings / 45
+
+Figure 22 also shows that, averaging across agencies, budgets and budget justifications were
+judged by roughly 25% of respondents to be an area of high priority to reduce unnecessary
+burden. This area was also most commonly rated as the single highest priority for reducing
+agency-level administrative workload. Consistent with what was found earlier for general
+ratings concerning project finances, agency requirements concerning proposal budgets and
+related justifications are among the most common areas of concern with respect to unnecessary
+workload.
+
+Data management plans were considered a high priority area for change by 20% of respondents,
+closely followed by collaborator and affiliation forms. Between 10% and 15% of respondents
+reported a high need for change in agency requirements for postdoctoral mentoring plans,
+biosketches, financial conflict of interest, and research plans/project narratives.
+
+Ratings for specific agencies of pre-award areas deemed high priorities for change can be found
+in the related supplementary chapter.
+
+
+Report Preparation and Related Post-Award Responsibilities
+Participants were also asked to evaluate post-award requirements made by the specific federal
+agency that they identified as there sole federal funding source or the source with the greatest
+administrative demands. Figure 23 below lists these responsibilities from those that were most
+to least likely to be rated as a high priority for change to reduce administrative workload.
+
+                                              Post-Award Combined Agency Averages
+           Clinical Trial Monitoring
+  Animal Care and Use Protections
+      Human Subjects Protections
+   Interim/Final Report Narratives
+           Subcontract/Subaward…
+Interim/Final Expenditure Reports
+                 Biosafety and IBC
+                    Export Controls
+          DURC and Select Agents
+    Data Sharing/Storage/Security
+     Financial Conflicts of Interest                           Highest Priority     High Priority
+
+                                       0%     5%     10%     15%     20%      25%       30%         35%
+                                            Percent Reporting High Priority Need for Change
+Figure 23. Averages for percent of respondents rating each post-award agency requirement as high
+priority for change to reduce administrative burden.
+
+
+                       © Copyright FDP Foundation, 2020. All rights reserved.
+                        2018 FDP Faculty Workload Survey: Report of Primary Findings / 46
+
+As found for pre-award agency requirements, post-award requirements associated with human
+and animal subjects were most likely to be deemed a high priority need for change by those
+experiencing the requirement. Clinical trial monitoring was the requirement that had the highest
+likelihood of being judged a high priority area in need of change, with roughly 25% of
+respondents who experienced this requirement placing it in this category. This was closely
+followed by agency requirements for animal care and use protections and human subjects
+protections (beyond institution-monitored IRB and IACUC requirements) with between 20% and
+25% of respondents judging the areas as high priority to reduce unnecessary workload.
+
+Interim and final reports, including both narratives and expenditure documentation, were also
+commonly identified as high priority areas for improvement, with 18% to 20% of ratings falling
+in this category. Similarly, subcontract and subaward monitoring were identified as high priority
+for change by roughly 20% of those dealing with subawards on their federally funded projects.
+
+Greater than 15% reported problematic workload associated with agency biosafety and IBC
+requirements as well as export control requirements. Just under 15% reported a high priority
+need for change in DURC and select agent requirements, with a similar percent of respondents
+targeting agency requirements for data sharing, data storage, and/or data security. Finally,
+agency requirements associated with financial conflicts of interest were judged to be a high
+priority area for change by about 8% of affected respondents.
+
+Ratings for specific agencies of post-award areas deemed high priorities for change can be found
+in the related supplementary chapter.
+
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 47
+
+
+                         Perceptions of the Climate for Research
+
+PIs were asked to respond to a series of 15 items designed to elicit their opinions of the general
+climate for research at their institution. Four categories of items were included, with the first two
+categories repeated from the FDP 2012 Faculty Workload Survey. Respondents were asked
+whether they agreed or disagreed with the statements using a 5-point Likert-type scale in which:
+1= strongly disagree, 2= disagree, 3= neither agree nor disagree, 4= agree, 5= strongly agree.
+Respondents also had the option to select “I don’t know.” Each bar in the graphs below
+corresponds to the percentage of respondents with an opinion (i.e., ratings 1-5) who agreed with
+each item (i.e., selected either 4 or 5).
+
+A correlational analysis focused on average institution-level data was also conducted to see how
+an institution’s research climate may be related to research workload. For each item, correlations
+were computed using as the unit of observation each of the 109 institutions with at least 10
+respondents. The goal of these measures was to see how each of the research climate average
+ratings within the institution related to (1) the average number of hours allotted to PIs for
+research, and then, after controlling for these differences in research time, (2) the average
+amount of research time taken away by the need to complete requirements associated with
+federally-funded research. Correlations are significant (p<.05), unless otherwise indicated.
+
+Institution Priority on Research
+Below in Figure 24 are the percent of respondents who agreed with statements about the priority
+on research within their institution compared across 2018 and 2012. Differences across survey
+time periods were small. A large majority (85%) agreed that sponsored research activity is a
+priority when making promotion decisions within their institution, and about 70% agreed that
+research was prioritized over teaching in their department or program. If anything, these values
+might be slightly lower than in 2012, however, in both time periods, the perceived importance of
+research within the institution was generally high.
+
+
+ Sponsored research activity is a primary factor
+        in my institution's promotion policies.
+
+
+      In my department/program, research is                                                 2018
+    considered more important than teaching.
+                                                                                            2012
+
+                                                   0%     20%      40%      60%       80%      100%
+                                                   % of Respondents Who Agree With Each Statement
+Figure 24. Percentage who agree with statements regarding priorities on research for 2018 and 2012.
+
+Both of these items were highly predictive of available research time, with higher ratings of the
+priority on research associated with more research time (r=.50 and r=.47 respectively). However,
+neither was strongly predictive of reported time away from research due to requirements
+(rp=-.14, ns, and rp=.20).
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                             2018 FDP Faculty Workload Survey: Report of Primary Findings / 48
+
+
+Outlook on Research Career
+Figure 25 below includes a cross-survey comparison of four items focused on how research-
+related administrative requirements influence the outlook of researchers, plus a fifth item that
+was added to the 2018 survey. About 75% of researchers felt that administrative requirements
+have been increasing, which is a slightly higher percentage than in 2012. This tendency was
+slightly more common within institutions with larger research assignments (r=.24), but did not
+significantly relate to average reported time away from research.
+
+Just over 60% reported that administrative burden seriously compromises research productivity.
+This feeling was more common at institutions with larger research assignments (r=.37) and
+slightly more likely at institutions with higher average time away from research estimates
+(rp=.24).
+
+
+         Administrative workload associated with
+federally-funded research grants has increased in
+                               the last 5 or 6 years.
+ Administrative burden associated with federally-
+ funded research seriously compromises research
+                                       productivity.
+Research administrative workload is discouraging
+   my graduate students from pursuing academic
+                                  research careers.
+   Because of research administrative workload, I                                             2018
+  am generally less willing to submit federal grant
+                        proposals than in the past.
+                                                                                              2012
+
+ If I had to do it over again, I would still choose an
+                          academic research career.
+
+                                                         0%      20%     40%     60%       80%     100%
+                                                          % of Respondents Who Agree With Each Statement
+Figure 25. Percentage agreeing with statements regarding the impact of research-related
+administrative workload.
+
+Almost half expressed concern that research-related administrative requirements are
+discouraging their graduate students from pursuing an academic research career. This
+percentage was up sharply from 2012. Interestingly, this sentiment was much more likely at
+institutions with larger research assignments (r=.53), but was not clearly associated with
+institution-level average estimates of researcher time away from research.
+
+Almost one third of respondents reported that, due to excess workload, they were less willing to
+submit federal grant proposals than in the past. This was also slightly higher than the percentage
+
+
+
+                       © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 49
+
+from 2012. As one might expect, this reluctance was slightly more likely at institutions with
+smaller research assignments (r=-.27), and at institutions with higher average researcher
+estimates of time taken from research by requirements (rp=.25).
+
+Despite these concerns, roughly 80% of the respondents reported that they would choose an
+academic research career if they had a second chance. This feeling was not correlated with either
+institution average research assignment or average reports of time away from research. Overall,
+this provides evidence of an increase in the perceived negative impacts of time-consuming
+requirements, although these impacts are not enough to lead most respondents to second guess
+their career choice.
+
+Institution Effectiveness in Alleviating Administrative Workload
+The four items in Figure 26 below focus on the institution’s effectiveness in alleviating
+administrative workload associated with federally-funded research.
+
+
+  My institution effectively assists faculty
+     with applying for federal grants and
+                                 contracts.
+  My institution effectively assists faculty
+  with managing federally funded grants
+                            and contracts.
+  My institution makes it straightforward
+            to find answers about federal
+          regulations related to research.
+
+ My institution works to alleviate hurdles
+                in collaborative research.
+
+                                               0%      20%     40%     60%      80%     100%
+                                               % of Respondents Who Agree With Each Statement
+Figure 26. Percentage who agreed with statements regarding institution effectiveness in alleviating
+research-related administrative workload.
+
+Approximately 60% of respondents felt that their institution was effective in assisting with
+applying and managing federally-funded grants and contracts. As might be expected, the
+tendency to agree was slightly higher at institutions with larger average research assignments
+(both r’s=.29) and slightly lower for institutions with higher average reported time away from
+research due to requirements (rp’s=-.29 and -.31, respectively).
+
+Respondents were equally split about ability to obtain information, with roughly half agreeing
+that their institution makes it straightforward to find answers to questions about federal
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 50
+
+regulations. Although there was a slightly stronger tendency toward agreement at institutions
+with larger average research assignments (r=.22), there was a relatively strong negative
+correlation between agreement rating and time away from research (rp=-.35). Thus, respondents
+at institutions with higher average reported time taken by requirements were more likely to
+report having trouble readily accessing needed information from their institution about federal
+regulations.
+
+Only about 40% of respondents agreed that their institution tries to alleviate hurdles to
+collaborative research. Agreement was slightly more common at institutions with larger average
+research assignments (r=.29) and at institutions with lower average estimated time away from
+research (rp=-.28).
+
+Overall, ratings of institution’s ability to alleviate administrative workload were mixed.
+Agreement that the institution was doing well tended to increase at those institutions with larger
+average research assignments. Correspondingly, agreement tended to be higher at institutions
+with lower average estimates of researcher time taken from research in order to fulfill
+requirements. Perceptions of high researcher administrative workload were especially likely
+when researchers were frustrated in their efforts to get questions answered, and when they
+experienced difficulties in managing existing projects.
+
+Institution Research Culture
+PIs were also asked to respond to four items assessing their views of the research culture within
+their institution. These ratings appear in Figure 27 below.
+
+
+      My institution has a culture of trust in
+                                researchers.
+
+    My institution ensures that researchers
+    have an active voice on issues affecting
+                                  research.
+
+  My institution avoids overreactions based
+                  on audit or legal concerns.
+
+   My institution regularly explores ways to
+           reduce administrative burden on
+                                researchers.
+
+                                               0%      20%    40%    60%     80%     100%
+                                            % of Respondents Who Agree With Each Statement
+Figure 27. Percentage who agreed with statements regarding the institution’s research culture.
+
+Approximately 60% agreed that their institution has a culture of trust in researchers. Those who
+disagreed were more likely to come from institutions with smaller average research assignments
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 51
+
+(r=.33) and from institutions with higher average reported time taken from research by
+requirements (rp=-.39).
+
+Fewer than half (41%) felt that researchers had an active voice at their institution on issues
+affecting research. Again, a sense of lacking input was somewhat more likely at institutions with
+smaller average research assignments (r=.27) and at institutions with higher average reported
+time taken from research by requirements (rp=-.26).
+
+Less than one third felt that their institution avoided over-reacting to audit or legal concerns, and
+less than 25% felt that their institution was actively working to reduce administrative burden on
+researchers. Surprisingly, these views were not systematically related to average research
+assignment or to average institution estimates of time taken from research by requirements.
+
+These findings suggest that there is substantial room for improvement in perceived research
+culture at many institutions. There was a particularly strong negative relationship between the
+perceived culture of trust and the average report of time spent on administrative and other
+requirements. A stronger culture of trust is associated with lower reports of time away from
+research. To a lesser extent, this is also true for perceptions of having an active voice in
+research-related issues at their institution.
+
+
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                         2018 FDP Faculty Workload Survey: Report of Primary Findings / 52
+
+
+                                          Conclusions
+
+As in 2012 and 2006, we again observed high levels of time taken from federally-funded
+research to fulfill requirements. In fact, the average amount of time seems to be increasing so
+that almost half (44.3%) of a researcher’s allocated time for their research projects is spent on
+requirements rather than on active research.
+
+Across all three surveys, the most time-consuming responsibilities were associated with
+proposal preparation, projects finances, and protections for animal and human subjects.
+In our most recent survey, we documented that this workload is due not only to responsibilities
+reflected in requirements monitored by the institution, but also compounded by agency-specific
+requirements that are added on top of the institutions’ requirements. For instance, agency-
+specific prerequisites for the use of animal or human subjects are added on to the institution-run
+IACUC and IRB requirements. This is likely to result in redundancies and delays that do not
+contribute to subject protections and that could be avoided through streamlining. Indeed, the
+2018 survey documented that these areas are not only time-consuming but also those that were
+most likely to be rated high priority areas in need of change to reduce unnecessary
+workload.
+
+These results highlight the importance of evaluating workload at all levels and the essential
+collaborative efforts that include both institutions and agencies. Both larger scale
+collaborations and more focused interventions within the institution will be needed to strike a
+healthier balance between administrative workload and research productivity. The collaborative
+nature of the FDP, with its ability to elicit input from and encourage interaction among
+researchers, administrators, federal agency representatives, and other interested parties, is
+well-positioned to play a critical role in moving in the direction to promote a more efficient and
+effective research enterprise. This will better enable researchers to maintain their focus on
+discovery and innovation without compromising accountability.
+
+As in 2012, the most recent survey accentuates the importance of weighing the costs and benefits
+of introducing new research policies. Even when well-intended, policies may have unintended
+consequences that create complications for compliance, and lead to much greater workload than
+what would ideally be necessary to accomplish the policy’s goals. At other times, redundancies
+in the system lead to wholly unnecessary repetition, often with the need to complete multiple
+different forms or to follow several different procedures. Avoiding these complications and
+redundancies could save enormous amounts of work, not only for researchers, but also for the
+administrative and agency personnel who process the paperwork. This would also have the
+benefit of better utilizing taxpayer dollars.
+
+Perhaps one of the most alarming findings in the current survey is the increase in concern for the
+research pipeline. Almost half of the respondents acknowledged the discouraging effects that
+workload is having on graduate students, making it less likely that they will pursue academic
+careers focused on scientific research. This represents a large uptick since 2012, when about one
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+                          2018 FDP Faculty Workload Survey: Report of Primary Findings / 53
+
+third expressed this concern. Without a strong pipeline of future researchers, the United States
+will be at risk of losing its competitive edge in the areas of discovery and innovation. This
+secondary impact of excess workload (particularly with respect to the proportion of unfunded
+proposals) constitutes a threat to the future of the research enterprise and is vital to take into
+account. Future interventions to streamline research may benefit from including this as an area
+in need of focused attention. The FDP can play a key role in keeping these issues at the forefront. In
+addition, various kinds of demonstrations may be developed to help illustrate the impact of
+addressing these issues while maintaining accountability.
+
+The FDP can continue to be a source of information by continuing to collect data to monitor
+progress. In addition to the FDP Faculty Workload Survey, it would be especially valuable to
+also gain comparable information about the workload associated with efforts to obtain and
+manage federally-funded projects among administrative staff at institutions and at federal
+agencies. This would provide a more complete picture of the cost of current requirements and
+allow better estimates of the value obtained from efforts to streamline processes. Future
+iterations of the Workload Survey might be revised to include data regarding research
+administration within member institutions and agencies to facilitate comprehensive efforts to
+reduce inefficiencies and to eliminate unnecessary requirement-related workload.
+
+Future iterations of the survey might also include methods for validating respondent estimates of
+workload. The current survey provided a step in the right direction by demonstrating that the
+estimates of percent time generally matched comparable hourly estimates. It also showed high
+internal consistency which is supportive though not conclusive of the meaningfulness of the data.
+Nevertheless, more specific corroborating data would be valuable, such as the inclusion of
+smaller, more intensive studies of time taken by responsibilities using prospective, more
+objective metrics (e.g., ecological momentary assessment methods [Stone et al. 2005]). These
+complementary forms of data would also provide a more exacting basis for assessing the costs
+associated with additional administrative requirements.
+
+Working to assist researchers to optimize the available time for research will continue to be a
+critical goal for achieving the best use of federal funds for research. Input from this survey and
+future FDP projects provide unique resources to assist institutions, agencies, and researchers.
+Interaction among members of all of these groups, and related parties, is essential to the work
+and progress of the FDP, as these sustained collaborations provide otherwise inaccessible
+windows into effective methods for streamlining the research enterprise.
+
+
+
+
+                     © Copyright FDP Foundation, 2020. All rights reserved.
+                         2018 FDP Faculty Workload Survey: Report of Primary Findings / 54
+
+
+                                          References
+
+Cohen, J. (1992). A power primer. Psychological Bulletin,122,155–159.
+    https://doi.org/10.1037/0033-2909.112.1.155
+
+Couper, M. P., & Miller, P. V. (2008). Web survey methods: Introduction. Public Opinion
+    Quarterly, 72(5), 831–835. https://doi.org/10.1093/poq/nfn066
+
+Daikeler, J., Bošnjak, M., Manfreda, K. L. (2019). Web versus other survey modes: An updated
+     and extended meta-analysis comparing response rates. Journal of Survey Statistics and
+     Methodology, smz008. https://doi.org/10.1093/jssam/smz008
+
+Decker, R. S., Wimsatt, L., Trice, A. G., & Konstan, J. A. (2007). A profile of federal-grant
+    administrative burden among Federal Demonstration Partnership faculty: A report of the
+    faculty standing committee of the Federal Demonstration Partnership. Federal
+    Demonstration Partnership. Web site: http://thefdp.org.
+
+Lane, J & Bertuzzi, S. (2011). Measuring the results of science investments. Science, 331(6018),
+     678-680.
+
+Leshner, A. (2008). Reduce administrative burden. Science, 322(5908), 1609.
+
+Ma, J. (2004, November). Recent trends in faculty demographics and employment patterns.
+     TIAA-CREF Institute Report;
+     https://www.tiaainstitute.org/sites/default/files/presentations/2017-02/tr110104.pd.
+
+Miller, A., & Topper, A. M. (2017). Trends in faculty salaries: 1995–96 to 2014–15. In The NEA
+     2017 Almanac of Higher Education, http://www.nea.org/home/70231.htm.
+
+Rockwell, S. (2009). The FDP Faculty Burden Survey. Research Management Review, 16(2),
+    29-44.
+
+Sedwick, S. (2009). Facilities and administrative issues: Paying for administration while under
+    the cap, Maximizing recovery, and communicating value. Research Management Review,
+    16(2), 22-28.
+
+Stone, A. A., Shiffman, S., Atienza, A., Nebeling, L., eds. 2007b. The science of real-time data
+     capture: Self-reports in health research. New York: Oxford Univ.
+
+
+
+
+                    © Copyright FDP Foundation, 2020. All rights reserved.
+

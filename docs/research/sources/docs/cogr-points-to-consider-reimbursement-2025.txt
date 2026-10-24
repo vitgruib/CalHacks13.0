@@ -1,0 +1,552 @@
+               Points to Consider for Reimbursement of Expenses
+                              Under Active Grants
+
+                                  Federal Actions and Notices
+Changes to federal payment systems, processes, and requirements implementing Executive
+Order 14222 — Implementing the President's "Department of Government Efficiency" Cost
+Efficiency (EO 14222), issued February 26, 2025, have increased recipient and federal
+requirements for routing payments to institutions.
+
+EO 14222 directs Agency Heads to build systems that will record “a brief, written justification”
+for every payment by the agency employee approving the payment request. After the
+system is in place, Agency Heads must require written justification from the agency
+employee and, “to the maximum extent deemed practicable by the Agency Head,” post the
+justifications publicly.
+
+U.S. Department of Health and Human Services (HHS) Payment Management
+System (PMS) Draw Requirement
+
+As described in the March COGR Update, on February 14, 2025, HHS grant recipients received
+an email from PMS with the subject line, “UPDATE: HHS Payment Management System New
+Mandatory Field”. The email announced, “a new mandatory field in the payment request
+screen at the subaccount level” to capture the institution’s justification, “explaining the
+purpose of the payment”.
+
+PMS does not appear to be modified to meet the requirement for the approving agency
+employee to submit written justification. Instead, the grantee institution provides the
+justification with the payment request and may then receive messages from an HHS Defend
+the Spend email address requiring additional details.
+
+Several agencies outside of HHS also use PMS. Instructions for completing the field in PMS
+and responding to Defend the Spend emails are varied, increasingly onerous, and
+impractical. For example:
+
+   •     NASA sent an email on March 17, 2025, stating that it was working to develop
+         guidance, and later sent an email that included the following:
+
+                 To help ensure timely approval of payment requests submitted to NASA, we
+                 ask that all recipients include the corresponding budget category (as
+                 approved in your original budget) as part of the justification. Examples of
+
+                                                                                                              1
+       www.cogr.edu • 601 13th St. NW, 12th Floor, Washington, DC 20005 • (202) 289-6655 • COGR on LinkedIn
+                           Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+             appropriate budget categories include:
+               o Salaries and Wages
+               o Fringe Benefits
+               o Equipment
+               o Travel
+               o Materials and Supplies
+               o Other Direct Costs
+               o Indirect Costs
+
+Justifications should clearly identify all budget categories associated with the request. For
+example:
+              “Reimbursement is requested for the pre-approved budget categories of
+              Salaries and Fringe Benefits for key personnel working on the grant (or
+              cooperative agreement).”
+
+Including this information will help streamline the review and avoid potential delays in
+payment processing.
+
+   •   OSHA stated in May that, for at least one program, in addition to providing details in
+       PMS of expenses by natural classification, draw requestors should, “Be prepared to
+       provide the developed financial report as an adequate support of the requested funds
+       amount drawn down via email to me when requested.”
+
+   •   USDA recently instructed recipients to:
+         Lists the specific program (FMPP or LFPP) instead of “a USDA grant program”;
+         and identifies the specific cost categories included in the request
+                o Justification must address every cost category – i.e.. if the payment is for
+                   personnel, fringe, travel and equipment
+                           ▪ Payment for personnel to complete xyz, fringe of xx%, travel for
+                              xyz event and equipment purchase of xyz for xyz
+
+       The USDA guidance also stated that failure “to meet the correct guidance will result
+       in your payment being returned even if the documents are correct.”
+
+   •   From EPA:
+
+          The recipient demonstrates its commitment to carry out this award by either: 1)
+          drawing down funds within 21 days after the EPA award or amendment mailing
+          date; or 2) not filing a notice of disagreement with the award terms and
+          conditions within 21 days after the EPA award or amendment mailing date. If the
+          recipient disagrees with the terms and conditions specified in this award, the
+          authorized representative of the recipient must furnish a notice of disagreement
+
+
+                                                                                             2
+                          Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+          to the EPA Award Official within 21 days after the EPA award or amendment
+          mailing date. In case of disagreement, and until the disagreement is resolved, the
+          recipient should not draw down on the funds provided by this
+          award/amendment, and any costs incurred by the recipient are at its own risk.
+
+   •   An email from CDC included:
+
+          Payment request submitted via PMS must now go through an additional layer of
+          review and response. If you received a request for clarification from Defend The
+          Spend (DTS), you must respond directly to that link with all information that was
+          included in the clarification request. …
+
+          Once your response is received it will be reviewed again to ensure that it
+          addresses all concerns in the clarification request. If all concerns have been
+          addressed, OGS will approve the draw down and it will go back to PMS for release.
+
+          OGS cannot provide a timeframe in which the payment will be released by PMS.
+
+          Please note: If all concerns are not addressed you may receive a 2nd and possibly
+          a 3rd request, until we receive the information necessary to approve your request.
+          After the 3rd request, if OGS does not have enough information to approve the
+          payment it will be rejected in PMS, and you will be required to resubmit the
+          request …
+
+          Example of acceptable justification: Payroll=$2,500 and Fringe=$500 for staff in
+          accordance with the award terms and conditions for award 21U01DP00XXXX for
+          the timeframe of 2/1/2025-2/28/20255.
+
+   •   NIH has not provided guidance, but COGR members report receiving dozens of
+       Defend the Spend email demands after submitting draw requests.
+
+
+Other Systems
+Department of Treasury Automated Standard Application for Payments (ASAP)
+
+On May 8, 2025, ASAP.gov Production Support sent an email stating:
+
+       Effective Monday, May 19, 2025, the Department of the Treasury's Bureau of the Fiscal
+       Service will require Recipient Organizations to include a justification for each
+       payment.
+
+       This field is mandatory and will be required in the first step of the payment request
+       process. View the following presentation to learn more about this new
+
+                                                                                            3
+                          Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+       feature: https://fiscal.treasury.gov/files/asap/asap.gov-payment-justification-
+       recipient.pdf.
+
+       …
+
+Other agencies that use ASAP to process recipient reimbursements include the Department
+of Energy, Department of Justice, and the Department of Agriculture’s National Institute of
+Food and Agriculture.
+
+
+National Science Foundation (NSF) Award Cash Management $ervice (ACM$)
+
+As of May 12, 2025, an FAQ posted on NSF’s Implementation of Recent Executive Orders
+webpage advises, “Please do not change your payment submission process unless we
+provide guidance to all ACM$ users through our normal channels.”
+
+NSF and other sponsors that do not use PMS or ASAP are expected to require the justification
+later.
+
+
+Considerations
+
+Institutions should keep in mind that the EO requires the justifications to be “posted
+publicly,” and responses to Defend the Spend emails may be subject to FOIA. For example,
+private institutions may need to be careful if one can derive salary information from the
+justifications.
+
+As described in the March COGR Update, a solid argument can be made that the new
+payment justification field should have undergone OMB’s Office of Information and
+Regulatory Affairs (OIRA) approval process, which requires notice and comment in the
+Federal Register. Also, EO 14222 states that the required process is applicable to "covered
+contracts and grants” (defined as “discretionary spending through Federal contracts, grants,
+loans, and related instruments”). It is not clear that all expenditure reimbursements being
+questioned are under covered contracts and grants.
+
+Further, these additional detail requirements are unlikely to prevent improper payment, and
+they ignore controls in place and information already available to the sponsor.
+
+In addition to the excessive, unnecessary burden, COGR members report problems with
+unapproved payments sitting in the system, with no communication from the sponsor. This
+new process also creates difficulty for the COGR members in explaining allowable
+adjustments for prior period expenditure activity. For example:
+
+   •   In July a $10,000 equipment charge posts to a project account. However, in June the
+
+
+                                                                                            4
+                           Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+       project budget was exceeded by $3,500 for researcher salary and that $3,500 could
+       not be billed until the next increment was received in July. In July the institution bills
+       $13,500 for personnel and equipment. There is not a payroll transaction in July, just a
+       billable amount from a prior month.
+   •   In July a $10,000 equipment charge posts to a project account. In June a charge for
+       scientific supplies of $4,321 posts but the check was not sent until July 3. The
+       institution subtracted $4,321 in aggregate Accounts Payable, but in the system it is
+       not tied to a particular transaction or category. In July we a rebate of $86 also posts
+       to the project account. The bill in July is $14,407 ($10,000 equipment, $4,321 prior
+       period AP reversal, and $86 rebate credit). The institution is complying with cash
+       management and applicable credit rules but the July detailed justification will likely
+       be confusing.
+   •   In July a $10,000 equipment charge posts to a project account There was also a
+       positive program income adjustment in July because in the companion program
+       income account the project had $2,000 less in expenses than income received. The
+       institution is, therefore, billing $8,000 ($10,000 equipment minus $2,000 program
+       income. Again, the institution is following 2 CFR 200 (Uniform Guidance)
+       requirements, but the detailed justification is not simple.
+
+In some cases, requests for additional details are received after reimbursement. In others,
+payment may be delayed, potentially in violation of § 200.305 Federal payment, which
+requires reimbursement “payment within 30 calendar days after receipt of the payment
+request unless the Federal agency or pass-through entity reasonably believes the request to
+be improper.”
+
+COGR members also report Defend the Spend follow-up emails that ignore rebudgeting
+authority, stating a particular costs detailed in the institution’s justification was not included
+in the budget.
+
+
+Possible Approaches
+
+
+EO 14222, which prompted these requirements, provides for exceptions:
+
+       Sec. 3. Cutting Costs to Save Taxpayers Money. (a) Contract and Grant Justification.
+
+   •   Once the system described in subsection (a) of this section is in place, the Agency
+       Head shall issue guidance, in consultation with the agency’s DOGE Team Lead, to
+       require that the relevant agency employee promptly submit a brief, written
+       justification prior to that employee’s approval of a payment under covered contracts
+       and grants, subject to any exceptions the Agency Head deems appropriate.
+
+
+
+                                                                                                5
+                           Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+As the sponsor has previously reviewed, negotiated, and approved the grant budget, the
+standard institutional/grantee certifications, the annual progress reports, the Single audit
+report, the SF 425, the individual payment request certification, and possibly more, this new
+and inefficient requirement obviously adds no value and providing anything other than a
+standard response is, at best, impractical.
+
+Recipients subject to Uniform Guidance Subpart F, Audit Requirements, should be
+exempted from providing more detail, as agency responsibilities in that section require them
+to follow up on audit findings:
+
+       § 200.513 Responsibilities.
+
+       (c) Awarding Federal agency responsibilities. In addition to all other requirements
+       of this part, the awarding Federal agency must:
+
+       (3) Follow-up on audit findings to ensure that non-Federal entities take appropriate
+       and timely corrective action. Follow-up includes:
+
+       (E) Federal agency leadership sending a clear message that continued failure to
+       correct conditions identified by audits likely to cause improper payments, fraud,
+       waste, or abuse is unacceptable and will result in sanctions.
+
+Uniform Guidance requires recipients to have effective policies and procedures in place to
+ensure all costs charged to federal sponsors are allowable, reasonable, consistently treated,
+and allocable to the award. Federal audits, including under the Single Audit Act, test that
+these controls exist and that they are effective. Also, the institution certifies this is the case
+before submitting a request for reimbursement and when submitting financial reports. For
+example, “By signing this report, I certify that it is true, complete, and accurate to the best of
+my knowledge. I am aware that any false, fictitious, or fraudulent information may subject
+me to criminal, civil, or administrative penalties. (U.S. Code, Title 18, Section 1001).”
+
+Further, the agency should be performing the risk assessment set out in Uniform Guidance
+§ 200.206 to determine whether imposition of any specific conditions listed in § 200.208 is
+warranted to assess the integrity of the payment, as defined in OMB Circular A-123 Appendix
+C, Requirements for Payment Integrity Improvement. Institutions subject to Single Audit
+requirements and receiving no findings of improper requests for payment are typically not
+subject to specific conditions and should not be subject to the additional requirements of
+EO 14222.
+
+Instead of requiring recipients to provide additional information in the payment systems,
+these provisions for risk assessment and payment integrity should be sufficient processes
+for the agency employee to approve payments in the agency’s payment systems and note
+the basis of the approval as required by the EO in the payment systems. For instance, the
+agency employee could note “Approved for low-risk recipient based on risk assessment
+dated XX/XX/XX and receipt of progress reports received xx/xx/xx.” Such an approach would
+meet the requirements of the EO without creating additional administrative burdens on the
+recipients.
+
+
+                                                                                                6
+                           Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+Although it would still result in unnecessary burden, another option better than the current
+requirement, is for each agency to:
+
+   •   Wait until it has built, “a centralized technological system within the agency to
+       seamlessly record every payment issued by the agency pursuant to each of the
+       agency’s covered contracts and grants, along with a brief, written justification for each
+       payment submitted by the agency employee who approved the payment.”, as
+       required by DO 14222; and
+   •   Build the system to accommodate a new financial report, appropriately following
+       OMB’s Office of Information and Regulatory Affairs (OIRA) approval process, that
+       allows for institutions to upload expenditure data from their financial systems.
+
+Appendix – Applicable Uniform Guidance Excerpts
+(emphasis added)
+
+§ 200.206 Federal agency review of risk posed by applicants.
+
+(a) Review of OMB-designated repositories of government-wide data.
+
+(1) Prior to making a Federal award, the Federal agency is required to review eligibility
+information for applicants and financial integrity information for applicants available in
+OMB-designated databases per the Payment Integrity Information Act of 2019 (Pub. L. 116-
+117), the “Do Not Pay Initiative” (31 U.S.C. 3354), and 41 U.S.C. 2313.
+
+(2) The Federal agency is required to review the responsibility and qualification records
+available in the non-public segment of the System for Award Management (SAM.gov) prior
+to making a Federal award where the Federal share is expected to exceed the simplified
+acquisition threshold, defined at 41 U.S.C. 134, over the period of performance. See 41 U.S.C.
+2313. The Federal agency must consider all of the information available in SAM.gov with
+regard to the applicant and any immediate highest-level owner, predecessor (meaning, an
+organization that is replaced by a successor), or subsidiary, identified for that applicant in
+SAM.gov. See Public Law 112-239, National Defense Authorization Act for Fiscal Year 2013; 41
+U.S.C. 2313(d). The information in the system for a prior recipient of a Federal award must
+demonstrate a satisfactory record of administering programs or activities under Federal
+financial assistance or procurement awards, and integrity and business ethics. The Federal
+agency may make a Federal award to a recipient that does not fully meet these
+standards if it is determined that the information is not relevant to the Federal award
+under consideration or there are specific conditions that can appropriately mitigate the
+risk associated with the recipient in accordance with § 200.208.
+
+(b) Risk Assessment.
+
+(1) The Federal agency must establish and maintain policies and procedures for conducting
+a risk assessment to evaluate the risks posed by applicants before issuing Federal awards.
+This assessment helps identify risks that may affect the advancement toward or the
+achievement of a project's goals and objectives. Risk assessments assist Federal managers
+in determining appropriate resources and time to devote to project oversight and monitor
+
+                                                                                              7
+                           Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+recipient progress. This assessment may incorporate elements such as the quality of the
+application, award amount, risk associated with the program, cybersecurity risks, fraud risks,
+and impacts on local jobs and the community. If the Federal agency determines that the
+Federal award will be made, specific conditions that address the assessed risk may be
+implemented in the Federal award. The risk criteria to be evaluated must be described
+in the announcement of the funding opportunity described in § 200.204.
+
+…
+
+§ 200.208 Specific conditions.
+
+(a) Federal agencies are responsible for ensuring that specific Federal award conditions and
+performance expectations are consistent with the program design (See § 200.202 and §
+200.301).
+
+(b) The Federal agency or pass-through entity may adjust specific conditions in the Federal
+award based on an analysis of the following factors:
+
+(1) Review of OMB-designated repositories of government-wide data (for example, SAM.gov)
+or review of its risk assessment (See § 200.206);
+
+(2) The recipient's or subrecipient's history of compliance with the terms and conditions of
+Federal awards;
+
+(3) The recipient's or subrecipient's ability to meet expected performance goals as described
+in § 200.211; or
+
+(4) A determination of whether a recipient or subrecipient has inadequate financial
+capability to perform the Federal award.
+
+(c) Specific conditions may include the following:
+
+(1) Requiring payments as reimbursements rather than advance payments;
+
+(2) Withholding authority to proceed to the next phase until receipt of evidence of
+acceptable performance;
+
+(3) Requiring additional or more detailed financial reports;
+
+(4) Requiring additional project monitoring;
+
+(5) Requiring the recipient or subrecipient to obtain technical or management assistance; or
+
+(6) Establishing additional prior approvals.
+
+(d) Prior to imposing specific conditions, the Federal agency or pass-through entity
+must notify the recipient or subrecipient as to:
+
+                                                                                             8
+                            Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+(1) The nature of the specific condition(s);
+
+(2) The reason why the specific condition(s) is being imposed;
+
+(3) The nature of the action needed to remove the specific condition(s);
+
+(4) The time allowed for completing the actions; and
+
+(5) The method for requesting the Federal agency or pass-through entity to reconsider
+imposing a specific condition.
+
+(e) Any specific conditions must be promptly removed once the conditions that
+prompted them have been satisfied.
+
+…
+
+(d) Federal award specific terms and conditions. The Federal agency must include in each
+Federal award any specific terms and conditions that are in addition to the general terms
+and conditions. See also § 200.208. …
+
+§ 200.305 Federal payment.
+
+(b) Payments for recipients and subrecipients other than States. For recipients and
+subrecipients other than States, payment methods must minimize the time elapsing
+between the transfer of funds from the Federal agency or the pass-through entity and the
+disbursement of funds by the recipient or subrecipient regardless of whether the payment
+is made by electronic funds transfer or by other means. See § 200.302(b)(6). Except as noted
+in this part, the Federal agency must require recipients to use only OMB-approved,
+government-wide information collections to request payment.
+
+…
+
+(3) Reimbursement is preferred when the requirements in paragraph (b) cannot be met,
+when the Federal agency or pass-through entity sets a specific condition per § 200.208, when
+requested by the recipient or subrecipient, when a Federal award is for construction, or when
+a significant portion of the construction project is accomplished through private market
+financing or Federal loans and the Federal award constitutes a minor portion of the project.
+When the reimbursement method is used, the Federal agency or pass-through entity must
+make payment within 30 calendar days after receipt of the payment request unless the
+Federal agency or pass-through entity reasonably believes the request to be improper.
+
+…
+
+(6) Payments for allowable costs must not be withheld at any time during the period of
+performance unless required by Federal statute, regulations, or in one of the following
+instances:
+
+
+
+                                                                                              9
+                           Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+(i) The recipient or subrecipient has failed to comply with the terms and conditions of the
+Federal award; or
+
+(ii) The recipient or subrecipient is delinquent in a debt to the United States as defined in
+OMB Circular A-129, “Policies for Federal Credit Programs and Non-Tax Receivables.” Under
+such conditions, the Federal agency or pass-through entity may, after providing reasonable
+notice, withhold payments to the recipient or subrecipient for financial obligations incurred
+after a specified date until the conditions are corrected or the debt is repaid to the Federal
+Government.
+
+(7) A payment withheld for failure to comply with the terms and conditions of the Federal
+award must be released to the recipient or subrecipient upon subsequent compliance.
+When a Federal award is suspended, payment adjustments must be made in accordance
+with § 200.343.
+
+…
+
+§ 200.339 Remedies for noncompliance.
+
+The Federal agency or pass-through entity may implement specific conditions if the
+recipient or subrecipient fails to comply with the U.S. Constitution, Federal statutes,
+regulations, or terms and conditions of the Federal award. See § 200.208 for additional
+information on specific conditions. When the Federal agency or pass-through entity
+determines that noncompliance cannot be remedied by imposing specific conditions, the
+Federal agency or pass-through entity may take one or more of the following actions:
+
+(a) Temporarily withhold payments until the recipient or subrecipient takes corrective action.
+
+(b) Disallow costs for all or part of the activity associated with the noncompliance of the
+recipient or subrecipient.
+
+(c) Suspend or terminate the Federal award in part or in its entirety.
+
+(d) Initiate suspension or debarment proceedings as authorized in 2 CFR part 180 and the
+Federal agency's regulations, or for pass-through entities, recommend suspension or
+debarment proceedings be initiated by the Federal agency.
+
+(e) Withhold further Federal funds (new awards or continuation funding) for the project or
+program.
+
+(f) Pursue other legally available remedies.
+
+§ 200.415 Required certifications.
+
+(a) Financial reports must include a certification, signed by an official who is authorized to
+legally bind the recipient, which reads as follows: “By signing this report, I certify to the best
+of my knowledge and belief that the report is true, complete, and accurate, and the
+
+                                                                                               10
+                           Points to Consider for Reimbursement of Expenses Under Active Grants
+
+
+expenditures, disbursements and cash receipts are for the purposes and objectives set forth
+in the terms and conditions of the Federal award. I am aware that any false, fictitious, or
+fraudulent information, or the omission of any material fact, may subject me to criminal, civil
+or administrative penalties for fraud, false statements, false claims or otherwise. (U.S. Code
+Title 18, Section 1001 and Title 31, Sections 3729-3730 and 3801-3812).”
+
+…
+
+Other relevant sections of Uniform Guidance include:
+
+§ 200.213 Reporting a determination that an applicant is not qualified for a Federal award.
+
+§ 200.214 Suspension and debarment.
+
+§ 200.302 Financial management.
+
+§ 200.303 Internal controls.
+
+
+
+The considerations outlined above represent COGR's analysis, are not meant as legal
+advice, and do not supplant federal or state law or institutional policy. In utilizing the
+information contained herein, COGR advises close coordination with all appropriate
+institutional leadership and legal counsel.
+
+_______________
+
+
+About COGR:
+
+COGR is the national authority on federal policies and regulations affecting U.S. research
+institutions. We provide a unified voice for over 225 research universities and affiliated
+academic medical centers and research institutes. Our work strengthens the research
+partnership between the federal government and research institutions and furthers the
+frontiers of science, technology, and knowledge. We advocate for effective and efficient
+research policies and regulations that maximize and safeguard research investments and
+minimize administrative and cost burdens.
+
+
+
+Acknowledgements:
+
+COGR would like to acknowledge the contributions in time and expertise from members of
+the Contracts & Grants Administration (CGA) Committee and the Costing and Financial
+Compliance (CFC) Committee in developing this resource document.
+
+For a list of current COGR committee members, click here.
+
+                                                                                              11
+

@@ -1,0 +1,2893 @@
+Promising Practices for NSF Award
+Management
+REPORT PREPARED BY COTTON & COMPANY LLP
+
+
+
+
+January 21, 2022
+OIG 22-6-002
+AT A GLANCE
+Promising Practices for NSF Award Management
+Report No. OIG 22-6-002
+January 21, 2022
+
+WHY WE ISSUED THIS REPORT
+Since September 2018, Cotton & Company LLP (C&C) has conducted 18 performance audits on
+behalf of our office of costs claimed by NSF award recipients. As part of those audits, C&C
+observed, identified, and cataloged strengths and opportunities for improvement within each
+recipient’s award management environment. We then engaged C&C to write a capstone report
+communicating the most common audit findings, suggestions for how to improve compliance in
+those areas, and promising award management practices implemented by audited institutions. This
+report is intended to help members of the recipient community identify means to strengthen award
+management practices and improve the overall stewardship of federal funds across the NSF award
+recipient population. We are issuing this report as a routine activity.
+
+OVERALL OBSERVATIONS
+The most common audit findings related to unallowable expenses, inappropriately applied indirect
+costs, inadequately supported expenses, inappropriately allocated expenses, and non-compliance with
+policies and procedures. The report suggests that award recipients perform the following activities to
+improve the stewardship of federal funds: continually monitor and verify the allowability of high-risk
+expenses; strengthen controls over applying indirect cost rates; ensure recipients create and maintain
+sufficient, appropriate documentation; document and justify reasonable allocation methodologies; and
+regularly review and update grant management policies and procedures. Specifically, the report notes
+that strengthening controls in these areas could help recipients improve compliance in areas that often
+result in audit findings.
+
+ADDITIONAL INFORMATION
+The report also includes a description of the most common sub-findings within each finding category,
+examples of these sub-findings, suggestions for strengthening controls in those areas, promising
+practices being used by recipients that could help decrease the likelihood of non-compliance, and a
+glossary of federal and NSF criteria. Although this report contains suggestions for strengthening
+stewardship practices related to common findings and highlights promising practices for avoiding
+non-compliance, this report should not be construed as an all-encompassing analysis of best practices
+for the award recipient community. Rather, the report was written to be a reference for members of the
+award recipient community to consider when evaluating their own policies.
+
+FOR FURTHER INFORMATION, CONTACT US AT OIGPUBLICAFFAIRS@NSF.GOV.
+                          National Science Foundation • Office of Inspector General
+                             2415 Eisenhower Avenue, Alexandria, Virginia 22314
+
+MEMORANDUM
+
+DATE:                  January 21, 2022
+
+TO:                    Teresa Grancorvitz
+                       Office Head and Chief Financial Officer
+                       Office of Budget, Finance and Award Management
+
+FROM:                  Mark Bell
+                       Assistant Inspector General
+                       Office of Audits
+
+SUBJECT:               Report No. 22-6-002, Promising Practices for NSF Award Management
+
+This memorandum transmits the Cotton & Company LLP (C&C) capstone report related to promising
+practices for the management of NSF awards. Since September 2018, C&C has completed 18
+performance audits on behalf of our office of costs claimed by NSF award recipients. As part of those
+audits, C&C observed, identified, and cataloged strengths and opportunities for improvement within
+each recipient’s award management environment. We then engaged C&C to write a capstone report
+communicating the most common audit findings, suggestions for how to improve compliance in those
+areas, and promising award management practices implemented by audited institutions. This report is
+intended to help members of the recipient community identify means to strengthen award management
+practices and improve the overall stewardship of federal funds across the NSF award recipient
+population. We are issuing this report as a routine activity.
+
+We provided a draft of this report to NSF management for review on November 18, 2021. NSF provided
+us with comments and suggestions on December 13, 2021, which we considered and incorporated into
+the report.
+
+We thank your staff for the assistance that was extended to the auditors during this reporting process. If
+you have any questions regarding this report, please contact Ken Lish at 703.292.7100 or
+OIGpublicaffairs@nsf.gov.
+
+Attachment
+
+cc:
+Anneila Sargent            Karen Marrongelle             Rochelle Ray                 Ken Lish
+Ellen Ochoa                Judy Hayden                   Charlotte Grant-Cobb         Billy McCain
+Victor McCrary             Kim Silverman                 Allison Lerner               Harrison Ford
+John Veysey                Dale Bell                     Lisa Vonder Haar             Louise Nelson
+Ann Bushmiller             Jamie French                  Ken Chason                   Karen Scott
+Christina Sarris           Alex Wynnyk                   Dan Buchtel
+NSF OIG AUDITS BACKGROUND
+                                        REPORT FINDINGS AND SUGGESTIONS
+Since September 2018, Cotton &
+                                        The report suggests that award recipients perform the following
+Company has completed 18 task
+                                        activities to improve the stewardship of federal funds:
+orders issued by the National Science
+                                            • Continually Monitor and Verify the Allowability of High-
+Foundation Office of Inspector
+                                                Risk Expenses
+General to conduct performance
+                                            • Strengthen Controls Over Applying Indirect Cost Rates
+audits of costs claimed by NSF award
+recipients.                                 • Ensure Award Recipients Create and Maintain Sufficient,
+                                                Appropriate Documentation
+As Cotton & Company was able to             • Document and Justify Reasonable Allocation Methodologies
+observe, identify, and catalog              • Regularly Review and Update Grant Management Policies
+strengths and opportunities for                 and Procedures
+improvement within each award
+recipient’s award management            Specifically, the report notes that strengthening controls in these
+environment as a result of these        areas could help award recipients ensure compliance related to
+audits, the NSF OIG engaged Cotton &    the most common audit findings identified in the 18 referenced
+Company to write a capstone report      audit reports.
+summarizing promising practices and
+                                                                                       Percentage of Audit
+other suggestions for implementing a                   Common Findings
+                                                                                       Reports with Finding
+strong award management                  Unallowable Expenses                                  94%
+environment, as summarized in            Inappropriately Applied Indirect Costs                 83
+Appendix I.                              Inadequately Supported Expenses                        67
+                                         Inappropriately Allocated Expenses                     55
+WHY WE WROTE THIS CAPSTONE               Non-Compliance with Policies and Procedures            50
+Cotton & Company identified the most
+common audit report findings,           ADDITIONAL INFORMATION
+provided suggestions for how to         For additional context to support the auditors’ observations and
+ensure compliance in those areas, and   suggestions for stronger controls, the report also includes:
+identified promising practices
+implemented by audited institutions        •   A table identifying the common sub-findings within each
+in an effort to assist the award               Common Finding category above, as well as an indication of
+recipient community and improve the            how many audit reports include each sub-finding within
+stewardship of federal funds across            Appendix II, Table 1.
+the NSF award recipient population.
+                                           •   Examples of the sub-findings most often identified within
+Although this report contains                  audit reports and suggestions for strengthening controls in
+suggestions for strengthening                  those areas within Sections A, B, C, D and E of Appendix II.
+stewardship practices related to
+common findings and highlights             •   Promising practices being used by auditees that could help
+promising practices for avoiding non-          decrease the likelihood of non-compliance with federal and
+compliance, this report should not be          NSF criteria within call-out boxes in Appendix II.
+construed as an all-encompassing
+analysis of best practices for the         •   A glossary of cited federal and NSF criteria within
+award recipient community. Rather,             Appendix III.
+the report was written to be a
+reference for the award recipient
+community to consider when
+evaluating its own policies.
+TABLE OF CONTENTS
+BACKGROUND......................................................................................................................................... 1
+SUGGESTIONS FOR IMPLEMENTING A STRONG AWARD MANAGEMENT
+ENVIRONMENT ....................................................................................................................................... 1
+   CONTINUALLY MONITOR AND VERIFY THE ALLOWABILITY OF HIGH-RISK EXPENSES ................................. 2
+   STRENGTHEN CONTROLS OVER APPLYING INDIRECT COST RATES ................................................................. 2
+   ENSURE AWARD RECIPIENTS CREATE AND MAINTAIN SUFFICIENT, APPROPRIATE DOCUMENTATION ..... 2
+   DOCUMENT AND JUSTIFY REASONABLE ALLOCATION METHODOLOGIES ........................................................ 3
+   REGULARLY REVIEW AND UPDATE GRANT MANAGEMENT POLICIES AND PROCEDURES ............................. 3
+CAPSTONE REPORT OBJECTIVES AND METHODOLOGY .......................................................... 3
+APPENDIX I: CAPSTONE REPORT OBJECTIVES AND METHODOLOGY ................................. 5
+   CAPSTONE REPORT OBJECTIVES AND METHODOLOGY ...................................................................................... 6
+APPENDIX II: AUDITOR SUGGESTIONS FOR IMPROVING GRANT MANAGEMENT
+ENVIRONMENTS..................................................................................................................................... 7
+   AUDITOR SUGGESTIONS FOR IMPROVING GRANT MANAGEMENT ENVIRONMENTS ....................................... 8
+     A. Continually Monitor and Verify the Allowability of High-Risk Expenses ........................... 9
+     B. Strengthen Controls Over Applying Indirect Cost Rates ........................................................ 15
+     C. Ensure Award Recipients Create and Maintain Sufficient, Appropriate
+     Documentation .................................................................................................................................................. 18
+     D. Document and Justify Reasonable Allocation Methodologies ............................................. 21
+     E. Regularly Review and Update Grant Management Policies and Procedures ............... 24
+APPENDIX III: GLOSSARY .................................................................................................................. 27
+   GLOSSARY ........................................................................................................................................................ 28
+
+Abbreviations
+
+ACM$                    Award Cash Management $ervice
+AICPA                   American Institute of Certified Public Accountants
+CFR                     Code of Federal Regulations
+COVID-19                Coronavirus Disease 2019
+EPSCoR                  Established Program to Stimulate Competitive Research
+GRFP                    Graduate Research Fellowship Program
+I-Corps                 Innovation Corps
+IPA                     Intergovernmental Personnel Act
+ISP                     Internal Service Provider
+MTDC                    Modified Total Direct Costs
+NICRA                   Negotiated Indirect Cost Rate Agreement
+NSF                     National Science Foundation
+OIG                     Office of Inspector General
+OMB                     Office of Management and Budget
+PI                      Principal Investigator
+BACKGROUND
+The National Science Foundation Office of Inspector General engaged Cotton & Company
+LLP (we) to complete 18 task orders under Contract No. 140D0418A0042 for performance
+audits of costs claimed by NSF award recipients. For seven of these engagements, we began
+by performing an audit survey to evaluate the strengths and weaknesses of the recipient’s
+award management environment, then performed additional audit work, as determined
+necessary. For one of these engagements, we performed an audit to determine whether
+costs claimed by, or reported as cost share by, one award recipient on four Established
+Program to Stimulate Competitive Research (EPSCoR) awards were allowable, allocable,
+reasonable, and in compliance with NSF award terms and conditions. For the remaining 10
+engagements, we gained an understanding of the recipient’s award management
+environment as it related to spending under the flexibilities granted by the Office of
+Management and Budget (OMB) in response to the Coronavirus Disease 2019 (COVID-19)
+pandemic. 1
+
+Based on our experience observing, identifying, and cataloging the strengths and
+opportunities for improvements of the recipients’ award management environments, the
+NSF OIG engaged Cotton & Company to write a report summarizing promising practices
+and common areas for improvement that we have observed over the course of our audits.
+
+SUGGESTIONS FOR IMPLEMENTING A STRONG AWARD MANAGEMENT ENVIRONMENT
+To assist the award recipient community and improve the stewardship of federal funds
+across the NSF award recipient population, we have provided suggestions for
+implementing a strong award management environment. Specifically, in an effort to
+provide the most relevant suggestions, we included suggestions for strengthening internal
+controls in the areas where we commonly identify audit findings, as illustrated in Table 1:
+
+Table 1: Suggestions for Implementing a Strong Award Management Environment
+                             No. of Reports
+    Common Findings                                Auditor Suggestions for Strengthening Controls
+                             with Finding
+                                              Continually Monitor and Verify the Allowability of High-Risk
+ Unallowable Expenses            17/18
+                                              Expenses
+ Inappropriately Applied                      Strengthen Controls Over Applying Indirect Cost Rates
+                                 15/18
+ Indirect Costs
+ Inadequately Supported                       Ensure Award Recipients Create and Maintain Sufficient,
+                                 12/18
+ Expenses                                     Appropriate Documentation
+ Inappropriately Allocated                    Document and Justify Reasonable Allocation Methodologies
+                                 10/18
+ Expenses
+ Non-Compliance with                          Regularly Review and Update Grant Management Policies
+                                  9/18
+ Policies and Procedures                      and Procedures
+Source: Auditor’s summary of the results of the audit reports for audits under Contract No.
+140D0418A0042 and auditor suggestions.
+
+
+
+
+1 Cotton & Company conducted 10 limited-scope performance audits to determine whether NSF award
+
+recipients implemented the administrative flexibilities granted by OMB in response to the COVID-19
+pandemic, and, if so, whether the award recipients complied with the associated guidelines.
+
+                                                                                                     Page | 1
+CONTINUALLY MONITOR AND VERIFY THE ALLOWABILITY OF HIGH-RISK EXPENSES
+Seventeen audit reports included findings that occurred because award recipients charged
+unallowable travel, participant support, salary, material/supply, fringe benefit, publication,
+consultant, and subaward costs to NSF awards. Although many of the recipients claimed
+that they would have identified the unallowable expenses during the grant’s close-out
+process, we found that recipients were less likely to charge unallowable costs to NSF
+awards if they implemented processes for the continuous monitoring of high-risk expenses,
+rather than waiting until after the award expired to review the allowability of the expenses
+charged.
+
+See Appendix II, Section A, for a list of the most common findings related to unallowable
+costs by expense type, as well as suggestions for how to improve grant management
+practices in this area.
+
+STRENGTHEN CONTROLS OVER APPLYING INDIRECT COST RATES
+Fifteen audit reports included findings that occurred because award recipients did not
+apply indirect costs to the appropriate Modified Total Direct Cost (MTDC) base and/or did
+not apply indirect costs at the rates approved within the recipients’ Negotiated Indirect
+Cost Rate Agreements (NICRAs). Although many of the recipients disagreed with these
+findings, stating that they had applied the indirect cost rates in a manner that was
+consistent with their interpretation of federal regulations and applicable NICRAs, we
+determined that most recipients would benefit from stronger controls designed to ensure
+the recipients appropriately charged indirect costs to NSF awards.
+
+See Appendix II, Section B, for a list of the most common findings related to the incorrect
+application of indirect costs, as well as suggestions for how to improve grant management
+practices in this area.
+
+ENSURE AWARD RECIPIENTS CREATE AND MAINTAIN SUFFICIENT, APPROPRIATE DOCUMENTATION
+Twelve audit reports included findings that occurred because award recipients did not
+produce or maintain sufficient, appropriate evidence to support that costs claimed in NSF’s
+Award Cash Management $ervice (ACM$), costs billed by internal service providers (ISPs),
+and/or travel, salary, and consultant costs charged to NSF awards were allowable per
+federal and/or NSF regulations. Although many of the recipients disagreed with these
+findings, stating that they believed they had provided sufficient documentation to support
+the allowability of the sampled expenses, we determined that recipients with more robust
+requirements for documentation creation and retention were more likely to maintain
+sufficient, appropriate documentation to support that expenses charged to NSF awards
+were reasonable, allocable, and allowable.
+
+See Appendix II, Section C, for a list of the most common findings related to inadequately
+supported expenses by expense type, as well as suggestions for how to improve grant
+management practices in this area.
+
+
+
+
+                                                                                       Page | 2
+DOCUMENT AND JUSTIFY REASONABLE ALLOCATION METHODOLOGIES
+Ten audit reports included findings that occurred because award recipients
+inappropriately allocated travel, materials and supplies, publication, and/or student
+stipend or tuition costs to NSF awards. Although many of the recipients disagreed with
+these findings, stating that they believed they had appropriately allocated the expenses to
+the NSF awards, we determined that recipients that require personnel to document and
+justify reasonable allocation methodologies when purchasing goods and services were
+more likely to maintain sufficient documentation to support that they had allocated
+sampled expenses to NSF awards consistent with the relative benefits received by those
+awards.
+
+See Appendix II, Section D, for a list of the most common findings related to
+inappropriately allocated expenses by expense type, as well as suggestions for how to
+improve grant management practices in this area.
+
+REGULARLY REVIEW AND UPDATE GRANT MANAGEMENT POLICIES AND PROCEDURES
+Nine audit reports included findings that occurred because award recipients did not
+comply with, or did not document their compliance with, recipient and/or NSF program-
+specific policies and procedures. Many of the recipients agreed that they did not document
+compliance with the cited policies. We determined that most recipients would have
+benefited from reviewing and updating their award management practices on a regular
+basis, as many noted that the policies cited in the audit reports did not accurately reflect
+their current procedures or stated that they were already in the process of updating the
+cited policies and procedures.
+
+See Appendix II, Section E, for a list of the most common findings related to non-
+compliance with award recipient and/or NSF program-specific policies, as well as
+suggestions for how to improve grant management practices in this area.
+
+CAPSTONE REPORT OBJECTIVES AND METHODOLOGY
+Cotton & Company wrote this capstone report to communicate suggestions for improving
+the stewardship of federal funds across the NSF award recipient population and to share
+promising award recipient management practices, as described in Appendix I.
+
+This capstone report is not designed to represent an all-encompassing analysis of best
+practices for the award recipient community; instead, it highlights the most common
+findings identified and notes promising practices for avoiding similar findings. Accordingly,
+neither Cotton & Company nor the NSF OIG explicitly endorse the policies highlighted as
+promising practices in Appendix II. Instead, the inclusion of these references is meant
+solely to act as a resource for members of the recipient community when evaluating their
+own policies.
+
+We performed this work under Order No. 140D0421F0607 and conducted it in accordance
+with the American Institute of Certified Public Accountants’ (AICPA’s) Statements on
+Standards for Consulting Services.
+
+
+                                                                                      Page | 3
+COTTON & COMPANY LLP
+
+
+
+
+Megan Mesko, CPA, CFE
+Partner
+January 10, 2022
+
+
+
+
+                        Page | 4
+APPENDIX I: CAPSTONE REPORT OBJECTIVES AND METHODOLOGY
+
+
+
+
+                                                         Page | 5
+                                                                                  APPENDIX I
+
+
+CAPSTONE REPORT OBJECTIVES AND METHODOLOGY
+Given that the global COVID-19 pandemic and other factors have caused unique oversight,
+financial administration, and operational challenges, the NSF OIG determined it was
+important to communicate observed best practices and common areas for improvement to
+the award recipient community to help improve stewardship of federal funds.
+
+Because Cotton & Company has observed, identified, and/or cataloged the strengths and
+weaknesses of award recipients in 18 audit reports issued since 2018, the NSF OIG engaged
+us to write a report summarizing our observations. The results of each of these audits, as
+well as the objectives, scope, and methodologies used to complete each audit, are available
+for public review at the locations hyperlinked in Table 1 below.
+
+Appendix I, Table 1: Results of Audits Considered in This Capstone Report
+  Report No.                                     Recipient
+   20-1-002     University of Connecticut (UConn)
+   20-1-005     University of Houston (UH)
+   20-1-007     Yale University (Yale)
+   21-1-002     Texas A&M University (Texas A&M)
+   21-1-004     University of Florida (UF)
+   21-1-005     University of Alaska Fairbanks (UAF)
+   21-1-006     University of Kentucky Research Foundation (UKRF)
+   21-1-009     University of New Mexico (UNM)
+   21-1-010     State University of New York at Stony Brook (SUNY)
+   21-1-011     Florida International University (FIU)
+   21-1-012     Florida State University (FSU)
+   21-1-013     University of Wisconsin – Madison (UW-Madison)
+   21-1-014     California Institute of Technology (Caltech)
+   21-1-015     University of Central Florida (UCF)
+   21-1-018     University of Michigan (UM)
+   21-1-007     Clemson University (Clemson)
+   21-1-020     University of California, San Francisco (UCSF)
+   22-1-001     University of Rhode Island EPSCoR Awards (URI)
+ Source: Auditor’s summary of audited recipients.
+
+This work was conducted in accordance with the AICPA’s Statements on Standards for
+Consulting Services. This report is not to be construed as an all-encompassing analysis of
+best practices for the award recipient community; instead, it highlights general findings
+that would be valuable for NSF OIG to communicate to the award recipient community.
+Additionally, although we highlight promising practices from specific institutions in
+Appendix II, neither us nor the NSF OIG explicitly endorse these policies. Instead, the
+inclusion of these references is meant to act as a resource for members of the recipient
+community when evaluating their own policies.
+
+
+
+
+                                                                                      Page | 6
+APPENDIX II: AUDITOR SUGGESTIONS FOR IMPROVING GRANT MANAGEMENT
+                          ENVIRONMENTS
+
+
+
+
+                                                             Page | 7
+                                                                                       APPENDIX II
+AUDITOR SUGGESTIONS FOR IMPROVING GRANT MANAGEMENT ENVIRONMENTS
+To assist the award recipient community and improve its stewardship of federal funds, we
+identified the most common audit report findings/sub-findings (See Appendix II, Table 1),
+made suggestions for strengthening relevant grant management controls, and identified
+promising recipient grant management practices, as illustrated in Sections A through E
+below.
+
+Appendix II, Table 1: Common Audit Report Findings and Sub-Findings
+                          No. of Reports                                          No. of Reports
+  Common Findings         with Finding            Common Sub-Findings               with Sub-
+                              Type                                                   Finding
+                                              Travel                                    11
+                                              Participant Support Costs                  9
+                                              Salary and Wages                           8
+      Unallowable                             Materials and Supplies                     8
+                              17/18
+       Expenses                               Fringe Benefits                            5
+                                              Publication                                4
+                                              Consultant                                 3
+                                              Subawards                                  4
+                                              Indirect Costs Applied Using
+  Insufficient Internal                                                                  14
+                                              Incorrect Rates
+ Controls For Indirect        15/18
+                                              Indirect Costs Applied to an
+ Cost Rate Application                                                                   12
+                                              Incorrect Base
+                                              Costs Claimed in ACM$                       7
+                                              Internal Service Providers                  5
+     Inadequately
+                              12/18           Travel                                      4
+  Supported Expenses
+                                              Salary and Wages                            2
+                                              Consultant                                  2
+                                              Travel                                      8
+                                              Materials and
+                                                                                          9
+    Inappropriately                           Supplies/Equipment
+                              10/18
+  Allocated Expenses                          Publication                                 6
+                                              Student Stipends/Tuition
+                                                                                          5
+                                              Remission
+                                              Non-Compliance with Award
+    Non-Compliance                                                                        8
+                                              Recipient Policies
+    with Policies and          9/18
+                                              Non-Compliance with NSF
+      Procedures                                                                          5
+                                              Program-Specific Policies
+Source: Auditor’s summary of the results of the audit reports for audits under Contract No.
+140D0418A0042.
+
+
+
+
+                                                                                              Page | 8
+                                                                                    APPENDIX II
+A. Continually Monitor and Verify the Allowability of High-Risk Expenses
+Seventeen audit reports contained findings with questioned costs that occurred because
+the award recipients charged NSF awards for costs that did not appear to be allowable per
+2 Code of Federal Regulations (CFR) § 200.403 or other applicable federal regulations,
+as cited below. Specifically, the audit reports identified the following types of unallowable
+costs:
+
+1. Travel
+Eleven of the audit reports included questioned costs that occurred because the award
+recipients charged NSF awards for travel expenses that did not appear to be allowable per
+2 CFR § 200.474. For example, we identified the following unallowable travel costs:
+
+  i.   Unjustified Upgraded Airfare Class
+                                                                  Promising Practice
+        •   Common Findings: Award recipients           Per Texas A&M’s Travel Guidelines
+            often charged NSF for costs                 for Air Transportation, when
+            associated with upgraded airfare            travelers book non-standard airfare
+            tickets (e.g., first class, business class) using its travel system, Concur, the
+            without either removing the                 system automatically creates an
+            difference between the cost of an           exception form that requires the
+            equivalent economy-class ticket and         traveler to justify the non-standard
+            the cost associated with the upgrade        airfare.
+            or providing a justification to support
+            that the upgraded airfare expense was allowable per 2 CFR §200.474 (d).
+
+        •   Suggestion for Strengthening Controls: Award recipients could require
+            travelers with upgraded airfare tickets to provide documentation to support the
+            cost of an equivalent economy-class ticket, thereby enabling the award recipient
+            to remove the unallowable portion of the upgraded airfare, and/or provide a
+            justification to support that the upgraded airfare expense was allowable.
+
+ ii.   Lodging
+
+        •   Common Findings: Award recipients charged NSF for lodging costs that were
+            unreasonable, that were associated with avoidable no-show expenses, or that
+            did not benefit the awards charged.
+
+        •   Suggestion for Strengthening Controls: Award recipients could establish clear
+            guidance regarding how to determine (i) whether lodging costs are reasonable,
+            (ii) the allowability of costs associated with no-shows, and (iii) what percentage
+            of shared travel costs are allowable on sponsored awards.
+
+iii.   Non-U.S. Flag Carriers
+
+        •   Common Findings: Award recipients charged NSF for airfare purchased from
+            foreign airlines that had code-sharing agreements with U.S. flag carriers;
+
+
+
+                                                                                         Page | 9
+                                                                                   APPENDIX II
+           however, the airfare purchased did not
+                                                                   Promising Practice
+           relate to a code-sharing flight, as is
+           required for the airfare to be allowable         UConn uses a Fly America
+           per the Fly America Act.                         Exception/Waiver Checklist to
+                                                            document its determination
+       •   Suggestion for Strengthening Controls:           regarding whether the traveler’s
+           Award recipients could implement                 use of a non-U.S. flag air carrier
+                                                            complies with the Fly America Act.
+           processes for flagging airfare purchases
+           booked using non-U.S. flag carriers. These
+           processes could require travelers to document applicable Fly America Act
+           exception(s) or verify that they will not charge the costs to federal awards.
+
+iv.   Travel Outside Award Period of Performance
+
+       •   Common Findings: Award recipients charged NSF for costs associated with
+           travel scheduled to occur after the NSF award’s period of performance had
+           expired.
+
+       •   Suggestion for Strengthening Controls: Award recipients could implement
+           controls to flag any instances in which a traveler charges an award for airfare
+           that includes travel dates outside of the award’s period of performance.
+
+v.    Meal Expenses                                              Promising Practice
+
+       •   Common Findings: Award recipients             The University of Wisconsin created
+           charged NSF for meal expenses claimed         an Expense System Tutorials
+           using (i) meals & incidental expense          Reimbursement Website that
+                                                         provides travelers with training
+           (M&IE) per diem rates that were higher
+                                                         materials that discuss how to
+           than the approved per diem rates for          complete expense reports and
+           the location(s) visited or (ii) receipts      includes instructions for personnel
+           that included costs incurred for              responsible for approving the
+           alcoholic beverages or entertainment,         reports.
+           which are expressly unallowable per 2
+           CFR § 200.423 and 2 CFR § 200.438.
+
+       •   Suggestion for Strengthening Controls: Award recipients could provide
+           personnel responsible for approving expense reports with annual training on
+           the review process to ensure that the award recipient reimburses travelers
+           based on the appropriate per diem rate(s) and only reimburses travelers for
+           allowable expenses.
+
+vi.   Combining Business and Personal Travel
+
+       •   Common Findings: Award recipients charged NSF for costs associated with
+           personal travel and/or with travel by accompanying personnel and/or family
+           members whose travel did not benefit the federal award charged, as required for
+           the costs to be allowable per 2 CFR § 200.403.
+
+
+                                                                                       Page | 10
+                                                                                      APPENDIX II
+
+                                                                    Promising Practice
+       •   Suggestion for Strengthening
+           Controls: Award recipients could                 The University of Alaska’s Quick
+           require travelers to document the                Traveler Guide states that travelers
+           business purpose for each day of a               must report personal travel days
+           planned trip prior to booking travel and         within the travel report header and
+           evaluate what portion of the travel costs        notes that expenses accrued during
+           are associated with personal travel or           or because of personal days are not
+                                                            reimbursable.
+           with travel by accompanying personnel
+           whose travel does not benefit the
+           federal award charged.
+
+2. Participant Support Costs
+Nine of the audit reports included findings with questioned costs that occurred because the
+award recipients charged NSF awards for expenses that were not allowable participant
+support costs per 2 CFR § 200.75. For example, the audit reports identified unallowable
+participant support cost expenses related to the following:
+
+ i.   Non-Participant Expenses
+                                                                 Promising Practice
+       •   Common Findings: Award
+           recipients used participant support         UConn’s Participant Support Procedure
+           cost funding to support employee            defines participant support, references
+           participation at sponsored project          NSF’s policies, notes that separate
+           events, obtain conference speakers,         accounts must be established to track and
+           or purchase goods or services that          report participant support costs for each
+           were not specifically outlined and          award, and emphasizes that participant
+                                                       support funding may not be used for
+           justified in the participant support
+                                                       other expense categories without prior
+           cost budget and/or otherwise                written approval of the sponsor.
+           approved by NSF.
+
+       •   Suggestion for Strengthening Controls: Award recipients could provide
+           additional training and update their internal participant support cost policies to
+           identify allowable uses of participant support cost funding. Further, the updated
+           policy could note that, if the award recipient plans to use participant support
+           cost funding to cover costs that may fall outside the 2 CFR § 200.75 definition of
+           participant support costs, it should ensure those costs are justified in the budget
+           detail (pre-award) or otherwise officially approved by the NSF Grants Officer
+           (post-award).
+
+ii.   Re-Budgeting Without NSF Approval
+
+       •   Common Findings: Award recipients used participant support cost funding to
+           cover cost overruns in non-participant budget categories without requesting or
+           receiving the approvals required per NSF’s Research Terms and Conditions,
+           Appendix A: Prior Approval Matrix.
+
+
+
+                                                                                          Page | 11
+                                                                                   APPENDIX II
+
+
+       •   Suggestion for Strengthening Controls: Award recipients could ensure that
+           their participant support cost policies address when and how to request
+           approval to re-budget participant support cost funding, as well as how to
+           document that approval consistent with NSF policies.
+
+3. Salary and Wages
+Eight of the audit reports included findings
+with questioned costs that occurred because
+                                                              Promising Practice
+the award recipients charged NSF awards for
+salary expenses that were not allowable per 2       Per UH’s Effort Reporting procedures,
+CFR § 200.430. For example, the audit               employees with incorrect effort reports
+reports identified the following unallowable        must notify the personnel responsible
+salary and wage expenses:                           for processing payroll reallocations. UH
+                                                    will correct the payroll before generating
+ i.   Effort Not Appropriately Certified            a new effort report for the employee to
+                                                    certify.
+       •   Common Findings: Award
+           recipients charged NSF for salary costs that employees did not certify in
+           accordance with award recipient policies, as required for salary costs to be
+           allowable per 2 CFR § 200.430, as a result of processing off-cycle payroll or
+           other manual cost transfers.
+
+       •   Suggestion for Strengthening Controls: Award recipients could strengthen
+           their controls surrounding the processing of manual payroll transactions to
+           ensure they appropriately consider all relevant salary transactions when
+           reviewing and certifying project-related effort, consistent with award recipient
+           policies.
+
+ii.   Salary Expenses Inconsistent with Certified Effort
+
+       •   Common Findings: Award recipients charged NSF for salary costs using effort
+           percentages that were not supported by the employee’s certified effort report.
+
+       •   Suggestion for Strengthening Controls: Award recipients could implement
+           additional financial management system controls to ensure they update salary
+           expense distributions based on the effort distributions certified within employee
+           effort reports.
+
+4. Materials and Supplies
+Eight of the audit reports included findings with questioned costs that occurred because
+the award recipients charged NSF awards for materials and supplies that were not
+allowable per 2 CFR § 200.453. For example, the audit reports identified the following
+unallowable material and supply expenses:
+
+
+
+
+                                                                                       Page | 12
+                                                                                  APPENDIX II
+ i.   Purchases After Grant Expiration
+                                                             Promising Practice
+       •   Common Findings: Award
+           recipients used funds remaining        FIU’s Close Out of Sponsored Projects
+                                                  Procedures states that the Principal
+           after an NSF award had expired to
+                                                  Investigator (PI) must ensure that all
+           purchase supplies they intended        project expenditures post to the project
+           to use to support activities that      during the project performance dates, and
+           would occur after the award’s          that the PI may not charge new expenses
+           expiration.                            to the project after its end date.
+
+       •   Suggestion for Strengthening Controls: Award recipients could strengthen
+           procedures surrounding the approval of expenses charged to sponsored awards
+           after the awards have expired.
+
+ii.   Promotional Items
+
+       •   Common Findings: Award recipients charged NSF for promotional supplies
+           provided to event participants but did not include these supplies in the award
+           budget or otherwise obtain NSF’s approval.
+
+       •   Suggestion for Strengthening Controls: Award recipients could conduct
+           periodic reviews of costs charged to accounts established to accumulate costs of
+           promotional and/or other advertising or public relation expenses. Further,
+           award recipients could provide additional training to ensure that personnel
+           responsible for charging costs to NSF projects are aware that these costs must be
+           justified in the budget detail (pre-award) or otherwise officially approved by the
+           NSF Grants Officer (post-award) to be allowable on an NSF grant.
+
+5. Fringe Benefits
+Five of the audit reports included findings with questioned costs that occurred because the
+award recipients charged NSF awards for fringe benefits that were not allowable per 2 CFR
+§ 200.431. For example, the audit reports identified the following unallowable fringe
+benefit expenses:
+
+ i.   Fringe Benefits Applied to Expenses Not Eligible for Fringe Benefits
+
+       •   Common Findings: Award recipients applied fringe benefit rates to participant
+           support and/or other non-salary payments as a result of incorrectly including
+           these payments in the salary and wage base.
+
+       •   Suggestion for Strengthening Controls: Award recipients could strengthen the
+           controls within their financial management systems to ensure they only apply
+           fringe benefit rates to eligible salary and wage expenses, consistent with their
+           federally approved Negotiated Indirect Cost Rate Agreements (NICRAs).
+
+
+
+
+                                                                                      Page | 13
+                                                                                   APPENDIX II
+6. Publication Costs
+Four of the audit reports included findings with questioned costs that occurred because the
+award recipients charged NSF awards for publication expenses that were not allowable per
+2 CFR § 200.461. For example, the audit reports identified the following unallowable
+publication costs:
+
+ i.   Publications That Did Not Reference Federal Awards
+
+       •   Common Findings: Award recipients charged NSF for costs incurred to publish
+           articles and research papers that did not recognize the NSF award(s) charged.
+
+       •   Suggestion for Strengthening Controls: Award recipients could require
+           appropriate personnel to verify that publications recognize the applicable
+           federal awards prior to allowing personnel to charge the associated expenses to
+           those awards.
+
+7. Consultant Services
+Three of the audit reports included findings with questioned costs that occurred because
+the award recipients charged NSF awards for consultant expenses that were not allowable
+per 2 CFR § 200.459. For example, the audit
+reports identified the following unallowable                Promising Practice
+consultant expenses:
+                                                   Clemson’s Subaward, Contractor,
+ i.   Inappropriately Procured Services            Consultant Instructions note that
+                                                   Clemson must establish formal
+       •   Common Findings: Award                  agreements with consultants prior to the
+           recipients charged NSF for              initiation of effort. The instructions
+                                                   further note that Clemson must procure
+           consultant expenses that the
+                                                   consultant services through the
+           award recipients did not                competitive bid process if the consultant
+           appropriately procure in                is not specifically named in the proposal.
+           accordance with award recipient
+           policies and/or 2 CFR § 200.319.
+
+       •   Suggestion for Strengthening Controls: Award recipients could strengthen
+           their administrative and management controls and processes to ensure they
+           procure goods and services consistent with all applicable award recipient and
+           federal procurement policies.
+
+ii.   Services Provided Outside of an Award’s Period of Performance
+
+       •   Common Findings: Award recipients charged NSF awards for all costs included
+           within service agreements, including services scheduled to be provided after the
+           award’s period of performance expired.
+
+       •   Suggestion for Strengthening Controls: Award recipients could require
+           individuals responsible for approving service agreements to verify that the
+
+
+
+                                                                                        Page | 14
+                                                                                   APPENDIX II
+           consultant will provide all of the services charged during the award’s period of
+           performance before allowing personnel to charge the service expenses to a
+           federal award.
+
+8. Subawards
+Four of the audit reports included findings with questioned costs that occurred because the
+award recipients charged NSF awards for subaward expenses that were not allowable per
+2 CFR § 200.331. Specifically, the audit reports identified the following unallowable
+subaward costs:
+
+ i.   Transferring Award Research to Other Organizations
+
+       •   Common Findings: When key personnel relocated from the audited university
+           to another university during the award’s period of performance, the audited
+           university often issued a subaward to the university the key personnel
+           transferred to in an effort to enable key personnel to continue performing on the
+           grant without first requesting or receiving approval to do so from the NSF Grants
+           Officer, per NSF’s Research Terms and Conditions Appendix A Prior
+           Approval Matrix.
+
+       •   Suggestion for Strengthening Controls: Award recipients could establish post
+           award procedures that require personnel to obtain the prior NSF approval using
+           appropriate NSF electronic system(s) to submit a formal request to transfer any
+           portion of project effort—before executing any subawards under an NSF grant.
+
+B. Strengthen Controls Over Applying Indirect Cost Rates
+Fifteen audit reports included findings with questioned costs and/or compliance findings
+that occurred because the award recipients did not apply indirect cost rates in a manner
+that was consistent with 2 CFR § 200.414 and/or other applicable guidance, as cited
+below. Specifically, the audit reports identified the following findings:
+
+1. Indirect Costs Applied at Incorrect Rates
+Fourteen audit reports included compliance findings that occurred because the award
+recipients did not have sufficient controls in place to ensure they applied indirect costs in
+accordance with 2 CFR 200, Appendix III, Section C.7. For example, the audit reports
+determined that the award recipients had insufficient controls over indirect costs, which
+resulted in award recipients inappropriately applying incorrect rates, as follows:
+
+ i.   Proposed Indirect Cost Rates
+
+       •   Common Findings: Award recipients applied the indirect cost rates that were in
+           effect on the date they submitted the award proposal without determining
+           whether they needed to make adjustments to reflect the NICRA rate(s) in effect
+           when NSF issued the award, as required by federal regulations.
+
+
+
+
+                                                                                       Page | 15
+                                                                                    APPENDIX II
+       •   Suggestion for Strengthening
+                                                               Promising Practice
+           Controls: Award recipients could
+           develop and implement a control to       UH’s Sponsored Projects-Negotiated
+           identify when indirect cost rates        Indirect Rates website provides
+           change between the proposal              relevant criteria, definitions, and
+           submission date and the award date       examples to help staff determine which
+           and take appropriate steps to avoid      indirect cost rate(s) they should apply to
+           claiming unallowable (i.e.,              expenditures recorded on sponsored
+           overcharging) indirect costs on          programs.
+           awards.
+
+ii.   Provisional Indirect Cost Rates
+
+       •   Common Findings: Award recipients that used the provisional indirect cost
+           rates in effect as of the grant’s award date often did not make adjustments to use
+           the approved negotiated rates once the final NICRA was issued, as required by
+           federal regulations.
+
+       •   Suggestion for Strengthening Controls: Award recipients could establish clear
+           guidance identifying the appropriate indirect cost rate(s) for sponsored projects
+           awarded during provisional rate periods. The updated guidance could also
+           require that award recipients make adjustments to use all negotiated rates
+           identified in the NICRA that establishes the final rates for the period during
+           which NSF awarded the sponsored project.
+
+2. Indirect Cost Rate Applied to Incorrect Base
+Twelve of the audit reports included findings with questioned costs that occurred because
+the award recipients applied indirect costs to expenses that they should have excluded
+from their modified total direct cost base (MTDC), per 2 CFR § 200.67 and the award
+recipients’ NICRAs. For example, the audit reports identified unallowable indirect costs
+that occurred because the award recipient inappropriately applied indirect cost rates, as
+follows:
+
+ i.   Equipment Expenses
+
+       •   Common Findings: Award                             Promising Practice
+           recipients applied indirect cost
+           rates to costs incurred to             UConn’s Inventory Control/Capitalization
+           purchase or ship attachments,          General Information Policy and
+                                                  Procedures document states that when
+           accessories, or other auxiliary
+                                                  UConn enhances capital equipment to add
+           apparatuses (i.e., individual          additional functionality or to extend the
+           components that cost less than         useful life of the equipment, it must add the
+           $5,000 each) that the award            cost of the enhancement to the existing
+           recipient should have capitalized      equipment.
+           as part of the equipment’s
+           acquisition cost per 2 CFR § 200.2.
+
+
+
+                                                                                        Page | 16
+                                                                                    APPENDIX II
+
+
+        • Suggestion for Strengthening Controls: Award recipients could require that
+          personnel manually review material and supply purchases charged to federal
+          awards to evaluate whether to account for the items as equipment. Specifically, the
+          reviewer should consider whether the items purchased could be considered
+          equipment per the institution’s policies, are considered capital assets per 2 CFR §
+          200.12 and/or whether the items are necessary for the use of equipment and
+          therefore should be capitalized as part of the equipment’s acquisition cost per 2
+          CFR § 200.2.
+
+ ii.   Building Costs
+
+        •   Common Findings: Award recipients applied indirect cost rates to expenditures
+            incurred to make improvements, modifications, renovations, or alterations to
+            buildings that should have been considered capital assets per 2 CFR § 200.12,
+            but were not because the expenditures did not meet the award recipient’s
+            building capitalization threshold.
+
+        •   Suggestion for Strengthening Controls: Award recipients could perform
+            periodic reviews of expenditures charged to facilities accounts to ensure that
+            they capitalize expenditures incurred to make improvements, modifications,
+            renovations, or alterations to buildings as part of the capital asset consistent
+            with 2 CFR § 200.12.
+
+iii.   Initial $25,000 of Subaward Costs
+
+        •   Common Findings: Award recipients did not appropriately segregate the first
+            $25,000 invoiced by subawardees within an account that accumulates MTDCs.
+            As a result, they did not appropriately apply subaward expenses to the first
+            $25,000 invoiced by each subawardee. Specifically, award recipients (i) did not
+            apply indirect costs to the first $25,000 invoiced by subaward recipients and/or
+            (ii) applied indirect costs to more than the first $25,000 invoiced by subaward
+            recipients that they had misclassified as vendors or consultants.
+
+        •   Suggestion for Strengthening Controls: Award recipients could implement
+            periodic reviews of expenses associated with consultants, vendors, and
+            subawardees whose collective billings exceed $25,000 to ensure that award
+            recipients (i) do not misclassify subawardees as consultants or vendors and (ii)
+            appropriately apply indirect costs to the first $25,000 invoiced by each
+            subawardee.
+
+iv.    Participant Support Costs
+
+        •   Common Findings: Award recipients did not appropriately segregate
+            participant support costs within accounts excluded from the MTDC base.
+
+
+
+
+                                                                                        Page | 17
+                                                                                 APPENDIX II
+       •   Suggestion for Strengthening Controls: Award recipients could implement an
+           annual review process in which the Principal Investigator (PI) or other
+           designated personnel is required to review all expenses charged to awards that
+           include funding for participant support costs and verify that the award recipient
+           recorded all participant support costs in a unique participant support cost
+           account that is excluded from the MTDC base.
+
+ v.   Tuition Remission
+
+       •   Common Findings: Award recipients erroneously charged tuition remission
+           costs to accounts included within their MTDC base.
+
+       •   Suggestion for Strengthening Controls: Award recipients could strengthen
+           controls surrounding the charging of tuition remission costs to ensure that they
+           accumulate tuition-related expenses within accounts that are excluded from the
+           MTDC base.
+
+C. Ensure Award Recipients Create and Maintain Sufficient, Appropriate
+   Documentation
+Twelve audit reports contained findings with questioned costs and/or compliance findings
+that occurred because award recipients did not maintain sufficient documentation to
+support the allowability of costs charged to NSF awards as required by 2 CFR § 200.403
+and/or other applicable guidance, as cited below. Specifically, the audit reports often
+identified the following types of inadequately supported expenses:
+
+1. Costs Claimed in NSF’s ACM$
+Seven of the audit reports included findings with questioned costs that occurred because
+the award recipients did not have sufficient general ledger data to support all costs claimed
+in NSF’s ACM$ system, as required per 2 CFR § 200.302. For example, the audit reports
+included findings that occurred because the award recipients did not have sufficient
+documentation to support the following costs:
+
+ i.   Expiring Appropriations
+
+       •   Common Findings: Award recipients calculated final funding requests based on
+           the amount of funding remaining on the award or the anticipated final award
+           expenses, rather than limiting advance payment requests to the minimum
+           amounts needed.
+
+       •   Suggestion for Strengthening Controls: Award recipients could update their
+           ACM$ procedures for drawing down funds on awards with expiring
+           appropriations to ensure personnel are validating and adequately documenting
+           that any ACM$ draws in excess of their actual expenses are timed to be in
+           accordance with the actual, immediate cash requirements for carrying out the
+           purpose of the approved program or project, in accordance with 2 CFR §
+           200.305(b). For example, award recipients could request that PIs implement an
+
+
+                                                                                     Page | 18
+                                                                                    APPENDIX II
+           early stop spending date on awards with expiring appropriations which would
+           allow the award recipient to accurately calculate reimbursement for actual
+           expenses incurred before making their final ACM$ draw on the expiring award.
+
+ii.   Credits Not Appropriately Returned
+
+       •   Common Findings: Award recipients did not apply applicable credits to federal
+           awards as cost reductions or cash refunds when drawing down funds in ACM$.
+
+       •   Suggestion for Strengthening Controls: Award recipients could update their
+           administrative and management processes and internal control procedures
+           surrounding the drawing down of funds in the ACM$ system to ensure that they
+           appropriately incorporate credits when calculating the total amount to draw
+           down from, or return to, NSF, as required by 2 CFR § 200.406.
+
+2. Internal Service Provider (ISP) Expenses
+Five of the audit reports included findings with questioned costs that occurred because the
+award recipients did not maintain sufficient documentation to support that the costs of
+services provided by specialized or other service facilities were allowable per 2 CFR §
+200.468. For example, the audit reports included the following findings:
+
+ i.   ISP Rate Sheets Did Not Support the Rates the ISP Billed
+
+       •   Common Findings: Award recipients charged NSF for goods and services that
+           ISPs billed using rates that were not supported by formal rate schedules
+           designed in compliance with 2 CFR § 200.468.
+
+       •   Suggestion for Strengthening Controls: Award recipients could perform
+           periodic reviews of ISP expenses charged to sponsored awards to ensure that
+           the ISPs are billing for services using rates identified within the ISP’s approved
+           rate sheets.
+
+ii.   Insufficient Detail Included on ISP Invoices
+
+       •   Common Findings: Award recipients charged NSF for goods and services that
+           ISPs billed using invoices that did not contain sufficient detail to support that the
+           ISP had appropriately billed the services in accordance with its approved rate
+           sheets.
+
+       •   Suggestion for Strengthening Controls: Award recipients could update their
+           ISP invoicing processes to require that invoices identify the number of units or
+           hours billed, as well as the rates used to calculate the invoiced amounts.
+
+3. Travel Expenses
+Four of the audit reports included findings with questioned costs that occurred because the
+award recipients did not maintain sufficient documentation to support that travel costs
+
+
+                                                                                        Page | 19
+                                                                                APPENDIX II
+were allowable per 2 CFR § 200.474. For example, the audit reports included findings that
+occurred because award recipients did not
+maintain adequate documentation to support                  Promising Practice
+the allowability of the following travel costs:
+                                                      UCF’s Travel Manual states that
+ i.   Combined Business and Personal Travel           travel reimbursement vouchers must
+                                                      require the traveler to provide a
+       •   Common Findings: Award recipients          description of the business purpose
+           did not maintain documentation to          of each day of a trip and that the
+           support that combining personal and        vouchers should note “Personal” for
+                                                      dates and times the traveler was on
+           business travel did not cause the
+                                                      personal business.
+           travel costs to increase above the
+           amount that the employee would
+           have incurred had they only performed business-related travel.
+
+       •   Suggestion for Strengthening Controls: Award recipients could develop
+           policies and procedures outlining the requirements for documenting that a trip
+           that combined personal and business travel did not cause the travel costs to
+           increase above the amount that the employee would have incurred had they only
+           performed business-related travel.
+
+ii.   Unidentified Airfare Travel Class
+
+       •   Common Findings: Award recipients charged NSF for airfare without being able
+           to support that the expenses represented allowable economy-class airfare.
+
+       •   Suggestion for Strengthening Controls: Award recipients could strengthen
+           controls surrounding the approval of expense reports to ensure that they
+           maintain sufficient documentation to support the traveler’s airfare class.
+
+4. Salary and Wage Expenses
+Two of the audit reports included findings with questioned costs that occurred because the
+award recipients did not maintain sufficient documentation to support that salary costs
+were allowable per 2 CFR § 200.430. For example,
+the audit reports included findings that occurred             Promising Practice
+because the award recipients were unable to verify
+the allowability of the following:                      UNM created an Extra
+                                                        Compensation Request Form
+ i.   Salary Payments Based on Hourly Rates             that employees must use to
+                                                        request salary for work performed
+                                                        outside of normal departmental
+       •   Common Findings: Award recipients
+                                                        duties.
+           charged NSF for salaries paid to hourly
+           employees for services performed
+           outside of their normal duties using pay rates and/or hours that were not
+           supported by salary agreements or timesheets.
+
+
+
+
+                                                                                    Page | 20
+                                                                                   APPENDIX II
+       •   Suggestion for Strengthening Controls: Award recipients could strengthen
+           controls related to establishing and documenting compensation rates and
+           timekeeping requirements for individuals who provide services outside the
+           scope of their regular duties to benefit sponsored projects.
+
+5. Consultant Expenses
+Two of the audit reports included findings with questioned costs that occurred because the
+award recipients did not maintain sufficient documentation to support that consultant
+costs were allowable per 2 CFR § 200.459. For example, the audit reports included
+findings that occurred because the award recipients were unable to verify the allowability
+of the following:
+
+ i.   Payments Made to Consultants Without Consulting Agreements
+
+       •   Common Findings: Award recipients charged NSF for consultant costs that
+           could not be verified as allowable because the amounts the consultant invoiced
+           were not supported by a consulting agreement.
+
+       •   Suggestion for Strengthening Controls: Award recipients could strengthen
+           procurement and contract requirements for individuals responsible for
+           reviewing and approving consultant expenses. For example, award recipients
+           could require individuals to verify that a consulting agreement was
+           appropriately documented, and require reviewers to document a comparison of
+           the consulting contract/agreement terms and conditions to consultant invoice
+           to support they verified the allowability of the costs invoiced by the consultant
+           prior to payment.
+
+D. Document and Justify Reasonable Allocation Methodologies
+Ten audit reports contained findings with questioned costs and/or compliance findings
+that occurred because the award recipients did not create or maintain sufficient
+documentation to support that they had appropriately allocated the costs based on the
+relative benefits received, as required per 2 CFR § 200.405 and/or other applicable
+guidance, as cited below. Specifically, the audit reports often identified the following types
+of inappropriately allocated expenses:
+
+1. Travel
+Eight of the audit reports included findings with questioned costs that occurred because
+the award recipients did not appropriately allocate travel costs consistent with the benefits
+received. For example, the audit reports included findings related to the following types of
+inappropriately allocated travel costs:
+
+ i.   Travel Benefiting Multiple Projects
+
+       •   Common Findings: Award recipients charged NSF for costs incurred for
+           employees to attend, or present papers at, conferences that benefited multiple
+           awards, but allocated 100 percent of the travel costs to a single award.
+
+
+                                                                                       Page | 21
+                                                                                  APPENDIX II
+
+
+       •   Suggestion for Strengthening                        Promising Practice
+           Controls: Award recipients could
+           develop and implement policies and         Caltech’s Travel and Expense Guide
+           procedures that define how costs           provides instructions for allocating
+           should be allocated and how that           travel expenses by percentage or by
+                                                      amount across multiple funding
+           allocation methodology should be
+                                                      sources.
+           documented. Further, award
+           recipients could provide additional
+           training to staff on how to ensure they are allocating costs in accordance with
+           the established policy.
+
+ii.   Trip/Traveler/Collaborator Not Identified in Annual Reports
+
+       •   Common Findings: Award recipients charged NSF for costs associated with
+           trips, collaborators, and employees that the award recipients did not identify,
+           either in the annual reports submitted to NSF or in other relevant
+           documentation, to support that the individuals’ travel benefited the awards
+           charged.
+
+       •   Suggestion for Strengthening Controls: Although NSF policies do not explicitly
+           require award recipients to do so, award recipients could encourage PIs to
+           document allocability by identifying all award-related travel within the annual
+           reports submitted to NSF.
+
+2. Materials and Supplies/ Equipment
+Nine of the audit reports included findings with questioned costs that occurred because the
+award recipients did not appropriately allocate material and supplies and equipment costs
+consistent with the benefits received. For example, the audit reports included findings
+related to the following types of inappropriately allocated materials and supplies and
+equipment costs:
+
+ i.   Purchases Near Grant Expiration
+
+       •   Common Findings: Award recipients charged NSF for materials and supplies
+           and equipment purchased near an award’s expiration date when the award
+           recipients had little to no time to use the purchases to benefit the awards.
+
+       •   Suggestion for Strengthening Controls: Award recipients could implement
+           additional procedures that require non-program personnel to review and
+           approve material and supply expenses charged to NSF awards within the 90
+           days preceding the award’s expiration. Specifically, the reviewer could only
+           approve these costs if program personnel are able to provide a reasonable
+           justification as to why the expenses should be allocable to the award considering
+           NSF’s Post-End Date Costs policy.
+
+
+
+
+                                                                                     Page | 22
+                                                                                  APPENDIX II
+ ii.   Insufficiently Documented Material Restocking Costs
+
+        •   Common Findings: Award recipients charged NSF for costs associated with re-
+            stocking general lab materials and supplies and did not have documentation to
+            support that the quantity and types of materials restocked were consistent with
+            the quantity and types of materials actually used to benefit the award charged.
+
+        •   Suggestion for Strengthening Controls: Award recipients could develop and
+            implement policies and procedures for creating, using, restocking, and charging
+            inventoried materials to NSF grants.
+
+iii.   Inconsistently Allocated Materials and Supplies/Equipment
+
+        •   Common Findings: When charging NSF for materials and supplies and
+            equipment expenses, award recipients used methodologies that were not
+            consistent with the methodologies outlined in the purchase order and/or other
+            relevant documentation.
+
+        •   Suggestion for Strengthening Controls: Award recipients could strengthen
+            their administrative and management controls and processes for ensuring they
+            allocate expenses in a manner that is consistent with the methodology outlined
+            in the relevant supporting documentation.
+
+3. Publication Costs
+Six of the audit reports included findings with questioned costs that occurred because the
+award recipients did not allocate publication costs using a methodology that appeared to
+be reasonable and consistent with the sponsored funding sources recognized in the
+publication. For example, the audit reports included findings that occurred because award
+recipients inappropriately allocated publication costs as follows:
+
+  i.   Inconsistent Number of Funding Sources Referenced
+
+        •   Common Findings: Award recipients charged a single NSF award for 100
+            percent of the costs incurred to publish articles and research papers that
+            recognized two or more sponsored funding sources.
+
+        •   Suggestion for Strengthening Controls: Award recipients could require
+            personnel to identify and allocate publication expenses to relevant funding
+            sources based on a reasonable, documented methodology that is consistent with
+            the sponsors identified in the publication before charging the expenses to the
+            sponsored funding sources.
+
+4. Student Stipends/Tuition
+Five of the audit reports included findings with questioned costs that occurred because the
+award recipients did not appropriately allocate student stipends or tuition consistent with
+
+
+
+                                                                                         Page | 23
+                                                                                    APPENDIX II
+the benefits received. For example, the audit reports included findings that occurred
+because award recipients inappropriately allocated stipend/tuition payments as follows:
+
+ i.   Stipends/Tuition Inconsistent with Effort Certifications
+
+       •   Common Findings: Award recipients charged a single NSF award for 100
+           percent of a student’s stipend or tuition payment when the student certified
+           spending effort on two or more projects during the relevant stipend/tuition
+           period.
+
+       •   Suggestion for Strengthening Controls: Award recipients could review all
+           tuition and stipend payments charged to sponsored projects during each effort
+           certification period after the students have certified their effort for the period to
+           verify that they allocated the students’ tuition and stipend expenses consistent
+           with the students’ certified effort.
+
+E. Regularly Review and Update Grant Management Policies and Procedures
+Nine audit reports included compliance findings that occurred because the award
+recipients did not comply with, or document their compliance with, applicable policies and
+procedures, as outlined in federal regulations and/or other applicable guidance, as cited
+below. Specifically, the audit reports identified exceptions related to the award recipients’
+non-compliance in the following areas:
+
+1. Award Recipient Policies and Procedures
+Eight of the audit reports included findings with questioned costs and/or compliance
+findings that occurred because the award recipients did not appropriately comply with, or
+did not document their compliance with, their internal grant management policies and
+procedures. For example, the audit reports included exceptions related to non-compliance
+with the following policies and procedures:
+
+ i.   Salary and Wages                                           Promising Practice
+
+       •   Common Findings: Award                      UW-Madison implemented a New
+                                                       Consequences for Failing to Complete
+           recipients charged NSF for salary
+                                                       Effort Certification policy, which
+           costs included on effort reports that       identifies the administrative
+           the employees did not certify in            consequences for not certifying effort
+           accordance with the award                   within the effort certification period.
+           recipients’ effort reporting policies,
+           as required by 2 CFR § 200.430.
+
+       •   Suggestion for Strengthening Controls: Award recipients could implement
+           positive and/or negative incentives, such as an inability to submit proposals or
+           the removal of all uncertified effort from sponsored awards, for employees who
+           do not certify their effort reports within the time period required per award
+           recipient policies.
+
+
+
+
+                                                                                        Page | 24
+                                                                                  APPENDIX II
+ ii.   Procurement
+
+        •   Common Findings: Award recipients charged NSF for goods and services that
+            the award recipients did not procure in accordance with their documented
+            policies and procedures.
+
+        •   Suggestion for Strengthening Controls: Award recipients could provide annual
+            training to PIs and other personnel responsible for procuring goods and services
+            charged to sponsored projects to ensure these personnel are aware of all current
+            procurement requirements and competitive bidding thresholds.
+
+iii.   Subawards
+
+        •   Common Findings: Award recipients approved subaward invoices without
+            completing the forms and/or approval processes required per the award
+            recipients’ subaward policies and procedures.
+
+        •   Suggestion for Strengthening Controls: Award recipients could strengthen
+            their administrative and management procedures related to subaward expense
+            processing to ensure personnel complete all required forms and approvals prior
+            to approving subawardee invoices.
+
+iv.    Travel
+
+        •   Common Findings: Award recipients charged NSF for travel costs associated
+            with trips for which travelers did not complete all of the required pre-approvals
+            and/or did not claim reimbursement consistent with award recipient policies
+            and procedures.
+
+        •   Suggestion for Strengthening Controls: Award recipients could conduct annual
+            training for travelers that charge travel expenses to federally sponsored
+            projects. This training could address how to obtain appropriate advance
+            approvals and claim meal, lodging, and other travel costs consistent with award
+            recipient policies.
+
+2. NSF Program Solicitation Policies
+Five of the audit reports included compliance findings that occurred because the award
+recipients did not appropriately comply with, or document their compliance with, NSF
+program-specific policies and procedures. For example, the audit reports included
+exceptions related to the award recipients’ non-compliance with the following terms and
+conditions:
+
+
+
+
+                                                                                      Page | 25
+                                                                                                  APPENDIX II
+  i.   Innovation Corps (I-Corps) Awards
+
+        •   Common Findings: Award recipients did not request approval to perform
+            unbudgeted travel, as required by I-Corps program solicitations, and/or
+            incorrectly applied a 10 percent indirect cost rate to program expenses. 2
+
+        •   Suggestion for Strengthening Controls: Award recipients could implement a
+            control that flags all travel on I-Corps awards for further review to ensure that
+            personnel either (i) included the travel in the award budget or (ii) obtained
+            NSF’s approval prior to undertaking unbudgeted travel, consistent with the
+            program solicitation, and to ensure that they apply indirect costs using the
+            rate(s) outlined in the solicitation.
+
+ ii.   Graduate Research Fellowship Program (GRFP) Awards
+
+        •   Common Findings: Award recipients charged NSF for GRFP stipends using rates
+            that exceeded the allowable monthly stipend payment amounts set forth in the
+            GRFP program solicitations.
+
+        •   Suggestion for Strengthening Controls: Award recipients could implement
+            periodic reviews of all stipend payments made on GRFP awards to ensure they
+            appropriately calculated and distributed the stipends.
+
+iii.   Intergovernmental Personnel Act (IPA) Assignments
+
+        •   Common Findings: Award recipients charged NSF for salary paid to employees
+            with IPA assignments using the award recipient’s base salary rate, rather than
+            using the rate included in the employee’s IPA agreement with NSF.
+
+        •   Suggestion for Strengthening Controls: Award recipients could create formal
+            procedures for establishing IPA assignments that ensure personnel charge NSF
+            awards for salary costs in accordance with their approved IPA agreements,
+            rather than in accordance with their previously established award recipient base
+            salary.
+
+
+
+
+2 Award recipients often use a 10 percent indirect cost rate (e.g., $5,000 indirect cost budget/$50,000 total
+
+budget) instead of the appropriate 11.11 percent indirect cost rate ($5,000 indirect cost budget/$45,000
+direct cost budget).
+
+
+                                                                                                       Page | 26
+APPENDIX III: GLOSSARY
+
+
+
+
+                         Page | 27
+                                                                                  APPENDIX III
+
+
+GLOSSARY
+
+Fly America Act
+All air travel and cargo transportation services funded by the federal government are
+required to use a “U.S flag” air carrier service (49. U.S.C 40118).
+
+NSF’s Post-End Date Costs PAPPG Policy
+NSF funds may not be expended subsequent to the end date of the grant, except to liquidate
+valid commitments that were made on or before the end date, e.g., commitment of project
+funds for subrecipient or contractor for services rendered during that award period but not
+billed to the grantee until after the grant ended. (See Chapter VIII.E.2.) Generally, the costs
+of equipment or materials and supplies ordered after the end date may not be charged to
+the project. In addition, the grantee typically should not purchase items of equipment,
+computing devices, or restock materials and supplies in anticipation of the end date of the
+grant where there is little or no time left for such items to be utilized in the actual conduct
+of the research. However, in accordance with 2 CFR § 200.461, Publication and Printing
+costs, award recipients may charge the NSF award before closeout for the costs of
+publication or sharing of research results, if the costs are not incurred during the period of
+performance of the award.
+
+I-Corps program solicitations
+
+   •   Budgetary Information
+
+          o Cost Sharing Requirements:
+
+                  − Inclusion of voluntary committed cost sharing is prohibited.
+
+          o Indirect Cost (F&A) Limitations:
+
+                  − Recovery of indirect costs (F&A) shall be limited to $5,000. Each
+                    budget must include the correct indirect cost rate (i.e. $5,000 /
+                    $45,000 = 11.11%). As such, this program does require mandatory
+                    cost sharing, and, therefore, is an exception to NSF's cost sharing
+                    policy.
+
+          o I-Corps Teams Program Participation
+
+                  − All I-Corps team members are required to participate in the I-Corps
+                    Teams Program. This curriculum, now delivered exclusively in an
+                    online format, typically includes a Kick-off meeting with
+                    Entrepreneurial Immersion Training, a weekly training meeting and a
+                    Lessons Learned Closing Presentation. An I-Corps team includes the
+                    Entrepreneurial Lead, Technical Lead, and Industrial Mentor. More
+                    details on the I-Corps Teams Program can be found in the I-Corps
+                    Teams FAQs. Dates for upcoming cohorts will be posted on the NSF I-
+                    Corps Teams Program website.
+                                                                                       Page | 28
+                                                                                 APPENDIX III
+
+
+
+                    The I-Corps Teams Program provides a real-world, hands-on,
+                    immersive learning experience to evaluate the commercial
+                    opportunity around the innovation. The main activity is customer
+                    discovery where the team "leaves the lab" to evaluate potential
+                    product-market fit and the wider business model. The team's progress
+                    in customer discovery will be shared with the entire cohort to
+                    facilitate group learning. At the end of the curriculum, teams are
+                    expected to have performed at least one hundred (100) interviews
+                    with potential customers and potential partners from their proposed
+                    target market(s) ecosystem.
+
+                    NSF I-Corps teams are encouraged to travel to reach their customer
+                    discovery goals when feasible. Travel to customer discovery
+                    interviews typically does not need approval by NSF, however, teams
+                    must obtain written prior approval from their NSF I-Corps program
+                    officer for either international travel or travel to an academic
+                    conference. Additionally, teams must receive prior approval for any
+                    technical research and development (R&D) work done under the
+                    award.
+
+2 CFR §200, Appendix III, Section C.7 Determination and Application of Indirect
+(F&A) Cost Rate or Rates
+7. Fixed Rates for the Life of the Sponsored Agreement
+
+         •   Federal agencies must use the negotiated rates except as provided in
+             paragraph (e) of §200.414 Indirect (F&A) costs, must paragraph (b)(1) for
+             indirect (F&A) costs in effect at the time of the initial award throughout the
+             life of the Federal award. Award levels for Federal awards may not be
+             adjusted in future years as a result of changes in negotiated rates.
+             ‘‘Negotiated rates’’ per the rate agreement include final, fixed, and
+             predetermined rates and exclude provisional rates. ‘‘Life’’ for the purpose of
+             this subsection means each competitive segment of a project. A competitive
+             segment is a period of years approved by the Federal awarding agency at the
+             time of the Federal award. If negotiated rate agreements do not extend
+             through the life of the Federal award at the time of the initial award, then the
+             negotiated rate for the last year of the Federal award must be extended
+             through the end of the life of the Federal award.
+
+         •   Except as provided in §200.414 Indirect (F&A) costs, when an educational
+             grantee does not have a negotiated rate with the Federal government at the
+             time of an award (because the educational grantee is a new recipient or the
+             parties cannot reach agreement on a rate), the provisional rate used at the
+             time of the award must be adjusted once a rate is negotiated and approved
+             by the cognizant agency for indirect costs.
+
+
+                                                                                     Page | 29
+                                                                                  APPENDIX III
+
+
+2 CFR §200.12 Capital Assets
+Capital Assets means tangible or intangible assets used in operations having a useful life of
+more than one year which are capitalized in accordance with GAAP. Capital assets include:
+
+       (a) Land, buildings (facilities), equipment, and intellectual property (including
+           software) whether acquired by purchase, construction, manufacture, lease-
+           purchase, exchange, or through capital leases; and
+
+       (b) Additions, improvements, modifications, replacements, rearrangements,
+           reinstallations, renovations or alterations to capital assets that materially
+           increase their value or useful life (not ordinary repairs and maintenance).
+
+2 CFR §200.2 Acquisition Cost
+Acquisition cost means the cost of the asset including the cost to ready the asset for its
+intended use. Acquisition cost for equipment, for example, means the net invoice price of
+the equipment, including the cost of any modifications, attachments, accessories, or
+auxiliary apparatus necessary to make it usable for the purpose for which it is acquired.
+Acquisition costs for software includes those development costs capitalized in accordance
+with generally accepted accounting principles (GAAP). Ancillary charges, such as taxes,
+duty, protective in transit insurance, freight, and installation may be included in or
+excluded from the acquisition cost in accordance with the non-Federal entity’s regular
+accounting practices.
+
+2 CFR § 200.67 Micro-purchase
+Micro-purchase means a purchase of supplies or services using simplified acquisition
+procedures, the aggregate amount of which does not exceed the micro-purchase threshold.
+Micro-purchase procedures comprise a subset of a non-Federal entity’s small purchase
+procedures. The non-Federal entity uses such procedures in order to expedite the
+completion of its lowest-dollar small purchase transactions and minimize the associated
+administrative burden and cost. The micro-purchase threshold is set by the Federal
+Acquisition Regulation at 48 CFR Subpart 2.1 (Definitions). It is $3,000 except as otherwise
+discussed in Subpart 2.1 of that regulation, but this threshold is periodically adjusted for
+inflation.
+
+200.75 Participant support costs.
+Participant support costs means direct costs for items such as stipends or subsistence
+allowances, travel allowances, and registration fees paid to or on behalf of participants or
+trainees (but not employees) in connection with conferences, or training projects.
+
+2 CFR § 200.302 Financial management.
+   (a) Each state must expend and account for the Federal award in accordance with state
+       laws and procedures for expending and accounting for the state’s own funds. In
+       addition, the state’s and the other non-Federal entity’s financial management
+       systems, including records documenting compliance with Federal statutes,
+       regulations, and the terms and conditions of the Federal award, must be sufficient to
+       permit the preparation of reports required by general and program-specific terms
+       and conditions; and the tracing of funds to a level of expenditures adequate to
+                                                                                       Page | 30
+                                                                                 APPENDIX III
+
+
+      establish that such funds have been used according to the Federal statutes,
+      regulations, and the terms and conditions of the Federal award. See also §200.450
+      Lobbying.
+
+   (b) The financial management system of each non-Federal entity must provide for the
+       following (see also §§200.333 Retention requirements for records, 200.334
+       Requests for transfer of records, 200.335 Methods for collection, transmission and
+       storage of information, 200.336 Access to records, and 200.337 Restrictions on
+       public access to records):
+
+      (1) Identification, in its accounts, of all Federal awards received and expended and
+          the Federal programs under which they were received. Federal program and
+          Federal award identification must include, as applicable, the CFDA title and
+          number, Federal award identification number and year, name of the Federal
+          agency, and name of the pass-through entity, if any.
+
+      (2) Accurate, current, and complete disclosure of the financial results of each
+          Federal award or program in accordance with the reporting requirements set
+          forth in §§200.327 Financial reporting and 200.328 Monitoring and reporting
+          program performance. If a Federal awarding agency requires reporting on an
+          accrual basis from a recipient that maintains its records on other than an accrual
+          basis, the recipient must not be required to establish an accrual accounting
+          system. This recipient may develop accrual data for its reports on the basis of an
+          analysis of the documentation on hand. Similarly, a pass-through entity must not
+          require a subrecipient to establish an accrual accounting system and must allow
+          the subrecipient to develop accrual data for its reports on the basis of an analysis
+          of the documentation on hand.
+
+      (3) Records that identify adequately the source and application of funds for
+          federally-funded activities. These records must contain information pertaining
+          to Federal awards, authorizations, obligations, unobligated balances, assets,
+          expenditures, income and interest and be supported by source documentation.
+
+      (4) Effective control over, and accountability for, all funds, property, and other
+          assets. The non-Federal entity must adequately safeguard all assets and assure
+          that they are used solely for authorized purposes. See §200.303 Internal
+          controls.
+
+      (5) Comparison of expenditures with budget amounts for each Federal award.
+
+      (6) Written procedures to implement the requirements of §200.305 Payment.
+
+      (7) Written procedures for determining the allowability of costs in accordance with
+          Subpart E—Cost Principles of this part and the terms and conditions of the
+          Federal award.
+
+2 CFR § 200.305 Payment.
+
+                                                                                      Page | 31
+                                                                              APPENDIX III
+
+
+…
+(b) For non-Federal entities other than states, payments methods must minimize the time
+     elapsing between the transfer of funds from the United States Treasury or the pass-
+     through entity and the disbursement by the non-Federal entity whether the payment
+     is made by electronic funds transfer, or issuance or redemption of checks, warrants,
+     or payment by other means. See also §200.302 Financial management paragraph (f).
+     Except as noted elsewhere in this part, Federal agencies must require recipients to
+     use only OMB-approved standard governmentwide information collection requests to
+     request payment.
+
+      (1) The non-Federal entity must be paid in advance, provided it maintains or
+          demonstrates the willingness to maintain both written procedures that
+          minimize the time elapsing between the transfer of funds and disbursement by
+          the non-Federal entity, and financial management systems that meet the
+          standards for fund control and accountability as established in this part.
+          Advance payments to a non-Federal entity must be limited to the minimum
+          amounts needed and be timed to be in accordance with the actual, immediate
+          cash requirements of the non-Federal entity in carrying out the purpose of the
+          approved program or project. The timing and amount of advance payments must
+          be as close as is administratively feasible to the actual disbursements by the
+          non-Federal entity for direct program or project costs and the proportionate
+          share of any allowable indirect costs. The non-Federal entity must make timely
+          payment to contractors in accordance with the contract provisions….
+
+
+2 CFR § 200.319 Competition
+   (a) All procurement transactions must be conducted in a manner providing full and
+       open competition consistent with the standards of this section. In order to ensure
+       objective contractor performance and eliminate unfair competitive advantage,
+       contractors that develop or draft specifications, requirements, statements of work,
+       and invitations for bids or requests for proposals must be excluded from competing
+       for such procurements. Some of the situations considered to be restrictive of
+       competition include but are not limited to:
+
+      (1) Placing unreasonable requirements on firms in order for them to quality to do
+          business;
+
+      (2) Requiring unnecessary experience and excessive bonding;
+
+      (3) Noncompetitive pricing practices between firms or between affiliated
+          companies;
+
+      (4) Noncompetitive pricing practices between firms or between affiliated
+          companies;
+
+      (5) Organizational conflicts of interest;
+
+
+                                                                                   Page | 32
+                                                                                 APPENDIX III
+
+
+      (6) Specifying only a “brand name” product instead of allowing “an equal” product to
+          be offered and describing the performance or other relevant requirements of the
+          procurement; and
+
+      (7) Any arbitrary action in the procurement process.
+
+   (b) The non-Federal entity must conduct procurements in a manner that prohibits the
+       use of statutorily or administratively imposed state or local geographical
+       preferences in the evaluation of bids or proposals, except in those cases where
+       applicable Federal statutes expressly mandate or encourage geographic preference.
+       Nothing in this section preempts state licensing laws. When contracting for
+       architectural and engineering (A/E) services, geographic location may be a selection
+       criterion provided its application leaves an appropriate number of qualified firms,
+       given the nature and size of the project, to compete for the contract.
+
+   (c) The non-Federal entity must have written procedures for procurement transactions.
+       These procedures must ensure that all solicitations:
+
+      (1) Incorporate a clear and accurate description of the technical requirements for
+          the material, product, or service to be procured. Such description must not, in
+          competitive procurements, contain features which unduly restrict competition.
+          The description may include a statement of the qualitative nature of the
+          material, product or service to be procured and, when necessary, must set forth
+          those minimum essential characteristics and standards to which it must conform
+          if it is to satisfy its intended use. Detailed product specifications should be
+          avoided if at all possible. When it is impractical or uneconomical to make a clear
+          and accurate description of the technical requirements, a ‘‘brand name or
+          equivalent’’ description may be used as a means to define the performance or
+          other salient requirements of procurement. The specific features of the named
+          brand which must be met by offers must be clearly stated; and
+
+      (2) Identify all requirements which the offerors must fulfill and all other factors to
+          be used in evaluating bids or proposals.
+
+   (d) The non-Federal entity must ensure that all prequalified lists of persons, firms, or
+       products which are used in acquiring goods or services are current and include
+       enough qualified sources to ensure maximum open and free competition. Also, the
+       non-Federal entity must not preclude potential bidders from qualifying during the
+       solicitation period.
+
+2 CFR § 200.331 Requirements for pass-through entities.
+All pass-through entities must: …
+
+   (a) Ensure that every subaward is clearly identified to the subrecipient as a subaward
+       and includes the following information at the time of the subaward and if any of
+       these data elements change, include the changes in subsequent subaward
+       modification. When some of this information is not available, the pass-through
+                                                                                      Page | 33
+                                                                           APPENDIX III
+
+
+entity must provide the best information available to describe the Federal award
+and subaward. Required information includes:
+
+(1) Federal Award Identification.
+       (i) Subrecipient name (which must match registered name in DUNS);
+       (ii) Subrecipient’s DUNS number (see §200.32 Data Universal Numbering
+       System (DUNS) number);
+       (iii) Federal Award Identification Number (FAIN);
+       (iv) Federal Award Date (see §200.39 Federal award date);
+       (v) Subaward Period of Performance Start and End Date;
+       (vi) Amount of Federal Funds Obligated by this action;
+       (vii) Total Amount of Federal Funds Obligated to the subrecipient;
+       (viii) Total Amount of the Federal Award; (ix) Federal award project
+       description, as required to be responsive to the Federal Funding
+       Accountability and Transparency Act (FFATA);
+       (x) Name of Federal awarding agency, pass-through entity, and contact
+       information for awarding official,
+       (xi) CFDA Number and Name; the pass-through entity must identify the
+       dollar amount made available under each Federal award and the CFDA
+       number at time of disbursement;
+       (xii) Identification of whether the award is R&D; and (xiii) Indirect cost rate
+       for the Federal award (including if the de minimis rate is charged per
+       §200.414 Indirect (F&A) costs).
+
+(2) All requirements imposed by the pass-through entity on the subrecipient so that
+the Federal award is used in accordance with Federal statutes, regulations and the
+terms and conditions of the Federal award.
+
+(3) Any additional requirements that the pass-through entity imposes on the
+subrecipient in order for the pass-through entity to meet its own responsibility to
+the Federal awarding agency including identification of any required financial and
+performance reports;
+
+(4) An approved federally recognized indirect cost rate negotiated between the
+subrecipient and the Federal government or, if no such rate exists, either a rate
+negotiated between the pass-through entity and the subrecipient (in compliance
+with this part), or a de minimis indirect cost rate as defined in §200.414 Indirect
+(F&A) costs, paragraph (b) of this part.
+
+(5) A requirement that the subrecipient permit the pass-through entity and auditors
+to have access to the subrecipient’s records and financial statements as necessary
+for the pass-through entity to meet the requirements of this section, §§200.300
+Statutory and national policy requirements through 200.309 Period of performance,
+and Subpart F—Audit Requirements of this part; and
+
+(6) Appropriate terms and conditions concerning closeout of the subaward.
+                                                                               Page | 34
+                                                                              APPENDIX III
+
+
+
+(b) Evaluate each subrecipient’s risk of noncompliance with Federal statutes, regulations,
+and the terms and conditions of the subaward for purposes of determining the appropriate
+subrecipient monitoring described in paragraph (e) of this section, which may include
+consideration of such factors as:
+       (1) The subrecipient’s prior experience with the same or similar subawards;
+
+      (2) The results of previous audits including whether or not the subrecipient receives
+      a Single Audit in accordance with Subpart F—Audit Requirements of this part, and
+      the extent to which the same or similar subaward has been audited as a major
+      program;
+
+      (3) Whether the subrecipient has new personnel or new or substantially changed
+          systems; and
+
+      (4) The extent and results of Federal awarding agency monitoring (e.g., if the
+      subrecipient also receives Federal awards directly from a Federal awarding agency).
+
+(c) Consider imposing specific subaward conditions upon a subrecipient if appropriate as
+described in §200.207 Specific conditions.
+
+(d) Monitor the activities of the subrecipient as necessary to ensure that the subaward is
+used for authorized purposes, in compliance with Federal statutes, regulations, and the
+terms and conditions of the subaward; and that subaward performance goals are achieved.
+Pass-through entity monitoring of the subrecipient must include:
+
+      (1) Reviewing financial and programmatic reports required by the pass-through
+      entity.
+      (2) Following-up and ensuring that the subrecipient takes timely and appropriate
+      action on all deficiencies pertaining to the Federal award provided to the
+      subrecipient from the pass-through entity detected through audits, on-site reviews,
+      and other means.
+
+      (3) Issuing a management decision for audit findings pertaining to the Federal
+      award provided to the subrecipient from the pass-through entity as required by
+      §200.521 Management decision.
+
+(e) Depending upon the pass-through entity’s assessment of risk posed by the subrecipient
+(as described in paragraph (b) of this section), the following monitoring tools may be
+useful for the pass-through entity to ensure proper accountability and compliance with
+program requirements and achievement of performance goals:
+
+      (1) Providing subrecipients with training and technical assistance on program-
+          related matters; and
+
+      (2) Performing on-site reviews of the subrecipient’s program operations;
+                                                                                   Page | 35
+                                                                                  APPENDIX III
+
+
+
+       (3) Arranging for agreed-upon-procedures engagements as described in §200.425
+       Audit services.
+
+(f) Verify that every subrecipient is audited as required by Subpart F— Audit Requirements
+of this part when it is expected that the subrecipient’s Federal awards expended during the
+respective fiscal year equaled or exceeded the threshold set forth in §200.501 Audit
+requirements.
+
+(g) Consider whether the results of the subrecipient’s audits, on-site reviews, or other
+monitoring indicate conditions that necessitate adjustments to the pass-through entity’s
+own records.
+
+(h) Consider taking enforcement action against noncompliant subrecipients as described in
+§200.338 Remedies for noncompliance of this part and in program regulations.
+
+2 CFR § 200.403 Factors affecting allowability of costs
+Except where otherwise authorized by statute, costs must meet the following general
+criteria in order to be allowable under Federal awards:
+
+(a) Be necessary and reasonable for the performance of the Federal award and be allocable
+thereto under these principles.
+
+(b) Conform to any limitations or exclusions set forth in these principles or in the Federal
+award as to types or amount of cost items.
+
+(c) Be consistent with policies and procedures that apply uniformly to both federally-
+financed and other activities of the non-Federal entity.
+
+(d) Be accorded consistent treatment. A cost may not be assigned to a Federal award as a
+direct cost if any other cost incurred for the same purpose in like circumstances has been
+allocated to the Federal award as an indirect cost.
+
+(e) Be determined in accordance with generally accepted accounting principles (GAAP),
+except, for state and local governments and Indian tribes only, as otherwise provided for in
+this part.
+
+(f) Not be included as a cost or used to meet cost sharing or matching requirements of any
+other federally-financed program in either the current or a prior period. See also §200.306
+Cost sharing or matching paragraph (b).
+
+(g) Be adequately documented. See also §§200.300 Statutory and national policy
+requirements through 200.309 Period of performance of this part.
+
+2 CFR § 200.405 Allocable Costs
+   (a) A cost is allocable to a particular Federal award or other cost objective if the goods
+       or services involved are chargeable or assignable to that Federal award or cost
+                                                                                       Page | 36
+                                                                                  APPENDIX III
+
+
+       objective in accordance with relative benefits received. This standards is met if the
+       cost:
+
+       (1) Is incurred specifically for the Federal award;
+
+       (2) Benefits both the Federal award and other work of the non-Federal entity and
+           can be distributed in proportions that may be approximated using reasonable
+           methods; and
+
+       (3) Is necessary to the overall operation of the non-Federal entity and is assignable
+           in part to the Federal award in accordance with the principles in this subpart.
+
+   (b) All activities which benefit from the non-Federal entity’s indirect (F&A) cost,
+       including unallowable activities and donated services by the non-Federal entity or
+       third parties, will receive an appropriate allocation of indirect costs.
+
+   (c) Any cost allocable to a particular Federal award under the principles provided for in
+       this part may not be charged to other Federal awards to overcome fund deficiencies,
+       to avoid restrictions imposed by Federal statutes, regulations, or terms and
+       conditions of the Federal awards, or for other reasons. However, this prohibition
+       would not preclude the non-Federal entity from shifting costs that are allowable
+       under two or more Federal awards in accordance with existing Federal statutes,
+       regulations, or the terms and conditions of the Federal awards.
+
+   (d) Direct cost allocation principles. If a cost benefits two or more projects or activities
+       in proportions that can be determined without undue effort or cost, the cost should
+       be allocated to the projects based on the proportional benefit. If a cost benefits two
+       or more projects or activities in proportions that cannot be determined because of
+       the interrelationship of the work involved, then, notwithstanding paragraph (c) of
+       this section, the costs may be allocated or transferred to benefitted projects on any
+       reasonable documented basis. Where the purchase of equipment or other capital
+       asset is specifically authorized under a Federal award, the costs are assignable to
+       the Federal award regardless of the use that may be made of the equipment or other
+       capital asset involved when no longer needed for the purpose for which it was
+       originally required. See also §§200.310 Insurance coverage through 200.316
+       Property trust relationship and 200.439 Equipment and other capital expenditures.
+
+   (e) If the contract is subject to CAS, costs must be allocated to the contract pursuant to
+       the Cost Accounting Standards. To the extent that CAS is applicable, the allocation of
+       costs in accordance with CAS takes precedence over the allocation provisions in this
+       part.
+
+2 CFR § 200.406 Applicable Credits
+   (a) Applicable credits refer to those receipts or reduction-of-expenditure-type
+       transactions that offset or reduce expense items allocable to the Federal award as
+       direct or indirect (F&A) costs. Examples of such transactions are: purchase
+       discounts, rebates or allowances, recoveries or indemnities on losses, insurance
+                                                                                       Page | 37
+                                                                                  APPENDIX III
+
+
+       refunds or rebates, and adjustments of overpayments or erroneous charges. To the
+       extent that such credits accruing to other received by the non-Federal entity relate
+       to allowable costs, they must be credited to the Federal award either as a cost
+       reduction or cash refund, as appropriate.
+
+   (b) In some instances, the amounts received from the Federal government to finance
+       activities or service operations of the non-Federal entity should be treated as
+       applicable credits. Specifically, the concept of netting such credit items (including
+       any amounts used to meet cost sharing or matching requirements) should be
+       recognized in determining the rates or amounts to be charged to the Federal award.
+       (See §§200.436 Depreciation and 200.468 Specialized service facilities, for areas of
+       potential application in the matter of Federal financing of activities.)
+
+2 CFR § 200.414. Indirect (F&A) costs
+   (a) Facilities and Administration Classification. For major IHEs and major nonprofit
+       organizations, indirect (F&A) costs must be classified within two broad categories:
+       ‘‘Facilities’’ and ‘‘Administration.’’ ‘‘Facilities’’ is defined as depreciation on
+       buildings, equipment and capital improvement, interest on debt associated with
+       certain buildings, equipment and capital improvements, and operations and
+       maintenance expenses. ‘‘Administration’’ is defined as general administration and
+       general expenses such as the director’s office, accounting, personnel and all other
+       types of expenditures not listed specifically under one of the subcategories of
+       ‘‘Facilities’’ (including cross allocations from other pools, where applicable). For
+       nonprofit organizations, library expenses are included in the ‘‘Administration’’
+       category; for award recipients of higher education, they are included in the
+       ‘‘Facilities’’ category. Major IHEs are defined as those required to use the Standard
+       Format for Submission as noted in Appendix III to Part 200—Indirect (F&A) Costs
+       Identification and Assignment, and Rate Determination for Award recipients of
+       Higher Education (IHEs) paragraph C. 11. Major nonprofit organizations are those
+       which receive more than $10 million dollars in direct Federal funding.
+
+   (b) Diversity of nonprofit organizations. Because of the diverse characteristics and
+       accounting practices of nonprofit organizations, it is not possible to specify the types
+       of cost which may be classified as indirect (F&A) cost in all situations. Identification
+       with a Federal award rather than the nature of the goods and services involved is
+       the determining factor in distinguishing direct from indirect (F&A) costs of Federal
+       awards. However, typical examples of indirect (F&A) cost for many nonprofit
+       organizations may include depreciation on buildings and equipment, the costs of
+       operating and maintaining facilities, and general administration and general
+       expenses, such as the salaries and expenses of executive officers, personnel
+       administration, and accounting.
+
+   (c) Federal Agency Acceptance of Negotiated Indirect Rates. (See also §200.306 Cost
+       sharing or matching.)
+
+       (1) The negotiated rates must be accepted by all Federal awarding agencies. A
+           Federal awarding agency may use a rate different from the negotiated rate for a
+                                                                                       Page | 38
+                                                                               APPENDIX III
+
+
+       class of Federal awards or a single Federal award only when required by Federal
+       statute or regulation, or when approved by a Federal awarding agency head or
+       delegated based on documented justification as described in paragraph (c)(3) of
+       this section.
+
+   (2) The Federal awarding agency head or delegate must notify OMB of any approved
+       deviations
+
+   (3) The Federal awarding agency must implement, and make publicly available, the
+       policies, procedures and general decision making criteria that their programs
+       will follow to seek and justify deviations from negotiated rates.
+
+   (4) As required under §200.203 Notices of funding opportunities, the Federal
+      awarding agency must include in the notice of funding opportunity the policies
+      relating to indirect cost rate reimbursement, matching, or cost share as
+      approved under paragraph (e)(1) of this section. As appropriate, the Federal
+      agency should incorporate discussion of these policies into Federal awarding
+      agency outreach activities with non-Federal entities prior to the posting of a
+      notice of funding opportunity.
+
+(d) Pass-through entities are subject to the requirements in §200.331 Requirements for
+    pass-through entities, paragraph (a)(4).
+
+(e) Requirements for development and submission of indirect (F&A) cost rate
+    proposals and cost allocation plans are contained in Appendices III– VII as follows:
+
+           (1) Appendix III to Part 200—Indirect (F&A) Costs Identification and
+               Assignment, and Rate Determination for
+
+           (2) Appendix IV to Part 200—Indirect (F&A) Costs Identification and
+               Assignment, and Rate Determination for Nonprofit Organizations;
+
+           (3) Appendix V to Part 200—State/ Local Government and Indian Tribe-
+               Wide Central Service Cost Allocation Plans;
+
+           (4) Appendix VI to Part 200—Public Assistance Cost Allocation Plans; and
+
+           (5) Appendix VII to Part 200—States and Local Government and Indian Tribe
+               Indirect Cost Proposals.
+
+(f) In addition to the procedures outlined in the appendices in paragraph (e) of this
+    section, any non-Federal entity that has never received a negotiated indirect cost
+    rate, except for those non-Federal entities described in Appendix VII to Part 200—
+    States and Local Government and Indian Tribe Indirect Cost Proposals, paragraph
+    (d)(1)(B) may elect to charge a de minimis rate of) 10% of modified total direct
+    costs (MTDC) which may be used indefinitely. As described in §200.403 Factors
+    affecting allowability of costs, costs must be consistently charged as either indirect
+    or direct costs, but may not be double charged or inconsistently charged as both. If
+                                                                                    Page | 39
+                                                                                 APPENDIX III
+
+
+       chosen, this methodology once elected must be used consistently for all Federal
+       awards until such time as a non-Federal entity chooses to negotiate for a rate, which
+       the non-Federal entity may apply to do at any time.
+
+   (g) Any non-Federal entity that has a federally negotiated indirect cost rate may apply
+       for a one-time extension of a current negotiated indirect cost rates for a period of up
+       to four years. This extension will be subject to the review and approval of the
+       cognizant agency for indirect costs. If an extension is granted the non-Federal entity
+       may not request a rate review until the extension period ends. At the end of the 4-
+       year extension, the non-Federal entity must re-apply to negotiate a rate.
+
+2 CFR § 200.423 Alcoholic Beverages
+Costs of alcoholic beverages are unallowable.
+
+2 CFR § 200.430 Compensation-personal services
+   (a) General. Compensation for personal services includes all remuneration, paid
+       currently or accrued, for services of employees rendered during the period of
+       performance under the Federal award, including not but necessarily limited to
+       wages and salaries. Compensation for personal services may also include fringe
+       benefits which are addressed in §200.431 Compensation-fringe benefits. Costs of
+       compensation are allowable to the extent that they satisfy the specific requirements
+       of this part, and that they total compensation for individual employees:
+
+          (1) Is reasonable for the services rendered and conforms to the established
+              written policy of the non-Federal entity consistently applied to both Federal
+              and noon-Federal activities:
+
+          (2) Follows an appointment made in accordance with a non-Federal entity’s laws
+              and/or rules or written policies and meets the requirements of Federal
+              statute, where applicable; and
+
+          (3) Is determined and supported as provided in paragraph (i) of this section,
+              Standards for Documentation of Personal Expenses, when applicable.
+
+   (b) Reasonableness. Compensation for employees engaged in work on Federal awards
+       will be considered reasonable to the extent that it is consistent with that paid for
+       similar work in other activities of the non-Federal entity. In cases where the kinds of
+       employees required for Federal awards are not found in the other activities of the
+       non-Federal entity, compensation will be considered reasonable to the extent that it
+       is comparable to that paid for similar work in the labor market in which the non-
+       Federal entity competes for the kind of employees involved.
+
+   (c) Professional activities outside the non-Federal entity. Unless an arrangement is
+       specifically authorized by a Federal awarding agency, a non-Federal entity must
+       follow its written non-Federal entity-wide policies and practices concerning the
+       permissible extent of professional services that can be provided outside the non-
+       Federal entity for non-organizational compensating. Where such non-Federal entity-
+                                                                                      Page | 40
+                                                                             APPENDIX III
+
+
+   wide written policies do not exist or do not adequately define the permissible extent
+   of consulting or other non-organizational activities undertaken for extra outside
+   pay, the Federal government may require that the effort of professional staff on
+   Federal awards be allocated between:
+
+          (1) Non-Federal entity activities, and
+
+          (2) Non-organizational professional activities. If the Federal awarding agency
+              considers the extent of non-organizational professional effort excessive
+              or inconsistent with the conflict-of-interest terms and conditions of the
+              Federal award, appropriate arrangements governing compensation will
+              be negotiated on a case-by-case basis.
+
+(d) Unallowable costs. (1) Costs which are unallowable under other sections of these
+    principles must not be allowable under this section solely on the basis that they
+    constitute personnel compensation.
+
+   (2) The allowable compensation for certain employees is subject to a ceiling in
+       accordance with statue. For the amount of the ceiling for cost-reimbursement
+       contracts, the covered compensation subject to the ceiling, the covered
+       employees, and other relevant provisions, see 10 U.S.C 2324(e)(1)(P), and 41
+       U.S.C 1127 and 4304(a)(16). For other types of Federal awards, other statutory
+       ceilings may apply.
+
+(e) Special considerations. Special considerations in determining allowability of
+    compensation will be given to any change in a non-Federal entity’s compensation
+    policy resulting in a substantial increase in its employees’ level of compensation
+    (particularly when the change was concurrent with an increase in the ration of
+    Federal awards to other activities) or any change in the treatment of allowability of
+    specific types of compensation due to changes in Federal policy.
+
+(f) Incentive compensation. Incentive compensation to employees based on cost
+    reduction, or efficient performance, suggestion awards, safety awards, etc., is
+    allowable to the extent that the overall compensation is determined to be
+    reasonable and such costs are paid or accrued pursuant to an agreement entered
+    into in good faith between the non-Federal entity and the employees before the
+    services were rendered, or pursuant to tan established plan followed by the non-
+    Federal entity so consistently as to imply, in effect, an agreement to make such
+    payment.
+
+(g) Nonprofit organizations. For compensation to members of nonprofit organizations,
+    trustees, directors, associates, officers or the immediate families thereof,
+    determination should be made that such compensation is reasonable for the actual
+    personal services rendered rather than a distribution of earnings in excess of costs.
+    This may include director’s and executive committee member’s fees, incentive
+    awards, allowances for off-site pay, incentive pay, location allowances, hardship pay,
+    and cost-of-living differentials.
+                                                                                  Page | 41
+                                                                               APPENDIX III
+
+
+(h) Award recipients of higher education (IHE). (1) Certain conditions require special
+    consideration and possible limitations in determining allowable personnel
+    compensation costs under Federal awards. Among such conditions are the
+    following:
+
+       i. Allowable activities. Charges to Federal awards may include reasonable
+          amounts for activities contribution and directly related to work under an
+          agreement, such as delivering special lectures about specific aspects of the
+          ongoing activity, writing reports and articles, developing and maintaining
+          protocols (human, animals, etc.), managing substances/chemicals, managing
+          and securing project-specific data, coordinating research subjects,
+          participating in appropriate seminars, consulting with colleagues and
+          graduate students, and attending meetings and conferences.
+
+       ii. Incidental activities. Incidental activities for which supplemental
+           compensation is allowable under written grantee policy (at a rate not to
+           exceed grantee base salary) need not be included in the records described in
+           paragraph (h) (9) of this section to directly charge payments of incidental
+           activities, such activities must either be specifically provided for the Federal
+           ward budget or receive prior written approval by the Federal awarding
+           agency.
+
+   (2)Salary basis. Charges for work performed on Federal awards by faculty members
+   during the academic year are allowable at the IBS rate. Except as noted in paragraph
+   (h)(1)(ii.) of this section, in no event will charges to Federal awards, irrespective of
+   the basis of computation, exceed the proportionate share of the IBS for that period.
+   This principle applies to all members of faculty at a grantee. IBS is defined as the
+   annual compensation paid by an IHE for an individual’s appointment, whether that
+   individual’s time is spent on research, instruction, administration or other activities.
+   IBS excludes any income an individual earns outside the duties performed for the
+   IHE. Unless there is prior approval by the Federal awarding agency, charges of a
+   faculty member’s salary to a Federal award must not exceed the proportionate share
+   of the IBS for the period during which the faculty member worked on the award.
+
+   (3)Intra-Grantee of Higher Education (IHE) consulting. Intra-IHE consulting by
+   faculty is assumed to be undertaken as an IHE obligation requiring no compensation
+   in additional to IBS. However, in unusual cases where consultation is across
+   departmental lines or involves a separate or remote operation, and the work
+   performed by the faculty member is in addition to his or her regular responsibilities,
+   any charges for such work representing additional compensation above IBS are
+   allowable provided that such consulting arrangements are specifically provided for
+   in the Federal award or approved in writing by the Federal award or approved in
+   writing by the Federal awarding agency.
+
+   (4)Extra Service Pay normally represents overload compensation subject to grantee
+   compensation policies for services above and beyond IBS. Where extra pay is a
+
+                                                                                    Page | 42
+                                                                         APPENDIX III
+
+
+result of Intra-IHE consulting, it is subject to the same requirements of paragraph
+(b) above. IT is allowable if all of the following conditions are met:
+
+   (i) The non-Federal entity establishes consistent written policies which apply
+       uniformly to all faculty members, not just those working on Federal awards.
+
+   (ii) The non-Federal entity establishes a consistent written definition of work
+        covered by IBS which is specific enough to determine conclusively when
+        work beyond that level has occurred. This may be described in appointment
+        letters or other documentation.
+
+   (iii) The supplementation of amount paid is commensurate with the IBS rate of
+        pay and the amount of additional work performed. See paragraph (h)(2) of
+        this section.
+
+   (iv) The salaries, as supplemented, fall within the salary structure and pay
+       ranges established by and documented in writing or otherwise applicable to
+       the non-Federal entity.
+
+   (v) The total salaries charged to Federal awards including extra service pay are
+       subject to the Standards of Documentation as described in paragraph (i) of
+       this section.
+
+(5)Periods outside the academic year. (i) Except as specified for teaching activity in
+paragraph (h)(5)(ii) of this section, charges for work performed by faculty members
+on Federal awards during periods not included in the base salary period will be at a
+rate not in excess of the IBS.
+
+(ii) Charges for teaching activities performed by faculty members on Federal awards
+during periods not included in IBS period will be based on the normal written policy
+of the IHE governing compensation to faculty members for teaching assignments
+during such periods.
+
+(6)Part-time faculty. Charges for work performed on Federal awards by faculty
+members having only part-time appointments will be determined at a rate not in
+excess of that regularly paid for part-time assignments.
+
+(7)Sabbatical leave costs. Rules for sabbatical leave are as follows:
+
+    i. Costs for leaves of absences by employees for performance of graduate work
+       or sabbatical study, travel, or research are allowable provided the IHE has a
+       uniform written policy on sabbatical leave for persons engaged in instruction
+       and persons engaged in research. Such costs will be allocated on an equitable
+       basis among all related activities of the IHE.
+
+   ii. Where sabbatical leave is included in fringe benefits for which a cost is
+       determined for assessment as a direct charge, the aggregate amount of such
+
+                                                                              Page | 43
+                                                                               APPENDIX III
+
+
+          assessments applicable to all work of the grantee during the base period
+          must be reasonable in relation to the IHE’s actual experience under its
+          sabbatical leave policy.
+
+   (8)Salary rates for non-faculty members. Non-faculty full-time professional
+   personnel may also earn ‘‘extra service pay’’ in accordance with the non-Federal
+   entity’s written policy and consistent with paragraph (h)(1)(i) of this section.
+
+(i) Standards for Documentation of Personnel Expenses (1) Charges to Federal awards
+     for salaries and wages must be based on records that accurately reflect the work
+     performed. These records must:
+
+   (i) Be supported by a system of internal control which provides reasonable
+   assurance that the charges are accurate, allowable, and properly allocated;
+
+   (ii) Be incorporated into the official records of the non-Federal entity;
+
+   (iii) Reasonably reflect the total activity for which the employee is compensated by
+   the non-Federal entity, not exceeding 100% of compensated activities (for IHE, this
+   per the IHE’s definition of IBS);
+
+   (iv) Encompass both federally assisted and all other activities compensated by the
+   non-Federal entity on an integrated basis, but may include the use of subsidiary
+   records as defined in the non-Federal entity’s written policy;
+
+   (v) Comply with the established accounting policies and practices of the non-Federal
+   entity (See paragraph (h)(1)(ii) above for treatment of incidental work for IHEs.);
+   and
+
+   (vi) [Reserved]
+
+   (vii) Support the distribution of the employee’s salary or wages among specific
+   activities or cost objectives if the employee works on more than one Federal award;
+   a Federal award and non-Federal award; an indirect cost activity and a direct cost
+   activity; two or more indirect activities which are allocated using different
+   allocation bases; or an unallowable activity and a direct or indirect cost activity.
+
+   (viii) Budget estimates (i.e., estimates determined before the services are
+   performed) alone do not qualify as support for charges to Federal awards, but may
+   be used for interim accounting purposes, provided that:
+
+          (A) The system for establishing the estimates produces reasonable
+          approximations of the activity actually performed;
+
+          (B) Significant changes in the corresponding work activity (as defined by the
+          non-Federal entity’s written policies) are identified and entered into the
+          records in a timely manner. Short term (such as one or two months)
+
+                                                                                   Page | 44
+                                                                           APPENDIX III
+
+
+       fluctuation between workload categories need not be considered as long as
+       the distribution of salaries and wages is reasonable over the longer term; and
+
+       (C) The non-Federal entity’s system of internal controls includes processes to
+       review after-the-fact interim charges made to a Federal awards based on
+       budget estimates. All necessary adjustment must be made such that the final
+       amount charged to the Federal award is accurate, allowable, and properly
+       allocated.
+
+(ix) Because practices vary as to the activity constituting a full workload (for IHEs,
+IBS), records may reflect categories of activities expressed as a percentage
+distribution of total activities.
+
+(x) It is recognized that teaching, research, service, and administration are often
+inextricably intermingled in an academic setting. When recording salaries and
+wages charged to Federal awards for IHEs, a precise assessment of factors that
+contribute to costs is therefore not always feasible, nor is it expected.
+
+   (2) For records which meet the standards required in paragraph (i)(1) of this
+       section, the non-Federal entity will not be required to provide additional
+       support or documentation for the work performed, other than that
+       referenced in paragraph (i)(3) of this section.
+
+       (3) In accordance with Department of Labor regulations implementing the
+       Fair Labor Standards Act (FLSA) (29 CFR part 516), charges for the salaries
+       and wages of nonexempt employees, in addition to the supporting
+       documentation described in this section, must also be supported by records
+       indicating the total number of hours worked each day.
+
+       (4) Salaries and wages of employees used in meeting cost sharing or
+       matching requirements on Federal awards must be supported in the same
+       manner as salaries and wages claimed for reimbursement from Federal
+       awards.
+
+       (5) For states, local governments and Indian tribes, substitute processes or
+       systems for allocating salaries and wages to Federal awards may be used in
+       place of or in addition to the records described in paragraph (1) if approved
+       by the cognizant agency for indirect cost. Such systems may include, but are
+       not limited to, random moment sampling, ‘‘rolling’’ time studies, case counts,
+       or other quantifiable measures of work performed.
+
+           (i) Substitute systems which use sampling methods (primarily for
+           Temporary Assistance for Needy Families (TANF), the Supplemental
+           Nutrition Assistance Program (SNAP), Medicaid, and other public
+           assistance programs) must meet acceptable statistical sampling
+           standards including:
+
+                                                                                Page | 45
+                                                                                APPENDIX III
+
+
+                     (A) The sampling universe must include all of the employees whose
+                     salaries and wages are to be allocated based on sample results except
+                     as provided in paragraph (i)(5)(iii) of this section;
+
+                     (B) The entire time period involved must be covered by the sample;
+                     and
+
+                     (C) The results must be statistically valid and applied to the period
+                     being sampled.
+
+                 (ii) Allocating charges for the sampled employees’ supervisors, clerical
+                 and support staffs, based on the results of the sampled employees, will be
+                 acceptable.
+
+                 (iii) Less than full compliance with the statistical sampling standards
+                 noted in subsection (5)(i) may be accepted by the cognizant agency for
+                 indirect costs if it concludes that the amounts to be allocated to Federal
+                 awards will be minimal, or if it concludes that the system proposed by the
+                 non-Federal entity will result in lower costs to Federal awards than a
+                 system which complies with the standards.
+
+             (6) Cognizant agencies for indirect costs are encouraged to approve
+             alternative proposals based on outcomes and milestones for program
+             performance where these are clearly documented. Where approved by the
+             Federal cognizant agency for indirect costs, these plans are acceptable as an
+             alternative to the requirements of paragraph (i)(1) of this section.
+
+             (7) For Federal awards of similar purpose activity or instances of approved
+             blended funding, a non-Federal entity may submit performance plans that
+             incorporate funds from multiple Federal awards and account for their
+             combined use based on performance-oriented metrics, provided that such
+             plans are approved in advance by all involved Federal awarding agencies. In
+             these instances, the non-Federal entity must submit a request for waiver of
+             the requirements based on documentation that describes the method of
+             charging costs, relates the charging of costs to the specific activity that is
+             applicable to all fund sources, and is based on quantifiable measures of the
+             activity in relation to time charged.
+
+             (8) For a non-Federal entity where the records do not meet the standards
+             described in this section, the Federal government may require personnel
+             activity reports, including prescribed certifications, or equivalent
+             documentation that support the records as required in this section.
+
+2 CFR §200.431 Compensation-fringe benefits
+   (a) Fringe benefits are allowances and services provided by employers to their
+       employees as compensation in addition to regular salaries and wages. Fringe
+                                                                                     Page | 46
+                                                                                APPENDIX III
+
+
+   benefits include, but are not limited to, the costs of leave (vacation, family-related,
+   sick or military), employee insurance, pensions, and unemployment benefit plans.
+   Except as provided elsewhere in these principles, the costs of fringe benefits are
+   allowable provided that the benefits are reasonable and are required by law, non-
+   Federal entity-employee agreement, or an established policy of the non-Federal
+   entity.
+
+(b) Leave. The cost of fringe benefits in the form of regular compensation paid to
+    employees during periods of authorized absences from the job, such as for annual
+    leave, family-related leave, sick leave, holidays, court leave, military leave,
+    administrative leave, and other similar benefits, are allowable if all of the following
+    criteria are met:
+
+       (1) They are provide under stablished written leave policies;
+
+       (2) The costs are equitably allocated to all related activities, including Federal
+           awards; and,
+
+       (3) The accounting basis (cash or accrual) selected for costing each type of leave
+           is consistently followed by the non-Federal entity or specified grouping of
+           employees.
+
+               i. When a non-Federal entity uses the cash basis of accounting, the cost
+                  of leave is recognized in the period that the leave is taken and paid for.
+                  Payments for unused leave when an employee retires or terminates
+                  employment are allowable as indirect costs in the year of payment.
+
+              ii. The accrual basis may be only used for those types of leave for which
+                  a liability as defined by GAAP exists when the leave is earned. When a
+                  non-Federal entity uses the accrual basis of accounting, allowable
+                  leave costs are the lesser of the amount accrued or funded.
+
+(c) The cost of fringe benefits in the form of employer contributions or expenses for
+    social security; employee life, health, unemployment, and worker’s compensation
+    insurance (except as indicated in §200.447 Insurance and indemnification); pension
+    plan costs (see paragraph (i) of this section); and other similar benefits are
+    allowable, provided such benefits are granted under established written policies.
+    Such benefits, must be allocated to Federal awards and all other activities in a
+    manner consistent with the pattern of benefits attributable to the individuals or
+    group(s) of employees whose salaries and wages are chargeable to such Federal
+    awards and other activities, and charged as direct or indirect costs in accordance
+    with the non-Federal entity’s accounting practices.
+
+(d) Fringe benefits may be assigned to cost objectives by identifying specific benefits to
+    specific individual employees or by allocating on the basis of entity-wide salaries
+    and wages of the employees receiving the benefits. When the allocation method is
+    used, separate allocations must be made to selective groupings of employees, unless
+
+                                                                                    Page | 47
+                                                                             APPENDIX III
+
+
+   the non-Federal entity demonstrates that costs in relationship to salaries and wages
+   do not differ significantly for different groups of employees.
+
+(e) Insurance. See also §200.447 Insurance and indemnification, paragraphs (d)(1) and
+    (2).
+
+       1. Provisions for a reserve under a self-insurance program for unemployment
+          compensation or workers’ compensation are allowable to the extent that the
+          provisions represent reasonable estimates of the liabilities for such
+          compensation, and the types of coverage, extent of coverage, and rates and
+          premiums would have been allowable had insurance been purchased to
+          cover the risks. However, provisions for self-insured liabilities which do not
+          become payable for more than one year after the provision is made must not
+          exceed the present value of the liability.
+
+       2. Costs of insurance on the lives of trustees, officers, or other employees
+          holding positions of similar responsibility are allowable only to the extent
+          that the insurance represents additional compensation. The costs of such
+          insurance when the non-Federal entity is named as beneficiary are
+          unallowable.
+
+       3. Actual claims paid to or on behalf of employees or former employees for
+          workers’ compensation, unemployment compensation, severance pay, and
+          similar employee benefits (e.g., post-retirement health benefits), are
+          allowable in the year of payment provided that the non-Federal entity
+          follows a consistent costing policy and they are allocated as indirect costs.
+
+(f) Automobiles. That portion of automobile costs furnished by the entity that relates to
+    personal use by employees (including transportation to and from work) is
+    unallowable as fringe benefit or indirect (F&A) costs regardless of whether the cost
+    is reported as taxable income to the employees.
+
+(g) Pension Plan Costs. Pension plan costs which are incurred in accordance with the
+    established policies of the non-Federal entity are allowable, provided that:
+
+       1. Such policies meet the test of reasonableness.
+
+       2. The methods of cost allocation are not discriminatory.
+
+       3. For entities using accrual based accounting, the cost assigned to each fiscal
+          year is determined in accordance with GAAP.
+
+       4. The costs assigned to a given fiscal year are funded for all plan participants
+          within six months after the end of that year. However, increases to normal
+          and past service pension costs caused by a delay in funding the actuarial
+          liability beyond 30 calendar days after each quarter of the year to which such
+          costs are assignable are unallowable. Non-Federal entity may elect to follow
+
+                                                                                  Page | 48
+                                                                     APPENDIX III
+
+
+   the ‘‘Cost Accounting Standard for Composition and Measurement of Pension
+   Costs’’ (48 CFR 9904.412).
+
+5. Pension plan termination insurance premiums paid pursuant to the
+   Employee Retirement Income Security Act (ERISA) of 1974 (29 U.S.C. 1301–
+   1461) are allowable. Late payment charges on such premiums are
+   unallowable. Excise taxes on accumulated funding deficiencies and other
+   penalties imposed under ERISA are unallowable.
+
+6. Pension plan costs may be computed using a pay-as-you-go method or an
+   acceptable actuarial cost method in accordance with established written
+   policies of the non-Federal entity.
+
+       i. For pension plans financed on a pay-as-you-go method, allowable
+          costs will be limited to those representing actual payments to retirees
+          or their beneficiaries.
+
+      ii. Pension costs calculated using an actuarial cost-based method
+          recognized by GAAP are allowable for a given fiscal year if they are
+          funded for that year within six months after the end of that year. Costs
+          funded after the six month period (or a later period agreed to by the
+          cognizant agency for indirect costs) are allowable in the year funded.
+          The cognizant agency for indirect costs may agree to an extension of
+          the six month period if an appropriate adjustment is made to
+          compensate for the timing of the charges to the Federal government
+          and related Federal reimbursement and the non-Federal entity’s
+          contribution to the pension fund. Adjustments may be made by cash
+          refund or other equitable procedures to compensate the Federal
+          government for the time value of Federal reimbursements in excess of
+          contributions to the pension fund.
+
+      iii. Amounts funded by the non-Federal entity in excess of the actuarially
+           determined amount for a fiscal year may be used as the non-Federal
+           entity’s contribution in future periods.
+
+      iv. When a non-Federal entity converts to an acceptable actuarial cost
+          method, as defined by GAAP, and funds pension costs in accordance
+          with this method, the unfunded liability at the time of conversion is
+          allowable if amortized over a period of years in accordance with
+          GAAP.
+
+      v. The Federal government must receive an equitable share of any
+         previously allowed pension costs (including earnings thereon) which
+         revert or inure to the non-Federal entity in the form of a refund,
+         withdrawal, or other credit.
+
+
+
+                                                                          Page | 49
+                                                                            APPENDIX III
+
+
+(h) Post-Retirement Health. Post-retirement health plans (PRHP) refers to costs of
+    health insurance or health services not included in a pension plan covered by
+    paragraph (g) of this section for retirees and their spouses, dependents, and
+    survivors. PRHP costs may be computed using a pay-as-you-go method or an
+    acceptable actuarial cost method in accordance with established written policies of
+    the non-Federal entity.
+
+          1. For PRHP financed on a pay-as-you-go method, allowable costs will be
+             limited to those representing actual payments to retirees or their
+             beneficiaries.
+
+          2. PRHP costs calculated using an actuarial cost method recognized by GAAP
+             are allowable if they are funded for that year within six months after the
+             end of that year. Costs funded after the six month period (or a later period
+             agreed to by the cognizant agency) are allowable in the year funded. The
+             Federal cognizant agency for indirect costs may agree to an extension of
+             the six month period if an appropriate adjustment is made to compensate
+             for the timing of the charges to the Federal government and related
+             Federal reimbursements and the non-Federal entity’s contributions to the
+             PRHP fund. Adjustments may be made by cash refund, reduction in
+             current year’s PRHP costs, or other equitable procedures to compensate
+             the Federal government for the time value of Federal reimbursements in
+             excess of contributions to the PRHP fund.
+
+          3. Amounts funded in excess of the actuarially determined amount for a
+             fiscal year may be used as the Federal government’s contribution in a
+             future period.
+
+          4. When a non-Federal entity converts to an acceptable actuarial cost
+             method and funds PRHP costs in accordance with this method, the initial
+             unfunded liability attributable to prior years is allowable if amortized
+             over a period of years in accordance with GAAP, or, if no such GAAP
+             period exists, over a period negotiated with the cognizant agency for
+             indirect costs.
+
+          5. To be allowable in the current year, the PRHP costs must be paid either
+             to:
+
+                  i. An insurer or other benefit provider as current year costs or
+                     premiums, or
+
+                 ii. An insurer or trustee to maintain a trust fund or reserve for the
+                     sole purpose of providing post-retirement benefits to retirees and
+                     other beneficiaries.
+
+          6. The Federal government must receive an equitable share of any amounts
+             of previously allowed post-retirement benefit costs (including earnings
+
+                                                                                 Page | 50
+                                                                               APPENDIX III
+
+
+              thereon) which revert or inure to the entity in the form of a refund,
+              withdrawal, or other credit.
+
+(i) Severance Pay. (1) Severance pay, also commonly referred to as dismissal wages, is a
+    payment in addition to regular salaries and wages, by non-Federal entities to
+    workers whose employment is being terminated. Costs of severance pay are
+    allowable only to the extent that in each case, it is required by (a) law, (b) employer-
+    employee agreement, (c) established policy that constitutes, in effect, an implied
+    agreement on the non-Federal entity’s part, or (d) circumstances of the particular
+    employment.
+
+   (2)     Costs of severance payments are divided into two categories as follows: (i)
+   Actual normal turnover severance payments must be allocated to all activities; or,
+   where the non-Federal entity provides for a reserve for normal severances, such
+   method will be acceptable if the charge to current operations is reasonable in light
+   of payments actually made for normal severances over a representative past period,
+   and if amounts charged are allocated to all activities of the non-Federal entity.
+
+   (ii) Measurement of costs of abnormal or mass severance pay by means of an
+   accrual will not achieve equity to both parties. Thus, accruals for this purpose are
+   not allowable. However, the Federal government recognizes its obligation to
+   participate, to the extent of its fair share, in any specific payment. Prior approval by
+   the Federal awarding agency or cognizant agency for indirect cost, as appropriate, is
+   required.
+
+   (3)     Costs incurred in certain severance pay packages which are in an amount in
+   excess of the normal severance pay paid by the non-Federal entity to an employee
+   upon termination of employment and are paid to the employee contingent upon a
+   change in management control over, or ownership of, the non-Federal entity’s
+   assets, are unallowable.
+
+   (4)    Severance payments to foreign nationals employed by the non-Federal entity
+   outside the United States, to the extent that the amount exceeds the customary or
+   prevailing practices for the non-Federal entity in the United States, are unallowable,
+   unless they are necessary for the performance of Federal programs and approved by
+   the Federal awarding agency.
+
+   (5)    Severance payments to foreign nationals employed by the non-Federal entity
+   outside the United States due to the termination of the foreign national as a result of
+   the closing of, or curtailment of activities by, the non-Federal entity in that country,
+   are unallowable, unless they are necessary for the performance of Federal programs
+   and approved by the Federal awarding agency.
+
+(j) (1) For IHEs only. Fringe benefits in the form of tuition or remission of tuition for
+    individual employees are allowable, provided such benefits are granted in
+    accordance with established non-Federal entity policies, and are distributed to all
+
+
+                                                                                    Page | 51
+                                                                                  APPENDIX III
+
+
+       non-Federal entity activities on an equitable basis. Tuition benefits for family
+       members other than the employee are unallowable.
+
+       (2) Fringe benefits in the form of tuition or remission of tuition for individual
+       employees not employed by IHEs are limited to the tax-free amount allowed per
+       section 127 of the Internal Revenue Code as amended.
+
+       (3) IHEs may offer employees tuition waivers or tuition reductions for
+       undergraduate education under IRC Section 117(d) as amended, provided that the
+       benefit does not discriminate in favor of highly compensated employees. Federal
+       reimbursement of tuition or remission of tuition is also limited to the grantee for
+       which the employee works. See §200.466 Scholarships and student aid costs, for
+       treatment of tuition remission provided to students.
+
+   (k) For IHEs whose costs are paid by state or local governments, fringe benefit
+       programs (such as pension costs and FICA) and any other benefits costs specifically
+       incurred on behalf of, and in direct benefit to, the non-Federal entity, are allowable
+       costs of such non-Federal entities whether or not these costs are recorded in the
+       accounting records of the non-Federal entities, subject to the following:
+
+       (1) The costs meet the requirements of Basic Considerations in §§200.402
+           Composition of costs through 200.411 Adjustment of previously negotiated
+           indirect (F&A) cost rates containing unallowable costs of this subpart;
+
+       (2) The costs are properly supported by approved cost allocation plans in
+           accordance with applicable Federal cost accounting principles; and
+
+       (3) The costs are not otherwise borne directly or indirectly by the Federal
+           government.
+
+2 CFR § 200.438 Entertainment costs
+Costs of entertainment, including amusement, diversion, and social activities and any
+associated costs are unallowable, except where specific costs that might otherwise be
+considered entertainment have a programmatic purpose and are authorized either in the
+approved budget for the Federal award or with prior written approval of the Federal
+awarding agency.
+
+2 CFR § 200.453 Materials and supplies costs, including costs of computing devices
+   (a) Costs incurred for materials, supplies, and fabricated parts necessary to carry out a
+       Federal award are allowable.
+
+   (b) Purchased materials and supplies must be charged at their actual prices, net of
+       applicable credits. Withdrawals from general stores or stockrooms should be
+       charged at their actual net cost under any recognized method of pricing inventory
+       withdrawals, consistently applied. Incoming transportation charges are a proper
+       part of materials and supplies costs.
+
+                                                                                      Page | 52
+                                                                                  APPENDIX III
+
+
+   (c) Materials and supplies used for the performance of a federal award may be charged
+       as direct costs. In the specific case of computing devices, charging as direct costs is
+       allowable, but not solely dedicated, to the performance of a Federal award.
+
+   (d) Where federally-donated or furnished materials are used in performing the Federal
+       award, such materials will be used without charge.
+
+2 CFR 200.459 Professional service costs
+   (a) Costs of professional and consultant services rendered by persons who are
+       members of a particular profession or possess a special skill, and who are not
+       officers or employees of the non-Federal entity, are allowable, subject to paragraphs
+       (b) and (c) when reasonable in relation to the services rendered and when not
+       contingent upon recovery of the costs from the Federal government. In addition,
+       legal and related services are limited under §200.435 Defense and prosecution of
+       criminal and civil proceedings, claims, appeals and patent infringements.
+
+   (b) In determining the allowability of costs in a particular case, no single factor or any
+       special combination of factors is necessarily determinative. However, the following
+       factors are relevant:
+
+          (1) The nature and scope of the service rendered in relation to the service
+              required.
+
+          (2) The necessity of contracting for the service, considering the non-Federal
+              entity’s capability in the particular area.
+
+          (3) The past pattern of such costs, particularly in the years prior to Federal
+              awards.
+
+          (4) The impact of Federal awards on the non-Federal entity’s business (i.e., what
+              new problems have arisen).
+
+          (5) Whether the proportion of Federal work to the non-Federal entity’s total
+              business is such as to influence the non-Federal entity in favor of incurring
+              the cost, particularly where the services rendered are not of a continuing
+              nature and have little relationship to work under Federal awards.
+
+          (6) Whether the service can be performed more economically by direct
+              employment rather than contracting.
+
+          (7) The qualifications of the individual or concern rendering the service and the
+              customary fees charged, especially on non-federally funded activities.
+
+          (8) Adequacy of the contractual agreement for the service (e.g., description of
+              the service, estimate of time required, rate of compensation, and termination
+              provisions).
+
+
+                                                                                       Page | 53
+                                                                                   APPENDIX III
+
+
+   (c) In addition to the factors in paragraph (b) of this section, to be allowable, retainer
+       fees must be supported by evidence of bona fide services available or rendered.
+
+2 CFR § 200.461 Publication and Printing Costs
+   (a) Publication costs for electronic and print media, including distribution, promotion,
+       and general handling are allowable. IF these costs are not identifiable with a
+       particular cost objective, they should be allocated as indirect costs to all benefiting
+       activities of the non-Federal entity.
+
+   (b) Page charges for professional journal publications are allowable where:
+
+       (1) The publications report work supported by the Federal government; and
+
+       (2) The charges are levied impartially on all items published by the journal, whether
+           or not under a Federal award.
+
+       (3) The non-Federal entity may charge the Federal award before close-out for the
+           costs of publication or sharing of research results if the costs are not incurred
+           during the period of performance of the Federal award.
+
+2 CFR § 200.468 Specialized Service Facilities
+   (a) The costs of services provided by highly complex or specialized facilities operated
+       by the non-Federal entity, such as computing facilities, wind tunnels, and reactors
+       are allowable, provided the charges for the services meet the conditions of either
+       paragraphs (b) or (c) in this section, and, in addition, take into account any items of
+       income or Federal financing that quality as applicable credits under §200.406
+       Applicable credits.
+
+   (b) The costs of such services, when material, must be charged directly to applicable
+       awards based on the basis of a schedule of rates or established methodology that:
+
+           (1) Does not discriminate between activities under Federal awards and other
+               activities of the non-Federal entity, including usage by the non-Federal entity
+               for internal purposes, and
+
+           (2) Is designed to recover only the aggregate costs of the services. The costs of
+               each service must consist normally of both its direct costs and its allocable
+               share of all indirect (F&A) costs. Rates must be adjusted at lease biennially,
+               and must take into consideration over/under applied costs of the previous
+               period(s).
+
+   (c) Where the costs incurred for a service are not material, they may be allocated as
+       indirect (F&A) costs.
+
+   (d) Under some extraordinary circumstances, where it is in the best interest of the
+       Federal government and the non-Federal entity to establish alternative costing
+       arrangements, such arrangements may be worked out with the Federal cognizant
+       agency for indirect costs.
+                                                                                        Page | 54
+                                                                                   APPENDIX III
+
+
+
+2 CFR § 200.474 Travel Costs
+(a) General. Travel costs are the expenses for transportation, lodging, subsistence, and
+related items incurred by employees who are in travel status on official business of the
+non-Federal entity. Such costs may be charged on an actual cost basis, on a per diem or
+mileage basis in lieu of actual costs incurred, or on a combination of the two, provided the
+method used is applied to an entire trip and not to selected days of the trip, and results in
+charges consistent with those normally allowed in like circumstances in the non-Federal
+entity’s non-federally-funded activities and in accordance with non-Federal entity’s written
+travel reimbursement policies. Notwithstanding the provisions of §200.444 General costs
+of government, travel costs of officials covered by that section are allowable with the prior
+written approval of the Federal awarding agency or pass-through entity when they are
+specifically related to the Federal award.
+
+(b) Lodging and subsistence. Costs incurred by employees and officers for travel, including
+costs of lodging, other subsistence, and incidental expenses, must be considered reasonable
+and otherwise allowable only to the extent such costs do not exceed charges normally
+allowed by the non-Federal entity in its regular operations as the result of the non-Federal
+entity’s written travel policy. In addition, if these costs are charged directly to the Federal
+award documentation must justify that: (1) Participation of the individual is necessary to
+the Federal award; and (2) The costs are reasonable and consistent with non-Federal
+entity’s established travel policy.
+
+(c) (1) Temporary dependent care costs (as dependent is defined in 26 U.S.C. 152) above
+and beyond regular dependent care that directly results from travel to conferences is
+allowable provided that: (i) The costs are a direct result of the individual’s travel for the
+Federal award; (ii) The costs are consistent with the non-Federal entity’s documented
+travel policy for all entity travel; and (iii) Are only temporary during the travel period. (2)
+Travel costs for dependents are unallowable, except for travel of duration of six months or
+more with prior approval of the Federal awarding agency. See also §200.432 Conferences.
+(3) In the absence of an acceptable, written non-Federal entity policy regarding travel
+costs, the rates and amounts established under 5 U.S.C. 5701–11, (‘‘Travel and Subsistence
+Expenses; Mileage Allowances’’), or by the Administrator of General Services, or by the
+President (or his or her designee) pursuant to any provisions of such subchapter must
+apply to travel under Federal awards (48 CFR 31.205– 46(a)).
+
+(d) Commercial air travel. (1) Airfare costs in excess of the basic least expensive
+unrestricted accommodations class offered by commercial airlines are unallowable except
+when such accommodations would: (i) Require circuitous routing; (ii) Require travel
+during unreasonable hours; (iii) Excessively prolong travel; (iv) Result in additional costs
+that would offset the transportation savings; or (v) Offer accommodations not reasonably
+adequate for the traveler’s medical needs. The non-Federal entity must justify and
+document these conditions on a case-by-case basis in order for the use of first-class or
+business class airfare to be allowable in such cases. (2) Unless a pattern of avoidance is
+detected, the Federal government will generally not question a non-Federal entity’s
+determinations that customary standard airfare or other discount airfare is unavailable for
+
+                                                                                        Page | 55
+                                                                                  APPENDIX III
+
+
+specific trips if the non-Federal entity can demonstrate that such airfare was not available
+in the specific case.
+
+(e) Air travel by other than commercial carrier. Costs of travel by non-Federal entity-
+owned, -leased, or -chartered aircraft include the cost of lease, charter, operation (including
+personnel costs), maintenance, depreciation, insurance, and other related costs. The
+portion of such costs that exceeds the cost of airfare as provided for in paragraph (d) of this
+section, is unallowable.
+
+
+
+
+                                                                                       Page | 56
+About NSF OIG
+We promote effectiveness, efficiency, and economy in administering the Foundation’s programs; detect
+and prevent fraud, waste, and abuse within NSF or by individuals who receive NSF funding; and
+identify and help to resolve cases of research misconduct. NSF OIG was established in 1989, in
+compliance with the Inspector General Act of 1978, as amended. Because the Inspector General reports
+directly to the National Science Board and Congress, the Office is organizationally independent from the
+Foundation.
+
+Obtaining Copies of Our Reports
+To view this and any of our other reports, please visit our website at www.nsf.gov/oig.
+
+Connect with Us
+For further information or questions, please contact us at OIGpublicaffairs@nsf.gov or 703.292.7100.
+Follow us on Twitter at @nsfoig. Visit our website at www.nsf.gov/oig.
+
+Report Fraud, Waste, Abuse, or Whistleblower Reprisal
+   • File online report: https://www.nsf.gov/oig/report-fraud/form.jsp
+   • Anonymous Hotline: 1.800.428.2189
+   • Email: oig@nsf.gov
+   • Mail: 2415 Eisenhower Avenue, Alexandria, VA 22314 ATTN: OIG HOTLINE
+NATIONAL SCIENCE FOUNDATION
+OFFICE OF INSPECTOR GENERAL
+
+
+
+
+       1
+

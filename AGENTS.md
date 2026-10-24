@@ -25,6 +25,9 @@ file wins inside this repo**.
 - **Target tracks:** Hyphenate (primary) plus stackable tracks. See
   `docs/HYPHENATE.md` and `docs/TRACKS.md`. Ideas are in `docs/IDEAS.md`. Every feature should
   serve the primary track's judging criteria.
+- **Research / evidence:** pain points, user quotes and sources live in
+  `docs/research/`. Read `docs/research/README.md` before citing a claim or
+  adding research; it sets the evidence and verification rules.
 - **Event rule:** all project code must be written *after* hacking opens.
   Planning docs are fine, but no code before the start.
 - **Shared contracts file(s):** TBD (e.g. `lib/schema.ts`, `api/openapi.yaml`)

@@ -1,0 +1,126 @@
+  NATIONAL SCIENCE FOUNDATION
+  Division of Institution & Award Support
+
+  2415 Eisenhower Avenue
+  Alexandria, VA 22314
+  (703) 292-8244
+
+
+                                                                    May 12, 2022
+  Jeffrey Friedland
+  Associate Vice President for Research
+    Administration
+  University of Delaware
+  210-A Hullihen Hall
+  Newark, DE 19716-1551
+
+  Reference: OIG Report No. 19-1-011
+
+  Dear Mr. Friedland:
+
+  The National Science Foundation (NSF) has completed the review and resolution of the Office of
+  Inspector General (OIG) audit report on costs incurred under NSF awards by the University of Delaware
+  (UD) during the period of December 1, 2013 through November 30, 2016.
+
+  The audit report identified a total of $426,667 in questioned costs claimed on NSF awards and
+  recommended that UD strengthen its administrative and management controls over the areas in which
+  findings and questioned costs were identified. NSF sustains $258,467 of the questioned costs identified;
+  however, based on alternative documentation reviewed and accepted during resolution, NSF will require
+  repayment of only $214,027. The table below summarizes the allowed and disallowed costs by finding
+  number:
+
+Finding            Audit Report Description            Questioned   Sustained      Allowed       Disallowed
+
+  1       Inadequate Support for Award Charges          $233,075    $185,685       $80,570        $152,505
+
+          Equipment Purchases at the End of Award
+  2                                                     $125,458    $26,177        $99,281         $26,177
+          or With No Benefit to Award
+
+          Unallowable or Unreasonable Travel
+  3                                                     $44,469     $24,932        $21,192         $23,277
+          Charges
+
+  4       Unreasonable Materials and Supplies           $19,208     $19,208         $9,605         $9,603
+
+
+  5       Unallowable Indirect Costs                     $2,465      $2,465          $0            $2,465
+
+          Unallowable or Unreasonable Salaries and
+  6                                                      $1,992        $0           $1,992           $0
+          Wages
+
+                                              TOTALS    $426,667    $258,467       $212,640       $214,027
+University of Delaware
+Audit No. 19-1-011
+Page 2
+
+
+
+To resolve the audit findings and questioned costs, NSF conducted detailed reviews of applicable Federal
+and NSF requirements, proposal and award information maintained by the Agency, and documentation
+provided by UD. The following provides the basis for the management decisions reached by NSF:
+
+•   Finding 1: Inadequate Support for Award Charges
+    NSF partially sustains the finding. NSF’s management decision is to sustain $185,685 of the
+    questioned costs; however, consideration of circumstances and alternative documentation resulted
+    in disallowed costs of $152,505. NSF’s management decision is to disallow $152,505 and to allow
+    $80,570.
+
+•   Finding 2: Equipment Purchases at the End of Award or With No Benefit to Award
+    NSF partially sustains the finding. NSF’s management decision to sustain and disallow $26,177 and
+    to allow $99,281.
+
+•   Finding 3: Unallowable or Unreasonable Travel Charges
+    NSF partially sustains the finding. NSF’s management decision is to sustain $24,932 of the
+    questioned costs; however, consideration of circumstances and alternative documentation resulted
+    in disallowed costs of $23,277. NSF’s management decision is to disallow $23,277 and to allow
+    $21,192.
+
+•   Finding 4: Unreasonable Materials and Supplies
+    NSF sustains the finding and questioned costs of $19,208. No documentation was maintained to
+    support when the supplies were received and put into service as required by 2 CFR § 220, Appx A,
+    Subsection J.31, “Materials and Supplies Costs.” However, consideration of circumstances and
+    alternative documentation resulted in disallowed costs of $9,603. NSF’s management decision is to
+    disallow $9,603 and to allow $9,605.
+
+•   Finding 5: Unallowable Indirect Costs
+    NSF sustains the finding. Based upon UD’s concurrence to repay questioned indirect costs applied
+    to participant support costs, it is NSF’s management decision to sustain and disallow $2,465.
+
+•   Finding 6: Unallowable or Unreasonable Salaries and Wages
+    NSF sustains the internal control recommendation; however, it does not sustain the questioned
+    costs. NSF determined that there was adequate supporting documentation for the questioned
+    salary transfer. NSF’s management decision is to allow $1,992.
+
+The compliance and internal control recommendations under Findings 1 through 4 and Finding 6 have
+not been adequately addressed. Corrective actions and updated policies in response to the
+recommendations are required within 30 days from the date of this letter. Final action will be
+considered complete upon NSF’s determination that corrective actions taken are responsive to the
+report recommendations.
+Based on the above, the total disallowed amount is $214,027. UD has provided NSF evidence of
+$63,801 in repayment. Repayment of $150,226 must be made via www.pay.gov. Please reference
+OIG Audit Report No. 19-1-011. Any necessary adjustments to ACM$ because of the repayment will be
+made by the NSF Division of Financial Management.
+University of Delaware
+Audit No. 19-1-011
+Page 3
+
+Please be aware that UD’s right to appeal cost disallowances by NSF is outlined in Chapter XII.B of the
+NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+NSF considers all audit report findings and questioned costs resolved. Upon verification that repayment
+of all disallowed costs has been completed and that corrective actions taken are responsive to the
+compliance and internal control recommendations, the audit report will be fully closed out by NSF.
+
+Should you have any questions regarding this letter or the NSF audit resolution process, please contact
+Carrie Davison at 703-292-4579.
+
+                                                         Sincerely,
+
+                                                         Rochelle D. Ray
+                                                         Rochelle Ray, Branch Chief
+                                                         Resolution and Advanced Monitoring Branch
+                                                         Division of Institution and Award Support
+

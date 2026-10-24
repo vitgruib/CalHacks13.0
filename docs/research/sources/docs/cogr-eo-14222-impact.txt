@@ -1,0 +1,441 @@
+                                     The goal of Executive Order (EO) 14222 is to increase efficiency and
+                                     transparency and cut costs. Yet, in practice, the new requirements
+                                     have led to the exact opposite, thereby adding new strains on
+                                     federally supported research and increasing costs.
+
+
+  What is the problem with Defend the Spend?
+The implementation of EO 14222 resulted in additional costs and time without any value:
+
+100% Redundant                                                 Excessive Burden and Waste
+Federal agencies implemented a new                             Research grant recipients may submit dozens of
+requirement to collect justifications for                      pages to justify a single payment, and inconsistent
+project expenses that the agencies had                         agency requirements prevents a systematic solution.
+already authorized (and which are                              DOGE’s     “Defend      the   Spend”      resulted   in
+subject to recipient certification and                         approximately 53,749 hours of redundant work1 for
+independent audit). This request is                            recipients and agencies. Over a 35-day period,
+redundant and unnecessary, as the                              107,497 transactions were reported, with agencies
+information is readily available to the                        required to review the additional justifications (DOGE
+agencies as outlined in Appendix.                              payment statistics, last updated May 2025).
+
+Overdue Payments                                               Straining Research
+Excessive    reviews for     authorized                        The excessive burden due to payment delays and
+transactions cause delays in payments,                         redundant        documentation      requirements
+sometimes for months, with the                                 potentially compromises time-sensitive research,
+government owing some institutions                             wasting resources on costs already approved and
+millions of dollars for completed work.                        losing valuable time in U.S. efforts to maintain
+These    delays    violate     2   CFR                         global scientific leadership. The amount of effort
+200.305(b)(3), which mandates timely                           and costs required are unsustainable and adds to
+disbursements by the government.                               unnecessary federal red tape.
+
+
+ The solutions are easy:                                                  Implement Risk-Based Oversight
+                                                                 2
+                                                                          / Lower Barriers
+                                                               The government should follow the risk
+        Available Information and                              assessment framework outlined in 2 CFR 200.206
+ 1                                                             to determine when additional review is
+        Processes Provide Efficiency
+                                                               warranted.
+The government should evaluate
+what’s already available, e.g., NOFOs,                           3       Engage with Stakeholders
+grant award budgets, annual financial
+(SF 425) and programmatic progress                            The government should conduct a cost-benefit
+reports, single audit reports, and                            analysis and collaborate with recipients to identify
+individual        payment       request                       the most efficient way to provide any needed
+certifications to focus resources where                       additional information where genuine risks have
+they’re most needed.                                          been identified.
+1 Based on DOGE counts, and the estimated average response/review time of at least 30 minutes per transaction.
+                           Appendix: Defend the Spend
+
+Details of Federal Award Spending and Reimbursement Requirements
+Federal granting agencies approve project spending plans and review expenditures at
+seven points in the process (below), before the Defend the Spend initiative was introduced.
+Additionally, institutions undergo audits and other regulatory checks. Defend the Spend
+adds another 5 checkpoints of redundant work to the process.
+
+
+                                                                                          Agency IGs audit of
+ Agency issues NOFO                                       Recipient                         recipients for
+  with budget info                                          awaits
+                                                                                            costs/internal
+                                         Recipient      agency review/
+                                                                                              controls
+                                  enters a line-by         approval
+                              -line item
+                               justification
+                              of the
+  Applicant submits                                                                      Aency has access to
+                              requested
+   detailed budget             info
+                                                                                         recipient’s external
+                                                                                            audit reports
+                                                New DOGE
+                                                                          Agency
+                                          Defend the Spend                  may
+                                                                          request
+   Agency reviews              Agency                System              additional      Recipient undergoes
+  proposed budget           request DOGE                                               annual external audit of its
+                             “Defend the                                                 costs/internal controls
+                             Spend” info
+
+                                                        Agency
+ Agency issues award                                   permit or
+  with detailed line-                                  deny draw                         Recipient files FFATA
+     item budget                                                                       reporting for subawards
+                                                                                         under federal primes
+
+
+
+  Recipient establishes
+  systems and internal       Recipient certifies                                          Recipient monitors
+                                costs / bills               Recipient receives               subrecipient
+ controls for compliance
+                            agency/signs federal           payment for invoices           performances and
+     to award terms
+                               certifications                                                 expenses
+
+
+
+  Recipient’s internal       Sponsor must pre-               Recipient submits            Recipient submits
+    controls govern          approve significant          quarterly/annual financial       technical annual
+ changes to sponsored            revisions                  reports to agencies                 report
+        awards
+
+
+   Points in the grant administration process where agencies review and approve projects,
+   project costs, and review ongoing expenditures during the period of performance.
+
+
+   Duplicative new steps introduced by Defend the Spend (green)
+
+   Points in the grant internal to the recipient organization
+    1.   Agency issues program announcement with budget requirements: Agencies specify budget
+         criteria and unusual considerations or restrictions in the Notice of Funding Opportunity (NOFO). For
+         example, from the NIH site: https://grants.nih.gov/grants-process/write-application/advice-on-
+         application-sections/develop-your-budget
+
+    2.   Applicant submits a proposal per NOFO: Applicant prepares the budget and justification
+         according to the NOFO, including details of planned expenses, approved research rates, and
+         explains how the costs benefit the project.
+
+    3.   Agency issues awards, including detailed award budgets: Federal funding agencies issue a Notice
+         of Award that includes a line-item budget, restrictions on expenses (e.g., travel, equipment),
+         spending limits, and other award-specific information.
+
+    4. Post-Award Management: Recipients must have internal controls and systems compliant with
+       CAS, Uniform Guidance, etc.
+
+         a.   System (award receipt and set-up)
+
+Federally approved institutional financial systems (SAP, Oracle, Workday, Banner, etc.) apply spending rules
+(flags, thresholds) to prevent inadvertent expense. Codes for unallowable items are activated to block
+spending.
+         b. System: Accounting (budgetary restrictions)
+
+Expenses outside the approved budget parameters prevent or trigger additional review (budget or
+procurement office).
+         c.   Prior Approvals and Expanded Authorities
+
+Institutions are subject to allowability/allocability standards, which require that only costs beneficial to a
+project be charged to it. Furthermore, under Uniform Guidance 2 CFR 200.308, recipients of grants and
+cooperative agreements may re-budget costs during the performance period for other allowable and
+allocable costs per the approved project's scope. When more significant changes are needed, recipients
+have established prior approval procedures to document requests to agencies.
+         d. Travel/Equipment Procurement approval
+
+Expenses related to travel require additional review and approval. Equipment purchases require an
+additional procurement process (bid and pricing).
+         e. Subrecipient monitoring
+
+Recipients are responsible for ensuring that subrecipients have appropriate internal controls to comply
+with sponsor terms and then assess the work performed to verify the invoice amount, as per 2 CFR 200.331.
+         f.   Account Review to correct errors
+
+Recipients regularly review project expenses (e.g., monthly, quarterly), per institutional policies, and correct
+and adjust for any errors in charges to the project.
+
+
+    5. Recipients certify the accuracy of costs when requesting reimbursement. Recipients have
+       already paid personnel and vendors before requesting reimbursement
+
+Recipients certify costs on every request for payment to the government, per 200.415 Required
+certifications.
+
+2
+          (a) Financial reports must include a certification, signed by an official who is authorized to
+          legally bind the recipient, which reads as follows: “By signing this report, I certify to the best of
+          my knowledge and belief that the report is true, complete, and accurate, and the expenditures,
+          disbursements and cash receipts are for the purposes and objectives set forth in the terms and
+          conditions of the Federal award. I am aware that any false, fictitious, or fraudulent information,
+          or the omission of any material fact, may subject me to criminal, civil or administrative
+          penalties for fraud, false statements, false claims or otherwise. (U.S. Code Title 18, Section 1001
+          and Title 31, Sections 3729-3730 and 3801-3812).”
+
+      6. * Federal agencies are requesting information already provided
+         • Numerous federal agencies are implementing these new requirements in diverse ways,
+             preventing institutions from developing efficient solutions to respond to new mandates.
+         • In virtually all cases, federal agencies are requesting that recipients provide the same
+             information over and over again.
+         • Payment systems should be connected to agency grant systems to provide DOGE with the
+             information they are requesting.
+Below are excerpts from emails from DOGE, Defend the Spend, or the federal funding agencies. The
+agency approaches requirements adds significant administrative and cost burdens due to inefficient and
+wasteful procedures.
+
+    Agency            New requirements – Examples of quotes from Defend the Spend (typically email)
+    National          https://grants.nih.gov/sites/default/files/PMS-Payment-Requests-for-NIH-
+    Institutes of     Awards.pdf
+    Health (NIH)         • When submitting a payment request in PMS, a justification is now required.
+                             Please ensure the justification entered is as detailed as possible. Please explain
+                             exactly why the funds are being drawn and how the funds will be utilized during
+                             the period of performance for the project.
+                         • Once the payment request is submitted in PMS, the request is sent to the DOGE
+                             Defend the Spend (DTS) system for further review by NIH.
+                         • All payment requests are sent from PMS to DTS within one business day. • In the
+                             DTS system, NIH will review the justification submitted by the recipient in PMS.
+                         • If NIH determines that the justification is sufficient, we will approve the payment
+                             request in the DTS system. • If NIH determines that the justification is not
+                             sufficient, we will request additional clarification for the payment request in the
+                             DTS system.
+                         • When we submit a request for additional clarification in DTS, the recipient will
+                             receive an email notification from DTS notifying them that additional
+                             clarification is required for the payment request in DTS.
+                         • The recipient should follow the instructions in the email provided, and once the
+                             additional clarification has been submitted by the recipient, the payment
+                             request will return to DTS for NIH approval.
+                         • Once NIH determines that the justification is sufficient, we will approve the
+                             payment request in the DTS system.
+                         • NIH reviews all payment requests in DTS within 1 – 2 business days. However,
+                             NIH does not have insight as to the timeline between DTS approval, and the
+                             funds being released in PMS.
+
+                              Below are examples of appropriate payment justifications:
+                          •   This payment is reimbursement for costs in support of the projects by
+                              furthering the achievements of the research goals and objectives specific to
+                              each grant for April 25thMay 25th.
+                          •   Reimbursement is requested for the pre-approved budget categories of Salaries
+                              and Fringe Benefits for key personnel working on the grant or cooperative
+                              agreement, along with materials and supplies, other Direct Costs, and indirect
+                              costs.
+
+3
+                     •   Reimbursement of allowable expenses related to Subaccount (RXX123456A) in
+                         the following amounts per spend category: Salaries and Wages expenses
+                         amount to $X,XXX, Fringe Benefits expenses amount to $XXX.XX, Indirect Costs
+                         expenses amount to $X,XXX.
+                     •   The invoice includes labor charges, journal publication fees for disseminating
+                         results to the public, IT/share drive expenses, subcontract payments for their
+                         labor, and retroactive indirect rate adjustments for costs incurred in Fiscal Year
+                         25.
+    Centers for      •   Payment request submitted via PMS must now go through an additional layer
+    Disease              of review and response. If you received a request for clarification from Defend
+    Control and          The Spend (DTS), you must respond directly to that link with all information that
+    Prevention           was included in the clarification request. Please check your Spam folders as this
+    (CDC)                is a legitimate site (DTS.gov).
+                     •   Once your response is received it will be reviewed again to ensure that it
+                         addresses all concerns in the clarification request. If all concerns have been
+                         addressed, OGS will approve the draw down and it will go back to PMS for
+                         release.
+                     •   OGS cannot provide a timeframe in which the payment will be released by PMS.
+                     •   Please note: If all concerns are not addressed you may receive a 2nd and
+                         possibly a 3rd request, until we receive the information necessary to approve
+                         your request. After the 3rd request, if OGS does not have enough information to
+                         approve the payment it will be rejected in PMS, and you will be required to
+                         resubmit the request along with all pertinent information that includes the
+                         following:
+                              o NOFO#
+                              o Award#
+                              o Line-item justification that covers the entire amount being requested
+                                  (i.e., Supplies
+                              o Period that the drawdown covers
+                     •   Example of acceptable justification: Payroll=$2,500 and Fringe=$500 for staff in
+                         accordance with the award terms and conditions for award 21U01DP00XXXX for
+                         the timeframe of 2/1/2025-2/28/20255.
+    National         •   Effective March 17, 2025, a justification field has been added to the payment
+    Aeronautics          request screen at the subaccount level. Grant recipients are now required to
+    and Space            provide a brief explanation—limited to 1,000 characters—outlining the purpose
+    Administration       of each payment request. (Please refer to the image below for a visual
+    (NASA)               reference.)
+                         To help ensure timely approval of payment requests submitted to NASA, we ask
+                         that all recipients include the corresponding budget category (as approved in
+                         your original budget) as part of the justification. Examples of appropriate
+                         budget categories include:
+                                  • Salaries and Wages • Fringe Benefits • Equipment • Travel • Materials
+                         and Supplies • Other Direct Costs • Indirect Costs
+                         Justifications should clearly identify all budget categories associated with the
+                         request. For example:
+                         “Reimbursement is requested for the pre-approved budget categories of
+                         Salaries and Fringe Benefits for key personnel working on the grant (or
+                         cooperative agreement).”
+
+    Occupational     •   The ‘new’ PMS process gets extended to all OSHA Regional grants finance and
+    Safety and           accounting teams effective 4/29. Our Region is now required to review and
+    Health               approve each requested drawdown and/or grantees, and we also need to
+    Administration       provide a ‘reason for approval”.
+    (OSHA)           •    In complying with the requirement and a smooth process in releasing your
+                         requested funds or drawdown amount in a timely manner and/or without any
+                         delay, please:
+
+
+4
+                         •    Provide a more detailed justification in PMS by specifying the “object class
+                             categories’ of the occurred/incurred expenses for reimbursement or in payment
+                             for and with the allocated amount (e.g. payment request is to cover salary
+                             expense 6,501 for the week ending 4/15/25 and equipment 1,682…
+                             Reimbursement of payroll payment $36, 001 on 4/28/25, travel of 4,589 and
+                             supplies 854…)
+                         •    Be prepared to provide the developed financial report as an adequate support
+                             of the requested funds amount drawn down via email to me when requested.
+    U.S.                 •    Failing to meet the correct guidance will result in your payment being
+    Department of            returned even if the documents are correct. If you are unsure if your
+    Agriculture              justification meets the guidance, feel free to send it to me first.
+    (USDA)                       o Lists the specific program (FMPP or LFPP) instead of “a USDA grant
+                                      program”; and
+                                 o Identifies the specific cost categories included in the request
+                         •   Justification must address every cost category – ie. if the payment is for
+                             personnel, fringe, travel and equipment
+                         •   Payment for personnel to complete xyz, fringe of xx%, travel for xyz event and
+                             equipment purchase of xyz for xyz
+    Automated            •   Limit bill payments to separate requests.
+    Standard             •   Effective Monday, May 19, 2025, the Department of the Treasury's Bureau of the
+    Application for          Fiscal Service will require Recipient Organizations to include a justification for
+    Payments                 each payment.
+    (ASAP) ASAP          •   300-character justification
+    (Used for DOE,
+    DOJ, USDA)
+    Health               •     Health Resources & Services Administration is requiring additional information
+    Resources &                regarding this payment before funds are disbursed. An ideal payment
+    Services                   justification includes a specific description of why the funds are necessary, and
+    Administration             why they are aligned with the award.
+    (HRSA)                • Please enter the additional information at this link: https://pub-dts.doge.gov
+    Department of         • Effective March 17, 2025, grant recipients must now provide a brief justification
+    Labor (DOL)                for each payment request submitted for approval.
+                          • The process and technologies to fully comply with the EO requirements are still
+                               under development. In the interim, the following list of questions and answers
+                               have been developed to provide initial guidance to grant recipients on this new
+                               PMS process.
+    Administration        • Increase the “lead time” between your organization’s need and payment
+    for Children               request;
+    and Families          •     Structure payment requests to include only one awarding agency; minimize
+    (ACF)                      the number of grant subaccounts; and group subaccounts to those within the
+                               same program area;
+                          • Provide a strong justification for your payment request to include details such
+                               as the program name, time period covered by the payment request, a clear
+                               description or summary of approved expenses or activities and, as applicable,
+                               the approved budget line categories for expenditures (e.g., Personnel, Fringe,
+                               Supplies, Travel, Contractual, Other);
+    Administration    ACL determined that the payment justification submitted for this subaccount lacked
+    for               sufficient detail. In this request for clarification, please provide an updated payment
+    Community         justification that provides the following information: 1) Short summary of implemented
+    Living (ACL)      activities and incurred expenses (identify high level budget categories), 2) time period
+                      covered by the payment request (time period in which expenses were or will be
+                      incurred), 3) program name, and 4) authorizing Act.
+
+    Substance         For the amount being requested, the template must include the itemized costs,
+    Abuse and         programmatic justification summary, and certification. Please use template provided
+    Mental Health     below and requested on 4/28/25. Please use this template for SAMHSA Drawdown
+                      Justifications:--------------This is a payment request for [insert dollar amount] on
+5
+    Services          SAMHSA grant [insert grant number] covering the time period [insert dates]. The
+    (SAMHSA)          request is comprised of the following disbursement of costs: Personnel [insert dollar
+                      amount], Fringe Benefits [insert dollar amount]. Contractual/Subawards [insert dollar
+                      amount] subtotal(s) of the grant activities]. We certify that the costs are allowable,
+                      allocable, reasonable, and necessary in accordance with 45 CFR Part 75, 2 CFR Part 200,
+                      the NOFO, and the HHS Grants Policy Statement. We also certify that the costs do not
+                      violate the Executive Orders Ending Radical and Wasteful Government DEI Programs
+                      and Preferencing and Defending Women from Gender Ideology Extremism and
+                      Restoring Biological Truth to the Federal Government.--------------
+
+
+
+
+7. Recipients file additional information and numerous reports to Federal Sponsors:
+     a.   FFATA reporting of amounts awarded to subrecipients
+
+Recipients must provide additional reporting to the GSA of all subawards issued from federal primes
+awards, per 2 CFR Part 170.
+     b. Recipients file annual progress reports and expenditures to sponsors
+
+Recipients report progress on grants and cooperative agreements annually. Reports include progress
+towards the project’s specific aims, a list of people who worked on the project and their time commitment,
+and a summary of project expenses. The agency must approve these reports before the project continues
+into the following year.
+     c.   Financial reports are also filed separately from the annual technical report
+
+8. Recipients must provide reports of cumulative spending monthly, quarterly, as stipulated by the
+   agency.
+Example: NSF financial requirements
+https://www.nsf.gov/policies/pappg/24-1/ch-8-financial-requirements-payments
+9. A the conclusion of the project, recipients file final expenditures, which are audited, final process
+   reports
+    a. Closeout - A final accounting of all project costs is performed before the final invoice for remaining
+       costs is submitted to the sponsor.
+       (example: NIH RPPR)
+       https://grants.nih.gov/grants-process/post-award-monitoring-and-reporting/reporting-
+       requirements/research-performance-progress-report-rppr)
+        (example: Dept of Energy EERE)
+       https://www.energy.gov/eere/funding/reporting-requirements-eere-funding-awards
+
+     b. Annual external audits - Non-federal entities that expend $1,000,000 or more in federal awards in a
+        single year must undergo an annual audit to ensure accountability for federal awards.
+
+     c.   Internal audits – Institutions undergo checks on internal controls as part of their compliance
+          programs.
+
+     d. Agency Specific Audits:
+           • Single Audit: - https://oig.hhs.gov/compliance/single-audits/frequently-asked-questions-
+              faqs/single-audits-
+              faqs/#:~:text=A%20Single%20Audit%20includes%20two,included%20in%20all%20Single%20A
+              udits .
+
+6
+             •   Audit Resolution: https://www.nsf.gov/awards/audit-resolution
+             •   Desk Audits: https://www.nsf.gov/awards/desk-reviews
+             •   HHS OIG Audits published: https://oig.hhs.gov/reports/
+                 NSF Accounting System Audit: https://www.nsf.gov/awards/accounting-system-reviews
+
+
+10. Recipients must implement internal controls and undergo audits, as required by § 200.303 Internal
+controls.
+
+    The recipient and subrecipient must:
+
+    (a) Establish, document, and maintain effective internal control over the Federal award that provides
+    reasonable assurance that the recipient or subrecipient is managing the Federal award in compliance
+    with Federal statutes, regulations, and the terms and conditions of the Federal award. These internal
+    controls should align with the guidance in “Standards for Internal Control in the Federal Government”
+    issued by the Comptroller General of the United States or the “Internal Control-Integrated Framework”
+    issued by the Committee of Sponsoring Organizations of the Treadway Commission (COSO).
+
+    (b) Comply with the U.S. Constitution, Federal statutes, regulations, and the terms and conditions of the
+    Federal award.
+
+    (c) Evaluate and monitor the recipient's or subrecipient's compliance with statutes, regulations, and the
+    terms and conditions of Federal awards.
+
+    (d) Take prompt action when instances of noncompliance are identified.
+
+    (e) Take reasonable cybersecurity and other measures to safeguard information, including protected
+    personally identifiable information (PII) and other types of information. This also includes information
+    that the Federal agency or pass-through entity designates as sensitive or other information the recipient
+    or subrecipient considers sensitive and is consistent with applicable Federal, State, local, and tribal laws
+    regarding privacy and responsibility over confidentiality.
+
+11. Federal Agencies regularly investigate fraud, waste, and abuse and report it to the public through
+audits.
+
+Inspectors General for the federal funding agencies conduct audits of recipients and report regularly (e.g.,
+semiannually) to Congress. These reports are available to the public and all agencies. For example:
+     •   NSF IGs reports https://oig.nsf.gov/
+     •   HHS IG reports - https://oig.hhs.gov/reports/all/?report-type=Audit&hhs-agency=NIH
+     •   NASA IG Reports - https://oig.nasa.gov/office-of-inspector-general-oig/semiannual-
+         reports/semiannual-report-to-congress-spring-2025/
+     •   Federal Audit Clearinghouse (Searchable/public audit report):
+         https://app.fac.gov/dissemination/search/
+
+
+
+
+7
+

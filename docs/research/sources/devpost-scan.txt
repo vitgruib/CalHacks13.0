@@ -1,0 +1,25 @@
+
+=== query='grant writing' total=424 pages=12 relevant=9
+- GrantProof | GrantProof checks grant proposals, agreements and reports against the funder's rules, cites the exact page behind every finding, and leaves every decision to your staf
+- GrantHarbor | Apply for a grant by voice, the day it drops. Say “Alexa, apply”—GrantHarbor drafts it from your profile, emails you the draft, and submits only when you approve. A h
+- SeedBridge | Describe your business idea once. SeedBridge reviews it like a funding panel, shows what to fix, and matches you to the grants, investors and accelerators you actually
+- Civic Grant | Empowering grassroots organizers and black business owners by turning complex municipal grant portals into a single text message they can ask for and wait for.
+- veille-subventions-cinema | Automated pipeline tracking application deadlines for French film grants, LLM-based structured extraction with Pydantic schemas Claude/Qwen, deduplicati
+- Grant Scout | Grant Scout is a background agent; it quietly hunts and vets federal grants for small nonprofits, and only interrupts a volunteer board when it finds one worth their 
+- Granted | The AI grants team for small nonprofits. Find relevant funding, skip ineligible opportunities, and build reviewed proposals grounded in your real work.
+- TrustMesh | TrustMesh answers one question before you pay a stranger agent: has it actually delivered? Bayesian trust scores, backed by tamper-proof SharedOS grants so no agent can
+- GRANT SCOUT | Autonomous multi-agent system powered by AWS Bedrock AgentCore that discovers Grants.gov opportunities, matches eligibility via RAG, and drafts audit-ready federal pr
+
+=== query='grant termination' total=20 pages=5 relevant=1
+- ConractIQ | AI-powered contract intelligence with WhatsApp integration that prevents hospitals from losing millions to missed deadlines and grant terminations.
+
+=== query='settlement fraud' total=154 pages=8 relevant=5
+- PayPal-AgentFlow: Autonomous Commerce Protocol | Autonomous multi-agent commerce protocol connecting AI agent workflows with PayPal Orders v2 REST API for conversational contract n
+- WePay | WePay.ai uses conversational AI to turn multilingual voice cues into complex multi-currency ledger splits, launching secure PayPal Smart Buttons for instant global financia
+- TapPay – Offline Digital Payments | Offline-first digital payments using NFC and QR, with secure local transactions, offline limits, and automatic synchronization and settlement wh
+- F.R.E.D — Open SPEI Detection Engine | F.R.E.D: a real-time API as a Product mitigating authorized push payment fraud by intercepting manipulated SPEI transfers prior to settlement
+- Nexus Pay | Nexus Pay enables AI agents to securely automate digital payments with programmable spending limits and blockchain-based settlement.
+
+
+=== query='class action' total=3207 pages=8 relevant=1
+- Treasure Dive | 9 in 10 people never claim money they may be owed. Treasure Dive’s Gemini scout finds open class action settlements, matches them to your Capital One purchases, and

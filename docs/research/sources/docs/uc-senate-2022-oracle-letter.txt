@@ -1,0 +1,271 @@
+UNIVERSITY OF CALIFORNIA, ACADEMIC SENATE
+
+
+BERKELEY • DAVIS • IRVINE • LOS ANGELES • MERCED • RIVERSIDE • SAN DIEGO • SAN FRANCISCO                  SANTA BARBARA • SANTA CRUZ
+
+
+
+
+        Robert Horwitz                                                                     Chair of the Assembly of the Academic Senate
+        Telephone: (510) 987-0887                                                          Faculty Representative to the Regents
+        Email:robert.horwitz@ucop.edu                                                      University of California
+                                                                                           1111 Franklin Street, 12th Floor
+                                                                                           Oakland, California 94607-5200
+
+
+
+                                                                                           July 29, 2022
+
+      MICHAEL DRAKE, PRESIDENT
+      UNIVERSITY OF CALIFORNIA
+
+      Re: Impacts of New Oracle Software
+
+      Dear President Drake:
+
+      At its July 2022 meeting, the Academic Council endorsed the attached letter from the
+      Coordinating Committee on Graduate Affairs (CCGA). The letter details serious problems
+      associated with the transition to the Oracle Alpha Financials software at UC Merced and UC San
+      Diego. The transition at those campuses has caused ongoing financial and business process
+      problems that are disrupting the training, research progress, and personal finances of graduate
+      students and postdocs. The letter recommends solutions to mitigate additional negative impacts
+      at UCM and UCSD and to prevent such challenges on other campuses if and when they
+      transition to Oracle Alpha. I also attach an October 2021 memo from the University Committee
+      on Research Policy (UCORP) to the Council chair discussing similar concerns.
+
+      These are serious issues that must be addressed in a timely fashion to avoid further damage to the
+      University’s graduate education and research missions. Council believes the problems also
+      highlight the need for UCOP to engage UC faculty experts in decision-making around the
+      University’s procurement of new software or other technology resources. Software structural
+      needs for the investigator-driven research enterprise are often substantially different from the
+      more corporate-like structures of the Administration, and it is important for these former needs to
+      be reflected in our operational planning. We encourage UCOP to work quickly to investigate
+      these issues and implement the CCGA recommendations.
+
+      Please do not hesitate to contact me if you have additional questions.
+
+      Sincerely,
+
+
+
+      Robert Horwitz, Chair
+      Academic Council
+      Cc:       Provost Brown
+                Chief Operating Officer Nava
+                Vice President Williams
+        Associate Vice President and Chief Procurement Officer Williams
+        Academic Council
+        CCGA
+        UCORP
+        Chief of Staff Kao
+        Chief Policy Advisor McAuliffe
+        Senate Directors
+        Executive Director Lin
+Encl.
+
+
+
+
+                                                  2
+COORDINATING COMMITTEE ON GRADUATE AFFAIRS (CCGA)                              ACADEMIC SENATE
+Andrea Kasko, Chair                                                            University of California
+akasko@g.ucla.edu                                                              1111 Franklin Street, 12th Floor
+                                                                               Oakland, California 94607-5200
+
+
+                                                                               July 19, 2022
+
+
+            ROBERT HORWITZ
+            ACADEMIC SENATE CHAIR
+
+            Dear Robert,
+
+            UC Merced and UC San Diego have been the first campuses to transition to the new Oracle
+            Alpha Financials software. The transition has not gone smoothly, to put it mildly, and has been
+            exacerbated by the switch to chart strings and the staffing issues facing all UC campuses;
+            substantial problems continue to challenge University operations and there does not appear to be
+            any effective solution in sight. These challenges have resulted in negative and ongoing impacts to
+            graduate student and postdoctoral training at UC Merced and UC San Diego that even exceed the
+            impacts of the pandemic 1. Specific impacts include:
+
+                ●     Negative impacts on graduate student enrollment and enrollment targets due to impacts to
+                      campus PI grant getting and grant spending, slowdowns in procurement, and follow-on
+                      effects on research slow down, completion rates and new recruitment.
+                ●     Negative impacts on graduate student and postdoctoral training progress and equity due
+                      to delays in reimbursement, research slowdowns and negative campus climate.
+
+            Since other UC campuses will be transitioning to this product, we believe it is imperative that
+            there is a system-wide effort to:
+
+                1. Delay the transition to Oracle Alpha Financials at all other campuses until the
+                   implementation challenges and business processes are improved,
+                2. Learn from the experiences of UC Merced and UC San Diego,
+                3. Coordinate collaboration for solutions, and
+                4. Mitigate the local impacts to graduate student and postdoctoral training at the two
+                   campuses that have served as the sacrificial lambs for this transition.
+
+            We stress that the dramatic negative impact of the current financial reporting on the functioning
+            of research at UC San Diego and UC Merced, and thus our graduate students, is a direct effect of
+
+
+
+            1 https://ucmerced.box.com/s/b9hc0crcrd8q2bmx64cvuosx588g15a8
+the transition to Oracle Alpha Financials and these disastrous results cannot be shrugged off as
+pandemic difficulties.
+
+Background
+
+The transition to Oracle was promised to generate significant savings. However, the transition has
+led to a severe disruption to business processes, as the campuses have been forced to adapt to a
+solution not suited to University operations. This transition occurred at the height of the COVID-
+19 pandemic when University students and personnel (staff and faculty) were already undergoing
+significant strain and hardship to maintain our research and educational missions.
+
+Delayed procurement, delayed funding, and delayed reimbursement have particularly pernicious
+impacts to graduate student and postdoctoral fellow research progress and personal finances.
+Graduate students and postdocs are highly vulnerable because of their low income levels and
+much shorter time of engagement at UC compared with faculty and staff—they must advance in a
+just few years and regularly face immediate and absolute deadlines to wrap up their research
+efforts in order to move on to the next stage of their careers. These facets of graduate and postdoc
+training make the delays caused by the Oracle transition enormously stressful and potentially
+devastating to their careers
+
+Impacts to Graduate Student Enrollment
+
+•   The campuses are experiencing caution in PI spending from contracts and grants, especially
+    from junior faculty, due to the intolerably high degree of uncertainty and the inability to
+    accurately track balances in a timely fashion. This lack of information is beginning to
+    manifest itself in overly cautious recruitment and admissions strategies deployed by faculty
+    across multiple academic units, thus impacting enrollment targets.
+•   Enrollment targets are further hampered by the impacts to purchasing and procurement,
+    which have slowed the acquisition of supplies essential to advance research projects, thus
+    impacting the timeliness of graduate student and postdoctoral research progress. These
+    delays, coupled with COVID-19-related impacts, have led to increases in time to graduation.
+    This in turn is limiting the ability of PIs to use grant funds on new students, further
+    contributing to reduced enrollments.
+         o In the case of postdocs, who do not have the luxury of additional months due to the
+             nature of their position, delays result in deleterious impacts in their ability to compete
+             in the academic and industry workforce.
+•   The disastrous nature of the transition coupled with large staff attrition due to stress caused
+    by the transition has led to decisions to delay or forgo grant submissions, as confidence in
+    contracts and awards account management is at an all-time low. The transition is also eroding
+    relationships with grantors, who are dismayed by late annual progress reports, untimely
+    invoicing, low expenditures, and awardee uncertainty. All these challenges further impact the
+    ability of PIs to acquire and use grant funds for graduate student enrollments and recruitment
+    of postdoctoral fellows.
+
+Impacts to Graduate and Postdoctoral Progress & Equity
+
+•   The significant delay in reimbursements presents a substantial equity concern for graduate
+    students and postdocs by imposing a particularly acute financial burden. To put the matter in
+    perspective, $500 in outstanding reimbursements represents more than ten percent of a typical
+    postdoctoral scholar’s monthly salary. This fraction is even higher, around twenty percent, for
+    a graduate student. Students and postdocs simply cannot afford to engage in activities central
+    to their research focus and career development in the absence of prompt reimbursements. The
+    harm the extreme delay in reimbursement causes to students and postdoctoral scholars can
+    extend from financial stress to mental stress, compounding the effects of an already-stressful
+    career stage and the pandemic.
+•   Due to the inability to rapidly access information coupled with staffing shortages, PIs are not
+    able to recruit and hire postdocs in a timely fashion to successfully advance extramural
+    funding objectives, impacting the institution’s ability to provide a robust research
+    environment for training graduate students and postdocs.
+•   The switch to Oracle and the challenges it has presented has strained staff resources, and
+    increased tensions between campus communities. This, coupled with research slowdowns
+    caused by the transition have eroded trust across the campus, and has inevitably extended to
+    graduate students and postdocs, negatively impacting their sense of belonging and overall
+    learning and training.
+
+The Request:
+
+•   For this transition to work for any campus, we must collectively find ways to best use the
+    product, improve processes, and staff-up to fill service and support gaps. As other campuses
+    are slated to transition to this product, we need to be working collaboratively to solve the
+    extensive problems associated with its implementation and use. UC Operations should
+    organize and fund such a collaboration and stakeholder campuses should be leaders in the
+    process. This includes a mandate to share solutions amongst the campuses and bring in
+    consultants and/or establish a system-wide consortium to help with process mapping and
+    bespoke solutions suitable for University business operations under the new system.
+•   The transition to Oracle Alpha financials has resulted in significantly greater staffing needs.
+    More permanent funding to impacted campuses to support staffing in business operations and
+    IT infrastructure is needed. Addressing the staffing challenge also requires realignment of HR
+    policies that frequently work against retention of dedicated and talented staff. Higher
+    compensation is needed for staff tasked with interfacing with the new systems to accept and
+    take on the many challenges brought about by their implementation. Two and a half years
+    into this situation, it has to be acknowledged that there is not a ‘quick fix’ and staffing has to
+    increase to reflect the permanent inefficiencies introduced by Oracle and its downstream
+    work flows.
+•   While the experiences of UC Merced and UC San Diego will improve the rollout at other
+    campuses, the fact remains that this came with significant negative impacts to graduate
+    students and postdocs at these two campuses. The campuses should receive support for
+    having taken point on this transition. Such support should include relief funds for graduate
+    students and postdoctoral scholars to alleviate the strife to personal finances, remove
+    stressors, and mitigate negative impacts to their career advancement.
+•   Given the disastrous nature of this transition and its extensive negative impacts, OP must do a
+    better job of consulting with a broader range of constituencies prior to making similar
+decisions in the future. There has been no cost savings achieved and there has been a
+significant destructive effect on the training and research missions, whose lifeblood are
+graduate students and postdoctoral fellows, at two major UC campuses.
+
+CCGA asks that Council endorse this letter and send it to President Drake, COO Nava, and
+Provost Brown.
+
+Thank you for your attention to this matter.
+
+Sincerely,
+
+
+
+Andrea M. Kasko
+CCGA Chair
+
+c: Susan Cochran, Academic Senate Vice Chair
+   Monica Lin, Academic Senate Executive Director
+   Michael LaBriola, Academic Senate Assistant Director
+   CCGA Members
+   UCACC Members
+October 14, 2021
+To: Robert Horwitz, Academic Council Chair
+From: Karen Bales, UCORP Chair
+Re: Financial accounting software problems on the campuses
+
+Updates to campus Oracle financial systems were mandated by UCOP to be completed by July 1,
+2023. These updates are proceeding at different paces on different campuses, and with different
+levels of impact. The software changes, if not handled well, have the potential to generate quite
+negative effects on faculty’s ability to conduct funded research activities (and in some cases,
+have already had these negative impacts). These impacts are in addition to the hurdles to research
+already experienced due to COVID, UC Path, and recent passage of new requirements affecting
+procurement (requirements to use small businesses and conduct extended review of software).
+
+Perhaps most impacted has been UC Merced. Introduction of the new Oracle financial system
+has led to the slowing of procurement, inability to accurately determine grant balances, late
+invoicing, lost funding opportunities and even return of unexpended funds. Problems are
+exacerbated by lack of budget analysts and other financial accounting staff.
+
+Similar problems have been experienced at UC San Diego, which is apparently the host for UC
+Merced and UCOP. At UCSD, frustration and unhappiness with the Oracle financial accounting
+system (referred to locally as Enterprise Systems Renewal) led to a petition drive among affected
+researchers to the Chancellor. The Chancellor convened a task force to find root causes of the
+problem and recommend a path forward.
+
+Problems with the financial software have impact on domains beyond research. It is nearly
+impossible for researchers to complete their OATS certification because they are unable to
+access the necessary financial information on their grants without assistance from already
+overburdened budget analysts. Another unit that suffers from the balky financial accounting
+software is UC Press. The Press struggles to gain access to basic financial information.
+
+In contrast, at UC Berkeley the new systems were implemented with fewer issues, due to the
+recognition that the problem was a management one involving needing additional staff and
+careful alignment tools, process, and goals.
+
+Several other campuses are in the midst of planning processes and keeping a close eye on the
+campuses that have already implemented the change. UC Davis is planning to move to a new
+financial system called Aggie Enterprise in July 2023. The system is an Oracle Cloud-based
+solution and UC Davis is working with Deloitte, which is helping with its design and
+implementation. UC Riverside is working with Deloitte as well and plans to finalize software
+contracts and officially start implementation this fall. UCLA is moving to Oracle Financials
+Cloud and Enterprise Financial Cloud, and after some reported problems, is relaunching these
+projects in October 2021. UC Santa Barbara is still in the scoping phase and the timeline for
+conversion is mid-2023. Division chairs at UC Irvine and UC Santa Cruz were unable to obtain
+any information on the intended plans for their campuses.
+

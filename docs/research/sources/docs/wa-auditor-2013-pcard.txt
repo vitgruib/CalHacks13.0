@@ -1,0 +1,1237 @@
+           OR OF ST
+AUD
+      IT
+                                 AT
+                                    E   Washington State Auditor’s Office
+W   A
+        SH
+           NO
+                V 11 , 1 8 8 9
+                 INGT
+                                 N
+                                 O                                                           Troy Kelley
+                                           I n d e p e nd e n ce • Re spe c t • I nte g r it y
+
+
+
+
+  Credit Card Use by State Universities
+  December 16, 2013
+  Report number: 1010857
+
+
+
+
+  This audit examined whether state universities had effective
+  internal controls on the use of state-issued credit cards. While
+  in most cases internal controls were in place and credit cards
+  were used for allowable purchases, we found that cards were
+  used to make more than $225,000 in purchases prohibited by
+  state policies for alcohol, gifts and other items.
+Table of Contents
+Executive summary                                                                                3
+Introduction                                                                                     5
+   Audit authority                                                                                5
+   About the state credit card program                                                            5
+   How much did institutions of higher education buy with
+   with credit cards?                                                                             6
+   Audit scope, objective and methodology                                                         7
+Audit results                                                                                    8
+   University of Washington                                                                       8
+
+   Washington State University                                                                  14
+
+   Western Washington University                                                                18
+
+University responses                                                                           21
+Concluding remarks by the State Auditor’s Office                                               30
+Appendix A – Audit criteria                                                                    31
+
+
+Contact information
+Troy Kelley,                                            Chuck Pfeil,
+State Auditor                                           Director of Performance Audit
+(360) 902-0361                                          (360) 902-0366
+Auditor@sao.wa.gov                                      Chuck.Pfeil@sao.wa.gov
+
+Thomas Shapley,                                         Mary Leider,
+Deputy Director of Communications                       Public Records Officer
+(360) 902-0367                                          (360) 725-5617
+Thomas.Shapley@sao.wa.gov                               PublicRecords@sao.wa.gov
+
+General information
+www.sao.wa.gov
+(360) 902-0370
+
+ The Washington State Auditor’s Office is an Equal Employment Opportunity employer. Persons with a
+ disability who need assistance in the applications process, or who need this information in an alternate
+ format, may call 360-725-5623 or the telecommunications device for the hearing impaired at 1-800-
+ 833-6388.
+
+
+
+                                                                                Credit Card Use by State Universities :: Table of contents | 2
+Executive summary
+
+Audit overview
+Public agencies and institutions of higher education in Washington are permitted
+to use credit cards to improve efficiency, flexibility and convenience when buying
+goods and services. However, state policies established by the Department of
+Enterprise Services (DES) limit what can be purchased with credit cards.
+In fiscal year 2012, the six four-year colleges and universities in Washington used
+credit cards to buy more than $164 million in goods and services.
+We performed an audit to determine if the three universities that made more than
+95 percent ($157 million) of all purchases, had effective internal controls in place
+over the use of credit cards.
+The three universities we audited were:
+   • The University of Washington (UW)
+   • Washington State University (WSU)
+   • Western Washington University (WWU)
+We reviewed $7,915,552 in purchases – five percent of all the purchases the three
+universities made with their cards in fiscal year 2012.
+
+          Unallowable purchases with credit cards
+ Purchase contained alcohol or liquor license    $136,244
+ Gifts to individuals or groups                   $80,627
+ Inter-department purchases                        $8,963
+ Travel-related expenses                             $547
+ Charitable donations                                $202
+ Total unallowable purchases                    $226,583
+
+Credit cards were used to make unallowable purchases
+In most cases, the purchases we audited were made for allowable purposes and the
+universities had internal controls in place to review and approve their transactions.
+However, we found cards were used to make purchases of items that state policies
+do not allow, such as alcohol and gifts. The cost of the unallowable purchases
+identified during the audit totaled $226,583.
+
+
+
+
+                                                                Credit Card Use by State Universities :: Executive summary | 3
+While performing our audit to determine if credit cards were
+only used to make allowable purchases, other issues came to our
+attention.
+We found:
+     • The three universities used credit cards to make purchases that were not
+       supported by adequate documentation. For example, in fiscal year 2012 the
+       universities paid more than $4.5 million for food and beverages. For the
+       purchases we tested where food and beverages were attributed to business
+       meetings, supporting documents did not adequately describe why the food
+       and beverages were integral to the meetings.
+     • Instances when non-discretionary funds1 were used to pay for purchases
+       that were not allowable according to universities policies. For example,
+       the UW used credit cards to purchase more than $63,000 with its
+       non-discretionary funds for decorative and gift items and to pay for the
+       cost of meals that exceeded the state-allowed per diem. University policy
+       stipulates these expenses must be paid for with discretionary funds. We
+       also found instances when university policies were lacking, unclear and/or
+       contradictory.
+
+Recommendations
+We recommend the universities use credit cards only to make purchases that are
+allowable according to state policies.
+We make other recommendations regarding how each of the universities can
+improve compliance with other state and university policies, improve internal
+controls and promote accountability over the use of public resources.
+
+
+
+
+ 1
+  See page 7 of the report for a definition of discretionary and non-discretionary funds.
+
+
+
+                                                                           Credit Card Use by State Universities :: Executive summary | 4
+Introduction
+
+Audit authority
+We performed this audit under the authority of state law (RCW 43.09.310), which
+requires the State Auditor to perform post-audits of state agencies. These audits are
+designed to assess whether agencies have systems in place to ensure accountability
+over public funds and comply with state laws and policies. Educational institutions
+are included in the definition of a state agency (RCW 43.09.290).
+About the state credit card program
+Public agencies and institutions of higher education in Washington are permitted
+to use credit cards to improve their efficiency, flexibility and convenience when
+buying goods and services. However, there are limits on what they can buy with
+these cards.
+The Department of Enterprise Services (DES), has established a credit card
+program with policies and standards2 public agencies and institutions of higher
+education must follow when using them. State law3 authorizes DES to establish
+these policies and standards.
+While state law4 grants colleges and universities some flexibility to independently
+exercise certain powers otherwise granted to the director of DES, it does not
+exempt them from policies and standards of the state credit card program.
+These state policies and standards describe both acceptable and unacceptable uses
+of credit cards. Examples of purchases that are unacceptable include:
+   • Alcoholic beverages and liquor licenses
+   • Gifts and donations
+   • Inter-department purchases
+   • Personal purchases
+A complete list of what state credit cards may and may not be used to purchase is
+presented in Appendix A of the report.
+Public agencies and institutions of higher education may devise more restrictive,
+but not less restrictive, policies regarding what may be purchased with their state
+credit cards. In planning our audit, we considered any additional restrictions put
+in place by the universities.
+
+
+
+
+  2
+    State Administrative Accounting Manual (SAAM) - Chapter 45
+  3
+    RCW 43.41.180
+  4
+    RCW 28B.10.029                                                   Credit Card Use by State Universities :: Introduction | 5
+How much did four-year institutions of higher education
+buy with credit cards?
+As shown in Exhibit 1, the six four-year colleges and universities in Washington
+purchased more than $164 million in goods and services with credit cards in the
+fiscal year ending June 30, 2012.
+All six institutions have contracted with J.P. Morgan as the financial institution
+that supports their credit card programs. The institutions primarily use an online
+system, called PaymentNet, to review purchases and assign appropriate budget
+and account codes.
+Exhibit 1 – The three four-year schools we audited accounted for 95 percent of all
+university credit card spending in Washington
+
+
+
+                          Washington
+                        State University
+                            $32.8 M
+     University of                         Western Washington
+     Washington                             University - $5.7 M
+      $119.4 M
+                                             Eastern Washington University - $2.9M
+                                             Central Washington University - $2.8 M
+                                             The Evergreen State College - $1.3 M
+
+
+
+
+As Exhibit 2 shows, the number of credit cards used by these institutions ranged
+from 60 by the Evergreen State College to more than 3,100 by the University of
+Washington.
+Exhibit 2 – The number of credit cards used by each school varied from 60 to more
+than 3,000
+     The Evergreen
+      State College     60
+
+ Eastern Washington
+          University     125
+
+Central Washington
+         University      176
+
+Western Washington
+         University          322
+
+   Washington State
+                                           1,284
+         University
+
+        University of
+        Washington
+                                                                      3,154
+
+
+
+
+                                                                                      Credit Card Use by State Universities :: Introduction | 6
+Universities and colleges pay their credit card bills using discretionary
+and non-discretionary funds
+Colleges and universities in Washington receive a small percentage of their annual
+operating budgets directly from the state general fund. The majority of their
+operating revenues come from enterprise functions, such as UW Medicine and
+athletic programs. Other sources of operating revenue include: student tuition and
+fees and federal and state grants. A university’s use of its public, non-discretionary
+funds is limited to the authority established in law, and by granting agencies or
+specific directives of donors.
+Unlike most public agencies, universities and colleges also receive funds from
+private donations. At times, donors give money with specific purposes in mind,
+restricting the use of their gifts. Donors also give funds without placing any
+limitations on how the money should be spent. This type of gift money is classified
+by the universities as “discretionary” and is used for such purposes as the Board of
+Regents (or President, Dean, etc.) deems to be in the best interest of the university
+or college.
+Institutions of higher education use their credit cards to buy goods and services
+paid for by both non-discretionary funds and discretionary funds. Although the
+institutions use discretionary funds to pay for things non-discretionary funds
+cannot, state policies5 limit what credit cards can be used to buy.
+
+Audit scope and objective
+We limited the audit scope to the following three universities that spent the most
+with credit cards in state fiscal year 2012:
+   • University of Washington ($119.4 million)
+   • Washington State University ($32.8 million)
+   • Western Washington University ($5.7 million)
+We designed the audit to determine whether these universities had effective
+internal controls in place to ensure credit cards are only used for allowable
+purposes. Each university’s results are presented in separate sections because they
+operate independently of one another.
+Methodology
+We selected which cardholders and purchases to review using a risk-based approach.
+The following are examples of the criteria we used to make our selections:
+  • Cardholders who spent the most
+  • Uncommon merchant names
+  • Round amounts (i.e. $25, $50, $100)
+  • Transactions with questionable, vague or blank purchase descriptions
+We visited each university, conducted interviews with staff and reviewed
+supporting documentation for credit card purchases.
+To determine what state laws and policies pertain to credit card use by institutions
+of higher education, we consulted with staff from OFM and our legal advisors.
+
+
+
+  5
+   SAAM Chapter 45                                                    Credit Card Use by State Universities :: Introduction | 7
+Audit results
+
+University of Washington
+Summary of audit results
+In most cases, the credit card purchases we audited were made for allowable
+purposes and the UW had effective internal controls in place. However, we found
+some UW credit cards were used to make $197,265 in purchases that were not
+allowable according to state policies. We also found areas where the university can
+improve its internal controls, compliance with other state and internal policies
+and accountability in the use of public resources.
+Audit overview
+The University of Washington has established its credit card program for efficiency
+purposes, to reduce its reliance on petty cash funds and to eliminate the use of
+personal funds.
+In state fiscal year 2012, UW employees used credit cards to buy more than $119
+million in goods and services – roughly 72 percent of all card purchases by the
+four-year institutions of higher education. As of June 30, 2012, UW had 3,154
+active cards.
+Exhibit 3 shows the scope of our audit: We examined transactions made by
+87 cardholders and reviewed supporting documentation for 3.5 percent of all
+purchases made by the university.
+Exhibit 3 - University of Washington audit coverage
+Number of all active UW credit cards              3,154
+Total amount purchased                         $119,351,579
+Number of credit cards selected for audit          87
+Amount of purchases audited                    $4,140,356
+Percent of total purchases audited                3.5%
+
+Internal controls
+The UW credit card program is administered by the Procurement Services
+Department. It offers mandatory training for new credit card users and ongoing
+training for existing users. The Department has also established internal policies
+and procedures that describe the roles and responsibilities of card holders and
+reviewers. The responsibility for the use of credit cards rests with the cardholders,
+reconcilers and administrators within departments across the university.
+The Procurement Card Services team conducts monthly reviews of high-risk
+purchases and contacts the cardholder and/or department administrator for
+additional information. When appropriate, the team advises departments on what
+corrective measures should be taken and educate the user about the applicable
+policies and procedures. Purchases that are considered high risk are food, fuel for
+vehicles, travel and those made through PayPal. Additionally, UW has maintained
+a maximum purchase limit of $3,500, which is significantly below the direct buy
+limit established by state policies. Any purchases over this limit must receive prior
+authorization from the Procurement Services Department.
+
+
+                                                                     Credit Card Use by State Universities :: Audit results | 8
+The Procurement Services Department creates reports for the high-risk purchases
+it identifies, which are available to all managers across the university. Each
+month the Department identifies between 150 and 200 purchases and reports this
+information to credit card administrators. Only one department we visited during
+the audit used these reports to monitor its purchases.
+UW uses discretionary funds to pay for some credit card charges
+The UW uses credit cards to buy goods and services paid for with both
+non-discretionary and discretionary funds. The University has not implemented
+institution-wide policies that describe what card holders can purchase with
+discretionary funds. Reliance is placed on individual departments across the
+University to manage how their discretionary funds are spent.
+In fiscal year 2012, approximately $5.3 million (4.4 percent) of all UW credit card
+purchases were paid for with its discretionary funds.
+
+Detailed audit results
+In most cases, the over $4.1 million in credit card purchases we audited were made
+for allowable purposes and the University had effective internal controls in place.
+However, we found University credit cards were used to make purchases totaling
+$197,265 that were not allowable according to state policies. Exhibit 4 lists the
+types of unallowable purchases we found were made with UW credit cards and
+their costs.
+Exhibit 4 - UW used credit cards to buy items not allowable by state policies
+ Description                                    Amount paid
+ Purchase contained alcohol or liquor license       $118,146
+ Gifts to individuals or groups                     $72,532
+ Inter-department purchases                          $5,838
+ Travel related expenses                               $547
+ Charitable donations                                  $202
+ Total unallowable purchases                       $197,265
+
+
+Alcohol and liquor licenses
+Credit cards may not be used to buy alcoholic beverages and liquor licenses. We
+found UW spent $118,146 for purchases that included alcohol or liquor licenses.
+Gifts to individuals or groups
+Credit cards may not be used to buy gifts. We found UW used its cards to purchase
+gifts given to individuals or groups totaling $72,532. Examples include gift cards,
+baskets and flower arrangements.
+Inter-department purchases
+Purchases between internal departments of an agency may not be made with
+credit cards, unless it has already obtained written approval from the OFM. We
+found UW spent $5,838 on inter-department purchases without approval.
+
+
+
+
+                                                                    Credit Card Use by State Universities :: Audit results | 9
+Travel expenses
+UW policies do not allow cardholders to use their credit cards for travel expenses
+such as: airfare, lodging, rental cars, and meals. We found UW spent $547 using
+credit cards for travel-related expenses.
+Charitable donations
+State policies do not allow agencies or institutions of higher education to make
+donations with credit cards.
+We examined invoices and other supporting documents for a selection of
+organizations UW paid with credit cards and found three instances, totaling
+$202, when UW did not receive any consideration in exchange for its payments to
+the organizations.
+Non-discretionary funds were used to purchase unallowable expenses.
+The UW has established policies that prohibit the purchase of decorative items, gifts
+and food for the following activities unless they are paid for with its discretionary
+funds:
+   • Graduation events
+   • Regularly scheduled meetings
+   • Meals costs that exceed state per diem
+As seen in Exhibit 5 we found non-discretionary funds totaling $63,266 were
+spent with credit cards to make these unallowable purchases.
+Exhibit 5 - UW allowable expenses paid with non-discretionary funds
+Description                                   Amount paid
+Decorative and gift items                          $40,080
+Food for graduation events and regularly           $18,020
+scheduled meetings
+Over per-diem                                       $5,166
+Total unallowable expenses                         $63,266
+
+While performing tests to determine if credit cards were used to
+make allowable purchases, other issues came to our attention.
+By strengthening its internal controls and documentation in certain areas,
+UW can improve its compliance with other state and university policies and its
+accountability over the use of public resources.
+Purchase of meals and light refreshments for meetings
+State policies allow public agencies and institutions of higher education to provide
+meals and light refreshments at meetings and training sessions, only when these
+conditions are met:
+   • The purpose of the meeting is to conduct state business or provide formal
+      training that benefits the state.
+   • The food is an integral part of the meeting.
+   • A receipt for the actual costs of the food is obtained.
+   • The meeting takes place away from the employee’s or official’s regular
+      workplace.
+   • The purchase is approved by an agency head, or designee, before the event.
+                                                                    Credit Card Use by State Universities :: Audit results | 10
+In addition to this state policy, the University has implemented internal policies
+that further restrict when employees may purchase food for meetings.
+For the purchases we audited, documentation was not adequate for us to determine
+whether serving food and light refreshments was integral to the meetings or
+training sessions. In state fiscal year 2012, UW used its credit cards to buy more
+than $3.3 million for meals with meetings or light refreshments paid for with
+non-discretionary funds.
+Hosting activities
+UW has multiple policies that describe when departments can purchase food for
+hosting, entertaining and social activities and what funds may be used to pay for
+these expenses. Examples of these activities for which food was purchased were:
+   • Employee birthdays
+   • Retirement celebrations
+   • Holiday parties (i.e. Christmas)
+   • Department and donor receptions
+Of the $4.1 million of UW credit card transactions we reviewed, $267,268 was
+purchased with its non-discretionary funds to buy food that appeared to be served
+during a hosting activity.
+We found the university policies that describe the allowable uses of non-discretionary
+funds for hosting activities were unclear and contradictory in some instances. This
+condition could lead to uncertainty and inconsistencies by departments and staff
+when trying to determine if an expense is allowable.
+Inadequate supporting documentation for sponsorships
+Some credit cards were used to sponsor external activities and events of charitable
+and not-for-profit organizations. Organizations UW made payments to include: the
+American Cancer Society, Group Health Foundation, Puget Sound Blood Center
+and the Humane Society.
+One UW department (UW Medicine) has a policy that describes the requirements
+for its sponsorship arrangements. In part, the requirements stipulate:
+   • UW must receive meaningful value for sponsorship payments.
+   • The benefits received must be reasonably scaled to the size of the payment it
+       makes.
+   • The specific consideration received from the sponsorship must be fully
+       documented in writing.
+We examined invoices and other supporting documents for a selection of
+organizations UW paid with credit cards and found:
+   • Three instances when invoices from the organizations stated that the value
+       of the goods and services it provided was less than the payment amount it
+       received from UW. The difference between the value of the consideration
+       UW received and the amount paid was $8,300. The organizations
+       characterized these differences as tax deductible, charitable contributions.
+   • Eleven other instances, totaling $64,750, when documentation was not
+       adequate for us to conclude whether:
+       • UW received meaningful value for payments it made to organizations; or
+       • The benefit(s) UW received were reasonably scaled to the size of the
+          payment.
+
+                                                                    Credit Card Use by State Universities :: Audit results | 11
+Purchases not supported by receipts
+Public agencies and institutions of higher education must maintain documentation
+to support their purchases. In 2011, UW applied for and was granted a partial
+waiver of this requirement by OFM. The university is only required to retain
+supporting documentation for purchases costing $75 or more.
+We found 88 credit card purchases that exceeded $75 and were not supported by
+original or itemized receipts. These purchases cost $133,553.
+Inaccurate coding for purchases
+We noted 668 purchases totaling $483,166 that had inaccurate account coding.
+State policies7 require public agencies and institutions of higher education to
+properly classify transactions. To meet this requirement, account codes are
+established to ensure management has an accurate record of purchases by class.
+This information may be used for budget and planning purposes.
+Accurate coding is also critical for items such as laptops, which may not meet
+capitalization thresholds. These types of assets are considered attractive items
+for which inventory and tracking is required. We did not test the University’s
+procedures over property management as part of this audit.
+Other credit card uses
+We identified credit card purchases totaling $15,683 when supporting
+documentation did not clearly show how the educational, research or service
+mission of the University was met. UW paid for most of these purchases with its
+discretionary funds.
+Regular espresso expenses for graduate students
+Espresso coffee and a milk delivery service costing $6,652 in one year were
+purchased with a credit card. These items were used to supply an espresso machine
+used by UW graduate students.
+Department holiday party
+In December 2011, a credit card was used to pay $2,344 for the catering expenses
+of a department holiday party.
+Department Chair’s birthday celebration
+In June 2012 a credit card was used to pay $2,258 for food, decorations and rentals
+for a Department Chair’s birthday celebration.
+Columbia Tower Club membership
+Monthly membership dues totaling $2,031 were paid for an employee to join the
+Columbia Tower Club, which is a premier private business and social club located
+in downtown Seattle.
+Seattle Storm season tickets
+A UW athletic department credit card was used to pay for season tickets to the
+Seattle Storm, a professional women’s basketball team. The tickets cost $1,296.
+
+
+
+
+7
+    SAAM 45.20.20
+
+
+                                                                  Credit Card Use by State Universities :: Audit results | 12
+Other activities more social than business in nature
+Some departments used credit cards to make $1,102 in purchases for activities that
+were more social than business in nature. Examples include food and decorations
+for:
+   • Birthdays
+   • Baby showers
+   • Staff retirement and going away celebrations
+The UW does not have a University-wide policy that defines what can be purchased
+with its discretionary funds. We believe such a policy would provide clarity to
+departments regarding what the Board of Regents and University leadership
+consider an acceptable use of these funds.
+
+Recommendations
+We recommend the University of Washington:
+  • Use credit cards only to buy goods and services that are allowable
+     according to state policies.
+  • Use non-discretionary funds to pay only for goods and services that are
+     allowable according to state and university policies.
+  • Improve its documentation to support why serving food and light
+     refreshments is integral to meetings.
+  • Use high-risk purchase reports to monitor credit card purchases.
+  • Review transactions more thoroughly to ensure they are properly coded.
+  • Clarify its policies that describe when hosting activities are allowable
+     university expenses.
+  • Sponsor activities of other entities only where the University can document
+     value to the university reasonably scaled to the amount of the University’s
+     expenditure.
+  • Implement a University-wide policy that establishes rules or parameters
+     in how departments can spend discretionary funds. These policies should
+     provide clarity and more consistency in how cardholders and departments
+     use these funds.
+
+
+
+
+                                                                 Credit Card Use by State Universities :: Audit results | 13
+Washington State University
+Summary of audit results
+In most cases, the credit card purchases we audited were made for allowable
+purposes and WSU had effective internal controls in place. However, we found
+some WSU credit cards were used to make purchases totaling $28,439 that were
+not allowable according to state policies. We also found areas where the university
+can improve its internal controls, compliance with other state policies and
+accountability over pubic resources.
+Audit overview
+Washington State University has established a credit card program as an
+alternative, efficient and convenient method for purchasing.
+In state fiscal year 2012 WSU employees used credit cards to buy more than $32
+million in goods and services – roughly 20 percent of all card purchases by the
+four-year institutions of higher education. As of June 30, 2012, WSU had 1,284
+active cards.
+Exhibit 6 shows the scope of our audit: We examined transactions made by 72
+cardholders and reviewed supporting documentation for 9 percent of all purchases
+made by the university.
+Exhibit 6 - Washington State University audit coverage
+Number of all active WSU credit cards            1,284
+Total amount purchased                        $32,762,170
+Number of credit cards selected for audit         72
+Amount of purchases audited                   $2,957,716
+Percent of total purchases audited               9.0%
+
+Internal controls
+The WSU credit card program is administered and maintained by the following
+Departments:
+  • The WSU Purchasing Services Department provides central oversight of
+     the program by issuing and cancelling cards, providing education and
+     training and assisting in the development of University policies.
+  • The Accounts Payable Department provides oversight by reviewing
+     transactions, uploading payment information into the University’s
+     accounting system and processing payments.
+  • Individual cardholders and department-level reviewers are primarily
+     responsible for maintaining the University’s internal controls over
+     purchasing.
+In addition to the centralized and department-level reviews of purchases, regularly
+scheduled compliance audits are performed by WSU internal auditors. The most
+recent internal audit report was published in December 2012.
+
+
+
+
+                                                                  Credit Card Use by State Universities :: Audit results | 14
+WSU uses discretionary funds to pay for some credit card charges
+WSU uses credit cards to buy goods and services paid for with non-discretionary
+and discretionary funds. The University has implemented institutional-wide
+policies that describe what purchases Departments can make with its discretionary
+funds, within the following restrictions:
+   • The use of the funds must benefit the University
+   • The use must conform with donor intent
+   • The purchase must meet the test of public scrutiny for appropriateness
+Reliance is placed on individual departments across the University to manage
+how discretionary funds are spent. Transactions receive a second review by the
+Accounts Payable Department before being processed for payment.
+
+Detailed audit results
+In most cases, the $2.9 million in credit card purchases we audited were made for
+allowable purposes and WSU had effective internal controls in place.
+However, we found University credit cards were used to make purchases totaling
+$28,439 that were not allowable according to state policies. Exhibit 7 lists the types
+of unallowable purchases we found were made with WSU credit cards and their
+cost.
+Exhibit 7 - Unallowable use of credit cards by WSU
+ Description                                            Amount paid
+ Purchases that contained alcohol or a liquor license       $17,486
+ Gifts to individuals or groups                              $7,975
+ Inter-department purchases                                  $2,978
+ Total unallowable purchases                                $28,439
+
+While performing audit tests to determine if credit cards were used
+to make allowable purchases, other issues came to our attention.
+By strengthening its internal controls and documentation in the following areas,
+WSU can improve its compliance with other state policies and accountability over
+the use of public resources.
+Purchases for meals and light refreshments
+State policies allow public agencies and institutions of higher education to provide
+meals and coffee and light refreshments at meetings and training sessions, only
+when these conditions are met:
+   • The purpose of the meeting is to conduct state business or provide formal
+      training that benefits the state.
+   • The food is an integral part of the meeting.
+   • A receipt for the actual costs of the food is obtained.
+   • The meeting takes place away from the employee’s or official’s regular
+      workplace.
+   • The purchase is approved by an agency head, or designee, prior to the
+      event.
+
+
+                                                                      Credit Card Use by State Universities :: Audit results | 15
+In addition to this state policy, the University has put in place internal policies that
+further restrict when employees may purchase food and refreshments. For example,
+WSU requires all food and beverages purchased with its non-discretionary funds
+to be supported by a request to serve form. This form includes fields that describe
+the purpose and date/time of the event, the location, sponsoring department
+contacts and a list of attendees. The form must be signed by an approving official.
+For the purchases we audited, the required forms were present and signed by
+approving officials. However, this documentation was not adequate for us to
+determine why serving the food and light refreshments was integral to the
+meetings or training sessions. In state fiscal year 2012, WSU used its credit cards
+to buy food and beverages costing $919,482.
+Purchases not supported by receipts
+Public agencies and institutions of higher education must maintain documentation
+to support their purchases. We found 31 purchases, totaling $4,053, were not
+supported by original or itemized receipts.
+Inaccurate coding for purchases
+We noted 55 purchases totaling $32,036 that had inaccurate account coding. State
+policies8 require public agencies and institutions of higher education to properly
+classify transactions. To meet this requirement, account codes are established to
+ensure management has an accurate record of purchases by class. This information
+may be used for budget and planning purposes.
+Accurate coding is also critical for items such as laptops, which may not meet
+capitalization thresholds. These types of assets are considered attractive items
+for which inventory and tracking is required. We did not test the University’s
+procedures over property management as part of this audit.
+Personalized hand-held electronic devices
+We found WSU made nine purchases (totaling $5,890) for hand-held electronic
+devices, such as IPads, that were engraved with an employee’s name.
+Other credit card uses
+Payment for guests’ meals with non-discretionary funds
+One credit card was used to buy food totaling $1,275 for meals of guests travelling
+on an official event with an athletic team. These meals were paid for with
+non-discretionary funds. Guests included family members of employees and
+other non-state employees, such as donors.
+The University provided us with copies of employment contracts showing that
+spouses of employees may, at times, travel with the team to these events. However,
+the costs of their meals were not expressly listed as a reimbursable expense in these
+contracts. For the other guests no documentation, such as an employee contract,
+was provided showing that these costs were an allowable use of non-discretionary
+funds.
+Unnecessary student activity costs
+The registration for a student group to attend an event was pre-paid with a credit
+card. The group entered into contracts with two companies for 40 students to
+attend the event. We found only sixteen students actually attended the event,
+which led to unnecessary registration costs of $777.
+
+8
+    SAAM 45.20.20                                                     Credit Card Use by State Universities :: Audit results | 16
+Recommendations
+We recommend Washington State University:
+  • Use credit cards only to buy goods and services that are allowable
+     according to state policies.
+  • Improve its documentation to support why serving food and light
+     refreshments is integral to meetings.
+  • Not allow public assets to be engraved with employees’ names.
+  • More thoroughly review transactions to ensure they are properly coded.
+
+
+
+
+                                                             Credit Card Use by State Universities :: Audit results | 17
+Western Washington University
+Summary of audit results
+In most cases, the credit card purchases we audited were made for allowable
+purposes and WWU had effective internal controls in place. However, we found
+some WWU credit cards were used to make purchases totaling $879 that were not
+allowable according to state policies. We also found areas where the University
+can improve its internal controls, compliance with other state policies and
+accountability over pubic resources.
+Audit overview
+Western Washington University has established a credit card program designed
+to improve the efficiency, flexibility and convenience related to purchasing small-
+dollar goods and services.
+In state fiscal year 2012, WWU employees used credit cards to buy more than
+$5.7 million in goods and services – roughly 3.5 percent of all card purchases by
+the four-year institutions of higher education. As of June 30, 2012, WWU had 322
+active cards.
+Exhibit 8 shows the scope of our audit: We examined transactions made by 58
+cardholders and reviewed supporting documentation for about 14 percent of all
+purchases made by the University.
+
+ Number of all WWU active credit cards           322
+ Total amount purchased                       $5,708,485
+ Number of credit cards selected for audit        58
+ Amount of purchases audited                   $817,480
+ Percent of total purchases audited             14.3%
+
+
+Exhibit 8 - Western Washington University audit coverage
+Internal controls
+WWU has created a credit card administrator position that is responsible for
+the day-to-day operational activities of the University’s credit card program.
+The Administrator reviews card applications, assists in the design of the
+required employee training program and performs regularly scheduled audits of
+purchases. The Administrator’s audits are designed to verify whether cardholders
+and departments across the University are complying with state and university
+policies.
+The University has established a policy that requires departments and cardholders
+to obtain pre-approval from the Purchasing Department prior to buying certain
+items with credit cards. These items include, but are not limited to:
+   •   Computers, electronic equipment and accessories
+   •   Furniture
+   •   Transportation services
+   •   Decorative and gift items
+
+
+
+
+                                                                  Credit Card Use by State Universities :: Audit results | 18
+WWU uses discretionary funds to pay for some credit card charges
+WWU uses credit cards to buy goods and services paid for with both
+non-discretionary and discretionary funds. The University has not implemented
+institution-wide policies that describe what card holders can purchase with
+discretionary funds. The Western Washington University Foundation provides
+guidance and training on the appropriate uses of discretionary funds; however,
+reliance exists on individual departments across the University to manage these
+funds.
+In fiscal year 2012, the University used credit cards to make purchases totaling
+$299,334 with its discretionary funds.
+
+Detailed audit results
+In most cases, the $817,480 in credit card purchases we audited were made for
+allowable purposes and the University had effective internal controls in place.
+However, we found University credit cards were used to make purchases totaling
+$879 that were not allowable according to state policies.
+Exhibit 9 lists the types of unallowable purchases we found were made with WWU
+credit cards and their cost.
+Exhibit 9 - Unallowable use of credit cards by WWU
+ Description                                            Amount paid
+ Purchases that contained alcohol or a liquor license          $612
+ Inter-department purchases                                    $147
+ Gifts to individuals or groups                                $120
+ Total unallowable purchases                                  $879
+
+While performing tests to determine if credit cards were used to
+make allowable purchases, other issues came to our attention.
+By strengthening its internal controls and documentation in the following areas,
+WWU can improve its compliance with other state policies and accountability in
+the use of public resources.
+Purchase of meals and light refreshments for meetings
+State policies allow public agencies and institutions of higher education to provide
+meals and coffee and light refreshments at meetings and training sessions, only
+when these conditions are met:
+   • The purpose of the meeting is to conduct state business or provide formal
+      training that benefits the state.
+   • The food is an integral part of the meeting.
+   • A receipt for the actual costs of the food is obtained.
+   • The meeting takes place away from the employee’s or official’s regular
+      workplace.
+   • The purchase is approved by an agency head, or designee, prior to the
+      event.
+
+
+
+                                                                      Credit Card Use by State Universities :: Audit results | 19
+WWU requires all food and beverages purchases with non-discretionary funds be
+supported by an authorization request form. This form includes fields that describe
+the purpose and date/time of the event, the location, sponsoring department
+contacts and a list of attendees. This form must be signed by an approving official.
+For the purchases we audited, the required forms were completed and signed
+by approving officials. However, supporting documentation was not adequate
+for us to determine why serving the food and light refreshments was integral to
+the meetings or training sessions. In state fiscal year 2012, WWU used its credit
+cards to buy $265,005 for meals with meetings or light refreshments paid for with
+non-discretionary funds.
+Restricted items purchased without pre-approval
+University policy requires cardholders to obtain pre-approval from the Purchasing
+Department for some goods and services. We found nine instances when
+cardholders did not obtain pre-approval for restricted purchases totaling $2,542.
+Purchases not supported by receipts
+Public agencies and institutions of higher education must maintain documentation
+to support their purchases. We found 14 purchases, totaling $4,173, were not
+supported by original or itemized receipts.
+Inaccurate coding for purchases
+We noted 193 purchases totaling $23,431 that had inaccurate account coding. State
+policies9 require public agencies and institutions of higher education to properly
+classify transactions. To meet this requirement, account codes are established to
+ensure management has an accurate record of purchases by class. This information
+may be used for budget and planning purposes.
+Accurate coding is also critical for items such as laptops, which may not meet
+capitalization thresholds. These types of assets are considered attractive items
+for which inventory and tracking is required. We did not test the University’s
+procedures over property management as part of this audit.
+Gift cards
+We found five purchases for gift cards totaling $331 without supporting
+documentation to show who received them.
+
+Recommendations
+We recommend Western Washington University:
+  • Use credit cards only to buy goods and services that are allowable
+     according to state policies.
+  • Improve its documentation when purchasing food and light refreshments
+     to clearly show how serving them is integral to business meetings.
+  • More thoroughly review transactions to ensure they are properly coded.
+  • Implement a University-wide policy that establishes rules or parameters in
+     how departments can spend discretionary funds.
+
+
+
+
+9
+    SAAM 45.20.20                                                  Credit Card Use by State Universities :: Audit results | 20
+University responses
+
+
+December 2, 2013
+
+
+The Honorable Troy Kelley
+Washington State Auditor
+Insurance Building
+Capitol Campus
+302 Sid Snyder Avenue SW
+Olympia, WA 98504-0021
+
+Dear Mr. Kelley:
+
+Thank you for the opportunity to review and to provide our response to the State Auditor’s (SAO) audit
+of the University of Washington’s (UW) Procurement Card program. We appreciate the effort required
+to conduct the audit and draft the final report and the consideration of our response.
+
+The UW takes its stewardship responsibility very seriously and appreciates the recommendations
+provided by the SAO in their report. We agree with the State Auditor’s recommendation that the
+University only make purchases that are allowed under State Law and rules, as well as University Policy.
+As noted by the State Auditor, the UW has a variety of controls in place to ensure consistent
+compliance. However, we strongly disagree with many of the specific exceptions noted by the auditors
+and incorporated into the report.
+
+The SAO noted approximately $190K of purchases (out of a $4M+ sample) were deemed inappropriate
+as a result of being purchased using the UW Procurement Card. The transactions identified as
+unallowable fall into two main categories: alcohol and related liquor licenses and gifts to individuals or
+groups (the purchases in these two categories represent 97% of “items not allowable” as noted in the
+report).
+
+Procurement Method
+
+It is important to note that the UW and the SAO agree that the goods and services purchased were
+made for ALLOWABLE PURPOSES. As background, the University receives gifts from donors which can
+be used to support the University without regard to certain state rules. These discretionary donor funds
+are occasionally used to purchase alcohol for University related events that further the University’s
+mission (most frequently fundraising events with alumni and donors, etc.) and for gifts and awards for
+esteemed visitors, alumni, faculty and students. Also note that only 5.4% of annual donations to the
+University are specifically designated by donors as discretionary. The SAO did not take a position that
+the University’s purchases of alcohol or gifts and awards to esteemed individuals, students, faculty and
+alumni represented an unallowable purchase but rather, that the method of payment (procurement
+card) is unallowable, therefore deeming the purchase itself as unallowable.
+
+
+
+
+                                                             Credit Card Use by State Universities :: University responses | 21
+The current State rule notes that “…unacceptable uses (of state purchase cards) include gifts/donation
+and purchases from any merchant, product or service normally considered to be inappropriate use of
+state funds including alcoholic beverages or liquor licenses, unless permitted by statute or rule”. We
+believe the rules guiding the use of funds designated by donors as discretionary suggest procurement
+card to be an acceptable exception to the state rule. Further, the procurement card is one of the most
+efficient buying methods, with significantly lower processing costs than other methods for purchases of
+this nature. As such, conforming to the recommendation by the SAO would result in an additional $50K
+in annual processing costs. Thus, UW will work with the Department of Enterprise Services and the
+Office of Financial Management to clarify language in the rules to avoid incurring unnecessary
+processing costs for these goods and services purchased for allowable purposes.
+
+Documentation
+
+We disagree with the comment suggesting documentation for more than $3.3 million of University of
+Washington’s food and light refreshments was not adequate to confirm purchases were “integral” to a
+specific event. Our process requires approval prior to the purchase by the appropriate UW official with
+firsthand knowledge as to the “integral” nature of the food or light refreshment for the event. We
+believe this is a strong control mechanism and therefore meets all state requirements.
+
+Regarding the other specific recommendations for the UW, once again we note that generally we agree
+with the basic concepts in the findings, such as applying accurate account coding to specific
+expenditures; however, we disagree with many of the specific situations called out by the report.
+
+Thank you again for the opportunity to provide our response to the recommendations provided by the
+SAO and included in the draft report. The UW will consider the specific items as we continue to assess
+and identify opportunities to further strengthen controls related to the Procurement Card program.
+
+Sincerely,
+
+
+
+
+Ann Anderson                                           Richard Cordova
+Associate Vice President and Controller                Executive Director, Internal Audit
+
+
+
+CC:     Steve Wendling, Manager, SAO
+        Jim Brownell, Assistant Audit Manager, SAO
+
+
+
+
+                                                  2
+
+
+
+                                                           Credit Card Use by State Universities :: University responses | 22
+Credit Card Use by State Universities :: University responses | 23
+Credit Card Use by State Universities :: University responses | 24
+Credit Card Use by State Universities :: University responses | 25
+Credit Card Use by State Universities :: University responses | 26
+Credit Card Use by State Universities :: University responses | 27
+Credit Card Use by State Universities :: University responses | 28
+Credit Card Use by State Universities :: University responses | 29
+Concluding remarks from the State Auditor’s Office
+
+We reaffirm our position that credit cards were used to purchase certain items that state
+policies do not allow. However, we appreciate the commitment of the universities to work
+with the Department of Enterprise Services and the Office of Financial Management if
+they believe these policies should be amended.
+When credit cards were used to purchase food and beverages, we agree the universities
+substantially followed their established policies by completing required forms. However,
+we recommend the universities provide additional documentation that clearly states
+how providing food and beverages is integral to business meetings.
+We appreciate the commitment of the universities to strengthen their internal controls
+over other issues identified by the audit.
+
+
+
+
+                                                           Credit Card Use by State Universities :: Concluding remarks | 30
+Appendix A: Audit criteria
+
+RCW 28B.10.029 states in part:
+Property purchase and disposition — Independent printing production and purchasing
+authority — Purchase of correctional industries products.
+(1)(a) An institution of higher education may exercise independently those powers
+otherwise granted to the director of enterprise services in chapter 43.19 RCW in
+connection with the purchase and disposition of all material, supplies, services, and
+equipment needed for the support, maintenance, and use of the respective institution of
+higher education.
+(c)(i) Except as provided in (c)(ii) and (iii) of this subsection, purchasing policies and
+procedures followed by institutions of higher education shall be in compliance with
+chapters 39.19, *39.29, and 43.03 RCW, and RCW **43.19.1901, **43.19.1906, **43.19.1911,
+43.19.1917, **43.19.1937, 43.19.685, ***43.19.700 through 43.19.704, and 43.19.560 through
+43.19.637.
+(d) Purchases under chapter *39.29, 43.19, or 43.105 RCW by institutions of higher
+education may be made by using contracts for materials, supplies, services, or equipment
+negotiated or entered into by, for, or through group purchasing organizations.
+(f) Except for the University of Washington, institutions of higher education shall
+comply with RCW 43.19.769, 43.19.763, and 43.19.781.
+RCW 39.26.090 states in part:
+Director’s duties and responsibilities - Rules
+The director shall:
+(1) Establish overall state policies, standards, and procedures regarding the procurement
+of goods and services by all state agencies;
+(2) Develop policies and standards for the use of credit cards or similar methods to make
+purchases;
+(5) Have authority to delegate to agencies authorization to purchase goods and services.
+The authorization must specify restrictions as to dollar amount or to specific types of
+goods and services, based on a risk assessment process developed by the department.
+Acceptance of the purchasing authorization by an agency does not relieve the agency
+from conformance with this chapter or from policies established by the director. Also,
+the director may not delegate to a state agency the authorization to purchase goods and
+services if the agency is not in substantial compliance with overall procurement policies
+as established by the director;
+(11) Develop and enact rules to implement the provisions of this chapter.
+RCW 43.03.050 states in part:
+Subsistence, lodging and refreshment, and per diem allowance for officials, employees,
+and members of boards, commissions, or committees
+(3) The director of financial management may prescribe reasonable allowances to cover
+reasonable expenses for meals, coffee, and light refreshment served to elective and
+appointive officials and state employees regardless of travel status at a meeting where:
+(a) The purpose of the meeting is to conduct official state business or to provide formal
+training to state employees or state officials; (b) the meals, coffee, or light refreshment
+
+                                                                    Credit Card Use by State Universities :: Appendix A | 31
+are an integral part of the meeting or training session; (c) the meeting or training session
+takes place away from the employee's or official's regular workplace; and (d) the agency
+head or authorized designee approves payments in advance for the meals, coffee, or light
+refreshment. In order to prevent abuse, the director may regulate such allowances and
+prescribe additional conditions for claiming the allowances.
+(4) Upon approval of the agency head or authorized designee, an agency may serve coffee
+or light refreshments at a meeting where: (a) The purpose of the meeting is to conduct
+state business or to provide formal training that benefits the state; and (b) the coffee
+or light refreshment is an integral part of the meeting or training session. The director
+of financial management shall adopt requirements necessary to prohibit abuse of the
+authority authorized in this subsection.
+RCW 43.41.180
+Electronic funds and information transfer — State agency use.
+(1) The office of financial management is authorized to approve the use of electronic
+and other technological means to transfer both funds and information whenever
+economically feasible, to eliminate paper documentation wherever possible, and to
+provide greater fiscal responsibility. This authorization includes but is not limited to the
+authority to approve use of electronic means to transfer payroll, vendor payments, and
+benefit payments and acceptance of credit cards, debit cards, and other consumer debt
+instruments for payment of taxes, licenses, and fees. The office of financial management
+shall adopt rules under RCW 43.41.110(13) to specify the manner in which electronic and
+other technological means, including credit cards, are available to state agencies.
+(2) No state agency may use electronic or other technological means, including credit
+cards, without specific continuing authorization from the office of financial management.
+State Administrative Accounting Manual (SAAM) – Chapter 10 states in part:
+1.10.30 – Applicability
+All agencies of the state of Washington must comply with this manual, unless otherwise
+exempted by statute. RCW 43.88.020 defines the term "Agency" to mean and include
+"every state office, officer, each institution, whether educational, correctional or other,
+and every department, division, board and commission, except as otherwise provided."
+These policies shall comply with federal requirements. However, if any part of these
+policies are in conflict with federal requirements, that part of the policy will be
+inoperative to the extent of such conflict with respect to the agencies directly affected,
+until such time the policies are updated.
+Agencies may request a waiver from complying with specific requirements of this
+manual. For information on how to request a waiver, refer to Subsection 1.10.40.
+
+1.10.40 – How do I request a waiver to a policy?
+Pursuant to RCW 43.88.160(1), agencies may submit a written request for a waiver from
+complying with specific requirements of a policy. The request must be approved in
+writing by the Office of Financial Management before the waiver takes effect. Waivers
+automatically expire at the end of the fiscal biennium for which they were granted and
+are to be reapproved in writing to remain in force for the ensuing biennium. A copy of
+the waiver granted is provided to the appropriate legislative fiscal committees.
+
+
+
+                                                                     Credit Card Use by State Universities :: Appendix A | 32
+What types of travel costs cannot be reimbursed?
+10.20.20
+3. Certain travel expenses are considered as personal and not essential to the transaction
+of official state business. Such non-reimbursable expenses include, but are not limited to:
+    • Fines from appropriate jurisdictions for all parking tickets, citations or
+       infractions received while operating a vehicle on state business. Payment of fines
+       and citations under these circumstances is the sole obligation and responsibility
+       of the traveler and is NOT to be reimbursed or paid by the state. Refer to
+       Subsection 12.30.20.b #3.
+State Administrative Accounting Manual (SAAM) – Chapter 45 states in part:
+Purchase cards
+45.10.20 – Authority for these policies
+RCW 39.26.090 authorizes the Department of Enterprise Services (DES) to establish
+overall state policies, standards, and procedures regarding the procurement of goods
+and services by all state agencies.
+RCW 39.26.090 also authorizes DES to develop policies and standards for the use of
+credit cards or similar methods to make purchases.
+RCW 28B.10.029 authorizes institutions of higher education to independently exercise
+certain powers otherwise granted to the director of DES.
+45.10.40 – Acceptable use of purchase cards
+Acceptable uses include:
+   • Goods and services for official state purposes purchased in person, by mail, by
+      phone, or over the internet.
+   • Purchases complying with all applicable state statutes, rules, policies, and
+      procedures.
+   • Purchases within spending and other limits established on the card, as
+      established by the agency within the pre-determined agency aggregate limit.
+   • Purchases between Washington State agencies, but only when:
+        • The paying and/or receiving account is a local account (not a treasury,
+           treasury trust, nor petty cash account); and,
+        • The receiving agency agrees to accept the inter-agency purchase card
+           payments. Receiving agencies have the right to refuse acceptance of
+           purchase card payments from other state agencies.
+45.10.50 – Unacceptable use of purchase cards
+Unacceptable uses include, but are not limited to:
+  • Cash advances.
+  • Purchases in excess of the limits authorized for the card.
+  • Gifts/donations.
+  • Splitting purchases to circumvent the daily or monthly purchase limits on a
+     card, or to avoid competitive bidding limits or purchasing authority limits.
+  • Purchases between internal departments within an agency, unless prior written
+     approval is received from the Office of Financial Management (OFM) based on
+     the requirements in Subsection 40.40.10.
+
+                                                                    Credit Card Use by State Universities :: Appendix A | 33
+  • Except as noted below, purchases between state agencies. For interagency
+    payments, the preferred payment method is Inter-Agency Payment (IAP).
+    Journal vouchers may also be used to transfer funds between state agencies.
+    Refer to Subsection 85.36.20. Exceptions to this are as follows:
+      • When prior written approval is received from OFM based on the
+         requirements in Subsection 40.40.10; or,
+      • When the paying and/or receiving account is a local account, and the
+         receiving agency has agreed to accept the inter-agency purchase card
+         payments. Refer to Subsection 45.10.40.
+  • Prepayments unless otherwise authorized by statute or rule. Refer to Subsection
+    45.20.35.
+  • Purchases from any merchant, product, or service normally considered to be
+    inappropriate use of state funds, including, but not limited to:
+  • Items for personal use.
+  • Materials or services from any member of the card user’s immediate family.
+  • Equipment, materials, services, or supplies restricted by state statutes, rules,
+    policies, procedures, guidelines or contractual agreements.
+  • Alcoholic beverages or liquor licenses, unless permitted by statute or rule.
+45.20.20 – Controls
+An agency should establish internal controls to address the use of the purchase card
+as a means of expending state funds. The following is the minimum level of controls
+acceptable:
+   • Maintaining a list of all cardholders, card custodians, and designated card users
+      in the agency.
+   • Card users shall be given a copy of the agency purchase card policies and
+      procedures, should sign a card user agreement form, and should complete
+      training prior to a purchase card being issued and used.
+   • All cards should be ordered by and delivered to the agency program
+      administrator for distribution to card users.
+   • Promptly recording, properly classifying, and promptly reconciling all
+      transactions. Assigning key duties and responsibilities to ensure a proper
+      separation of duties.
+   • Safeguarding purchase cards and account numbers against loss, theft, and
+      unauthorized use. Cards should be kept by the cardholder or card custodian in a
+      secure (locked) location when not in use.
+   • Agencies utilizing department cards should create and maintain a department
+      card log to track card use. Designated card users should check out and check in
+      the card on a department card log and describe the business purpose for each
+      use in order to make a purchase.
+   • Making a reasonable attempt to physically recover and destroy purchase cards
+      from terminating or reassigned employees. Setting spending limits for card
+      users.
+   • Reconciling and approving card statements at least monthly.
+
+
+
+
+                                                                 Credit Card Use by State Universities :: Appendix A | 34
+State Administrative Accounting Manual (SAAM) – Chapter 70 states in part:
+Other administrative regulations
+70.10.20 – When may coffee and light refreshments be served?
+Per RCW 43.03.050(4), with approval of an agency head or authorized designee, an
+agency may serve coffee or light refreshments at a meeting where:
+   • The purpose of the meeting is to conduct state business or to provide formal
+     training that benefits the state; and
+   • The coffee or light refreshment is an integral part of the meeting or training
+     session; and
+   • The agency obtains a receipt for the actual costs of the coffee and/or light
+     refreshments.
+This authority is not intended for use with the normal daily business of elective or
+appointive officials or state employees, but rather for special situations or occasions, as
+determined by the agency head or authorized designee, for example, recognizing agency
+or employee accomplishments. Per RCW 43.03.050(3), in addition to the requirements
+noted in Subsection 70.10.20.a, coffee and light refreshments may be served to elective or
+appointive officials or state employees regardless of travel status where:
+   • The meeting or training session takes place away from the employee’s or official’s
+      regular workplace; and
+   • The agency person responsible for the meeting receives agency approval for the
+      serving of coffee and/or light refreshments prior to the event.
+Agencies are not required to provide coffee and/or light refreshments at meetings.
+70.10.30 – Expenditures for coffee and light refreshments are prohibited in some
+cases
+Agencies may not make expenditures for coffee and/or light refreshments in the
+following situations:
+    • For anniversaries of agencies, receptions for new, existing, and/or retiring
+      employees or officials, election celebrations, etc.
+    • Any "hosting" activities. "Hosting" includes, but is not limited to, those activities
+      that are intended either to lobby a legislator or a governmental official, or are to
+      be a social rather than governmental business event, and include expenditures
+      for coffee and/or light refreshments for those whom agencies are not legally
+      authorized to reimburse.
+70.15.10 – Reimbursement for meals with meetings
+RCW 43.03.050(3) provides for reimbursement for meals, for certain business meetings
+(includes conferences, conventions, and formal training sessions) involving elective
+and appointive officials and state employees. Additionally, other statutes may authorize
+agencies to provide reimbursement for meals for other individuals regardless of travel
+status.
+The agency head or authorized designee may authorize reimbursement for the allowable
+cost of meals (refer to Subsections 10.40.40 and 10.90.20) for elective and appointive
+officials and state employees regardless of travel status, and without regard to the Three
+Hour Rule of Subsection 10.40.50.(1). This authority is intended for use when the agency
+requires a person to attend a meeting where business meals are served, and where:
+
+                                                                    Credit Card Use by State Universities :: Appendix A | 35
+   • The purpose of the meeting is to conduct official state business or to provide
+     training to state employees or state officials; and
+   • The meals are an integral part of the business meeting or training session, and
+   • The meeting or training session takes place away from the employee’s or official’s
+     regular workplace, and
+   • The agency obtains a receipt for the actual costs of the meals with meetings, and
+   • The agency head or authorized designee approves payment for the meals
+     in advance of the meeting by defining in the agency internal policies and
+     procedures (Subsection 10.10.10) those meetings where attendance by agency
+     employee(s), official(s) or others as authorized by statute, and reimbursement for
+     the meals regardless of travel status, is advantageous to the state.
+Approvals must be in writing (Subsection 70.15.30). One-time approvals for recurring
+meetings can be made at the time of the initial request.
+
+75.15.20 Expenditures for meals with meetings are prohibited in some cases
+Agencies may not make expenditures for meals in the following situations:
+  • For anniversaries of agencies, receptions for new, existing, and/or retiring
+     employees or officials, election celebrations, etc.
+  • Any "hosting" activities. "Hosting" includes, but is not limited to, those activities
+     that are intended either to lobby a legislator or a governmental official, or are to
+     be a social rather than governmental business event, and include expenditures
+     for meals for those whom agencies are not legally authorized to reimburse.
+
+
+
+
+                                                                    Credit Card Use by State Universities :: Appendix A | 36
+

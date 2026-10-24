@@ -1,0 +1,126 @@
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+
+
+                                                           May 4, 2018
+
+Cindy Kiel
+Executive Associate Vice Chancellor
+Office of Research
+University of California, Davis
+1850 Research Drive, Suite 300
+Davis, CA 95618
+
+Reference: OIG Report No. 17-1-002
+
+Dear Ms Kiel:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of California,
+Davis during the period of January 1, 2008 to December 31, 2010.
+
+The audit report identified a total of $2,330,503 in questioned costs claimed on NSF awards and
+recommended that the University strengthen its administrative and management controls for the areas
+in which findings were identified. As a result of its resolution efforts, NSF has determined that
+$2,243,650 will be allowed and that $86,853 will be disallowed. The table below summarizes the
+allowed and disallowed costs by finding number:
+
+   Finding                           Description                    Questioned    Allowed      Disallowed
+       1      Questioned Equipment Charges                           $ 382,646     $378,253       $ 4,393
+       2      Questioned Cost Transfers                               $ 83,488      $13,943       $69,545
+       3      Questioned Workshop and Conference Costs                 $39,578      $33,083        $6,495
+       4      Questioned Purchase Card Transactions                    $14,164       $7,744        $6,420
+              Salary and Benefits were Unreasonable and Exceeded
+       5                                                            $1,810,627    $1,810,627           $0
+              NSF Limits
+                                                            Total   $ 2,330,503   $2,243,650      $86,853
+
+
+To resolve the audit findings and questioned costs, NSF conducted detailed a review of applicable
+federal and NSF requirements, proposal and award information maintained by NSF, and documentation
+provided by the University. The following provides the basis for the management decisions reached by
+NSF:
+University of California, Davis
+Audit No. 17-1-002
+Page 2
+
+•   Finding 1: Questioned Equipment Charges
+    NSF partially sustains the finding. The University concurred that the actual cost of an item could not
+    be documented and agreed to repay $4,393. NSF determined that the remaining $378,253 were
+    allowable costs based on review and acceptance of additional documentation to justify that the
+    equipment purchases were necessary and reasonable for the completion of the corresponding
+    awards. It is NSF’s management decision to disallow $4,393 and to allow $378,253.
+
+•   Finding 2: Questioned Cost Transfers
+    NSF partially sustains the finding. The University concurred that $69,545 was not allocable to the
+    respective awards and agreed to repayment. NSF determined that the remaining $13,943 were for
+    costs allocable to the corresponding awards. It is NSF’s management decision to disallow $69,545
+    and to allow $13,943.
+
+•   Finding 3: Questioned Workshop and Conference Costs
+    NSF partially sustains the finding. The University agreed that it charged $6,495 more than the costs
+    proposed and approved by NSF to an award, due to reliance on a superseded budget. NSF
+    determined that $33,083 was allowable because invoices confirmed the allowability of total costs
+    for the workshops and conferences; and it was acceptable for the University to determine the
+    amounts charged to the NSF award and cost sharing accounts mathematically rather than
+    identifying specific costs allocable to the awards. It is NSF’s management decision to disallow $6,495
+    and to allow $33,083.
+
+•   Finding 4: Questioned Purchase Card Transactions
+    NSF partially sustains the finding due to University’s agreement to repay $6,420. NSF determined
+    that the remaining $7,744 for the purchase of computers was necessary for NSF research, and that
+    the respective awards benefited from the purchases. It is NSF’s management decision to disallow
+    $6,420 and to allow $7,744.
+
+•   Finding 5: Salary and Benefits were Unreasonable and Exceeded NSF Limits
+    NSF does not sustain the finding. As stated in the NSF Proposal & Award Policies and Procedures
+    Guide (PAPPG) Chapters VII and X, an awardee can internally approve an increase or decrease in
+    person months devoted to the project after an award is made, even if doing so results in salary
+    support for senior personnel exceeding the two-month senior salary policy. No prior approval from
+    NSF is necessary, as long as that change would not cause the objective or scope of the project to
+    change. Therefore, it is the NSF management decision that the $1,810,627 questioned as excess
+    senior salaries are allowable costs and no further action is required by the University.
+
+ Please be aware that the University’s right to appeal cost disallowances by NSF is outlined in Chapter
+ XII.B of the NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found
+ online at: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+ Regarding the compliance and internal control recommendations associated with the audit findings,
+ NSF determined that the University’s existing policies and procedures provide reasonable assurance of
+ compliance under awards issued by NSF. The Agency also notes that the $86,853 disallowed by NSF
+ represents .06% of the $142.2 million audit universe. As a result, NSF considers that the University’s
+ controls over the areas identified in the audit report are working as intended.
+University of California, Davis
+Audit No. 17-1-002
+Page 3
+
+ As of the date of this letter, the University has provided evidence of repayment and offset of $23,083
+ of the $86,853 disallowed. The remaining disallowed amount of $63,770 may be repaid via
+ www.pay.gov or a check payable to the National Science Foundation. Please be sure to reference OIG
+ Audit Report No. 17-1-002. Any necessary adjustments to ACM$ because of the repayment will be
+ made by the NSF Division of Financial Management. Mail checks to:
+
+                                  National Science Foundation
+                                  Attention: NSF Cashier
+                                  2415 Eisenhower Avenue
+                                  Alexandria, VA 22314
+
+Based on the above, NSF considers all findings and questioned costs resolved. Upon verification that
+repayment of the remaining $63,770 disallowed costs has been completed, the audit report will be fully
+closed out by NSF.
+
+The University’s timely responses and full cooperation with the NSF audit resolution process have been
+greatly appreciated. Should you have any questions regarding this letter or the NSF audit resolution
+process, please contact Victor Vélez at 703-292-2710.
+
+                                                 Sincerely,
+
+                                                 Carrie Davison
+                                                 Carrie Davison, Lead Analyst
+                                                 Resolution and Advanced Monitoring Branch
+                                                 Division of Institution and Award Support
+
