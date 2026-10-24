@@ -21,18 +21,109 @@ file wins inside this repo**.
 If this section still says TBD when you start a task, ask your human to fill
 it in before writing code.
 
-## 1. Before you start any task
+## 1. Parallel distribution: nobody waits
+
+The goal is for every human and every agent to always have unblocked work.
+What slows a team down is almost never typing speed. It's waiting on another
+lane, merge conflicts, and waiting on humans. Every rule below attacks one
+of those.
+
+### Kickoff (first ~45 min)
+
+1. **Cut lanes along file boundaries.** Agree on the demo path, then split it
+   into lanes (e.g. UI, API/backend, AI pipeline, data/fixtures,
+   deploy/infra). Give each lane one owning human and a set of directories
+   that no other lane shares. Record this in the *Lanes* table in `TASKS.md`.
+2. **Contracts first, the only serial step.** One agent writes the shared
+   contracts file(s), realistic fixture data, and stub implementations that
+   return those fixtures. They should land within ~30 min. Meanwhile, the
+   other lanes do setup, research, and scaffolding inside their own
+   directories only. After that, every lane builds against the stubs and
+   never waits on a real implementation.
+3. **Scaffold once.** One agent creates the project skeleton and check
+   command. Nobody else runs a project generator.
+4. **Start slow external things now**, in parallel: API key or access
+   approvals, deploy setup, model and dataset downloads, sponsor-tech signup.
+   Each goes in `HUMAN_TODO.md` with an owner.
+
+### Writing tasks
+
+- **Size:** 30–90 min of agent work, with a checkable `done when:` line.
+  Split anything bigger before claiming it.
+- **Tag each task** with an ID (`T12`), its lane, `needs:` (IDs it depends
+  on, or `—`), and ★ if it's on the critical path to the demo.
+- A task is **ready** when everything in its `needs:` is done *or stubbed*.
+  Write tasks so they can be finished against the contract alone. A task
+  that needs another lane's real code is a planning smell, so split it.
+- Prefer vertical slices within your lane over horizontal layers that drag
+  in other lanes.
+- **Keep the queue full:** each lane should have ≥2 ready tasks in *Up
+  next*. Whoever notices one running low adds tasks. Agents may propose and
+  add tasks for their own lane.
+
+### Picking work (agents, in this order)
+
+1. **Unblock others first.** Do any *Requests* entry aimed at your lane, or
+   any task that's listed in someone else's `needs:`. Unblocking a teammate
+   beats your own progress.
+2. Ready ★ tasks in your lane.
+3. Other ready tasks in your lane.
+4. Ready tasks in a lane whose owner is busy. Get the owner's OK via a
+   *Requests* note or your human, and claim the files first.
+5. If nothing is ready, refill the queue: write tasks, fixtures, or demo-path
+   smoke tests, then pick one.
+
+**Never sit blocked.** If a dependency isn't ready, stub it against the
+contract, note `stubbed: <what>` on your task, and keep going. If that's
+impossible, release the task with a note, log the blocker under *Requests*,
+and pick the next one. **WIP limit: one claimed task per agent.**
+
+### Removing hidden serial points
+
+- **Hot files** (router/registry, root layout, app entry point, shared
+  config, package manifest): keep edits as tiny additive lines, and commit
+  and push them immediately. Never sit on an uncommitted diff to a hot file.
+  Prefer one file per route, component, or tool, so new features register
+  without touching shared files.
+- **Humans are the scarcest resource.** Batch your questions. Give each
+  question a recommended default. If the choice is easy to reverse, proceed
+  on the default (or switch to another task) while waiting. Don't block on
+  an answer.
+- **Swap stubs promptly.** When a real implementation lands, its owner
+  replaces the stub at the call sites in the same or the next commit, then
+  runs the demo path end to end.
+- **Integration check** roughly every 2 hours: whoever is least loaded runs
+  the full demo path on fresh `main` and logs the result in `PROGRESS.md`.
+  Breakages become ★ tasks.
+
+### Multiple agents per human
+
+Run extra agents only on disjoint sub-areas of your lane. Give each agent its
+**own clone** (`git clone <repo> CalHacks13.0-2`), never a shared checkout,
+plus its own tag (`@alex/claude-2`) and its own claim.
+
+### Rebalancing
+
+When a lane runs dry, or at each integration check, the humans look at
+`TASKS.md` and move people toward the critical path: the longest remaining
+chain of ★ tasks. A lane that finishes early takes over tasks from the
+busiest lane, with that owner's OK.
+
+## 2. Before you start any task
 
 1. `git pull` (it's configured to rebase; see README setup).
 2. Read `TASKS.md`, the last ~20 lines of `PROGRESS.md`, and `DECISIONS.md`.
-3. **Claim the task**: in `TASKS.md`, move it to *In progress* with
+3. Pick the next task using the order in §1 (*Picking work*). It must be
+   **ready**.
+4. **Claim the task**: in `TASKS.md`, move it to *In progress* with
    `@<human>/<agent>` and the files/dirs you expect to touch. Commit and push
    **just that claim** right away (`chore(tasks): claim <task>`). If the push
    is rejected, pull and re-read — someone may have claimed it first. If so,
    pick something else.
-4. If the task isn't in `TASKS.md`, add it before you start. No invisible work.
+5. If the task isn't in `TASKS.md`, add it (with ID, lane, `needs:`)
+   before you start. No invisible work.
 
-## 2. While working
+## 3. While working
 
 - **Stay in your lane.** Only edit the files/dirs you listed in your claim.
   If you need to change something outside it, check `TASKS.md` for whoever
@@ -59,7 +150,7 @@ it in before writing code.
   works (roughly every 15–45 min). Small diffs make conflicts rare and cheap.
   Conventional prefixes: `feat:`, `fix:`, `chore:`, `docs:`.
 
-## 3. Pushing — `main` must always run
+## 4. Pushing — `main` must always run
 
 - Run the check command (§0) **after** pulling the latest `main` and
   **before** every push. Never push red. If `main` is already red and it
@@ -72,7 +163,7 @@ it in before writing code.
   branches, or `git clean`. No long-lived branches: everything lands on
   `main`.
 
-## 4. When you finish (or stop) a task
+## 5. When you finish (or stop) a task
 
 1. Move it to *Done* in `TASKS.md`, or back to *Up next* with a note on
    what's left if you're stopping partway.
@@ -82,7 +173,7 @@ it in before writing code.
    needing login, recording the demo, Devpost) goes in `HUMAN_TODO.md`.
 4. Commit and push those updates along with (or right after) the code.
 
-## 5. Priorities and judgment
+## 6. Priorities and judgment
 
 - **The demo path beats everything.** A working end-to-end path with fake
   data is worth more than one polished component. Build the thin vertical
@@ -99,7 +190,7 @@ it in before writing code.
 - **Be honest in `PROGRESS.md`.** "Works with fixture data, untested against
   the live API" is useful. "Done" when it isn't costs the team the demo.
 
-## 6. Final 2 hours
+## 7. Final 2 hours
 
 Feature freeze. Only fixes for the demo path, deploy, README, and submission
 materials. Ask your human before anything else lands.

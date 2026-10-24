@@ -26,8 +26,10 @@ agent who you are, e.g. "I'm @alex; pick up the next task in TASKS.md."
 | `DECISIONS.md` | Contract/stack/scope changes other lanes need to know about |
 | `HUMAN_TODO.md` | Things only humans can do (keys, deploy, demo, Devpost) |
 
-Golden rules: claim first, stay in your lane, never push red, never
-force-push, demo path first.
+Golden rules: contracts and stubs first so every lane can run in parallel,
+claim first, stay in your lane, unblock others before your own work, never
+sit blocked (stub it and move on), never push red, never force-push, demo
+path first.
 
 ## Run
 
