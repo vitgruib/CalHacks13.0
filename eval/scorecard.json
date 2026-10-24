@@ -3,11 +3,11 @@
   "key": "sim/answer-key.json",
   "today": "2026-06-15",
   "totals": {
-    "caught": 3,
-    "missed": 11,
+    "caught": 14,
+    "missed": 0,
     "falseAlarms": 0,
-    "correctPasses": 0,
-    "notRun": 16,
+    "correctPasses": 5,
+    "notRun": 0,
     "mistakes": 14,
     "decoys": 5,
     "unlistedFalseAlarms": 0
@@ -28,11 +28,11 @@
     {
       "feature": "purchases",
       "label": "Purchases",
-      "caught": 0,
-      "missed": 5,
+      "caught": 5,
+      "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 0,
-      "notRun": 7,
+      "correctPasses": 2,
+      "notRun": 0,
       "mistakes": 5,
       "decoys": 2,
       "unlistedFalseAlarms": 0
@@ -40,11 +40,11 @@
     {
       "feature": "invoices",
       "label": "Invoices",
-      "caught": 0,
-      "missed": 2,
+      "caught": 2,
+      "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 0,
-      "notRun": 3,
+      "correctPasses": 1,
+      "notRun": 0,
       "mistakes": 2,
       "decoys": 1,
       "unlistedFalseAlarms": 0
@@ -52,11 +52,11 @@
     {
       "feature": "payment_requests",
       "label": "Payment requests",
-      "caught": 0,
-      "missed": 1,
+      "caught": 1,
+      "missed": 0,
       "falseAlarms": 0,
       "correctPasses": 0,
-      "notRun": 1,
+      "notRun": 0,
       "mistakes": 1,
       "decoys": 0,
       "unlistedFalseAlarms": 0
@@ -64,11 +64,11 @@
     {
       "feature": "reports",
       "label": "Progress reports",
-      "caught": 0,
-      "missed": 3,
+      "caught": 3,
+      "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 0,
-      "notRun": 5,
+      "correctPasses": 2,
+      "notRun": 0,
       "mistakes": 3,
       "decoys": 2,
       "unlistedFalseAlarms": 0
@@ -114,10 +114,10 @@
       "kind": "mistake",
       "refId": "rq-101",
       "expected": "hold",
-      "got": "not evaluated",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "No verdicts on rq-101."
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "waiting_on_manager; Grant is active and not frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen."
     },
     {
       "id": "pu-1",
@@ -125,10 +125,10 @@
       "kind": "mistake",
       "refId": "rq-102",
       "expected": "reroute or block",
-      "got": "not evaluated",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "No verdicts on rq-102."
+      "got": "block",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "blocked; Not in the grant's last 90 days: R21AI000002 ends 2026-08-01, 47 days away."
     },
     {
       "id": "pu-2",
@@ -136,10 +136,10 @@
       "kind": "mistake",
       "refId": "rq-103",
       "expected": "block",
-      "got": "not evaluated",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "No verdicts on rq-103."
+      "got": "block",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "blocked; Category allowed: general office is not an allowable direct cost on a federal grant."
     },
     {
       "id": "pu-3",
@@ -147,10 +147,10 @@
       "kind": "mistake",
       "refId": "rq-104",
       "expected": "hold or block",
-      "got": "not evaluated",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "No verdicts on rq-104."
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "waiting_on_manager; Shared items split across grants: Serves  but is charged to R01GM000001 only."
     },
     {
       "id": "pu-4",
@@ -158,10 +158,10 @@
       "kind": "mistake",
       "refId": "rq-105",
       "expected": "hold",
-      "got": "not evaluated",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "No verdicts on rq-105."
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "waiting_on_manager; Under the card limit ($5,000): $6,850 is over the limit; the grant manager decides."
     },
     {
       "id": "pu-d1",
@@ -169,10 +169,10 @@
       "kind": "decoy",
       "refId": "rq-106",
       "expected": "pass",
-      "got": "not evaluated",
-      "outcome": "not run",
-      "notRun": true,
-      "detail": "No verdicts on rq-106."
+      "got": "pass",
+      "outcome": "correct pass",
+      "notRun": false,
+      "detail": "$5,000."
     },
     {
       "id": "pu-d2",
@@ -180,10 +180,10 @@
       "kind": "decoy",
       "refId": "rq-107",
       "expected": "pass",
-      "got": "not evaluated",
-      "outcome": "not run",
-      "notRun": true,
-      "detail": "No verdicts on rq-107."
+      "got": "pass",
+      "outcome": "correct pass",
+      "notRun": false,
+      "detail": "Split 60% R01GM000001, 40% R21AI000002."
     },
     {
       "id": "in-1",
@@ -191,10 +191,10 @@
       "kind": "mistake",
       "refId": "inv-030",
       "expected": "hold",
-      "got": "not checked",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "Nobody checked this invoice."
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "The order was canceled on 2026-03-02, before this invoice arrived."
     },
     {
       "id": "in-2",
@@ -202,10 +202,10 @@
       "kind": "mistake",
       "refId": "inv-034",
       "expected": "hold",
-      "got": "not checked",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "Nobody checked this invoice."
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "Invoice is $6,200 but the approved amount is $5,800."
     },
     {
       "id": "in-d1",
@@ -213,10 +213,10 @@
       "kind": "decoy",
       "refId": "inv-036",
       "expected": "pass",
-      "got": "not checked",
-      "outcome": "not run",
-      "notRun": true,
-      "detail": "Nobody checked this invoice."
+      "got": "pass",
+      "outcome": "correct pass",
+      "notRun": false,
+      "detail": "Invoice paid."
     },
     {
       "id": "pr-1",
@@ -224,10 +224,10 @@
       "kind": "mistake",
       "refId": "rq-037",
       "expected": "exclude",
-      "got": "no request drafted",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "No new payment request for R21AI000002."
+      "got": "exclude",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): Invoice inv-037 is on hold: Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460)."
     },
     {
       "id": "rp-1",
@@ -235,10 +235,10 @@
       "kind": "mistake",
       "refId": "p-10",
       "expected": "hold",
-      "got": "not checked",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "Nobody checked this paper."
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "Listed in R21AI000002's report, but its acknowledgments name R01GM000001."
     },
     {
       "id": "rp-2",
@@ -246,10 +246,10 @@
       "kind": "mistake",
       "refId": "p-03",
       "expected": "hold",
-      "got": "not checked",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "Nobody checked this paper."
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "No PMCID found; NIH public access policy requires one."
     },
     {
       "id": "rp-3",
@@ -257,10 +257,10 @@
       "kind": "mistake",
       "refId": "p-04",
       "expected": "hold",
-      "got": "not checked",
-      "outcome": "missed",
-      "notRun": true,
-      "detail": "Nobody checked this paper."
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "Correction (2026-03-02): the Figure 3 rate constants were re-measured; the folding rate changes by about 40% and one conclusion in the abstract is revised. Not disclosed in the report."
     },
     {
       "id": "rp-d1",
@@ -268,10 +268,10 @@
       "kind": "decoy",
       "refId": "p-05",
       "expected": "note or pass",
-      "got": "not checked",
-      "outcome": "not run",
-      "notRun": true,
-      "detail": "Nobody checked this paper."
+      "got": "note",
+      "outcome": "correct pass",
+      "notRun": false,
+      "detail": "Result: note."
     },
     {
       "id": "rp-d2",
@@ -279,35 +279,14 @@
       "kind": "decoy",
       "refId": "p-07",
       "expected": "pass or note",
-      "got": "not checked",
-      "outcome": "not run",
-      "notRun": true,
-      "detail": "Nobody checked this paper."
+      "got": "pass",
+      "outcome": "correct pass",
+      "notRun": false,
+      "detail": "Result: ok."
     }
   ],
   "unlistedFalseAlarms": [],
-  "unimplemented": [
-    {
-      "feature": "purchases",
-      "label": "Purchases",
-      "notRun": 7
-    },
-    {
-      "feature": "invoices",
-      "label": "Invoices",
-      "notRun": 3
-    },
-    {
-      "feature": "payment_requests",
-      "label": "Payment requests",
-      "notRun": 1
-    },
-    {
-      "feature": "reports",
-      "label": "Progress reports",
-      "notRun": 5
-    }
-  ],
+  "unimplemented": [],
   "runner": "agents/src/sim.ts runSim()",
   "replayErrors": [],
   "withStandIns": {
@@ -319,11 +298,11 @@
       "reports": "record_paper_facts with the facts already on each paper in the seed (no public-records lookup)."
     },
     "totals": {
-      "caught": 13,
-      "missed": 1,
+      "caught": 14,
+      "missed": 0,
       "falseAlarms": 0,
       "correctPasses": 5,
-      "notRun": 1,
+      "notRun": 0,
       "mistakes": 14,
       "decoys": 5,
       "unlistedFalseAlarms": 0
@@ -341,11 +320,11 @@
       },
       {
         "feature": "purchases",
-        "caught": 4,
-        "missed": 1,
+        "caught": 5,
+        "missed": 0,
         "falseAlarms": 0,
         "correctPasses": 2,
-        "notRun": 1,
+        "notRun": 0,
         "mistakes": 5,
         "decoys": 2
       },
@@ -397,29 +376,29 @@
         "detail": "Still frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. court_order_no_payment flag: A court restored R01GM000001 on 2026-04-20, but no payment has arrived since the 2026-03-10 cancellation. Spending stays frozen until money lands."
       },
       "pu-0": {
-        "got": "rule fails",
+        "got": "hold",
         "outcome": "caught",
-        "detail": "Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. (verdict only; no agent chose hold)"
+        "detail": "waiting_on_manager; Grant is active and not frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen."
       },
       "pu-1": {
-        "got": "rule fails",
+        "got": "block",
         "outcome": "caught",
-        "detail": "R21AI000002 ends 2026-08-01, 47 days away. (verdict only; no agent chose reroute / block)"
+        "detail": "blocked; Not in the grant's last 90 days: R21AI000002 ends 2026-08-01, 47 days away."
       },
       "pu-2": {
-        "got": "rule fails",
+        "got": "block",
         "outcome": "caught",
-        "detail": "general office is not an allowable direct cost on a federal grant. (verdict only; no agent chose block)"
+        "detail": "blocked; Category allowed: general office is not an allowable direct cost on a federal grant."
       },
       "pu-3": {
-        "got": "rule not checked",
-        "outcome": "missed",
-        "detail": "The module didn't check \"Shared items split across grants\" for rq-104."
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "waiting_on_manager; Shared items split across grants: Serves  but is charged to R01GM000001 only."
       },
       "pu-4": {
-        "got": "rule fails",
+        "got": "hold",
         "outcome": "caught",
-        "detail": "$6,850 is over the limit; the grant manager decides. (verdict only; no agent chose hold)"
+        "detail": "waiting_on_manager; Under the card limit ($5,000): $6,850 is over the limit; the grant manager decides."
       },
       "pu-d1": {
         "got": "pass",
@@ -449,7 +428,7 @@
       "pr-1": {
         "got": "exclude",
         "outcome": "caught",
-        "detail": "Left out of pr2 (2026-05-01 to 2026-05-31): Invoice inv-037 is on hold: Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460)."
+        "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): Invoice inv-037 is on hold: Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460)."
       },
       "rp-1": {
         "got": "hold",
