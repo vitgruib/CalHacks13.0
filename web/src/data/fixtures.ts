@@ -247,6 +247,17 @@ export const fixtures: Db = {
       ],
       options: ['approve', 'reject'],
     },
+    {
+      id: 'h6', kind: 'report', refId: 'p3', grantId: A, raisedBy: 'payment_report', day: '2026-06-15',
+      title: 'Paper has no PubMed Central ID: fix before the report goes out?',
+      why: 'NIH public access policy requires a PMCID for every paper listed in a progress report.',
+      evidence: [
+        { label: 'Paper', value: 'Cryo-EM of a membrane chaperone complex' },
+        { label: 'DOI', value: '10.0000/fixture.0003' },
+        { label: 'PMCID', value: 'none found' },
+      ],
+      options: ['approve', 'reject'],
+    },
   ],
 
   log: [

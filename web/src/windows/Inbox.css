@@ -1,0 +1,18 @@
+.inbox .hold-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.inbox .hold { border: 1px solid var(--line); border-left: 4px solid var(--warn); border-radius: 8px; padding: 12px 14px; background: var(--bg); }
+.inbox .hold > header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.inbox .hold h3 { margin: 0; font-size: 15px; }
+.inbox .meta, .inbox .muted, .inbox .hint { color: var(--muted); font-size: 13px; }
+.inbox .meta { margin: 4px 0 8px; }
+.inbox .why { margin: 0 0 8px; }
+.inbox a { color: var(--accent); }
+.inbox .evidence { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin: 0 0 12px; font-size: 14px; }
+.inbox .evidence > div { display: contents; }
+.inbox .evidence dt { color: var(--muted); font-weight: 600; }
+.inbox .evidence dd { margin: 0; }
+.inbox .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.inbox .field label { font-size: 13px; font-weight: 600; }
+.inbox .field select { align-self: flex-start; }
+.inbox .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.inbox button.danger { color: var(--bad); border-color: var(--bad); }
+.inbox .decided summary { cursor: pointer; margin-bottom: 8px; }

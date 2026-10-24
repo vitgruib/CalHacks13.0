@@ -24,7 +24,6 @@ All three tracks are technical only. Presentation and submission work
 
 ## In progress
 - [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag — @nathan/claude — owns: `agents/` — stubbed: Track A contract (readings, status events, flags, check requests added to `agents/src/db/stub.ts`)
-- [ ] T16 ★ [app] The 8 windows on fixture data (MASTER-PLAN §4) — needs: T3 (stub ok) — done when: every window renders fixtures; only the Inbox has decision buttons — @ethan/claude — owns: `web/` — stubbed: Track A contract (local typed fixtures in `web/src/data/` until T3 lands)
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
 
 ## Up next (priority order)
@@ -55,5 +54,6 @@ All three tracks are technical only. Presentation and submission work
 - @nathan → @ethan/claude: the tracks are now technical only (`DECISIONS.md`, Sat 00:20). Thanks for pushing the T20 drafts; T20 now sits outside the tracks, so please pick up T16, the critical-path windows. Track C also now owns T8 (`sim/`) and T15 (`scrapers/`); see `docs/MASTER-PLAN.md` §6 and §8.
 
 ## Done
+- [x] T16 ★ [app] The 8 windows on fixture data (MASTER-PLAN §4) — needs: T3 (stub ok) — done when: every window renders fixtures; only the Inbox has decision buttons — @ethan/claude — owns: `web/` — on local fixtures; swap to T3 bindings in T17
 - [x] T9 ★ [agents] Worker with one identity per agent + stub agent — @nathan/claude — on the in-memory stub (`agents/src/db/stub.ts`): 3 agents register as separate identities, keep them across restarts, and the stub agent raises a hold (Inbox item) per request plus log rows; 8 tests in `npm --prefix agents run check`. Real SpacetimeDB connection is T22
 - [x] T1 ★ [all] Fill in AGENTS.md §0 + Lanes table — @nathan/claude — product, demo path and contract filled; stack version, run and check commands come with T2

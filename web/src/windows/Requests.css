@@ -1,0 +1,26 @@
+.rq-muted { color: var(--muted); }
+.rq-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.rq-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.rq-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+.rq-form .wide { grid-column: 1 / -1; }
+.rq-form textarea { resize: vertical; }
+.rq-actions { display: flex; align-items: center; gap: 12px; }
+.rq-error { color: var(--bad); font-size: 14px; }
+.rq-sent { color: var(--good); font-size: 14px; }
+
+.rq-list { display: flex; flex-direction: column; gap: 12px; }
+.rq-card { border: 1px solid var(--line); border-radius: 8px; padding: 12px; }
+.rq-card > header { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.rq-card h3 { margin: 0; font-size: 15px; }
+.rq-price { font-weight: 600; }
+.rq-meta { margin: 4px 0 8px; font-size: 13px; }
+.rq-grants { display: grid; grid-template-columns: auto 1fr; gap: 2px 12px; margin: 0 0 8px; font-size: 14px; }
+.rq-grants dt { color: var(--muted); }
+.rq-grants dd { margin: 0; }
+.rq-explain { margin: 0 0 8px; font-size: 14px; }
+.rq-wait { margin: 0 0 8px; padding: 6px 10px; border-radius: 6px; background: var(--warn-bg); color: var(--warn); font-size: 14px; }
+.rq-wait a { color: inherit; font-weight: 600; }
+.rq-audit { color: var(--muted); font-size: 12px; margin-top: 2px; }
+
+@media (max-width: 720px) { .rq-form { grid-template-columns: 1fr; } }
