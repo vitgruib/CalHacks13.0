@@ -35,7 +35,6 @@ the build.
 | **SpacetimeDB** | $2,048 / $1,024 / $512 | The **core** real-time backend; agent coordination, live dashboards, financial apps | The whole grant office (20 tables, 27 actions); rules and limits enforced in the module; one identity per agent |
 | **Apify** | $2k / $1k / $800 / $400 / $400 (+ Best Actor) | Real scraped public data | Our Actor scrapes the Grant Witness NIH cancellation list for the fund tracker (`scrapers/`) |
 | **Meta** | See the hacker guide | Human connection | Re-added Sat by Ethan; how GrantGuard fits is still to be written |
-| **Meta** (back in, `DECISIONS.md`) | [TBD: check the Live Site] | Judged on human connection | [TBD: the team's angle] |
 | **General: Most Technically Complex / People-First** | Prizes | Automatic consideration | — |
 
 ## Cut tracks
