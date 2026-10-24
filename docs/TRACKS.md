@@ -69,7 +69,6 @@ caps the number of tracks per entry.
 | **CRS Credit API** | $1k overall, $500 Best Financial AI Agent, interviews for identity/fraud and most unexpected use | Credit, identity, and fraud sandbox with test identities, via API or MCP. It must be central and run live against the sandbox. | Low–medium: only fits if credit or identity is part of the problem. |
 | **Capital One Nessie** | $300 Giftogram/person | Mock banking API (accounts, transactions, bills, transfers). Gives the agent a bank to act on, with realistic data. | Low. |
 | **Factory Droid SDK** | $2,000 + credits | Droid must do real work in the running product, on a trigger, with scoped permissions and visible plans/diffs. That overlaps "limited access + clean record". E.g. Droid writes a new matching rule as a diff and a human approves it. | Medium: the README must explain where Droid is used. |
-| **Cartesia** (voice) | Meta glasses (TBD) | Fits only if voice is core. E.g. a controller calls the agent and questions a decision out loud, which is a strong "defends a decision" moment. | Medium–high. |
 | **Apify** | $2k / $1k / $800 / $400 / $400 | Scraping real public data (vendor registries, sanctions lists, SEC filings) makes it "real enough". | Medium. |
 | **General: Most Technically Complex / People-First** | Prizes | Automatic consideration. | Free. |
 
@@ -91,3 +90,4 @@ likely require their platform).
 | Best Solo / Hardware / Planet-First | Not solo, no hardware, not climate |
 | Bitdeer, Moss | Compete with our model choice (Claude) or don't fit the theme |
 | Visa, Figma | Team decision: cut |
+| Cartesia | Team decision: no voice agents |

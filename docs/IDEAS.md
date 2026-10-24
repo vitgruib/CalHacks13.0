@@ -67,8 +67,7 @@ drafts adverse-action reasons citing specific tradelines.
   piggybacking. When challenged ("why decline?"), it defends the call
   citing the exact data.
 - **Stacks:** **CRS on all fronts** (Best Overall, Financial AI Agent,
-  Identity/Fraud), Microsoft, Anthropic. Optionally Cartesia: the applicant
-  calls to ask why they were declined.
+  Identity/Fraud), Microsoft, Anthropic.
 - **Risk:** fair-lending and bias questions. Address them head on (good for
   the "responsible" criteria), but don't overclaim.
 
@@ -88,22 +87,6 @@ limits. It escalates and logs everything for audit season.
 - **Risk:** smaller dollar stakes, so Hyphenate's "enterprise" judges may
   see it as less ambitious. Counter by framing it as "any org with
   delegated spend".
-
-## 5. Collections & hardship desk, with a voice agent
-
-**Seats:** collections agent + member-services rep.
-
-The agent calls members who are behind on payments, using voice, and
-reviews their finances. It offers hardship plans within policy and
-escalates the rest.
-
-- **The moment:** mid-call, it realizes from the credit report that the
-  delinquent accounts were opened by an identity thief. It stops collecting
-  and switches to fraud-victim handling.
-- **Stacks:** Cartesia (voice is core), CRS identity/fraud, Anthropic,
-  People-First.
-- **Risk:** the most scope (voice + telephony + finance). Only pick this if
-  someone has done real-time voice before.
 
 ---
 
