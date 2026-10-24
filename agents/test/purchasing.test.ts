@@ -493,6 +493,54 @@ test('a_restarted_worker_buys_an_approval_blocked_on_the_freeze_once_and_only_on
   assert.equal(conn().rows('log').filter((entry) => entry.refId === 'rq-101' && entry.action.startsWith('Bought')).length, 1);
 });
 
+test('a_restarted_worker_still_buys_a_request_naming_no_grant_that_waits_only_for_the_freeze', async () => {
+  const restart = await startRestartable();
+  const scientist = await world!.person('scientist');
+  await scientist.call('submit_request', { item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380, purpose: 'Aim 1 binding assays', sharedWith: [] });
+  await world!.worker.idle();
+  const id = newestRequest().id;
+  // Grant B is in its last 90 days, so grant A is the only one that can take it.
+  assert.equal(request(id).state, 'waiting_on_manager');
+  assert.equal(request(id).chargedGrantId, GRANT_A);
+  assert.match(request(id).explanation, /will be bought automatically once R01GM061721 unfreezes/);
+
+  await restart();
+  await unfreezeGrantA(await world!.person('grant_manager'), ['pay', 'pick']);
+  assert.equal(request(id).state, 'bought', 'as it is without the restart');
+  assert.deepEqual(ordersFor(id).map((o) => [o.grantId, o.amount]), [[GRANT_A, 380]]);
+});
+
+test('after_a_restart_only_a_hold_that_promised_the_buy_is_bought_when_its_grant_unfreezes', async () => {
+  const restart = await startRestartable(twoGrantSeed());
+  const grantManager = await world!.person('grant_manager');
+  const scientist = await world!.person('scientist');
+  await freezeTestGrant(grantManager);
+  await grantManager.call('inject_status_event', {
+    grantId: SECOND_GRANT, kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Listed as terminated.',
+  });
+  // Both grants could take it once unfrozen: one request names a grant in its purpose, the other doesn't.
+  const tips = { item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380, sharedWith: [] };
+  await scientist.call('submit_request', { ...tips, purpose: `Binding assays for ${TEST_GRANT}` });
+  await scientist.call('submit_request', { ...tips, purpose: 'General bench use' });
+  await world!.worker.idle();
+  const [named, unclear] = conn().rows('request').slice(-2).map((row) => row.id);
+  for (const id of [named, unclear]) {
+    assert.equal(request(id).state, 'waiting_on_manager', id);
+    assert.equal(request(id).chargedGrantId, TEST_GRANT, id);
+    assert.deepEqual(failedRules(request(id)), ['Grant is active and not frozen'], id);
+  }
+  assert.match(request(named).explanation, /will be bought automatically once R01TEST000001 unfreezes/);
+  assert.match(request(unclear).explanation, /doesn't make clear which grant/);
+
+  await restart();
+  await payTestGrant(grantManager);
+  await world!.worker.idle();
+  assert.equal(request(named).state, 'bought');
+  assert.equal(ordersFor(named).length, 1);
+  assert.equal(request(unclear).state, 'waiting_on_manager', 'the grant manager decides, as before the restart');
+  assert.equal(ordersFor(unclear).length, 0);
+});
+
 // The purchasing agent alone on its own connection, so a test can step in
 // between the agent's last look and its buy.
 async function startAlone(seedJson: string, wrap: (purchasing: Connection) => Connection) {

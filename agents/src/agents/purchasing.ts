@@ -262,6 +262,11 @@ export interface ExplanationFacts {
 
 const usd = (amount: number) => `$${amount.toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
 
+// What a hold for a freeze promises people. The agent keeps the promise by
+// reading it back from its open hold (waitsOnlyForFreeze), so it survives a restart.
+const FREEZE_PROMISE = 'will be bought automatically once';
+const promisesBuy = (text: string) => text.toLowerCase().includes(FREEZE_PROMISE);
+
 function nextStep(decision: Decision, facts: { serves: string[]; vendor: string; frozen: string[] }): string {
   const step = reasonStep(decision, facts);
   return decision.refusal ? `The database refused to buy it at its last check ("${decision.refusal}"). ${step}` : step;
@@ -270,7 +275,7 @@ function nextStep(decision: Decision, facts: { serves: string[]; vendor: string;
 function reasonStep(decision: Decision, facts: { serves: string[]; vendor: string; frozen: string[] }): string {
   switch (decision.reason) {
     case 'freeze':
-      return `Every other rule passes, so it will be bought automatically once ${facts.frozen.join(' and ')} unfreezes.`;
+      return `Every other rule passes, so it ${FREEZE_PROMISE} ${facts.frozen.join(' and ')} unfreezes.`;
     case 'card_limit':
       return 'Only the grant manager can approve a purchase over the card limit.';
     case 'shared_cost':
@@ -341,9 +346,6 @@ const readableDetail = (verdict: RuleVerdict, serves: string[]): string =>
 
 export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   const queue = workQueue(AGENT);
-  // Why this run held each request. After a restart it's rebuilt from the
-  // rows, conservatively (see waitsOnlyForFreeze).
-  const holdReasons = new Map<string, Decision['reason']>();
   let stopped = false;
 
   const findRequest = (id: string) => conn.rows('request').find((row) => row.id === id);
@@ -358,8 +360,8 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     );
   }
   const personDecided = (requestId: string) => lastDecision(requestId) !== undefined;
-  const agentHoldOpen = (requestId: string) =>
-    conn.rows('hold').some((hold) => hold.kind === 'purchase' && hold.refId === requestId && hold.open && hold.raisedBy === AGENT);
+  const openAgentHold = (requestId: string) =>
+    conn.rows('hold').find((hold) => hold.kind === 'purchase' && hold.refId === requestId && hold.open && hold.raisedBy === AGENT);
   const ordersOf = (requestId: string) => conn.rows('order').filter((order) => order.requestId === requestId);
   const pushBacks = (requestId: string) =>
     conn.rows('log').filter((row) => row.refId === requestId && row.action.startsWith('Pushed back on')).map((row) => row.reason);
@@ -427,7 +429,10 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       effort: 'low',
       maxTokens: 800,
     });
-    return finishExplanation(explanationOr(value.explanation, facts), decision.failed);
+    const text = explanationOr(value.explanation, facts);
+    // Claude may word the next step its own way, but a freeze hold always states its promise.
+    const kept = decision.reason === 'freeze' && !promisesBuy(text) ? `${text.trim()} ${facts.next}` : text;
+    return finishExplanation(kept, decision.failed);
   }
 
   async function act(requestId: string, decision: Decision, serves: string[]): Promise<void> {
@@ -445,7 +450,6 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       return;
     }
     await conn.call('act_on_request', { requestId, action: decision.action, grantId, vendor, explanation });
-    if (decision.action === 'hold') holdReasons.set(requestId, decision.reason);
   }
 
   // Buy or reroute. The module rechecks every rule and may refuse, if
@@ -565,13 +569,14 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     else await act(requestId, decision, reading.serves);
   }
 
-  // Held only for this grant's freeze, by this agent, and still waiting. After
-  // a restart (no remembered reason) that's trusted only when the scientist
-  // named the grant: a grant the agent picked itself may have been unclear.
+  // Held only for this grant's freeze, by this agent, and still waiting with
+  // the promise to buy it once the grant unfreezes. Read from the open hold
+  // rather than remembered, so a restarted agent keeps exactly the promises
+  // made before: a hold for an unclear grant can fail on the freeze alone
+  // too, but it says the grant manager decides.
   function waitsOnlyForFreeze(request: RequestRow, grantId: string): boolean {
-    if (!failsOnlyOnFreezeOf(request, grantId)) return false;
-    const reason = holdReasons.has(request.id) ? holdReasons.get(request.id) : request.grantId ? 'freeze' : undefined;
-    return reason === 'freeze' && agentHoldOpen(request.id);
+    const hold = openAgentHold(request.id);
+    return failsOnlyOnFreezeOf(request, grantId) && hold !== undefined && promisesBuy(hold.why);
   }
 
   // Approved by the grant manager, then blocked by the module's recheck only
