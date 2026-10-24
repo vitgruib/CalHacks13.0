@@ -15,7 +15,14 @@ file wins inside this repo**.
 - **Stack:** TBD
 - **Run locally:** TBD (e.g. `./run.sh`)
 - **Check command (must pass before every push):** TBD (e.g. `npm run check`)
-- **Submission deadline:** TBD — hard stop on new features 2h before it.
+- **Submission deadline:** Devpost, **Sun 10/25 9:00 AM** (no late entries).
+  Feature freeze 7:00 AM. Draft submission up by Sat night. Judging is
+  10:30–12:30 with the whole team present and a live demo.
+- **Target tracks:** Hyphenate (primary) plus stackable tracks. See
+  `docs/TRACKS.md`. Ideas are in `docs/IDEAS.md`. Every feature should
+  serve the primary track's judging criteria.
+- **Event rule:** all project code must be written *after* hacking opens.
+  Planning docs are fine, but no code before the start.
 - **Shared contracts file(s):** TBD (e.g. `lib/schema.ts`, `api/openapi.yaml`)
 
 If this section still says TBD when you start a task, ask your human to fill
