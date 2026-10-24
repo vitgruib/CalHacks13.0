@@ -10,6 +10,7 @@
     "start": "tsx src/main.ts",
     "demo": "tsx src/main.ts --demo",
     "test": "GG_CLAUDE=off node --import tsx --test test/*.test.ts",
+    "test:spacetime": "GG_SPACETIME_IT=1 GG_CLAUDE=off node --import tsx --test test/spacetime.test.ts",
     "typecheck": "tsc --noEmit",
     "check": "npm run typecheck && npm test"
   },
@@ -20,6 +21,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.3.0",
+    "spacetimedb": "2.13.0",
     "zod": "^4.6.7"
   }
 }

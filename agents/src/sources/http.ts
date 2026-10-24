@@ -18,6 +18,9 @@ export interface FetchOptions {
   cacheDir?: string;
   mode?: 'live' | 'offline';
   timeoutMs?: number;
+  // Sent with the request but never saved or used in the cache key, so a
+  // token here stays out of agents/cache/.
+  headers?: Record<string, string>;
   // Keeps only the fields a client uses, before anything is saved. Use it to
   // drop people's names and other details we don't need in git.
   select?: (json: unknown) => unknown;
@@ -47,6 +50,7 @@ export async function fetchJson(url: string, options: FetchOptions = {}): Promis
     mode = process.env.GG_SOURCES === 'offline' ? 'offline' : 'live',
     timeoutMs = 20_000,
     select = (json: unknown) => json,
+    headers = {},
   } = options;
   const body = options.body === undefined ? undefined : JSON.stringify(options.body);
   const path = cachePath(cacheDir, url, body);
@@ -61,7 +65,7 @@ export async function fetchJson(url: string, options: FetchOptions = {}): Promis
     const response = await fetchImpl(url, {
       method,
       body,
-      headers: body ? { 'content-type': 'application/json', accept: 'application/json' } : { accept: 'application/json' },
+      headers: { ...(body ? { 'content-type': 'application/json' } : {}), accept: 'application/json', ...headers },
       signal: AbortSignal.timeout(timeoutMs),
     });
     if (!response.ok) throw new Error(`${method} ${url} answered ${response.status}`);
