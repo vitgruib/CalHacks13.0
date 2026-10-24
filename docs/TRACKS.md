@@ -34,7 +34,7 @@ the build.
 | **Anthropic** | $5k Claude credits + Max 20x | A **named community** with a real problem someone lived; Claude must matter; know where it fails | Research administrators and PIs; Claude reads requests and writes explanations, checked against the records |
 | **SpacetimeDB** | $2,048 / $1,024 / $512 | The **core** real-time backend; agent coordination, live dashboards, financial apps | The whole grant office (20 tables, 27 actions); rules and limits enforced in the module; one identity per agent |
 | **Apify** | $2k / $1k / $800 / $400 / $400 (+ Best Actor) | Real scraped public data | Our Actor scrapes the Grant Witness NIH cancellation list for the fund tracker (`scrapers/`) |
-| **Meta** | See the hacker guide | Human connection | Re-added Sat by Ethan; how GrantGuard fits is still to be written |
+| **Meta: Bringing People Closer Together with AI** | Not stated in the guide | How meaningfully it strengthens human connection; how essential and well-integrated AI is; originality; strength of the working demo | Connects researchers and their grant office: each researcher has their own portal and every request names who asked; Claude explains each decision in plain words, and a researcher can push back to a human grant manager instead of hearing an unexplained "no" |
 | **General: Most Technically Complex / People-First** | Prizes | Automatic consideration | — |
 
 ## Cut tracks
