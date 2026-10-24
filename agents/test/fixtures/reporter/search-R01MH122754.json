@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "total": 7
+  },
+  "results": [
+    {
+      "appl_id": 10827399,
+      "core_project_num": "R01MH122754",
+      "project_num": "5R01MH122754-05",
+      "fiscal_year": 2024,
+      "award_amount": 343374,
+      "award_notice_date": "2024-02-27T00:00:00",
+      "project_end_date": "2025-12-01T00:00:00"
+    },
+    {
+      "appl_id": 10560493,
+      "core_project_num": "R01MH122754",
+      "project_num": "5R01MH122754-04",
+      "fiscal_year": 2023,
+      "award_amount": 490922,
+      "award_notice_date": "2023-04-11T00:00:00",
+      "project_end_date": "2025-02-28T00:00:00"
+    },
+    {
+      "appl_id": 10772313,
+      "core_project_num": "R01MH122754",
+      "project_num": "3R01MH122754-04S1",
+      "fiscal_year": 2023,
+      "award_amount": 117008,
+      "award_notice_date": "2023-04-12T00:00:00",
+      "project_end_date": "2025-02-28T00:00:00"
+    },
+    {
+      "appl_id": 10359813,
+      "core_project_num": "R01MH122754",
+      "project_num": "5R01MH122754-03",
+      "fiscal_year": 2022,
+      "award_amount": 547869,
+      "award_notice_date": "2022-02-02T00:00:00",
+      "project_end_date": "2025-02-28T00:00:00"
+    },
+    {
+      "appl_id": 10542288,
+      "core_project_num": "R01MH122754",
+      "project_num": "3R01MH122754-03S1",
+      "fiscal_year": 2022,
+      "award_amount": 117008,
+      "award_notice_date": "2022-02-25T00:00:00",
+      "project_end_date": "2025-02-28T00:00:00"
+    },
+    {
+      "appl_id": 10131265,
+      "core_project_num": "R01MH122754",
+      "project_num": "5R01MH122754-02",
+      "fiscal_year": 2021,
+      "award_amount": 555754,
+      "award_notice_date": "2021-02-25T00:00:00",
+      "project_end_date": "2025-02-28T00:00:00"
+    },
+    {
+      "appl_id": 9962114,
+      "core_project_num": "R01MH122754",
+      "project_num": "1R01MH122754-01",
+      "fiscal_year": 2020,
+      "award_amount": 565120,
+      "award_notice_date": "2020-03-20T00:00:00",
+      "project_end_date": "2025-02-28T00:00:00"
+    }
+  ]
+}

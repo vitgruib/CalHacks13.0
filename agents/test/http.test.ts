@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, readdirSync, rmSync } from 'node:fs';
+import { mkdtempSync, readdirSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, beforeEach, test } from 'node:test';
@@ -67,4 +67,13 @@ test('different_request_bodies_are_saved_separately', async () => {
   await fetchJson(URL_, { body: { id: 1 }, cacheDir, fetchImpl: answering({ n: 1 }) });
   await fetchJson(URL_, { body: { id: 2 }, cacheDir, fetchImpl: answering({ n: 2 }) });
   assert.deepEqual(await fetchJson(URL_, { body: { id: 1 }, cacheDir, mode: 'offline' }), { n: 1 });
+});
+
+test('an_unchanged_answer_does_not_rewrite_its_saved_copy', async () => {
+  await fetchJson(URL_, { body: { id: 5 }, cacheDir, fetchImpl: answering({ n: 1 }) });
+  const [file] = readdirSync(cacheDir);
+  const before = readFileSync(join(cacheDir, file), 'utf8');
+  await new Promise((resolve) => setTimeout(resolve, 5));
+  await fetchJson(URL_, { body: { id: 5 }, cacheDir, fetchImpl: answering({ n: 1 }) });
+  assert.equal(readFileSync(join(cacheDir, file), 'utf8'), before);
 });

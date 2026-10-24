@@ -66,6 +66,9 @@ export async function fetchJson(url: string, options: FetchOptions = {}): Promis
     });
     if (!response.ok) throw new Error(`${method} ${url} answered ${response.status}`);
     const json = select(await response.json());
+    // An unchanged answer keeps its file as is, so live runs don't churn the
+    // committed cache with nothing but new savedAt stamps.
+    if (JSON.stringify(readCache(path)) === JSON.stringify(json)) return json;
     mkdirSync(cacheDir, { recursive: true });
     writeFileSync(
       path,

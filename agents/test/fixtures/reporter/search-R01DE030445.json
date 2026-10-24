@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "total": 4
+  },
+  "results": [
+    {
+      "appl_id": 10823308,
+      "core_project_num": "R01DE030445",
+      "project_num": "5R01DE030445-04",
+      "fiscal_year": 2024,
+      "award_amount": 389423,
+      "award_notice_date": "2024-04-01T00:00:00",
+      "project_end_date": "2025-04-30T00:00:00"
+    },
+    {
+      "appl_id": 10615200,
+      "core_project_num": "R01DE030445",
+      "project_num": "5R01DE030445-03",
+      "fiscal_year": 2023,
+      "award_amount": 397371,
+      "award_notice_date": "2023-04-05T00:00:00",
+      "project_end_date": "2026-04-30T00:00:00"
+    },
+    {
+      "appl_id": 10442655,
+      "core_project_num": "R01DE030445",
+      "project_num": "5R01DE030445-02",
+      "fiscal_year": 2022,
+      "award_amount": 393397,
+      "award_notice_date": "2022-04-27T00:00:00",
+      "project_end_date": "2026-04-30T00:00:00"
+    },
+    {
+      "appl_id": 10180628,
+      "core_project_num": "R01DE030445",
+      "project_num": "1R01DE030445-01",
+      "fiscal_year": 2021,
+      "award_amount": 397373,
+      "award_notice_date": "2021-07-01T00:00:00",
+      "project_end_date": "2026-04-30T00:00:00"
+    }
+  ]
+}
