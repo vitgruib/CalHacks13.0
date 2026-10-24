@@ -247,7 +247,7 @@ export const push_back = spacetimedb.reducer({ requestId: t.string(), message: t
   const r = ctx.db.request.id.find(requestId) ?? fail(`No request ${requestId}.`);
   if (!r.requestedBy || !r.requestedBy.isEqual(ctx.sender)) fail('Only the person who asked can push back.');
   if (!message.trim()) fail('Say what changed.');
-  if (r.state === 'bought') fail('Already bought.');
+  if (r.state === 'bought' || r.state === 'rerouted') fail(`Already ${r.state}.`);
   ctx.db.request.id.update({ ...r, state: 'submitted' });
   writeLog(ctx, who, `Pushed back on ${r.item}`, message, { refId: requestId });
 }));

@@ -304,13 +304,12 @@ test('a_push_back_on_a_rerouted_request_never_buys_it_twice', async () => {
   assert.equal(request(id).state, 'rerouted');
   assert.deepEqual(ordersFor(id).map((o) => [o.grantId, o.amount]), [[SECOND_GRANT, 380]]);
 
-  // The module accepts a push back on a rerouted request and sets it back to submitted.
-  await scientist.call('push_back', { requestId: id, message: 'Did this go through?' });
+  // The module refuses a push back on a rerouted request, as on a bought one.
+  await assert.rejects(scientist.call('push_back', { requestId: id, message: 'Did this go through?' }), /Already rerouted/);
   await world.worker.idle();
   assert.equal(ordersFor(id).length, 1, 'one order, not two');
-  assert.equal(request(id).state, 'blocked');
-  assert.equal(request(id).chargedGrantId, SECOND_GRANT, 'still on the grant the order is on');
-  assert.match(request(id).explanation, /already ordered \(o\d+: \$380 on R21TEST000002/);
+  assert.equal(request(id).state, 'rerouted', 'still shows as bought on the other grant');
+  assert.equal(request(id).chargedGrantId, SECOND_GRANT);
   assert.equal(openPurchaseHolds(id).length, 0, 'no approve button that would order it again');
 });
 
