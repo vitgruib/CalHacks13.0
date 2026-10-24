@@ -17,10 +17,12 @@ export interface TestWorld {
 
 export async function startWorld({
   seedJson,
+  fixtures = false,
   sources = [],
   papers = createPaperLookup({ mode: 'offline', throttle: false }),
-}: { seedJson?: string; sources?: SourceClient[]; papers?: PaperLookup } = {}): Promise<TestWorld> {
-  const db = await createLocalDb({ world: seedJson ? { seedJson } : 'sim' });
+}: { seedJson?: string; fixtures?: boolean; sources?: SourceClient[]; papers?: PaperLookup } = {}): Promise<TestWorld> {
+  // fixtures = the module's built-in world, as a freshly published database starts.
+  const db = await createLocalDb({ world: fixtures ? 'fixtures' : seedJson ? { seedJson } : 'sim' });
   const worker = await startWorker(db, { sources, papers });
   await worker.idle();
   return {

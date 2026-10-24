@@ -102,6 +102,7 @@ export async function createLocalDb({ world = 'sim' }: LocalDbOptions = {}): Pro
   const snapshot = new Map<TableName, Map<string, [string, unknown]>>();
   const inserts = new Map<TableName, Set<(row: never) => void>>();
   const updates = new Map<TableName, Set<(oldRow: never, newRow: never) => void>>();
+  const deletes = new Map<TableName, Set<(row: never) => void>>();
   let pending: Array<() => void> = [];
   let flushing: Promise<void> | undefined;
   let commits = 0;
@@ -148,6 +149,12 @@ export async function createLocalDb({ world = 'sim' }: LocalDbOptions = {}): Pro
           for (const callback of inserts.get(table) ?? []) pending.push(() => callback(row as never));
         } else if (old[0] !== print) {
           for (const callback of updates.get(table) ?? []) pending.push(() => callback(old[1] as never, row as never));
+        }
+      }
+      if (notify) {
+        for (const [id, [, row]] of before) {
+          if (after.has(id)) continue;
+          for (const callback of deletes.get(table) ?? []) pending.push(() => callback(row as never));
         }
       }
       snapshot.set(table, after);
@@ -209,6 +216,11 @@ export async function createLocalDb({ world = 'sim' }: LocalDbOptions = {}): Pro
           mine.add(stop);
           return stop;
         },
+        onDelete(table, callback) {
+          const stop = subscribe(deletes, table, callback as (row: never) => void);
+          mine.add(stop);
+          return stop;
+        },
         disconnect() {
           for (const stop of mine) stop();
           mine.clear();
@@ -220,6 +232,7 @@ export async function createLocalDb({ world = 'sim' }: LocalDbOptions = {}): Pro
     close() {
       inserts.clear();
       updates.clear();
+      deletes.clear();
     },
   };
 }

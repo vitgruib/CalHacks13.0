@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 
 import { ActionError, type Connection, type Db, type LogRow } from '../src/db/contract.ts';
 import { createSpacetimeDb } from '../src/db/spacetime.ts';
+import { oneGrantSeed, TEST_GRANT } from './helpers.ts';
 
 const enabled = process.env.GG_SPACETIME_IT === '1';
 const CLI = process.env.GG_SPACETIME_CLI ?? join(homedir(), '.local/bin/spacetime');
@@ -181,5 +182,16 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
     assert.equal(active.frozen, false);
     assert.equal(active.frozenReason, undefined);
     assert.equal(agents.payment_report.today(), '2026-06-15');
+  });
+
+  // Last: it replaces the fixtures world.
+  test('on_delete_delivers_the_rows_a_loaded_world_removed', STEP, async () => {
+    const removed: string[] = [];
+    const stop = agents.purchasing.onDelete('grant', (row) => removed.push(row.id));
+    await manager.call('load_seed', { json: oneGrantSeed() });
+    await db.settled();
+    stop();
+    assert.deepEqual(removed.sort(), ['R01GM000001', 'R21AI000002']);
+    assert.deepEqual(agents.purchasing.rows('grant').map((g) => g.id), [TEST_GRANT]);
   });
 });

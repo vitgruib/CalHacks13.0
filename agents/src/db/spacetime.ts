@@ -222,6 +222,21 @@ export function createSpacetimeDb(options: SpacetimeDbOptions = {}): Db {
         stops.add(stop);
         return stop;
       },
+      onDelete<T extends TableName>(table: T, callback: (row: Tables[T]) => void): Unsubscribe {
+        const cache = cached(conn, table);
+        // Only deletes a transaction made; nothing here unsubscribes.
+        const listener: RowListener = (ctx, row) => {
+          if (ctx.event.tag !== 'Reducer' && ctx.event.tag !== 'Transaction') return;
+          deliver(table, () => callback(normalize(row) as Tables[T]));
+        };
+        cache.onDelete(listener);
+        const stop = () => {
+          cache.removeOnDelete(listener);
+          stops.delete(stop);
+        };
+        stops.add(stop);
+        return stop;
+      },
       disconnect() {
         for (const stop of [...stops]) stop();
         if (live.open) {

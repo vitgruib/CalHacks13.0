@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { afterEach, test } from 'node:test';
 
 import type { Tracker } from '../src/agents/bookkeeping.ts';
@@ -94,6 +95,7 @@ async function startAlone({
     today: raw.today.bind(raw),
     onInsert: raw.onInsert.bind(raw),
     onUpdate: raw.onUpdate.bind(raw),
+    onDelete: raw.onDelete.bind(raw),
     disconnect: raw.disconnect.bind(raw),
   };
   const agent: AgentHandle = startPaymentRequests({
@@ -147,6 +149,36 @@ test('pr_1_the_may_request_for_r21_leaves_held_rq_037_out', async () => {
   assert.equal(pr.state, 'waiting_on_manager');
   assert.equal(openHolds(conn, 'payment_request', pr.id).length, 1, 'the grant manager decides it in the Inbox');
   assert.deepEqual(requestsFor(conn, R01), [], 'the frozen grant asks for nothing');
+});
+
+// The live demo's Test lab loads a world while the agents run. Rows the new
+// world brings back unchanged send nothing, so a month whose request went
+// away must still be claimed again.
+const SIM_SEED = readFileSync(new URL('../../sim/seed.json', import.meta.url), 'utf8');
+
+test('loading_the_sim_world_over_the_fixtures_drafts_its_may_request', async () => {
+  // The fixtures already claim R21AI000002's May (pr1); the sim world doesn't.
+  world = await startWorld({ fixtures: true });
+  const lab = await world.person('grant_manager');
+  await lab.call('load_seed', { json: SIM_SEED });
+  await world.worker.idle();
+  const may = requestsFor(world.worker.sessions.payment_report, R21);
+  assert.equal(may.length, 1, 'one May request for R21AI000002');
+  assert.ok(may[0].excluded.some((e) => e.requestId === 'rq-037'), 'rq-037 is still left out');
+  assert.equal(may[0].amount, 7_060);
+});
+
+test('reloading_the_sim_world_drafts_its_may_request_again', async () => {
+  world = await startWorld();
+  const conn = world.worker.sessions.payment_report;
+  assert.equal(requestsFor(conn, R21).length, 1);
+  const lab = await world.person('grant_manager');
+  await lab.call('load_seed', { json: SIM_SEED });
+  await world.worker.idle();
+  const may = requestsFor(conn, R21);
+  assert.equal(may.length, 1, 'the reload removed the first draft, and May was drafted again');
+  assert.equal(may[0].amount, 7_060);
+  assert.equal(openHolds(conn, 'payment_request', may[0].id).length, 1, 'waiting in the Inbox again');
 });
 
 test('the_explanation_fits_the_limit_and_claims_only_included_purchases', async () => {

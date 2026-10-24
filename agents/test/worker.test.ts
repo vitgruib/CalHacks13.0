@@ -74,6 +74,24 @@ test('subscribers_hear_about_a_new_row_only_after_the_action_returns', async () 
   assert.deepEqual(heard, ['Nitrile gloves']);
 });
 
+test('loading_a_world_reports_removed_rows_and_nothing_for_rows_it_brings_back_unchanged', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', gloves);
+  await world.worker.idle();
+  const conn = world.worker.sessions.bookkeeping;
+  const removed: string[] = [];
+  const clockChanges: string[] = [];
+  conn.onDelete('request', (row) => removed.push(row.item));
+  conn.onUpdate('clock', (_before, after) => clockChanges.push(after.today));
+  const lab = await world.person('grant_manager');
+  await lab.call('load_seed', { json: oneGrantSeed() });
+  await world.db.settled();
+  assert.deepEqual(removed, ['Nitrile gloves']);
+  assert.equal(conn.rows('request').length, 0);
+  assert.deepEqual(clockChanges, [], 'the same day came back, so the clock sends nothing');
+});
+
 test('the_sim_world_loads_with_grant_a_frozen_by_a_court_order_without_payment', async () => {
   world = await startWorld();
   const conn = world.worker.sessions.bookkeeping;

@@ -756,6 +756,10 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
       if (before.today !== after.today) checkAllGrants();
     }),
     conn.onInsert('grant', (grant) => checkGrant(grant.id)),
+    // A request that went away (the Test lab loaded a world) leaves its month
+    // unclaimed. Loading a world sends nothing for rows it brings back
+    // unchanged, so this is the only sign a month needs claiming again.
+    conn.onDelete('paymentRequest', (pr) => checkGrant(pr.grantId)),
     // A payment unfreezing a grant lets its waiting request go out.
     conn.onUpdate('grant', (before, after) => {
       if (before.frozen !== after.frozen || before.status !== after.status) checkGrant(after.id);

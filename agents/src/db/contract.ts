@@ -414,6 +414,8 @@ export interface Connection {
   /** New rows only; read rows() first for what was already there. */
   onInsert<T extends TableName>(table: T, callback: (row: Tables[T]) => void): Unsubscribe;
   onUpdate<T extends TableName>(table: T, callback: (oldRow: Tables[T], newRow: Tables[T]) => void): Unsubscribe;
+  /** Rows that went away, e.g. when the Test lab loads a world: rows it brings back unchanged send nothing. */
+  onDelete<T extends TableName>(table: T, callback: (row: Tables[T]) => void): Unsubscribe;
   disconnect(): void;
 }
 
