@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=32504543",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:55.744Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "32504543",
+        "title": "Expression of concern: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis.",
+        "doi": "10.1016/s0140-6736(20)31290-3",
+        "pmcid": "PMC7269709",
+        "date": "2020-06-03",
+        "publicationTypes": [
+          "Journal Article",
+          "Expression of Concern"
+        ],
+        "grantIds": [],
+        "links": []
+      }
+    ]
+  }
+}

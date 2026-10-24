@@ -1,0 +1,55 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 1,
+    "items": [
+      {
+        "DOI": "10.1136/bmj-2022-072924",
+        "title": [
+          "Ionising radiation and cardiovascular disease: systematic review and meta-analysis"
+        ],
+        "funder": [
+          {
+            "DOI": "10.13039/100000054",
+            "name": "National Cancer Institute",
+            "doi-asserted-by": "publisher",
+            "id": [
+              {
+                "id": "10.13039/100000054",
+                "id-type": "DOI",
+                "asserted-by": "publisher"
+              }
+            ]
+          }
+        ],
+        "updated-by": [
+          {
+            "DOI": "10.1136/bmj.r2557",
+            "type": "correction",
+            "label": "Correction",
+            "source": "publisher",
+            "updated": {
+              "date-parts": [
+                [
+                  2025,
+                  12,
+                  12
+                ]
+              ],
+              "date-time": "2025-12-12T00:00:00Z",
+              "timestamp": 1765497600000
+            }
+          }
+        ]
+      }
+    ],
+    "items-per-page": 1,
+    "query": {
+      "start-index": 0,
+      "search-terms": null
+    }
+  }
+}

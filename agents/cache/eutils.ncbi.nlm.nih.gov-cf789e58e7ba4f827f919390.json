@@ -1,0 +1,24 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=41436770",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:09.099Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "41436770",
+        "title": "Correction: A meta-analysis of the effects of mindfulness meditation training on self-reported interoception.",
+        "doi": "10.1038/s41598-025-32949-0",
+        "pmcid": "PMC12728161",
+        "date": "2025-12-23",
+        "publicationTypes": [
+          "Published Erratum"
+        ],
+        "grantIds": [],
+        "links": []
+      }
+    ]
+  }
+}

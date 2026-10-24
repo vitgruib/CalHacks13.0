@@ -1,0 +1,33 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=40961032",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:04.129Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "40961032",
+        "title": "Disparities in multi-modal spatial access to primary and specialty care in U.S. neighborhoods: A cross-sectional and temporal analysis of health services.",
+        "doi": "10.1371/journal.pone.0330427",
+        "pmcid": "PMC12443297",
+        "date": "2025-09-17",
+        "publicationTypes": [
+          "Journal Article"
+        ],
+        "grantIds": [
+          "R01 AG080486",
+          "T32 CA094186"
+        ],
+        "links": [
+          {
+            "type": "ErratumIn",
+            "pmid": "41428630",
+            "source": "PLoS One. 2025 Dec 22;20(12):e0339502. doi: 10.1371/journal.pone.0339502."
+          }
+        ]
+      }
+    ]
+  }
+}

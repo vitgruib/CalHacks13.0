@@ -1,0 +1,66 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1016%2Fs0140-6736(20)31174-0&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:59.173Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1016/s0140-6736(20)31174-0",
+          "title": [
+            "RETRACTED: Chloroquine or hydroxychloroquine for COVID-19: why might they be hazardous?"
+          ],
+          "funder": [],
+          "updated-by": [
+            {
+              "DOI": "10.1016/s0140-6736(20)31528-2",
+              "type": "retraction",
+              "source": "retraction-watch",
+              "updated": {
+                "date-parts": [
+                  [
+                    2020,
+                    7,
+                    9
+                  ]
+                ]
+              }
+            },
+            {
+              "DOI": "10.1016/s0140-6736(20)31180-6",
+              "type": "retraction",
+              "source": "publisher",
+              "updated": {
+                "date-parts": [
+                  [
+                    2020,
+                    5,
+                    22
+                  ]
+                ]
+              }
+            },
+            {
+              "DOI": "10.1016/s0140-6736(20)31528-2",
+              "type": "erratum",
+              "source": "publisher",
+              "updated": {
+                "date-parts": [
+                  [
+                    2020,
+                    7,
+                    18
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

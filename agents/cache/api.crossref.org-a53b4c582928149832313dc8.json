@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1038%2Fs41598-025-32949-0&select=DOI,title&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:07.465Z",
+  "response": {
+    "message": {
+      "items": [
+        {
+          "DOI": "10.1038/s41598-025-32949-0",
+          "title": [
+            "Correction: A meta-analysis of the effects of mindfulness meditation training on self-reported interoception"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=32485145%2C32504543%2C32511943%2C32653079",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:51.844Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "32485145",
+        "title": "Department of Error.",
+        "doi": "10.1016/s0140-6736(20)31249-6",
+        "pmcid": "PMC7260510",
+        "date": "2020-05-30",
+        "publicationTypes": [
+          "Journal Article",
+          "Published Erratum"
+        ],
+        "grantIds": [],
+        "links": []
+      },
+      {
+        "pmid": "32504543",
+        "title": "Expression of concern: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis.",
+        "doi": "10.1016/s0140-6736(20)31290-3",
+        "pmcid": "PMC7269709",
+        "date": "2020-06-03",
+        "publicationTypes": [
+          "Journal Article",
+          "Expression of Concern"
+        ],
+        "grantIds": [],
+        "links": []
+      },
+      {
+        "pmid": "32511943",
+        "title": "Retraction-Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis.",
+        "doi": "10.1016/s0140-6736(20)31324-6",
+        "pmcid": "PMC7274621",
+        "date": "2020-06-05",
+        "publicationTypes": [
+          "Journal Article",
+          "Retraction Notice"
+        ],
+        "grantIds": [],
+        "links": []
+      },
+      {
+        "pmid": "32653079",
+        "title": "Retraction and republication: cardiac toxicity of hydroxychloroquine in COVID-19.",
+        "doi": "10.1016/s0140-6736(20)31528-2",
+        "pmcid": "PMC7347305",
+        "date": "2020-07-09",
+        "publicationTypes": [
+          "Journal Article",
+          "Retraction Notice"
+        ],
+        "grantIds": [],
+        "links": []
+      }
+    ]
+  }
+}

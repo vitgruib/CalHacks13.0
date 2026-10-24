@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.5555%2Fgrantguard-not-a-real-doi&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:09.398Z",
+  "response": {
+    "message": {
+      "total-results": 0,
+      "items": []
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 1,
+    "items": [
+      {
+        "DOI": "10.3201/eid3208.260433",
+        "title": [
+          "Doxycycline Resistance and 16S rRNA Mutations in\n                    <i>Treponema pallidum</i>"
+        ]
+      }
+    ],
+    "items-per-page": 1,
+    "query": {
+      "start-index": 0,
+      "search-terms": null
+    }
+  }
+}

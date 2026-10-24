@@ -1,0 +1,38 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1016%2Fj.ophtha.2022.05.008&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:40.725Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1016/j.ophtha.2022.05.008",
+          "title": [
+            "Association between Immunosuppressive Drugs and Coronavirus Disease 2019 Outcomes in Patients with Noninfectious Uveitis in a Large US Claims Database"
+          ],
+          "funder": [
+            {
+              "name": "National Eye Institute",
+              "award": []
+            },
+            {
+              "name": "Office of Research on Women's Health",
+              "award": []
+            },
+            {
+              "name": "National Institutes of Health",
+              "award": [
+                "R01 EY028739"
+              ]
+            }
+          ],
+          "updated-by": []
+        }
+      ]
+    }
+  }
+}

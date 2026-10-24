@@ -1,123 +1,96 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
-import { join } from 'node:path';
-import { afterEach, beforeEach, test } from 'node:test';
+import { afterEach, test } from 'node:test';
 
-import { ActionError, createStubDb } from '../src/db/stub.ts';
+import { ActionError } from '../src/db/contract.ts';
+import { createLocalDb } from '../src/db/local.ts';
+import { memoryTokens } from '../src/identity.ts';
 import { ROLES } from '../src/roles.ts';
-import { startWorker, type Worker } from '../src/worker.ts';
+import { runSim } from '../src/sim.ts';
+import { startWorker } from '../src/worker.ts';
+import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
 
-let stateDir: string;
-let worker: Worker | undefined;
-
-beforeEach(() => {
-  stateDir = mkdtempSync(join(tmpdir(), 'gg-agents-'));
-  process.env.GG_STATE_DIR = stateDir;
-});
-
+let world: TestWorld | undefined;
 afterEach(() => {
-  worker?.stop();
-  worker = undefined;
-  rmSync(stateDir, { recursive: true, force: true });
+  world?.stop();
+  world = undefined;
 });
 
-const pipetteTips = {
-  item: 'Pipette tips',
-  price: 240,
-  grantId: 'DEMO-GRANT-A',
-  purpose: 'Sample prep',
-};
+const gloves = { item: 'Nitrile gloves', category: 'lab supplies', price: 240, grantId: TEST_GRANT, purpose: 'Aim 2', sharedWith: [] };
 
 test('three_agents_connect_as_separate_registered_identities', async () => {
-  const db = createStubDb();
-  worker = await startWorker(db);
-
-  const identities = ROLES.map((role) => worker!.sessions[role].identity);
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const { sessions } = world.worker;
+  const identities = ROLES.map((role) => sessions[role].identity);
   assert.equal(new Set(identities).size, 3);
-  assert.deepEqual(
-    db.rows('agents').map((a) => [a.role, a.identity]),
-    ROLES.map((role) => [role, worker!.sessions[role].identity]),
-  );
+  const registered = new Map(sessions.purchasing.rows('agent').map((agent) => [agent.role, agent.identity]));
+  for (const role of ROLES) assert.equal(registered.get(role), sessions[role].identity);
 });
 
-test('restarted_worker_keeps_the_same_identities', async () => {
-  const db = createStubDb();
-  const first = await startWorker(db);
+test('a_restarted_worker_keeps_the_same_identities', async () => {
+  const db = await createLocalDb({ world: { seedJson: oneGrantSeed() } });
+  const tokens = memoryTokens();
+  const first = await startWorker(db, { tokens });
   const before = ROLES.map((role) => first.sessions[role].identity);
   first.stop();
 
-  worker = await startWorker(db);
-  assert.deepEqual(ROLES.map((role) => worker!.sessions[role].identity), before);
-  assert.equal(db.rows('agents').length, 3);
+  const second = await startWorker(db, { tokens });
+  assert.deepEqual(ROLES.map((role) => second.sessions[role].identity), before);
+  assert.equal(second.sessions.purchasing.rows('agent').length, 3);
+  second.stop();
 });
 
-test('stub_agent_puts_a_new_request_in_the_inbox_with_log_rows', async () => {
-  const db = createStubDb();
-  worker = await startWorker(db);
-  const scientist = await db.connect();
-  await scientist.call('submit_request', pipetteTips);
-
-  const [request] = db.rows('requests');
-  const holds = db.rows('holds');
-  assert.equal(holds.length, 1);
-  assert.equal(holds[0].raisedBy, worker.sessions.purchasing.identity);
-  assert.equal(holds[0].kind, 'purchase');
-  assert.equal(holds[0].refId, String(request.id));
-  assert.deepEqual(
-    db.rows('log').map((row) => row.action).filter((a) => a !== 'register_agent'),
-    ['submit_request', 'raise_hold'],
-  );
+test('agents_cannot_ask_to_buy_things', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  await assert.rejects(world.worker.sessions.purchasing.call('submit_request', gloves), (error: unknown) => {
+    assert.ok(error instanceof ActionError);
+    assert.match(error.message, /only people/i);
+    return true;
+  });
 });
 
-test('restarted_worker_does_not_answer_the_same_request_twice', async () => {
-  const db = createStubDb();
-  const first = await startWorker(db);
-  const scientist = await db.connect();
-  await scientist.call('submit_request', pipetteTips);
-  first.stop();
-
-  worker = await startWorker(db);
-  assert.equal(db.rows('holds').length, 1);
+test('a_person_cannot_take_an_agent_role', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const scientist = await world.person('scientist');
+  await assert.rejects(scientist.call('register_agent', { role: 'purchasing' }), /agent/);
 });
 
-test('agents_cannot_submit_requests', async () => {
-  const db = createStubDb();
-  worker = await startWorker(db);
-  await assert.rejects(
-    worker.sessions.purchasing.call('submit_request', pipetteTips),
-    ActionError,
-  );
+test('a_refused_action_changes_nothing', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const { purchasing } = world.worker.sessions;
+  const logBefore = purchasing.rows('log').length;
+  await assert.rejects(purchasing.call('evaluate_request', { requestId: 'rq-404', split: [] }), /No request rq-404/);
+  assert.equal(purchasing.rows('log').length, logBefore);
 });
 
-test('people_cannot_raise_holds', async () => {
-  const db = createStubDb();
-  const scientist = await db.connect();
-  await assert.rejects(
-    scientist.call('raise_hold', {
-      kind: 'purchase',
-      refId: '1',
-      grantId: null,
-      title: 'Approve my own request',
-      why: 'people must not write Inbox items',
-      evidence: [],
-    }),
-    ActionError,
-  );
+test('subscribers_hear_about_a_new_row_only_after_the_action_returns', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const scientist = await world.person('scientist');
+  const heard: string[] = [];
+  world.worker.sessions.purchasing.onInsert('request', (row) => heard.push(row.item));
+  await scientist.call('submit_request', gloves);
+  assert.deepEqual(heard, [], 'not inside the action');
+  assert.equal(scientist.rows('request').length, 1, 'but the row is already readable');
+  await world.db.settled();
+  assert.deepEqual(heard, ['Nitrile gloves']);
 });
 
-test('a_second_identity_cannot_take_a_role_already_held', async () => {
-  const db = createStubDb();
-  worker = await startWorker(db);
-  const impostor = await db.connect();
-  await assert.rejects(impostor.call('register_agent', { role: 'purchasing' }), ActionError);
+test('the_sim_world_loads_with_grant_a_frozen_by_a_court_order_without_payment', async () => {
+  world = await startWorld();
+  const conn = world.worker.sessions.bookkeeping;
+  const grantA = conn.rows('grant').find((grant) => grant.id === 'R01GM000001');
+  assert.equal(grantA?.status, 'restored_by_court');
+  assert.equal(grantA?.frozen, true);
+  assert.equal(conn.today(), '2026-06-15');
+  assert.equal(conn.rows('request').length, 46);
 });
 
-test('an_identity_cannot_switch_to_another_role', async () => {
-  const db = createStubDb();
-  worker = await startWorker(db);
-  await assert.rejects(
-    worker.sessions.purchasing.call('register_agent', { role: 'bookkeeping' }),
-    ActionError,
-  );
+test('run_sim_returns_every_table_once_the_agents_are_quiet', async () => {
+  const run = await runSim();
+  try {
+    assert.equal(run.tables.grant.length, 2);
+    assert.ok(run.tables.log.length > 0);
+    assert.equal(run.tables.agent.length, 3);
+  } finally {
+    run.stop();
+  }
 });

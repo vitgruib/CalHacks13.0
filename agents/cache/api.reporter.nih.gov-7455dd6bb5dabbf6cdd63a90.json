@@ -1,0 +1,22 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/publications/search",
+    "body": {
+      "criteria": {
+        "core_project_nums": [
+          "R01HD115985"
+        ]
+      },
+      "offset": 0,
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-24T07:53:35.566Z",
+  "response": {
+    "meta": {
+      "total": 0
+    },
+    "results": []
+  }
+}

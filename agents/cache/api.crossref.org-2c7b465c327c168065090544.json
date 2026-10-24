@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1001%2Fjamanetworkopen.2022.42240&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:41.770Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1001/jamanetworkopen.2022.42240",
+          "title": [
+            "Assessment of Herpes Zoster Risk Among Recipients of COVID-19 Vaccine"
+          ],
+          "funder": [],
+          "updated-by": []
+        }
+      ]
+    }
+  }
+}

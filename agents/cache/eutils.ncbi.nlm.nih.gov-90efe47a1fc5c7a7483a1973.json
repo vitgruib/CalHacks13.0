@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=42521605",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:38.441Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "42521605",
+        "title": "Doxycycline Resistance and 16S rRNA Mutations in Treponema pallidum.",
+        "doi": "10.3201/eid3208.260433",
+        "pmcid": "PMC13426860",
+        "date": "2026-07-29",
+        "publicationTypes": [
+          "Letter"
+        ],
+        "grantIds": [
+          "R01 AI143439",
+          "R01 AI181732"
+        ],
+        "links": []
+      }
+    ]
+  }
+}

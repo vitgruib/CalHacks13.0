@@ -1,0 +1,43 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1016%2Fs0140-6736(20)31324-6&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:52.919Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1016/s0140-6736(20)31324-6",
+          "title": [
+            "Retraction—Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis"
+          ],
+          "funder": [
+            {
+              "name": "Roche",
+              "award": []
+            }
+          ],
+          "updated-by": [
+            {
+              "DOI": "10.1016/s0140-6736(20)31180-6",
+              "type": "retraction",
+              "source": "publisher",
+              "updated": {
+                "date-parts": [
+                  [
+                    2020,
+                    5,
+                    22
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

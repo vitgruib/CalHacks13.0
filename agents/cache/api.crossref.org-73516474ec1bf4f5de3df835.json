@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1016%2Fs0140-6736(20)31174-0,doi:10.1016%2Fs0140-6736(20)31249-6,doi:10.1016%2Fs0140-6736(20)31290-3,doi:10.1016%2Fs0140-6736(20)31324-6,doi:10.1016%2Fs0140-6736(20)31528-2&select=DOI,title&rows=5",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:51.932Z",
+  "response": {
+    "message": {
+      "items": [
+        {
+          "DOI": "10.1016/s0140-6736(20)31249-6",
+          "title": [
+            "Department of Error"
+          ]
+        },
+        {
+          "DOI": "10.1016/s0140-6736(20)31174-0",
+          "title": [
+            "RETRACTED: Chloroquine or hydroxychloroquine for COVID-19: why might they be hazardous?"
+          ]
+        },
+        {
+          "DOI": "10.1016/s0140-6736(20)31324-6",
+          "title": [
+            "Retraction—Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis"
+          ]
+        },
+        {
+          "DOI": "10.1016/s0140-6736(20)31290-3",
+          "title": [
+            "Expression of concern: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis"
+          ]
+        },
+        {
+          "DOI": "10.1016/s0140-6736(20)31528-2",
+          "title": [
+            "Retraction and republication: cardiac toxicity of hydroxychloroquine in COVID-19"
+          ]
+        }
+      ]
+    }
+  }
+}

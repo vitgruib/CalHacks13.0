@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1371%2Fjournal.pone.0339502&select=DOI,title&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:04.415Z",
+  "response": {
+    "message": {
+      "items": [
+        {
+          "DOI": "10.1371/journal.pone.0339502",
+          "title": [
+            "Correction: Disparities in multi-modal spatial access to primary and specialty care in U.S. neighborhoods: A cross-sectional and temporal analysis of health services"
+          ]
+        }
+      ]
+    }
+  }
+}

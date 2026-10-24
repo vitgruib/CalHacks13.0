@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=32450109",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:00.124Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "32450109",
+        "title": "Chloroquine or hydroxychloroquine for COVID-19: why might they be hazardous?",
+        "doi": "10.1016/s0140-6736(20)31174-0",
+        "pmcid": "PMC7255131",
+        "date": "2020-05-22",
+        "publicationTypes": [
+          "Journal Article",
+          "Retracted Publication"
+        ],
+        "grantIds": [],
+        "links": [
+          {
+            "type": "RetractionIn",
+            "pmid": "32653079",
+            "source": "Lancet. 2020 Jul 18;396(10245):e2-e3. doi: 10.1016/S0140-6736(20)31528-2."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<PubmedArticleSet>
+<PubmedArticle>
+<MedlineCitation>
+<PMID Version="1">36917109</PMID>
+<Article>
+<ArticleTitle>Population Preferences for Primary Care Models for Hypertension in Karnataka, India.</ArticleTitle>
+<GrantList CompleteYN="Y"><Grant><GrantID>P30 MH062246</GrantID><Acronym>MH</Acronym><Agency>NIMH NIH HHS</Agency><Country>United States</Country></Grant><Grant><GrantID>P30 AG024409</GrantID><Acronym>AG</Acronym><Agency>NIA NIH HHS</Agency><Country>United States</Country></Grant></GrantList>
+<PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType><PublicationType UI="D013485">Research Support, Non-U.S. Gov't</PublicationType><PublicationType UI="D052061">Research Support, N.I.H., Extramural</PublicationType></PublicationTypeList>
+<ArticleDate DateType="Electronic"><Year>2023</Year><Month>03</Month><Day>01</Day></ArticleDate>
+</Article>
+<CommentsCorrectionsList><CommentsCorrections RefType="ErratumIn"><RefSource>JAMA Netw Open. 2024 Jan 2;7(1):e2354465. doi: 10.1001/jamanetworkopen.2023.54465.</RefSource><PMID Version="1">38214934</PMID></CommentsCorrections></CommentsCorrectionsList>
+</MedlineCitation>
+<PubmedData>
+<History><PubMedPubDate PubStatus="pubmed"><Year>2023</Year><Month>3</Month><Day>15</Day><Hour>6</Hour><Minute>0</Minute></PubMedPubDate></History>
+<ArticleIdList><ArticleId IdType="pubmed">36917109</ArticleId><ArticleId IdType="pmc">PMC10015308</ArticleId><ArticleId IdType="doi">10.1001/jamanetworkopen.2023.2937</ArticleId><ArticleId IdType="pii">2802389</ArticleId></ArticleIdList>
+</PubmedData>
+</PubmedArticle>
+</PubmedArticleSet>

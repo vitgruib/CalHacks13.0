@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 1,
+    "items": [
+      {
+        "DOI": "10.1136/bmj.r2557",
+        "title": [
+          "Correction: Ionising radiation and cardiovascular disease: systematic review and meta-analysis"
+        ]
+      }
+    ],
+    "items-per-page": 1,
+    "query": {
+      "start-index": 0,
+      "search-terms": null
+    }
+  }
+}

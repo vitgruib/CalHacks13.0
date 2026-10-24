@@ -1,0 +1,31 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/publications/search",
+    "body": {
+      "criteria": {
+        "core_project_nums": [
+          "R01AI181732"
+        ]
+      },
+      "offset": 0,
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-24T07:53:36.333Z",
+  "response": {
+    "meta": {
+      "total": 2
+    },
+    "results": [
+      {
+        "coreproject": "R01AI181732",
+        "pmid": 42330440
+      },
+      {
+        "coreproject": "R01AI181732",
+        "pmid": 42521605
+      }
+    ]
+  }
+}

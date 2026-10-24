@@ -1,0 +1,16 @@
+{
+  "header": {
+    "type": "esearch",
+    "version": "0.3"
+  },
+  "esearchresult": {
+    "count": "1",
+    "retmax": "1",
+    "retstart": "0",
+    "idlist": [
+      "42330440"
+    ],
+    "translationset": [],
+    "querytranslation": "\"10.1097/olq.0000000000002380\"[Publisher ID]"
+  }
+}

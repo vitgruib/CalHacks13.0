@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 1,
+    "items": [
+      {
+        "DOI": "10.1097/olq.0000000000002380",
+        "title": [
+          "Measuring Doxycycline Postexposure Prophylaxis Use Relative to Sexually Transmitted Infection Rates at a San Francisco STI Clinic Reveals Racial Inequities in Disease Prevention Impact"
+        ]
+      }
+    ],
+    "items-per-page": 1,
+    "query": {
+      "start-index": 0,
+      "search-terms": null
+    }
+  }
+}

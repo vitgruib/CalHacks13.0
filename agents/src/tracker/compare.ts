@@ -3,19 +3,28 @@
 // disagree. Pure functions, so they're easy to test. The freeze itself is
 // Track A's rule, not decided here.
 
-import type {
-  GrantStatus,
-  SourceReadingRow,
-  StatusEventKind,
-} from '../db/contract.ts';
+import type { GrantStatus, SourceReadingRow, StatusEventKind } from '../db/contract.ts';
 import type { Reading } from '../sources/types.ts';
+
+// A stored reading in the same shape as a fresh one (unset columns → null).
+export function readingOf(row: SourceReadingRow): Reading {
+  return {
+    grantId: row.grantId,
+    source: row.source,
+    status: row.status ?? null,
+    awarded: row.awarded ?? null,
+    paid: row.paid ?? null,
+    endDate: row.endDate ?? null,
+    url: row.url,
+  };
+}
 
 const FIELDS = ['status', 'awarded', 'paid', 'endDate'] as const;
 type Field = (typeof FIELDS)[number];
 
 // A source that stops mentioning a field hasn't changed it, so keep what it
 // said last. Otherwise a flaky source would look like constant changes.
-export function merge(previous: SourceReadingRow | undefined, next: Reading): Reading {
+export function merge(previous: Reading | undefined, next: Reading): Reading {
   const merged = { ...next };
   for (const field of FIELDS) {
     if (merged[field] === null && previous) {
@@ -25,19 +34,19 @@ export function merge(previous: SourceReadingRow | undefined, next: Reading): Re
   return merged;
 }
 
-export function changedFields(previous: SourceReadingRow | undefined, merged: Reading): Field[] {
+export function changedFields(previous: Reading | undefined, merged: Reading): Field[] {
   return FIELDS.filter((field) => merged[field] !== null && previous?.[field] !== merged[field]);
 }
 
 export interface EventDraft {
   kind: StatusEventKind;
   summary: string;
-  amount: number | null;
+  amount?: number;
 }
 
 const dollars = (amount: number) => `$${amount.toLocaleString('en-US')}`;
 
-export function eventsFor(previous: SourceReadingRow | undefined, merged: Reading): EventDraft[] {
+export function eventsFor(previous: Reading | undefined, merged: Reading): EventDraft[] {
   const events: EventDraft[] = [];
   const { source, grantId } = merged;
 
@@ -46,11 +55,11 @@ export function eventsFor(previous: SourceReadingRow | undefined, merged: Readin
     if (previous?.status != null || merged.status !== 'active') {
       const was = previous?.status ? ` (was ${previous.status})` : '';
       if (merged.status === 'canceled') {
-        events.push({ kind: 'canceled', summary: `${source} lists ${grantId} as canceled${was}`, amount: null });
+        events.push({ kind: 'canceled', summary: `${source} lists ${grantId} as canceled${was}` });
       } else if (merged.status === 'restored_by_court') {
-        events.push({ kind: 'court_order', summary: `${source} shows ${grantId} restored by a court${was}`, amount: null });
+        events.push({ kind: 'court_order', summary: `${source} shows ${grantId} restored by a court${was}` });
       } else {
-        events.push({ kind: 'reading_changed', summary: `${source}: ${grantId} is ${merged.status}${was}`, amount: null });
+        events.push({ kind: 'reading_changed', summary: `${source}: ${grantId} is ${merged.status}${was}` });
       }
     }
   }
@@ -68,7 +77,6 @@ export function eventsFor(previous: SourceReadingRow | undefined, merged: Readin
     events.push({
       kind: 'reading_changed',
       summary: `${source}: amount awarded on ${grantId} went from ${dollars(previous.awarded)} to ${dollars(merged.awarded)}`,
-      amount: null,
     });
   }
 
@@ -78,7 +86,6 @@ export function eventsFor(previous: SourceReadingRow | undefined, merged: Readin
     events.push({
       kind: 'reading_changed',
       summary: `${source}: end date of ${grantId} moved from ${previous.endDate} to ${merged.endDate}${earlier}`,
-      amount: null,
     });
   }
 
@@ -94,7 +101,7 @@ const MEANING: Record<GrantStatus, string> = {
   ended: 'ended',
 };
 
-export function disagreement(latest: SourceReadingRow[]): string | null {
+export function disagreement(latest: Reading[]): string | null {
   const claims = latest.filter((reading) => reading.status !== null);
   const meanings = new Set(claims.map((reading) => MEANING[reading.status!]));
   if (meanings.size < 2) return null;

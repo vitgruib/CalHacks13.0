@@ -1,0 +1,52 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1016%2Fs0140-6736(20)31290-3&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:54.979Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1016/s0140-6736(20)31290-3",
+          "title": [
+            "Expression of concern: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis"
+          ],
+          "funder": [],
+          "updated-by": [
+            {
+              "DOI": "10.1016/s0140-6736(20)31180-6",
+              "type": "retraction",
+              "source": "publisher",
+              "updated": {
+                "date-parts": [
+                  [
+                    2020,
+                    5,
+                    22
+                  ]
+                ]
+              }
+            },
+            {
+              "DOI": "10.1016/s0140-6736(20)31324-6",
+              "type": "erratum",
+              "source": "publisher",
+              "updated": {
+                "date-parts": [
+                  [
+                    2020,
+                    6,
+                    13
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=36889791",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:44.449Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "36889791",
+        "title": "Ionising radiation and cardiovascular disease: systematic review and meta-analysis.",
+        "doi": "10.1136/bmj-2022-072924",
+        "pmcid": "PMC10535030",
+        "date": "2023-03-08",
+        "publicationTypes": [
+          "Meta-Analysis",
+          "Systematic Review",
+          "Journal Article",
+          "Research Support, N.I.H., Intramural",
+          "Research Support, N.I.H., Extramural"
+        ],
+        "grantIds": [
+          "R01 CA197422"
+        ],
+        "links": [
+          {
+            "type": "ErratumIn",
+            "pmid": "41386776",
+            "source": "BMJ. 2025 Dec 12;391:r2557. doi: 10.1136/bmj.r2557."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pmc.ncbi.nlm.nih.gov/tools/idconv/api/v1/articles/?ids=10.1016%2Fj.ophtha.2022.05.008&format=json&tool=grantguard",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:40.821Z",
+  "response": {
+    "records": [
+      {
+        "doi": "10.1016/j.ophtha.2022.05.008",
+        "pmid": 35588945,
+        "pmcid": "PMC9110065",
+        "errmsg": null
+      }
+    ]
+  }
+}

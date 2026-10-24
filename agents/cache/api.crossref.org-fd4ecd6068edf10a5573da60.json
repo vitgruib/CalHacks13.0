@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.3201%2Feid3208.260433&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:37.599Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.3201/eid3208.260433",
+          "title": [
+            "Doxycycline Resistance and 16S rRNA Mutations in\n                    <i>Treponema pallidum</i>"
+          ],
+          "funder": [],
+          "updated-by": []
+        }
+      ]
+    }
+  }
+}

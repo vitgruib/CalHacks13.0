@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=36383382",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:42.372Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "36383382",
+        "title": "Assessment of Herpes Zoster Risk Among Recipients of COVID-19 Vaccine.",
+        "doi": "10.1001/jamanetworkopen.2022.42240",
+        "pmcid": "PMC9669817",
+        "date": "2022-11-01",
+        "publicationTypes": [
+          "Journal Article",
+          "Research Support, N.I.H., Extramural",
+          "Research Support, U.S. Gov't, Non-P.H.S.",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "grantIds": [
+          "K23 AI146268",
+          "L30 AI126521"
+        ],
+        "links": []
+      }
+    ]
+  }
+}

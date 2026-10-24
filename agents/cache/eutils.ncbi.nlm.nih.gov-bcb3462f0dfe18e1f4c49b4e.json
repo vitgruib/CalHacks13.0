@@ -1,0 +1,29 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=33580245",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:43.398Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "33580245",
+        "title": "Effectiveness of the Recombinant Zoster Vaccine in Adults Aged 50 and Older in the United States: A Claims-Based Cohort Study.",
+        "doi": "10.1093/cid/ciab121",
+        "pmcid": "PMC8442779",
+        "date": "2021-02-14",
+        "publicationTypes": [
+          "Journal Article",
+          "Research Support, N.I.H., Extramural",
+          "Research Support, Non-U.S. Gov't"
+        ],
+        "grantIds": [
+          "R01 EY028739",
+          "EY06190"
+        ],
+        "links": []
+      }
+    ]
+  }
+}

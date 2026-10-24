@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<PubmedArticleSet>
+<PubmedArticle>
+<MedlineCitation>
+<PMID Version="1">32485145</PMID>
+<Article>
+<ArticleTitle>Department of Error.</ArticleTitle>
+<PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType><PublicationType UI="D016425">Published Erratum</PublicationType></PublicationTypeList>
+<ArticleDate DateType="Electronic"><Year>2020</Year><Month>05</Month><Day>30</Day></ArticleDate>
+</Article>
+<CommentsCorrectionsList><CommentsCorrections RefType="ErratumFor"><RefSource>Lancet. 2020 May 22:S0140-6736(20)31180-6. doi: 10.1016/S0140-6736(20)31180-6.</RefSource><PMID Version="1">32450107</PMID></CommentsCorrections></CommentsCorrectionsList>
+</MedlineCitation>
+<PubmedData>
+<History><PubMedPubDate PubStatus="pubmed"><Year>2020</Year><Month>6</Month><Day>3</Day><Hour>6</Hour><Minute>0</Minute></PubMedPubDate></History>
+<ArticleIdList><ArticleId IdType="pubmed">32485145</ArticleId><ArticleId IdType="pmc">PMC7260510</ArticleId><ArticleId IdType="doi">10.1016/S0140-6736(20)31249-6</ArticleId><ArticleId IdType="pii">S0140-6736(20)31249-6</ArticleId></ArticleIdList>
+</PubmedData>
+</PubmedArticle>
+<PubmedArticle>
+<MedlineCitation>
+<PMID Version="1">32504543</PMID>
+<Article>
+<ArticleTitle>Expression of concern: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis.</ArticleTitle>
+<PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType><PublicationType UI="D000075742">Expression of Concern</PublicationType></PublicationTypeList>
+<ArticleDate DateType="Electronic"><Year>2020</Year><Month>06</Month><Day>03</Day></ArticleDate>
+</Article>
+<CommentsCorrectionsList><CommentsCorrections RefType="ExpressionOfConcernFor"><RefSource>Lancet. 2020 May 22:S0140-6736(20)31180-6. doi: 10.1016/S0140-6736(20)31180-6.</RefSource><PMID Version="1">32450107</PMID></CommentsCorrections><CommentsCorrections RefType="CommentIn"><RefSource>Lancet. 2020 Oct 10;396(10257):1055-1056. doi: 10.1016/S0140-6736(20)32077-8.</RefSource><PMID Version="1">33038952</PMID></CommentsCorrections><CommentsCorrections RefType="CommentIn"><RefSource>Pulmonology. 2021 Mar-Apr;27(2):97-106. doi: 10.1016/j.pulmoe.2020.10.011.</RefSource><PMID Version="1">33281107</PMID></CommentsCorrections></CommentsCorrectionsList>
+</MedlineCitation>
+<PubmedData>
+<History><PubMedPubDate PubStatus="pubmed"><Year>2020</Year><Month>6</Month><Day>7</Day><Hour>6</Hour><Minute>0</Minute></PubMedPubDate></History>
+<ArticleIdList><ArticleId IdType="pubmed">32504543</ArticleId><ArticleId IdType="pmc">PMC7269709</ArticleId><ArticleId IdType="doi">10.1016/S0140-6736(20)31290-3</ArticleId><ArticleId IdType="pii">S0140-6736(20)31290-3</ArticleId></ArticleIdList>
+</PubmedData>
+</PubmedArticle>
+<PubmedArticle>
+<MedlineCitation>
+<PMID Version="1">32511943</PMID>
+<Article>
+<ArticleTitle>Retraction-Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis.</ArticleTitle>
+<PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType><PublicationType UI="D016440">Retraction Notice</PublicationType></PublicationTypeList>
+<ArticleDate DateType="Electronic"><Year>2020</Year><Month>06</Month><Day>05</Day></ArticleDate>
+</Article>
+<CommentsCorrectionsList><CommentsCorrections RefType="RetractionOf"><RefSource>Lancet. 2020 May 22:S0140-6736(20)31180-6. doi: 10.1016/S0140-6736(20)31180-6.</RefSource><PMID Version="1">32450107</PMID></CommentsCorrections></CommentsCorrectionsList>
+</MedlineCitation>
+<PubmedData>
+<History><PubMedPubDate PubStatus="pubmed"><Year>2020</Year><Month>6</Month><Day>9</Day><Hour>6</Hour><Minute>0</Minute></PubMedPubDate></History>
+<ArticleIdList><ArticleId IdType="pubmed">32511943</ArticleId><ArticleId IdType="pmc">PMC7274621</ArticleId><ArticleId IdType="doi">10.1016/S0140-6736(20)31324-6</ArticleId><ArticleId IdType="pii">S0140-6736(20)31324-6</ArticleId></ArticleIdList>
+</PubmedData>
+</PubmedArticle>
+<PubmedArticle>
+<MedlineCitation>
+<PMID Version="1">32653079</PMID>
+<Article>
+<ArticleTitle>Retraction and republication: cardiac toxicity of hydroxychloroquine in COVID-19.</ArticleTitle>
+<PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType><PublicationType UI="D016440">Retraction Notice</PublicationType></PublicationTypeList>
+<ArticleDate DateType="Electronic"><Year>2020</Year><Month>07</Month><Day>09</Day></ArticleDate>
+</Article>
+<CommentsCorrectionsList><CommentsCorrections RefType="RetractionOf"><RefSource>Lancet. 2020 May 22:S0140-6736(20)31180-6. doi: 10.1016/S0140-6736(20)31180-6.</RefSource><PMID Version="1">32450107</PMID></CommentsCorrections><CommentsCorrections RefType="RetractionOf"><RefSource>Lancet. 2020 May 22:S0140-6736(20)31174-0. doi: 10.1016/S0140-6736(20)31174-0.</RefSource><PMID Version="1">32450109</PMID></CommentsCorrections></CommentsCorrectionsList>
+</MedlineCitation>
+<PubmedData>
+<History><PubMedPubDate PubStatus="pubmed"><Year>2020</Year><Month>7</Month><Day>13</Day><Hour>6</Hour><Minute>0</Minute></PubMedPubDate></History>
+<ArticleIdList><ArticleId IdType="pubmed">32653079</ArticleId><ArticleId IdType="pmc">PMC7347305</ArticleId><ArticleId IdType="doi">10.1016/S0140-6736(20)31528-2</ArticleId><ArticleId IdType="pii">S0140-6736(20)31528-2</ArticleId></ArticleIdList>
+</PubmedData>
+</PubmedArticle>
+</PubmedArticleSet>

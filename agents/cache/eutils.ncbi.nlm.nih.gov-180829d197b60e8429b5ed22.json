@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=39964688",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:50.586Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "39964688",
+        "title": "Error in Data and Analyses.",
+        "doi": "10.1001/jamanetworkopen.2025.1566",
+        "pmcid": "PMC11836750",
+        "date": "2025-02-03",
+        "publicationTypes": [
+          "Journal Article",
+          "Published Erratum"
+        ],
+        "grantIds": [],
+        "links": []
+      }
+    ]
+  }
+}

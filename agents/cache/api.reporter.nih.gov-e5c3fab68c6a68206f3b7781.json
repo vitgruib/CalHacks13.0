@@ -1,0 +1,119 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/publications/search",
+    "body": {
+      "criteria": {
+        "core_project_nums": [
+          "R01EY028739"
+        ]
+      },
+      "offset": 0,
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-24T07:53:37.194Z",
+  "response": {
+    "meta": {
+      "total": 24
+    },
+    "results": [
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 38146526
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 38358762
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 35588945
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 39306362
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 37423396
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 37480943
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 36383382
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 40036845
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 40714524
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 32829399
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 33580245
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 34648828
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 32151977
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 38827031
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 39733478
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 37150621
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 29720364
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 31668889
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 33892049
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 34116874
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 38662348
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 39725432
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 36952627
+      },
+      {
+        "coreproject": "R01EY028739",
+        "pmid": 40304453
+      }
+    ]
+  }
+}

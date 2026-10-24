@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<PubmedArticleSet>
+<PubmedArticle>
+<MedlineCitation>
+<PMID Version="1">32450107</PMID>
+<Article>
+<ArticleTitle>RETRACTED: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis.</ArticleTitle>
+<PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType><PublicationType UI="D016441">Retracted Publication</PublicationType></PublicationTypeList>
+<ArticleDate DateType="Electronic"><Year>2020</Year><Month>05</Month><Day>22</Day></ArticleDate>
+</Article>
+<CommentsCorrectionsList><CommentsCorrections RefType="ErratumIn"><RefSource>Lancet. 2020 May 30:S0140-6736(20)31249-6. doi: 10.1016/S0140-6736(20)31249-6.</RefSource><PMID Version="1">32485145</PMID></CommentsCorrections><CommentsCorrections RefType="ExpressionOfConcernIn"><RefSource>Lancet. 2020 Jun 13;395(10240):e102. doi: 10.1016/S0140-6736(20)31290-3.</RefSource><PMID Version="1">32504543</PMID></CommentsCorrections><CommentsCorrections RefType="RetractionIn"><RefSource>Lancet. 2020 Jun 13;395(10240):1820. doi: 10.1016/S0140-6736(20)31324-6.</RefSource><PMID Version="1">32511943</PMID></CommentsCorrections><CommentsCorrections RefType="CommentIn"><RefSource>J Neuroimmune Pharmacol. 2020 Sep;15(3):349. doi: 10.1007/s11481-020-09940-9.</RefSource><PMID Version="1">32607690</PMID></CommentsCorrections><CommentsCorrections RefType="RetractionIn"><RefSource>Lancet. 2020 Jul 18;396(10245):e2-e3. doi: 10.1016/S0140-6736(20)31528-2.</RefSource><PMID Version="1">32653079</PMID></CommentsCorrections><CommentsCorrections RefType="CommentIn"><RefSource>Rev Colomb Obstet Ginecol. 2020 Sep;71(3):231-236. doi: 10.18597/rcog.3621.</RefSource><PMID Version="1">33247886</PMID></CommentsCorrections></CommentsCorrectionsList>
+</MedlineCitation>
+<PubmedData>
+<History><PubMedPubDate PubStatus="pubmed"><Year>2020</Year><Month>5</Month><Day>26</Day><Hour>6</Hour><Minute>0</Minute></PubMedPubDate></History>
+<ArticleIdList><ArticleId IdType="pubmed">32450107</ArticleId><ArticleId IdType="pmc">PMC7255293</ArticleId><ArticleId IdType="doi">10.1016/S0140-6736(20)31180-6</ArticleId><ArticleId IdType="pii">S0140-6736(20)31180-6</ArticleId></ArticleIdList>
+</PubmedData>
+</PubmedArticle>
+</PubmedArticleSet>

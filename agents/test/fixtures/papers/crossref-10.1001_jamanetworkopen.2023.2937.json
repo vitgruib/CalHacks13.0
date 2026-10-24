@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "message-type": "work-list",
+  "message-version": "1.0.0",
+  "message": {
+    "facets": {},
+    "total-results": 1,
+    "items": [
+      {
+        "DOI": "10.1001/jamanetworkopen.2023.2937",
+        "title": [
+          "Population Preferences for Primary Care Models for Hypertension in Karnataka, India"
+        ]
+      }
+    ],
+    "items-per-page": 1,
+    "query": {
+      "start-index": 0,
+      "search-terms": null
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1097%2Folq.0000000000002380&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:38.632Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1097/olq.0000000000002380",
+          "title": [
+            "Measuring Doxycycline Postexposure Prophylaxis Use Relative to Sexually Transmitted Infection Rates at a San Francisco STI Clinic Reveals Racial Inequities in Disease Prevention Impact"
+          ],
+          "funder": [],
+          "updated-by": []
+        }
+      ]
+    }
+  }
+}

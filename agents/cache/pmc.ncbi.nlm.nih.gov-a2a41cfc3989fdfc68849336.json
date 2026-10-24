@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pmc.ncbi.nlm.nih.gov/tools/idconv/api/v1/articles/?ids=10.1001%2Fjamaophthalmol.2023.6830&format=json&tool=grantguard",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:39.783Z",
+  "response": {
+    "records": [
+      {
+        "doi": "10.1001/jamaophthalmol.2023.6830",
+        "pmid": 38358762,
+        "pmcid": "PMC10870220",
+        "errmsg": null
+      }
+    ]
+  }
+}

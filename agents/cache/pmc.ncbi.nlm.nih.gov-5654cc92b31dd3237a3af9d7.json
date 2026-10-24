@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pmc.ncbi.nlm.nih.gov/tools/idconv/api/v1/articles/?ids=10.1097%2Folq.0000000000002380&format=json&tool=grantguard",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:38.757Z",
+  "response": {
+    "records": [
+      {
+        "doi": "10.1097/olq.0000000000002380",
+        "pmid": null,
+        "pmcid": null,
+        "errmsg": "Identifier not found in PMC"
+      }
+    ]
+  }
+}

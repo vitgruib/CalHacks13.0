@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=32653079",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:00.339Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "32653079",
+        "title": "Retraction and republication: cardiac toxicity of hydroxychloroquine in COVID-19.",
+        "doi": "10.1016/s0140-6736(20)31528-2",
+        "pmcid": "PMC7347305",
+        "date": "2020-07-09",
+        "publicationTypes": [
+          "Journal Article",
+          "Retraction Notice"
+        ],
+        "grantIds": [],
+        "links": []
+      }
+    ]
+  }
+}

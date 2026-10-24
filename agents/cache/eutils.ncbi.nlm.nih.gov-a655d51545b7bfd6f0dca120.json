@@ -1,0 +1,35 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=36917109",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:01.772Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "36917109",
+        "title": "Population Preferences for Primary Care Models for Hypertension in Karnataka, India.",
+        "doi": "10.1001/jamanetworkopen.2023.2937",
+        "pmcid": "PMC10015308",
+        "date": "2023-03-01",
+        "publicationTypes": [
+          "Journal Article",
+          "Research Support, Non-U.S. Gov't",
+          "Research Support, N.I.H., Extramural"
+        ],
+        "grantIds": [
+          "P30 MH062246",
+          "P30 AG024409"
+        ],
+        "links": [
+          {
+            "type": "ErratumIn",
+            "pmid": "38214934",
+            "source": "JAMA Netw Open. 2024 Jan 2;7(1):e2354465. doi: 10.1001/jamanetworkopen.2023.54465."
+          }
+        ]
+      }
+    ]
+  }
+}

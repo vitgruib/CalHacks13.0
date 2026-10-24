@@ -1,0 +1,16 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&tool=grantguard&term=%2210.1097%2Folq.0000000000002380%22%5Bdoi%5D",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:39.152Z",
+  "response": {
+    "esearchresult": {
+      "count": "1",
+      "idlist": [
+        "42330440"
+      ]
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1038%2Fs41598-025-22661-4&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:06.417Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1038/s41598-025-22661-4",
+          "title": [
+            "A meta-analysis of the effects of mindfulness meditation training on self-reported interoception"
+          ],
+          "funder": [
+            {
+              "name": "NCCIH",
+              "award": [
+                "R24AT012845"
+              ]
+            },
+            {
+              "name": "National Center for Complementary and Integrative Health",
+              "award": [
+                "K23AT010879."
+              ]
+            }
+          ],
+          "updated-by": [
+            {
+              "DOI": "10.1038/s41598-025-32949-0",
+              "type": "correction",
+              "source": "publisher",
+              "updated": {
+                "date-parts": [
+                  [
+                    2025,
+                    12,
+                    23
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=42330440",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:39.553Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "42330440",
+        "title": "Measuring Doxycycline Postexposure Prophylaxis Use Relative to Sexually Transmitted Infection Rates at a San Francisco STI Clinic Reveals Racial Inequities in Disease Prevention Impact.",
+        "doi": "10.1097/olq.0000000000002380",
+        "pmcid": null,
+        "date": "2026-06-23",
+        "publicationTypes": [
+          "Journal Article"
+        ],
+        "grantIds": [
+          "R01 AI181732"
+        ],
+        "links": []
+      }
+    ]
+  }
+}

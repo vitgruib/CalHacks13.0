@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=35588945",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:41.335Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "35588945",
+        "title": "Association between Immunosuppressive Drugs and Coronavirus Disease 2019 Outcomes in Patients with Noninfectious Uveitis in a Large US Claims Database.",
+        "doi": "10.1016/j.ophtha.2022.05.008",
+        "pmcid": "PMC9110065",
+        "date": "2022-05-17",
+        "publicationTypes": [
+          "Journal Article",
+          "Research Support, Non-U.S. Gov't",
+          "Research Support, N.I.H., Extramural"
+        ],
+        "grantIds": [],
+        "links": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1136%2Fbmj.r2557&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:45.779Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1136/bmj.r2557",
+          "title": [
+            "Correction: Ionising radiation and cardiovascular disease: systematic review and meta-analysis"
+          ],
+          "funder": [],
+          "updated-by": []
+        }
+      ]
+    }
+  }
+}

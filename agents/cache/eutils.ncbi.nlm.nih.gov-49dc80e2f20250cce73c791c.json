@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=41386776",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:46.493Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "41386776",
+        "title": "Correction: Ionising radiation and cardiovascular disease: systematic review and meta-analysis.",
+        "doi": "10.1136/bmj.r2557",
+        "pmcid": "PMC12699368",
+        "date": "2025-12-12",
+        "publicationTypes": [
+          "Journal Article",
+          "Published Erratum"
+        ],
+        "grantIds": [],
+        "links": []
+      }
+    ]
+  }
+}

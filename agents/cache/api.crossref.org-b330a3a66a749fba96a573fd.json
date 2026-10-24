@@ -1,0 +1,51 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1371%2Fjournal.pone.0330427&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:03.387Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1371/journal.pone.0330427",
+          "title": [
+            "Disparities in multi-modal spatial access to primary and specialty care in U.S. neighborhoods: A cross-sectional and temporal analysis of health services"
+          ],
+          "funder": [
+            {
+              "name": "National Institutes of Health",
+              "award": [
+                "T32CA094186"
+              ]
+            },
+            {
+              "name": "National Institute on Aging",
+              "award": [
+                "R01AG080486"
+              ]
+            }
+          ],
+          "updated-by": [
+            {
+              "DOI": "10.1371/journal.pone.0339502",
+              "type": "correction",
+              "source": "publisher",
+              "updated": {
+                "date-parts": [
+                  [
+                    2025,
+                    12,
+                    22
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

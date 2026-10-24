@@ -1,0 +1,25 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=38214934",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:02.972Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "38214934",
+        "title": "Error in Affiliation.",
+        "doi": "10.1001/jamanetworkopen.2023.54465",
+        "pmcid": "PMC10787310",
+        "date": "2024-01-02",
+        "publicationTypes": [
+          "Journal Article",
+          "Published Erratum"
+        ],
+        "grantIds": [],
+        "links": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pmc.ncbi.nlm.nih.gov/tools/idconv/api/v1/articles/?ids=10.1136%2Fbmj.r2557&format=json&tool=grantguard",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:45.964Z",
+  "response": {
+    "records": [
+      {
+        "doi": "10.1136/bmj.r2557",
+        "pmid": 41386776,
+        "pmcid": "PMC12699368",
+        "errmsg": null
+      }
+    ]
+  }
+}

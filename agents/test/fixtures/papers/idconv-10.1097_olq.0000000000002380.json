@@ -1,0 +1,12 @@
+{
+  "status": "ok",
+  "response-date": "2026-10-24 03:50:04",
+  "records": [
+    {
+      "doi": "10.1097/olq.0000000000002380",
+      "requested-id": "10.1097/olq.0000000000002380",
+      "status": "error",
+      "errmsg": "Identifier not found in PMC"
+    }
+  ]
+}

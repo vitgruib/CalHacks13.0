@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1016%2Fs0140-6736(20)31180-6,doi:10.1016%2Fs0140-6736(20)31324-6&select=DOI,title&rows=2",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:56.257Z",
+  "response": {
+    "message": {
+      "items": [
+        {
+          "DOI": "10.1016/s0140-6736(20)31324-6",
+          "title": [
+            "Retraction—Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis"
+          ]
+        },
+        {
+          "DOI": "10.1016/s0140-6736(20)31180-6",
+          "title": [
+            "RETRACTED: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis"
+          ]
+        }
+      ]
+    }
+  }
+}

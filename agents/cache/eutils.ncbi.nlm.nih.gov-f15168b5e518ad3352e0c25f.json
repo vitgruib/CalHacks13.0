@@ -1,0 +1,27 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=38358762",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:40.247Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "38358762",
+        "title": "Risk of Herpes Zoster Ophthalmicus Recurrence After Recombinant Zoster Vaccination.",
+        "doi": "10.1001/jamaophthalmol.2023.6830",
+        "pmcid": "PMC10870220",
+        "date": "2024-02-15",
+        "publicationTypes": [
+          "Journal Article",
+          "Research Support, N.I.H., Extramural"
+        ],
+        "grantIds": [
+          "R01 EY028739"
+        ],
+        "links": []
+      }
+    ]
+  }
+}

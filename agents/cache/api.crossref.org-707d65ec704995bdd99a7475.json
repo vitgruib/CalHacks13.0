@@ -1,0 +1,44 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1093%2Fcid%2Fciab121&select=DOI,title,funder,updated-by&rows=1",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:42.826Z",
+  "response": {
+    "message": {
+      "total-results": 1,
+      "items": [
+        {
+          "DOI": "10.1093/cid/ciab121",
+          "title": [
+            "Effectiveness of the Recombinant Zoster Vaccine in Adults Aged 50 and Older in the United States: A Claims-Based Cohort Study"
+          ],
+          "funder": [
+            {
+              "name": "National Eye Institute",
+              "award": [
+                "EY06190"
+              ]
+            },
+            {
+              "name": "Office of Research on Women's Health",
+              "award": [
+                "R01 EY028739"
+              ]
+            },
+            {
+              "name": "University of California",
+              "award": []
+            },
+            {
+              "name": "National Institutes of Health",
+              "award": []
+            }
+          ],
+          "updated-by": []
+        }
+      ]
+    }
+  }
+}

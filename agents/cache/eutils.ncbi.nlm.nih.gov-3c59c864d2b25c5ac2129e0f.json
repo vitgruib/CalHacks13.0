@@ -1,0 +1,46 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&retmode=xml&tool=grantguard&id=32450107",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:53:51.536Z",
+  "response": {
+    "articles": [
+      {
+        "pmid": "32450107",
+        "title": "RETRACTED: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis.",
+        "doi": "10.1016/s0140-6736(20)31180-6",
+        "pmcid": "PMC7255293",
+        "date": "2020-05-22",
+        "publicationTypes": [
+          "Journal Article",
+          "Retracted Publication"
+        ],
+        "grantIds": [],
+        "links": [
+          {
+            "type": "ErratumIn",
+            "pmid": "32485145",
+            "source": "Lancet. 2020 May 30:S0140-6736(20)31249-6. doi: 10.1016/S0140-6736(20)31249-6."
+          },
+          {
+            "type": "ExpressionOfConcernIn",
+            "pmid": "32504543",
+            "source": "Lancet. 2020 Jun 13;395(10240):e102. doi: 10.1016/S0140-6736(20)31290-3."
+          },
+          {
+            "type": "RetractionIn",
+            "pmid": "32511943",
+            "source": "Lancet. 2020 Jun 13;395(10240):1820. doi: 10.1016/S0140-6736(20)31324-6."
+          },
+          {
+            "type": "RetractionIn",
+            "pmid": "32653079",
+            "source": "Lancet. 2020 Jul 18;396(10245):e2-e3. doi: 10.1016/S0140-6736(20)31528-2."
+          }
+        ]
+      }
+    ]
+  }
+}

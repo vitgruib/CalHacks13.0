@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<PubmedArticleSet>
+<PubmedArticle>
+<MedlineCitation>
+<PMID Version="1">38214934</PMID>
+<Article>
+<ArticleTitle>Error in Affiliation.</ArticleTitle>
+<PublicationTypeList><PublicationType UI="D016428">Journal Article</PublicationType><PublicationType UI="D016425">Published Erratum</PublicationType></PublicationTypeList>
+<ArticleDate DateType="Electronic"><Year>2024</Year><Month>01</Month><Day>02</Day></ArticleDate>
+</Article>
+<CommentsCorrectionsList><CommentsCorrections RefType="ErratumFor"><RefSource>JAMA Netw Open. 2023 Mar 1;6(3):e232937. doi: 10.1001/jamanetworkopen.2023.2937.</RefSource><PMID Version="1">36917109</PMID></CommentsCorrections></CommentsCorrectionsList>
+</MedlineCitation>
+<PubmedData>
+<History><PubMedPubDate PubStatus="pubmed"><Year>2024</Year><Month>1</Month><Day>12</Day><Hour>12</Hour><Minute>43</Minute></PubMedPubDate></History>
+<ArticleIdList><ArticleId IdType="pubmed">38214934</ArticleId><ArticleId IdType="pmc">PMC10787310</ArticleId><ArticleId IdType="doi">10.1001/jamanetworkopen.2023.54465</ArticleId><ArticleId IdType="pii">2813920</ArticleId></ArticleIdList>
+</PubmedData>
+</PubmedArticle>
+</PubmedArticleSet>

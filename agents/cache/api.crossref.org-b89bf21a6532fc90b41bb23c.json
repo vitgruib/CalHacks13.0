@@ -1,0 +1,26 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.crossref.org/works?filter=doi:10.1016%2Fs0140-6736(20)31180-6,doi:10.1016%2Fs0140-6736(20)31528-2&select=DOI,title&rows=2",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:00.123Z",
+  "response": {
+    "message": {
+      "items": [
+        {
+          "DOI": "10.1016/s0140-6736(20)31528-2",
+          "title": [
+            "Retraction and republication: cardiac toxicity of hydroxychloroquine in COVID-19"
+          ]
+        },
+        {
+          "DOI": "10.1016/s0140-6736(20)31180-6",
+          "title": [
+            "RETRACTED: Hydroxychloroquine or chloroquine with or without a macrolide for treatment of COVID-19: a multinational registry analysis"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "meta": {
+    "search_id": null,
+    "total": 2,
+    "offset": 0,
+    "limit": 500,
+    "sort_field": "coreproject",
+    "sort_order": "desc",
+    "sorted_by_relevance": false,
+    "properties": {}
+  },
+  "results": [
+    {
+      "coreproject": "R01AI181732",
+      "pmid": 42330440,
+      "applid": 11395670
+    },
+    {
+      "coreproject": "R01AI181732",
+      "pmid": 42521605,
+      "applid": 11395670
+    }
+  ],
+  "facet_results": []
+}

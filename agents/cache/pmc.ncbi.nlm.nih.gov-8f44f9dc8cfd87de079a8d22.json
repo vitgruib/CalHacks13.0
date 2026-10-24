@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://pmc.ncbi.nlm.nih.gov/tools/idconv/api/v1/articles/?ids=10.1371%2Fjournal.pone.0330427&format=json&tool=grantguard",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:54:03.481Z",
+  "response": {
+    "records": [
+      {
+        "doi": "10.1371/journal.pone.0330427",
+        "pmid": 40961032,
+        "pmcid": "PMC12443297",
+        "errmsg": null
+      }
+    ]
+  }
+}
