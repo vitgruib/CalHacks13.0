@@ -218,3 +218,12 @@ export interface Db {
   holds: Hold[]
   log: LogRow[]
 }
+
+/** "Sources last checked X ago" + Check now (T31). Real time, not the
+ *  simulated clock: it says how fresh the outside data is. */
+export interface SourceCheck {
+  /** The newest finished source check: when it ended and what it covered. */
+  last: { at: Date; what: string } | null
+  /** When the newest "check now" was asked for, while it hasn't finished. */
+  pendingSince: Date | null
+}

@@ -17,4 +17,8 @@ export interface SourceClient {
   // Resolves to null when the source has no record of the grant. Looks up
   // only the grant asked for: never the whole dataset.
   read(grantId: string): Promise<Reading | null>;
+  // Optional: runs once before the reads of a check a person or agent asked
+  // for (reason 'check_now' or 'before_money_moves'), e.g. to start a fresh
+  // scraper run. Never throws; resolves to a note for the check's log line.
+  beforeCheck?(reason: string): Promise<string | undefined>;
 }

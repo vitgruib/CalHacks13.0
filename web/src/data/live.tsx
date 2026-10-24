@@ -5,9 +5,9 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import seed from '../../../sim/seed.json'
 import { DbConnection } from '../module_bindings'
-import { toDb, WORLD_TABLES } from './adapter'
+import { toDb, toSourceCheck, WORLD_TABLES } from './adapter'
 import { applyAdvanceDays, applyInvoice, applyStatusEvent, Ctx, type Store } from './store'
-import type { Db, PersonId } from './types'
+import type { Db, PersonId, SourceCheck } from './types'
 
 export const STDB_URI: string = import.meta.env.VITE_STDB_URI || 'ws://localhost:3000'
 export const STDB_DB: string = import.meta.env.VITE_STDB_DB || 'grantguard'
@@ -71,6 +71,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
   renderStatus: (info: LiveInfo) => ReactNode
 }) {
   const [db, setDb] = useState<Db | null>(null)
+  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null })
   const [status, setStatus] = useState<LiveInfo['status']>('live')
   const [notices, setNotices] = useState<LiveInfo['notices']>([])
   const manager = useRef<DbConnection | null>(null)
@@ -95,7 +96,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
         const rebuild = () => {
           if (!synced || queued) return
           queued = true
-          queueMicrotask(() => { queued = false; if (!stopped) setDb(toDb(c.db)) })
+          queueMicrotask(() => { queued = false; if (!stopped) { setDb(toDb(c.db)); setSourceCheck(toSourceCheck(c.db)) } })
         }
         for (const name of WORLD_TABLES) {
           const t = c.db[name] as unknown as { onInsert(cb: () => void): void; onUpdate(cb: () => void): void; onDelete(cb: () => void): void }
@@ -107,6 +108,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
             clearTimeout(timer)
             const next = toDb(c.db)
             setDb(next)
+            setSourceCheck(toSourceCheck(c.db))
             setStatus('live')
             // A wiped world: load the demo world so the windows have something.
             if (next.grants.length === 0) c.reducers.loadSeed({ json: JSON.stringify(seed) }).catch(e => notify(`Loading the demo seed failed: ${msg(e)}`))
@@ -174,6 +176,12 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
     advanceDays: a => {
       applyAdvanceDays(db, a)
       call('Fast-forward', () => conn().reducers.advanceDays({ days: a.days }))
+    },
+    sourceCheck,
+    // The worker's bookkeeping agent picks the request up and calls complete_check.
+    checkNow: async () => {
+      if (!manager.current || status !== 'live') throw new Error('not connected to the server; reload to reconnect')
+      await conn().reducers.requestCheck({ grantId: undefined, reason: 'check_now' })
     },
   }
 

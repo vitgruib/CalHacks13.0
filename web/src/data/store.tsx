@@ -3,7 +3,7 @@
 // live.tsx; backend.tsx picks between them (T17).
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import seed from '../../../sim/seed.json'
-import type { Db, Decision, Invoice, PurchaseRequest, StatusEvent } from './types'
+import type { Db, Decision, Invoice, PurchaseRequest, SourceCheck, StatusEvent } from './types'
 
 export interface Store {
   db: Db
@@ -19,6 +19,11 @@ export interface Store {
   injectInvoice: (a: { orderId: string; amount: number }) => void
   /** Move the simulated clock forward. */
   advanceDays: (a: { days: number }) => void
+  /** When the sources were last checked, and whether a check now is running (T31). */
+  sourceCheck: SourceCheck
+  /** Ask the bookkeeping agent to check every source now (request_check
+   *  'check_now'). Rejects if the request couldn't be sent. */
+  checkNow: () => Promise<void>
 }
 
 export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number }
@@ -29,6 +34,7 @@ let seq = 0
 const nextId = (p: string) => `${p}-local-${++seq}`
 
 const DAY_MS = 86_400_000
+const SIMULATED_CHECK_MS = 2500
 const addDays = (day: string, n: number) => new Date(Date.parse(day) + n * DAY_MS).toISOString().slice(0, 10)
 const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
 
@@ -122,7 +128,20 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
   const injectInvoice: Store['injectInvoice'] = a => { applyInvoice(db, a); setDb(d => applyInvoice(d, a)) }
   const advanceDays: Store['advanceDays'] = a => { applyAdvanceDays(db, a); setDb(d => applyAdvanceDays(d, a)) }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, injectStatusEvent, injectInvoice, advanceDays }}>{children}</Ctx.Provider>
+  // Offline demo data has no agents, so Check now here is SIMULATED: a short
+  // pause, then "finished". Nothing outside this tab is read.
+  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null })
+  const checkNow: Store['checkNow'] = async () => {
+    const id = nextId('check')
+    setSourceCheck(c => ({ ...c, pendingSince: new Date() }))
+    setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: 'Asked for a source check', reason: 'check now', refId: id }] }))
+    setTimeout(() => {
+      setSourceCheck({ last: { at: new Date(), what: 'all grants (simulated: offline demo data, no sources read)' }, pendingSince: null })
+      setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'bookkeeping', action: 'Finished a source check', reason: 'all grants (simulated offline)', refId: id }] }))
+    }, SIMULATED_CHECK_MS)
+  }
+
+  return <Ctx.Provider value={{ db, decide, submitRequest, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

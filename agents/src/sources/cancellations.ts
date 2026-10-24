@@ -14,6 +14,11 @@
 //   like the government sites (the token goes in a header, never in
 //   agents/cache/), asks only for the fields read here (~40 KB gzipped for the
 //   whole list), and is downloaded once per check, not once per grant.
+//   Check now (beforeCheck 'check_now') first starts a fresh run of the Actor
+//   (waits up to 60 s; a run takes ~8 s) and reads that run's dataset instead
+//   of the memo; scheduled checks and rechecks before money moves don't. A
+//   run that fails falls back to the latest run and says so in the check's
+//   log line. Needs the token and live mode (GG_SOURCES isn't offline).
 // GG_LAB_GRANTS (comma-separated): the saved copy keeps only these grants, so
 //   agents/cache/ doesn't hold the whole list.
 // GG_CANCELLATIONS_FILE: read a local file instead (default
@@ -94,12 +99,16 @@ export function createCancellationListSource(options: CancellationListOptions = 
       ? `acts/${encodeURIComponent(actor)}/runs/last/dataset/items?status=SUCCEEDED&`
       : null;
 
+  const mode = options.mode ?? (process.env.GG_SOURCES === 'offline' ? 'offline' : 'live');
+  const canRun = !dataset && actor && token && mode === 'live';
+  const FIELDS = 'clean=true&format=json&fields=grantId,status,url,listedOn';
+
   // A check reads every grant within moments; the list changes at most daily.
   const FRESH_MS = 10 * 60_000;
   let loaded: { at: number; rows: Promise<ListedGrant[]> } | undefined;
 
   async function fetchList(): Promise<ListedGrant[]> {
-    const url = `https://api.apify.com/v2/${items}clean=true&format=json&fields=grantId,status,url,listedOn`;
+    const url = `https://api.apify.com/v2/${items}${FIELDS}`;
     const raw = await fetchJson(url, {
       fetchImpl: options.fetchImpl,
       cacheDir: options.cacheDir,
@@ -109,6 +118,28 @@ export function createCancellationListSource(options: CancellationListOptions = 
       select: (json) => parseList(json).filter((row) => !lab || lab.has(row.grantId)),
     });
     return parseList(raw);
+  }
+
+  // A fresh Actor run and its dataset. Not saved to agents/cache/: each run
+  // has its own dataset id, and the next scheduled read saves the same rows.
+  async function freshRun(): Promise<{ runId: string; rows: ListedGrant[] }> {
+    const doFetch = options.fetchImpl ?? fetch;
+    const headers = { authorization: `Bearer ${token}`, accept: 'application/json' };
+    const started = await doFetch(`https://api.apify.com/v2/acts/${encodeURIComponent(actor!)}/runs?waitForFinish=60`, {
+      method: 'POST',
+      headers: { ...headers, 'content-type': 'application/json' },
+      body: '{}', // the Actor's defaults: the whole live list
+      signal: AbortSignal.timeout(75_000),
+    });
+    if (!started.ok) throw new Error(`starting a run answered ${started.status}`);
+    const run = ((await started.json()) as { data?: { id?: string; status?: string; defaultDatasetId?: string } }).data;
+    if (run?.status !== 'SUCCEEDED' || !run.defaultDatasetId) throw new Error(`run ${run?.id ?? '?'} ended ${run?.status ?? 'with no status'}`);
+    const answer = await doFetch(`https://api.apify.com/v2/datasets/${encodeURIComponent(run.defaultDatasetId)}/items?${FIELDS}`, {
+      headers,
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!answer.ok) throw new Error(`run ${run.id}'s dataset answered ${answer.status}`);
+    return { runId: run.id ?? '?', rows: parseList(await answer.json()) };
   }
 
   async function load(): Promise<ListedGrant[]> {
@@ -131,6 +162,16 @@ export function createCancellationListSource(options: CancellationListOptions = 
 
   return {
     source: 'Cancellation list (Apify)',
+    async beforeCheck(reason) {
+      if (reason !== 'check_now' || !canRun) return undefined;
+      try {
+        const { runId, rows } = await freshRun();
+        loaded = { at: Date.now(), rows: Promise.resolve(rows) };
+        return `read fresh Apify run ${runId} (${rows.length} grants listed)`;
+      } catch (error) {
+        return `a fresh Apify run failed (${error instanceof Error ? error.message : error}), so this check reads the latest run`;
+      }
+    },
     async read(grantId): Promise<Reading | null> {
       const wanted = grantIdOf(grantId) ?? grantId;
       const listed = (await load()).filter((row) => row.grantId === wanted);

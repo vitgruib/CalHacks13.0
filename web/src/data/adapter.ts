@@ -12,7 +12,8 @@
 // - Module-only columns are not shown: grant.available (windows compute it),
 //   request.sharedWith/requestedBy, order.grantId, sourceReading
 //   awarded/paid/endDate/url, flag.raisedBy, all `at` timestamps, plus the
-//   agent, person, checkRequest and counter tables.
+//   agent, person and counter tables. checkRequest + the check log rows'
+//   `at` become SourceCheck (toSourceCheck), not part of Db.
 // - Court restorations: once money arrives after a cancellation the module
 //   sets status back to 'active' and logs no 'unfrozen' event. If a court
 //   order came before that payment, the adapter shows status
@@ -28,7 +29,7 @@ import type * as T from './types'
 /** Every table the windows read (the client subscribes to all of them). */
 export const WORLD_TABLES = [
   'clock', 'grant', 'statusEvent', 'sourceReading', 'flag', 'request', 'order', 'approval',
-  'invoice', 'payroll', 'paymentRequest', 'followUp', 'reportPaper', 'hold', 'decision', 'log',
+  'invoice', 'payroll', 'paymentRequest', 'followUp', 'reportPaper', 'hold', 'decision', 'log', 'checkRequest',
 ] as const
 
 const rows = <R>(t: { iter(): Iterable<R> }): R[] => [...t.iter()]
@@ -130,6 +131,25 @@ export function toDb(db: DbConnection['db']): T.Db {
     }, 'rule', l.rule), 'refId', l.refId))),
   }
   return withCourtRestorations(out)
+}
+
+/** Last checked = the newest 'Finished a source check' log row (complete_check
+ *  writes it); pending = the newest check_now request, while not done, timed
+ *  from its 'Asked for a source check' log row (request_check writes it). */
+export function toSourceCheck(db: DbConnection['db']): T.SourceCheck {
+  let last: T.SourceCheck['last'] = null
+  const asked = new Map<string, Date>()
+  for (const l of rows(db.log)) {
+    if (l.action === 'Finished a source check') {
+      const at = l.at.toDate()
+      if (!last || at > last.at) last = { at, what: l.reason }
+    } else if (l.action.startsWith('Asked for a source check') && l.refId) {
+      asked.set(l.refId, l.at.toDate())
+    }
+  }
+  const newest = rows(db.checkRequest).filter(c => c.reason === 'check_now').sort((a, b) => Number(b.id - a.id))[0]
+  const pendingSince = newest && !newest.done ? asked.get(newest.id.toString()) ?? new Date() : null
+  return { last, pendingSince }
 }
 
 const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })

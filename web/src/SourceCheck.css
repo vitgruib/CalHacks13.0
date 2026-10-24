@@ -1,0 +1,7 @@
+.source-check { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; margin-bottom: 16px; padding: 8px 12px 8px 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--muted); font-size: 14px; }
+.source-check.failed { border-left: 4px solid var(--bad); }
+.source-check-when { flex: 1; min-width: 12em; }
+.source-check time { color: var(--text); font-weight: 600; text-decoration: underline dotted var(--line); cursor: help; }
+.source-check-note { font-style: italic; }
+.source-check-error { color: var(--bad); }
+.source-check button { white-space: nowrap; }

@@ -121,3 +121,68 @@ test('the_scraper_s_cancellation_disagreeing_with_reporter_raises_a_flag', async
   assert.deepEqual(conn.rows('statusEvent').map((event) => event.kind), ['canceled']);
   assert.equal(conn.rows('grant')[0].frozen, true);
 });
+
+// Check now on a live Actor: a fresh run, then that run's dataset. The
+// network is the only thing faked: the run API and two datasets.
+function apifyWithFreshRun({ runFails = false } = {}) {
+  const posts: Array<{ url: string; auth: string | null }> = [];
+  const fetchImpl: typeof fetch = async (input, init) => {
+    const url = new URL(String(input));
+    if (init?.method === 'POST') {
+      posts.push({ url: String(input), auth: new Headers(init.headers).get('authorization') });
+      if (runFails) return new Response('Actor is broken', { status: 500 });
+      return Response.json({ data: { id: 'run-fresh', status: 'SUCCEEDED', defaultDatasetId: 'ds-fresh' } });
+    }
+    if (url.pathname === '/v2/datasets/ds-fresh/items') {
+      return Response.json([{ grantId: TEST_GRANT, status: 'Terminated', url: 'https://list.test/fresh' }]);
+    }
+    return Response.json([{ grantId: TEST_GRANT, status: 'active', url: 'https://list.test/latest' }]);
+  };
+  const source = createCancellationListSource({ actor: 'someone~list', token: 'secret-token', fetchImpl, cacheDir: scratch(), mode: 'live' });
+  return { source, posts };
+}
+
+const listReadings = (conn: TestWorld['worker']['sessions']['bookkeeping']) =>
+  conn.rows('sourceReading').filter((reading) => reading.source === 'Cancellation list (Apify)').map((reading) => reading.status);
+
+test('check_now_starts_a_fresh_actor_run_and_reads_its_dataset', async () => {
+  const { source, posts } = apifyWithFreshRun();
+  world = await startWorld({ seedJson: oneGrantSeed(), sources: [source] });
+  const conn = world.worker.sessions.bookkeeping;
+  assert.deepEqual(listReadings(conn), ['active'], 'the scheduled check reads the latest run');
+  assert.equal(posts.length, 0, 'the scheduled check starts no run');
+
+  const grantManager = await world.person('grant_manager');
+  await grantManager.call('request_check', { reason: 'check_now' });
+  await world.worker.idle();
+
+  assert.equal(posts.length, 1);
+  const run = new URL(posts[0].url);
+  assert.equal(run.pathname, '/v2/acts/someone~list/runs');
+  assert.equal(run.searchParams.get('waitForFinish'), '60');
+  assert.equal(posts[0].auth, 'Bearer secret-token');
+  assert.doesNotMatch(posts[0].url, /secret-token/);
+  assert.deepEqual(listReadings(conn), ['active', 'canceled'], 'check now read the fresh run, not the memo');
+  assert.equal(conn.rows('checkRequest')[0].done, true);
+});
+
+test('a_failed_actor_run_falls_back_to_the_latest_run_and_still_finishes_the_check', async () => {
+  const { source, posts } = apifyWithFreshRun({ runFails: true });
+  world = await startWorld({ seedJson: oneGrantSeed(), sources: [source] });
+  const conn = world.worker.sessions.bookkeeping;
+  const grantManager = await world.person('grant_manager');
+  await grantManager.call('request_check', { reason: 'check_now' });
+  await world.worker.idle();
+
+  assert.equal(posts.length, 1);
+  assert.deepEqual(listReadings(conn), ['active']);
+  assert.equal(conn.rows('checkRequest')[0].done, true);
+});
+
+test('a_recheck_before_money_moves_starts_no_actor_run', async () => {
+  const { source, posts } = apifyWithFreshRun();
+  world = await startWorld({ seedJson: oneGrantSeed(), sources: [source] });
+  await world.worker.sessions.bookkeeping.call('request_check', { grantId: TEST_GRANT, reason: 'before_money_moves' });
+  await world.worker.idle();
+  assert.equal(posts.length, 0);
+});

@@ -168,6 +168,9 @@ export function startTracker(
   const handleCheck = (check: CheckRequestRow) => {
     if (check.done) return;
     enqueue(async () => {
+      const notes = await Promise.all(sources.map((source) => source.beforeCheck?.(check.reason).catch((error: unknown) => `${source.source}: ${error}`)));
+      const said = notes.filter((note) => note !== undefined);
+      if (said.length) console.log(`tracker: check request ${check.id} (${check.reason}): ${said.join('; ')}`);
       await refreshNow(check.grantId);
       await conn.call('complete_check', { id: check.id });
     }).catch((error: unknown) => {
