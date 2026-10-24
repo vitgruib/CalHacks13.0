@@ -314,6 +314,104 @@ for (const order of [['pay', 'pick'], ['pick', 'pay']] as const) {
 
 // ── Typed requests ─────────────────────────────────────────────────────────
 
+// The one-grant test seed with these grants, each over the test grant's fields.
+function grantsSeed(grants: Array<Record<string, unknown>>, extra: Record<string, unknown[]> = {}): string {
+  const seed = JSON.parse(oneGrantSeed(extra));
+  seed.grants = grants.map((grant) => ({ ...seed.grants[0], ...grant }));
+  return JSON.stringify(seed);
+}
+const PROMISE = /will be bought automatically once/;
+const canceledJune1 = (grantId: string) => ({ grantId, day: '2026-06-01', kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Terminated.' });
+
+// The module fails an ended grant on "Grant is active and not frozen" too,
+// but an ended grant never unfreezes.
+test('a_request_on_a_grant_that_has_ended_is_rerouted_without_promising_a_buy_on_unfreeze', async () => {
+  world = await startWorld({ seedJson: grantsSeed([{ id: TEST_GRANT, end: '2026-06-20' }, { id: SECOND_GRANT, title: 'Second test grant' }]) });
+  const grantManager = await world.person('grant_manager');
+  await grantManager.call('advance_days', { days: 10 });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', { ...gloves, item: 'Centrifuge rotor service', category: 'equipment service', price: 900 });
+  await world.worker.idle();
+  const row = newestRequest();
+  assert.equal(conn().rows('grant').find((grant) => grant.id === TEST_GRANT)!.status, 'ended');
+  assert.equal(row.state, 'rerouted');
+  assert.deepEqual(ordersFor(row.id).map((o) => [o.grantId, o.amount]), [[SECOND_GRANT, 900]]);
+  assert.doesNotMatch(row.explanation, PROMISE);
+  assert.deepEqual(openPurchaseHolds(row.id), []);
+});
+
+test('a_request_on_an_ended_grant_no_other_grant_can_take_is_blocked_without_a_promise', async () => {
+  world = await startWorld({ seedJson: grantsSeed([{ id: TEST_GRANT, end: '2026-06-20' }]) });
+  const grantManager = await world.person('grant_manager');
+  await grantManager.call('advance_days', { days: 10 });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', { ...gloves, item: 'Centrifuge rotor service', category: 'equipment service', price: 900 });
+  await world.worker.idle();
+  const row = newestRequest();
+  assert.equal(row.state, 'blocked');
+  assert.match(row.explanation, /The grant has ended/);
+  assert.match(row.explanation, /No other grant can take it/);
+  assert.doesNotMatch(row.explanation, PROMISE);
+  assert.equal(ordersFor(row.id).length, 0);
+});
+
+// Held only for the freeze, with the promise to buy it on unfreeze; by the
+// time the payment lands the grant is in its last 90 days.
+async function holdThenUnfreezeInLast90Days(grants: Array<Record<string, unknown>>) {
+  world = await startWorld({ seedJson: grantsSeed(grants, { statusEvents: [canceledJune1(TEST_GRANT)] }) });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', gloves);
+  await world.worker.idle();
+  const id = newestRequest().id;
+  assert.equal(request(id).state, 'waiting_on_manager');
+  assert.match(openPurchaseHolds(id)[0].why, PROMISE);
+  const grantManager = await world.person('grant_manager');
+  await grantManager.call('advance_days', { days: 15 }); // 87 days left
+  await grantManager.call('inject_status_event', {
+    grantId: TEST_GRANT, kind: 'payment_received', source: 'Payment system', summary: 'Payment of $10,000 received.', amount: 10_000,
+  });
+  await world.worker.idle();
+  assert.equal(conn().rows('grant').find((grant) => grant.id === TEST_GRANT)!.frozen, false);
+  return id;
+}
+
+test('a_freeze_hold_whose_grant_unfreezes_in_its_last_90_days_is_rerouted_to_a_grant_that_can_take_it', async () => {
+  const id = await holdThenUnfreezeInLast90Days([{ id: TEST_GRANT, end: '2026-09-25' }, { id: SECOND_GRANT, title: 'Second test grant' }]);
+  assert.equal(request(id).state, 'rerouted');
+  assert.deepEqual(ordersFor(id).map((o) => [o.grantId, o.amount]), [[SECOND_GRANT, 240]]);
+  assert.match(request(id).explanation, /Not in the grant's last 90 days/);
+  assert.deepEqual(openPurchaseHolds(id), []);
+});
+
+test('a_freeze_hold_whose_grant_unfreezes_in_its_last_90_days_with_no_other_grant_stays_in_the_inbox_without_its_promise', async () => {
+  const id = await holdThenUnfreezeInLast90Days([{ id: TEST_GRANT, end: '2026-09-25' }]);
+  assert.equal(request(id).state, 'waiting_on_manager');
+  assert.equal(ordersFor(id).length, 0);
+  const [hold] = openPurchaseHolds(id);
+  assert.ok(hold, 'still in the Inbox for the grant manager');
+  assert.doesNotMatch(hold.why, PROMISE);
+  assert.match(hold.why, /Not in the grant's last 90 days/);
+  assert.match(hold.why, /No other grant can take it/);
+});
+
+// A judge fast-forwards the Test lab clock past grant B's end before paying
+// grant A: rq-107's 40% share can no longer go on B.
+test('after_a_fast_forward_past_grant_b_s_end_rq_107_is_held_without_its_promise_and_the_rest_go_through', async () => {
+  const catchUp = await startSim();
+  const grantManager = await world!.person('grant_manager');
+  await grantManager.call('advance_days', { days: 80 });
+  await world!.worker.idle();
+  await payGrantA(catchUp);
+  assert.equal(conn().rows('grant').find((grant) => grant.id === GRANT_A)?.frozen, false);
+  for (const id of ['rq-101', 'rq-106']) assert.equal(request(id).state, 'bought', id);
+  const split = request('rq-107');
+  assert.equal(split.state, 'waiting_on_manager');
+  assert.equal(ordersFor('rq-107').length, 0);
+  const [hold] = openPurchaseHolds('rq-107');
+  assert.doesNotMatch(hold.why, PROMISE);
+  assert.match(hold.why, /The grant has ended/);
+});
+
 test('a_typed_request_without_a_grant_gets_one_a_verdict_and_an_explanation', async () => {
   await startSim();
   const scientist = await world!.person('scientist');
@@ -710,6 +808,7 @@ test('plan_for_puts_the_category_rule_first_and_the_freeze_last', () => {
   assert.deepEqual(planFor(failing('Under the card limit ($5,000)', 'Grant is active and not frozen')), { action: 'hold', reason: 'card_limit' });
   assert.deepEqual(planFor([...PASSING, v('Shared cost split across the grants it serves', false)]), { action: 'hold', reason: 'shared_cost' });
   assert.deepEqual(planFor(failing('Grant is active and not frozen')), { action: 'hold', reason: 'freeze' });
+  assert.deepEqual(planFor(failing('Grant is active and not frozen'), () => true), { action: 'try_reroute' }, 'an ended grant never unfreezes');
   assert.deepEqual(planFor(failing("Not in the grant's last 90 days")), { action: 'try_reroute' });
   assert.deepEqual(planFor(failing('Enough truly available money', 'Grant is active and not frozen')), { action: 'try_reroute' });
   assert.deepEqual(planFor([...PASSING, v('A rule nobody told the agent about', false)]), { action: 'hold', reason: 'unplaced' });

@@ -55,7 +55,10 @@ export const loadRules = (): Promise<SpendingRules> => (rulesModule ??= import(R
 
 // ── Reading the module's verdicts ──────────────────────────────────────────
 
-export type RuleKind = 'grant_exists' | 'freeze' | 'last_90_days' | 'money' | 'category' | 'card_limit' | 'shared_cost' | 'unknown';
+// 'ended' is a freeze verdict on a grant past its end date: the module fails
+// it under the same rule, but it never lifts. ruleKind can't tell the two
+// apart from the rule name; endedFreezeOf can, from the grant.
+export type RuleKind = 'grant_exists' | 'freeze' | 'ended' | 'last_90_days' | 'money' | 'category' | 'card_limit' | 'shared_cost' | 'unknown';
 
 // The module's rule names (rules.ts spendingVerdicts); a split adds " (<grant>)".
 const RULE_NAMES: Array<[RegExp, RuleKind]> = [
@@ -76,6 +79,14 @@ const GRANT_SPECIFIC = new Set<RuleKind>(['freeze', 'last_90_days', 'money']);
 export const frozenGrantOf = (verdict: RuleVerdict, checked: string | undefined): string | undefined =>
   / \(([A-Za-z0-9-]+)\)$/.exec(verdict.rule)?.[1] ?? checked;
 
+/** The grant ended (the module's own test: status ended, or past its end date). */
+export const grantEnded = (grant: Pick<GrantRow, 'status' | 'end'> | undefined, today: string): boolean =>
+  grant !== undefined && (grant.status === 'ended' || today > grant.end);
+
+/** A freeze verdict about a grant that has ended, for planFor and failingKinds. */
+export const endedFreezeOf = (checked: string | undefined, grants: GrantFacts[], today: string) => (verdict: RuleVerdict): boolean =>
+  ruleKind(verdict.rule) === 'freeze' && grantEnded(grants.find((grant) => grant.id === frozenGrantOf(verdict, checked)), today);
+
 /** Every rule the module last failed for the request (apart from `besides`) is a freeze, and one of them is this grant's. */
 const failsOnlyOnFreezeOf = (request: RequestRow, grantId: string, besides?: RuleKind): boolean => {
   const failed = request.verdicts.filter((v) => !v.pass && ruleKind(v.rule) !== besides);
@@ -92,10 +103,14 @@ export type Plan =
   | { action: 'block'; reason: BlockReason }
   | { action: 'try_reroute' };
 
-/** What the module's verdicts call for, before looking at other grants. */
-export function planFor(verdicts: RuleVerdict[]): Plan {
+/**
+ * What the module's verdicts call for, before looking at other grants. A
+ * freeze on a grant that has ended (`hasEnded`) never lifts, so it is never
+ * held with the promise to buy on unfreeze: another grant may take it instead.
+ */
+export function planFor(verdicts: RuleVerdict[], hasEnded: (verdict: RuleVerdict) => boolean = () => false): Plan {
   if (verdicts.length === 0) return { action: 'hold', reason: 'unplaced' };
-  const failed = verdicts.filter((verdict) => !verdict.pass).map((verdict) => ruleKind(verdict.rule));
+  const failed = failingKinds(verdicts, hasEnded);
   if (failed.length === 0) return { action: 'buy' };
   if (failed.includes('category')) return { action: 'block', reason: 'category' };
   if (failed.some((kind) => kind === 'unknown' || kind === 'grant_exists')) return { action: 'hold', reason: 'unplaced' };
@@ -104,6 +119,13 @@ export function planFor(verdicts: RuleVerdict[]): Plan {
   if (failed.every((kind) => kind === 'freeze')) return { action: 'hold', reason: 'freeze' };
   return { action: 'try_reroute' };
 }
+
+/**
+ * A block of a request already in the Inbox, made a hold: act_on_request's
+ * block leaves the open hold as it was. A pending reroute is dropped, since
+ * only a blocked request's is carried out (rerouteBlocked).
+ */
+const keptInInbox = (decision: Decision): Decision => (decision.action === 'block' ? { ...decision, action: 'hold', pendingTo: undefined } : decision);
 
 export interface Decision {
   action: 'buy' | 'reroute' | 'hold' | 'block';
@@ -141,7 +163,9 @@ const factsOf = (request: RequestRow, split: Split[]): RequestFacts => ({
   sharedWith: request.sharedWith,
   split,
 });
-const failingKinds = (verdicts: RuleVerdict[]) => verdicts.filter((v) => !v.pass).map((v) => ruleKind(v.rule));
+function failingKinds(verdicts: RuleVerdict[], hasEnded: (verdict: RuleVerdict) => boolean = () => false): RuleKind[] {
+  return verdicts.filter((v) => !v.pass).map((v) => (hasEnded(v) ? 'ended' : ruleKind(v.rule)));
+}
 /** The lab grant ids written out in the item or purpose. */
 const namedGrants = (request: RequestRow, ids: string[]): string[] => {
   const text = `${request.item}\n${request.purpose}`;
@@ -168,7 +192,10 @@ export function readFallback(request: RequestRow, grants: GrantRow[], rules: Spe
   }
   const pool = named.length > 1 ? grants.filter((grant) => named.includes(grant.id)) : grants;
   const byId = new Map(grants.map((grant) => [grant.id, grant]));
-  const kinds = pool.map((grant) => ({ id: grant.id, failed: failingKinds(rules.spendingVerdicts(factsOf(request, split), grant, today, byId)) }));
+  const kinds = pool.map((grant) => ({
+    id: grant.id,
+    failed: failingKinds(rules.spendingVerdicts(factsOf(request, split), grant, today, byId), endedFreezeOf(grant.id, grants, today)),
+  }));
   const passing = kinds.filter((k) => k.failed.length === 0).map((k) => k.id);
   if (passing.length === 1) {
     return { grantId: passing[0], grantIsClear: true, servesGrantIds: serves.length ? serves : passing, split, splitSource, note: `${passing[0]} is the only grant where every rule passes.` };
@@ -367,6 +394,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   const openAgentHold = (requestId: string) =>
     conn.rows('hold').find((hold) => hold.kind === 'purchase' && hold.refId === requestId && hold.open && hold.raisedBy === AGENT);
   const ordersOf = (requestId: string) => conn.rows('order').filter((order) => order.requestId === requestId);
+  const endedFreeze = (checked: string | undefined) => endedFreezeOf(checked, conn.rows('grant'), conn.today());
   const pushBacks = (requestId: string) =>
     conn.rows('log').filter((row) => row.refId === requestId && row.action.startsWith('Pushed back on')).map((row) => row.reason);
 
@@ -468,7 +496,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       const now = findRequest(requestId);
       if (!now || ['bought', 'rerouted', 'rejected'].includes(now.state)) return;
       const verdicts = await evaluate(requestId, decision.grantId, split);
-      const plan = planFor(verdicts);
+      const plan = planFor(verdicts, endedFreeze(decision.grantId));
       const failed = verdicts.filter((v) => !v.pass);
       const fallback: Decision =
         plan.action === 'hold' || plan.action === 'block'
@@ -480,8 +508,9 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
 
   // Reroute to decision.to: refresh it, have the module check it there, then
   // buy. If the target no longer passes, the record goes back to the grant it
-  // came from (and, for a new request, it is blocked there).
-  async function reroute(requestId: string, decision: Decision, serves: string[], whenTargetFails: 'block' | 'leave'): Promise<void> {
+  // came from (and, for a new request, it is blocked there; for one already
+  // in the Inbox, held there with what fails now).
+  async function reroute(requestId: string, decision: Decision, serves: string[], whenTargetFails: 'block' | 'hold' | 'leave'): Promise<void> {
     const to = decision.to!;
     const fresh = await refreshAll([to]);
     if (fresh) {
@@ -498,14 +527,14 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     }
     const back = await evaluate(requestId, decision.grantId, []);
     const failed = back.filter((v) => !v.pass);
-    const plan = planFor(back);
+    const plan = planFor(back, endedFreeze(decision.grantId));
     const fallback: Decision =
       plan.action === 'hold' || plan.action === 'block'
         ? { action: plan.action, reason: plan.reason, grantId: decision.grantId, failed, passed: back }
         : fresh
           ? { action: 'block', reason: 'grant_rules', grantId: decision.grantId, failed, passed: back }
           : { action: 'hold', reason: 'unchecked', grantId: decision.grantId, failed, passed: back };
-    await act(requestId, fallback, serves);
+    await act(requestId, whenTargetFails === 'hold' ? keptInInbox(fallback) : fallback, serves);
   }
 
   // Another grant for a request blocked by grant-specific rules: one where
@@ -520,7 +549,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     if (to) return { to };
     const pendingTo = grants.find((grant) => {
       if (grant.id === from) return false;
-      const kinds = failingKinds(rules.spendingVerdicts(facts, grant, conn.today()));
+      const kinds = failingKinds(rules.spendingVerdicts(facts, grant, conn.today()), endedFreeze(grant.id));
       return kinds.length > 0 && kinds.every((kind) => kind === 'freeze');
     })?.id;
     return { pendingTo };
@@ -547,7 +576,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const fresh = await refreshAll([grantId, ...split.map((share) => share.grantId)]);
     const verdicts = await evaluate(requestId, grantId, split);
     const failed = verdicts.filter((v) => !v.pass);
-    const plan = planFor(verdicts);
+    const plan = planFor(verdicts, endedFreeze(grantId));
 
     let decision: Decision;
     if (plan.action === 'try_reroute') {
@@ -596,7 +625,10 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   // Bought on the grant it was checked on, once every rule passes there now.
   // An approval failing only on the card limit goes back to the Inbox
   // instead: act_on_request never lets the agent buy past the limit, but the
-  // module's recheck of a second approval does.
+  // module's recheck of a second approval does. The agent's own freeze hold
+  // failing on another rule now (the grant reached its last 90 days while
+  // frozen, or a grant in its split ended) is planned again, so its Inbox item
+  // stops promising a buy that can't happen.
   async function buyUnfrozen(requestId: string, state: RequestRow['state'], why: Pick<Decision, 'reason' | 'approval'>): Promise<void> {
     const request = findRequest(requestId);
     const grantId = request?.chargedGrantId ?? request?.grantId;
@@ -608,10 +640,34 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const serves = unique([...request.sharedWith, ...split.map((share) => share.grantId)]);
     if (failed.length === 0) {
       await moveMoney(requestId, { action: 'buy', ...why, grantId, failed: [], passed: verdicts }, split, serves);
-    } else if (why.approval && failed.every((v) => ruleKind(v.rule) === 'card_limit')) {
-      await act(requestId, { action: 'hold', reason: 'approved_over_limit', approval: why.approval, grantId, failed, passed: verdicts }, serves);
+    } else if (why.approval) {
+      if (failed.every((v) => ruleKind(v.rule) === 'card_limit')) {
+        await act(requestId, { action: 'hold', reason: 'approved_over_limit', approval: why.approval, grantId, failed, passed: verdicts }, serves);
+      }
+      // Otherwise the approval waits on something else: the request stays as it is.
+    } else {
+      await planAgain(request, grantId, split, verdicts, serves);
     }
-    // Otherwise still waiting on something: the request stays as it is.
+  }
+
+  // A request the agent held for a freeze that has lifted, failing other rules
+  // now. It is already in the Inbox, so it stays there (act_on_request's block
+  // leaves its open hold, promise and all): rerouted if another grant can take
+  // it, else held with what fails now. Still failing only on a freeze (another
+  // grant in its split), the open hold's promise still holds.
+  async function planAgain(request: RequestRow, grantId: string, split: Split[], verdicts: RuleVerdict[], serves: string[]): Promise<void> {
+    const failed = verdicts.filter((v) => !v.pass);
+    const plan = planFor(verdicts, endedFreeze(grantId));
+    if (plan.action === 'buy' || (plan.action === 'hold' && plan.reason === 'freeze')) return;
+    if (plan.action === 'try_reroute') {
+      const { to } = await rerouteOptions(request, grantId, split);
+      if (to) {
+        await reroute(request.id, { action: 'reroute', grantId, to, failed, passed: verdicts }, serves, 'hold');
+        return;
+      }
+    }
+    const reason = plan.action === 'try_reroute' ? 'grant_rules' : plan.reason;
+    await act(request.id, { action: 'hold', reason, grantId, failed, passed: verdicts }, serves);
   }
 
   async function rerouteBlocked(requestId: string): Promise<void> {
