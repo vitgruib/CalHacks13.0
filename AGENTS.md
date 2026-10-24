@@ -10,15 +10,24 @@ file wins inside this repo**.
 
 ## 0. Project facts (fill in at kickoff, keep current)
 
-- **What we're building (one sentence):** TBD
-- **The demo path (the 3-minute story judges see):** TBD
+- **What we're building (one sentence):** GrantGuard, an AI grant office
+  for a university research lab: agents track every grant's money and
+  status, keep purchases within grant rules, check invoices, write payment
+  requests and check progress reports, asking a human grant manager when
+  they should. Full scope, owners and kickoff prompts: `docs/MASTER-PLAN.md`.
+- **The demo path (the 3-minute story judges see):** a grant is canceled
+  and spending freezes; a court restores it, but the agent won't spend
+  until the money actually arrives, then does. Then an invoice for a
+  canceled order is held, a payment request is drafted and defended, a
+  progress report catches a paper crediting the wrong grant, and the
+  scorecard shows results on planted mistakes (`docs/MASTER-PLAN.md` §5).
 - **Stack:** backend = **SpacetimeDB** (see `DECISIONS.md`); pin the exact
-  version here at setup: TBD. The agent loop runs in a separate worker that
+  version here at setup: TBD, set by T2 (Track A). The agent loop runs in a separate worker that
   connects as a client. Model = Claude. Everything else TBD.
 - **Track priority:** maximize the chance of winning *anything*. Tracks with
   more placing prizes beat tracks with one big prize.
-- **Run locally:** TBD (e.g. `./run.sh`)
-- **Check command (must pass before every push):** TBD (e.g. `npm run check`)
+- **Run locally:** TBD, set by T2 (Track A)
+- **Check command (must pass before every push):** TBD, set by T2 (Track A); until it lands, docs-only pushes need no check
 - **Submission deadline:** Devpost, **Sun 10/25 9:00 AM** (no late entries).
   Feature freeze 7:00 AM. Draft submission up by Sat night. Judging is
   10:30–12:30 with the whole team present and a live demo.
@@ -30,7 +39,9 @@ file wins inside this repo**.
   adding research; it sets the evidence and verification rules.
 - **Event rule:** all project code must be written *after* hacking opens.
   Planning docs are fine, but no code before the start.
-- **Shared contracts file(s):** TBD (e.g. `lib/schema.ts`, `api/openapi.yaml`)
+- **Shared contracts file(s):** the SpacetimeDB schema and actions in
+  `server/` (Track A, @suhu, owns them; T3 in `TASKS.md`). Exact file names
+  land with T3.
 
 If this section still says TBD when you start a task, ask your human to fill
 it in before writing code.

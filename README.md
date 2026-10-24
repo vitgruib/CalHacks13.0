@@ -29,6 +29,7 @@ agent who you are, e.g. "I'm @alex; pick up the next task in TASKS.md."
 | `docs/TRACKS.md` | Event rules, other tracks we're stacking, cut tracks |
 | `docs/IDEAS.md` | Idea brainstorm |
 | `docs/FEATURES.md` | GrantGuard product features, in priority order (P1–P4) |
+| `docs/MASTER-PLAN.md` | Locked scope, who does what, the three build tracks and agent kickoff prompts |
 
 Golden rules: contracts and stubs first so every lane can run in parallel,
 claim first, stay in your lane, unblock others before your own work, never
