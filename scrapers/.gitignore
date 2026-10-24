@@ -1,0 +1,5 @@
+node_modules/
+# Apify/Crawlee local storage (datasets, key-value stores, request queues)
+storage/
+# Scraper output the fund tracker reads (agents/src/sources/cancellations.ts)
+out/

@@ -3,7 +3,7 @@
 # Runs each package's own `npm run check`, installing deps on a fresh clone.
 set -euo pipefail
 cd "$(dirname "$0")"
-for pkg in server agents eval web; do
+for pkg in server agents eval web scrapers; do
   [ -f "$pkg/package.json" ] || continue
   echo "── check: $pkg"
   [ -d "$pkg/node_modules" ] || npm --prefix "$pkg" ci --silent

@@ -1,0 +1,36 @@
+{
+  "title": "NIH grant cancellation list",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "grantIds": {
+      "title": "Grant IDs",
+      "type": "array",
+      "description": "Only return these grants (core project numbers like R01GM000001, or full numbers like 5R01GM000001-03). Leave empty for the whole list.",
+      "editor": "stringList",
+      "default": []
+    },
+    "source": {
+      "title": "Source",
+      "type": "string",
+      "description": "live reads the current list; saved uses the copy bundled with the Actor (also used automatically when the live list can't be read).",
+      "editor": "select",
+      "enum": ["live", "saved"],
+      "enumTitles": ["Live list", "Saved copy"],
+      "default": "live"
+    },
+    "csvUrl": {
+      "title": "List URL",
+      "type": "string",
+      "description": "Grant Witness's NIH CSV download.",
+      "editor": "textfield",
+      "default": "https://data.grantwitness.org/nih/dl-table.csv"
+    },
+    "demo": {
+      "title": "Add demo rows",
+      "type": "boolean",
+      "description": "Adds the made-up rows in fixtures/demo-rows.json (labelled demo: true). For the GrantGuard demo only; never real data.",
+      "default": false
+    }
+  }
+}

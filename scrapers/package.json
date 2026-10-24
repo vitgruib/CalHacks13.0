@@ -1,0 +1,28 @@
+{
+  "name": "grantguard-scrapers",
+  "private": true,
+  "type": "module",
+  "description": "GrantGuard T15: Apify Actor that scrapes public NIH grant cancellation lists for the fund tracker",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "scrape": "tsx src/main.ts",
+    "scrape:saved": "GG_SCRAPE_SOURCE=saved tsx src/main.ts",
+    "scrape:demo": "GG_SCRAPE_DEMO=1 tsx src/main.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx --test test/*.test.ts",
+    "check": "npm run typecheck && npm test"
+  },
+  "dependencies": {
+    "@crawlee/basic": "3.18.2",
+    "apify": "3.7.2",
+    "csv-parse": "7.0.3",
+    "tsx": "4.23.15"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  }
+}

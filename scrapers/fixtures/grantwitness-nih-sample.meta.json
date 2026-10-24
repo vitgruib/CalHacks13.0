@@ -1,0 +1,10 @@
+{
+  "what": "Saved copy: 23 real rows from Grant Witness's NIH download, so the scraper and the demo work offline (GG_SCRAPE_SOURCE=saved, or automatically when the live download fails).",
+  "sourceUrl": "https://data.grantwitness.org/nih/dl-table.csv",
+  "page": "https://grantwitness.org/nih",
+  "fetchedAt": "2026-10-24T08:13:52Z",
+  "lastModified": "2026-10-23T21:22:36Z",
+  "liveRowCount": 5776,
+  "edits": "Rows copied verbatim; the two long free-text columns (Grant Abstract, Public Health Relevance) were dropped to keep the file small. Rows were picked to cover every Detailed Status value, a supplement (S1) row, a grant listed both as a prime award and a supplement (U01CA267827), and a row whose full award number is N/A.",
+  "caveat": "Grant Witness is a volunteer, advocacy-adjacent project that infers terminations and restorations from RePORTER, TAGGS, USAspending and court filings (https://grantwitness.org/nih/updates/methodology). It is one source among several, never the final word."
+}

@@ -1,0 +1,24 @@
+{
+  "actorSpecification": 1,
+  "name": "nih-grant-cancellation-list",
+  "title": "NIH grant cancellation list (Grant Witness)",
+  "description": "Reads Grant Witness's public list of disrupted NIH grants (terminated, frozen, reinstated, unfrozen) and returns one row per core project number, with a normalized status. Built for GrantGuard's fund tracker.",
+  "version": "0.1",
+  "buildTag": "latest",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "views": {
+        "overview": {
+          "title": "Listed grants",
+          "transformation": {
+            "fields": ["grantId", "status", "listStatus", "terminatedOn", "restoredOn", "restoredBy", "supplement", "institution", "title", "url", "fetchedAt", "savedCopy"]
+          },
+          "display": { "component": "table" }
+        }
+      }
+    }
+  }
+}
