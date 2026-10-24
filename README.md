@@ -162,7 +162,9 @@ come from the module. Where its text quotes records, code checks it, and an
 ID or amount that isn't in the records sends the agent back to a template.
 Every call has a saved answer (committed in `agents/cache/claude/`) and a
 deterministic fallback, so the agents also run with no API key. Default
-model: `claude-sonnet-5-5`; the hosted worker uses `claude-haiku-5-5`.
+model: `claude-sonnet-5-5`. The hosted worker runs `claude-haiku-5-5` to keep
+costs down, but plays the saved Sonnet answers first (`GG_REUSE_SAVED=1`), so
+only questions nobody has answered before cost a call.
 
 ### The grant manager
 
