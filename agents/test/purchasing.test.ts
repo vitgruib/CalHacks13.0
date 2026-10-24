@@ -4,6 +4,7 @@ import { afterEach, test } from 'node:test';
 import { startTracker } from '../src/agents/bookkeeping.ts';
 import {
   DEFAULT_VENDOR,
+  explanationOr,
   finishExplanation,
   frozenGrantOf,
   loadRules,
@@ -291,6 +292,28 @@ test('a_declared_shared_cost_without_a_split_is_held_and_looked_at_again_after_a
   assert.equal(purchaseHolds(row.id).length, 2);
 });
 
+test('a_push_back_on_a_rerouted_request_never_buys_it_twice', async () => {
+  // The asked-for grant is in its last 90 days, so supplies are rerouted to the second.
+  const seed = JSON.parse(twoGrantSeed());
+  seed.grants[0].end = '2026-07-15';
+  world = await startWorld({ seedJson: JSON.stringify(seed) });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', { ...gloves, item: 'Pipette tips, 20 racks', price: 380 });
+  await world.worker.idle();
+  const id = newestRequest().id;
+  assert.equal(request(id).state, 'rerouted');
+  assert.deepEqual(ordersFor(id).map((o) => [o.grantId, o.amount]), [[SECOND_GRANT, 380]]);
+
+  // The module accepts a push back on a rerouted request and sets it back to submitted.
+  await scientist.call('push_back', { requestId: id, message: 'Did this go through?' });
+  await world.worker.idle();
+  assert.equal(ordersFor(id).length, 1, 'one order, not two');
+  assert.equal(request(id).state, 'blocked');
+  assert.equal(request(id).chargedGrantId, SECOND_GRANT, 'still on the grant the order is on');
+  assert.match(request(id).explanation, /already ordered \(o\d+: \$380 on R21TEST000002/);
+  assert.equal(openPurchaseHolds(id).length, 0, 'no approve button that would order it again');
+});
+
 // ── People decide; the module refuses ──────────────────────────────────────
 
 async function freezeTestGrant(grantManager: Connection) {
@@ -504,6 +527,24 @@ test('sanitize_read_keeps_the_scientist_s_grant_and_drops_ids_outside_the_lab', 
   assert.deepEqual([asked.grantId, asked.grantIsClear], ['G-A', true]);
   const outside = sanitizeRead(answer({ grantId: 'R01-NOT-OURS', servesGrantIds: ['R01-NOT-OURS', 'G-B'] }), requestRow(), grants, fallback);
   assert.deepEqual([outside.grantId, outside.grantIsClear, outside.serves], ['G-A', false, ['G-B']]);
+});
+
+test('sanitize_read_counts_every_grant_the_text_names_even_if_claude_misses_one', () => {
+  const grants = [grantRow('G-A'), grantRow('G-B')];
+  const shared = requestRow({ grantId: 'G-A', purpose: 'Service of the shared microscope; imaging for both G-A and G-B' });
+  const read = sanitizeRead(answer({ grantId: 'G-A', servesGrantIds: ['G-A'] }), shared, grants, answer());
+  assert.deepEqual(read.serves, ['G-A', 'G-B']);
+  assert.deepEqual(splitFor(shared, read), [{ grantId: 'G-A', share: 1 }], 'so the module checks the shared-cost rule');
+});
+
+test('explanation_or_uses_the_template_when_claude_returns_nothing', () => {
+  const facts = {
+    request: { id: 'rq-1', item: 'Pipette tips', category: 'lab supplies', price: 380, purpose: 'Bench use' },
+    action: 'hold' as const, grantId: 'G-A', split: [], passed: [],
+    failed: [{ rule: 'Under the card limit ($5,000)', detail: '$7,200 is over the limit.' }], next: 'The grant manager decides.',
+  };
+  assert.match(explanationOr('  ', facts), /^Held Pipette tips \(\$380\) on G-A .*Under the card limit \(\$5,000\): \$7,200 is over the limit/);
+  assert.equal(explanationOr('Held for the card limit.', facts), 'Held for the card limit.');
 });
 
 test('sanitize_read_uses_only_a_split_a_person_stated_across_two_grants', () => {

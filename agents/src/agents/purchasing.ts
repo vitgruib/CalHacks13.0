@@ -73,7 +73,7 @@ export const frozenGrantOf = (verdict: RuleVerdict, checked: string | undefined)
   / \(([A-Za-z0-9-]+)\)$/.exec(verdict.rule)?.[1] ?? checked;
 
 export type HoldReason = 'freeze' | 'card_limit' | 'shared_cost' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused';
-export type BlockReason = 'category' | 'grant_rules';
+export type BlockReason = 'category' | 'grant_rules' | 'already_ordered';
 
 export type Plan =
   | { action: 'buy' }
@@ -128,6 +128,11 @@ const factsOf = (request: RequestRow, split: Split[]): RequestFacts => ({
   split,
 });
 const failingKinds = (verdicts: RuleVerdict[]) => verdicts.filter((v) => !v.pass).map((v) => ruleKind(v.rule));
+/** The lab grant ids written out in the item or purpose. */
+const namedGrants = (request: RequestRow, ids: string[]): string[] => {
+  const text = `${request.item}\n${request.purpose}`;
+  return ids.filter((id) => text.includes(id));
+};
 
 /**
  * The deterministic reading (and Claude's fallback): the grant the scientist
@@ -137,8 +142,7 @@ const failingKinds = (verdicts: RuleVerdict[]) => verdicts.filter((v) => !v.pass
  */
 export function readFallback(request: RequestRow, grants: GrantRow[], rules: SpendingRules, today: string): ReadAnswer {
   const ids = grants.map((grant) => grant.id);
-  const text = `${request.item}\n${request.purpose}`;
-  const named = ids.filter((id) => text.includes(id));
+  const named = namedGrants(request, ids);
   const serves = unique([...request.sharedWith, ...request.split.map((share) => share.grantId), ...named]).filter((id) => ids.includes(id));
   const split = request.split.map(({ grantId, share }) => ({ grantId, share }));
   const splitSource = split.length ? 'request' : 'none';
@@ -177,7 +181,11 @@ export function sanitizeRead(answer: ReadAnswer, request: RequestRow, grants: Gr
   const picked = ids.has(answer.grantId) ? answer.grantId : undefined;
   const grantId = asked ?? picked ?? fallback.grantId;
   const grantIsClear = asked ? true : picked ? answer.grantIsClear : false;
-  const serves = unique([...answer.servesGrantIds, ...request.sharedWith, ...request.split.map((share) => share.grantId)]).filter((id) => ids.has(id));
+  // Grants the text names always count, so Claude can't read a shared cost
+  // that names two grants (rq-104) as a one-grant buy.
+  const serves = unique([
+    ...answer.servesGrantIds, ...namedGrants(request, [...ids]), ...request.sharedWith, ...request.split.map((share) => share.grantId),
+  ]).filter((id) => ids.has(id));
   const split = answer.split.filter((share) => ids.has(share.grantId) && Number.isFinite(share.share) && share.share > 0);
   // One grant at 100% isn't a split someone stated; it would only trip the shared-cost rule.
   const stated = answer.splitSource !== 'none' && split.length >= 2;
@@ -269,6 +277,8 @@ function reasonStep(decision: Decision, facts: { serves: string[]; vendor: strin
       return 'A rule failed that the agent cannot place, so the grant manager decides.';
     case 'category':
       return 'It cannot be charged to a federal grant.';
+    case 'already_ordered':
+      return `It was already ordered (${decision.note ?? 'an order exists'}), so a push back never buys it again; the grant manager can change or cancel the order.`;
     case 'grant_rules':
       return decision.pendingTo
         ? `${decision.pendingTo} has the time and money for it but is frozen, so it will be rerouted there once ${decision.pendingTo} unfreezes.`
@@ -294,6 +304,9 @@ export function fallbackExplanation(facts: ExplanationFacts): string {
   const passes = facts.action === 'buy' && facts.passed.length ? [`Every rule passes: ${facts.passed.join('; ')}.`] : [];
   return [lead, ...cites, ...passes, facts.next].join(' ');
 }
+
+/** Claude's text, or the template when it came back blank: the module refuses an empty explanation. */
+export const explanationOr = (text: string, facts: ExplanationFacts): string => (text.trim() ? text : fallbackExplanation(facts));
 
 /** Every failed rule named in the text, and no longer than people can read. */
 export function finishExplanation(text: string, failed: Array<{ rule: string }>): string {
@@ -328,6 +341,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   }
   const agentHoldOpen = (requestId: string) =>
     conn.rows('hold').some((hold) => hold.kind === 'purchase' && hold.refId === requestId && hold.open && hold.raisedBy === AGENT);
+  const ordersOf = (requestId: string) => conn.rows('order').filter((order) => order.requestId === requestId);
   const pushBacks = (requestId: string) =>
     conn.rows('log').filter((row) => row.refId === requestId && row.action.startsWith('Pushed back on')).map((row) => row.reason);
 
@@ -394,7 +408,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       effort: 'low',
       maxTokens: 800,
     });
-    return finishExplanation(value.explanation, decision.failed);
+    return finishExplanation(explanationOr(value.explanation, facts), decision.failed);
   }
 
   async function act(requestId: string, decision: Decision, serves: string[]): Promise<void> {
@@ -403,6 +417,12 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const vendor = vendorFor(request, conn.rows('request'), conn.rows('order'));
     const explanation = await explain(request, decision, serves, vendor);
     const grantId = decision.action === 'reroute' ? decision.to! : decision.grantId;
+    // Looked at again after the wait for Claude: a person may have decided,
+    // or the module may have ordered it, in the meantime.
+    if ((decision.action === 'buy' || decision.action === 'reroute') && (personDecided(requestId) || ordersOf(requestId).length)) {
+      console.warn(`${AGENT}: not buying ${requestId}: ${personDecided(requestId) ? 'a person decided it meanwhile' : 'it already has an order'}`);
+      return;
+    }
     await conn.call('act_on_request', { requestId, action: decision.action, grantId, vendor, explanation });
     if (decision.action === 'hold') holdReasons.set(requestId, decision.reason);
   }
@@ -480,6 +500,15 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   async function handleSubmitted(requestId: string): Promise<void> {
     const request = findRequest(requestId);
     if (!request || request.state !== 'submitted') return; // already handled
+    // The module lets a rerouted (so already ordered) request be pushed back
+    // to 'submitted'. Never buy it twice: say so, on the grant the order is on,
+    // without re-checking it elsewhere first.
+    const ordered = ordersOf(requestId);
+    if (ordered.length) {
+      const note = ordered.map((order) => `${order.id}: ${usd(order.amount)} on ${order.grantId} from ${order.vendor}`).join('; ');
+      await act(requestId, { action: 'block', reason: 'already_ordered', grantId: ordered[0].grantId, failed: [], passed: request.verdicts, note }, request.sharedWith);
+      return;
+    }
     const grants = conn.rows('grant');
     if (grants.length === 0) throw new Error(`no grants to check ${requestId} against`);
     const rules = await loadRules();
@@ -529,7 +558,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   async function buyWaiting(requestId: string): Promise<void> {
     const request = findRequest(requestId);
     const grantId = request?.chargedGrantId ?? request?.grantId;
-    if (!request || request.state !== 'waiting_on_manager' || !grantId) return;
+    if (!request || request.state !== 'waiting_on_manager' || !grantId || ordersOf(requestId).length) return;
     const split = request.split.map(({ grantId: id, share }) => ({ grantId: id, share }));
     if (!(await refreshAll([grantId, ...split.map((share) => share.grantId)]))) return;
     const verdicts = await evaluate(requestId, grantId, split);
@@ -542,7 +571,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   async function rerouteBlocked(requestId: string): Promise<void> {
     const request = findRequest(requestId);
     const from = request?.chargedGrantId ?? request?.grantId;
-    if (!request || request.state !== 'blocked' || request.split.length || !from) return;
+    if (!request || request.state !== 'blocked' || request.split.length || !from || ordersOf(requestId).length) return;
     const failed = request.verdicts.filter((v) => !v.pass);
     if (failed.length === 0 || !failed.every((v) => GRANT_SPECIFIC.has(ruleKind(v.rule)))) return;
     const { to } = await rerouteOptions(request, from, []);
