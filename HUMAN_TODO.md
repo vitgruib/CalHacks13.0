@@ -10,6 +10,7 @@ Things agents can't do. Put your name next to one when you take it.
 - [ ] Check whether Devpost caps the number of tracks per entry. Read the Atlassian, Convex, and Elastic track docs when they're posted
 - [ ] Email CRS for sandbox access (see calhacks.crscreditapi.com) and finish their account steps. Confirm which identities are test identities
 - [ ] Get sponsor sandbox keys we'll use (CRS: calhacks.crscreditapi.com, Nessie, model API, `FACTORY_API_KEY` if we do Droid)
+- [ ] (Stretch) Atlassian: create an API token with Forge scopes, `forge login`, `forge site provision`
 - [ ] SpacetimeDB: check the Spacetime track criteria when posted, and install the `spacetime` CLI on every machine
 - [ ] If going for Anthropic: talk to 1–2 real people in the named community and write down what they said
 - [ ] Sat night: Devpost draft submitted

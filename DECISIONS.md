@@ -10,3 +10,4 @@ changes, cut features. Newest at the bottom.
 - Fri @ethan — Backend, if we need one, is **SpacetimeDB**. — keeps the company world, ledger and audit trail in one real-time store with server-side rule enforcement; also qualifies us for the Spacetime track
 - Fri @ethan — Factory Droid: stretch goal only. Use it as an automated rule-writing seat once the core works. — $2k track, but it shouldn't sit on the critical path
 - Fri @ethan — Stretch goals: **voice (Cartesia)** and **Droid**. Only start them after the core demo path works, and keep each behind an interface the core doesn't need. — team decision
+- Fri @ethan — Atlassian Agentic Workforce is a **stretch goal**: a Forge app with Jira escalations/approvals + Confluence policy pages, behind an adapter; SpacetimeDB stays the system of record. — team decision
