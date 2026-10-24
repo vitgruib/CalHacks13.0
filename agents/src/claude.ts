@@ -11,6 +11,9 @@
 // GG_CLAUDE=off: fallback only. The test script sets this so tests can never
 //   reach the network.
 // GG_MODEL overrides the model, GG_CLAUDE_CACHE_DIR the saved answers' folder.
+// GG_REUSE_SAVED=1: with GG_MODEL set (say, a cheaper model), cached and offline
+//   modes use the default model's saved answer when the new model has none, so
+//   the team's checked answers still play and only new questions cost a call.
 
 import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -165,7 +168,11 @@ export async function ask<T>(options: AskOptions<T>): Promise<Answer<T>> {
   const model = claudeModel();
   const cacheDir = options.cacheDir ?? process.env.GG_CLAUDE_CACHE_DIR ?? DEFAULT_CACHE;
   const path = cachePath(cacheDir, task, [model, system, JSON.stringify(input ?? null), schemaJson]);
-  const saved = readSaved(path, schema);
+  const saved =
+    readSaved(path, schema) ??
+    (mode !== 'live' && process.env.GG_REUSE_SAVED === '1' && model !== DEFAULT_MODEL
+      ? readSaved(cachePath(cacheDir, task, [DEFAULT_MODEL, system, JSON.stringify(input ?? null), schemaJson]), schema)
+      : undefined);
 
   if (mode === 'offline') return saved ? fromSaved(saved) : fromFallback(options, 'offline, nothing saved');
   if (mode === 'cached' && saved) return fromSaved(saved);

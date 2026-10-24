@@ -13,7 +13,7 @@ import type { AskOptions } from '../src/claude.ts';
 // Every test passes a fake client, so nothing here can reach the API even with
 // the fake key set below.
 
-const ENV_NAMES = ['ANTHROPIC_API_KEY', 'ANTHROPIC_AUTH_TOKEN', 'GG_MODEL', 'GG_CLAUDE', 'GG_CLAUDE_CACHE_DIR'];
+const ENV_NAMES = ['ANTHROPIC_API_KEY', 'ANTHROPIC_AUTH_TOKEN', 'GG_MODEL', 'GG_CLAUDE', 'GG_CLAUDE_CACHE_DIR', 'GG_REUSE_SAVED'];
 let savedEnv: Record<string, string | undefined>;
 let cacheDir: string;
 
@@ -247,6 +247,26 @@ test('GG_MODEL_changes_the_model_sent_and_where_it_is_saved', async () => {
   assert.equal(client.calls.length, 1);
   assert.equal(client.calls[0].model, 'claude-opus-5-5');
   assert.equal(readdirSync(cacheDir).length, 2);
+});
+
+test('GG_REUSE_SAVED_uses_the_default_models_saved_answer_before_asking_a_cheaper_model', async () => {
+  await ask(question({ client: answering(CLAUDE_SAYS) }));
+  process.env.GG_MODEL = 'claude-haiku-5-5';
+  process.env.GG_REUSE_SAVED = '1';
+  const client = answering({ allowed: false, reason: 'haiku says no' });
+  const answer = await ask(question({ client }));
+  assert.equal(client.calls.length, 0);
+  assert.deepEqual(answer, { value: CLAUDE_SAYS, by: 'saved', model: 'claude-sonnet-5-5' });
+});
+
+test('GG_REUSE_SAVED_still_asks_the_cheaper_model_when_nothing_is_saved', async () => {
+  process.env.GG_MODEL = 'claude-haiku-5-5';
+  process.env.GG_REUSE_SAVED = '1';
+  const client = answering(CLAUDE_SAYS);
+  const answer = await ask(question({ client }));
+  assert.equal(client.calls.length, 1);
+  assert.equal(client.calls[0].model, 'claude-haiku-5-5');
+  assert.equal(answer.by, 'claude');
 });
 
 test('different_inputs_are_saved_separately', async () => {

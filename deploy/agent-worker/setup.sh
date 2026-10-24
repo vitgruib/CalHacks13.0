@@ -37,6 +37,8 @@ GG_SPACETIME_DB=grantguard
 GG_CLAUDE=cached
 # Haiku keeps the hosted worker cheap; remove for the default (Sonnet).
 GG_MODEL=claude-haiku-5-5
+# ...but play the team's saved Sonnet answers first; Haiku only for new questions.
+GG_REUSE_SAVED=1
 # Agent tokens and caches live outside the checkout, so git pull never
 # conflicts with them and restarts keep the same three identities.
 GG_STATE_DIR=/var/lib/grantguard-agents/state

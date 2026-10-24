@@ -51,6 +51,7 @@ Keys and settings are read from the repo root's `.env.local` (git-ignored).
 | `ANTHROPIC_API_KEY` | none | Claude. Without it every call uses its fallback |
 | `GG_CLAUDE` | `cached` | `cached` = saved answer, else ask Claude and save it. `live` = always ask. `offline` = saved answers only. `off` = fallbacks only (tests) |
 | `GG_MODEL` | `claude-sonnet-5-5` | Model for agent calls |
+| `GG_REUSE_SAVED` | unset | `1`: with `GG_MODEL` set, cached/offline modes use the default model's saved answer when the new model has none |
 | `GG_CLAUDE_CACHE_DIR` | `agents/cache/claude` | Saved Claude answers (committed, so the demo works offline) |
 | `GG_DB` | `local` | `local` = the module in this process on `sim/seed.json`. `spacetime` = a SpacetimeDB server |
 | `GG_SPACETIME_URI` | `ws://127.0.0.1:3000` | Server for `GG_DB=spacetime` |
