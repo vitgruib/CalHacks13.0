@@ -40,7 +40,6 @@ export interface ListedGrant {
   reporterUrl: string | null;
   fetchedAt: string; // when the list was read (ISO)
   savedCopy: boolean; // true when read from the saved copy, not the live site
-  demo?: true; // made-up demo row (fixtures/demo-rows.json), never real
 }
 
 // Grant Witness "Detailed Status" → ours. Frozen funds can't be drawn, which

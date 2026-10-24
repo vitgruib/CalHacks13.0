@@ -34,7 +34,6 @@ A run in October 2026 returned 5,635 grants (1,100 canceled, 2,301 reinstated, 2
 | `grantIds` | Only return these grants (any number format) | the whole list |
 | `source` | `live` downloads the list; `saved` uses a small bundled copy (23 real rows) | `live` |
 | `csvUrl` | Another copy of the CSV | Grant Witness NIH CSV |
-| `demo` | Adds one clearly labelled **made-up** row, for testing only | off |
 
 If the download fails, the run falls back to the bundled copy, logs a
 warning and marks those rows `savedCopy: true`.

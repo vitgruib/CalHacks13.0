@@ -60,7 +60,8 @@ Keys and settings are read from the repo root's `.env.local` (git-ignored).
 | `GG_SOURCES` | `live` | `live` = ask the sites, falling back to saved copies. `offline` = saved copies only |
 | `GG_CACHE_DIR` | `agents/cache` | Saved copies of every source answer (public data, committed) |
 | `GG_CONTACT_EMAIL` | none | Sent to Crossref and NCBI as the contact for their polite-use pools |
-| `APIFY_TOKEN`, `GG_APIFY_DATASET` | none | Read the cancellation list from an Apify dataset (token sent as a header, never saved) |
+| `APIFY_TOKEN`, `GG_APIFY_ACTOR` | none | Read the cancellation list from the Actor's latest successful run; Check now starts a fresh run first (token sent as a header, never saved) |
+| `GG_APIFY_DATASET` | none | Pin one Apify dataset instead (overrides `GG_APIFY_ACTOR`) |
 | `GG_CANCELLATIONS_FILE` | `scrapers/out/cancellations.json` | Or read it from a file the scraper wrote |
 
 Test-only: `GG_SPACETIME_IT`, `GG_SPACETIME_CLI`, `GG_SPACETIME_CLI_SERVER` (see `test/spacetime.test.ts`).

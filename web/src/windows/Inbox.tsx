@@ -1,7 +1,6 @@
 // Inbox: the grant manager's window, and the ONLY window with decision buttons.
 // Everything waiting for a human decision, with its evidence. A reason is
-// always required (MASTER-PLAN §2). In this stub a decision only records the
-// choice and logs it; the real recheck-then-act lands with T17.
+// always required (MASTER-PLAN §2).
 import { useId, useState } from 'react'
 import { useStore } from '../data/store'
 import type { AgentId, Decision, Hold, HoldKind } from '../data/types'

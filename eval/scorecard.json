@@ -150,7 +150,7 @@
       "got": "hold",
       "outcome": "caught",
       "notRun": false,
-      "detail": "waiting_on_manager; Shared items split across grants: Serves  but is charged to R01GM061721 only."
+      "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves  but is charged to R01GM061721 only."
     },
     {
       "id": "pu-4",
@@ -393,7 +393,7 @@
       "pu-3": {
         "got": "hold",
         "outcome": "caught",
-        "detail": "waiting_on_manager; Shared items split across grants: Serves  but is charged to R01GM061721 only."
+        "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves  but is charged to R01GM061721 only."
       },
       "pu-4": {
         "got": "hold",

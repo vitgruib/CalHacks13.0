@@ -10,7 +10,6 @@
     "start": "tsx src/main.ts",
     "scrape": "tsx src/main.ts",
     "scrape:saved": "GG_SCRAPE_SOURCE=saved tsx src/main.ts",
-    "scrape:demo": "GG_SCRAPE_DEMO=1 tsx src/main.ts",
     "typecheck": "tsc --noEmit",
     "test": "node --import tsx --test test/*.test.ts",
     "check": "npm run typecheck && npm test"

@@ -32,7 +32,6 @@ export const firstName = (db: Db) => (db.grants[0]?.pi ?? '').replace(/^Dr\.?\s*
 const fmt = (day: string, o: Intl.DateTimeFormatOptions) => new Date(`${day}T00:00:00Z`).toLocaleDateString('en-US', { ...o, timeZone: 'UTC' })
 export const longDate = (day: string) => fmt(day, { month: 'short', day: 'numeric', year: 'numeric' })
 export const monthYear = (day: string) => fmt(day, { month: 'short', year: 'numeric' })
-export const weekday = (day: string) => fmt(day, { weekday: 'long', month: 'long', day: 'numeric' })
 
 export const daysLeft = (db: Db, g: Grant) => daysBetween(db.today, g.end)
 

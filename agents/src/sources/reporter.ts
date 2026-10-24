@@ -6,7 +6,7 @@
 
 import type { GrantStatus } from '../db/contract.ts';
 import { fetchJson } from './http.ts';
-import type { Reading, SourceClient } from './types.ts';
+import type { SourceClient } from './types.ts';
 
 const SEARCH_URL = 'https://api.reporter.nih.gov/v2/projects/search';
 const PROJECT_INFO_URL = 'https://reporter.nih.gov/services/Projects/ProjectInfo';

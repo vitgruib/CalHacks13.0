@@ -25,12 +25,6 @@
       "description": "Grant Witness's NIH CSV download.",
       "editor": "textfield",
       "default": "https://data.grantwitness.org/nih/dl-table.csv"
-    },
-    "demo": {
-      "title": "Add demo rows",
-      "type": "boolean",
-      "description": "Adds the made-up rows in fixtures/demo-rows.json (labelled demo: true). For the GrantGuard demo only; never real data.",
-      "default": false
     }
   }
 }

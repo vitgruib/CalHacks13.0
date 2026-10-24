@@ -77,7 +77,7 @@
       "id": "pu-3", "feature": "purchases", "kind": "mistake",
       "case": "a shared cost charged 100% to one grant",
       "refId": "rq-104", "grantId": "R01GM061721", "expected": "hold", "alsoAccept": ["block"],
-      "rule": "Shared items split across grants",
+      "rule": "Shared cost split across the grants it serves",
       "check": "rq-104 not bought as-is: held for a split (or blocked); cites the shared-cost rule",
       "why": "The confocal service contract serves both R01GM061721 and R21AI182745 (its purpose says so) but has no split.",
       "source": "MASTER-PLAN §3.2 planted mistakes; NSF OIG capstone (shared-cost misallocation in 55% of audits)"
@@ -104,7 +104,7 @@
       "id": "pu-d2", "feature": "purchases", "kind": "decoy",
       "case": "a correct shared-cost split",
       "refId": "rq-107", "grantId": "R01GM061721", "expected": "pass",
-      "rule": "Shared items split across grants",
+      "rule": "Shared cost split across the grants it serves",
       "check": "shared-cost verdict passes on rq-107 (60% R01GM061721 / 40% R21AI182745); once R01GM061721 unfreezes it is bought with no hold",
       "why": "Mass-spec hours split 6/4 between the two projects, matching its stated use. Core-facility services are not supplies, so the 90-day rule does not apply to B's share.",
       "source": "MASTER-PLAN §3.2 decoys"

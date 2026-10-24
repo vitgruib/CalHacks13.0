@@ -1,6 +1,6 @@
 // Scores what the system decided against the answer key (sim/answer-key.json).
-// Pure: takes every table's rows after the agents ran (eval/replay.mjs now,
-// Track B's runSim() later), the key, and the seed the run started from.
+// Pure: takes every table's rows after the agents ran (eval/replay.mjs, which
+// runs Track B's runSim()), the key, and the seed the run started from.
 //
 // Outcomes: a mistake is `caught` or `missed`; a decoy is a `false alarm` or
 // a `correct pass`. A case the system never got to (no agent or check ran on
@@ -14,12 +14,6 @@ export const FEATURES = {
   invoices: 'Invoices',
   payment_requests: 'Payment requests',
   reports: 'Progress reports',
-};
-
-// The key and the module word one rule differently; same rule.
-// TODO: align the wording in sim/answer-key.json or server/src/rules.ts.
-const RULE_ALIASES = {
-  'Shared items split across grants': 'Shared cost split across the grants it serves',
 };
 
 const FREEZE_RULE = 'Grant is active and not frozen';
@@ -89,8 +83,7 @@ export function judge({ tables, key, seed }) {
   const explained = new Set(); // hold ids and flag ids a case accounts for
 
   const verdictFor = (r, rule) => {
-    const want = RULE_ALIASES[rule] ?? rule;
-    const vs = (r?.verdicts ?? []).filter(v => v.rule.startsWith(want));
+    const vs = (r?.verdicts ?? []).filter(v => v.rule.startsWith(rule));
     if (vs.length === 0) return undefined;
     return { pass: vs.every(v => v.pass), detail: vs.map(v => v.detail).join(' ') };
   };

@@ -11,7 +11,6 @@
 // Input (Actor input, or env vars for local runs; env wins):
 //   source     live | saved          GG_SCRAPE_SOURCE   (default live; falls back to saved on failure)
 //   grantIds   only these grants     GG_LAB_GRANTS      (comma-separated; default: every listed grant)
-//   demo       add the demo row(s)   GG_SCRAPE_DEMO=1   (fixtures/demo-rows.json, made-up, labelled)
 //   outFile    local output file     GG_CANCELLATIONS_FILE (default scrapers/out/cancellations.json)
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -27,14 +26,12 @@ import { GRANT_WITNESS_CSV, parseGrantWitnessCsv, SOURCE, type ListedGrant } fro
 const here = (path: string) => fileURLToPath(new URL(path, import.meta.url));
 const SAVED_COPY = here('../fixtures/grantwitness-nih-sample.csv');
 const SAVED_COPY_META = here('../fixtures/grantwitness-nih-sample.meta.json');
-const DEMO_ROWS = here('../fixtures/demo-rows.json');
 const DEFAULT_OUT = here('../out/cancellations.json');
 
 interface Input {
   source?: 'live' | 'saved';
   csvUrl?: string;
   grantIds?: string[];
-  demo?: boolean;
   outFile?: string;
 }
 
@@ -57,27 +54,12 @@ async function download(url: string): Promise<string | null> {
   return body;
 }
 
-function demoRows(fetchedAt: string): ListedGrant[] {
-  const file = JSON.parse(readFileSync(DEMO_ROWS, 'utf8')) as { rows: Array<Partial<ListedGrant> & Pick<ListedGrant, 'grantId' | 'status' | 'url'>> };
-  return file.rows.map((row) => ({
-    listedOn: null, listStatus: 'DEMO DATA', terminatedOn: null, restoredOn: null, restoredBy: null,
-    fullAwardNumber: null, supplement: null, title: null, institution: null, reporterUrl: null,
-    ...row,
-    source: SOURCE,
-    list: 'DEMO DATA (fixtures/demo-rows.json), not a real list',
-    fetchedAt,
-    savedCopy: false,
-    demo: true,
-  }));
-}
-
 await Actor.init();
 const input = ((await Actor.getInput<Input>()) ?? {}) as Input;
 const env = process.env;
 const source = (env.GG_SCRAPE_SOURCE as Input['source']) ?? input.source ?? 'live';
 const csvUrl = input.csvUrl ?? GRANT_WITNESS_CSV;
 const labGrants = env.GG_LAB_GRANTS ? parseGrantList(env.GG_LAB_GRANTS) : parseGrantList((input.grantIds ?? []).join(','));
-const demo = env.GG_SCRAPE_DEMO ? env.GG_SCRAPE_DEMO === '1' : (input.demo ?? false);
 const outFile = env.GG_CANCELLATIONS_FILE ?? input.outFile ?? (Actor.isAtHome() ? null : DEFAULT_OUT);
 
 let csv = source === 'live' ? await download(csvUrl) : null;
@@ -92,7 +74,6 @@ if (savedCopy) {
 const parsed = parseGrantWitnessCsv(csv!, { fetchedAt, savedCopy });
 let rows = parsed.grants;
 if (labGrants.length) rows = rows.filter((row) => labGrants.includes(row.grantId));
-if (demo) rows = [...rows, ...demoRows(new Date().toISOString())];
 
 await Actor.pushData(rows);
 if (outFile) {
@@ -109,7 +90,6 @@ const summary = {
   labGrants: labGrants.length ? labGrants : 'all',
   rowsOut: rows.length,
   byStatus: counts,
-  demoRows: demo,
   outFile,
 };
 await Actor.setValue('OUTPUT', summary);

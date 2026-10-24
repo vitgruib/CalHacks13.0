@@ -61,7 +61,6 @@ npm --prefix scrapers install
 npm --prefix scrapers run scrape          # live list -> storage/datasets/default/ + out/cancellations.json
 npm --prefix scrapers run scrape:saved    # the bundled saved copy (offline)
 GG_LAB_GRANTS=R01GM061721,R21AI182745 npm --prefix scrapers run scrape   # only the lab's grants
-npm --prefix scrapers run scrape:demo     # + the demo row (see below)
 npm --prefix scrapers run check           # typecheck + tests (offline)
 ```
 
@@ -76,7 +75,6 @@ Options (Actor input, or env vars for local runs):
 | --- | --- | --- |
 | `source` (`live`/`saved`) | `GG_SCRAPE_SOURCE` | `live` |
 | `grantIds` | `GG_LAB_GRANTS` (comma-separated) | whole list |
-| `demo` | `GG_SCRAPE_DEMO=1` | off |
 | `outFile` | `GG_CANCELLATIONS_FILE` | `scrapers/out/cancellations.json` locally, none in the cloud |
 | `csvUrl` | none | Grant Witness NIH CSV |
 
@@ -84,22 +82,14 @@ Options (Actor input, or env vars for local runs):
 
 The sim world uses two real NIH grant IDs (`R01GM061721`, `R21AI182745`;
 the lab, money and timeline around them are simulated). The real Grant
-Witness list already has `R01GM061721` (reinstated, Thakur v. Trump), so the
-plain scrape gives the tracker a real reading and demo mode isn't needed.
-`scrape:demo` still adds the single row in `fixtures/demo-rows.json`:
-`R21AI182745` as canceled. That row is **fake**: the real grant is not on any
-list. It's labelled `demo: true`, `list: "DEMO DATA …"`, with a
-`#demo-data-not-a-real-listing` URL. With it, the tracker posts the reading, a
-`canceled` event (the module freezes R21AI182745) and a `sources_disagree`
-flag ("NIH RePORTER says active; USAspending says active; Cancellation list
-(Apify) says canceled"), which puts "Which source is right about
-R21AI182745?" in the Inbox. Use it only on a throwaway database, and never
-show its output as real.
+Witness list already has `R01GM061721` (reinstated, Thakur v. Trump), so a
+plain scrape gives the tracker a real reading. There is no made-up demo row
+any more.
 
 ## Against the local SpacetimeDB
 
 1. `npm --prefix server run dev` (or reuse a running server on :3000).
-2. `npm --prefix scrapers run scrape:demo` (or plain `scrape` for real IDs).
+2. `npm --prefix scrapers run scrape`.
 3. Run the tracker with the cancellation source, e.g.
    `GG_DB=spacetime GG_LIVE_SOURCES=1 npm --prefix agents run demo`. Note that
    `GG_LIVE_SOURCES=1` also turns on RePORTER and USAspending. (T15 was
