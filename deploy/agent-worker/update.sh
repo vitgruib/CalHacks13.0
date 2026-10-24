@@ -12,7 +12,7 @@ npm ci --prefix agents --no-audit --no-fund --loglevel=error
 # has already saved.
 sudo mkdir -p "$STATE/state" "$STATE/cache"
 sudo chown -R "$USER:" "$STATE"
-cp -rn agents/cache/. "$STATE/cache/"
+cp -r --update=none agents/cache/. "$STATE/cache/"
 sudo systemctl restart grantguard-agents
 sleep 5
 systemctl is-active --quiet grantguard-agents || { sudo journalctl -u grantguard-agents -n 40 --no-pager; exit 1; }
