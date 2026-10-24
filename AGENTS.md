@@ -21,13 +21,17 @@ file wins inside this repo**.
   canceled order is held, a payment request is drafted and defended, a
   progress report catches a paper crediting the wrong grant, and the
   scorecard shows results on planted mistakes (`docs/MASTER-PLAN.md` §5).
-- **Stack:** backend = **SpacetimeDB** (see `DECISIONS.md`); pin the exact
-  version here at setup: TBD, set by T2 (Track A). The agent loop runs in a separate worker that
+- **Stack:** backend = **SpacetimeDB** (see `DECISIONS.md`); pinned
+  at **2.13.0** (npm `spacetimedb` and the CLI);
+  module language **TypeScript** (`server/src/`). The agent loop runs in a separate worker that
   connects as a client. Model = Claude. Everything else TBD.
 - **Track priority:** maximize the chance of winning *anything*. Tracks with
   more placing prizes beat tracks with one big prize.
-- **Run locally:** TBD, set by T2 (Track A)
-- **Check command (must pass before every push):** TBD, set by T2 (Track A); until it lands, docs-only pushes need no check
+- **Run locally:** `npm --prefix server run dev` (starts local SpacetimeDB,
+  publishes `grantguard`, regenerates client bindings; `-- --reset` wipes
+  data). Needs the SpacetimeDB CLI: `curl -sSf https://install.spacetimedb.com | sh`
+- **Check command (must pass before every push):** `./check.sh` (runs
+  `npm run check` in `server/`, `agents/`, `web/`). Docs-only pushes need no check
 - **Submission deadline:** Devpost, **Sun 10/25 9:00 AM** (no late entries).
   Feature freeze 7:00 AM. Draft submission up by Sat night. Judging is
   10:30–12:30 with the whole team present and a live demo.

@@ -1,0 +1,20 @@
+{
+  "name": "grantguard-server",
+  "private": true,
+  "type": "module",
+  "description": "GrantGuard SpacetimeDB module (Track A): tables, rules and actions — the shared contract",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test",
+    "dev": "./scripts/dev.sh",
+    "generate": "./scripts/generate.sh"
+  },
+  "dependencies": {
+    "spacetimedb": "2.13.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.7"
+  }
+}
