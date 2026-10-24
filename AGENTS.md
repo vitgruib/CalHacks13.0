@@ -12,9 +12,11 @@ file wins inside this repo**.
 
 - **What we're building (one sentence):** TBD
 - **The demo path (the 3-minute story judges see):** TBD
-- **Stack:** backend = **Convex** (reactive DB + TypeScript functions; see
-  `DECISIONS.md`). Model = Claude. Everything else TBD. Read
-  docs.convex.dev/ai before writing Convex code.
+- **Stack:** backend = **SpacetimeDB** (see `DECISIONS.md`); pin the exact
+  version here at setup: TBD. The agent loop runs in a separate worker that
+  connects as a client. Model = Claude. Everything else TBD.
+- **Track priority:** maximize the chance of winning *anything*. Tracks with
+  more placing prizes beat tracks with one big prize.
 - **Run locally:** TBD (e.g. `./run.sh`)
 - **Check command (must pass before every push):** TBD (e.g. `npm run check`)
 - **Submission deadline:** Devpost, **Sun 10/25 9:00 AM** (no late entries).

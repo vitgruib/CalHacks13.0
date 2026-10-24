@@ -11,7 +11,7 @@ Things agents can't do. Put your name next to one when you take it.
 - [ ] Email CRS for sandbox access (see calhacks.crscreditapi.com) and finish their account steps. Confirm which identities are test identities
 - [ ] Get sponsor sandbox keys we'll use (CRS: calhacks.crscreditapi.com, Nessie, model API, `FACTORY_API_KEY` if we do Droid)
 - [ ] (Stretch) Atlassian: create an API token with Forge scopes, `forge login`, `forge site provision`
-- [ ] Convex: one person creates the project/deployment and shares dev access. Someone attends the Convex workshop **Sat 4 PM**
+- [ ] SpacetimeDB: pin one version (likely stable 1.x) and install the `spacetime` CLI on every machine
 - [ ] If going for Anthropic: talk to 1–2 real people in the named community and write down what they said
 - [ ] Sat night: Devpost draft submitted
 - [ ] Demo video **opens with the moment**. Write the one line on seats, plus a real-vs-simulated + how-we-know section
