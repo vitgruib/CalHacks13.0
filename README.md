@@ -164,8 +164,9 @@ ID or amount that isn't in the records sends the agent back to a template.
 Every call has a saved answer (committed in `agents/cache/claude/`) and a
 deterministic fallback, so the agents also run with no API key. Default
 model: `claude-sonnet-5-5`. The hosted worker runs `claude-haiku-5-5` to keep
-costs down, but plays the saved Sonnet answers first (`GG_REUSE_SAVED=1`), so
-only questions nobody has answered before cost a call.
+costs down. It plays its own saved answers first, then the team's saved
+Sonnet answers (`GG_REUSE_SAVED=1`), so only questions nobody has answered
+before cost a call.
 
 ### The grant manager
 
@@ -224,7 +225,7 @@ back on it. The grant office uses this to know which researcher to answer.
 | The lab, its people, purchases, invoices, approvals, payroll, amounts and start dates | Simulated. None of it describes the real investigators or their work |
 | The cancel, court order and payment timeline | Simulated (ready-made status events). The real R01GM061721 was terminated in 2025 and reinstated under *Thakur v. Trump*, which is why live government lookups stay off in the scripted demo (`GG_LIVE_SOURCES`) |
 | The cancellation list | Real: the Grant Witness NIH CSV, scraped by our Apify Actor (5,776 rows into 5,635 grants on 2026-10-24) [ours] |
-| Papers in the progress report | Simulated (12 papers). The report checker's live lookup was verified on 21 real papers, cached |
+| Papers in the progress report | Simulated (12 papers). The report checker's live lookup was verified on 2026-10-24 on 12 real papers and their 8 correction and retraction notices, saved for offline use |
 | Government payment system and follow-up questions | Simulated; the questions are pre-written in the seed |
 | Rules, money math and limits | Real code in the module, with a test for each planted case and decoy |
 | The audit cases the rules cite (WVU, Delaware, UC Davis, the NSF-OIG summary) | Real public audit findings ([pain point 08](docs/research/pain-points/08-unallowable-purchases-audits.md)) |
