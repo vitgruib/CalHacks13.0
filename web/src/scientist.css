@@ -1,0 +1,34 @@
+/* The researcher's shell: a plain top bar, big readable type, no sidebar. */
+.sci {
+  --s-bg: #ffffff; --s-text: #1f1f1f; --s-muted: #5c5c5c; --s-line: #e6e6e6; --s-soft: #f3f3f3;
+  --s-blue: #1d4ed8; --s-blue-soft: #eef3ff; --s-ink: #111111; --s-on-ink: #ffffff;
+  --s-orange: #c2410c; --s-orange-ring: #ea580c; --s-orange-soft: #fff4ec; --s-orange-text: #9a3412;
+  --s-green: #15803d; --s-red: #b91c1c; --s-amber-soft: #fef6e4; --s-amber-text: #854d0e;
+  min-height: 100vh; background: var(--s-bg); color: var(--s-text);
+  font-family: 'Atkinson Hyperlegible', system-ui, sans-serif; font-size: 18px; line-height: 1.5;
+}
+@media (prefers-color-scheme: dark) {
+  .sci {
+    --s-bg: #141414; --s-text: #f0f0f0; --s-muted: #a8a8a8; --s-line: #2e2e2e; --s-soft: #222222;
+    --s-blue: #8fb0ff; --s-blue-soft: #1a2440; --s-ink: #f0f0f0; --s-on-ink: #111111;
+    --s-orange: #fb923c; --s-orange-ring: #fb923c; --s-orange-soft: #3a2314; --s-orange-text: #fdba74;
+    --s-green: #4ade80; --s-red: #f87171; --s-amber-soft: #33270f; --s-amber-text: #fcd34d;
+  }
+}
+.sci a { color: var(--s-blue); }
+.sci button, .sci input, .sci select { font-family: inherit; }
+.sci-top { border-bottom: 1px solid var(--s-line); }
+.sci-bar { max-width: 1040px; margin: 0 auto; padding: 16px 24px; display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+.sci-brand { font-weight: 700; font-size: 20px; }
+.sci nav.sci-nav { display: flex; flex-direction: row; gap: 22px; flex-wrap: wrap; border: 0; padding: 0; background: transparent; }
+.sci nav.sci-nav a { display: inline; color: var(--s-muted); text-decoration: none; padding: 0 0 4px; border-radius: 0; background: transparent; border-bottom: 3px solid transparent; }
+.sci nav.sci-nav a:hover { color: var(--s-text); background: transparent; }
+.sci nav.sci-nav a.active { background: transparent; color: var(--s-text); font-weight: 700; border-bottom-color: var(--s-blue); }
+.sci-role { margin-left: auto; display: flex; align-items: center; gap: 8px; color: var(--s-muted); font-size: 15px; }
+.sci-role button { border: 1px solid var(--s-line); background: transparent; color: var(--s-text); padding: 6px 12px; border-radius: 10px; font-size: 15px; }
+.sci-main { max-width: 1040px; margin: 0 auto; padding: 40px 24px 64px; }
+.sci-main h1 { font-size: clamp(30px, 5vw, 42px); line-height: 1.15; margin: 0; font-weight: 700; }
+.sci-main h2 { font-size: 22px; margin: 0; }
+.sci-main p { margin: 0; }
+.sci-main table { font-size: 16px; }
+@media (max-width: 640px) { .sci-bar { padding: 14px 16px; gap: 14px; } .sci-main { padding: 28px 16px 48px; } .sci-role { margin-left: 0; } }
