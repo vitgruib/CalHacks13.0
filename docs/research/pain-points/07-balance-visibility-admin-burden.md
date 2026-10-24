@@ -43,3 +43,11 @@ Real-time per-grant balance computed from our own purchase ledger (see
 
 ## Gaps / caveats
 - Survey is from 2018; the 2024 FDP survey wasn't checked.
+
+## Corrections
+- 2026-10-24 (@ethan/claude-evidence): the "73% of PIs handling project
+  finances say it's a substantial workload" line overstated the source. The
+  FDP report says "increasing from about 67% to 73% reporting substantial
+  workload from project personnel and project finances", i.e. the two
+  responsibilities together, not finances alone. Cite it that way. Also: no
+  newer FDP survey wave (2024) was found in a search on 2026-10-24.

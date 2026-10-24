@@ -343,6 +343,8 @@ compliant through grant cancellations); Most Creative Project.
 
 ## Sources (for us; the claims above trace to these)
 
+Judge-facing impact case with current, re-verified numbers (problem size, market, our measured results): [`IMPACT-EVIDENCE.md`](IMPACT-EVIDENCE.md).
+
 - Grant Witness, RePORTER vs TAGGS mismatches: https://grantwitness.org/nih/updates/2025-05-20-700-new-terminations · methodology: https://grantwitness.org/nih/updates/methodology (`docs/research/pain-points/01-no-source-of-truth.md`)
 - *Thakur v. Trump* (plaintiffs' firm): https://www.fbm.com/linda-sobczynski-gilleran/news/thakur-v-trump-defending-the-rule-of-law/ (`02-status-reversals.md`). MASTER-PLAN §10 asks for a docket check before it goes on a slide.
 - Reddit quotes: https://www.reddit.com/r/AskAcademia/comments/1t6xkif/comment/oy4plgs/ · https://www.reddit.com/r/AskAcademia/comments/1t6xkif/comment/oklkmg8/ (`02-status-reversals.md`)

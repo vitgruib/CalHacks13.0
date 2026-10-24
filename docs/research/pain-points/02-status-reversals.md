@@ -45,3 +45,15 @@ rather than a single status field. Show "ordered" vs "paid" separately.
 
 ## Gaps / caveats
 - Court sources are mostly the plaintiffs' law firm; check docket for current status.
+
+## Corrections
+- 2026-10-24 (@ethan/claude-evidence): current *Thakur v. Trump* status,
+  [verified] on the Supreme Court docket
+  https://www.supremecourt.gov/docket/docketfiles/html/public/26-210.html :
+  Ninth Circuit decision 2026-05-26 (No. 25-4249); the government petitioned
+  for certiorari 2026-08-18 (No. 26-210); respondents' opposition filed
+  2026-10-19; no ruling as of 2026-10-24. So "final outcome not found" above
+  is now "pending at the Supreme Court".
+- 2026-10-24: Grant Witness's NIH CSV (updated 2026-10-23) lists 5,098 prime
+  awards, 4,352 (85%) now marked restored, 145 reinstatements "unconfirmed".
+  [verified, our count] `../sources/docs/grantwitness-csv-summary-2026-10-24.txt`

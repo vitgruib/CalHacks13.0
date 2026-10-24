@@ -39,3 +39,10 @@ and match to foundations that fund that disease area (via 990 data, see 04).
 
 ## Gaps / caveats
 - Read the JAMA paper itself before quoting numbers on a slide.
+
+## Corrections
+- 2026-10-24 (@ethan/claude-evidence): CIDRAP's article was opened and states
+  383 trials, "Of 11,008 ongoing trials, 3.5% lost funding", "more than
+  74,000 enrolled participants", Feb 28 to Aug 15, 2025. Those numbers are
+  now [verified] against CIDRAP's coverage; the JAMA letter itself is still
+  paywalled (citation: JAMA Intern Med 2026;186(1):126–128).

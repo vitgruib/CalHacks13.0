@@ -1,0 +1,40 @@
+Grant Witness full-dataset CSVs, https://data.grantwitness.org/<agency>/dl-table.csv
+Downloaded 2026-10-24 by @ethan/claude-evidence; summarized with a short Python script (csv module).
+Prime awards only (rows with Subaward ID 'N/A' where that column exists). Dollars = Grant Witness's
+'Funds Obligated Before Disruption' and 'Funds Remaining Before Disruption' columns, summed.
+
+NIH: 5776 rows, 5098 prime awards, 430 grantee orgs
+  current status: {'Restored': 4352, 'Disrupted': 746}
+  detailed status: {'Unfrozen (confirmed)': 2187, 'Reinstated (confirmed)': 1973, 'Terminated': 732, 'Reinstated (unconfirmed)': 145, 'Unfrozen (unconfirmed)': 47, 'Frozen': 14}
+  obligated before disruption $14.56B; remaining (unspent) at disruption $7.54B
+NSF: 2031 rows, 2031 prime awards, 517 grantee orgs
+  current status: {'Disrupted': 1400, 'Restored': 631}
+  detailed status: {'Terminated': 1400, 'Reinstated (confirmed)': 566, 'Reinstated (unconfirmed)': 65}
+  obligated before disruption $1.58B; remaining (unspent) at disruption $0.99B
+EPA: 671 rows, 671 prime awards, 541 grantee orgs
+  current status: {'Disrupted': 607, 'Restored': 64}
+  detailed status: {'Terminated': 607, 'Reinstated (unconfirmed)': 6, 'Reinstated (confirmed)': 58}
+  obligated before disruption $29.65B; remaining (unspent) at disruption $29.41B
+CDC: 580 rows, 580 prime awards, 266 grantee orgs
+  current status: {'Restored': 301, 'Disrupted': 237, 'Targeted': 42}
+  detailed status: {'Reinstated (confirmed)': 287, 'Reinstated (unconfirmed)': 14, 'Terminated': 237, 'At-risk': 42}
+  obligated before disruption $60.66B; remaining (unspent) at disruption $14.76B
+SAMHSA: 2934 rows, 2934 prime awards, 1804 grantee orgs
+  current status: {'Disrupted': 137, 'Restored': 2797}
+  detailed status: {'Terminated': 137, 'Reinstated (confirmed)': 2719, 'Reinstated (unconfirmed)': 78}
+  obligated before disruption $8.81B; remaining (unspent) at disruption $4.02B
+AHRQ: 207 rows, 207 prime awards, 93 grantee orgs
+  current status: {'Disrupted': 194, 'Restored': 13}
+  detailed status: {'Renewal overdue': 44, 'Terminated': 150, 'Renewed after delay': 13}
+  obligated before disruption $0.23B; remaining (unspent) at disruption $0.09B
+NOAA: 26 rows, 26 prime awards, 24 grantee orgs
+  current status: {'Disrupted': 22, 'Restored': 4}
+  detailed status: {'Terminated': 22, 'Reinstated (unconfirmed)': 2, 'Reinstated (confirmed)': 2}
+  obligated before disruption $0.08B; remaining (unspent) at disruption $0.04B
+nih last-modified: Fri, 23 Oct 2026 21:22:36 GMT
+nsf last-modified: Fri, 23 Oct 2026 21:30:12 GMT
+epa last-modified: Fri, 23 Oct 2026 21:39:26 GMT
+cdc last-modified: Tue, 20 Oct 2026 23:56:07 GMT
+samhsa last-modified: Tue, 20 Oct 2026 23:52:39 GMT
+ahrq last-modified: Tue, 20 Oct 2026 23:38:52 GMT
+noaa last-modified: Tue, 13 Oct 2026 20:35:27 GMT
