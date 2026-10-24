@@ -128,7 +128,8 @@ export interface Claim {
   includedRequestIds: string[];
   includedPayrollIds: string[];
   excludedRequestIds: string[];
-  // Held invoices nobody has checked yet: left out only because they are new.
+  // Invoices nobody has checked yet. A held one is left out only because it is
+  // new; any other may still be held by its check, which takes its purchase out.
   unchecked: string[];
 }
 
@@ -189,6 +190,7 @@ function describe(conn: Connection, grant: GrantRow, period: Period, picks: Pick
   const orders = conn.rows('order').filter((order) => order.grantId === grant.id && order.state !== 'canceled');
   const inRange = (day: string) => day >= period.from && day <= period.to;
   const isHeld = (orderId: string) => invoices.some((invoice) => invoice.orderId === orderId && invoice.state === 'held');
+  const notYetChecked = (invoice: InvoiceRow) => !invoice.checked && invoice.state !== 'paid' && invoice.state !== 'rejected';
   const ordersOf = (requestId: string) => {
     const all = orders.filter((order) => order.requestId === requestId);
     const inPeriod = all.filter((order) => inRange(order.placed));
@@ -196,8 +198,10 @@ function describe(conn: Connection, grant: GrantRow, period: Period, picks: Pick
     return inPeriod.length ? inPeriod : all;
   };
 
+  const unchecked = new Set<string>();
   const purchases: Purchase[] = picks.includedRequestIds.flatMap((requestId) =>
     ordersOf(requestId).map((order) => {
+      for (const invoice of invoices) if (invoice.orderId === order.id && notYetChecked(invoice)) unchecked.add(invoice.id);
       const request = requests.get(requestId);
       const share = request && request.split.length > 1 ? request.split.find((s) => s.grantId === grant.id)?.share : undefined;
       const invoice = invoices.filter((row) => row.orderId === order.id && row.state !== 'rejected').at(-1);
@@ -250,7 +254,7 @@ function describe(conn: Connection, grant: GrantRow, period: Period, picks: Pick
     includedRequestIds: picks.includedRequestIds,
     includedPayrollIds: picks.includedPayrollIds,
     excludedRequestIds: leftOut.map((l) => l.requestId),
-    unchecked: picks.excluded.flatMap((e) => (e.invoice && !e.invoice.checked ? [e.invoice.id] : [])),
+    unchecked: [...picks.excluded.flatMap((e) => (e.invoice && !e.invoice.checked ? [e.invoice.id] : [])), ...unchecked],
   };
 }
 
@@ -544,7 +548,7 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
   // Drafts the module refused, so a refusal can't turn into a retry loop.
   const refusedDrafts = new Set<string>();
   const refusedAnswers = new Set<string>();
-  // Held invoice nobody has checked yet → the grant whose draft waits for it.
+  // Invoice nobody has checked yet → the grant whose draft waits for it.
   const waitingOn = new Map<string, string>();
   const noted = new Set<string>();
   let stopped = false;
@@ -741,7 +745,7 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
 
   const invoiceChanged = (invoice: InvoiceRow) => {
     const grantId = waitingOn.get(invoice.id);
-    if (!grantId || (!invoice.checked && invoice.state === 'held')) return;
+    if (!grantId || (!invoice.checked && invoice.state !== 'paid' && invoice.state !== 'rejected')) return;
     waitingOn.delete(invoice.id);
     checkGrant(grantId);
   };

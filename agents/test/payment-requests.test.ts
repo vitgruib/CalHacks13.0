@@ -70,15 +70,25 @@ async function startAlone({
   role = 'payment_report',
   tracker = noTracker,
   beforeCall,
+  checkInvoices = true,
 }: {
   seedJson?: string;
   role?: 'payment_report' | 'bookkeeping';
   tracker?: Tracker | ((lab: Connection) => Tracker);
   beforeCall?: (action: ActionName, lab: Connection) => Promise<void>;
+  checkInvoices?: boolean;
 } = {}): Promise<Alone> {
   const db = await createLocalDb({ world: seedJson ? { seedJson } : 'sim' });
   const raw = await db.connect();
   await raw.call('register_agent', { role });
+  // The sim world loads its newest invoices unchecked, and in the worker the
+  // bookkeeping agent checks them first. Alone, the writer would wait for them.
+  const unchecked = raw.rows('invoice').filter((invoice) => !invoice.checked && invoice.state !== 'paid' && invoice.state !== 'rejected');
+  if (checkInvoices && unchecked.length > 0) {
+    const books = role === 'bookkeeping' ? raw : await db.connect();
+    if (books !== raw) await books.call('register_agent', { role: 'bookkeeping' });
+    for (const invoice of unchecked) await books.call('check_invoice', { invoiceId: invoice.id });
+  }
   const lab = await db.connect();
   await lab.call('register_person', { role: 'grant_manager', name: 'grant_manager' });
   const calls: Alone['calls'] = [];
@@ -397,10 +407,49 @@ test('a_new_held_invoice_nobody_has_checked_holds_the_draft_until_it_is_checked'
   assert.equal(alone.calls.filter((call) => call.action === 'draft_payment_request').length, 1);
 });
 
+test('an_invoice_waiting_to_be_checked_on_an_included_order_holds_the_draft_until_its_check', async () => {
+  // As the sim world loads them: matched on arrival, not checked yet. The
+  // check finds the bill is over the approved amount, so the purchase must
+  // not be claimed.
+  const seed = JSON.parse(
+    oneGrantSeed(
+      maySpending({
+        invoices: [
+          { id: 'inv-921', orderId: 'o-901', vendor: 'Example Supply', amount: 610, received: '2026-06-03', state: 'matched', timeline: [{ day: '2026-06-03', what: 'Invoice arrived ($610)' }], checked: false },
+        ],
+      }),
+    ),
+  );
+  seed.today = '2026-06-05';
+  alone = await startAlone({ seedJson: JSON.stringify(seed), checkInvoices: false });
+  const { conn, db } = alone;
+  assert.deepEqual(requestsFor(conn, TEST_GRANT), [], 'waits: inv-921 is not checked yet');
+
+  const books = await db.connect();
+  await books.call('register_agent', { role: 'bookkeeping' });
+  await books.call('check_invoice', { invoiceId: 'inv-921' });
+  await alone.quiet();
+  assert.equal(conn.rows('invoice').find((invoice) => invoice.id === 'inv-921')!.state, 'held');
+
+  const [pr] = requestsFor(conn, TEST_GRANT);
+  assert.deepEqual(pr.includedRequestIds, []);
+  assert.deepEqual(pr.excluded.map((e) => e.requestId), ['rq-901']);
+  assert.equal(pr.amount, 1_200, 'only the payroll is claimed');
+});
+
+// The sim world with inv-038 already checked and matched but not yet paid, so
+// the Test lab can still cancel its order while a draft is being written.
+function simWithInv038Checked(): string {
+  const seed = JSON.parse(SIM_SEED);
+  seed.invoices.find((invoice: { id: string }) => invoice.id === 'inv-038').checked = true;
+  return JSON.stringify(seed);
+}
+
 test('when_the_module_picks_differently_its_lists_win_and_the_first_draft_is_flagged', async () => {
   let raced = false;
   // A person cancels o-038 between the agent's last look and the module's pick.
   alone = await startAlone({
+    seedJson: simWithInv038Checked(),
     beforeCall: async (action, lab) => {
       if (action !== 'draft_payment_request' || raced) return;
       raced = true;
@@ -429,6 +478,7 @@ test('a_grant_that_freezes_before_the_replacement_gets_none_and_the_first_draft_
   let raced = false;
   let refreshes = 0;
   alone = await startAlone({
+    seedJson: simWithInv038Checked(),
     // The second refresh (right before the replacement) finds the grant canceled.
     tracker: (lab) => ({
       async refresh(grantId) {
