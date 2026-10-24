@@ -1,0 +1,1789 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@500;600&family=Share+Tech&family=Staatliches&display=swap');
+
+/* Cyanotype: Prussian-blue paper, chalk-white linework, stamp-red ink, one amber for money. */
+.demo-d {
+  --pb: #123f73;
+  --pb-deep: #0c2f5a;
+  --pb-ink: #0a2447;
+  --chalk: #eef4f8;
+  --chalk-2: #bad1e5;
+  --chalk-3: #93b3d1;
+  --rule: rgb(238 244 248 / 0.55);
+  --paper: #f1f5f4;
+  --paper-ink: #12365f;
+  --paper-2: #33557c;
+  --stamp: #c63a28;
+  --stamp-lite: #ffa594;
+  --amber: #f4bb52;
+  --f-head: 'Archivo', 'Arial Narrow', sans-serif;
+  --f-body: 'Archivo', 'Helvetica Neue', sans-serif;
+  --f-draft: 'Share Tech', 'Archivo', sans-serif;
+  --f-stamp: 'Staatliches', 'Archivo', sans-serif;
+  --f-id: 'JetBrains Mono', ui-monospace, monospace;
+
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: var(--pb);
+  color: var(--chalk);
+  font: 400 15px/1.45 var(--f-body);
+  font-stretch: 100%;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--chalk);
+  accent-color: var(--chalk);
+  scrollbar-color: var(--chalk-3) transparent;
+  scrollbar-width: thin;
+}
+.demo-d *,
+.demo-d *::before,
+.demo-d *::after {
+  box-sizing: border-box;
+}
+.demo-d ::selection {
+  background: var(--chalk);
+  color: var(--pb-ink);
+}
+.demo-d ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.demo-d ::-webkit-scrollbar-thumb {
+  background: var(--chalk-3);
+}
+.demo-d ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.demo-d :focus-visible {
+  outline: 2px dashed var(--chalk);
+  outline-offset: 3px;
+}
+
+/* The paper: sun-faded centre, darker edges, fine grain and a slow mottle. */
+.demo-d .dd-paper {
+  position: absolute;
+  inset: 0;
+  background-color: var(--pb);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.93 0 0 0 0 0.96 0 0 0 0 1 0 0 0 0.09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.006' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.02 0 0 0 0 0.12 0 0 0 0 0.28 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E"),
+    radial-gradient(90% 75% at 62% 42%, rgb(72 128 186 / 0.42), transparent 70%),
+    radial-gradient(150% 120% at 50% 50%, transparent 52%, rgb(4 20 44 / 0.7));
+}
+.demo-d .dd-canvas {
+  position: absolute;
+  inset: 0;
+}
+.demo-d .dd-canvas canvas {
+  touch-action: none;
+}
+
+/* ── In-scene DOM ─────────────────────────────────────────────────────── */
+
+.demo-d .dd-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+.demo-d .dd-anchor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+
+.demo-d .dd-zone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font: 13px/1 var(--f-draft);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+
+.demo-d .dd-tag {
+  position: absolute;
+  left: 0;
+  bottom: var(--lead, 8px);
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 3px 8px 4px;
+  white-space: nowrap;
+  background: var(--pb-ink);
+  border: 1px solid var(--rule);
+  color: var(--chalk);
+  font: 12px/1.2 var(--f-draft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: opacity 0.25s, background-color 0.15s, color 0.15s;
+}
+.demo-d .dd-tag::after {
+  content: '';
+  position: absolute;
+  left: var(--lx, 50%);
+  top: 100%;
+  width: 1px;
+  height: calc(var(--lead, 8px) + 1px);
+  background: var(--rule);
+}
+.demo-d .dd-tag-name {
+  font-weight: 400;
+}
+.demo-d .dd-tag-sub {
+  color: var(--chalk-2);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+}
+.demo-d .dd-tag-agent {
+  font-size: 13.5px;
+  padding: 4px 10px 5px;
+  border-color: var(--chalk);
+}
+.demo-d .dd-tag-task {
+  display: none;
+  max-width: 240px;
+  margin-top: 3px;
+  padding-top: 3px;
+  border-top: 1px solid var(--rule);
+  font: 500 12px/1.3 var(--f-body);
+  letter-spacing: 0;
+  text-transform: none;
+  white-space: normal;
+  text-align: center;
+}
+.demo-d .dd-tag[data-open='1'] .dd-tag-task {
+  display: block;
+}
+.demo-d .dd-tag[data-dim='1'] {
+  opacity: 0.35;
+}
+.demo-d .dd-tag[data-hot='1'] {
+  background: var(--chalk);
+  color: var(--pb-ink);
+  border-color: var(--chalk);
+}
+.demo-d .dd-tag[data-hot='1'] .dd-tag-sub,
+.demo-d .dd-tag[data-hot='1'] .dd-tag-task {
+  color: var(--paper-2);
+  border-color: rgb(18 54 95 / 0.3);
+}
+.demo-d .dd-tag[data-hot='1'] .dd-money {
+  color: var(--paper-ink);
+}
+
+/* Source stations: title-block labels in front of each station. */
+.demo-d .dd-tag.dd-tb {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+}
+.demo-d .dd-tb > span {
+  padding: 4px 7px;
+}
+.demo-d .dd-tb-k {
+  border-right: 1px solid var(--rule);
+  color: var(--chalk-2);
+}
+.demo-d .dd-tb-s {
+  border-left: 1px solid var(--rule);
+  color: var(--chalk-2);
+  font-size: 10.5px;
+  display: flex;
+  align-items: center;
+}
+
+/* Grant vault tag */
+.demo-d .dd-tag-grant {
+  align-items: stretch;
+  gap: 3px;
+  width: 176px;
+  padding: 6px 10px 7px;
+  border-color: var(--chalk);
+}
+.demo-d .dd-tag-grant[data-side='l'] {
+  transform: translateX(-66%);
+  --lx: 66%;
+}
+.demo-d .dd-tag-grant[data-side='r'] {
+  transform: translateX(-58%);
+  --lx: 58%;
+}
+.demo-d .dd-vault-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.demo-d .dd-vault-head .dd-id {
+  font-size: 12px;
+}
+.demo-d .dd-vault-head .dd-tag-sub {
+  text-transform: none;
+  font: 11px/1.25 var(--f-body);
+  white-space: normal;
+}
+.demo-d .dd-vault-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+.demo-d .dd-vault-k {
+  font-size: 10.5px;
+  color: var(--chalk-2);
+}
+.demo-d .dd-money {
+  font: 600 16px/1 var(--f-body);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+  color: var(--amber);
+}
+.demo-d .dd-vault-status {
+  font: 500 11px/1.2 var(--f-body);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--chalk-2);
+}
+.demo-d .dd-tag-grant[data-frozen='1'] .dd-vault-status {
+  color: var(--stamp-lite);
+}
+
+/* The FROZEN seal: a paper seal stamped in red, stuck on the vault door. */
+.demo-d .dd-seal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 112px;
+  height: 112px;
+  transform: translate(-50%, -50%) rotate(-11deg);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 2px;
+  color: var(--stamp);
+  text-align: center;
+  opacity: 0;
+}
+.demo-d .dd-seal svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.demo-d .dd-seal-word {
+  position: relative;
+  font: 28px/0.9 var(--f-stamp);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.demo-d .dd-seal-why {
+  position: relative;
+  max-width: 74px;
+  font: 9.5px/1.1 var(--f-draft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.demo-d .dd-seal[data-state='on'] {
+  opacity: 1;
+}
+.demo-d .dd-seal[data-state='slam'] {
+  animation: dd-slam-seal 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.demo-d .dd-seal[data-state='restamp'] {
+  opacity: 1;
+  animation: dd-restamp 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.demo-d .dd-seal[data-state='lift'] {
+  animation: dd-lift 1.2s cubic-bezier(0.5, 0, 0.7, 0.4) both;
+}
+@keyframes dd-slam-seal {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(-24deg) scale(2.4);
+  }
+  60% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-11deg) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-11deg) scale(1);
+  }
+}
+@keyframes dd-restamp {
+  0% {
+    transform: translate(-50%, -50%) rotate(-11deg) scale(1.35);
+  }
+  55% {
+    transform: translate(-50%, -50%) rotate(-11deg) scale(0.93);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(-11deg) scale(1);
+  }
+}
+@keyframes dd-lift {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(-11deg);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-46%, -58%) rotate(-4deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-30%, -160%) rotate(16deg) scale(0.85);
+  }
+}
+
+/* Paper notes pinned beside a vault (court order, payment). */
+.demo-d .dd-note {
+  position: absolute;
+  right: 14px;
+  top: 0;
+  transform: translateY(-50%) rotate(-1.5deg);
+  width: 232px;
+  padding: 8px 11px 9px;
+  background: var(--paper);
+  color: var(--paper-ink);
+  font: 500 12.5px/1.35 var(--f-body);
+  box-shadow: 0 10px 22px rgb(3 16 38 / 0.45);
+  opacity: 0;
+  transition: opacity 0.4s, transform 0.4s;
+}
+.demo-d .dd-note::after {
+  content: '';
+  position: absolute;
+  right: -14px;
+  top: 50%;
+  width: 14px;
+  height: 1px;
+  background: var(--paper);
+}
+.demo-d .dd-note[data-on='1'] {
+  opacity: 1;
+  transform: translateY(-50%) rotate(-1.5deg);
+}
+.demo-d .dd-note[data-kind='court'][data-on='1'] {
+  animation: dd-pin 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes dd-pin {
+  from {
+    opacity: 0;
+    transform: translate(-20px, -50%) rotate(-6deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) rotate(-1.5deg);
+  }
+}
+
+/* Exploded-view callouts */
+.demo-d .dd-callout {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  padding: 3px 8px;
+  background: var(--paper);
+  color: var(--paper-ink);
+  font: 12px/1.2 var(--f-draft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  animation: dd-fade 0.35s 0.25s both;
+}
+.demo-d .dd-callout::before {
+  content: '';
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  width: 18px;
+  height: 1px;
+  background: var(--paper);
+}
+.demo-d .dd-callout::after {
+  content: '';
+  position: absolute;
+  left: -21px;
+  top: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--paper);
+}
+@keyframes dd-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Rule check callout beside the purchasing agent */
+.demo-d .dd-anchor:has(> .dd-note),
+.demo-d .dd-anchor:has(> .dd-seal) {
+  z-index: 2;
+}
+.demo-d .dd-anchor:has(> .dd-land) {
+  z-index: 4;
+}
+.demo-d .dd-rules {
+  position: absolute;
+  left: 0;
+  bottom: 58px;
+  transform: translateX(-72%);
+  width: 292px;
+  padding: 8px 10px 9px;
+  background: var(--pb-ink);
+  border: 1.5px solid var(--chalk);
+  transition: opacity 0.35s;
+}
+.demo-d .dd-rules::after {
+  content: '';
+  position: absolute;
+  left: 72%;
+  top: 100%;
+  width: 1.5px;
+  height: 57px;
+  background: var(--chalk);
+}
+.demo-d .dd-rules::before {
+  content: '';
+  position: absolute;
+  left: calc(72% - 3px);
+  top: calc(100% + 54px);
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--chalk);
+}
+.demo-d .dd-rules[data-on='0'] {
+  opacity: 0;
+}
+.demo-d .dd-rules-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+  padding-bottom: 5px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid var(--rule);
+  font: 12.5px/1.2 var(--f-draft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.demo-d .dd-rules-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.demo-d .dd-rules-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+.demo-d .dd-rule {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 7px;
+  align-items: start;
+  font: 500 12px/1.3 var(--f-body);
+  animation: dd-fade 0.2s both;
+}
+.demo-d .dd-rule-mark {
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--chalk-3);
+  color: var(--chalk);
+}
+.demo-d .dd-rule-mark svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.demo-d .dd-rule.is-fail .dd-rule-mark {
+  color: #ff6b55;
+  border-color: #ff6b55;
+}
+.demo-d .dd-rule-text {
+  display: grid;
+}
+.demo-d .dd-rule-why {
+  color: var(--chalk-2);
+  font-size: 11px;
+}
+
+/* Packet tags in flight */
+.demo-d .dd-ptag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  white-space: nowrap;
+  padding: 2px 7px 3px;
+  background: var(--pb-ink);
+  border: 1px solid var(--rule);
+  color: var(--chalk);
+  font: 500 11.5px/1.25 var(--f-body);
+  font-variant-numeric: tabular-nums;
+}
+.demo-d .dd-ptag-verdict {
+  background: var(--paper);
+  color: var(--paper-ink);
+  border-color: var(--stamp);
+}
+.demo-d .dd-ptag-payment,
+.demo-d .dd-ptag-charge {
+  border-color: var(--amber);
+}
+.demo-d .dd-ptag-you {
+  padding: 0 5px;
+  background: var(--chalk);
+  color: var(--pb-ink);
+  font: 11px/1.4 var(--f-draft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.demo-d .dd-ptag-verdict .dd-ptag-you {
+  background: var(--paper-ink);
+  color: var(--paper);
+}
+
+/* The verdict landing: slip + rubber stamp */
+.demo-d .dd-land {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.demo-d .dd-land-slip {
+  position: absolute;
+  left: 0;
+  bottom: calc(14px + var(--i, 0) * 30px);
+  width: 236px;
+  padding: 8px 11px 10px;
+  background: var(--paper);
+  color: var(--paper-ink);
+  box-shadow: 0 12px 26px rgb(3 16 38 / 0.5);
+  transform: translateX(-50%) rotate(-2.5deg);
+  animation: dd-slip-in 0.32s cubic-bezier(0.2, 0.7, 0.3, 1) both, dd-jolt 0.22s 0.52s ease-out;
+}
+.demo-d .dd-land-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  padding-right: 4px;
+  font: 700 13.5px/1.2 var(--f-body);
+}
+.demo-d .dd-land-head .dd-id {
+  color: var(--paper-2);
+  font-size: 10.5px;
+}
+.demo-d .dd-land-why {
+  margin: 4px 0 0;
+  max-width: 60%;
+  color: var(--paper-2);
+  font: 500 11.5px/1.3 var(--f-body);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.demo-d .dd-stamp {
+  position: absolute;
+  right: 6px;
+  bottom: 8px;
+  width: 112px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  color: var(--stamp);
+  mix-blend-mode: multiply;
+  --r: -8deg;
+  transform: rotate(var(--r));
+  animation: dd-slam 0.38s 0.3s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 2.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 2.1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+}
+.demo-d .dd-stamp svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.demo-d .dd-stamp-word {
+  position: relative;
+  font: 25px/0.9 var(--f-stamp);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.demo-d .dd-stamp-sub {
+  position: relative;
+  max-width: 96px;
+  font: 9px/1.1 var(--f-draft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: center;
+}
+.demo-d .dd-stamp[data-o='refine'] {
+  width: 124px;
+  --r: -4deg;
+  padding-right: 14px;
+}
+.demo-d .dd-stamp[data-o='reject'] {
+  --r: 7deg;
+}
+.demo-d .dd-stamp[data-o='reject'] .dd-stamp-word {
+  font-size: 27px;
+}
+.demo-d .dd-stamp[data-o='hold'] {
+  width: 80px;
+  height: 80px;
+  bottom: 2px;
+  --r: -14deg;
+}
+.demo-d .dd-stamp[data-o='hold'] .dd-stamp-sub {
+  max-width: 54px;
+  font-size: 8px;
+}
+.demo-d .dd-strike {
+  position: absolute;
+  inset: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  pointer-events: none;
+  mix-blend-mode: multiply;
+}
+.demo-d .dd-strike path {
+  fill: none;
+  stroke: var(--stamp);
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  vector-effect: non-scaling-stroke;
+  animation: dd-draw 0.24s 0.62s ease-out forwards;
+}
+.demo-d .dd-strike path + path {
+  animation-delay: 0.76s;
+}
+@keyframes dd-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes dd-slip-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -34px) rotate(-12deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) rotate(-2.5deg);
+  }
+}
+@keyframes dd-jolt {
+  40% {
+    translate: 0 4px;
+  }
+}
+@keyframes dd-slam {
+  0% {
+    opacity: 0;
+    transform: scale(2.8) rotate(calc(var(--r) - 14deg));
+  }
+  62% {
+    opacity: 1;
+    transform: scale(0.9) rotate(var(--r));
+  }
+  80% {
+    transform: scale(1.05) rotate(var(--r));
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(var(--r));
+  }
+}
+.demo-d .dd-land[data-o='reject'] .dd-land-slip {
+  animation: dd-slip-in 0.18s cubic-bezier(0.5, 0, 0.9, 0.5) both, dd-shake 0.42s 0.5s ease-in-out;
+}
+@keyframes dd-shake {
+  20%,
+  60% {
+    translate: -5px 0;
+  }
+  40%,
+  80% {
+    translate: 5px 0;
+  }
+}
+.demo-d .dd-land[data-o='hold'] .dd-land-slip {
+  animation: dd-slip-in 0.6s cubic-bezier(0.2, 0.7, 0.3, 1) both, dd-bob 2.4s 1s ease-in-out infinite;
+}
+.demo-d .dd-land[data-o='hold'] .dd-land-slip::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -6px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--chalk);
+  border: 2px solid var(--pb-ink);
+}
+@keyframes dd-bob {
+  50% {
+    translate: 0 -4px;
+  }
+}
+.demo-d .dd-land.is-out .dd-land-slip {
+  transition: transform 0.6s cubic-bezier(0.5, 0, 0.8, 0.4), opacity 0.6s;
+  animation: none;
+  opacity: 0;
+  transform: translate(-50%, 26px) rotate(-2.5deg) scale(0.82);
+}
+.demo-d .dd-land[data-o='refine'].is-out .dd-land-slip {
+  transform: translate(10%, 0) rotate(8deg);
+}
+.demo-d .dd-land[data-o='reject'].is-out .dd-land-slip {
+  transform: translate(-50%, 10px) rotate(-14deg) scale(0.55);
+}
+.demo-d .dd-land.is-out .dd-stamp {
+  animation: none;
+  opacity: 1;
+}
+
+/* ── HUD ──────────────────────────────────────────────────────────────── */
+
+.demo-d .dd-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+.demo-d .dd-hud > *,
+.demo-d .dd-hud .dd-desk > * {
+  pointer-events: auto;
+}
+.demo-d .dd-hud .dd-desk,
+.demo-d .dd-hud .dd-side {
+  pointer-events: none;
+}
+.demo-d .dd-side > * {
+  pointer-events: auto;
+}
+.demo-d .dd-hud .dd-mob {
+  display: none;
+}
+
+.demo-d .dd-top {
+  position: absolute;
+  top: 16px;
+  left: 24px;
+  right: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+}
+.demo-d .dd-top > * {
+  pointer-events: auto;
+}
+.demo-d .dd-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--chalk);
+  text-decoration: none;
+  font: 800 21px/1 var(--f-head);
+  font-stretch: 112%;
+  letter-spacing: -0.01em;
+}
+.demo-d .dd-logo {
+  width: 28px;
+  height: 28px;
+}
+.demo-d .dd-top-r {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.demo-d .dd-top-r .dd-desk {
+  pointer-events: auto;
+}
+
+.demo-d .dd-hero {
+  position: absolute;
+  top: 78px;
+  left: 24px;
+  width: min(540px, 40vw);
+  pointer-events: none;
+}
+.demo-d .dd-hero::before {
+  content: '';
+  position: absolute;
+  inset: -90px -170px -60px -40px;
+  z-index: -1;
+  background: rgb(19 62 111 / 0.95);
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 210px), transparent), linear-gradient(#000 calc(100% - 80px), transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(90deg, #000 calc(100% - 210px), transparent), linear-gradient(#000 calc(100% - 80px), transparent);
+  mask-composite: intersect;
+}
+.demo-d .dd-hero > * {
+  pointer-events: auto;
+}
+.demo-d .dd-hero h1 {
+  margin: 0;
+  font: 800 clamp(30px, 2.9vw, 42px) / 1.05 var(--f-head);
+  font-stretch: 108%;
+  letter-spacing: -0.018em;
+  color: var(--chalk);
+  text-wrap: balance;
+}
+.demo-d .dd-lede {
+  margin: 14px 0 0;
+  max-width: 50ch;
+  color: var(--chalk-2);
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+.demo-d .dd-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-top: 22px;
+}
+
+/* Buttons and fields */
+.demo-d button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.demo-d .dd-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 2px;
+  background: var(--paper);
+  color: var(--paper-ink);
+  font: 700 15.5px/1 var(--f-body);
+  transition: background-color 0.15s, transform 0.15s;
+}
+.demo-d .dd-btn-primary:hover {
+  background: #fff;
+  transform: translateY(-1px);
+}
+.demo-d .dd-btn-primary:active {
+  transform: translateY(1px);
+}
+.demo-d .dd-link {
+  color: var(--chalk);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--chalk-3);
+}
+.demo-d .dd-link:hover {
+  text-decoration-color: var(--chalk);
+}
+.demo-d .dd-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1.5px solid var(--rule);
+  border-radius: 2px;
+  background: var(--pb-ink);
+  color: var(--chalk);
+  font: 13px/1 var(--f-draft);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+.demo-d .dd-btn:hover {
+  border-color: var(--chalk);
+}
+.demo-d .dd-btn[aria-pressed='true'],
+.demo-d .dd-btn[aria-expanded='true'] {
+  background: var(--chalk);
+  color: var(--pb-ink);
+  border-color: var(--chalk);
+}
+.demo-d .dd-btn-icon {
+  width: 34px;
+  justify-content: center;
+  padding: 0;
+}
+.demo-d .dd-btn-sm {
+  padding: 9px 14px;
+  min-height: 0;
+  font-size: 13.5px;
+}
+.demo-d .dd-btn-wide {
+  width: 100%;
+  justify-content: center;
+}
+.demo-d .dd-ico {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+.demo-d .dd-play {
+  display: flex;
+  gap: 4px;
+}
+.demo-d .dd-btn-speed {
+  width: 38px;
+  justify-content: center;
+  padding: 0;
+}
+
+.demo-d .dd-field {
+  display: grid;
+  gap: 4px;
+  margin-top: 10px;
+  font: 11.5px/1.2 var(--f-draft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+.demo-d .dd-field input {
+  width: 100%;
+  padding: 8px 2px 7px;
+  border: 0;
+  border-bottom: 1.5px solid var(--chalk-2);
+  border-radius: 0;
+  background: transparent;
+  color: var(--chalk);
+  font: 500 14px/1.3 var(--f-body);
+  letter-spacing: 0;
+  text-transform: none;
+}
+.demo-d .dd-field input::placeholder {
+  color: var(--chalk-3);
+}
+.demo-d .dd-field input:focus {
+  outline: none;
+  border-bottom-color: var(--chalk);
+  background: rgb(238 244 248 / 0.06);
+}
+.demo-d .dd-field input:focus-visible {
+  outline: 2px dashed var(--chalk);
+  outline-offset: 2px;
+}
+.demo-d .dd-field input[aria-invalid='true'] {
+  border-bottom-color: var(--stamp-lite);
+}
+.demo-d .dd-err {
+  margin: 6px 0 0;
+  color: var(--stamp-lite);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Panels: solid paper-dark sheets with a drafting rule */
+.demo-d .dd-panel {
+  background: var(--pb-ink);
+  border: 1.5px solid var(--chalk);
+  box-shadow: 0 18px 40px rgb(2 14 34 / 0.45);
+}
+.demo-d .dd-panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px 9px 14px;
+  border-bottom: 1px solid var(--rule);
+}
+.demo-d .dd-panel-head h2 {
+  margin: 0;
+  font: 800 17px/1.15 var(--f-head);
+  font-stretch: 105%;
+}
+.demo-d .dd-count {
+  font: 12.5px/1 var(--f-draft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+
+.demo-d .dd-side {
+  position: absolute;
+  top: 66px;
+  right: 24px;
+  width: 372px;
+  max-height: calc(100% - 66px - 290px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.demo-d .dd-side .dd-desk {
+  display: contents;
+}
+.demo-d .dd-tray {
+  overflow: auto;
+}
+.demo-d .dd-tray-note {
+  margin: 10px 14px 0;
+  color: var(--chalk-2);
+  font-size: 13px;
+}
+.demo-d .dd-hold {
+  padding: 10px 14px 14px;
+}
+.demo-d .dd-hold + .dd-hold {
+  border-top: 1px solid var(--rule);
+}
+.demo-d .dd-hold h3 {
+  margin: 0;
+  font: 700 14.5px/1.3 var(--f-body);
+}
+.demo-d .dd-hold-why {
+  margin: 4px 0 0;
+  color: var(--chalk-2);
+  font-size: 13px;
+}
+.demo-d .dd-hold-ev {
+  margin: 8px 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--rule);
+}
+.demo-d .dd-hold-ev > div {
+  padding: 5px 8px;
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.demo-d .dd-hold-ev > div:nth-child(2n) {
+  border-right: 0;
+}
+.demo-d .dd-hold-ev dt {
+  font: 10.5px/1.2 var(--f-draft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+.demo-d .dd-hold-ev dd {
+  margin: 1px 0 0;
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+.demo-d .dd-hold-act {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.demo-d .dd-tray > .dd-btn-wide {
+  margin: 0 14px 14px;
+  width: calc(100% - 28px);
+}
+
+/* Detail sheet */
+.demo-d .dd-detail {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+  animation: dd-sheet-in 0.3s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes dd-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+}
+.demo-d .dd-detail-head h2:focus {
+  outline: none;
+}
+.demo-d .dd-detail-body {
+  overflow: auto;
+  padding: 10px 14px 14px;
+}
+.demo-d .dd-d-sub {
+  margin: 0;
+  color: var(--chalk-2);
+  font-size: 13px;
+}
+.demo-d .dd-d-job {
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+.demo-d .dd-d-h {
+  margin: 14px 0 6px;
+  font: 13px/1.2 var(--f-draft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chalk);
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule);
+}
+.demo-d .dd-cells {
+  margin: 10px 0 0;
+  display: grid;
+  border: 1px solid var(--rule);
+}
+.demo-d .dd-cells > div {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 8px;
+  padding: 6px 8px;
+}
+.demo-d .dd-cells > div + div {
+  border-top: 1px solid var(--rule);
+}
+.demo-d .dd-cells dt {
+  font: 11px/1.4 var(--f-draft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+.demo-d .dd-cells dd {
+  margin: 0;
+  font-size: 13.5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.demo-d .dd-cells dd[data-frozen='1'] {
+  color: var(--stamp-lite);
+  font-weight: 700;
+}
+.demo-d .dd-id-chip {
+  padding: 1px 5px;
+  border: 1px solid var(--rule);
+}
+.demo-d .dd-reqs,
+.demo-d .dd-evs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+}
+.demo-d .dd-reqs li,
+.demo-d .dd-evs li {
+  padding: 7px 0;
+  border-bottom: 1px solid rgb(238 244 248 / 0.18);
+}
+.demo-d .dd-reqs-top {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 8px;
+  align-items: center;
+  font-size: 13.5px;
+}
+.demo-d .dd-reqs p {
+  margin: 4px 0 0;
+  color: var(--chalk-2);
+  font-size: 12.5px;
+}
+.demo-d .dd-evs li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2px 8px;
+  font-size: 12.5px;
+  color: var(--chalk-2);
+}
+.demo-d .dd-evs li > :last-child {
+  grid-column: 1 / -1;
+  color: var(--chalk);
+}
+.demo-d .dd-ev-day {
+  font-variant-numeric: tabular-nums;
+}
+.demo-d .dd-ev-src {
+  font: 11.5px/1.4 var(--f-draft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.demo-d .dd-empty {
+  margin: 0;
+  color: var(--chalk-2);
+  font-size: 13px;
+}
+.demo-d .dd-mini {
+  display: inline-block;
+  padding: 2px 6px 1px;
+  background: var(--paper);
+  color: var(--stamp);
+  font: 13px/1 var(--f-stamp);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  outline: 1.5px solid var(--stamp);
+  outline-offset: -3px;
+}
+.demo-d .dd-mini[data-o='hold'] {
+  border-radius: 999px;
+  padding: 2px 8px 1px;
+}
+.demo-d .dd-mini[data-o='none'] {
+  background: transparent;
+  color: var(--chalk-2);
+  outline-color: var(--chalk-3);
+}
+.demo-d .dd-money-t {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+.demo-d .dd-money-t th {
+  text-align: left;
+  font: 11.5px/1.4 var(--f-draft);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+.demo-d .dd-money-t th,
+.demo-d .dd-money-t td {
+  padding: 5px 0;
+  border-bottom: 1px solid rgb(238 244 248 / 0.18);
+}
+.demo-d .dd-money-t td {
+  text-align: right;
+}
+.demo-d .dd-money-total th,
+.demo-d .dd-money-total td {
+  color: var(--amber);
+  font-weight: 700;
+  border-bottom: 0;
+}
+
+/* Request panel */
+.demo-d .dd-req {
+  position: absolute;
+  top: 66px;
+  left: 24px;
+  width: 448px;
+  max-height: calc(100% - 66px - 150px);
+  overflow: auto;
+  animation: dd-sheet-in 0.3s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.demo-d .dd-fs {
+  margin: 0;
+  padding: 10px 14px 4px;
+  border: 0;
+}
+.demo-d .dd-fs legend {
+  padding: 10px 0 6px;
+  font: 12.5px/1 var(--f-draft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+.demo-d .dd-presets {
+  display: grid;
+  gap: 6px;
+}
+.demo-d .dd-preset {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 10px;
+  padding: 8px 10px;
+  border: 1.5px solid var(--rule);
+  border-radius: 2px;
+  background: transparent;
+  text-align: left;
+}
+.demo-d .dd-preset:hover {
+  border-color: var(--chalk);
+}
+.demo-d .dd-preset[aria-pressed='true'] {
+  background: var(--paper);
+  color: var(--paper-ink);
+  border-color: var(--paper);
+}
+.demo-d .dd-preset-name {
+  font: 700 14px/1.25 var(--f-body);
+}
+.demo-d .dd-preset-meta {
+  grid-row: span 2;
+  align-self: center;
+  font-size: 12.5px;
+  color: var(--chalk-2);
+  text-align: right;
+}
+.demo-d .dd-preset[aria-pressed='true'] .dd-preset-meta,
+.demo-d .dd-preset[aria-pressed='true'] .dd-preset-hint {
+  color: var(--paper-2);
+}
+.demo-d .dd-preset-hint {
+  font: 12px/1.2 var(--f-draft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+.demo-d .dd-who {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.demo-d .dd-who-opt {
+  position: relative;
+  cursor: pointer;
+}
+.demo-d .dd-who-opt input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  cursor: pointer;
+}
+.demo-d .dd-who-opt span {
+  display: grid;
+  padding: 6px 9px;
+  border: 1.5px solid var(--rule);
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.demo-d .dd-who-opt small {
+  color: var(--chalk-2);
+  font: 11px/1.2 var(--f-draft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.demo-d .dd-who-opt input:checked + span {
+  background: var(--chalk);
+  color: var(--pb-ink);
+  border-color: var(--chalk);
+}
+.demo-d .dd-who-opt input:checked + span small {
+  color: var(--paper-2);
+}
+.demo-d .dd-who-opt input:focus-visible + span {
+  outline: 2px dashed var(--chalk);
+  outline-offset: 2px;
+}
+.demo-d .dd-req > .dd-btn-primary {
+  margin: 14px 14px 0;
+  width: calc(100% - 28px);
+}
+.demo-d .dd-req-note {
+  margin: 8px 14px 14px;
+  color: var(--chalk-2);
+  font-size: 12.5px;
+}
+
+/* Parts list */
+.demo-d .dd-parts-pop {
+  position: absolute;
+  top: 60px;
+  right: 24px;
+  width: 340px;
+  max-height: calc(100% - 60px - 300px);
+  overflow: auto;
+  padding: 6px 0 10px;
+  z-index: 3;
+}
+.demo-d .dd-parts-group h3 {
+  margin: 8px 14px 4px;
+  font: 12px/1 var(--f-draft);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+.demo-d .dd-parts ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.demo-d .dd-part {
+  display: grid;
+  grid-template-columns: 26px 1fr;
+  gap: 0 8px;
+  width: 100%;
+  padding: 5px 14px;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font-size: 13.5px;
+}
+.demo-d .dd-part:hover,
+.demo-d .dd-part:focus-visible {
+  background: var(--chalk);
+  color: var(--pb-ink);
+}
+.demo-d .dd-part:focus-visible {
+  outline-offset: -3px;
+  outline-color: var(--pb-ink);
+}
+.demo-d .dd-part-no {
+  grid-row: span 2;
+  font: 12px/1.6 var(--f-draft);
+  color: var(--chalk-3);
+}
+.demo-d .dd-part:hover .dd-part-no,
+.demo-d .dd-part:hover .dd-part-sub,
+.demo-d .dd-part:focus-visible .dd-part-no,
+.demo-d .dd-part:focus-visible .dd-part-sub {
+  color: var(--paper-2);
+}
+.demo-d .dd-part-sub {
+  color: var(--chalk-2);
+  font-size: 11.5px;
+}
+
+/* Narration: captions above the gallery strip */
+.demo-d .dd-narr {
+  position: absolute;
+  left: 50%;
+  bottom: 84px;
+  width: min(600px, calc(100vw - 2 * 24px - 420px));
+  transform: translateX(-50%);
+  padding: 9px 14px 10px;
+  background: rgb(10 36 71 / 0.95);
+  border: 1px solid var(--rule);
+}
+.demo-d .dd-narr-top {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.demo-d .dd-narr-top b {
+  font: 700 15.5px/1.2 var(--f-body);
+  flex: 1;
+}
+.demo-d .dd-narr-date {
+  font: 13px/1 var(--f-draft);
+  letter-spacing: 0.05em;
+  color: var(--chalk-2);
+  font-variant-numeric: tabular-nums;
+}
+.demo-d .dd-narr-demo {
+  font: 11px/1 var(--f-draft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+  padding: 3px 5px;
+  border: 1px solid var(--rule);
+}
+.demo-d .dd-narr p {
+  margin: 4px 0 0;
+  color: var(--chalk-2);
+  font-size: 13.5px;
+  line-height: 1.4;
+}
+
+/* Revision block + title block, bottom right */
+.demo-d .dd-sheetinfo {
+  position: absolute;
+  right: 24px;
+  bottom: 20px;
+  width: 396px;
+  background: var(--pb-ink);
+  border: 1.5px solid var(--chalk);
+}
+.demo-d .dd-drawer .dd-sheetinfo {
+  position: static;
+  width: auto;
+  margin: 12px 14px 14px;
+}
+.demo-d .dd-rev {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+}
+.demo-d .dd-rev caption {
+  padding: 6px 10px 5px;
+  text-align: left;
+  font: 12px/1 var(--f-draft);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--rule);
+}
+.demo-d .dd-rev th {
+  padding: 4px 8px;
+  text-align: left;
+  font: 10.5px/1 var(--f-draft);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+  border-bottom: 1px solid var(--rule);
+}
+.demo-d .dd-rev th:nth-child(1) {
+  width: 50px;
+}
+.demo-d .dd-rev th:nth-child(2) {
+  width: 92px;
+}
+.demo-d .dd-rev td {
+  padding: 5px 8px;
+  vertical-align: top;
+  border-bottom: 1px solid rgb(238 244 248 / 0.16);
+  color: var(--chalk-2);
+  line-height: 1.3;
+}
+.demo-d .dd-rev td:nth-child(3) {
+  color: var(--chalk);
+  font-variant-numeric: tabular-nums;
+}
+.demo-d .dd-rev-txt {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.demo-d .dd-rev tr:first-child td {
+  animation: dd-fade 0.4s both;
+}
+.demo-d .dd-rev-act {
+  font: 11.5px/1 var(--f-draft);
+  letter-spacing: 0.03em;
+  color: var(--chalk-2);
+}
+.demo-d .dd-tblock {
+  border-top: 1.5px solid var(--chalk);
+}
+.demo-d .dd-tb-title {
+  padding: 7px 10px;
+  font: 800 14px/1.1 var(--f-head);
+  font-stretch: 108%;
+  border-bottom: 1px solid var(--rule);
+}
+.demo-d .dd-tblock dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1.1fr 1.3fr 1fr 0.7fr;
+}
+.demo-d .dd-tblock dl > div {
+  padding: 5px 8px 6px;
+  border-right: 1px solid var(--rule);
+}
+.demo-d .dd-tblock dl > div:last-child {
+  border-right: 0;
+}
+.demo-d .dd-tblock dt {
+  font: 10px/1.2 var(--f-draft);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--chalk-2);
+}
+.demo-d .dd-tblock dd {
+  margin: 2px 0 0;
+  font: 13px/1.2 var(--f-draft);
+  letter-spacing: 0.03em;
+}
+
+/* Shared bits */
+.demo-d .dd-id {
+  font-family: var(--f-id);
+  font-weight: 500;
+  font-size: 0.92em;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.demo-d .dd-num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Phone: the scene stays the hero, the HUD folds into a sheet ───────── */
+
+@media (max-width: 760px) {
+  .demo-d .dd-desk {
+    display: none !important;
+  }
+  .demo-d .dd-hud .dd-mob {
+    display: inline-flex;
+  }
+  .demo-d .dd-hud .dd-drawer {
+    display: block;
+  }
+  .demo-d .dd-top {
+    top: 12px;
+    left: 16px;
+    right: 16px;
+  }
+  .demo-d .dd-brand {
+    font-size: 18px;
+  }
+  .demo-d .dd-logo {
+    width: 24px;
+    height: 24px;
+  }
+  .demo-d .dd-hero {
+    top: 54px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+  .demo-d .dd-hero::before {
+    inset: -60px -20px -34px -20px;
+    -webkit-mask-image: linear-gradient(#000 calc(100% - 34px), transparent);
+    mask-image: linear-gradient(#000 calc(100% - 34px), transparent);
+  }
+  .demo-d .dd-hero h1 {
+    font-size: 23px;
+  }
+  .demo-d .dd-lede {
+    margin-top: 7px;
+    font-size: 13.5px;
+    line-height: 1.4;
+  }
+  .demo-d .dd-cta {
+    gap: 14px;
+    margin-top: 11px;
+  }
+  .demo-d .dd-btn-primary {
+    padding: 10px 15px;
+    font-size: 14.5px;
+  }
+  .demo-d .dd-tag-grant {
+    width: 150px;
+  }
+  .demo-d .dd-tag-grant[data-side='l'] {
+    transform: translateX(-85%);
+    --lx: 85%;
+  }
+  .demo-d .dd-tag-grant[data-side='r'] {
+    transform: translateX(-15%);
+    --lx: 15%;
+  }
+  .demo-d .dd-vault-status {
+    display: none;
+  }
+  .demo-d .dd-vault-k {
+    font-size: 9.5px;
+  }
+  .demo-d .dd-money {
+    font-size: 14px;
+  }
+  .demo-d .dd-rules {
+    bottom: auto;
+    top: 32px;
+    transform: translateX(-50%);
+  }
+  .demo-d .dd-rules::after {
+    left: 50%;
+    top: auto;
+    bottom: 100%;
+    height: 31px;
+  }
+  .demo-d .dd-rules::before {
+    left: calc(50% - 3px);
+    top: -36px;
+  }
+  .demo-d .dd-tray-chip {
+    margin-top: 10px;
+    background: var(--paper);
+    color: var(--stamp);
+    border-color: var(--stamp);
+  }
+  .demo-d .dd-side {
+    top: auto;
+    left: 12px;
+    right: 12px;
+    bottom: 76px;
+    width: auto;
+    max-height: 60%;
+  }
+  .demo-d .dd-req,
+  .demo-d .dd-drawer {
+    position: absolute;
+    top: auto;
+    left: 12px;
+    right: 12px;
+    bottom: 76px;
+    width: auto;
+    max-height: 66%;
+    overflow: auto;
+  }
+  .demo-d .dd-drawer {
+    padding-top: 12px;
+  }
+  .demo-d .dd-drawer .dd-play {
+    padding: 0 14px 6px;
+  }
+  .demo-d .dd-narr {
+    left: 12px;
+    right: 12px;
+    width: auto;
+    bottom: 76px;
+    transform: none;
+    padding: 7px 10px 8px;
+  }
+  .demo-d .dd-narr p {
+    font-size: 12.5px;
+  }
+  .demo-d .dd-tag {
+    font-size: 10.5px;
+    padding: 2px 6px 3px;
+  }
+  .demo-d .dd-tag-sub {
+    display: none;
+  }
+  .demo-d .dd-tag-grant .dd-tag-sub,
+  .demo-d .dd-tb-s {
+    display: none;
+  }
+  .demo-d .dd-tag-grant {
+    min-width: 0;
+  }
+  .demo-d .dd-zone {
+    font-size: 10.5px;
+  }
+  .demo-d .dd-rules {
+    width: 220px;
+  }
+  .demo-d .dd-rule-why {
+    display: none;
+  }
+  .demo-d .dd-land-slip {
+    width: 184px;
+  }
+  .demo-d .dd-stamp {
+    transform-origin: 80% 80%;
+    scale: 0.82;
+  }
+  .demo-d .dd-note {
+    width: 170px;
+    font-size: 11px;
+  }
+  .demo-d .dd-seal {
+    width: 84px;
+    height: 84px;
+  }
+  .demo-d .dd-seal-word {
+    font-size: 21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-d .dd-land-slip,
+  .demo-d .dd-stamp,
+  .demo-d .dd-seal,
+  .demo-d .dd-note,
+  .demo-d .dd-detail,
+  .demo-d .dd-req,
+  .demo-d .dd-callout,
+  .demo-d .dd-strike path {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

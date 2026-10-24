@@ -271,7 +271,7 @@ export class Feed {
     let at = 0
     for (const [wait, fn] of steps) {
       at += wait
-      this.at(at, fn)
+      this.after(at, fn)
     }
   }
 

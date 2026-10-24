@@ -3,10 +3,10 @@ import { Feed } from '../src/feed/engine'
 const f = new Feed()
 const seen: string[] = []
 f.on(e => {
-  if (e.type === 'beat') seen.push(`\n== ${e.beat.title}`)
+  if (e.type === 'beat') seen.push(`\n== ${(f.now() / 1000).toFixed(1)}s ${e.beat.title}`)
   if (e.type === 'request' && e.request.outcome) seen.push(`  ${e.request.id} ${e.request.item} -> ${e.request.state}/${e.request.outcome}${e.request.chargedGrantId ? ' on ' + e.request.chargedGrantId : ''}${e.request.holdFor ? ' (' + e.request.holdFor + ')' : ''} | ${e.request.explanation}`)
   if (e.type === 'grant' && e.event) seen.push(`  GRANT ${e.grant.id} ${e.grant.status} frozen=${e.grant.frozen}`)
-  if (e.type === 'hold') seen.push(`  HOLD ${e.hold.id} ${e.hold.kind} open=${e.hold.open} ${e.hold.title}${e.hold.decision ? ' -> ' + e.hold.decision.choice + ': ' + e.hold.decision.reason : ''}`)
+  if (e.type === 'hold') seen.push(`  ${(f.now() / 1000).toFixed(1)}s HOLD ${e.hold.id} ${e.hold.kind} open=${e.hold.open} ${e.hold.title}${e.hold.decision ? ' -> ' + e.hold.decision.choice + ': ' + e.hold.decision.reason : ''}`)
   if (e.type === 'paper') seen.push(`  PAPER ${e.paperId} ${e.result}`)
   if (e.type === 'invoice') seen.push(`  INVOICE ${e.invoiceId} matched=${e.matched} ${e.mismatch ?? ''}`)
 })
