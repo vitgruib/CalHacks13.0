@@ -349,7 +349,7 @@ URL above.
 | [sim/](sim/README.md) | The simulated lab: seed, answer key, generator, validator | C |
 | `eval/` | The scorecard: replay, judge, `scorecard.json` | C |
 | [scrapers/](scrapers/README.md) | Apify Actor for the Grant Witness NIH list | C |
-| `hero/` | Standalone 3D hero-dashboard mockups (T23, in progress; still on the old fixture grant IDs) | none |
+| `hero/` | Standalone 3D hero-dashboard mockups on a scripted feed (T23, in progress) | none |
 | `deploy/` | Maincloud publish script; agent worker VM setup, update and service | A |
 | `.github/workflows/` | Publish module, deploy agents | A |
 | `docs/` | Plan, submission drafts, research | all |
