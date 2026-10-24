@@ -1,6 +1,7 @@
 # MVP report: pain points → features
 
-2026-10-23. Built from the pain points in `pain-points/` (weak ones moved to
+2026-10-23. **The build list now lives in `docs/FEATURES.md`** (F1–F6 below
+are folded into its P/B features). Built from the pain points in `pain-points/` (weak ones moved to
 `cut/`). Product and scope calls here are **recommendations for the humans**,
 not decisions; record anything adopted in `DECISIONS.md`.
 
