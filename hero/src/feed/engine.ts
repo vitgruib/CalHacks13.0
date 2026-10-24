@@ -671,7 +671,7 @@ export class Feed {
   private start() {
     if (this.started || typeof window === 'undefined') return
     this.started = true
-    this.restart()
+    if (this.epoch === 0) this.restart() // the gallery may already have started (and fast-forwarded) the story
     this.lastReal = performance.now()
     const loop = (now: number) => {
       const dt = Math.min(100, now - this.lastReal) // a hidden tab doesn't fast-forward on return
