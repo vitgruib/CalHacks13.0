@@ -23,7 +23,6 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
-- [ ] T21 [db] Deploy: publish the module to hosted SpacetimeDB and host the web build, in `deploy/` — needs: T7, T17 — done when: a public URL runs the demo path from a fresh browser, and the URL is in README.md — @ethan/claude-a (covering Track A for @suhu) — owns: `deploy/`, `server/scripts/` — part 1 now: module on maincloud; web hosting after T17
 - [ ] T17 ★ [app] Live updates + Inbox actions — needs: T7 (stub ok) — done when: an Inbox decision (reason required) calls an action and every window updates live — @ethan/claude — owns: `web/` (adds `spacetimedb` 2.13.0 + `web/src/module_bindings/`)
 - [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag — @nathan/claude — owns: `agents/` — stubbed: Track A contract (readings, status events, flags, check requests added to `agents/src/db/stub.ts`)
 - [ ] T23 [hero] Five 3D hero-dashboard mockups (lab of researchers ↔ network of finance agents; requests flow out, bought / rerouted / blocked / held flow back) on one localhost gallery — needs: — — done when: `npm --prefix hero run dev` shows all 5 switchable, each driven by one shared scripted feed shaped like the `request`/`hold`/`status_event` tables; humans pick one to port into `web/` with @ethan — @nathan/claude-hero (own clone) — owns: `hero/` (new top-level dir, no lane owns it) — stubbed: live data (scripted feed; SpacetimeDB adapter later)
@@ -38,6 +37,7 @@ All three tracks are technical only. Presentation and submission work
 - [ ] T22 ★ [agents] Swap the agent worker's stub DB for Track A's generated SpacetimeDB bindings (`GG_DB=spacetime`) — needs: T3 — done when: `npm --prefix agents run demo` passes against the local module, 3 identities registered there
 - [ ] T15 [app] Apify scraper for cancellation lists, in `scrapers/`; posts status readings through Track A's action — needs: T3 (stub ok) — done when: a scraper run posts readings for the lab's grant IDs, and T10 picks them up
 - [ ] T19 ★ [app] Answer key + scorecard in the check command — needs: T8 — done when: the check replays the seed and prints caught / missed / false alarms
+- [ ] T21 [db] Deploy: publish the module to hosted SpacetimeDB and host the web build, in `deploy/` — needs: T7, T17 — done when: a public URL runs the demo path from a fresh browser, and the URL is in README.md — part 1 done (@ethan/claude-a): module live on maincloud as `grantguard` (`wss://maincloud.spacetimedb.com`, republish with `deploy/publish-module.sh`); left: host the web build once T17 connects it
 
 ## Outside the tracks (unassigned; not for track agents)
 - [ ] T20 [submission] Demo script, backup video, Devpost draft — needs: T17 — done when: Devpost draft up by Sat 10 PM — drafts done in `docs/submission/` (DEVPOST-DRAFT, DEMO-SCRIPT, INTERVIEW-KIT); left: fill `[TBD]`/`[needs Tn]` once T17/T19 land, paste into Devpost, record video
