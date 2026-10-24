@@ -36,7 +36,6 @@ All three tracks are technical only. Presentation and submission work
 ## Up next (priority order)
 - [ ] T4 ★ [all] Thin end-to-end demo path on stubs — needs: T3, T9, T16 — done when: a request submitted in the UI shows a stub agent finding in the Inbox and a Log row
 - [ ] T15 [app] Apify scraper for cancellation lists, in `scrapers/`; posts status readings through Track A's action — needs: T3 (stub ok) — done when: a scraper run posts readings for the lab's grant IDs, and T10 picks them up
-- [ ] T21 [db] Deploy: publish the module to hosted SpacetimeDB and host the web build, in `deploy/` — needs: T7, T17 — done when: a public URL runs the demo path from a fresh browser, and the URL is in README.md — part 1 done (@ethan/claude-a): module live on maincloud as `grantguard` (`wss://maincloud.spacetimedb.com`, republish with `deploy/publish-module.sh`); left: host the web build once T17 connects it
 
 ## Outside the tracks (unassigned; not for track agents)
 - [ ] T20 [submission] Demo script, backup video, Devpost draft — needs: T17 — done when: Devpost draft up by Sat 10 PM — drafts done in `docs/submission/` (DEVPOST-DRAFT, DEMO-SCRIPT, INTERVIEW-KIT); left: fill `[TBD]`/`[needs Tn]` once T17/T19 land, paste into Devpost, record video
@@ -49,6 +48,7 @@ All three tracks are technical only. Presentation and submission work
 <!-- - @alex → contracts lane: need optional `score` on Result (blocks T9) -->
 
 ## Done
+- [x] T21 [db] Deploy — @ethan/claude-a (covering Track A for @suhu) — web: https://calhacks130.vercel.app (Vercel project `calhacks13.0`, root `web/`, `VITE_STDB_URI=wss://maincloud.spacetimedb.com`, `VITE_STDB_DB=grantguard`); module: maincloud `grantguard` (`deploy/publish-module.sh`); verified the live bundle targets maincloud and browsers register there; the full demo path also needs the agent worker running (T22, T11), which is not hosted. The second Vercel project `cal-hacks13-0` has no env vars and serves offline data: delete it or add the vars
 - [x] T17 ★ [app] Live updates + Inbox actions — needs: T7 (stub ok) — done when: an Inbox decision (reason required) calls an action and every window updates live — @ethan/claude — owns: `web/` (adds `spacetimedb` 2.13.0 + `web/src/module_bindings/`) — live by default (`VITE_BACKEND`), falls back to local seed with an "Offline demo data" badge
 - [x] T18 ★ [app] Test lab: drop in events + fast-forward clock — needs: T3 (stub ok) — done when: cancellation, court order, payment and bad invoice can be injected from the UI — @ethan/claude — owns: `web/src/windows/TestLab*`, `web/src/data/store.tsx` — on the local store; T17 swaps to the reducers
 - [x] T3 ★ [db] Shared contract: tables + actions + fixtures for 2 grants — @ethan/claude-a (covering Track A for @suhu) — `server/src/schema.ts` (20 tables), `server/src/index.ts` (27 actions + init), fixtures = web's 2-grant set; published to local SpacetimeDB 2.13.0 (`npm --prefix server run dev`), `load_seed` takes `sim/seed.json` as-is; bindings are generated per client once that package depends on `spacetimedb` (see Requests)

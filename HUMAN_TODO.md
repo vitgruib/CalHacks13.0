@@ -21,7 +21,7 @@ Things agents can't do. Put your name next to one when you take it.
 - [ ] If going for Anthropic: talk to 1–2 real people in the named community and write down what they said
 - [ ] Sat night: Devpost draft submitted
 - [ ] Demo video **opens with the moment**. Write the one line on seats, plus a real-vs-simulated + how-we-know section
-- [ ] Deploy + get the public demo URL (now T21, Track A). Module is live on maincloud (@ethan's login owns it); still needed: log in to a static host (e.g. Vercel/Netlify) for the web build once T17 lands
+- [x] Deploy + get the public demo URL: https://calhacks130.vercel.app (Vercel, vitgruib's account; module on maincloud, @ethan's login). Left: delete or fix the duplicate Vercel project `cal-hacks13-0` (no env vars, shows offline data)
 - [ ] Write the demo script, record the video, submit on Devpost
 - [ ] Microsoft: interview 2–3 people who do the chosen finance seat (venue, Slack, friends) and quote them in the Devpost; this feeds Customer Understanding and the Customer Impact Award (and Anthropic)
 - [ ] Nessie: log in at nessieisreal.com with GitHub, get an API key into `.env.local`, confirm the endpoints in `/docs`, and ask the Capital One booth how many winners there are and what "best use" means to them

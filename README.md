@@ -2,6 +2,8 @@
 
 _One-line pitch: TBD_
 
+**Live demo:** https://calhacks130.vercel.app (web on Vercel, auto-deploys from `main`; database `grantguard` on SpacetimeDB maincloud)
+
 ## Team setup (once per person, ~2 min)
 
 ```sh
