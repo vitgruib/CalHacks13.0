@@ -20,7 +20,7 @@ USAspending and asks a person when they disagree.
   "url": "https://grantwitness.org/nih", "fetchedAt": "…", "savedCopy": false }
 ```
 
-- **`grantId`** is the core project number: `1R01GM000001-01` becomes `R01GM000001`, so it matches however your records write the award.
+- **`grantId`** is the core project number: `1R01GM061721-01` becomes `R01GM061721`, so it matches however your records write the award.
 - **`status`** is one of `canceled` (Terminated or Frozen), `restored_by_court` (Reinstated) or `active` (Unfrozen). The list's own wording is kept in `listStatus`.
 - **Restorations are kept**, not dropped, so a grant that a court restored doesn't look canceled forever.
 - **One row per grant.** When a grant is listed both as the whole award and as a supplement (`-04S1`), the whole award's row wins.

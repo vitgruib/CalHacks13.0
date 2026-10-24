@@ -8,8 +8,24 @@ import { money } from './ui'
 
 export { CARD_LIMIT, trulyAvailable }
 
-/** "Protein folding dynamics in bacterial membranes" → "Protein folding". */
-export const shortName = (g: Grant) => g.title.split(' ').slice(0, 2).join(' ')
+const SMALL = new Set(['a', 'an', 'and', 'as', 'by', 'for', 'from', 'in', 'of', 'on', 'the', 'to', 'with'])
+
+/**
+ * A grant's title cut to its subject, at most 3 words:
+ * "Biogenesis of the mitochondrial inner membrane" → "Mitochondrial inner membrane",
+ * "Investigating ploidy modulation as a strategy to …" → "Ploidy modulation".
+ */
+export function shortName(g: Grant) {
+  let words = g.title.split(/\s+/).filter(Boolean)
+  if (words.length > 1 && /ing$/i.test(words[0])) words = words.slice(1) // "Investigating …"
+  if (words.length > 2 && words[1].toLowerCase() === 'of') words = words.slice(words[2].toLowerCase() === 'the' ? 3 : 2) // "Biogenesis of the …"
+  const cut = words.findIndex(w => SMALL.has(w.toLowerCase()))
+  const short = words.slice(0, Math.min(3, cut < 1 ? words.length : cut)).join(' ').toLowerCase() || g.title
+  return short[0].toUpperCase() + short.slice(1)
+}
+
+/** Shown wherever grants are described: the IDs are real, the lab is not. */
+export const SIM_NOTE = 'Grant IDs, titles, institutes and end dates are real NIH records (R01GM061721, UCLA; R21AI182745, Princeton). The lab, people, purchases, invoices, papers, amounts and the cancel, court and payment timeline are simulated (today in the sim is June 15, 2026).'
 
 export const firstName = (db: Db) => (db.grants[0]?.pi ?? '').replace(/^Dr\.?\s*/, '').split(' ')[0]
 

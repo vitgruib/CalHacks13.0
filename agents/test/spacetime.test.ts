@@ -109,7 +109,7 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
   });
 
   test('the_purchasing_agent_cannot_post_source_readings', STEP, async () => {
-    const reading = { grantId: 'R01GM000001', source: 'NIH RePORTER', status: 'active', url: 'https://reporter.nih.gov/' } as const;
+    const reading = { grantId: 'R01GM061721', source: 'NIH RePORTER', status: 'active', url: 'https://reporter.nih.gov/' } as const;
     await rejectsWithActionError(agents.purchasing.call('post_source_reading', reading), 'post_source_reading', /bookkeeping/);
     await rejectsWithActionError(agents.bookkeeping.call('no_such_action' as never, {} as never), 'no_such_action', /no action/);
   });
@@ -124,10 +124,10 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
     const stopOther = agents.payment_report.onInsert('log', (row) => seenByOther.push(row));
 
     await agents.bookkeeping.call('post_source_reading', {
-      grantId: 'R01GM000001',
+      grantId: 'R01GM061721',
       source: 'NIH RePORTER',
       status: 'restored_by_court',
-      url: 'https://reporter.nih.gov/project-details/R01GM000001',
+      url: 'https://reporter.nih.gov/project-details/R01GM061721',
     });
     // The caller's own rows are in by the time call() resolves; other
     // connections only after settled().
@@ -140,8 +140,8 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
       assert.equal(seen.length, 1, 'only the new row, not the rows already there');
       const [row] = seen;
       assert.equal(row.actor, 'bookkeeping');
-      assert.equal(row.action, 'Read NIH RePORTER for R01GM000001');
-      assert.equal(row.refId, 'R01GM000001');
+      assert.equal(row.action, 'Read NIH RePORTER for R01GM061721');
+      assert.equal(row.refId, 'R01GM061721');
       assert.equal(row.rule, undefined);
       assert.equal(typeof row.id, 'bigint');
       assert.ok(row.id > highWater);
@@ -171,14 +171,14 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
     assert.deepEqual(updates, [[false, true]]);
   });
 
-  test('the_fixture_grants_show_with_R01GM000001_frozen', STEP, () => {
+  test('the_fixture_grants_show_with_R01GM061721_frozen', STEP, () => {
     const grants = agents.payment_report.rows('grant');
-    assert.deepEqual(grants.map((g) => g.id).sort(), ['R01GM000001', 'R21AI000002']);
-    const frozen = grants.find((g) => g.id === 'R01GM000001')!;
+    assert.deepEqual(grants.map((g) => g.id).sort(), ['R01GM061721', 'R21AI182745']);
+    const frozen = grants.find((g) => g.id === 'R01GM061721')!;
     assert.equal(frozen.frozen, true);
     assert.equal(frozen.status, 'restored_by_court');
     assert.match(frozen.frozenReason ?? '', /court/);
-    const active = grants.find((g) => g.id === 'R21AI000002')!;
+    const active = grants.find((g) => g.id === 'R21AI182745')!;
     assert.equal(active.frozen, false);
     assert.equal(active.frozenReason, undefined);
     assert.equal(agents.payment_report.today(), '2026-06-15');
@@ -191,7 +191,7 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
     await manager.call('load_seed', { json: oneGrantSeed() });
     await db.settled();
     stop();
-    assert.deepEqual(removed.sort(), ['R01GM000001', 'R21AI000002']);
+    assert.deepEqual(removed.sort(), ['R01GM061721', 'R21AI182745']);
     assert.deepEqual(agents.purchasing.rows('grant').map((g) => g.id), [TEST_GRANT]);
   });
 });

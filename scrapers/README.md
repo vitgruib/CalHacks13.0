@@ -44,7 +44,7 @@ Row shape (the tracker reads the first four fields; the rest are for people):
   "reporterUrl": "https://reporter.nih.gov/project-details/…", "fetchedAt": "…", "savedCopy": false }
 ```
 
-- `grantId` is the core project number: `1R01GM000001-01` becomes `R01GM000001`.
+- `grantId` is the core project number: `1R01GM061721-01` becomes `R01GM061721`.
 - `status` uses the module's words: Terminated and Frozen become `canceled`,
   Reinstated becomes `restored_by_court`, Unfrozen becomes `active`.
   Restorations are kept on purpose. If only cancellations were listed, a grant
@@ -60,7 +60,7 @@ Row shape (the tracker reads the first four fields; the rest are for people):
 npm --prefix scrapers install
 npm --prefix scrapers run scrape          # live list -> storage/datasets/default/ + out/cancellations.json
 npm --prefix scrapers run scrape:saved    # the bundled saved copy (offline)
-GG_LAB_GRANTS=R01GM000001,R21AI000002 npm --prefix scrapers run scrape   # only the lab's grants
+GG_LAB_GRANTS=R01GM061721,R21AI182745 npm --prefix scrapers run scrape   # only the lab's grants
 npm --prefix scrapers run scrape:demo     # + the demo row (see below)
 npm --prefix scrapers run check           # typecheck + tests (offline)
 ```
@@ -82,15 +82,19 @@ Options (Actor input, or env vars for local runs):
 
 ## Demo data
 
-The sim world's grants (`R01GM000001`, `R21AI000002`) are made up, so no
-real list mentions them. `scrape:demo` adds the single row in
-`fixtures/demo-rows.json`: `R21AI000002` as canceled. It's labelled
-`demo: true`, `list: "DEMO DATA …"`, with a `#demo-data-not-a-real-listing`
-URL. With it, the tracker posts the reading, a `canceled` event (the module
-freezes R21AI000002) and a `sources_disagree` flag ("NIH RePORTER says
-active; USAspending says active; Cancellation list (Apify) says canceled"),
-which puts "Which source is right about R21AI000002?" in the Inbox. Never
-use demo mode once the lab's real grant IDs are in the seed.
+The sim world uses two real NIH grant IDs (`R01GM061721`, `R21AI182745`;
+the lab, money and timeline around them are simulated). The real Grant
+Witness list already has `R01GM061721` (reinstated, Thakur v. Trump), so the
+plain scrape gives the tracker a real reading and demo mode isn't needed.
+`scrape:demo` still adds the single row in `fixtures/demo-rows.json`:
+`R21AI182745` as canceled. That row is **fake**: the real grant is not on any
+list. It's labelled `demo: true`, `list: "DEMO DATA …"`, with a
+`#demo-data-not-a-real-listing` URL. With it, the tracker posts the reading, a
+`canceled` event (the module freezes R21AI182745) and a `sources_disagree`
+flag ("NIH RePORTER says active; USAspending says active; Cancellation list
+(Apify) says canceled"), which puts "Which source is right about
+R21AI182745?" in the Inbox. Use it only on a throwaway database, and never
+show its output as real.
 
 ## Against the local SpacetimeDB
 

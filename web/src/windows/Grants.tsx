@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../data/store'
 import type { Db, Grant, StatusEvent } from '../data/types'
-import { daysLeft, inTime, longDate, monthYear, paused, shortName, spendable } from '../plain'
+import { SIM_NOTE, daysLeft, inTime, longDate, monthYear, paused, shortName, spendable } from '../plain'
 import { money } from '../ui'
 import './Grants.css'
 
@@ -145,6 +145,7 @@ export default function Grants() {
     <div className="gr-list">
       <h1>My grants</h1>
       <div className="gr-cards">{db.grants.map(x => <GrantCard key={x.id} db={db} g={x} />)}</div>
+      <p className="gr-muted gr-sim-note">{SIM_NOTE}</p>
     </div>
   )
 }

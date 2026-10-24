@@ -45,8 +45,9 @@ if (demo && kind === 'local') {
   // only works on the server that issued it.
   const server = new URL(process.env.GG_SPACETIME_URI ?? 'ws://127.0.0.1:3000').host.replace(/[^a-z0-9.-]/gi, '_');
   const tokens = kind === 'local' ? memoryTokens() : fileTokens(`${server}-${process.env.GG_SPACETIME_DB ?? 'grantguard'}`);
-  // The sim world's grant IDs are made up, so the government sources stay off
-  // unless the world holds real ones (GG_LIVE_SOURCES=1).
+  // The sim world's grant IDs are real NIH grants, but its cancel/court/payment
+  // timeline is simulated, so the government sources (which would report the
+  // real status) stay off unless asked for (GG_LIVE_SOURCES=1).
   const sources =
     process.env.GG_LIVE_SOURCES === '1'
       ? [createReporterSource(), createUsaspendingSource(), createCancellationListSource()]

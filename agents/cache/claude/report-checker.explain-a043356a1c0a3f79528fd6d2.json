@@ -1,0 +1,28 @@
+{
+  "task": "report-checker.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T21:58:47.474Z",
+  "input": {
+    "paperId": "p2",
+    "title": "A microfluidic assay for beta-lactam resistance",
+    "doi": "10.0000/fixture.0002",
+    "reportGrantId": "R01GM061721",
+    "creditsGrantId": "R21AI182745",
+    "creditedIsLabGrant": true,
+    "failed": [
+      {
+        "check": "Credits this grant",
+        "detail": "Listed in R01GM061721's report, but its acknowledgments name R21AI182745. Its $2,100 in costs were charged to R01GM061721; 38 days left to move them."
+      }
+    ],
+    "rule": "Only a material correction holds the report",
+    "costMoves": [],
+    "asks": [
+      "List the paper in R21AI182745's report instead, or confirm with the authors that it also credits R01GM061721."
+    ],
+    "draft": "p2 (\"A microfluidic assay for beta-lactam resistance\") is in R01GM061721's progress report. The check \"Credits this grant\" failed: Listed in R01GM061721's report, but its acknowledgments name R21AI182745. Its $2,100 in costs were charged to R01GM061721; 38 days left to move them. To do: List the paper in R21AI182745's report instead, or confirm with the authors that it also credits R01GM061721. Approve once it is fixed (the paper then shows as a note); reject to keep it held."
+  },
+  "answer": {
+    "why": "Paper p2 (\"A microfluidic assay for beta-lactam resistance\") is held in R01GM061721's progress report. The check \"Credits this grant\" failed: the public record shows the paper's acknowledgments name R21AI182745, not R01GM061721. Its $2,100 in costs were charged to R01GM061721, with 38 days left to move them. To do: list the paper in R21AI182745's report instead, or confirm with the authors that it also credits R01GM061721. Approve once it is fixed (the paper then shows as a note); reject to keep it held."
+  }
+}

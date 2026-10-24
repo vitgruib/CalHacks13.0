@@ -23,14 +23,14 @@ function listFile(rows: unknown[]): string {
 
 test('list_words_map_to_our_statuses_and_unreadable_rows_are_dropped', () => {
   const rows = parseList([
-    { grantId: '5R01GM000001-03', status: 'Terminated', url: 'https://list.test/1', listedOn: '2026-03-10T00:00:00Z' },
-    { grantId: 'R21AI000002', status: 'Possibly reinstated', url: 'https://list.test/2' },
+    { grantId: '5R01GM061721-03', status: 'Terminated', url: 'https://list.test/1', listedOn: '2026-03-10T00:00:00Z' },
+    { grantId: 'R21AI182745', status: 'Possibly reinstated', url: 'https://list.test/2' },
     { grantId: 'not a grant', status: 'Terminated', url: 'https://list.test/3' },
     { grantId: 'R01GM000009', status: 'under review', url: 'https://list.test/4' },
   ]);
   assert.deepEqual(rows, [
-    { grantId: 'R01GM000001', status: 'canceled', url: 'https://list.test/1', listedOn: '2026-03-10' },
-    { grantId: 'R21AI000002', status: 'restored_by_court', url: 'https://list.test/2', listedOn: null },
+    { grantId: 'R01GM061721', status: 'canceled', url: 'https://list.test/1', listedOn: '2026-03-10' },
+    { grantId: 'R21AI182745', status: 'restored_by_court', url: 'https://list.test/2', listedOn: null },
   ]);
 });
 
@@ -81,12 +81,12 @@ test('reads_only_the_needed_fields_of_the_actor_s_latest_run_once_per_check', as
     urls.push(String(input));
     return Response.json([
       { grantId: TEST_GRANT, status: 'canceled', url: 'https://list.test/a' },
-      { grantId: 'R21AI000002', status: 'active', url: 'https://list.test/b' },
+      { grantId: 'R21AI182745', status: 'active', url: 'https://list.test/b' },
     ]);
   };
   const source = createCancellationListSource({ actor: 'someone~cancellation-list', fetchImpl, cacheDir: scratch(), mode: 'live' });
   assert.equal((await source.read(TEST_GRANT))?.status, 'canceled');
-  assert.equal((await source.read('R21AI000002'))?.status, 'active');
+  assert.equal((await source.read('R21AI182745'))?.status, 'active');
   assert.equal(urls.length, 1, 'one download serves every grant in a check');
   const url = new URL(urls[0]);
   assert.equal(url.pathname, '/v2/acts/someone~cancellation-list/runs/last/dataset/items');

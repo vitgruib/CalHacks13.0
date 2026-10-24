@@ -13,7 +13,7 @@ export type Actor = AgentId | PersonId | 'system'
 export type GrantStatus = 'active' | 'canceled' | 'restored_by_court' | 'ended'
 
 export interface Grant {
-  id: string // e.g. "R01GM000001" (fixture IDs until Track B picks real ones)
+  id: string // e.g. "R01GM061721" (real NIH grant IDs; the sim world around them is made up)
   title: string
   pi: string
   agency: string

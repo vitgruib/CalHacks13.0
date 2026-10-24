@@ -10,7 +10,7 @@ const savedRole = (): Role => {
 }
 const menu = (role: Role) => windows.filter(w => w.roles.includes(role))
 const home = (role: Role) => menu(role).find(w => w.id === roles.find(r => r.id === role)?.home) ?? menu(role)[0]
-// `#grants/R01GM000001` opens the grants window on one grant.
+// `#grants/R01GM061721` opens the grants window on one grant.
 const fromHash = (role: Role) => menu(role).find(w => `#${w.id}` === location.hash.split('/')[0]) ?? home(role)
 
 export default function App() {

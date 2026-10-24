@@ -4,7 +4,7 @@
 // file, and the fund tracker reads them here like any other source.
 //
 // Each row: { grantId, status, url, listedOn? }. grantId can be a full number
-// (5R01GM000001-03); status words like "terminated" or "reinstated" are
+// (5R01GM061721-21); status words like "terminated" or "reinstated" are
 // mapped to ours. A grant that isn't on the list gets no reading: absence
 // says nothing either way.
 //

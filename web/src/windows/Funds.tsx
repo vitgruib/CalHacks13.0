@@ -3,6 +3,7 @@
 import { useStore } from '../data/store'
 import { trulyAvailable, type Db, type Grant, type GrantStatus, type SourceReading, type StatusEvent } from '../data/types'
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
+import { SIM_NOTE } from '../plain'
 import './Funds.css'
 
 const statusLabel: Record<GrantStatus, string> = {
@@ -41,6 +42,7 @@ export default function Funds() {
   return (
     <>
       {db.grants.map(g => <GrantCard key={g.id} g={g} db={db} />)}
+      <p className="funds-sim-note">{SIM_NOTE}</p>
     </>
   )
 }

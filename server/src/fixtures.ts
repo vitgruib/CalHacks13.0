@@ -3,8 +3,8 @@
 // Track C's full seed with every planted mistake (T8) loads via load_seed.
 import type { Seed } from './seed'
 
-const A = 'R01GM000001' // canceled, restored by court, money not yet arrived
-const B = 'R21AI000002' // active, ends within 90 days
+const A = 'R01GM061721' // canceled, restored by court, money not yet arrived
+const B = 'R21AI182745' // active, ends within 90 days
 
 export const fixtures: Seed = {
   today: '2026-06-15',
@@ -12,7 +12,7 @@ export const fixtures: Seed = {
   grants: [
     {
       id: A,
-      title: 'Protein folding dynamics in bacterial membranes',
+      title: 'Biogenesis of the mitochondrial inner membrane',
       pi: 'Dr. Lena Ortiz',
       agency: 'NIH / NIGMS',
       awarded: 420_000,
@@ -20,14 +20,14 @@ export const fixtures: Seed = {
       spent: 171_400,
       promised: 12_350,
       start: '2025-01-01',
-      end: '2027-12-31',
+      end: '2027-07-31',
       status: 'restored_by_court',
       frozen: true,
       frozenReason: 'Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen.',
     },
     {
       id: B,
-      title: 'Rapid antimicrobial susceptibility assay',
+      title: 'Investigating ploidy modulation as a strategy to improve antibiotic activity',
       pi: 'Dr. Lena Ortiz',
       agency: 'NIH / NIAID',
       awarded: 275_000,
@@ -35,7 +35,7 @@ export const fixtures: Seed = {
       spent: 228_900,
       promised: 6_120,
       start: '2024-08-01',
-      end: '2026-08-01',
+      end: '2026-08-31',
       status: 'active',
       frozen: false,
     },
@@ -76,10 +76,10 @@ export const fixtures: Seed = {
       id: 'rq2', day: '2026-06-12', requester: 'scientist', item: 'Agar plates, 40 packs', category: 'lab supplies', price: 1_180,
       grantId: B, chargedGrantId: A, purpose: 'Assay validation runs', state: 'rerouted',
       verdicts: [
-        { rule: "Not in the grant's last 90 days", pass: false, detail: 'R21AI000002 ends 2026-08-01, 47 days away.', auditCase: 'NSF OIG 22-1-010 (WVU): supplies bought near the end were disallowed' },
-        { rule: 'Another grant has time and money', pass: true, detail: 'R01GM000001 fits the purpose, once it unfreezes.' },
+        { rule: "Not in the grant's last 90 days", pass: false, detail: 'R21AI182745 ends 2026-08-31, 77 days away.', auditCase: 'NSF OIG 22-1-010 (WVU): supplies bought near the end were disallowed' },
+        { rule: 'Another grant has time and money', pass: true, detail: 'R01GM061721 fits the purpose, once it unfreezes.' },
       ],
-      explanation: 'Supplies bought in the last 90 days of a grant are a classic audit finding. Rerouted to R01GM000001, which covers the same work; it goes through when that grant unfreezes.',
+      explanation: 'Supplies bought in the last 90 days of a grant are a classic audit finding. Rerouted to R01GM061721, which covers the same work; it goes through when that grant unfreezes.',
     },
     {
       id: 'rq3', day: '2026-06-10', requester: 'scientist', item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380,
@@ -141,14 +141,14 @@ export const fixtures: Seed = {
   paymentRequests: [
     {
       id: 'pr1', grantId: B, from: '2026-05-01', to: '2026-05-31', amount: 9_460,
-      explanation: 'Reimbursement for May 2026 direct costs on R21AI000002: lab supplies $3,170 (pipette tips, assay plates, reagents, 6 orders), equipment service $1,290 (CoolChain freezer service, approved change), personnel $5,000 (graduate researcher, 50% effort). All purchases were matched to approved orders and invoices. One $2,400 invoice from BioReagents Inc is on hold and is not included.',
+      explanation: 'Reimbursement for May 2026 direct costs on R21AI182745: lab supplies $3,170 (pipette tips, assay plates, reagents, 6 orders), equipment service $1,290 (CoolChain freezer service, approved change), personnel $5,000 (graduate researcher, 50% effort). All purchases were matched to approved orders and invoices. One $2,400 invoice from BioReagents Inc is on hold and is not included.',
       includedRequestIds: ['rq3'],
       excluded: [{ requestId: 'rqx', why: 'Invoice inv1 is on hold (order was canceled).' }],
       state: 'waiting_on_manager',
       followUps: [
         {
           id: 'fu1', question: 'Please itemize the $3,170 in lab supplies and confirm none was purchased after the project end date.',
-          answerDraft: 'The $3,170 is six orders placed 2026-05-03 to 2026-05-29: LabSource pipette tips $380 (5/03), ... All were placed before the end date of 2026-08-01.',
+          answerDraft: 'The $3,170 is six orders placed 2026-05-03 to 2026-05-29: LabSource pipette tips $380 (5/03), ... All were placed before the end date of 2026-08-31.',
           state: 'waiting_on_manager',
         },
       ],
@@ -159,7 +159,7 @@ export const fixtures: Seed = {
     {
       id: 'p1', grantId: A, title: 'Lipid-dependent folding intermediates of OmpA', doi: '10.0000/fixture.0001', pmcid: 'PMC0000001', creditsGrantId: A,
       checks: [
-        { check: 'Credits this grant', pass: true, detail: 'Acknowledgments name R01GM000001.' },
+        { check: 'Credits this grant', pass: true, detail: 'Acknowledgments name R01GM061721.' },
         { check: 'Has a PubMed Central ID', pass: true, detail: 'PMC0000001' },
         { check: 'No undisclosed correction', pass: true, detail: 'No corrections on record.' },
       ],
@@ -168,7 +168,7 @@ export const fixtures: Seed = {
     {
       id: 'p2', grantId: A, title: 'A microfluidic assay for beta-lactam resistance', doi: '10.0000/fixture.0002', pmcid: 'PMC0000002', creditsGrantId: B,
       checks: [
-        { check: 'Credits this grant', pass: false, detail: 'Listed in R01GM000001\'s report, but its acknowledgments name R21AI000002. Its $2,100 in costs were charged to R01GM000001; 38 days left to move them.' },
+        { check: 'Credits this grant', pass: false, detail: 'Listed in R01GM061721\'s report, but its acknowledgments name R21AI182745. Its $2,100 in costs were charged to R01GM061721; 38 days left to move them.' },
         { check: 'Has a PubMed Central ID', pass: true, detail: 'PMC0000002' },
       ],
       result: 'held',
@@ -176,7 +176,7 @@ export const fixtures: Seed = {
     {
       id: 'p3', grantId: A, title: 'Cryo-EM of a membrane chaperone complex', doi: '10.0000/fixture.0003', creditsGrantId: A,
       checks: [
-        { check: 'Credits this grant', pass: true, detail: 'Acknowledgments name R01GM000001.' },
+        { check: 'Credits this grant', pass: true, detail: 'Acknowledgments name R01GM061721.' },
         { check: 'Has a PubMed Central ID', pass: false, detail: 'No PMCID found; NIH public access policy requires one.' },
       ],
       result: 'held',
@@ -185,7 +185,7 @@ export const fixtures: Seed = {
       id: 'p4', grantId: A, title: 'Folding kinetics under osmotic stress', doi: '10.0000/fixture.0004', pmcid: 'PMC0000004', creditsGrantId: A,
       correction: { kind: 'minor', disclosed: false, note: 'Author affiliation corrected.' },
       checks: [
-        { check: 'Credits this grant', pass: true, detail: 'Acknowledgments name R01GM000001.' },
+        { check: 'Credits this grant', pass: true, detail: 'Acknowledgments name R01GM061721.' },
         { check: 'No undisclosed correction', pass: true, detail: 'Affiliation-only correction: a note, not a hold.' },
       ],
       result: 'note',
@@ -227,7 +227,7 @@ export const fixtures: Seed = {
     },
     {
       id: 'h4', kind: 'source_disagreement', refId: 'f1', grantId: A, raisedBy: 'bookkeeping', day: '2026-06-15',
-      title: 'Which source is right about R01GM000001?',
+      title: 'Which source is right about R01GM061721?',
       why: 'RePORTER says active; USAspending and the cancellation list say canceled. Spending stays frozen until you decide.',
       evidence: [
         { label: 'NIH RePORTER', value: 'active (2026-06-15)' },
@@ -239,11 +239,11 @@ export const fixtures: Seed = {
     {
       id: 'h5', kind: 'report', refId: 'p2', grantId: A, raisedBy: 'payment_report', day: '2026-06-15',
       title: 'Paper credits the wrong grant: move $2,100?',
-      why: 'The paper credits R21AI000002, but its costs were charged to R01GM000001. 38 days left on the 90-day fix window.',
+      why: 'The paper credits R21AI182745, but its costs were charged to R01GM061721. 38 days left on the 90-day fix window.',
       evidence: [
         { label: 'Paper', value: 'A microfluidic assay for beta-lactam resistance' },
-        { label: 'Acknowledges', value: 'R21AI000002' },
-        { label: 'Charged to', value: 'R01GM000001' },
+        { label: 'Acknowledges', value: 'R21AI182745' },
+        { label: 'Charged to', value: 'R01GM061721' },
       ],
       options: ['approve', 'reject'],
     },
@@ -261,12 +261,12 @@ export const fixtures: Seed = {
   ],
 
   log: [
-    { id: 'l1', day: '2026-03-10', actor: 'bookkeeping', action: 'Froze R01GM000001', rule: 'Canceled grants freeze', reason: 'Grant appeared on the cancellation list.', refId: 'se1' },
-    { id: 'l2', day: '2026-04-20', actor: 'bookkeeping', action: 'Kept R01GM000001 frozen', rule: 'Only a payment unfreezes', reason: 'Court order received, but a court order is not cash.', refId: 'se3' },
-    { id: 'l3', day: '2026-06-10', actor: 'purchasing', action: 'Bought pipette tips ($380) on R21AI000002', rule: 'All rules pass, under card limit', reason: 'Every rule passed.', refId: 'rq3' },
+    { id: 'l1', day: '2026-03-10', actor: 'bookkeeping', action: 'Froze R01GM061721', rule: 'Canceled grants freeze', reason: 'Grant appeared on the cancellation list.', refId: 'se1' },
+    { id: 'l2', day: '2026-04-20', actor: 'bookkeeping', action: 'Kept R01GM061721 frozen', rule: 'Only a payment unfreezes', reason: 'Court order received, but a court order is not cash.', refId: 'se3' },
+    { id: 'l3', day: '2026-06-10', actor: 'purchasing', action: 'Bought pipette tips ($380) on R21AI182745', rule: 'All rules pass, under card limit', reason: 'Every rule passed.', refId: 'rq3' },
     { id: 'l4', day: '2026-06-11', actor: 'bookkeeping', action: 'Held invoice inv1', rule: 'Invoice needs an open order', reason: 'Order o2 was canceled on 2026-03-02.', refId: 'inv1' },
-    { id: 'l5', day: '2026-06-12', actor: 'purchasing', action: 'Rerouted agar plates to R01GM000001', rule: "Not in the grant's last 90 days", reason: 'R21AI000002 ends in 47 days.', refId: 'rq2' },
+    { id: 'l5', day: '2026-06-12', actor: 'purchasing', action: 'Rerouted agar plates to R01GM061721', rule: "Not in the grant's last 90 days", reason: 'R21AI182745 ends in 77 days.', refId: 'rq2' },
     { id: 'l6', day: '2026-06-13', actor: 'purchasing', action: 'Blocked espresso machine', rule: 'Category allowed', reason: 'General office items are unallowable.', refId: 'rq4' },
-    { id: 'l7', day: '2026-06-14', actor: 'purchasing', action: 'Paused gloves for the grant manager', rule: 'Grant is active and not frozen', reason: 'R01GM000001 is frozen.', refId: 'rq1' },
+    { id: 'l7', day: '2026-06-14', actor: 'purchasing', action: 'Paused gloves for the grant manager', rule: 'Grant is active and not frozen', reason: 'R01GM061721 is frozen.', refId: 'rq1' },
   ],
 }

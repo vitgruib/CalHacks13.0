@@ -95,7 +95,7 @@ test('loading_a_world_reports_removed_rows_and_nothing_for_rows_it_brings_back_u
 test('the_sim_world_loads_with_grant_a_frozen_by_a_court_order_without_payment', async () => {
   world = await startWorld();
   const conn = world.worker.sessions.bookkeeping;
-  const grantA = conn.rows('grant').find((grant) => grant.id === 'R01GM000001');
+  const grantA = conn.rows('grant').find((grant) => grant.id === 'R01GM061721');
   assert.equal(grantA?.status, 'restored_by_court');
   assert.equal(grantA?.frozen, true);
   assert.equal(conn.today(), '2026-06-15');

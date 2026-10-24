@@ -95,7 +95,7 @@
       "got": "flag",
       "outcome": "caught",
       "notRun": false,
-      "detail": "spend_while_canceled flag: rq-050 / o-050: $890 to MembraneChem on 2026-03-18, 8 days after R01GM000001 was canceled (2026-03-10), with no payment since. Grant frozen."
+      "detail": "spend_while_canceled flag: rq-050 / o-050: $890 to MembraneChem on 2026-03-18, 8 days after R01GM061721 was canceled (2026-03-10), with no payment since. Grant frozen."
     },
     {
       "id": "ft-3",
@@ -106,7 +106,7 @@
       "got": "hold",
       "outcome": "caught",
       "notRun": false,
-      "detail": "Still frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. court_order_no_payment flag: A court restored R01GM000001 on 2026-04-20, but no payment has arrived since the 2026-03-10 cancellation. Spending stays frozen until money lands."
+      "detail": "Still frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. court_order_no_payment flag: A court restored R01GM061721 on 2026-04-20, but no payment has arrived since the 2026-03-10 cancellation. Spending stays frozen until money lands."
     },
     {
       "id": "pu-0",
@@ -128,7 +128,7 @@
       "got": "block",
       "outcome": "caught",
       "notRun": false,
-      "detail": "blocked; Not in the grant's last 90 days: R21AI000002 ends 2026-08-01, 47 days away."
+      "detail": "blocked; Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away."
     },
     {
       "id": "pu-2",
@@ -150,7 +150,7 @@
       "got": "hold",
       "outcome": "caught",
       "notRun": false,
-      "detail": "waiting_on_manager; Shared items split across grants: Serves  but is charged to R01GM000001 only."
+      "detail": "waiting_on_manager; Shared items split across grants: Serves  but is charged to R01GM061721 only."
     },
     {
       "id": "pu-4",
@@ -183,7 +183,7 @@
       "got": "pass",
       "outcome": "correct pass",
       "notRun": false,
-      "detail": "Split 60% R01GM000001, 40% R21AI000002."
+      "detail": "Split 60% R01GM061721, 40% R21AI182745."
     },
     {
       "id": "in-1",
@@ -238,7 +238,7 @@
       "got": "hold",
       "outcome": "caught",
       "notRun": false,
-      "detail": "Listed in R21AI000002's report, but its acknowledgments name R01GM000001."
+      "detail": "Listed in R21AI182745's report, but its acknowledgments name R01GM061721."
     },
     {
       "id": "rp-2",
@@ -368,12 +368,12 @@
       "ft-2": {
         "got": "flag",
         "outcome": "caught",
-        "detail": "spend_while_canceled flag: rq-050 / o-050: $890 to MembraneChem on 2026-03-18, 8 days after R01GM000001 was canceled (2026-03-10), with no payment since. Grant frozen."
+        "detail": "spend_while_canceled flag: rq-050 / o-050: $890 to MembraneChem on 2026-03-18, 8 days after R01GM061721 was canceled (2026-03-10), with no payment since. Grant frozen."
       },
       "ft-3": {
         "got": "hold",
         "outcome": "caught",
-        "detail": "Still frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. court_order_no_payment flag: A court restored R01GM000001 on 2026-04-20, but no payment has arrived since the 2026-03-10 cancellation. Spending stays frozen until money lands."
+        "detail": "Still frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. court_order_no_payment flag: A court restored R01GM061721 on 2026-04-20, but no payment has arrived since the 2026-03-10 cancellation. Spending stays frozen until money lands."
       },
       "pu-0": {
         "got": "hold",
@@ -383,7 +383,7 @@
       "pu-1": {
         "got": "block",
         "outcome": "caught",
-        "detail": "blocked; Not in the grant's last 90 days: R21AI000002 ends 2026-08-01, 47 days away."
+        "detail": "blocked; Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away."
       },
       "pu-2": {
         "got": "block",
@@ -393,7 +393,7 @@
       "pu-3": {
         "got": "hold",
         "outcome": "caught",
-        "detail": "waiting_on_manager; Shared items split across grants: Serves  but is charged to R01GM000001 only."
+        "detail": "waiting_on_manager; Shared items split across grants: Serves  but is charged to R01GM061721 only."
       },
       "pu-4": {
         "got": "hold",
@@ -408,7 +408,7 @@
       "pu-d2": {
         "got": "pass",
         "outcome": "correct pass",
-        "detail": "Split 60% R01GM000001, 40% R21AI000002."
+        "detail": "Split 60% R01GM061721, 40% R21AI182745."
       },
       "in-1": {
         "got": "hold",
@@ -433,7 +433,7 @@
       "rp-1": {
         "got": "hold",
         "outcome": "caught",
-        "detail": "Listed in R21AI000002's report, but its acknowledgments name R01GM000001."
+        "detail": "Listed in R21AI182745's report, but its acknowledgments name R01GM061721."
       },
       "rp-2": {
         "got": "hold",

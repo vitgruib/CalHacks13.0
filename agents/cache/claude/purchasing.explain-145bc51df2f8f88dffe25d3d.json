@@ -1,7 +1,7 @@
 {
   "task": "purchasing.explain",
   "model": "claude-sonnet-5-5",
-  "savedAt": "2026-10-24T08:43:55.566Z",
+  "savedAt": "2026-10-24T21:57:55.878Z",
   "input": {
     "request": {
       "id": "rq-105",
@@ -11,7 +11,7 @@
       "purpose": "Continuous-flow folding experiments, aim 3"
     },
     "action": "hold",
-    "grantId": "R01GM000001",
+    "grantId": "R01GM061721",
     "split": [],
     "failed": [
       {
@@ -30,6 +30,6 @@
     "next": "Only the grant manager can approve a purchase over the card limit."
   },
   "answer": {
-    "explanation": "The $6,850 peristaltic pump request (rq-105) on grant R01GM000001 was held for the grant manager. It failed \"Grant is active and not frozen\" (canceled 2026-03-10, restored by a court on 2026-04-20, but no payment has arrived since, so spending stays frozen) and \"Under the card limit ($5,000)\" ($6,850 is over the limit). Only the grant manager can approve a purchase over the card limit."
+    "explanation": "The $6,850 peristaltic pump request (rq-105) was held for the grant manager on grant R01GM061721. It failed \"Grant is active and not frozen\" (canceled 2026-03-10, restored by a court on 2026-04-20, but no payment has arrived since, so spending stays frozen) and \"Under the card limit ($5,000)\" ($6,850 is over the limit). Only the grant manager can approve a purchase over the card limit."
   }
 }

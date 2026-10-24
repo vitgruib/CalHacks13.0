@@ -50,3 +50,4 @@
 @media (max-width: 720px) {
   .funds-money, .funds-cols { grid-template-columns: 1fr; }
 }
+.funds-sim-note { margin: 16px 0 0; font-size: 13px; color: var(--muted); }

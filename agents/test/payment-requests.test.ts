@@ -20,8 +20,8 @@ import { createLocalDb } from '../src/db/local.ts';
 import { createPaperLookup } from '../src/sources/papers.ts';
 import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
 
-const R21 = 'R21AI000002';
-const R01 = 'R01GM000001';
+const R21 = 'R21AI182745';
+const R01 = 'R01GM061721';
 const MAY = { from: '2026-05-01', to: '2026-05-31' };
 
 let world: TestWorld | undefined;
@@ -147,7 +147,7 @@ test('pr_1_the_may_request_for_r21_leaves_held_rq_037_out', async () => {
   world = await startWorld();
   const conn = world.worker.sessions.payment_report;
   const may = requestsFor(conn, R21);
-  assert.equal(may.length, 1, 'one May request for R21AI000002');
+  assert.equal(may.length, 1, 'one May request for R21AI182745');
   const [pr] = may;
   assert.ok(pr.excluded.some((e) => e.requestId === 'rq-037'), 'rq-037 is in excluded');
   assert.ok(!pr.includedRequestIds.includes('rq-037'), 'rq-037 is not in includedRequestIds');
@@ -167,13 +167,13 @@ test('pr_1_the_may_request_for_r21_leaves_held_rq_037_out', async () => {
 const SIM_SEED = readFileSync(new URL('../../sim/seed.json', import.meta.url), 'utf8');
 
 test('loading_the_sim_world_over_the_fixtures_drafts_its_may_request', async () => {
-  // The fixtures already claim R21AI000002's May (pr1); the sim world doesn't.
+  // The fixtures already claim R21AI182745's May (pr1); the sim world doesn't.
   world = await startWorld({ fixtures: true });
   const lab = await world.person('grant_manager');
   await lab.call('load_seed', { json: SIM_SEED });
   await world.worker.idle();
   const may = requestsFor(world.worker.sessions.payment_report, R21);
-  assert.equal(may.length, 1, 'one May request for R21AI000002');
+  assert.equal(may.length, 1, 'one May request for R21AI182745');
   assert.ok(may[0].excluded.some((e) => e.requestId === 'rq-037'), 'rq-037 is still left out');
   assert.equal(may[0].amount, 7_060);
 });
@@ -225,7 +225,7 @@ test('the_seeded_follow_up_gets_an_answer_naming_only_its_requests_purchases', a
   for (const id of pr.excluded.map((e) => e.requestId)) assert.ok(!fu.answerDraft!.includes(id), `${id} was left out, not claimed`);
   // Vendors, dates and amounts, exactly as the records hold them.
   assert.match(fu.answerDraft!, /MicroMedia, ordered 2026-04-14, \$1,180/);
-  assert.match(fu.answerDraft!, /ordered before the project end date \(2026-08-01\)/);
+  assert.match(fu.answerDraft!, /ordered before the project end date \(2026-08-31\)/);
   assert.ok(fu.answerDraft!.includes(money(pr.amount)));
   for (const name of personNames(conn)) assert.ok(!fu.answerDraft!.includes(name), `no person names (${name})`);
   assert.equal(openHolds(conn, 'follow_up', fu.id).length, 1, 'the answer waits for the grant manager');
@@ -513,7 +513,7 @@ test('a_refused_draft_is_not_retried_and_the_agent_stays_quiet', async () => {
   alone = await startAlone({ role: 'bookkeeping' });
   const { conn } = alone;
   const attempts = (action: ActionName) => alone!.calls.filter((call) => call.action === action).length;
-  assert.equal(attempts('draft_payment_request'), 1, 'tried once for R21AI000002');
+  assert.equal(attempts('draft_payment_request'), 1, 'tried once for R21AI182745');
   assert.equal(attempts('draft_follow_up_answer'), 1, 'tried once for fu-001');
   assert.deepEqual(requestsFor(conn, R21), []);
   assert.equal(conn.rows('followUp').find((row) => row.id === 'fu-001')!.state, 'drafted');
@@ -609,7 +609,7 @@ test('last_full_month_handles_january_and_leap_years', () => {
 
 test('ids_and_money_read_the_way_the_records_write_them', () => {
   assert.deepEqual(
-    mentionedIds('rq-036 and rq5 on o-038, invoice inv-037 (inv12), pay-R21-2026-05-1, pr1, pr-015, fu-001; R21AI000002 two pay periods, pay-period'),
+    mentionedIds('rq-036 and rq5 on o-038, invoice inv-037 (inv12), pay-R21-2026-05-1, pr1, pr-015, fu-001; R21AI182745 two pay periods, pay-period'),
     ['rq-036', 'rq5', 'o-038', 'inv-037', 'inv12', 'pay-R21-2026-05-1', 'pr1', 'pr-015', 'fu-001'],
   );
   assert.equal(money(7_060), '$7,060');

@@ -1,7 +1,7 @@
 # sim/: the fake university world (T8)
 
 `seed.json` is the full test world for GrantGuard: one fictional lab (Dr. Lena
-Ortiz, microbiology) with two grants, holding every planted mistake and decoy
+Ortiz, microbiology) with two real NIH grant IDs, holding every planted mistake and decoy
 from `docs/MASTER-PLAN.md` §3 as real records. `answer-key.json` lists each
 one with the decision the system should make. T19's scorecard compares the
 system's decisions with it: caught, missed, and false alarms.
@@ -28,9 +28,20 @@ promised and received match the records.
 
 ## The world (today is 2026-06-15)
 
-- **R01GM000001** (NIH/NIGMS, to 2027-12-31): canceled 2026-03-10, restored
-  by a court order on 2026-04-20, no payment since, so it is **frozen**.
-- **R21AI000002** (NIH/NIAID): active, **ends 2026-08-01**, 47 days away.
+**Real grants, simulated lab.** The two grant IDs, titles, institutes and end
+dates are real NIH records (checked against NIH RePORTER on 2026-10-24).
+Everything else is simulated: the lab, Dr. Ortiz and the other people, the
+purchases, invoices, papers, amounts, start dates, and the cancel, court and
+payment timeline. None of it describes the real investigators or their work.
+
+- **R01GM061721** "Biogenesis of the mitochondrial inner membrane" (NIH/NIGMS;
+  really UCLA, to 2027-07-31). In the sim: canceled 2026-03-10, restored by a
+  court order on 2026-04-20, no payment since, so it is **frozen**. (Really it
+  was terminated in 2025 and reinstated under Thakur v. Trump; with
+  `GG_LIVE_SOURCES=1` the live sources report that.)
+- **R21AI182745** "Investigating ploidy modulation as a strategy to improve
+  antibiotic activity" (NIH/NIAID; really Princeton, to 2026-08-31, not on any
+  cancellation list): active, **ends 2026-08-31**, 77 days away.
 - 38 ordinary purchases since 2024-08 (bought, ordered, invoiced, mostly paid),
   72 monthly payroll rows, 15 payment requests (14 paid, April's sent with a
   funder follow-up still unanswered), 12 progress-report papers, and 171 log rows.
@@ -43,7 +54,7 @@ get an "unchecked" state. There are no flags, and no holds on planted
 records. Settled history is already filled in: past purchases, paid invoices,
 payment events, decided holds and log rows.
 
-**After the demo payment lands on R01GM000001:** the gloves (rq-101), the
+**After the demo payment lands on R01GM061721:** the gloves (rq-101), the
 at-limit kit (rq-106), the 60/40 split (rq-107) and the rerouted agar plates
 (rq-102) go through. The over-limit pump (rq-105) and the unsplit shared
 contract (rq-104) still wait for the grant manager.

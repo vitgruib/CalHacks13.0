@@ -47,20 +47,20 @@ test('rp_1_a_paper_crediting_the_wrong_grant_is_held_with_the_cost_move_and_the_
   world = await startWorld();
   const p10 = paper('p-10');
   assert.equal(p10.result, 'held');
-  assert.equal(p10.creditsGrantId, 'R01GM000001');
+  assert.equal(p10.creditsGrantId, 'R01GM061721');
   assert.deepEqual(failedChecks(p10), ['Credits this grant']);
 
   const hold = openHold('p-10');
-  assert.equal(hold.grantId, 'R21AI000002');
-  assert.match(hold.why, /move rq-035's \$2,100 from R21AI000002 to R01GM000001; 38 days left on the 90-day limit \(fix by 2026-07-23\)/);
-  assert.match(hold.why, /"Credits this grant" failed: Listed in R21AI000002's report, but its acknowledgments name R01GM000001\./);
+  assert.equal(hold.grantId, 'R21AI182745');
+  assert.match(hold.why, /move rq-035's \$2,100 from R21AI182745 to R01GM061721; 38 days left on the 90-day limit \(fix by 2026-07-23\)/);
+  assert.match(hold.why, /"Credits this grant" failed: Listed in R21AI182745's report, but its acknowledgments name R01GM061721\./);
   const evidence = new Map(hold.evidence.map((e) => [e.label, e.value]));
-  assert.equal(evidence.get('Proposed cost move'), "move rq-035's $2,100 from R21AI000002 to R01GM000001 (o-035, charged 2026-04-24)");
+  assert.equal(evidence.get('Proposed cost move'), "move rq-035's $2,100 from R21AI182745 to R01GM061721 (o-035, charged 2026-04-24)");
   assert.equal(evidence.get('90-day limit'), 'Charged 2026-04-24: 38 days left on the 90-day limit (fix by 2026-07-23)');
   // The grant the cost would move to is frozen; the Inbox says so, in the module's words.
-  assert.match(evidence.get('R01GM000001 now') ?? '', /spending frozen/);
+  assert.match(evidence.get('R01GM061721 now') ?? '', /spending frozen/);
   // The module's own evidence is kept.
-  assert.equal(evidence.get('Credits this grant'), "Listed in R21AI000002's report, but its acknowledgments name R01GM000001.");
+  assert.equal(evidence.get('Credits this grant'), "Listed in R21AI182745's report, but its acknowledgments name R01GM061721.");
   assert.deepEqual(hold.options, ['approve', 'reject']);
 });
 
@@ -356,8 +356,8 @@ test('every_seed_correction_reads_as_the_seed_classifies_it', async () => {
 
 test('the_credited_grant_is_the_report_s_own_then_another_lab_grant_then_whatever_is_listed', () => {
   assert.equal(creditedGrant({ grantsCredited: ['R01AI143439', 'R01AI181732'] }, '5R01AI181732-02', []), '5R01AI181732-02');
-  assert.equal(creditedGrant({ grantsCredited: ['R01GM000001'] }, 'R21AI000002', ['R01GM000001', 'R21AI000002']), 'R01GM000001');
-  assert.equal(creditedGrant({ grantsCredited: ['AI000002'] }, 'R21AI000002', []), 'R21AI000002', 'institute and serial only still match');
+  assert.equal(creditedGrant({ grantsCredited: ['R01GM061721'] }, 'R21AI182745', ['R01GM061721', 'R21AI182745']), 'R01GM061721');
+  assert.equal(creditedGrant({ grantsCredited: ['AI182745'] }, 'R21AI182745', []), 'R21AI182745', 'institute and serial only still match');
   assert.equal(creditedGrant({ grantsCredited: ['P30MH062246', 'P30AG024409'] }, 'R01AI181732', ['R01AI181732']), 'P30MH062246');
   assert.equal(creditedGrant({ grantsCredited: [] }, 'R01AI181732', ['R01AI181732']), NO_GRANT_ON_RECORD);
   assert.equal(creditedGrant({ grantsCredited: [TEST_GRANT] }, TEST_GRANT, [TEST_GRANT]), TEST_GRANT, 'a made-up id matches itself');
@@ -377,7 +377,7 @@ test('the_sim_registry_answers_seed_dois_and_passes_every_other_doi_to_the_real_
   assert.ok(!isSimPaperLookup(real));
 
   const p10 = await sim.lookup('https://doi.org/10.5555/GG.2026.0010');
-  assert.deepEqual(p10?.grantsCredited, ['R01GM000001']);
+  assert.deepEqual(p10?.grantsCredited, ['R01GM061721']);
   assert.equal(p10?.pmcid, 'PMC11000010');
   assert.equal((await sim.lookup('10.5555/gg.2026.0003'))?.pmcid, null);
   const p07 = await sim.lookup('10.5555/gg.2024.0007');

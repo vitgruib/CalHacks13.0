@@ -252,17 +252,17 @@ test('an_order_before_the_cancellation_or_after_a_payment_was_not', () => {
 test('ft_1_today_s_readings_disagree_so_a_flag_and_an_inbox_item_are_raised', async () => {
   world = await startWorld();
   const conn = world.worker.sessions.bookkeeping;
-  const flags = conn.rows('flag').filter((flag) => flag.grantId === 'R01GM000001' && flag.kind === 'sources_disagree' && flag.open);
+  const flags = conn.rows('flag').filter((flag) => flag.grantId === 'R01GM061721' && flag.kind === 'sources_disagree' && flag.open);
   assert.equal(flags.length, 1);
   assert.ok(conn.rows('hold').some((hold) => hold.kind === 'source_disagreement' && hold.open && hold.refId === String(flags[0].id)));
-  assert.equal(conn.rows('grant').find((g) => g.id === 'R01GM000001')?.frozen, true);
+  assert.equal(conn.rows('grant').find((g) => g.id === 'R01GM061721')?.frozen, true);
 });
 
 test('ft_2_the_890_charge_eight_days_after_the_cancellation_is_flagged', async () => {
   world = await startWorld();
   const flags = world.worker.sessions.bookkeeping
     .rows('flag')
-    .filter((flag) => flag.grantId === 'R01GM000001' && flag.kind === 'spend_while_canceled' && flag.open);
+    .filter((flag) => flag.grantId === 'R01GM061721' && flag.kind === 'spend_while_canceled' && flag.open);
   const summaries = flags.map((flag) => flag.summary);
   assert.ok(summaries.some((summary) => summary.includes('rq-050') && summary.includes('o-050') && summary.includes('8 days after')), summaries.join('\n'));
 });
@@ -270,8 +270,8 @@ test('ft_2_the_890_charge_eight_days_after_the_cancellation_is_flagged', async (
 test('ft_3_the_court_order_without_payment_keeps_grant_a_frozen_and_flagged', async () => {
   world = await startWorld();
   const conn = world.worker.sessions.bookkeeping;
-  assert.equal(conn.rows('grant').find((g) => g.id === 'R01GM000001')?.frozen, true);
-  assert.equal(conn.rows('flag').filter((flag) => flag.grantId === 'R01GM000001' && flag.kind === 'court_order_no_payment' && flag.open).length, 1);
+  assert.equal(conn.rows('grant').find((g) => g.id === 'R01GM061721')?.frozen, true);
+  assert.equal(conn.rows('flag').filter((flag) => flag.grantId === 'R01GM061721' && flag.kind === 'court_order_no_payment' && flag.open).length, 1);
 });
 
 // The demo path's climax: a court order is not cash, and the open
@@ -282,20 +282,20 @@ for (const order of [['pick', 'pay'], ['pay', 'pick']] as const) {
     world = await startWorld();
     const conn = world.worker.sessions.bookkeeping;
     const lab = await world.person('grant_manager');
-    const grantA = () => conn.rows('grant').find((g) => g.id === 'R01GM000001')!;
+    const grantA = () => conn.rows('grant').find((g) => g.id === 'R01GM061721')!;
     for (const step of order) {
       assert.equal(grantA().frozen, true, `still frozen before ${step}`);
       if (step === 'pick') {
-        const hold = conn.rows('hold').find((h) => h.open && h.kind === 'source_disagreement' && h.grantId === 'R01GM000001');
+        const hold = conn.rows('hold').find((h) => h.open && h.kind === 'source_disagreement' && h.grantId === 'R01GM061721');
         assert.ok(hold, 'ft-1 is in the Inbox');
         await lab.call('decide_hold', { holdId: hold.id, choice: 'pick_source', reason: 'The court order stands; the list is out of date.' });
       } else {
-        await lab.call('inject_status_event', { grantId: 'R01GM000001', kind: 'payment_received', source: 'Payment system', summary: 'Payment of $50,000 received.', amount: 50_000 });
+        await lab.call('inject_status_event', { grantId: 'R01GM061721', kind: 'payment_received', source: 'Payment system', summary: 'Payment of $50,000 received.', amount: 50_000 });
       }
       await world.worker.idle();
     }
     assert.equal(grantA().frozen, false, `still frozen: ${grantA().frozenReason}`);
-    assert.equal(disagreements(conn).filter((flag) => flag.grantId === 'R01GM000001').length, 1, 'the decided disagreement was not raised again');
+    assert.equal(disagreements(conn).filter((flag) => flag.grantId === 'R01GM061721').length, 1, 'the decided disagreement was not raised again');
     const state = (id: string) => conn.rows('request').find((r) => r.id === id)?.state;
     assert.deepEqual(['rq-101', 'rq-106', 'rq-107'].map(state), ['bought', 'bought', 'bought']);
     assert.equal(state('rq-102'), 'rerouted');

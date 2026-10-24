@@ -1,7 +1,7 @@
 {
   "task": "purchasing.explain",
   "model": "claude-sonnet-5-5",
-  "savedAt": "2026-10-24T08:43:59.214Z",
+  "savedAt": "2026-10-24T21:58:00.160Z",
   "input": {
     "request": {
       "id": "rq-106",
@@ -11,7 +11,7 @@
       "purpose": "BamA detergent screen, round 2"
     },
     "action": "hold",
-    "grantId": "R01GM000001",
+    "grantId": "R01GM061721",
     "split": [],
     "failed": [
       {
@@ -25,9 +25,9 @@
       "Category allowed",
       "Under the card limit ($5,000)"
     ],
-    "next": "Every other rule passes, so it will be bought automatically once R01GM000001 unfreezes."
+    "next": "Every other rule passes, so it will be bought automatically once R01GM061721 unfreezes."
   },
   "answer": {
-    "explanation": "The $5,000 membrane protein detergent screening kit request (rq-106) was held for the grant manager on grant R01GM000001. It failed the rule \"Grant is active and not frozen\": the grant was canceled 2026-03-10, and a court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. Every other rule passes, so it will be bought automatically once R01GM000001 unfreezes."
+    "explanation": "The $5,000 membrane protein detergent screening kit request (rq-106) was held for the grant manager because R01GM061721 failed the rule \"Grant is active and not frozen\": it was canceled 2026-03-10, a court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. Every other rule passes, so it will be bought automatically once R01GM061721 unfreezes."
   }
 }

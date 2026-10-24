@@ -23,7 +23,7 @@ export const SOURCE = 'Cancellation list (Apify)'; // server/src/vocab.ts SOURCE
 export type ListStatus = 'canceled' | 'restored_by_court' | 'active';
 
 export interface ListedGrant {
-  grantId: string; // core project number, R01GM000001
+  grantId: string; // core project number, R01GM061721
   status: ListStatus;
   url: string; // where a person can check the listing
   listedOn: string | null; // date of the latest change the list records (YYYY-MM-DD)
@@ -33,7 +33,7 @@ export interface ListedGrant {
   terminatedOn: string | null; // earliest disruption (termination or freeze)
   restoredOn: string | null;
   restoredBy: string | null; // e.g. "Thakur v. Trump (Sep 2025)" or "Freeze lifted"
-  fullAwardNumber: string | null; // 5R01GM000001-03
+  fullAwardNumber: string | null; // 5R01GM061721-21
   supplement: string | null; // "S1" when the row is a supplement, not the whole grant
   title: string | null;
   institution: string | null;

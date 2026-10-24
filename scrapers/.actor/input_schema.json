@@ -6,7 +6,7 @@
     "grantIds": {
       "title": "Grant IDs",
       "type": "array",
-      "description": "Only return these grants (core project numbers like R01GM000001, or full numbers like 5R01GM000001-03). Leave empty for the whole list.",
+      "description": "Only return these grants (core project numbers like R01GM061721, or full numbers like 5R01GM061721-21). Leave empty for the whole list.",
       "editor": "stringList",
       "default": []
     },

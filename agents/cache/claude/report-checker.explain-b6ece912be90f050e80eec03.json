@@ -1,0 +1,28 @@
+{
+  "task": "report-checker.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T21:57:36.397Z",
+  "input": {
+    "paperId": "p-03",
+    "title": "Cryo-EM of a membrane chaperone complex",
+    "doi": "10.5555/gg.2026.0003",
+    "reportGrantId": "R01GM061721",
+    "creditsGrantId": "R01GM061721",
+    "creditedIsLabGrant": true,
+    "failed": [
+      {
+        "check": "Has a PubMed Central ID",
+        "detail": "No PMCID found; NIH public access policy requires one."
+      }
+    ],
+    "rule": "Only a material correction holds the report",
+    "costMoves": [],
+    "asks": [
+      "Get the paper deposited in PubMed Central (or find its PMCID) and add the PMCID to the report."
+    ],
+    "draft": "p-03 (\"Cryo-EM of a membrane chaperone complex\") is in R01GM061721's progress report. The check \"Has a PubMed Central ID\" failed: No PMCID found; NIH public access policy requires one. To do: Get the paper deposited in PubMed Central (or find its PMCID) and add the PMCID to the report. Approve once it is fixed (the paper then shows as a note); reject to keep it held."
+  },
+  "answer": {
+    "why": "Paper p-03 (\"Cryo-EM of a membrane chaperone complex\", DOI 10.5555/gg.2026.0003) is in the progress report for R01GM061721, and it is held. The check \"Has a PubMed Central ID\" failed: the public record shows no PMCID, and NIH public access policy requires one. To do: get the paper deposited in PubMed Central (or find its PMCID) and add the PMCID to the report. Approve once that is fixed, and the paper then shows as a note. Reject to keep it held. No cost moves are proposed."
+  }
+}

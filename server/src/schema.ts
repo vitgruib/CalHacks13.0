@@ -67,7 +67,7 @@ const clock = table({ public: true }, { id: t.u8().primaryKey(), today: t.string
 const grant = table(
   { public: true },
   {
-    id: t.string().primaryKey(), // e.g. R01GM000001
+    id: t.string().primaryKey(), // e.g. R01GM061721
     title: t.string(),
     pi: t.string(),
     agency: t.string(),

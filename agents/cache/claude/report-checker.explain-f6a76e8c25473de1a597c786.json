@@ -1,0 +1,42 @@
+{
+  "task": "report-checker.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T21:57:42.554Z",
+  "input": {
+    "paperId": "p-10",
+    "title": "Membrane permeability limits beta-lactam uptake in a microfluidic assay",
+    "doi": "10.5555/gg.2026.0010",
+    "reportGrantId": "R21AI182745",
+    "creditsGrantId": "R01GM061721",
+    "creditedIsLabGrant": true,
+    "failed": [
+      {
+        "check": "Credits this grant",
+        "detail": "Listed in R21AI182745's report, but its acknowledgments name R01GM061721."
+      }
+    ],
+    "rule": "Only a material correction holds the report",
+    "costMoves": [
+      {
+        "requestId": "rq-035",
+        "orderId": "o-035",
+        "item": "Open-access publication fee, J. Appl. Microb. Methods",
+        "amount": 2100,
+        "from": "R21AI182745",
+        "to": "R01GM061721",
+        "chargedOn": "2026-04-24",
+        "fixBy": "2026-07-23",
+        "daysLeft": 38
+      }
+    ],
+    "creditedGrantStatus": "restored by court, spending frozen. Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen.",
+    "creditedGrantFrozen": true,
+    "asks": [
+      "Approve the cost move by 2026-07-23 and list the paper in R01GM061721's report."
+    ],
+    "draft": "p-10 (\"Membrane permeability limits beta-lactam uptake in a microfluidic assay\") is in R21AI182745's progress report. The check \"Credits this grant\" failed: Listed in R21AI182745's report, but its acknowledgments name R01GM061721. Its cost rq-035 ($2,100) was charged to R21AI182745 on 2026-04-24. Proposed fix: move rq-035's $2,100 from R21AI182745 to R01GM061721; 38 days left on the 90-day limit (fix by 2026-07-23). Note: R01GM061721 is frozen right now. To do: Approve the cost move by 2026-07-23 and list the paper in R01GM061721's report. Approve to accept the proposed cost move (the paper then shows as a note; GrantGuard does not move the charge itself); reject to keep it held."
+  },
+  "answer": {
+    "why": "Paper p-10 (\"Membrane permeability limits beta-lactam uptake in a microfluidic assay\") is held in R21AI182745's progress report. The check \"Credits this grant\" failed: the report lists it, but its acknowledgments name R01GM061721. Its cost rq-035 ($2,100) was charged to R21AI182745 on 2026-04-24. Proposed fix: move rq-035's $2,100 from R21AI182745 to R01GM061721 by 2026-07-23 (38 days left). Note that R01GM061721 was restored by a court on 2026-04-20, but no payment has arrived, so spending stays frozen. To do: approve the cost move by 2026-07-23 and list the paper in R01GM061721's report. Approve accepts the proposed move (GrantGuard does not move the charge itself); reject keeps the paper held."
+  }
+}

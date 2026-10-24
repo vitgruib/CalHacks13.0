@@ -31,8 +31,8 @@ afterEach(() => {
   cleanup = undefined;
 });
 
-const GRANT_A = 'R01GM000001';
-const GRANT_B = 'R21AI000002';
+const GRANT_A = 'R01GM061721';
+const GRANT_B = 'R21AI182745';
 const SECOND_GRANT = 'R21TEST000002';
 
 const conn = () => world!.worker.sessions.purchasing;
@@ -120,8 +120,8 @@ test('pu_1_rq_102_is_blocked_on_the_last_90_days_rule_until_grant_a_can_take_it'
   assert.equal(row.state, 'blocked');
   assert.equal(row.chargedGrantId, GRANT_B);
   assert.deepEqual(failedRules(row), ["Not in the grant's last 90 days"]);
-  assert.match(row.explanation, /Not in the grant's last 90 days: R21AI000002 ends 2026-08-01, 47 days away/);
-  assert.match(row.explanation, /rerouted there once R01GM000001 unfreezes/);
+  assert.match(row.explanation, /Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away/);
+  assert.match(row.explanation, /rerouted there once R01GM061721 unfreezes/);
   assert.equal(purchaseHolds('rq-102').length, 0, 'nothing for the grant manager to decide');
   const log = conn().rows('log').find((entry) => entry.refId === 'rq-102' && entry.action.startsWith('Blocked'));
   assert.equal(log?.rule, "Not in the grant's last 90 days");
@@ -144,7 +144,7 @@ test('pu_3_rq_104_is_held_for_a_split_citing_the_shared_cost_rule', async () => 
   assert.ok(failedRules(row).includes('Shared cost split across the grants it serves'), failedRules(row).join('; '));
   const [hold] = openPurchaseHolds('rq-104');
   assert.ok(hold.evidence.some((e) => e.label === 'Shared cost split across the grants it serves'));
-  assert.match(row.explanation, /Serves R01GM000001 and R21AI000002 but is charged to R01GM000001 only/);
+  assert.match(row.explanation, /Serves R01GM061721 and R21AI182745 but is charged to R01GM061721 only/);
   assert.equal(ordersFor('rq-104').length, 0);
 });
 
@@ -171,7 +171,7 @@ test('pu_d2_rq_107_keeps_its_60_40_split_and_passes_the_shared_cost_rule', async
   const row = request('rq-107');
   assert.deepEqual(row.split, [{ grantId: GRANT_A, share: 0.6 }, { grantId: GRANT_B, share: 0.4 }]);
   assert.equal(verdict(row, 'Shared cost split')?.pass, true);
-  assert.deepEqual(failedRules(row), ['Grant is active and not frozen (R01GM000001)']);
+  assert.deepEqual(failedRules(row), ['Grant is active and not frozen (R01GM061721)']);
 });
 
 test('once_grant_a_is_paid_and_its_sources_agree_the_waiting_purchases_go_through', async () => {
@@ -193,7 +193,7 @@ test('once_grant_a_is_paid_and_its_sources_agree_the_waiting_purchases_go_throug
   assert.equal(rerouted.state, 'rerouted');
   assert.equal(rerouted.chargedGrantId, GRANT_A);
   assert.deepEqual(ordersFor('rq-102').map((o) => [o.grantId, o.amount]), [[GRANT_A, 1180]]);
-  assert.match(rerouted.explanation, /Rerouted .* from R21AI000002 to R01GM000001/);
+  assert.match(rerouted.explanation, /Rerouted .* from R21AI182745 to R01GM061721/);
   assert.match(rerouted.explanation, /Not in the grant's last 90 days/);
 
   // Still waiting on what only a person can fix, and not bought.
@@ -215,7 +215,7 @@ test('after_grant_a_reopens_new_supplies_asked_for_on_grant_b_are_rerouted_to_it
   const row = newestRequest();
   assert.equal(row.state, 'rerouted');
   assert.equal(row.chargedGrantId, GRANT_A);
-  assert.match(row.explanation, /Not in the grant's last 90 days: R21AI000002 ends 2026-08-01/);
+  assert.match(row.explanation, /Not in the grant's last 90 days: R21AI182745 ends 2026-08-31/);
 });
 
 // ── Typed requests ─────────────────────────────────────────────────────────
@@ -487,7 +487,7 @@ test('plan_for_puts_the_category_rule_first_and_the_freeze_last', () => {
 });
 
 test('frozen_grant_of_reads_the_grant_named_on_a_split_charge', () => {
-  assert.equal(frozenGrantOf(v('Grant is active and not frozen (R01GM000001)', false), GRANT_B), GRANT_A);
+  assert.equal(frozenGrantOf(v('Grant is active and not frozen (R01GM061721)', false), GRANT_B), GRANT_A);
   assert.equal(frozenGrantOf(v('Grant is active and not frozen', false), GRANT_B), GRANT_B);
   assert.equal(frozenGrantOf(v('Under the card limit ($5,000)', false), GRANT_B), GRANT_B);
 });

@@ -17,7 +17,7 @@ function call(who: string, reducer: unknown, args: object = {}): void {
   h.withReducerTx(as(who), ctx => (reducer as (c: unknown, a: object) => void)(ctx, args));
 }
 
-const A = 'R01GM000001'; // fixtures: canceled, court-restored, no payment yet
+const A = 'R01GM061721'; // fixtures: canceled, court-restored, no payment yet
 const db = () => h.db as any;
 const rows = (table: string) => [...db()[table].iter()] as any[];
 
@@ -60,15 +60,15 @@ test('the scientist cannot decide Inbox items; the grant manager must give a rea
 });
 
 test('nobody approves their own request', () => {
-  submit('gm', 'R21AI000002', 6_000);
+  submit('gm', 'R21AI182745', 6_000);
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: 'R21AI000002', vendor: 'V', explanation: 'Over the card limit.' });
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: 'R21AI182745', vendor: 'V', explanation: 'Over the card limit.' });
   const hold = rows('hold').find(x => x.refId === rq.id && x.open);
   expect(() => call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'mine' })).toThrow(/own request/);
 });
 
 test('the purchasing agent cannot buy over the card limit on its own', () => {
-  submit('sci', 'R21AI000002', 5_001);
+  submit('sci', 'R21AI182745', 5_001);
   const rq = lastRequest();
   expect(() => call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', vendor: 'V', explanation: 'buy' })).toThrow(/card limit/);
   expect(rows('order').some(o => o.requestId === rq.id)).toBe(false);
@@ -97,7 +97,7 @@ test('demo path: court order is not cash; the purchase goes through only after t
 
 test('every action writes a log row', () => {
   const before = rows('log').length;
-  submit('sci', 'R21AI000002', 380);
+  submit('sci', 'R21AI182745', 380);
   call('pa', mod.evaluate_request, { requestId: lastRequest().id, split: [] });
   expect(rows('log').length).toBe(before + 2);
 });
@@ -105,9 +105,9 @@ test('every action writes a log row', () => {
 test('a held invoice goes to the Inbox; a matched one is paid and moves money from promised to spent', () => {
   call('gm', mod.inject_invoice, { orderId: 'o1', amount: 380 });
   const inv = rows('invoice').find(i => i.orderId === 'o1' && !i.checked);
-  const before = db().grant.id.find('R21AI000002');
+  const before = db().grant.id.find('R21AI182745');
   call('bk', mod.check_invoice, { invoiceId: inv.id });
-  const after = db().grant.id.find('R21AI000002');
+  const after = db().grant.id.find('R21AI182745');
   expect(db().invoice.id.find(inv.id).state).toBe('paid');
   expect(after.spent - before.spent).toBe(380);
   expect(before.promised - after.promised).toBe(380);
@@ -120,7 +120,7 @@ test('a held invoice goes to the Inbox; a matched one is paid and moves money fr
 });
 
 test('same-day grant events apply in the order they happened', () => {
-  const B = 'R21AI000002'; // fixtures: active
+  const B = 'R21AI182745'; // fixtures: active
   const event = (kind: string, amount?: number) =>
     call('gm', mod.inject_status_event, { grantId: B, kind, source: 'Payment system', summary: kind, amount });
   for (let i = 0; i < 3; i++) {
@@ -157,9 +157,9 @@ test('buying a held request closes its hold, and approving a stale hold places n
 test('a rerouted request cannot be bought again', () => {
   call('sci', mod.submit_request, { item: 'Centrifuge service', category: 'equipment service', price: 900, grantId: A, purpose: 'Aim 1', sharedWith: [] });
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'reroute', grantId: 'R21AI000002', vendor: 'V', explanation: 'A is frozen.' });
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'reroute', grantId: 'R21AI182745', vendor: 'V', explanation: 'A is frozen.' });
   expect(db().request.id.find(rq.id).state).toBe('rerouted');
-  expect(() => call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', grantId: 'R21AI000002', vendor: 'V', explanation: 'again' })).toThrow(/already rerouted/);
+  expect(() => call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', grantId: 'R21AI182745', vendor: 'V', explanation: 'again' })).toThrow(/already rerouted/);
   expect(ordersFor(rq.id)).toHaveLength(1);
 });
 

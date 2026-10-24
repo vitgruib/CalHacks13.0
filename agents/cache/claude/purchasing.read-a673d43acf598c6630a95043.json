@@ -1,0 +1,39 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-24T21:57:36.187Z",
+  "input": {
+    "request": {
+      "item": "Nitrile gloves, 10 cases",
+      "category": "lab supplies",
+      "price": 640,
+      "purpose": "Membrane prep for aim 2. The court restored the grant, so the money is coming.",
+      "askedForGrant": "R01GM061721",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R01GM061721",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R01GM061721"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist asked for R01GM061721 and the purpose names only membrane prep for one aim, so it is not shared and no split was stated."
+  }
+}

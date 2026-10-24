@@ -12,8 +12,8 @@ import { fileURLToPath } from 'node:url'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const TODAY = '2026-06-15'
-const A = 'R01GM000001' // canceled 2026-03-10, court order 2026-04-20, no payment since: frozen
-const B = 'R21AI000002' // active, ends 2026-08-01 (47 days after today)
+const A = 'R01GM061721' // canceled 2026-03-10, court order 2026-04-20, no payment since: frozen
+const B = 'R21AI182745' // active, ends 2026-08-31 (77 days after today)
 
 const addDays = (day, n) => {
   const d = new Date(`${day}T00:00:00Z`)
@@ -25,19 +25,19 @@ const pad = (n, w = 3) => String(n).padStart(w, '0')
 
 const grantMeta = {
   [A]: {
-    id: A, title: 'Protein folding dynamics in bacterial membranes', pi: 'Dr. Lena Ortiz', agency: 'NIH / NIGMS',
-    awarded: 420_000, start: '2025-01-01', end: '2027-12-31', status: 'restored_by_court', frozen: true,
+    id: A, title: 'Biogenesis of the mitochondrial inner membrane', pi: 'Dr. Lena Ortiz', agency: 'NIH / NIGMS',
+    awarded: 420_000, start: '2025-01-01', end: '2027-07-31', status: 'restored_by_court', frozen: true,
     frozenReason: 'Canceled 2026-03-10 (cancellation list; NIH RePORTER on 2026-03-11). Spending stays frozen until a payment arrives after the cancellation.',
   },
   [B]: {
-    id: B, title: 'Rapid antimicrobial susceptibility assay', pi: 'Dr. Lena Ortiz', agency: 'NIH / NIAID',
-    awarded: 275_000, start: '2024-08-01', end: '2026-08-01', status: 'active', frozen: false,
+    id: B, title: 'Investigating ploidy modulation as a strategy to improve antibiotic activity', pi: 'Dr. Lena Ortiz', agency: 'NIH / NIAID',
+    awarded: 275_000, start: '2024-08-01', end: '2026-08-31', status: 'active', frozen: false,
   },
 }
 
 // ---------------------------------------------------------------------------
 // Ordinary (background) purchases: settled history, every rule passed.
-// B's supplies all fall before 2026-05-03 (its last 90 days start then).
+// B's supplies all fall before 2026-06-02 (its last 90 days start then).
 // A has nothing between its cancellation (2026-03-10) and today except the
 // planted card charge rq-050.
 // ---------------------------------------------------------------------------
@@ -216,7 +216,7 @@ db.requests.push({
   explanation: 'Charged directly on the department purchasing card on 2026-03-18, outside GrantGuard. Imported from the university ledger.',
 })
 db.orders.push({ id: 'o-050', requestId: 'rq-050', vendor: 'MembraneChem', amount: 890, placed: '2026-03-18', state: 'paid' })
-log('2026-03-20', 'system', 'Imported a card charge from the university ledger', 'MembraneChem $890 on R01GM000001, charged 2026-03-18.', 'rq-050')
+log('2026-03-20', 'system', 'Imported a card charge from the university ledger', 'MembraneChem $890 on R01GM061721, charged 2026-03-18.', 'rq-050')
 
 // ---------------------------------------------------------------------------
 // Today's raw requests: submitted, no verdicts yet. Planted mistakes and decoys.
@@ -331,7 +331,7 @@ const seCancel1 = 'se-a-canceled-list', seCancel2 = 'se-a-canceled-reporter', se
 db.statusEvents.push(
   { id: seCancel1, grantId: A, day: '2026-03-10', kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Grant appears on the terminated-grants list.' },
   { id: seCancel2, grantId: A, day: '2026-03-11', kind: 'canceled', source: 'NIH RePORTER', summary: 'RePORTER shows the project as terminated.' },
-  { id: seCourt, grantId: A, day: '2026-04-20', kind: 'court_order', source: 'Court notice', summary: 'Preliminary injunction restores the terminated grants in this class, including R01GM000001. No payment schedule is set.' },
+  { id: seCourt, grantId: A, day: '2026-04-20', kind: 'court_order', source: 'Court notice', summary: 'Preliminary injunction restores the terminated grants in this class, including R01GM061721. No payment schedule is set.' },
 )
 db.statusEvents.sort((x, y) => x.day.localeCompare(y.day) || x.id.localeCompare(y.id))
 log('2026-03-10', 'bookkeeping', `Froze ${A}`, 'Grant appeared on the cancellation list.', seCancel1, 'Canceled grants freeze')

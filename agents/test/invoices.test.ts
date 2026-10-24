@@ -72,7 +72,7 @@ test('in_1_the_invoice_for_a_canceled_order_is_held_with_its_timeline', async ()
   assert.equal(hold.why, inv.mismatch, "the module's reason is kept word for word");
   assert.deepEqual(hold.evidence.slice(0, 3), inv.timeline.map((entry) => ({ label: entry.day, value: entry.what })));
   assert.equal(evidence(hold, 'Rule'), RULE);
-  assert.equal(evidence(hold, 'Order o-030'), '$2,400, placed 2026-02-20 for rq-030 on R21AI000002; canceled 2026-03-02');
+  assert.equal(evidence(hold, 'Order o-030'), '$2,400, placed 2026-02-20 for rq-030 on R21AI182745; canceled 2026-03-02');
   assert.equal(evidence(hold, 'Invoice inv-030'), '$2,400 from BioReagents Inc, received 2026-06-11');
   assert.deepEqual(hold.options, ['approve', 'reject', 'ask_vendor']);
 });
@@ -88,9 +88,9 @@ test('in_2_the_invoice_over_its_approval_is_held_naming_ap_034', async () => {
   assert.equal(hold.why, inv.mismatch);
   assert.equal(evidence(hold, 'Approval ap-034'), '$5,800 by the grant manager on 2026-04-21');
   assert.equal(evidence(hold, 'Invoice inv-034'), '$6,200 from SpinWorks, received 2026-06-09');
-  assert.equal(evidence(hold, 'Order o-034'), '$6,200, placed 2026-04-22 for rq-034 on R21AI000002; open');
+  assert.equal(evidence(hold, 'Order o-034'), '$6,200, placed 2026-04-22 for rq-034 on R21AI182745; open');
   assert.equal(evidence(hold, 'Rule'), RULE);
-  assert.equal(hold.grantId, 'R21AI000002');
+  assert.equal(hold.grantId, 'R21AI182745');
 });
 
 test('in_d1_the_invoice_matching_an_approved_change_is_paid_with_no_hold', async () => {
@@ -362,7 +362,7 @@ const heldInvoice034 = (): HeldInvoice => ({
       { day: '2026-06-09', what: 'Invoice arrived for $6,200' },
     ],
   } satisfies InvoiceRow,
-  order: { id: 'o-034', requestId: 'rq-034', grantId: 'R21AI000002', vendor: 'SpinWorks', amount: 6200, placed: '2026-04-22', state: 'open' },
+  order: { id: 'o-034', requestId: 'rq-034', grantId: 'R21AI182745', vendor: 'SpinWorks', amount: 6200, placed: '2026-04-22', state: 'open' },
   approvals: [{ id: 'ap-034', orderId: 'o-034', amount: 5800, by: 'grant_manager', day: '2026-04-21' }],
   finding: 'Invoice is $6,200 but the approved amount is $5,800.',
   rule: RULE,
@@ -374,7 +374,7 @@ test('a_note_may_name_only_amounts_ids_and_dates_from_the_records', () => {
   assert.equal(noteProblem('Approval ap-034 covers $5,800, but order o-034 and invoice inv-034 are $6,200.', held), undefined);
   assert.equal(noteProblem('The vendor billed $400 more than approved.', held), '$400 is not an amount in the records');
   assert.equal(noteProblem('See approval ap-099.', held), 'ap-099 is not one of the records');
-  assert.equal(noteProblem('Charged to R01GM000001.', held), 'R01GM000001 is not one of the records');
+  assert.equal(noteProblem('Charged to R01GM061721.', held), 'R01GM061721 is not one of the records');
   assert.equal(noteProblem('Shipped on 2026-05-05.', held), '2026-05-05 is not a date in the records');
   assert.match(noteProblem('x'.repeat(401), held)!, /over 400/);
 });
@@ -408,7 +408,7 @@ test('claude_s_note_goes_after_the_module_s_reason_and_every_module_line_is_kept
   assert.equal(note, text);
 
   const moduleHold: HoldRow = {
-    id: 7n, kind: 'invoice', refId: 'inv-034', grantId: 'R21AI000002', raisedBy: 'bookkeeping', day: '2026-06-15',
+    id: 7n, kind: 'invoice', refId: 'inv-034', grantId: 'R21AI182745', raisedBy: 'bookkeeping', day: '2026-06-15',
     title: 'Pay SpinWorks $6200?', why: held.finding,
     evidence: held.invoice.timeline.map((entry) => ({ label: entry.day, value: entry.what })),
     options: ['approve', 'reject', 'ask_vendor'], open: true,
