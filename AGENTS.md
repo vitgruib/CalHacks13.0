@@ -12,8 +12,9 @@ file wins inside this repo**.
 
 - **What we're building (one sentence):** TBD
 - **The demo path (the 3-minute story judges see):** TBD
-- **Stack:** backend = **SpacetimeDB** (if we need one; see `DECISIONS.md`).
-  Everything else TBD.
+- **Stack:** backend = **Convex** (reactive DB + TypeScript functions; see
+  `DECISIONS.md`). Model = Claude. Everything else TBD. Read
+  docs.convex.dev/ai before writing Convex code.
 - **Run locally:** TBD (e.g. `./run.sh`)
 - **Check command (must pass before every push):** TBD (e.g. `npm run check`)
 - **Submission deadline:** Devpost, **Sun 10/25 9:00 AM** (no late entries).
