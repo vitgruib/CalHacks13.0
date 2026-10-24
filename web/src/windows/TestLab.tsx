@@ -1,11 +1,29 @@
 // Test lab: demo only, for us and the judges. Drops events into the raw world
 // and moves the clock (T18); the agents react to what lands here. The
-// scorecard fills from the check command in T19.
+// scorecard is eval/scorecard.json, written by the check command (T19) and
+// imported at build time: it scores the seed run, not the live database.
 import { useState } from 'react'
 import { useStore } from '../data/store'
 import type { Db, Grant } from '../data/types'
 import { Badge, Section, grantStatus, money } from '../ui'
+import type { Tone } from '../ui'
+import scorecardJson from '../../../eval/scorecard.json'
 import './TestLab.css'
+
+interface Score { caught: number; missed: number; falseAlarms: number; correctPasses: number; notRun: number; mistakes: number; decoys: number }
+interface Scorecard {
+  today: string
+  runner: string
+  totals: Score
+  features: (Score & { feature: string; label: string })[]
+  cases: { id: string; feature: string; kind: string; refId: string; expected: string; got: string; outcome: string; notRun: boolean; detail: string }[]
+  unlistedFalseAlarms: { feature: string; refId: string; what: string }[]
+  unimplemented: { feature: string; label: string; notRun: number }[]
+  withStandIns: { about: string; totals: Score; features: (Score & { feature: string })[]; cases: Record<string, { outcome: string }> }
+}
+const scorecard = scorecardJson as Scorecard
+
+const outcomeTone: Record<string, Tone> = { caught: 'good', 'correct pass': 'good', missed: 'bad', 'false alarm': 'bad', 'not run': 'neutral' }
 
 
 // Remember the picked grant while switching windows (the window remounts).
@@ -187,20 +205,76 @@ export default function TestLab() {
         </div>
       </Section>
 
-      <Section title="Planted mistakes scorecard" aside={<Badge>coming in T19</Badge>}>
-        <table>
-          <thead>
-            <tr><th>Caught</th><th>Missed</th><th>False alarms</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>—</td><td>—</td><td>—</td></tr>
-          </tbody>
-        </table>
-        <p className="muted">
-          This fills in from the check command (T19), which compares the agents' decisions with the answer key of
-          planted mistakes and decoys. No results yet.
-        </p>
+      <Section title="Planted mistakes scorecard" aside={<Badge>seed run, {scorecard.today}</Badge>}>
+        <Scoreboard />
       </Section>
     </div>
+  )
+}
+
+/** eval/scorecard.json: what the agents caught on the seed's planted mistakes and decoys. */
+function Scoreboard() {
+  const { totals, features, withStandIns: alone } = scorecard
+  const ratio = (n: number, of: number) => (of ? `${n}/${of}` : '—')
+  const row = (label: string, n: Score, rules?: Score) => (
+    <tr key={label}>
+      <th scope="row">{label}</th>
+      <td>{ratio(n.caught, n.mistakes)}</td>
+      <td>{n.missed}</td>
+      <td>{n.falseAlarms}</td>
+      <td>{ratio(n.correctPasses, n.decoys)}</td>
+      <td>{n.notRun || ''}</td>
+      <td className="tl-alone">{rules ? `${ratio(rules.caught, rules.mistakes)} caught, ${rules.falseAlarms} false` : ''}</td>
+    </tr>
+  )
+  return (
+    <>
+      <div className="tl-scroll">
+      <table className="tl-score">
+        <thead>
+          <tr><th>Feature</th><th>Caught</th><th>Missed</th><th>False alarms</th><th>Correct passes</th><th>Not run</th><th>Rules alone</th></tr>
+        </thead>
+        <tbody>
+          {features.map(f => row(f.label, f, alone.features.find(a => a.feature === f.feature)))}
+          {row('Overall', totals, alone.totals)}
+        </tbody>
+      </table>
+      </div>
+      {scorecard.unimplemented.length > 0 && (
+        <p className="muted">
+          Not run yet (no agent acts on these): {scorecard.unimplemented.map(f => f.label).join(', ')}. They count as missed.
+          "Rules alone" calls the module's checks directly in place of those agents.
+        </p>
+      )}
+      {scorecard.unlistedFalseAlarms.length > 0 && (
+        <p className="muted">False alarms on records the key doesn't list: {scorecard.unlistedFalseAlarms.map(x => `${x.refId} (${x.what})`).join('; ')}</p>
+      )}
+      <details className="tl-cases">
+        <summary>Every case ({scorecard.cases.length})</summary>
+        <div className="tl-scroll">
+        <table>
+          <thead>
+            <tr><th>Case</th><th>Record</th><th>Expected</th><th>Got</th><th>Outcome</th><th>Rules alone</th></tr>
+          </thead>
+          <tbody>
+            {scorecard.cases.map(c => (
+              <tr key={c.id} title={c.detail}>
+                <td>{c.id}</td>
+                <td>{c.refId}</td>
+                <td>{c.expected}</td>
+                <td>{c.got}</td>
+                <td><Badge tone={outcomeTone[c.outcome] ?? 'neutral'}>{c.outcome}{c.notRun && c.outcome !== 'not run' ? ' (not run)' : ''}</Badge></td>
+                <td><Badge tone={outcomeTone[alone.cases[c.id]?.outcome] ?? 'neutral'}>{alone.cases[c.id]?.outcome ?? '—'}</Badge></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+      </details>
+      <p className="muted">
+        From <code>./check.sh</code> (<code>node eval/score.mjs</code>), which runs sim/seed.json through {scorecard.runner} and
+        compares the result with sim/answer-key.json. Imported when the app is built, so it shows the seed run, not live changes.
+      </p>
+    </>
   )
 }

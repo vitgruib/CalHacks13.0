@@ -1,0 +1,483 @@
+{
+  "seed": "sim/seed.json",
+  "key": "sim/answer-key.json",
+  "today": "2026-06-15",
+  "totals": {
+    "caught": 3,
+    "missed": 11,
+    "falseAlarms": 0,
+    "correctPasses": 0,
+    "notRun": 16,
+    "mistakes": 14,
+    "decoys": 5,
+    "unlistedFalseAlarms": 0
+  },
+  "features": [
+    {
+      "feature": "fund_tracker",
+      "label": "Fund tracker",
+      "caught": 3,
+      "missed": 0,
+      "falseAlarms": 0,
+      "correctPasses": 0,
+      "notRun": 0,
+      "mistakes": 3,
+      "decoys": 0,
+      "unlistedFalseAlarms": 0
+    },
+    {
+      "feature": "purchases",
+      "label": "Purchases",
+      "caught": 0,
+      "missed": 5,
+      "falseAlarms": 0,
+      "correctPasses": 0,
+      "notRun": 7,
+      "mistakes": 5,
+      "decoys": 2,
+      "unlistedFalseAlarms": 0
+    },
+    {
+      "feature": "invoices",
+      "label": "Invoices",
+      "caught": 0,
+      "missed": 2,
+      "falseAlarms": 0,
+      "correctPasses": 0,
+      "notRun": 3,
+      "mistakes": 2,
+      "decoys": 1,
+      "unlistedFalseAlarms": 0
+    },
+    {
+      "feature": "payment_requests",
+      "label": "Payment requests",
+      "caught": 0,
+      "missed": 1,
+      "falseAlarms": 0,
+      "correctPasses": 0,
+      "notRun": 1,
+      "mistakes": 1,
+      "decoys": 0,
+      "unlistedFalseAlarms": 0
+    },
+    {
+      "feature": "reports",
+      "label": "Progress reports",
+      "caught": 0,
+      "missed": 3,
+      "falseAlarms": 0,
+      "correctPasses": 0,
+      "notRun": 5,
+      "mistakes": 3,
+      "decoys": 2,
+      "unlistedFalseAlarms": 0
+    }
+  ],
+  "cases": [
+    {
+      "id": "ft-1",
+      "feature": "fund_tracker",
+      "kind": "mistake",
+      "refId": "sr-008",
+      "expected": "flag",
+      "got": "flag",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "sources_disagree flag: Sources disagree: NIH RePORTER says active; USAspending says canceled; Cancellation list (Apify) says canceled. Sent to the Inbox. Grant frozen."
+    },
+    {
+      "id": "ft-2",
+      "feature": "fund_tracker",
+      "kind": "mistake",
+      "refId": "rq-050",
+      "expected": "flag",
+      "got": "flag",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "spend_while_canceled flag: rq-050 / o-050: $890 to MembraneChem on 2026-03-18, 8 days after R01GM000001 was canceled (2026-03-10), with no payment since. Grant frozen."
+    },
+    {
+      "id": "ft-3",
+      "feature": "fund_tracker",
+      "kind": "mistake",
+      "refId": "se-a-court-order",
+      "expected": "hold",
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "Still frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. court_order_no_payment flag: A court restored R01GM000001 on 2026-04-20, but no payment has arrived since the 2026-03-10 cancellation. Spending stays frozen until money lands."
+    },
+    {
+      "id": "pu-0",
+      "feature": "purchases",
+      "kind": "mistake",
+      "refId": "rq-101",
+      "expected": "hold",
+      "got": "not evaluated",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "No verdicts on rq-101."
+    },
+    {
+      "id": "pu-1",
+      "feature": "purchases",
+      "kind": "mistake",
+      "refId": "rq-102",
+      "expected": "reroute or block",
+      "got": "not evaluated",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "No verdicts on rq-102."
+    },
+    {
+      "id": "pu-2",
+      "feature": "purchases",
+      "kind": "mistake",
+      "refId": "rq-103",
+      "expected": "block",
+      "got": "not evaluated",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "No verdicts on rq-103."
+    },
+    {
+      "id": "pu-3",
+      "feature": "purchases",
+      "kind": "mistake",
+      "refId": "rq-104",
+      "expected": "hold or block",
+      "got": "not evaluated",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "No verdicts on rq-104."
+    },
+    {
+      "id": "pu-4",
+      "feature": "purchases",
+      "kind": "mistake",
+      "refId": "rq-105",
+      "expected": "hold",
+      "got": "not evaluated",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "No verdicts on rq-105."
+    },
+    {
+      "id": "pu-d1",
+      "feature": "purchases",
+      "kind": "decoy",
+      "refId": "rq-106",
+      "expected": "pass",
+      "got": "not evaluated",
+      "outcome": "not run",
+      "notRun": true,
+      "detail": "No verdicts on rq-106."
+    },
+    {
+      "id": "pu-d2",
+      "feature": "purchases",
+      "kind": "decoy",
+      "refId": "rq-107",
+      "expected": "pass",
+      "got": "not evaluated",
+      "outcome": "not run",
+      "notRun": true,
+      "detail": "No verdicts on rq-107."
+    },
+    {
+      "id": "in-1",
+      "feature": "invoices",
+      "kind": "mistake",
+      "refId": "inv-030",
+      "expected": "hold",
+      "got": "not checked",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "Nobody checked this invoice."
+    },
+    {
+      "id": "in-2",
+      "feature": "invoices",
+      "kind": "mistake",
+      "refId": "inv-034",
+      "expected": "hold",
+      "got": "not checked",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "Nobody checked this invoice."
+    },
+    {
+      "id": "in-d1",
+      "feature": "invoices",
+      "kind": "decoy",
+      "refId": "inv-036",
+      "expected": "pass",
+      "got": "not checked",
+      "outcome": "not run",
+      "notRun": true,
+      "detail": "Nobody checked this invoice."
+    },
+    {
+      "id": "pr-1",
+      "feature": "payment_requests",
+      "kind": "mistake",
+      "refId": "rq-037",
+      "expected": "exclude",
+      "got": "no request drafted",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "No new payment request for R21AI000002."
+    },
+    {
+      "id": "rp-1",
+      "feature": "reports",
+      "kind": "mistake",
+      "refId": "p-10",
+      "expected": "hold",
+      "got": "not checked",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "Nobody checked this paper."
+    },
+    {
+      "id": "rp-2",
+      "feature": "reports",
+      "kind": "mistake",
+      "refId": "p-03",
+      "expected": "hold",
+      "got": "not checked",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "Nobody checked this paper."
+    },
+    {
+      "id": "rp-3",
+      "feature": "reports",
+      "kind": "mistake",
+      "refId": "p-04",
+      "expected": "hold",
+      "got": "not checked",
+      "outcome": "missed",
+      "notRun": true,
+      "detail": "Nobody checked this paper."
+    },
+    {
+      "id": "rp-d1",
+      "feature": "reports",
+      "kind": "decoy",
+      "refId": "p-05",
+      "expected": "note or pass",
+      "got": "not checked",
+      "outcome": "not run",
+      "notRun": true,
+      "detail": "Nobody checked this paper."
+    },
+    {
+      "id": "rp-d2",
+      "feature": "reports",
+      "kind": "decoy",
+      "refId": "p-07",
+      "expected": "pass or note",
+      "got": "not checked",
+      "outcome": "not run",
+      "notRun": true,
+      "detail": "Nobody checked this paper."
+    }
+  ],
+  "unlistedFalseAlarms": [],
+  "unimplemented": [
+    {
+      "feature": "purchases",
+      "label": "Purchases",
+      "notRun": 7
+    },
+    {
+      "feature": "invoices",
+      "label": "Invoices",
+      "notRun": 3
+    },
+    {
+      "feature": "payment_requests",
+      "label": "Payment requests",
+      "notRun": 1
+    },
+    {
+      "feature": "reports",
+      "label": "Progress reports",
+      "notRun": 5
+    }
+  ],
+  "runner": "agents/src/sim.ts runSim()",
+  "replayErrors": [],
+  "withStandIns": {
+    "about": "The same run, then plain action calls stand in for agents not built yet. The module still decides.",
+    "standIns": {
+      "purchases": "evaluate_request on each request still submitted; scores the module's rule verdicts (no hold / block / reroute choice).",
+      "invoices": "check_invoice on each unchecked invoice.",
+      "payment_requests": "draft_payment_request for the month after each grant's latest request, once that month has ended.",
+      "reports": "record_paper_facts with the facts already on each paper in the seed (no public-records lookup)."
+    },
+    "totals": {
+      "caught": 13,
+      "missed": 1,
+      "falseAlarms": 0,
+      "correctPasses": 5,
+      "notRun": 1,
+      "mistakes": 14,
+      "decoys": 5,
+      "unlistedFalseAlarms": 0
+    },
+    "features": [
+      {
+        "feature": "fund_tracker",
+        "caught": 3,
+        "missed": 0,
+        "falseAlarms": 0,
+        "correctPasses": 0,
+        "notRun": 0,
+        "mistakes": 3,
+        "decoys": 0
+      },
+      {
+        "feature": "purchases",
+        "caught": 4,
+        "missed": 1,
+        "falseAlarms": 0,
+        "correctPasses": 2,
+        "notRun": 1,
+        "mistakes": 5,
+        "decoys": 2
+      },
+      {
+        "feature": "invoices",
+        "caught": 2,
+        "missed": 0,
+        "falseAlarms": 0,
+        "correctPasses": 1,
+        "notRun": 0,
+        "mistakes": 2,
+        "decoys": 1
+      },
+      {
+        "feature": "payment_requests",
+        "caught": 1,
+        "missed": 0,
+        "falseAlarms": 0,
+        "correctPasses": 0,
+        "notRun": 0,
+        "mistakes": 1,
+        "decoys": 0
+      },
+      {
+        "feature": "reports",
+        "caught": 3,
+        "missed": 0,
+        "falseAlarms": 0,
+        "correctPasses": 2,
+        "notRun": 0,
+        "mistakes": 3,
+        "decoys": 2
+      }
+    ],
+    "cases": {
+      "ft-1": {
+        "got": "flag",
+        "outcome": "caught",
+        "detail": "sources_disagree flag: Sources disagree: NIH RePORTER says active; USAspending says canceled; Cancellation list (Apify) says canceled. Sent to the Inbox. Grant frozen."
+      },
+      "ft-2": {
+        "got": "flag",
+        "outcome": "caught",
+        "detail": "spend_while_canceled flag: rq-050 / o-050: $890 to MembraneChem on 2026-03-18, 8 days after R01GM000001 was canceled (2026-03-10), with no payment since. Grant frozen."
+      },
+      "ft-3": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "Still frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. court_order_no_payment flag: A court restored R01GM000001 on 2026-04-20, but no payment has arrived since the 2026-03-10 cancellation. Spending stays frozen until money lands."
+      },
+      "pu-0": {
+        "got": "rule fails",
+        "outcome": "caught",
+        "detail": "Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen. (verdict only; no agent chose hold)"
+      },
+      "pu-1": {
+        "got": "rule fails",
+        "outcome": "caught",
+        "detail": "R21AI000002 ends 2026-08-01, 47 days away. (verdict only; no agent chose reroute / block)"
+      },
+      "pu-2": {
+        "got": "rule fails",
+        "outcome": "caught",
+        "detail": "general office is not an allowable direct cost on a federal grant. (verdict only; no agent chose block)"
+      },
+      "pu-3": {
+        "got": "rule not checked",
+        "outcome": "missed",
+        "detail": "The module didn't check \"Shared items split across grants\" for rq-104."
+      },
+      "pu-4": {
+        "got": "rule fails",
+        "outcome": "caught",
+        "detail": "$6,850 is over the limit; the grant manager decides. (verdict only; no agent chose hold)"
+      },
+      "pu-d1": {
+        "got": "pass",
+        "outcome": "correct pass",
+        "detail": "$5,000."
+      },
+      "pu-d2": {
+        "got": "pass",
+        "outcome": "correct pass",
+        "detail": "Split 60% R01GM000001, 40% R21AI000002."
+      },
+      "in-1": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "The order was canceled on 2026-03-02, before this invoice arrived."
+      },
+      "in-2": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "Invoice is $6,200 but the approved amount is $5,800."
+      },
+      "in-d1": {
+        "got": "pass",
+        "outcome": "correct pass",
+        "detail": "Invoice paid."
+      },
+      "pr-1": {
+        "got": "exclude",
+        "outcome": "caught",
+        "detail": "Left out of pr2 (2026-05-01 to 2026-05-31): Invoice inv-037 is on hold: Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460)."
+      },
+      "rp-1": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "Listed in R21AI000002's report, but its acknowledgments name R01GM000001."
+      },
+      "rp-2": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "No PMCID found; NIH public access policy requires one."
+      },
+      "rp-3": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "Correction (2026-03-02): the Figure 3 rate constants were re-measured; the folding rate changes by about 40% and one conclusion in the abstract is revised. Not disclosed in the report."
+      },
+      "rp-d1": {
+        "got": "note",
+        "outcome": "correct pass",
+        "detail": "Result: note."
+      },
+      "rp-d2": {
+        "got": "pass",
+        "outcome": "correct pass",
+        "detail": "Result: ok."
+      }
+    },
+    "unlistedFalseAlarms": [],
+    "replayErrors": []
+  }
+}

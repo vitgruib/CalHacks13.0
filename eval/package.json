@@ -1,0 +1,17 @@
+{
+  "name": "grantguard-eval",
+  "private": true,
+  "type": "module",
+  "description": "T19 scorecard: replays sim/seed.json through the real module and agent logic and scores it against sim/answer-key.json",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "score": "node score.mjs",
+    "test": "node --test test/*.test.mjs",
+    "check": "npm test && node score.mjs"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15"
+  }
+}

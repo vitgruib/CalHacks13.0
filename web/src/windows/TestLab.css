@@ -18,3 +18,10 @@
 .testlab .tl-notes li { font-size: 13px; color: var(--muted); padding: 4px 10px; border-left: 3px solid var(--line); }
 .testlab .tl-notes li.latest { font-size: 14px; color: var(--text); border-left-color: var(--good); background: var(--panel); }
 .testlab .tl-notes li.bad { color: var(--bad); border-left-color: var(--bad); }
+.testlab .tl-score td, .testlab .tl-cases td { font-size: 14px; }
+.testlab .tl-score th[scope=row] { color: var(--text); text-transform: none; font-size: 14px; letter-spacing: 0; }
+.testlab .tl-score .tl-alone { color: var(--muted); font-size: 13px; }
+.testlab .tl-cases { margin: 10px 0; }
+.testlab .tl-cases summary { cursor: pointer; font-size: 13px; font-weight: 600; }
+.testlab .tl-cases table { margin-top: 6px; }
+.testlab .tl-scroll { overflow-x: auto; }
