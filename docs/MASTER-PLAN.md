@@ -47,7 +47,7 @@ did what):
 |---|---|---|
 | Grant manager | the judge | The only one who approves, rejects or overrides, always with a reason |
 | Scientist | an AI persona, or us typing | Asks to buy things; pushes back |
-| Government funder | an AI persona | Sends follow-up questions about payment requests |
+| Government funder | not played (no persona) | Its follow-up questions are written into the seed data |
 
 **Hard limits, enforced in the database, not in prompts:**
 - nobody approves their own request;
@@ -148,7 +148,8 @@ questions.
 **People do:**
 - the grant manager approves each request and each follow-up answer before
   it is sent;
-- the government funder (a persona) asks the follow-up questions.
+- the government funder's follow-up questions come pre-written in the
+  seed data (no funder persona).
 
 **Rules in code:** a request can't include held or frozen spending; the
 purchasing agent can't approve it.
@@ -269,7 +270,7 @@ Tasks in `TASKS.md`: T9 to T14.
 Agents only change data through Track A's actions. Claude reads, matches and
 explains; the rules and math stay in Track A's code. Suggested models:
 `claude-sonnet-5-5` for the three agents, `claude-haiku-5-5` for the
-personas.
+scientist persona.
 
 **Setup only a person can do (@nathan):** Anthropic API key and Apify
 account, shared out of band, with their names in `.env.example`; pick the 2

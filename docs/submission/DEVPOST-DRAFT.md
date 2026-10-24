@@ -171,10 +171,10 @@ the prompt, decides what each one is allowed to do.
 - **An agent worker** connects to SpacetimeDB as a client, one connection
   and identity per agent. Agents change data only by calling the database's
   actions. **Claude** `[TBD: models actually used; plan is
-  claude-sonnet-5-5 for the agents, claude-haiku-5-5 for personas]` reads,
+  claude-sonnet-5-5 for the agents, claude-haiku-5-5 for the scientist persona]` reads,
   matches and explains; it never does the money math.
-- **Simulated people:** the scientist and the government funder are Claude
-  personas with their own goals. The judge plays the grant manager.
+- **Simulated people:** the scientist is a Claude persona (or us typing);
+  the government funder's follow-up questions are pre-written in the seed. The judge plays the grant manager.
 - **Real public data:** NIH RePORTER and USAspending by grant ID, PubMed /
   PubMed Central, Crossref, and an **Apify** scraper for cancellation lists.
   Every outside lookup is cached so the demo runs offline.
@@ -194,7 +194,7 @@ the prompt, decides what each one is allowed to do.
 | Cancellation lists | Real, scraped with Apify `[needs T15]` | Scraper run output stored with the reading `[TBD]` |
 | Court order, agency letter | Simulated text, modeled on *Thakur v. Trump* | Planted case in the answer key |
 | Lab orders, invoices, approvals, payroll | Simulated, with planted mistakes drawn from real audit findings (WVU, Delaware, UC Davis, NSF-OIG capstone) | Answer key scored on every check run `[needs T8, T19]` |
-| Government payment system and follow-up questions | Simulated (Claude persona) | Draft length and held-item exclusion are checked in code `[needs T13]` |
+| Government payment system and follow-up questions | Simulated (questions pre-written in the seed) | Draft length and held-item exclusion are checked in code `[needs T13]` |
 | Papers in the progress report | Real papers via PubMed and Crossref, ~20 cached `[needs T14]` | Planted wrong-grant, missing-ID and correction cases plus decoys |
 | Rules, money math, approval limits | Real code in SpacetimeDB | Each rule rejects its planted case and passes its decoy; self-approval is rejected `[needs T6]` |
 | Agent judgment (reading, matching, explaining) | Real Claude calls | Scored against the answer key, including false alarms |
