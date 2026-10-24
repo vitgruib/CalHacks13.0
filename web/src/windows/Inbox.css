@@ -16,3 +16,4 @@
 .inbox .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .inbox button.danger { color: var(--bad); border-color: var(--bad); }
 .inbox .decided summary { cursor: pointer; margin-bottom: 8px; }
+.hold .requested-by { margin: 4px 0; }

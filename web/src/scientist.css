@@ -25,7 +25,12 @@
 .sci nav.sci-nav a:hover { color: var(--s-text); background: transparent; }
 .sci nav.sci-nav a.active { background: transparent; color: var(--s-text); font-weight: 700; border-bottom-color: var(--s-blue); }
 .sci-role { margin-left: auto; display: flex; align-items: center; gap: 8px; color: var(--s-muted); font-size: 15px; }
-.sci-role button { border: 1px solid var(--s-line); background: transparent; color: var(--s-text); padding: 6px 12px; border-radius: 10px; font-size: 15px; }
+.sci-role button, .sci-role select { border: 1px solid var(--s-line); background: transparent; color: var(--s-text); padding: 6px 12px; border-radius: 10px; font: inherit; font-size: 15px; }
+.sci-portal { display: inline-block; margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: var(--s-line); color: var(--s-text); font-size: 12px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; vertical-align: middle; }
+.sci-me { display: flex; flex-direction: column; color: var(--s-text); font-weight: 600; line-height: 1.2; }
+.sci-me small { color: var(--s-muted); font-weight: 400; font-size: 13px; }
+.sci-today { color: var(--s-muted); font-size: 14px; margin-bottom: 12px !important; }
+.sci .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .sci-main { max-width: 1040px; margin: 0 auto; padding: 40px 24px 64px; }
 .sci-main h1 { font-size: clamp(30px, 5vw, 42px); line-height: 1.15; margin: 0; font-weight: 700; }
 .sci-main h2 { font-size: 22px; margin: 0; }

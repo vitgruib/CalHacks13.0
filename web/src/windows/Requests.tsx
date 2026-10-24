@@ -3,6 +3,7 @@ import { useStore } from '../data/store'
 import type { Grant, PurchaseRequest, RequestState } from '../data/types'
 import { Badge, Empty, Section, money, type Tone } from '../ui'
 import { RoleContext } from './registry'
+import { RESEARCHERS, requesterLabel, useResearcher } from '../people'
 import './Requests.css'
 
 const stateLabel: Record<RequestState, string> = {
@@ -29,13 +30,14 @@ const CATEGORIES = ['lab supplies', 'equipment', 'equipment service', 'reagents'
 
 const empty = { item: '', category: CATEGORIES[0], price: '', grantId: '', purpose: '', sharedWith: '', share: '50' }
 
-/** Requests the scientist asked for in the app (seed ones have no asker), in a
+/** Requests the researcher asked for in the app (seed ones have no asker), in a
  *  state worth pushing back on (the module refuses bought and rerouted). */
 const canPushBack = (r: PurchaseRequest) => !!r.requestedBy && (r.state === 'blocked' || r.state === 'waiting_on_manager' || r.state === 'rejected')
 
 function RequestForm({ grants }: { grants: Grant[] }) {
   const { submitRequest } = useStore()
-  const [form, setForm] = useState({ ...empty, grantId: grants[0]?.id ?? '' })
+  const me = useResearcher()
+  const [form, setForm] = useState({ ...empty, grantId: grants.find(g => g.id === me.grantId)?.id ?? grants[0]?.id ?? '' })
   const [error, setError] = useState('')
   const [sent, setSent] = useState('')
 
@@ -61,9 +63,9 @@ function RequestForm({ grants }: { grants: Grant[] }) {
       item, category: form.category, price: Math.round(price), grantId: form.grantId,
       purpose: other ? `${purpose} Shared cost: ${share}% ${form.grantId}, ${100 - share}% ${other}.` : purpose,
       sharedWith: other ? [form.grantId, other] : [],
-    })
+    }, me)
     setForm({ ...empty, grantId: form.grantId })
-    setSent(`Sent "${item}" to the purchasing agent.`)
+    setSent(`Sent "${item}" to the purchasing agent as ${me.name}.`)
   }
 
   return (
@@ -136,6 +138,7 @@ function GrantLine({ r }: { r: PurchaseRequest }) {
 
 function PushBack({ r }: { r: PurchaseRequest }) {
   const { pushBack } = useStore()
+  const me = useResearcher()
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
   const [error, setError] = useState('')
@@ -143,7 +146,7 @@ function PushBack({ r }: { r: PurchaseRequest }) {
   const send = (e: FormEvent) => {
     e.preventDefault()
     try {
-      pushBack(r.id, text.trim())
+      pushBack(r.id, text.trim(), me)
       setOpen(false); setText(''); setError(''); setSent(true)
     } catch (err) {
       setError((err as Error).message)
@@ -181,13 +184,14 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
         <span className="rq-price">{money(r.price)}</span>
         <Badge tone={stateTone[r.state]}>{stateLabel[r.state]}</Badge>
       </header>
+      {role === 'grant_manager' && <p className="rq-who">Requested by <strong>{requesterLabel(r.requesterName)}</strong></p>}
       <p className="rq-muted rq-meta">{r.day} · {r.category} · {r.purpose}</p>
       <GrantLine r={r} />
       <p className="rq-explain"><span className="rq-muted">Purchasing agent: </span>{r.explanation}</p>
       {r.state === 'waiting_on_manager' && (
         <p className="rq-wait">Waiting for the grant manager. See it in the <a href="#inbox">Inbox</a>.</p>
       )}
-      {role === 'scientist' && r.requester === 'scientist' && canPushBack(r) && <PushBack r={r} />}
+      {role === 'scientist' && canPushBack(r) && <PushBack r={r} />}
       {r.verdicts.length > 0 && (
         <table className="rq-verdicts">
           <caption className="rq-sr-only">Rule checks for {r.item}</caption>
@@ -212,14 +216,17 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
   )
 }
 
-export default function Requests() {
-  const { db } = useStore()
-  // Newest first; for the same day, later-added requests come first.
-  const list = db.requests
-    .map((r, i) => ({ r, i }))
-    .sort((a, b) => b.r.day.localeCompare(a.r.day) || b.i - a.i)
-    .map(x => x.r)
+// Newest first; for the same day, later-added requests come first.
+const newestFirst = (requests: PurchaseRequest[]) => requests
+  .map((r, i) => ({ r, i }))
+  .sort((a, b) => b.r.day.localeCompare(a.r.day) || b.i - a.i)
+  .map(x => x.r)
 
+/** A researcher's portal: ask to buy, and only their own requests. */
+function MyRequests() {
+  const { db } = useStore()
+  const me = useResearcher()
+  const list = newestFirst(db.requests.filter(r => r.requesterName === me.name))
   return (
     <>
       <Section title="Ask to buy something">
@@ -232,4 +239,34 @@ export default function Requests() {
       </Section>
     </>
   )
+}
+
+/** The grant office: every researcher's requests, each naming who asked. */
+function AllRequests() {
+  const { db } = useStore()
+  const [who, setWho] = useState('all')
+  const list = newestFirst(db.requests.filter(r => who === 'all' || r.requesterName === who))
+  const count = (name: string) => db.requests.filter(r => r.requesterName === name).length
+  return (
+    <Section
+      title="Requests from researchers"
+      aside={(
+        <label className="rq-filter">
+          Researcher{' '}
+          <select value={who} onChange={e => setWho(e.target.value)}>
+            <option value="all">Everyone ({db.requests.length})</option>
+            {RESEARCHERS.map(r => <option key={r.id} value={r.name}>{r.name} ({count(r.name)})</option>)}
+          </select>
+        </label>
+      )}
+    >
+      {list.length === 0 ? <Empty>No requests from this researcher.</Empty> : (
+        <div className="rq-list">{list.map(r => <RequestCard key={r.id} r={r} />)}</div>
+      )}
+    </Section>
+  )
+}
+
+export default function Requests() {
+  return useContext(RoleContext) === 'scientist' ? <MyRequests /> : <AllRequests />
 }

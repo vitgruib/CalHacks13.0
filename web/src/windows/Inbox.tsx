@@ -5,6 +5,7 @@ import { useId, useState } from 'react'
 import { useStore } from '../data/store'
 import type { AgentId, Decision, Hold, HoldKind } from '../data/types'
 import { Badge, Empty, Section } from '../ui'
+import { requesterLabel } from '../people'
 import './Inbox.css'
 
 const choiceLabel: Record<Decision['choice'], string> = {
@@ -40,7 +41,7 @@ const agentLabel: Record<AgentId, string> = {
 
 const personLabel: Record<string, string> = {
   grant_manager: 'Grant manager',
-  scientist: 'Scientist',
+  scientist: 'Researcher',
   funder: 'Government funder',
 }
 
@@ -123,7 +124,9 @@ export default function Inbox() {
 }
 
 function HoldCard({ hold }: { hold: Hold }) {
-  const { decide } = useStore()
+  const { db, decide } = useStore()
+  // A purchase hold says which researcher asked, so the grant office knows who to answer.
+  const request = hold.kind === 'purchase' ? db.requests.find(r => r.id === hold.refId) : undefined
   const [reason, setReason] = useState('')
   const [source, setSource] = useState('')
   const reasonId = useId()
@@ -148,6 +151,7 @@ function HoldCard({ hold }: { hold: Hold }) {
       <p className="meta">
         Grant {hold.grantId} · raised by {agentLabel[hold.raisedBy]} · {hold.day} · <a href={link.href}>Open in {link.label}</a>
       </p>
+      {request && <p className="requested-by">Requested by <strong>{requesterLabel(request.requesterName)}</strong> on {request.day}</p>}
       <p className="why"><strong>Why it's waiting:</strong> {hold.why}</p>
 
       {evidence.length > 0 && (

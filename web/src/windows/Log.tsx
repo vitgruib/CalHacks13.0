@@ -11,7 +11,7 @@ const actorLabel: Record<Actor, string> = {
   bookkeeping: 'Bookkeeping agent',
   payment_report: 'Payment & report agent',
   grant_manager: 'Grant manager',
-  scientist: 'Scientist',
+  scientist: 'Researcher',
   funder: 'Funder',
   system: 'System',
 }

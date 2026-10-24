@@ -29,3 +29,6 @@
 .rq-push label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
 .rq-push textarea { resize: vertical; }
 .rq-push-row { margin: 0 0 8px; }
+.rq-who { margin: 2px 0 4px; font-size: 14px; }
+.rq-filter { font-size: 13px; color: var(--muted); }
+.rq-filter select { margin-left: 4px; font: inherit; }

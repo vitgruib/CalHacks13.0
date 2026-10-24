@@ -98,6 +98,7 @@ export function toDb(db: DbConnection['db']): T.Db {
       if (r.split.length) out.split = r.split
       if (r.sharedWith.length) out.sharedWith = r.sharedWith
       if (r.requestedBy) out.requestedBy = r.requestedBy.toHexString()
+      if (r.requesterName) out.requesterName = r.requesterName
       return out
     })),
     orders: sorted(rows(db.order).map(o => {

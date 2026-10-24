@@ -7,6 +7,7 @@ import seed from '../../../sim/seed.json'
 import { DbConnection } from '../module_bindings'
 import { toDb, toSourceCheck, WORLD_TABLES } from './adapter'
 import { applyAdvanceDays, applyInvoice, applyStatusEvent, Ctx, type Store } from './store'
+import type { Researcher } from '../people'
 import type { Db, PersonId, SourceCheck } from './types'
 
 export const STDB_URI: string = import.meta.env.VITE_STDB_URI || 'ws://localhost:3000'
@@ -20,20 +21,23 @@ export interface LiveInfo {
   loadDemoSeed: () => void
 }
 
-// Each person role is its own identity (the module binds one role per
-// identity, and nobody may approve their own request), so the browser keeps
-// one token per role. Storage can be unavailable; then each load is a new identity.
-const tokenKey = (role: PersonId) => `grantguard.token.${role}.${STDB_URI}.${STDB_DB}`
-const readToken = (role: PersonId) => { try { return localStorage.getItem(tokenKey(role)) ?? undefined } catch { return undefined } }
-const writeToken = (role: PersonId, t: string | null) => {
-  try { if (t) localStorage.setItem(tokenKey(role), t); else localStorage.removeItem(tokenKey(role)) } catch { /* storage blocked */ }
+// Each person is their own identity (the module binds one role per identity,
+// a request names who asked, and nobody may approve their own request), so the
+// browser keeps one token per person: the grant manager and each researcher.
+// Storage can be unavailable; then each load is a new identity.
+const tokenKey = (who: string) => `grantguard.token.${who}.${STDB_URI}.${STDB_DB}`
+const readToken = (who: string) => { try { return localStorage.getItem(tokenKey(who)) ?? undefined } catch { return undefined } }
+const writeToken = (who: string, t: string | null) => {
+  try { if (t) localStorage.setItem(tokenKey(who), t); else localStorage.removeItem(tokenKey(who)) } catch { /* storage blocked */ }
 }
 
-const roleName: Record<PersonId, string> = { grant_manager: 'Grant manager', scientist: 'Scientist', funder: 'Funder' }
+interface Person { key: string; role: PersonId; name: string }
+const GRANT_MANAGER: Person = { key: 'grant_manager', role: 'grant_manager', name: 'Grant manager' }
+const asPerson = (r: Researcher): Person => ({ key: `researcher.${r.id}`, role: 'scientist', name: r.name })
 
-/** Connect as `role` and register it. Retries once without a stale stored token. */
+/** Connect as `who` and register them. Retries once without a stale stored token. */
 function connectAs(
-  role: PersonId,
+  who: Person,
   on: { connected: (c: DbConnection) => void; failed: (why: string) => void; disconnected?: () => void },
 ): { get: () => DbConnection; stop: () => void } {
   let conn: DbConnection
@@ -45,20 +49,20 @@ function connectAs(
       .withToken(token)
       .onConnect((c, _identity, newToken) => {
         if (stopped) return
-        writeToken(role, newToken)
-        c.reducers.registerPerson({ role, name: roleName[role] })
+        writeToken(who.key, newToken)
+        c.reducers.registerPerson({ role: who.role, name: who.name })
           .then(() => on.connected(c))
-          .catch(e => on.failed(`Could not register as ${roleName[role]}: ${msg(e)}`))
+          .catch(e => on.failed(`Could not register as ${who.name}: ${msg(e)}`))
       })
       .onConnectError((_ctx, e) => {
         if (stopped) return
-        if (token) { writeToken(role, null); open(undefined); return }
+        if (token) { writeToken(who.key, null); open(undefined); return }
         on.failed(`Could not reach ${STDB_URI} (${STDB_DB}): ${msg(e)}`)
       })
       .onDisconnect(() => { if (!stopped) on.disconnected?.() })
       .build()
   }
-  open(readToken(role))
+  open(readToken(who.key))
   return { get: () => conn, stop: () => { stopped = true; conn.disconnect() } }
 }
 
@@ -75,7 +79,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
   const [status, setStatus] = useState<LiveInfo['status']>('live')
   const [notices, setNotices] = useState<LiveInfo['notices']>([])
   const manager = useRef<DbConnection | null>(null)
-  const scientist = useRef<Promise<DbConnection> | null>(null)
+  const researchers = useRef(new Map<string, Promise<DbConnection>>())
   const stops = useRef<(() => void)[]>([])
   const onFailRef = useRef(onFail)
   onFailRef.current = onFail
@@ -88,7 +92,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
     const fail = (why: string) => { if (!stopped && !synced) { stopped = true; onFailRef.current(why) } }
     const timer = setTimeout(() => fail(`No answer from ${STDB_URI} within ${CONNECT_TIMEOUT_MS / 1000}s`), CONNECT_TIMEOUT_MS)
 
-    const link = connectAs('grant_manager', {
+    const link = connectAs(GRANT_MANAGER, {
       connected: c => {
         manager.current = c
         // One rebuild per batch of row changes (a reducer touches many rows).
@@ -127,7 +131,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
       for (const s of stops.current) s()
       stops.current = []
       manager.current = null
-      scientist.current = null
+      researchers.current.clear()
     }
   }, [])
 
@@ -141,14 +145,17 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
   }
   const conn = () => manager.current!
 
-  // Requests come from a scientist: a second identity, so the grant manager
-  // may approve them (nobody approves their own request).
-  const asScientist = () => {
-    scientist.current ??= new Promise<DbConnection>((resolve, reject) => {
-      const link = connectAs('scientist', { connected: resolve, failed: why => reject(new Error(why)) })
+  // Requests come from a researcher: their own identity, so the request names
+  // them and the grant manager may approve it (nobody approves their own request).
+  const asResearcher = (r: Researcher) => {
+    const open = researchers.current.get(r.id)
+    if (open) return open
+    const p = new Promise<DbConnection>((resolve, reject) => {
+      const link = connectAs(asPerson(r), { connected: resolve, failed: why => reject(new Error(why)) })
       stops.current.push(link.stop)
-    }).catch(e => { scientist.current = null; throw e })
-    return scientist.current
+    }).catch(e => { researchers.current.delete(r.id); throw e })
+    researchers.current.set(r.id, p)
+    return p
   }
 
   const store: Store = {
@@ -157,16 +164,16 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
       if (!reason.trim()) throw new Error('A reason is required')
       call('Decision', () => conn().reducers.decideHold({ holdId: BigInt(holdId), choice, reason }))
     },
-    submitRequest: r => {
+    submitRequest: (r, by) => {
       call('Request', async () => {
-        const c = await asScientist()
+        const c = await asResearcher(by)
         await c.reducers.submitRequest({ item: r.item, category: r.category, price: r.price, grantId: r.grantId || undefined, purpose: r.purpose, sharedWith: r.sharedWith ?? [] })
       })
     },
-    pushBack: (requestId, message) => {
+    pushBack: (requestId, message, by) => {
       if (!message.trim()) throw new Error('Say what changed.')
       call('Push back', async () => {
-        const c = await asScientist()
+        const c = await asResearcher(by)
         await c.reducers.pushBack({ requestId, message })
       })
     },

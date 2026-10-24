@@ -81,6 +81,7 @@ export interface PurchaseRequest {
   split?: { grantId: string; share: number }[] // shared costs; shares sum to 1
   sharedWith?: string[] // a shared cost the requester declared: every grant it serves
   requestedBy?: string // who asked, when asked in the app (seed requests have none); only they can push back
+  requesterName?: string // the researcher who asked, e.g. "Dr. Priya Nair" (T39)
   purpose: string
   state: RequestState
   verdicts: RuleVerdict[]

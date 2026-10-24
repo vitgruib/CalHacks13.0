@@ -4,10 +4,11 @@ import { useState, type FormEvent, type ReactNode } from 'react'
 import { useStore } from '../data/store'
 import type { Db, PurchaseRequest } from '../data/types'
 import {
-  CARD_LIMIT, CATEGORIES, allChecks, checkAsk, daysLeft, firstName, guessCategory, inTime, longDate, parseAsk, paused,
+  CARD_LIMIT, CATEGORIES, allChecks, checkAsk, daysLeft, guessCategory, inTime, longDate, parseAsk, paused,
   plainReasons, shortName, spendable, type Outcome,
 } from '../plain'
 import { money } from '../ui'
+import { firstNameOf, useResearcher, type Researcher } from '../people'
 import './Ask.css'
 
 type Topic = 'left' | 'end' | 'order' | 'paused'
@@ -34,7 +35,7 @@ function Check({ ok }: { ok: boolean }) {
     : <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-label="Fails" role="img" className="ask-no"><path d="M6 6l12 12M18 6L6 18" /></svg>
 }
 
-function TopicAnswer({ db, topic }: { db: Db; topic: Topic }) {
+function TopicAnswer({ db, topic, me }: { db: Db; topic: Topic; me: Researcher }) {
   if (topic === 'left' || topic === 'end') {
     return (
       <ul className="ask-lines">
@@ -50,7 +51,8 @@ function TopicAnswer({ db, topic }: { db: Db; topic: Topic }) {
     )
   }
   if (topic === 'order') {
-    const r = [...db.requests].reverse().find(x => x.requester === 'scientist')
+    // Latest by day; for the same day, the one added last.
+    const r = db.requests.filter(x => x.requesterName === me.name).reduce<PurchaseRequest | undefined>((best, x) => !best || x.day >= best.day ? x : best, undefined)
     if (!r) return <p>You haven't asked for anything yet.</p>
     return <p><strong>{r.item}</strong> ({money(r.price)}, asked {longDate(r.day)}) is {requestState[r.state]}. {r.state !== 'submitted' && r.explanation} <a href="#requests">See all your requests</a></p>
   }
@@ -73,6 +75,7 @@ const headline: Record<Outcome['kind'], string> = {
 
 function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: string; price: number; category: string; shared: boolean }; onSent: (msg: string) => void }) {
   const { submitRequest } = useStore()
+  const me = useResearcher()
   const [why, setWhy] = useState(false)
   const facts = { ...ask, sharedWith: ask.shared ? db.grants.map(x => x.id) : [] }
   const out = checkAsk(db, facts)
@@ -110,7 +113,7 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: strin
 
   const onSend = () => {
     if (!g) return
-    submitRequest({ item: ask.item || ask.text, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.text, sharedWith: facts.sharedWith })
+    submitRequest({ item: ask.item || ask.text, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.text, sharedWith: facts.sharedWith }, me)
     onSent(`Sent: ${ask.item || ask.text}. The purchasing agent has it now.`)
   }
 
@@ -139,6 +142,7 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: strin
 
 export default function Ask() {
   const { db } = useStore()
+  const me = useResearcher()
   const [text, setText] = useState('')
   const [ask, setAsk] = useState<{ text: string; item: string; price?: number; category: string; shared: boolean } | null>(null)
   const [topic, setTopic] = useState<Topic | null>(null)
@@ -164,7 +168,7 @@ export default function Ask() {
   return (
     <div className="ask">
       <div>
-        <h1>Hi {firstName(db) || 'there'}. What do you need?</h1>
+        <h1>Hi {firstNameOf(me)}. What do you need?</h1>
         <p className="ask-lede">Type it the way you'd say it. We'll check which grant can pay and tell you in plain words.</p>
       </div>
       {pausedGrants.length > 0 && (
@@ -212,7 +216,7 @@ export default function Ask() {
       {topic && !ask && (
         <section aria-label="Answer" className="ask-answer">
           <h2>{TOPICS.find(t => t.id === topic)!.label}</h2>
-          <TopicAnswer db={db} topic={topic} />
+          <TopicAnswer db={db} topic={topic} me={me} />
         </section>
       )}
 

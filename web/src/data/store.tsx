@@ -3,16 +3,17 @@
 // live.tsx; backend.tsx picks between them (T17).
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import seed from '../../../sim/seed.json'
+import type { Researcher } from '../people'
 import type { Db, Decision, Invoice, PurchaseRequest, SourceCheck, StatusEvent } from './types'
 
 export interface Store {
   db: Db
   /** Grant manager decides a hold. Reason is required (MASTER-PLAN §2). */
   decide: (holdId: string, choice: Decision['choice'], reason: string) => void
-  /** Scientist submits a purchase request; the purchasing agent picks it up. */
-  submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose' | 'sharedWith'>) => void
-  /** The scientist who asked pushes back with new information; the agent looks again (push_back). */
-  pushBack: (requestId: string, message: string) => void
+  /** A researcher submits a purchase request as themselves; the purchasing agent picks it up. */
+  submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose' | 'sharedWith'>, by: Researcher) => void
+  /** The researcher who asked pushes back with new information; the agent looks again (push_back). */
+  pushBack: (requestId: string, message: string, by: Researcher) => void
   // Test lab only (T18). Same argument shapes as Track A's reducers
   // inject_status_event, inject_invoice and advance_days, so T17 can swap them.
   /** Drop a status event into the world; applies the freeze rule (MASTER-PLAN §3.1). */
@@ -118,28 +119,28 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     }))
   }
 
-  const submitRequest: Store['submitRequest'] = r => {
+  const submitRequest: Store['submitRequest'] = (r, by) => {
     setDb(d => {
       const id = nextId('rq')
       return {
         ...d,
-        requests: [...d.requests, { ...r, id, day: d.today, requester: 'scientist', requestedBy: 'this tab', state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' }],
-        log: [...d.log, { id: nextId('l'), day: d.today, actor: 'scientist', action: `Submitted request: ${r.item}`, reason: r.purpose, refId: id }],
+        requests: [...d.requests, { ...r, id, day: d.today, requester: 'scientist', requestedBy: by.id, requesterName: by.name, state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' }],
+        log: [...d.log, { id: nextId('l'), day: d.today, actor: 'scientist', action: `${by.name} asked to buy ${r.item} (${usd(r.price)})`, reason: r.purpose, refId: id }],
       }
     })
   }
 
   // Same refusals as the module's push_back.
-  const pushBack: Store['pushBack'] = (requestId, message) => {
+  const pushBack: Store['pushBack'] = (requestId, message, by) => {
     const r = db.requests.find(x => x.id === requestId)
     if (!r) throw new Error(`No request ${requestId}.`)
-    if (!r.requestedBy) throw new Error('Only the person who asked can push back.')
+    if (r.requestedBy !== by.id) throw new Error('Only the person who asked can push back.')
     if (!message.trim()) throw new Error('Say what changed.')
     if (r.state === 'bought' || r.state === 'rerouted') throw new Error(`Already ${r.state}.`)
     setDb(d => ({
       ...d,
       requests: d.requests.map(x => (x.id === requestId ? { ...x, state: 'submitted' } : x)),
-      log: [...d.log, { id: nextId('l'), day: d.today, actor: 'scientist', action: `Pushed back on ${r.item}`, reason: message, refId: requestId }],
+      log: [...d.log, { id: nextId('l'), day: d.today, actor: 'scientist', action: `Pushed back on ${r.item} (${by.name})`, reason: message, refId: requestId }],
     }))
   }
 

@@ -14,8 +14,8 @@ import Grants from './Grants'
 export type Role = 'grant_manager' | 'scientist'
 // `home` is the window a role lands on.
 export const roles: { id: Role; label: string; home: string }[] = [
-  { id: 'grant_manager', label: 'Grant manager', home: 'funds' },
-  { id: 'scientist', label: 'Scientist', home: 'ask' },
+  { id: 'grant_manager', label: 'Grant office', home: 'funds' },
+  { id: 'scientist', label: 'Researcher', home: 'ask' },
 ]
 
 /** The role the app is viewed as, for the few windows that differ by role. */
@@ -27,7 +27,7 @@ export const windows: WindowDef[] = [
   { id: 'ask', label: 'Ask', job: 'Type what you need; see which grant can pay, in plain words', Component: Ask, roles: ['scientist'] },
   { id: 'grants', label: 'My grants', job: 'Each grant in plain words; a paused grant shows where its money is', Component: Grants, roles: ['scientist'] },
   { id: 'funds', label: 'Funds', job: 'How much money each grant really has, its status timeline, and any flags', Component: Funds, roles: ['grant_manager'] },
-  { id: 'requests', label: 'Requests', job: 'Ask to buy something; see your requests and their status', Component: Requests, roles: ['grant_manager', 'scientist'] },
+  { id: 'requests', label: 'Requests', job: 'Every purchase request from the lab\'s researchers: who asked, for what, and what the purchasing agent did', Component: Requests, roles: ['grant_manager', 'scientist'] },
   { id: 'invoices', label: 'Invoices', job: 'Each bill: matched or held, with the mismatch spelled out', Component: Invoices, roles: ['grant_manager'] },
   { id: 'payment-requests', label: 'Payment requests', job: 'Drafted requests, follow-up questions, and their status', Component: PaymentRequests, roles: ['grant_manager'] },
   { id: 'reports', label: 'Reports', job: 'Each paper in the progress report, with its check results', Component: Reports, roles: ['grant_manager'] },
