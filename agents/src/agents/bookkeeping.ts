@@ -45,7 +45,22 @@ export function cancellationOn(day: string, events: StatusEventRow[]): StatusEve
   return cancellation;
 }
 
-export const canceledWhenPlaced = (order: OrderRow, events: StatusEventRow[]) => cancellationOn(order.placed, events);
+// A cancellation the same day as the order only counts if it came first.
+// Orders keep only the day, so placedAt is when the purchase was logged; with
+// no time known, a same-day cancellation isn't counted (no false alarm).
+export function canceledWhenPlaced(order: OrderRow, events: StatusEventRow[], placedAt?: number): StatusEventRow | undefined {
+  const cancellation = cancellationOn(order.placed, events);
+  if (!cancellation || cancellation.day !== order.placed) return cancellation;
+  return placedAt !== undefined && cancellation.at < placedAt ? cancellation : undefined;
+}
+
+// When a purchase placed its orders: the "Bought" or "Rerouted" log row the
+// module writes for the request that day.
+const loggedAt = (conn: Connection, order: OrderRow) =>
+  conn
+    .rows('log')
+    .filter((row) => row.refId === order.requestId && row.day === order.placed && /^(Bought|Rerouted)\b/.test(row.action))
+    .reduce<number | undefined>((first, row) => (first === undefined || row.at < first ? row.at : first), undefined);
 
 export function startTracker(
   conn: Connection,
@@ -109,7 +124,7 @@ export function startTracker(
     const events = conn.rows('statusEvent').filter((event) => event.grantId === grantId);
     const orders = conn.rows('order').filter((order) => order.grantId === grantId && order.state !== 'canceled');
     for (const order of orders) {
-      const cancellation = canceledWhenPlaced(order, events);
+      const cancellation = canceledWhenPlaced(order, events, loggedAt(conn, order));
       if (!cancellation || openFlag(grantId, 'spend_while_canceled', order.id)) continue;
       const late = daysBetween(cancellation.day, order.placed);
       await conn.call('raise_flag', {

@@ -247,6 +247,30 @@ test('an_order_before_the_cancellation_or_after_a_payment_was_not', () => {
   );
 });
 
+test('a_cancellation_the_same_day_counts_only_if_it_came_before_the_order', () => {
+  const canceled = { ...event('2026-06-15', 'canceled'), at: 2_000 };
+  assert.equal(canceledWhenPlaced(order('2026-06-15'), [canceled], 1_000), undefined, 'bought, then canceled');
+  assert.equal(canceledWhenPlaced(order('2026-06-15'), [canceled], 3_000)?.day, '2026-06-15', 'canceled, then bought');
+  assert.equal(canceledWhenPlaced(order('2026-06-15'), [canceled]), undefined, 'no time known: no false alarm');
+  assert.equal(canceledWhenPlaced(order('2026-06-16'), [canceled])?.day, '2026-06-15', 'a later day still counts');
+});
+
+test('canceling_a_grant_after_the_days_purchases_flags_none_of_them', async () => {
+  world = await startWorld();
+  const conn = world.worker.sessions.bookkeeping;
+  const lab = await world.person('grant_manager');
+  const hold = conn.rows('hold').find((h) => h.open && h.kind === 'source_disagreement' && h.grantId === 'R01GM061721')!;
+  await lab.call('decide_hold', { holdId: hold.id, choice: 'pick_source', reason: 'The court order stands.' });
+  await lab.call('inject_status_event', { grantId: 'R01GM061721', kind: 'payment_received', source: 'Payment system', summary: 'Payment of $50,000 received.', amount: 50_000 });
+  await world.worker.idle();
+  const spent = () => conn.rows('flag').filter((flag) => flag.kind === 'spend_while_canceled' && flag.open).map((flag) => flag.summary);
+  const before = spent();
+  assert.ok(conn.rows('order').some((o) => o.placed === conn.today() && o.grantId === 'R01GM061721'), "today's purchases were placed");
+  await lab.call('inject_status_event', { grantId: 'R01GM061721', kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Listed as terminated.' });
+  await world.worker.idle();
+  assert.deepEqual(spent(), before, 'bought before the cancellation, so not spent while canceled');
+});
+
 // ── The planted cases (sim/answer-key.json) ────────────────────────────────
 
 test('ft_1_today_s_readings_disagree_so_a_flag_and_an_inbox_item_are_raised', async () => {
