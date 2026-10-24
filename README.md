@@ -111,8 +111,8 @@ cautions: [docs/TRACK-B-MANUAL.md#demo-cautions](docs/TRACK-B-MANUAL.md#demo-cau
  +----------------------------------^----------------------------------+
                                     |  live subscriptions + actions
  +------------------------- web app (web/) ----------------------------+
- |  Grant manager: 8 windows; the Inbox has the only decision buttons  |
- |  Scientist: Ask, My grants, My requests                             |
+ |  Grant office portal: 8 windows; only its Inbox decides            |
+ |  2 researcher portals (Priya, Sofia): Ask, My grants, My requests  |
  +---------------------------------------------------------------------+
 ```
 
@@ -170,8 +170,8 @@ only questions nobody has answered before cost a call.
 
 The Inbox is the only window with decision buttons (Approve, Reject,
 Override, Pick this source). Every decision needs a reason; the module
-rechecks the rules, then acts. The scientist is a person using the Scientist
-screens; the agency's follow-up questions are pre-written in the seed.
+rechecks the rules, then acts. Researchers are people using their own
+researcher portals; the agency's follow-up questions are pre-written in the seed.
 
 ### Outside data
 
@@ -189,17 +189,29 @@ a tracker check (and a fresh Apify run, when the worker has an Apify token).
 
 ### The web app (`web/`, Track C)
 
-Vite, React 19 and TypeScript. A role switch in the nav picks the grant
-manager or the scientist. It reads the live module and falls back to the
-bundled seed, with an "Offline demo data" badge, if it can't connect. Each
-window has one job ([web/src/windows/registry.ts](web/src/windows/registry.ts)):
+Vite, React 19 and TypeScript. It reads the live module and falls back to
+the bundled seed, with an "Offline demo data" badge, if it can't connect.
+The app has three separate portals, and a portal switch (in the grant office
+nav, or the researcher header) moves between them. Each window has one job
+([web/src/windows/registry.ts](web/src/windows/registry.ts)):
 
-- **Grant manager:** Funds (real money, status timeline, flags), Requests,
-  Invoices (matched or held), Payment requests, Reports (each paper's
-  checks), Inbox (waiting for a human, with evidence), Log (who did what, and
-  why), Test lab (demo only: inject events, fast-forward, scorecard).
-- **Scientist:** Ask (which grant can pay, in plain words), My grants (a
-  paused grant shows where its money is), My requests.
+- **Grant office portal** (the grant manager): Funds (real money, status
+  timeline, flags), Requests (every researcher's requests, each saying
+  "Requested by" whom, with a researcher filter), Invoices (matched or held),
+  Payment requests, Reports (each paper's checks), Inbox (waiting for a
+  human, with evidence; a purchase hold names the researcher who asked), Log
+  (who did what, and why), Test lab (demo only: inject events, fast-forward,
+  scorecard).
+- **Researcher portals**, one per researcher: **Dr. Priya Nair**
+  (postdoctoral researcher, grant A, R01GM061721) and **Sofia Alvarez**
+  (graduate researcher, grant B, R21AI182745). Each has Ask (which grant can
+  pay, in plain words), My grants (a paused grant shows where its money is)
+  and My requests. A researcher sees only their own requests and can push
+  back only on those. They never see the grant office's windows.
+
+Each researcher is a separate identity on the server, so every request
+stores who asked (`request.requesterName`), and only that person can push
+back on it. The grant office uses this to know which researcher to answer.
 
 ## What's real and what's simulated
 
