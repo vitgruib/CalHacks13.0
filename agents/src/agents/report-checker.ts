@@ -230,7 +230,12 @@ export function startReportChecker(ctx: AgentContext): AgentHandle {
 
   async function unknownDoi(row: ReportPaperRow) {
     const title = `Paper ${row.id}'s DOI has no public record`;
-    if (openHold(row.id)?.title === title) return;
+    // Asked once per DOI. A hold the grant manager has decided stays decided:
+    // approving it marks the paper a note, an update that lands back here.
+    const asked = conn
+      .rows('hold')
+      .some((hold) => hold.kind === 'report' && hold.refId === row.id && hold.title === title && hold.evidence.some((e) => e.label === 'DOI' && e.value === row.doi));
+    if (asked) return;
     await conn.call('raise_hold', {
       kind: 'report', refId: row.id, grantId: row.grantId, title,
       why:

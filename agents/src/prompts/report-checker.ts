@@ -34,16 +34,23 @@ export type CorrectionAnswer = z.infer<typeof correctionSchema>;
 const COSMETIC = /\b(affiliations?|author(?:'s|s')? names?|name of (?:an |one )?author|misspel\w*|spelling|typos?|typographical|orcid|e-?mail|contact details|corresponding address)\b/i;
 const SUBSTANTIVE = /\b(data|analys[ie]s|results?|figures?|fig\.|tables?|conclusions?|estimates?|re-?measured|statistic\w*|methods?|abstract|findings?)\b/i;
 
+const clip = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 3).trimEnd()}...` : text);
+
+// A quoted notice title, short enough that every reason fits correctionSchema
+// (a real "Correction to: <paper title>" can run past 250 characters).
+const QUOTE_MAX = 160;
+const quote = (title: string) => clip(title, QUOTE_MAX);
+
 export function fallbackCorrection(notices: Notice[]): CorrectionAnswer {
   const cosmetic = (notice: Notice) =>
     notice.kind === 'correction' && !!notice.title && COSMETIC.test(notice.title) && !SUBSTANTIVE.test(notice.title);
   if (notices.length > 0 && notices.every(cosmetic)) {
-    return { kind: 'minor', reason: `The notice only fixes ${COSMETIC.exec(notices[0].title!)![0].toLowerCase()} details: "${notices[0].title}".` };
+    return { kind: 'minor', reason: `The notice only fixes ${COSMETIC.exec(notices[0].title!)![0].toLowerCase()} details: "${quote(notices[0].title!)}".` };
   }
   const first = notices.find((notice) => notice.kind === 'expression_of_concern') ?? notices.find((notice) => notice.title) ?? notices[0];
-  if (first?.kind === 'expression_of_concern') return { kind: 'material', reason: `An expression of concern is on record: "${first.title ?? 'untitled'}".` };
+  if (first?.kind === 'expression_of_concern') return { kind: 'material', reason: `An expression of concern is on record: "${quote(first.title ?? 'untitled')}".` };
   return first?.title
-    ? { kind: 'material', reason: `The notice doesn't show a cosmetic-only fix ("${first.title}"), so it counts as material until a person reads it.` }
+    ? { kind: 'material', reason: `The notice doesn't show a cosmetic-only fix ("${quote(first.title)}"), so it counts as material until a person reads it.` }
     : { kind: 'material', reason: "The notice doesn't say what changed, so it counts as material until a person reads it." };
 }
 
@@ -132,8 +139,6 @@ export function holdTitle(paper: HeldPaper): string {
 // Holds have no length limit in the module; this keeps the Inbox readable.
 export const WHY_MAX = 1200;
 
-const clip = (text: string, max: number) => (text.length > max ? `${text.slice(0, max - 3).trimEnd()}...` : text);
-
 export function fallbackExplanation(paper: HeldPaper): string {
   const lines = [`${paper.paperId} ("${paper.title}") is in ${paper.reportGrantId}'s progress report.`];
   for (const { check, detail } of paper.failed) {
@@ -147,12 +152,15 @@ export function fallbackExplanation(paper: HeldPaper): string {
       }
       if (paper.costMoves.length > 0 && paper.creditedGrantFrozen) lines.push(`Note: ${paper.creditsGrantId} is frozen right now.`);
     }
-    if (check === 'No undisclosed correction') lines.push(`Rule: ${paper.rule}, and this one is ${paper.correctionKind ?? 'material'}.`);
+    if (check === 'No undisclosed correction') {
+      lines.push(`Rule: ${paper.rule}, and this one is ${paper.correctionKind === 'retraction' ? 'a retraction' : (paper.correctionKind ?? 'material')}.`);
+    }
   }
   lines.push(`To do: ${asksFor(paper).join(' ')}`);
+  // The module's approve only marks the paper a note; it moves no money.
   lines.push(
     paper.costMoves.length > 0
-      ? 'Approve to accept the cost move (the paper then shows as a note); reject to keep it held.'
+      ? 'Approve to accept the proposed cost move (the paper then shows as a note; GrantGuard does not move the charge itself); reject to keep it held.'
       : 'Approve once it is fixed (the paper then shows as a note); reject to keep it held.',
   );
   return clip(lines.join(' '), WHY_MAX);

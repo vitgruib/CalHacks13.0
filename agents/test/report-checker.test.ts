@@ -251,6 +251,30 @@ test('a_doi_crossref_does_not_know_goes_to_the_grant_manager_unchecked', async (
   assert.equal(world.db.version(), before);
 });
 
+test('approving_a_no_public_record_hold_does_not_bring_it_back', async () => {
+  world = await realWorld([realPaper('r-5', 'R01AI181732', '10.5555/grantguard-not-a-real-doi')]);
+  const manager = await world.person('grant_manager');
+  await manager.call('decide_hold', { holdId: openHold('r-5').id, choice: 'approve', reason: 'The DOI is a preprint; fine as listed.' });
+  await world.worker.idle();
+  // The approval marks the paper a note, which reaches the checker as an update.
+  assert.equal(paper('r-5').result, 'note');
+  assert.deepEqual(reportHolds('r-5').filter((h) => h.open), [], "the grant manager's decision stands");
+  assert.equal(reportHolds('r-5').length, 1);
+});
+
+test('a_correction_notice_with_a_long_title_is_still_recorded', async () => {
+  // A real "Correction to: <paper title>" can run past 250 characters.
+  const title =
+    'Correction to: Association of long-term exposure to fine particulate matter and nitrogen dioxide with cardiovascular, ' +
+    'respiratory and all-cause mortality in a nationwide cohort of older adults enrolled in Medicare fee-for-service between 2000 and 2016';
+  const notice = { kind: 'correction' as const, noticeDoi: null, noticePmid: null, title, date: '2024-01-01', source: 'Crossref' as const, via: 'test' };
+  const { correction, assessment } = await correctionFrom({ correction: undefined }, { doi: '10.1/long', title: 'x', updates: [notice] });
+  assert.equal(correction?.kind, 'material');
+  assert.ok(assessment && assessment.length <= 300, `reason too long: ${assessment}`);
+  const affiliation = await correctionFrom({ correction: undefined }, { doi: '10.1/long', title: 'x', updates: [{ ...notice, title: `Error in author affiliations. ${title}` }] });
+  assert.equal(affiliation.correction?.kind, 'minor');
+});
+
 test('a_lookup_that_fails_leaves_that_paper_unchecked_and_the_rest_go_on', async (t) => {
   const errors = t.mock.method(console, 'error', () => {});
   world = await realWorld([
