@@ -2,8 +2,11 @@ import assert from 'node:assert/strict';
 import { afterEach, test } from 'node:test';
 
 import { canceledWhenPlaced } from '../src/agents/bookkeeping.ts';
-import { ActionError, type OrderRow, type Source, type StatusEventRow } from '../src/db/contract.ts';
+import { ActionError, type FlagRow, type OrderRow, type Source, type StatusEventRow } from '../src/db/contract.ts';
+import { createLocalDb } from '../src/db/local.ts';
+import { memoryTokens } from '../src/identity.ts';
 import type { Reading, SourceClient } from '../src/sources/types.ts';
+import { startWorker } from '../src/worker.ts';
 import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
 
 let world: TestWorld | undefined;
@@ -120,6 +123,64 @@ test('disagreeing_sources_raise_one_flag_and_the_module_puts_it_in_the_inbox', a
   assert.equal(grant().frozen, true);
 });
 
+const decideDisagreement = async () => {
+  const hold = world!.worker.sessions.bookkeeping.rows('hold').find((h) => h.open && h.kind === 'source_disagreement');
+  assert.ok(hold, 'an open disagreement in the Inbox');
+  const lab = await world!.person('grant_manager');
+  await lab.call('decide_hold', { holdId: hold.id, choice: 'pick_source', reason: 'RePORTER is right; the list is out of date.' });
+  await world!.worker.idle();
+};
+const disagreements = (conn: { rows(table: 'flag'): FlagRow[] }) => conn.rows('flag').filter((flag) => flag.kind === 'sources_disagree');
+
+test('a_disagreement_the_grant_manager_decided_is_not_raised_again', async () => {
+  const conn = await startWith([
+    fakeSource('NIH RePORTER', [{ status: 'active' }]),
+    fakeSource('Cancellation list (Apify)', [{ status: 'canceled' }]),
+  ]);
+  await decideDisagreement();
+  await world!.worker.tracker.refresh(TEST_GRANT);
+  await world!.worker.idle();
+  assert.equal(disagreements(conn).length, 1, 'the same readings, so no second flag');
+  assert.equal(conn.rows('hold').filter((hold) => hold.kind === 'source_disagreement' && hold.open).length, 0);
+});
+
+test('a_restarted_worker_keeps_a_decided_disagreement_decided', async () => {
+  const sources = () => [fakeSource('NIH RePORTER', [{ status: 'active' }]), fakeSource('Cancellation list (Apify)', [{ status: 'canceled' }])];
+  const db = await createLocalDb({ world: { seedJson: oneGrantSeed() } });
+  const tokens = memoryTokens();
+  const first = await startWorker(db, { sources: sources(), tokens });
+  await first.idle();
+  const lab = await db.connect();
+  await lab.call('register_person', { role: 'grant_manager', name: 'grant_manager' });
+  const hold = lab.rows('hold').find((h) => h.open && h.kind === 'source_disagreement');
+  assert.ok(hold);
+  await lab.call('decide_hold', { holdId: hold.id, choice: 'pick_source', reason: 'RePORTER is right; the list is out of date.' });
+  first.stop();
+  const again = await startWorker(db, { sources: sources(), tokens });
+  try {
+    await again.idle();
+    assert.equal(disagreements(lab).length, 1, 'the restart read the same readings and raised nothing');
+  } finally {
+    again.stop();
+    db.close();
+  }
+});
+
+test('a_decided_disagreement_is_raised_again_when_a_source_reports_something_new', async () => {
+  const conn = await startWith([
+    fakeSource('NIH RePORTER', [{ status: 'active' }, { status: 'active' }, { status: 'restored_by_court' }]),
+    fakeSource('Cancellation list (Apify)', [{ status: 'canceled' }]),
+  ]);
+  await decideDisagreement();
+  await refresh();
+  assert.equal(disagreements(conn).length, 1, 'nothing new yet');
+  await refresh();
+  const flags = disagreements(conn);
+  assert.equal(flags.length, 2, 'RePORTER changed, so the new disagreement is raised');
+  assert.match(flags[1].summary, /NIH RePORTER says restored_by_court/);
+  assert.equal(flags[1].open, true);
+});
+
 test('active_and_restored_by_court_are_not_a_disagreement', async () => {
   const conn = await startWith([
     fakeSource('NIH RePORTER', [{ status: 'active' }]),
@@ -212,3 +273,31 @@ test('ft_3_the_court_order_without_payment_keeps_grant_a_frozen_and_flagged', as
   assert.equal(conn.rows('grant').find((g) => g.id === 'R01GM000001')?.frozen, true);
   assert.equal(conn.rows('flag').filter((flag) => flag.grantId === 'R01GM000001' && flag.kind === 'court_order_no_payment' && flag.open).length, 1);
 });
+
+// The demo path's climax: a court order is not cash, and the open
+// disagreement (ft-1) also holds the freeze. Once the grant manager picks a
+// source and the money arrives, in either order, grant A spends again.
+for (const order of [['pick', 'pay'], ['pay', 'pick']] as const) {
+  test(`demo_path_${order.join('_then_')}_unfreezes_grant_a_and_its_waiting_purchases_go_through`, async () => {
+    world = await startWorld();
+    const conn = world.worker.sessions.bookkeeping;
+    const lab = await world.person('grant_manager');
+    const grantA = () => conn.rows('grant').find((g) => g.id === 'R01GM000001')!;
+    for (const step of order) {
+      assert.equal(grantA().frozen, true, `still frozen before ${step}`);
+      if (step === 'pick') {
+        const hold = conn.rows('hold').find((h) => h.open && h.kind === 'source_disagreement' && h.grantId === 'R01GM000001');
+        assert.ok(hold, 'ft-1 is in the Inbox');
+        await lab.call('decide_hold', { holdId: hold.id, choice: 'pick_source', reason: 'The court order stands; the list is out of date.' });
+      } else {
+        await lab.call('inject_status_event', { grantId: 'R01GM000001', kind: 'payment_received', source: 'Payment system', summary: 'Payment of $50,000 received.', amount: 50_000 });
+      }
+      await world.worker.idle();
+    }
+    assert.equal(grantA().frozen, false, `still frozen: ${grantA().frozenReason}`);
+    assert.equal(disagreements(conn).filter((flag) => flag.grantId === 'R01GM000001').length, 1, 'the decided disagreement was not raised again');
+    const state = (id: string) => conn.rows('request').find((r) => r.id === id)?.state;
+    assert.deepEqual(['rq-101', 'rq-106', 'rq-107'].map(state), ['bought', 'bought', 'bought']);
+    assert.equal(state('rq-102'), 'rerouted');
+  });
+}

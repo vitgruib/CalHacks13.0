@@ -85,10 +85,24 @@ export function startTracker(
     }
   }
 
+  // A disagreement the grant manager decided stays decided until a source
+  // reports something new: a different disagreement, or a reading on a later
+  // day than the last flag. Raising it again would freeze the grant over a
+  // person's decision, and it is read from the rows so a restart keeps it.
+  function alreadyRaised(grantId: string, summary: string) {
+    const flags = conn.rows('flag').filter((flag) => flag.grantId === grantId && flag.kind === 'sources_disagree');
+    if (flags.some((flag) => flag.open)) return true;
+    const last = flags.at(-1);
+    if (!last || last.summary !== summary) return false;
+    return !conn.rows('sourceReading').some((reading) => reading.grantId === grantId && reading.day > last.day);
+  }
+
   async function checkAgreement(grantId: string) {
-    const summary = disagreement(latestReadings(conn, grantId));
-    if (!summary || openFlag(grantId, 'sources_disagree')) return;
-    await conn.call('raise_flag', { grantId, kind: 'sources_disagree', summary: `Sources disagree: ${summary}.` });
+    const found = disagreement(latestReadings(conn, grantId));
+    if (!found) return;
+    const summary = `Sources disagree: ${found}.`;
+    if (alreadyRaised(grantId, summary)) return;
+    await conn.call('raise_flag', { grantId, kind: 'sources_disagree', summary });
   }
 
   async function checkSpendWhileCanceled(grantId: string) {
