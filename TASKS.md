@@ -23,6 +23,7 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
+- [ ] T38 [hero] Clay lab (mockup A, the humans' pick) refined: quiet screen (headline, one button, grant gauges, one-line story caption; everything else on hover or while it happens), a request's round trip as the authored motion, better lighting, materials and figures — needs: T23 — done when: at rest nothing but those four on screen at 1440×900 and 390×844, every working flow still reachable (send, decide a hold, scene index, ledger), `npm --prefix hero run check` passes — @nathan/claude-hero (own clone) — owns: `hero/src/demos/a/`
 
 
 
