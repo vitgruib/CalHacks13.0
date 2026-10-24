@@ -28,6 +28,7 @@ agent who you are, e.g. "I'm @alex; pick up the next task in TASKS.md."
 | `docs/HYPHENATE.md` | Primary track brief + what it means for the build |
 | `docs/TRACKS.md` | Event rules, other tracks we're stacking, cut tracks |
 | `docs/IDEAS.md` | Idea brainstorm |
+| `docs/FEATURES.md` | GrantGuard product features, in priority order (P1–P4) |
 
 Golden rules: contracts and stubs first so every lane can run in parallel,
 claim first, stay in your lane, unblock others before your own work, never
