@@ -23,6 +23,7 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
+- [ ] T17 ★ [app] Live updates + Inbox actions — needs: T7 (stub ok) — done when: an Inbox decision (reason required) calls an action and every window updates live — @ethan/claude — owns: `web/` (adds `spacetimedb` 2.13.0 + `web/src/module_bindings/`)
 - [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag — @nathan/claude — owns: `agents/` — stubbed: Track A contract (readings, status events, flags, check requests added to `agents/src/db/stub.ts`)
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
 
@@ -34,7 +35,6 @@ All three tracks are technical only. Presentation and submission work
 - [ ] T14 [agents] Report checker (P7) — needs: T3 (stub ok) — done when: ~20 cached papers; wrong grant, missing PMCID and undisclosed correction flagged; decoys not flagged; live DOI lookup works
 - [ ] T22 ★ [agents] Swap the agent worker's stub DB for Track A's generated SpacetimeDB bindings (`GG_DB=spacetime`) — needs: T3 — done when: `npm --prefix agents run demo` passes against the local module, 3 identities registered there
 - [ ] T15 [app] Apify scraper for cancellation lists, in `scrapers/`; posts status readings through Track A's action — needs: T3 (stub ok) — done when: a scraper run posts readings for the lab's grant IDs, and T10 picks them up
-- [ ] T17 ★ [app] Live updates + Inbox actions — needs: T7 (stub ok) — done when: an Inbox decision (reason required) calls an action and every window updates live
 - [ ] T19 ★ [app] Answer key + scorecard in the check command — needs: T8 — done when: the check replays the seed and prints caught / missed / false alarms
 - [ ] T21 [db] Deploy: publish the module to hosted SpacetimeDB and host the web build, in `deploy/` — needs: T7, T17 — done when: a public URL runs the demo path from a fresh browser, and the URL is in README.md
 
