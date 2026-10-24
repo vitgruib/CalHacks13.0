@@ -73,9 +73,29 @@ caps the number of tracks per entry.
 | **Apify** | $2k / $1k / $800 / $400 / $400 | Scraping real public data (vendor registries, sanctions lists, SEC filings) makes it "real enough". | Medium. |
 | **General: Most Technically Complex / People-First** | Prizes | Automatic consideration. | Free. |
 
-Probably not worth it for a finance agent: Meta (human connection),
-SpaceXAI (requires Cursor + Grok), Visa (shopping), Spacetime/Convex
-(only if the backend really needs live shared state), Mana/Creao/Notability
-(need their tool used throughout the build). Atlassian, "Agentic Workforce
-Challenge", is thematically close, but we haven't seen its doc yet, so check
-it at kickoff.
+### Still open: Visa, "Reimagining Shopping"
+
+$5,000. Kept open by team decision. It fits if the agent *buys* things, e.g.
+a procurement agent that shops vendors and pays within policy (AP desk
+variant), or agentic checkout with spend limits. The criteria weight Trust &
+Responsibility (15%) and Commerce Impact (15%), which overlap with our
+permission tiers and audit log. Innovation and UX are 25% each, so it needs
+a real shopping flow, not just back-office payments.
+
+### Waiting on docs (check the Live Site at kickoff)
+
+Atlassian ("Agentic Workforce", promising), Armadin (Security), Elastic,
+Bright Data, Convex, Figma, Creao (AI-First Disruptor / Team Empowerment,
+likely require their platform).
+
+### Eliminated (don't spend time on these)
+
+| Track | Why |
+| --- | --- |
+| SpaceXAI | Requires building with Cursor + the Grok Imagine/Voice API, space theme |
+| Meta | Judged on human connection, which conflicts with finance autonomy |
+| Mana.space | Must build *with* Mana and link Mana chats as proof |
+| Notability | Needs notes from the first sketch on, and after-the-fact notes score poorly |
+| Creao One-Person Company | We're a team |
+| Best Solo / Hardware / Planet-First | Not solo, no hardware, not climate |
+| Bitdeer, Moss | Compete with our model choice (Claude) or don't fit the theme |
