@@ -1,0 +1,16 @@
+{
+  "generated_unique_award_id": "ASST_NON_R01HD115985_075",
+  "fain": "R01HD115985",
+  "category": "grant",
+  "type": "04",
+  "date_signed": "2024-09-05",
+  "total_obligation": 2151108,
+  "total_outlay": 1217475.21,
+  "total_account_obligation": 2151108,
+  "total_account_outlay": 1217475.21,
+  "period_of_performance": {
+    "start_date": "2024-09-06",
+    "end_date": "2029-05-31",
+    "last_modified_date": "2026-08-20"
+  }
+}

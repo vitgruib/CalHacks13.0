@@ -1,0 +1,15 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://api.usaspending.gov/api/v2/awards/ASST_NON_R01AI181732_075/",
+    "body": null
+  },
+  "savedAt": "2026-10-24T07:38:18.746Z",
+  "response": {
+    "total_obligation": 4602065,
+    "total_outlay": 1552467.4,
+    "period_of_performance": {
+      "end_date": "2029-06-30"
+    }
+  }
+}

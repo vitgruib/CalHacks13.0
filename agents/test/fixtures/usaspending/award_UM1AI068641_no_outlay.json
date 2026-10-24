@@ -1,0 +1,16 @@
+{
+  "generated_unique_award_id": "ASST_NON_UM1AI068641_075",
+  "fain": "UM1AI068641",
+  "category": "grant",
+  "type": "05",
+  "date_signed": "2011-06-23",
+  "total_obligation": 83450773,
+  "total_outlay": null,
+  "total_account_obligation": 0,
+  "total_account_outlay": 0,
+  "period_of_performance": {
+    "start_date": "2006-06-29",
+    "end_date": "2016-05-31",
+    "last_modified_date": "2018-10-05"
+  }
+}
