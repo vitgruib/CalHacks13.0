@@ -1,0 +1,64 @@
+/* Gallery chrome only. Each mockup scopes its own styles under .demo-<id>. */
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+}
+body {
+  background: #111;
+  overflow: hidden;
+}
+
+.gallery {
+  position: fixed;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: rgb(18 18 18 / 0.82);
+  box-shadow: 0 6px 24px rgb(0 0 0 / 0.35);
+  font: 500 12px/1 ui-sans-serif, system-ui, sans-serif;
+  max-width: calc(100vw - 24px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.gallery a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: #d9d9d9;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.gallery a:hover {
+  background: rgb(255 255 255 / 0.08);
+}
+.gallery a[aria-current='page'] {
+  background: #f2f2f2;
+  color: #111;
+}
+.gallery a:focus-visible {
+  outline: 2px solid #f2f2f2;
+  outline-offset: 2px;
+}
+.gallery kbd {
+  font: inherit;
+  font-size: 10px;
+  opacity: 0.55;
+}
+
+.gallery-loading {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #999;
+  font: 14px ui-sans-serif, system-ui, sans-serif;
+}
