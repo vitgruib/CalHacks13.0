@@ -22,3 +22,4 @@ changes, cut features. Newest at the bottom.
 - Fri @ethan — **Nessie is a stretch goal**, behind a bank-feed adapter. — the core ships with our own simulated bank feed; Nessie swaps in once the demo path works
 - Fri @ethan — **Fetch.ai is a conditional stretch goal** (one Agentverse uAgent that answers "why?" from SpacetimeDB), only if the hackpack allows a light build. — team decision
 - Fri @ethan — Armadin (Security) and Elastic cut. — team decision
+- Fri @ethan — **Anthropic and CRS kept** as core stacks. — team decision. CRS means the idea must include vetting customers or vendors (credit, liens, sanctions); Anthropic means naming a real community and interviewing it
