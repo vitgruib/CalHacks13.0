@@ -169,6 +169,8 @@ export interface RequestRow {
   /** Written by the module's spending rules, never by an agent. */
   verdicts: RuleVerdict[];
   explanation: string;
+  /** The person who asked, e.g. "Dr. Priya Nair" ('' if unknown). */
+  requesterName: string;
 }
 export interface OrderRow {
   id: string;

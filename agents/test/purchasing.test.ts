@@ -728,7 +728,7 @@ const grantRow = (id: string, extra: Partial<GrantRow> = {}): GrantRow => ({
 });
 const requestRow = (extra: Partial<RequestRow> = {}): RequestRow => ({
   id: 'rq-1', day: '2026-06-15', requester: 'scientist', item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380,
-  sharedWith: [], split: [], purpose: 'Bench use', state: 'submitted', verdicts: [], explanation: '', ...extra,
+  sharedWith: [], split: [], purpose: 'Bench use', state: 'submitted', verdicts: [], explanation: '', requesterName: '', ...extra,
 });
 
 test('the_fallback_reading_takes_the_only_grant_that_can_pay_and_calls_two_unclear', async () => {

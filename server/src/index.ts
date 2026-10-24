@@ -252,7 +252,7 @@ export const push_back = spacetimedb.reducer({ requestId: t.string(), message: t
   if (!message.trim()) fail('Say what changed.');
   if (r.state === 'bought' || r.state === 'rerouted' || r.state === 'canceled') fail(`Already ${r.state}.`);
   ctx.db.request.id.update({ ...r, state: 'submitted' });
-  writeLog(ctx, who, `Pushed back on ${r.item}`, message, { refId: requestId });
+  writeLog(ctx, who, `Pushed back on ${r.item}${r.requesterName ? ` (${r.requesterName})` : ''}`, message, { refId: requestId });
 }));
 
 /**

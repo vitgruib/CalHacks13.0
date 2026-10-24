@@ -35,4 +35,5 @@ export default __t.row({
     return __t.array(RuleVerdict);
   },
   explanation: __t.string(),
+  requesterName: __t.string().name("requester_name"),
 });

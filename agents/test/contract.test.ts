@@ -18,7 +18,7 @@ const COLUMNS: Record<TableName, string[]> = {
   sourceReading: ['id', 'grantId', 'source', 'status', 'awarded', 'paid', 'endDate', 'url', 'day', 'at'],
   flag: ['id', 'grantId', 'day', 'kind', 'summary', 'open', 'raisedBy'],
   checkRequest: ['id', 'grantId', 'reason', 'requestedBy', 'day', 'done'],
-  request: ['id', 'day', 'requester', 'requestedBy', 'item', 'category', 'price', 'grantId', 'chargedGrantId', 'sharedWith', 'split', 'purpose', 'state', 'verdicts', 'explanation'],
+  request: ['id', 'day', 'requester', 'requestedBy', 'item', 'category', 'price', 'grantId', 'chargedGrantId', 'sharedWith', 'split', 'purpose', 'state', 'verdicts', 'explanation', 'requesterName'],
   order: ['id', 'requestId', 'grantId', 'vendor', 'amount', 'placed', 'state', 'canceledOn', 'changedAmount'],
   approval: ['id', 'orderId', 'amount', 'by', 'day'],
   invoice: ['id', 'orderId', 'vendor', 'amount', 'received', 'state', 'mismatch', 'timeline', 'checked'],

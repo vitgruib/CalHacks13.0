@@ -269,6 +269,7 @@ export const Request = __t.object("Request", {
     return __t.array(RuleVerdict);
   },
   explanation: __t.string(),
+  requesterName: __t.string(),
 });
 export type Request = __Infer<typeof Request>;
 
