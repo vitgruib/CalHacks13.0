@@ -73,8 +73,8 @@ promised), and end date.
 - compares each reading with the last one and records only changes, each
   with its source and date;
 - flags any two sources that disagree about the same grant;
-- uses Claude to read messy text (a court notice, an agency letter) and work
-  out which grant it's about and what changed;
+- *(stretch, S5)* uses Claude to read messy text (a court notice, an agency
+  letter) and work out which grant it's about and what changed;
 - freezes spending when a grant is canceled, and unfreezes it only when a
   payment actually arrives (a court order alone doesn't unfreeze it).
 
@@ -390,6 +390,11 @@ needs its own clone (`git clone ... CalHacks13.0-2`) and its own claim.
 - clinical trial rescue (S2);
 - the voice and "ask why" agent (S4);
 - Nessie.
+
+**Stretch (only after the demo path works end to end):**
+- **Reading messy text (S5):** paste a court notice or agency letter into
+  the Test lab; Claude works out which grant and what changed and posts it
+  as a status event. Until then, court orders arrive as ready-made events.
 
 **Future, not built this weekend:**
 - **Proposal checker (P8):** before the lab applies for a new grant, checks

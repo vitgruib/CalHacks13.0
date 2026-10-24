@@ -192,7 +192,7 @@ the prompt, decides what each one is allowed to do.
 |---|---|---|
 | Grant records (2 NIH grants) `[TBD: grant IDs]` | Real public records from NIH RePORTER / USAspending; the lab is fictional | Readings are cached with source and date; shown in the Funds window `[needs T10]` |
 | Cancellation lists | Real, scraped with Apify `[needs T15]` | Scraper run output stored with the reading `[TBD]` |
-| Court order, agency letter | Simulated text, modeled on *Thakur v. Trump* | Planted case in the answer key |
+| Court order | Simulated status event (ready-made, not parsed from text), modeled on *Thakur v. Trump* | Planted case in the answer key |
 | Lab orders, invoices, approvals, payroll | Simulated, with planted mistakes drawn from real audit findings (WVU, Delaware, UC Davis, NSF-OIG capstone) | Answer key scored on every check run `[needs T8, T19]` |
 | Government payment system and follow-up questions | Simulated (questions pre-written in the seed) | Draft length and held-item exclusion are checked in code `[needs T13]` |
 | Papers in the progress report | Real papers via PubMed and Crossref, ~20 cached `[needs T14]` | Planted wrong-grant, missing-ID and correction cases plus decoys |

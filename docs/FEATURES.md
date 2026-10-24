@@ -125,6 +125,7 @@ stretch goals (only after the demo path works end to end).
 | S2 | Stranded clinical-trial rescue | pain point 03 |
 | S3 | Factory Droid writes new policy rules from recurring exceptions | `docs/TRACKS.md` |
 | S4 | Fetch.ai "why?" agent, Cartesia voice | `docs/TRACKS.md` |
+| S5 | Claude reads a pasted court notice or agency letter, works out which grant and what changed, and posts a status event | `docs/MASTER-PLAN.md` §3.1 |
 
 Nessie (a mock consumer bank) was a stretch goal for the earlier AP idea; it
 has no natural role in a grant office, so it isn't listed.
