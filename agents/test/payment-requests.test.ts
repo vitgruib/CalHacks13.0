@@ -10,6 +10,8 @@ import {
   lastFullMonth,
   mentionedIds,
   money,
+  MONTHS_PER_MOVE,
+  monthsEnded,
   requestClaim,
   startPaymentRequests,
   templateExplanation,
@@ -597,6 +599,92 @@ test('a_new_month_on_the_clock_drafts_that_months_request', async () => {
   assert.equal(pr.amount, 1_200);
 });
 
+const JUNE = { from: '2026-06-01', to: '2026-06-30' };
+const JULY = { from: '2026-07-01', to: '2026-07-31' };
+const AUGUST = { from: '2026-08-01', to: '2026-08-31' };
+
+test('a_fast_forward_past_two_month_ends_drafts_june_for_each_grant_that_spent_in_june', async () => {
+  world = await startWorld();
+  const conn = world.worker.sessions.payment_report;
+  const manager = await world.person('grant_manager');
+  // The money arrives and the sources are settled, so the waiting purchases are bought today (2026-06-15).
+  await manager.call('inject_status_event', { grantId: R01, kind: 'payment_received', source: 'Payment system', summary: 'Drawdown paid.', amount: 50_000 });
+  await world.worker.idle();
+  const [disagreement] = conn.rows('hold').filter((hold) => hold.open && hold.kind === 'source_disagreement');
+  await manager.call('decide_hold', { holdId: disagreement.id, choice: 'pick_source', reason: 'The payment system is right.' });
+  await world.worker.idle();
+  const juneOrders = (grantId: string) => conn.rows('order').filter((o) => o.grantId === grantId && o.placed >= JUNE.from && o.placed <= JUNE.to);
+  assert.ok(juneOrders(R01).length && juneOrders(R21).length, 'both grants spent in June');
+
+  await manager.call('advance_days', { days: 47 });
+  await world.worker.idle();
+  assert.equal(conn.today(), '2026-08-01');
+  for (const grantId of [R01, R21]) {
+    const june = requestsFor(conn, grantId, JUNE);
+    assert.equal(june.length, 1, `one June request for ${grantId}`);
+    assert.deepEqual(sorted(june[0].includedRequestIds), sorted([...new Set(juneOrders(grantId).map((o) => o.requestId))]));
+    assert.deepEqual(requestsFor(conn, grantId, JULY), [], `July is empty on ${grantId}`);
+  }
+  assert.equal(requestsFor(conn, R01, JUNE)[0].amount + requestsFor(conn, R21, JUNE)[0].amount, 8_620, 'every June purchase is claimed');
+
+  const before = world.db.version();
+  await world.worker.idle();
+  assert.equal(world.db.version(), before, 'a second idle drafts nothing new');
+});
+
+test('a_one_day_jump_drafts_that_month_and_a_jump_past_two_month_ends_drafts_both', async () => {
+  const technician = (month: string, to: string) => ({ id: `pay-T-2026-${month}-1`, grantId: TEST_GRANT, person: 'staff-1', role: 'Research technician', period: { from: `2026-${month}-01`, to }, effortPct: 25, amount: 1_200 });
+  const seed = JSON.parse(oneGrantSeed({ payroll: [technician('06', '2026-06-30'), technician('07', '2026-07-31'), technician('08', '2026-08-31')] }));
+  seed.today = '2026-06-30';
+  alone = await startAlone({ seedJson: JSON.stringify(seed) });
+  const { conn } = alone;
+  assert.deepEqual(conn.rows('paymentRequest'), [], 'May is empty');
+  const lab = await alone.person('grant_manager');
+  await lab.call('advance_days', { days: 1 });
+  await alone.quiet();
+  assert.deepEqual(conn.rows('paymentRequest').map((pr) => [pr.from, pr.to, pr.includedPayrollIds]), [[JUNE.from, JUNE.to, ['pay-T-2026-06-1']]], 'exactly June');
+
+  await lab.call('advance_days', { days: 62 });
+  await alone.quiet();
+  assert.equal(conn.today(), '2026-09-01');
+  assert.deepEqual(
+    conn.rows('paymentRequest').map((pr) => [pr.from, pr.includedPayrollIds]),
+    [[JUNE.from, ['pay-T-2026-06-1']], [JULY.from, ['pay-T-2026-07-1']], [AUGUST.from, ['pay-T-2026-08-1']]],
+    'July and August, oldest first',
+  );
+  assert.equal(alone.calls.filter((call) => call.action === 'draft_payment_request').length, 3);
+  const before = alone.db.version();
+  await alone.quiet();
+  assert.equal(alone.db.version(), before, 'nothing new');
+});
+
+test('a_skipped_month_waiting_on_an_invoice_check_is_drafted_after_the_check', async () => {
+  const seed = JSON.parse(
+    oneGrantSeed({
+      requests: [{ id: 'rq-931', day: '2026-06-20', requester: 'scientist', item: 'Cuvettes, 500', category: 'lab supplies', price: 300, grantId: TEST_GRANT, purpose: 'Aim 1 kinetics', state: 'bought' }],
+      orders: [{ id: 'o-931', requestId: 'rq-931', grantId: TEST_GRANT, vendor: 'Example Supply', amount: 300, placed: '2026-06-21', state: 'open' }],
+      payroll: [{ id: 'pay-T-2026-06-1', grantId: TEST_GRANT, person: 'staff-1', role: 'Research technician', period: JUNE, effortPct: 25, amount: 1_200 }],
+    }),
+  );
+  seed.today = '2026-06-25';
+  alone = await startAlone({ seedJson: JSON.stringify(seed) });
+  const { conn, db } = alone;
+  const lab = await alone.person('grant_manager');
+  await lab.call('inject_invoice', { orderId: 'o-931', amount: 300 });
+  await lab.call('advance_days', { days: 37 });
+  await alone.quiet();
+  assert.equal(conn.today(), '2026-08-01');
+  assert.deepEqual(requestsFor(conn, TEST_GRANT, JUNE), [], 'June waits: its invoice is new, not yet checked');
+
+  const books = await db.connect();
+  await books.call('register_agent', { role: 'bookkeeping' });
+  await books.call('check_invoice', { invoiceId: conn.rows('invoice').find((invoice) => invoice.orderId === 'o-931')!.id });
+  await alone.quiet();
+  const [june] = requestsFor(conn, TEST_GRANT, JUNE);
+  assert.deepEqual(june?.includedRequestIds, ['rq-931'], 'June, not just the last full month, is drafted after the check');
+  assert.equal(june.amount, 300 + 1_200);
+});
+
 // ── The tricky helpers ────────────────────────────────────────────────────
 
 test('last_full_month_handles_january_and_leap_years', () => {
@@ -605,6 +693,17 @@ test('last_full_month_handles_january_and_leap_years', () => {
   assert.deepEqual(lastFullMonth('2027-01-10'), { from: '2026-12-01', to: '2026-12-31' });
   assert.deepEqual(lastFullMonth('2024-03-31'), { from: '2024-02-01', to: '2024-02-29' });
   assert.deepEqual(lastFullMonth('2026-03-02'), { from: '2026-02-01', to: '2026-02-28' });
+});
+
+test('months_ended_lists_each_month_end_the_clock_passed_oldest_first', () => {
+  assert.deepEqual(monthsEnded('2026-06-30', '2026-07-01'), [JUNE], 'one day across a month end');
+  assert.deepEqual(monthsEnded('2026-06-15', '2026-08-01'), [JUNE, JULY]);
+  assert.deepEqual(monthsEnded('2026-07-01', '2026-07-31'), [], 'within a month');
+  assert.deepEqual(monthsEnded('2026-08-01', '2026-06-15'), [], 'back in time');
+  assert.deepEqual(monthsEnded('2023-12-31', '2024-03-01'), [{ from: '2023-12-01', to: '2023-12-31' }, { from: '2024-01-01', to: '2024-01-31' }, { from: '2024-02-01', to: '2024-02-29' }]);
+  const years = monthsEnded('2020-01-15', '2026-06-15');
+  assert.equal(years.length, MONTHS_PER_MOVE, 'capped');
+  assert.deepEqual([years[0], years.at(-1)], [{ from: '2025-06-01', to: '2025-06-30' }, MAY], 'the most recent months');
 });
 
 test('ids_and_money_read_the_way_the_records_write_them', () => {

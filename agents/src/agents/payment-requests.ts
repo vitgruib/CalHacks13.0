@@ -1,9 +1,10 @@
 // The payment and report agent's payment request writer (P5, MASTER-PLAN
 // §3.4). For each grant it drafts the payment request for the last full
-// calendar month, and it answers the funder's follow-up questions with the
-// exact purchases behind a request. Track A's module picks what a request
-// includes, leaves held spending out and computes the amount; this agent only
-// writes the words. Both drafts wait in the Inbox for the grant manager.
+// calendar month (every month that ended, when the clock jumps past several),
+// and it answers the funder's follow-up questions with the exact purchases
+// behind a request. Track A's module picks what a request includes, leaves
+// held spending out and computes the amount; this agent only writes the
+// words. Both drafts wait in the Inbox for the grant manager.
 //
 // - A frozen grant (canceled, disputed or ended) gets no request. The module
 //   doesn't refuse one, but frozen spending can't be claimed (§3.4), so the
@@ -43,6 +44,17 @@ export function lastFullMonth(today: string): Period {
   const [year, month] = today.split('-').map(Number);
   const day = (date: Date) => date.toISOString().slice(0, 10);
   return { from: day(new Date(Date.UTC(year, month - 2, 1))), to: day(new Date(Date.UTC(year, month - 1, 0))) };
+}
+
+// The most months one move of the clock drafts, so a jump of years can't
+// queue years of drafts.
+export const MONTHS_PER_MOVE = 12;
+
+/** The full calendar months whose last day is on or after `from` and before `to`, oldest first; at most `max`, the most recent. */
+export function monthsEnded(from: string, to: string, max = MONTHS_PER_MOVE): Period[] {
+  const periods: Period[] = [];
+  for (let period = lastFullMonth(to); period.to >= from && periods.length < max; period = lastFullMonth(period.from)) periods.unshift(period);
+  return periods;
 }
 
 // ── Money and ids as they appear in text ──────────────────────────────────
@@ -543,13 +555,14 @@ const needsAnswer = (fu: FollowUpRow) => fu.state === 'asked' || (fu.state === '
 
 export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHandle {
   const queue = workQueue(AGENT);
-  const queuedGrants = new Set<string>();
+  // A grant id (its last full month) or "grant id, month start" (that month).
+  const queuedDrafts = new Set<string>();
   const queuedFollowUps = new Set<string>();
   // Drafts the module refused, so a refusal can't turn into a retry loop.
   const refusedDrafts = new Set<string>();
   const refusedAnswers = new Set<string>();
-  // Invoice nobody has checked yet → the grant whose draft waits for it.
-  const waitingOn = new Map<string, string>();
+  // Invoice nobody has checked yet → the grant and month whose draft waits for it.
+  const waitingOn = new Map<string, { grantId: string; period: Period }>();
   const noted = new Set<string>();
   let stopped = false;
 
@@ -579,7 +592,7 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
       return undefined;
     }
     if (claim.unchecked.length) {
-      for (const invoiceId of claim.unchecked) waitingOn.set(invoiceId, grantId);
+      for (const invoiceId of claim.unchecked) waitingOn.set(invoiceId, { grantId, period });
       note(`${span} waiting ${claim.unchecked.join(' ')}`, `payment request for ${span} waits until ${claim.unchecked.join(', ')} is checked.`);
       return undefined;
     }
@@ -668,8 +681,7 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
     }
   }
 
-  async function draftLastMonth(grantId: string) {
-    const period = lastFullMonth(conn.today());
+  async function draftMonth(grantId: string, period: Period) {
     if (refusedDrafts.has(`${grantId} ${period.from} ${period.to}`)) return;
     const planned = readyToDraft(grantId, period);
     if (!planned) return;
@@ -722,12 +734,14 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
     }
   }
 
-  const checkGrant = (grantId: string) => {
-    if (stopped || queuedGrants.has(grantId)) return;
-    queuedGrants.add(grantId);
-    void queue.push(`payment request for ${grantId}`, async () => {
-      queuedGrants.delete(grantId);
-      if (!stopped) await draftLastMonth(grantId);
+  // With no period, the month is the last full one when the work runs.
+  const checkGrant = (grantId: string, period?: Period) => {
+    const key = period ? `${grantId} ${period.from}` : grantId;
+    if (stopped || queuedDrafts.has(key)) return;
+    queuedDrafts.add(key);
+    void queue.push(`payment request for ${grantId}${period ? ` for ${period.from} to ${period.to}` : ''}`, async () => {
+      queuedDrafts.delete(key);
+      if (!stopped) await draftMonth(grantId, period ?? lastFullMonth(conn.today()));
     });
   };
   const checkAllGrants = () => {
@@ -744,10 +758,10 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
   };
 
   const invoiceChanged = (invoice: InvoiceRow) => {
-    const grantId = waitingOn.get(invoice.id);
-    if (!grantId || (!invoice.checked && invoice.state !== 'paid' && invoice.state !== 'rejected')) return;
+    const waiting = waitingOn.get(invoice.id);
+    if (!waiting || (!invoice.checked && invoice.state !== 'paid' && invoice.state !== 'rejected')) return;
     waitingOn.delete(invoice.id);
-    checkGrant(grantId);
+    checkGrant(waiting.grantId, waiting.period);
   };
 
   for (const fu of conn.rows('followUp')) takeFollowUp(fu);
@@ -755,9 +769,24 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
   const stops = [
     conn.onInsert('followUp', takeFollowUp),
     conn.onUpdate('followUp', (_before, after) => takeFollowUp(after)),
-    // A new month on the clock means a new month to claim.
+    // A new month on the clock means a new month to claim, and a jump past
+    // several month ends means each of them, oldest first. Only the clock
+    // moving forward claims past months; startup, an unfreeze and a request
+    // that went away claim the last one, since a grant's frozen months can't
+    // be claimed. (The sim world and the fixtures both start on 2026-06-15,
+    // so loading either after a fast-forward moves the clock back.)
     conn.onUpdate('clock', (before, after) => {
-      if (before.today !== after.today) checkAllGrants();
+      if (before.today === after.today) return;
+      const periods = monthsEnded(before.today, after.today);
+      // Within a month or back in time: the last full month, as always.
+      if (!periods.length) {
+        checkAllGrants();
+        return;
+      }
+      if (lastFullMonth(periods[0].from).to >= before.today) {
+        note(`clock ${before.today} ${after.today}`, `the clock jumped from ${before.today} to ${after.today}; only the last ${MONTHS_PER_MOVE} months, from ${periods[0].from}, are claimed.`);
+      }
+      for (const period of periods) for (const grant of conn.rows('grant')) checkGrant(grant.id, period);
     }),
     conn.onInsert('grant', (grant) => checkGrant(grant.id)),
     // A request that went away (the Test lab loaded a world) leaves its month
