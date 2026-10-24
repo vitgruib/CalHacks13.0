@@ -401,6 +401,7 @@ function knownAmounts(claim: Claim): number[] {
       ...mentionedAmounts(`${p.item} ${p.aim}`),
     ]),
     ...byCategory(claim.purchases).map((g) => g.subtotal),
+    sum(claim.purchases.map((p) => p.amount)),
     ...claim.personnel.map((p) => p.amount),
     ...staffGroups(claim.personnel).map((s) => s.amount),
     sum(claim.personnel.map((p) => p.amount)),
@@ -507,17 +508,36 @@ function answerTemplate(pr: PaymentRequestRow, claim: Claim): AnswerText {
   return { answer: clip(build('counts'), ANSWER_MAX) };
 }
 
+// A left-out item may be named only in a sentence saying it was left out,
+// never as claimed. A sentence split at "J. Appl." only makes this stricter,
+// and a false match only means the template is used.
+const SAYS_LEFT_OUT = /\b(?:left out|not claimed|excluded)\b/i;
+const sentences = (text: string) => text.split(/(?<=[.!?])\s+/);
+
 /** Why an answer can't go out as written. Empty means every id and amount comes from the payment request. */
 export function answerProblems(text: AnswerText, pr: PaymentRequestRow, followUpId: string, claim: Claim): string[] {
   const problems: string[] = [];
   if (text.answer.length > ANSWER_MAX) problems.push(`${text.answer.length} characters, over ${ANSWER_MAX}`);
   const allowed = new Set([pr.id, followUpId, ...pr.includedRequestIds, ...pr.includedPayrollIds]);
-  for (const id of mentionedIds(text.answer)) if (!allowed.has(id)) problems.push(`mentions ${id}, which ${pr.id} doesn't claim`);
+  const leftOutIds = new Set(claim.leftOut.flatMap((l) => [l.requestId, ...mentionedIds(l.why)]));
+  const namedAsLeftOut = (id: string) =>
+    sentences(text.answer).filter((s) => mentionedIds(s).includes(id)).every((s) => SAYS_LEFT_OUT.test(s));
+  for (const id of mentionedIds(text.answer)) {
+    if (allowed.has(id) || (leftOutIds.has(id) && namedAsLeftOut(id))) continue;
+    problems.push(leftOutIds.has(id) ? `mentions ${id}, which was left out of ${pr.id}, as if claimed` : `mentions ${id}, which ${pr.id} doesn't claim`);
+  }
   for (const amount of unknownAmounts(text.answer, [pr.amount, ...knownAmounts(claim)])) problems.push(`mentions ${money(amount)}, which isn't in the records`);
   return problems;
 }
 
 function answerFacts(question: string, pr: PaymentRequestRow, claim: Claim) {
+  // Added up here so Claude quotes them; only when they make up the total,
+  // so a quoted breakdown can't contradict it.
+  const purchasesSubtotal = sum(claim.purchases.map((p) => p.amount));
+  const personnelSubtotal = sum(claim.personnel.map((p) => p.amount));
+  const subtotals = sameAmount(purchasesSubtotal + personnelSubtotal, pr.amount)
+    ? { purchasesSubtotal: money(purchasesSubtotal), personnelSubtotal: money(personnelSubtotal) }
+    : {};
   return {
     question,
     paymentRequest: {
@@ -525,8 +545,8 @@ function answerFacts(question: string, pr: PaymentRequestRow, claim: Claim) {
       grant: pr.grantId,
       period: `${pr.from} to ${pr.to}`,
       total: money(pr.amount),
+      ...subtotals,
       state: pr.state,
-      itemsLeftOut: new Set(pr.excluded.map((e) => e.requestId)).size,
     },
     grant: { id: claim.grant.id, title: claim.grant.title, agency: claim.grant.agency, projectEnd: claim.grant.end },
     purchases: claim.purchases.map((p) => ({
@@ -543,6 +563,7 @@ function answerFacts(question: string, pr: PaymentRequestRow, claim: Claim) {
       approvedAmounts: p.approvedAmounts.map(money),
     })),
     personnel: claim.personnel.map((p) => ({ id: p.payrollId, role: p.role, effort: `${p.effortPct}%`, period: `${p.from} to ${p.to}`, amount: money(p.amount) })),
+    leftOut: claim.leftOut.map((l) => ({ requestId: l.requestId, item: l.item, ...(l.amount === undefined ? {} : { amount: money(l.amount) }), why: l.why })),
   };
 }
 

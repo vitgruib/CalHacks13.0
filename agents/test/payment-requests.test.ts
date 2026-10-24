@@ -737,4 +737,8 @@ test('the_validators_reject_invented_ids_and_amounts', async () => {
   assert.deepEqual(answerProblems(answered, pr, fu.id, prClaim), []);
   assert.match(answerProblems({ answer: 'rq-034 cost $640.' }, pr, fu.id, prClaim).join(), /rq-034/, 'a left-out purchase');
   assert.match(answerProblems({ answer: 'rq-033 cost $1,234.' }, pr, fu.id, prClaim).join(), /\$1,234/, 'an invented amount');
+  // The subtotals the agent computed, and a left-out item named as left out.
+  const quoted = 'Purchases $3,280 and personnel $5,130 make up the $8,410 total. rq-034 Orbital plate shaker ($6,200) was left out: not invoiced yet.';
+  assert.deepEqual(answerProblems({ answer: quoted }, pr, fu.id, prClaim), []);
+  assert.match(answerProblems({ answer: `pr-015 claims rq-033 and rq-034. ${quoted}` }, pr, fu.id, prClaim).join(), /rq-034, which was left out of pr-015/, 'claimed in one sentence, left out in another');
 });
