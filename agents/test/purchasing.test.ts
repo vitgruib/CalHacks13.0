@@ -1,0 +1,550 @@
+import assert from 'node:assert/strict';
+import { afterEach, test } from 'node:test';
+
+import { startTracker } from '../src/agents/bookkeeping.ts';
+import {
+  DEFAULT_VENDOR,
+  finishExplanation,
+  frozenGrantOf,
+  loadRules,
+  planFor,
+  readFallback,
+  sanitizeRead,
+  splitFor,
+  startPurchasing,
+  vendorFor,
+  type Reading,
+} from '../src/agents/purchasing.ts';
+import type { Actions, ActionName, Connection, GrantRow, OrderRow, RequestRow, RuleVerdict, Source } from '../src/db/contract.ts';
+import { createLocalDb } from '../src/db/local.ts';
+import { createPaperLookup } from '../src/sources/papers.ts';
+import type { SourceClient } from '../src/sources/types.ts';
+import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
+
+let world: TestWorld | undefined;
+let cleanup: (() => void) | undefined;
+afterEach(() => {
+  world?.stop();
+  world = undefined;
+  cleanup?.();
+  cleanup = undefined;
+});
+
+const GRANT_A = 'R01GM000001';
+const GRANT_B = 'R21AI000002';
+const SECOND_GRANT = 'R21TEST000002';
+
+const conn = () => world!.worker.sessions.purchasing;
+const request = (id: string) => conn().rows('request').find((row) => row.id === id)!;
+const failedRules = (row: RequestRow) => row.verdicts.filter((v) => !v.pass).map((v) => v.rule);
+const verdict = (row: RequestRow, prefix: string) => row.verdicts.find((v) => v.rule.startsWith(prefix));
+const purchaseHolds = (id: string, c: Connection = conn()) => c.rows('hold').filter((hold) => hold.kind === 'purchase' && hold.refId === id);
+const openPurchaseHolds = (id: string, c: Connection = conn()) => purchaseHolds(id, c).filter((hold) => hold.open);
+const ordersFor = (id: string, c: Connection = conn()) => c.rows('order').filter((order) => order.requestId === id);
+const newestRequest = () => conn().rows('request').at(-1)!;
+
+const gloves = { item: 'Nitrile gloves, 4 cases', category: 'lab supplies', price: 240, grantId: TEST_GRANT, purpose: 'Aim 2 membrane preps', sharedWith: [] };
+
+// A source that has no news until the test says it caught up, then reports
+// the grant as funded again.
+function catchingUp(source: Source, grantId: string) {
+  let caughtUp = false;
+  const client: SourceClient = {
+    source,
+    async read(id) {
+      if (id !== grantId || !caughtUp) return null;
+      return { grantId: id, source, status: 'active', awarded: null, paid: null, endDate: null, url: `https://example.test/${source}/${id}` };
+    },
+  };
+  return { client, catchUp: () => (caughtUp = true) };
+}
+
+// The sim world, with USAspending and the cancellation list for grant A
+// still saying canceled until catchUp().
+async function startSim() {
+  const usaspending = catchingUp('USAspending', GRANT_A);
+  const cancellations = catchingUp('Cancellation list (Apify)', GRANT_A);
+  world = await startWorld({ sources: [usaspending.client, cancellations.client] });
+  return () => {
+    usaspending.catchUp();
+    cancellations.catchUp();
+  };
+}
+
+// The demo's payment, as people drive it: money lands on grant A, the
+// sources catch up, and the grant manager settles the source disagreement the
+// fund tracker raised (ft-1). Only then is grant A unfrozen.
+async function payGrantA(catchUp: () => void) {
+  const grantManager = await world!.person('grant_manager');
+  await grantManager.call('inject_status_event', {
+    grantId: GRANT_A, kind: 'payment_received', source: 'Payment system', summary: 'Payment of $20,000 received.', amount: 20_000,
+  });
+  await world!.worker.idle();
+  const stillFrozen = conn().rows('grant').find((grant) => grant.id === GRANT_A)!.frozen;
+  catchUp();
+  await grantManager.call('request_check', { grantId: GRANT_A, reason: 'check_now' });
+  await world!.worker.idle();
+  const disagreement = conn().rows('hold').find((hold) => hold.kind === 'source_disagreement' && hold.open && hold.grantId === GRANT_A)!;
+  await grantManager.call('decide_hold', { holdId: disagreement.id, choice: 'pick_source', reason: 'RePORTER is right: the payment arrived.' });
+  await world!.worker.idle();
+  return { grantManager, frozenAfterPaymentAlone: stillFrozen };
+}
+
+function twoGrantSeed(): string {
+  const seed = JSON.parse(oneGrantSeed());
+  seed.grants.push({ ...seed.grants[0], id: SECOND_GRANT, title: 'Second test grant' });
+  return JSON.stringify(seed);
+}
+
+// ── The planted cases (sim/answer-key.json) ────────────────────────────────
+
+test('pu_0_rq_101_is_held_for_grant_a_s_freeze_with_a_purchase_hold', async () => {
+  await startSim();
+  const row = request('rq-101');
+  assert.equal(row.state, 'waiting_on_manager');
+  assert.equal(row.chargedGrantId, GRANT_A);
+  assert.deepEqual(failedRules(row), ['Grant is active and not frozen']);
+  const holds = openPurchaseHolds('rq-101');
+  assert.equal(holds.length, 1);
+  assert.equal(holds[0].raisedBy, 'purchasing');
+  assert.match(row.explanation, /Grant is active and not frozen/);
+  assert.match(row.explanation, /\$640/);
+  assert.match(row.explanation, /no payment has arrived/);
+  assert.equal(ordersFor('rq-101').length, 0);
+});
+
+test('pu_1_rq_102_is_blocked_on_the_last_90_days_rule_until_grant_a_can_take_it', async () => {
+  await startSim();
+  const row = request('rq-102');
+  assert.equal(row.state, 'blocked');
+  assert.equal(row.chargedGrantId, GRANT_B);
+  assert.deepEqual(failedRules(row), ["Not in the grant's last 90 days"]);
+  assert.match(row.explanation, /Not in the grant's last 90 days: R21AI000002 ends 2026-08-01, 47 days away/);
+  assert.match(row.explanation, /rerouted there once R01GM000001 unfreezes/);
+  assert.equal(purchaseHolds('rq-102').length, 0, 'nothing for the grant manager to decide');
+  const log = conn().rows('log').find((entry) => entry.refId === 'rq-102' && entry.action.startsWith('Blocked'));
+  assert.equal(log?.rule, "Not in the grant's last 90 days");
+});
+
+test('pu_2_rq_103_is_blocked_citing_the_category_rule', async () => {
+  await startSim();
+  const row = request('rq-103');
+  assert.equal(row.state, 'blocked');
+  assert.deepEqual(failedRules(row), ['Category allowed']);
+  assert.match(row.explanation, /Category allowed: general office is not an allowable direct cost/);
+  assert.match(row.explanation, /UC Davis/);
+  assert.equal(purchaseHolds('rq-103').length, 0);
+});
+
+test('pu_3_rq_104_is_held_for_a_split_citing_the_shared_cost_rule', async () => {
+  await startSim();
+  const row = request('rq-104');
+  assert.equal(row.state, 'waiting_on_manager');
+  assert.ok(failedRules(row).includes('Shared cost split across the grants it serves'), failedRules(row).join('; '));
+  const [hold] = openPurchaseHolds('rq-104');
+  assert.ok(hold.evidence.some((e) => e.label === 'Shared cost split across the grants it serves'));
+  assert.match(row.explanation, /Serves R01GM000001 and R21AI000002 but is charged to R01GM000001 only/);
+  assert.equal(ordersFor('rq-104').length, 0);
+});
+
+test('pu_4_rq_105_waits_on_the_manager_citing_the_card_limit', async () => {
+  await startSim();
+  const row = request('rq-105');
+  assert.equal(row.state, 'waiting_on_manager');
+  const [hold] = openPurchaseHolds('rq-105');
+  assert.ok(hold.evidence.some((e) => e.label === 'Under the card limit ($5,000)'));
+  assert.match(row.explanation, /Under the card limit \(\$5,000\): \$6,850 is over the limit/);
+});
+
+test('pu_d1_rq_106_passes_the_card_limit_and_waits_only_for_the_freeze', async () => {
+  await startSim();
+  const row = request('rq-106');
+  assert.equal(verdict(row, 'Under the card limit')?.pass, true);
+  assert.deepEqual(failedRules(row), ['Grant is active and not frozen']);
+  const [hold] = openPurchaseHolds('rq-106');
+  assert.ok(!hold.evidence.some((e) => e.label.startsWith('Under the card limit')), 'held for the freeze, not the limit');
+});
+
+test('pu_d2_rq_107_keeps_its_60_40_split_and_passes_the_shared_cost_rule', async () => {
+  await startSim();
+  const row = request('rq-107');
+  assert.deepEqual(row.split, [{ grantId: GRANT_A, share: 0.6 }, { grantId: GRANT_B, share: 0.4 }]);
+  assert.equal(verdict(row, 'Shared cost split')?.pass, true);
+  assert.deepEqual(failedRules(row), ['Grant is active and not frozen (R01GM000001)']);
+});
+
+test('once_grant_a_is_paid_and_its_sources_agree_the_waiting_purchases_go_through', async () => {
+  const catchUp = await startSim();
+  const { frozenAfterPaymentAlone } = await payGrantA(catchUp);
+  assert.equal(frozenAfterPaymentAlone, true, 'while sources disagree (ft-1) a payment alone does not unfreeze grant A');
+  assert.equal(conn().rows('grant').find((grant) => grant.id === GRANT_A)?.frozen, false);
+
+  for (const id of ['rq-101', 'rq-106', 'rq-107']) {
+    assert.equal(request(id).state, 'bought', id);
+    assert.ok(request(id).verdicts.every((v) => v.pass), id);
+  }
+  assert.deepEqual(ordersFor('rq-101').map((o) => [o.grantId, o.amount, o.vendor]), [[GRANT_A, 640, 'LabSource']]);
+  assert.deepEqual(ordersFor('rq-106').map((o) => [o.grantId, o.amount, o.vendor]), [[GRANT_A, 5000, 'MembraneChem']]);
+  assert.deepEqual(ordersFor('rq-107').map((o) => [o.grantId, o.amount]), [[GRANT_A, 1080], [GRANT_B, 720]]);
+  assert.match(request('rq-101').explanation, /held only for the freeze/);
+
+  const rerouted = request('rq-102');
+  assert.equal(rerouted.state, 'rerouted');
+  assert.equal(rerouted.chargedGrantId, GRANT_A);
+  assert.deepEqual(ordersFor('rq-102').map((o) => [o.grantId, o.amount]), [[GRANT_A, 1180]]);
+  assert.match(rerouted.explanation, /Rerouted .* from R21AI000002 to R01GM000001/);
+  assert.match(rerouted.explanation, /Not in the grant's last 90 days/);
+
+  // Still waiting on what only a person can fix, and not bought.
+  for (const id of ['rq-104', 'rq-105']) {
+    assert.equal(request(id).state, 'waiting_on_manager', id);
+    assert.equal(ordersFor(id).length, 0, id);
+  }
+  assert.equal(request('rq-103').state, 'blocked');
+});
+
+test('after_grant_a_reopens_new_supplies_asked_for_on_grant_b_are_rerouted_to_it', async () => {
+  const catchUp = await startSim();
+  await payGrantA(catchUp);
+  const scientist = await world!.person('scientist');
+  await scientist.call('submit_request', {
+    item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380, grantId: GRANT_B, purpose: 'Assay plates', sharedWith: [],
+  });
+  await world!.worker.idle();
+  const row = newestRequest();
+  assert.equal(row.state, 'rerouted');
+  assert.equal(row.chargedGrantId, GRANT_A);
+  assert.match(row.explanation, /Not in the grant's last 90 days: R21AI000002 ends 2026-08-01/);
+});
+
+// ── Typed requests ─────────────────────────────────────────────────────────
+
+test('a_typed_request_without_a_grant_gets_one_a_verdict_and_an_explanation', async () => {
+  await startSim();
+  const scientist = await world!.person('scientist');
+  await scientist.call('submit_request', {
+    item: 'Sequencing run for 12 isolates', category: 'core facility services', price: 900, purpose: 'Isolates from the assay validation', sharedWith: [],
+  });
+  await world!.worker.idle();
+  const row = newestRequest();
+  // Grant A is frozen; grant B passes every rule, and services aren't supplies.
+  assert.equal(row.state, 'bought');
+  assert.equal(row.chargedGrantId, GRANT_B);
+  assert.ok(row.verdicts.length > 0 && row.verdicts.every((v) => v.pass));
+  assert.match(row.explanation, /Every rule passes: Grant is active and not frozen; Enough truly available money; Category allowed; Under the card limit/);
+  assert.equal(ordersFor(row.id)[0]?.vendor, DEFAULT_VENDOR);
+});
+
+test('a_request_two_grants_could_pay_for_is_held_instead_of_guessing', async () => {
+  world = await startWorld({ seedJson: twoGrantSeed() });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', { item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380, purpose: 'General bench use', sharedWith: [] });
+  await world.worker.idle();
+  const row = newestRequest();
+  assert.equal(row.state, 'waiting_on_manager');
+  assert.equal(openPurchaseHolds(row.id).length, 1);
+  assert.match(row.explanation, new RegExp(`${TEST_GRANT} and ${SECOND_GRANT} could each pay for it`));
+  assert.equal(ordersFor(row.id).length, 0);
+});
+
+test('an_over_limit_typed_request_goes_to_the_inbox', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', { ...gloves, item: 'Plate reader', category: 'equipment', price: 7_200 });
+  await world.worker.idle();
+  const row = newestRequest();
+  assert.equal(row.state, 'waiting_on_manager');
+  assert.deepEqual(failedRules(row), ['Under the card limit ($5,000)']);
+  assert.ok(openPurchaseHolds(row.id)[0].evidence.some((e) => e.label === 'Under the card limit ($5,000)'));
+  assert.equal(ordersFor(row.id).length, 0);
+});
+
+test('a_clean_typed_request_under_the_limit_is_bought_alone', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', gloves);
+  await world.worker.idle();
+  const row = newestRequest();
+  assert.equal(row.state, 'bought');
+  assert.equal(purchaseHolds(row.id).length, 0);
+  assert.deepEqual(ordersFor(row.id).map((o) => [o.grantId, o.amount]), [[TEST_GRANT, 240]]);
+});
+
+test('a_declared_shared_cost_without_a_split_is_held_and_looked_at_again_after_a_push_back', async () => {
+  world = await startWorld({ seedJson: twoGrantSeed() });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', {
+    item: 'Freezer service visit', category: 'equipment service', price: 1_200, grantId: TEST_GRANT,
+    purpose: 'The -80 freezer both projects use', sharedWith: [TEST_GRANT, SECOND_GRANT],
+  });
+  await world.worker.idle();
+  const row = newestRequest();
+  assert.equal(row.state, 'waiting_on_manager');
+  assert.equal(verdict(row, 'Shared cost split')?.pass, false);
+  assert.match(row.explanation, /Serves R01TEST000001 and R21TEST000002 but is charged to one grant only/);
+
+  await scientist.call('push_back', { requestId: row.id, message: 'Both projects use it equally.' });
+  await world.worker.idle();
+  // No proportions the agent may use without Claude, so it asks again: one open item, not two.
+  assert.equal(request(row.id).state, 'waiting_on_manager');
+  assert.equal(openPurchaseHolds(row.id).length, 1);
+  assert.equal(purchaseHolds(row.id).length, 2);
+});
+
+// ── People decide; the module refuses ──────────────────────────────────────
+
+async function freezeTestGrant(grantManager: Connection) {
+  await grantManager.call('inject_status_event', {
+    grantId: TEST_GRANT, kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Listed as terminated.',
+  });
+}
+// The payment lands the next day: the module orders same-day events by how
+// its index returns them, so a same-day payment can sort before the
+// cancellation and leave the grant frozen (reported to Track A).
+async function payTestGrant(grantManager: Connection) {
+  await grantManager.call('advance_days', { days: 1 });
+  await grantManager.call('inject_status_event', {
+    grantId: TEST_GRANT, kind: 'payment_received', source: 'Payment system', summary: 'Payment of $10,000 received.', amount: 10_000,
+  });
+}
+
+test('a_grant_manager_s_approval_that_the_module_blocks_is_not_rebought_when_the_grant_unfreezes', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const grantManager = await world.person('grant_manager');
+  const scientist = await world.person('scientist');
+  await freezeTestGrant(grantManager);
+  await scientist.call('submit_request', gloves);
+  await world.worker.idle();
+  const id = newestRequest().id;
+  assert.equal(request(id).state, 'waiting_on_manager');
+
+  // The module rechecks the approval and refuses while the grant is frozen.
+  await grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice: 'approve', reason: 'Needed for aim 2.' });
+  await world.worker.idle();
+  assert.equal(request(id).state, 'blocked');
+
+  await payTestGrant(grantManager);
+  await world.worker.idle();
+  assert.equal(conn().rows('grant')[0].frozen, false);
+  assert.equal(request(id).state, 'blocked', "the agent leaves a person's decision alone");
+  assert.equal(ordersFor(id).length, 0);
+  assert.equal(openPurchaseHolds(id).length, 0);
+
+  // A push back after the decision goes back to the Inbox, never straight to a buy.
+  await scientist.call('push_back', { requestId: id, message: 'The payment landed, please buy it now.' });
+  await world.worker.idle();
+  assert.equal(request(id).state, 'waiting_on_manager');
+  assert.equal(openPurchaseHolds(id).length, 1);
+  assert.equal(ordersFor(id).length, 0);
+  assert.match(request(id).explanation, /already decided/);
+});
+
+test('a_rejected_request_stays_rejected_when_its_grant_unfreezes', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const grantManager = await world.person('grant_manager');
+  const scientist = await world.person('scientist');
+  await freezeTestGrant(grantManager);
+  await scientist.call('submit_request', gloves);
+  await world.worker.idle();
+  const id = newestRequest().id;
+  await grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice: 'reject', reason: 'Use the stock in room 4.' });
+  await payTestGrant(grantManager);
+  await world.worker.idle();
+  assert.equal(request(id).state, 'rejected');
+  assert.equal(ordersFor(id).length, 0);
+});
+
+// The purchasing agent alone on its own connection, so a test can step in
+// between the agent's last look and its buy.
+async function startAlone(seedJson: string, wrap: (purchasing: Connection) => Connection) {
+  const db = await createLocalDb({ world: { seedJson } });
+  const bookkeeping = await db.connect();
+  await bookkeeping.call('register_agent', { role: 'bookkeeping' });
+  const purchasing = await db.connect();
+  await purchasing.call('register_agent', { role: 'purchasing' });
+  const tracker = startTracker(bookkeeping, []);
+  const agent = startPurchasing({ conn: wrap(purchasing), tracker, papers: createPaperLookup({ mode: 'offline', throttle: false }) });
+  cleanup = () => {
+    agent.stop();
+    tracker.stop();
+    db.close();
+  };
+  const person = async (role: 'grant_manager' | 'scientist') => {
+    const c = await db.connect();
+    await c.call('register_person', { role, name: role });
+    return c;
+  };
+  async function idle() {
+    for (let round = 0; round < 100; round++) {
+      const before = db.version();
+      await db.settled();
+      await tracker.idle();
+      await agent.idle();
+      await db.settled();
+      if (db.version() === before) return;
+    }
+    throw new Error('purchasing test: still busy after 100 rounds');
+  }
+  return { purchasing, person, idle };
+}
+
+test('a_buy_the_module_refuses_at_its_last_check_is_held_and_bought_once_the_grant_is_paid', async () => {
+  let grantManager: Connection | undefined;
+  let refusals = 0;
+  const setup = await startAlone(oneGrantSeed(), (purchasing) => ({
+    ...purchasing,
+    // Right before the agent's buy reaches the module, the grant is canceled.
+    async call<A extends ActionName>(action: A, args: Actions[A]) {
+      const act = args as Actions['act_on_request'];
+      if (action === 'act_on_request' && act.action === 'buy' && refusals === 0) {
+        refusals++;
+        await freezeTestGrant(grantManager!);
+      }
+      return purchasing.call(action, args);
+    },
+  }));
+  grantManager = await setup.person('grant_manager');
+  const scientist = await setup.person('scientist');
+  await scientist.call('submit_request', gloves);
+  await setup.idle();
+
+  const row = setup.purchasing.rows('request').at(-1)!;
+  assert.equal(refusals, 1);
+  assert.equal(row.state, 'waiting_on_manager');
+  assert.deepEqual(failedRules(row), ['Grant is active and not frozen']);
+  assert.match(row.explanation, /The database refused to buy it at its last check \("Can't buy on R01TEST000001: Grant is active and not frozen/);
+  assert.equal(openPurchaseHolds(row.id, setup.purchasing).length, 1);
+  assert.equal(ordersFor(row.id, setup.purchasing).length, 0);
+
+  await payTestGrant(grantManager);
+  await setup.idle();
+  assert.equal(setup.purchasing.rows('request').at(-1)!.state, 'bought');
+  assert.equal(ordersFor(row.id, setup.purchasing).length, 1);
+});
+
+test('only_the_purchasing_agent_can_act_on_a_request', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', { ...gloves, item: 'Plate reader', category: 'equipment', price: 7_200 });
+  await world.worker.idle();
+  const id = newestRequest().id;
+  await assert.rejects(
+    world.worker.sessions.bookkeeping.call('act_on_request', { requestId: id, action: 'buy', vendor: 'V', explanation: 'x' }),
+    /Only the purchasing agent/,
+  );
+  await assert.rejects(
+    world.worker.sessions.purchasing.call('act_on_request', { requestId: id, action: 'buy', vendor: 'V', explanation: 'x' }),
+    /Can't buy on R01TEST000001: Under the card limit/,
+    'the module refuses an over-limit buy even from the purchasing agent',
+  );
+});
+
+// ── The tricky parts, on their own ─────────────────────────────────────────
+
+const v = (rule: string, pass: boolean, detail = ''): RuleVerdict => ({ rule, pass, detail });
+const PASSING = [
+  v('Grant is active and not frozen', true),
+  v("Not in the grant's last 90 days", true),
+  v('Enough truly available money', true),
+  v('Category allowed', true),
+  v('Under the card limit ($5,000)', true),
+];
+const failing = (...rules: string[]) => PASSING.map((x) => (rules.includes(x.rule) ? { ...x, pass: false } : x));
+
+test('plan_for_puts_the_category_rule_first_and_the_freeze_last', () => {
+  assert.deepEqual(planFor(PASSING), { action: 'buy' });
+  assert.deepEqual(planFor(failing('Category allowed', 'Grant is active and not frozen')), { action: 'block', reason: 'category' });
+  assert.deepEqual(planFor(failing('Under the card limit ($5,000)', 'Grant is active and not frozen')), { action: 'hold', reason: 'card_limit' });
+  assert.deepEqual(planFor([...PASSING, v('Shared cost split across the grants it serves', false)]), { action: 'hold', reason: 'shared_cost' });
+  assert.deepEqual(planFor(failing('Grant is active and not frozen')), { action: 'hold', reason: 'freeze' });
+  assert.deepEqual(planFor(failing("Not in the grant's last 90 days")), { action: 'try_reroute' });
+  assert.deepEqual(planFor(failing('Enough truly available money', 'Grant is active and not frozen')), { action: 'try_reroute' });
+  assert.deepEqual(planFor([...PASSING, v('A rule nobody told the agent about', false)]), { action: 'hold', reason: 'unplaced' });
+  assert.deepEqual(planFor([]), { action: 'hold', reason: 'unplaced' }, 'no verdicts is never a buy');
+});
+
+test('frozen_grant_of_reads_the_grant_named_on_a_split_charge', () => {
+  assert.equal(frozenGrantOf(v('Grant is active and not frozen (R01GM000001)', false), GRANT_B), GRANT_A);
+  assert.equal(frozenGrantOf(v('Grant is active and not frozen', false), GRANT_B), GRANT_B);
+  assert.equal(frozenGrantOf(v('Under the card limit ($5,000)', false), GRANT_B), GRANT_B);
+});
+
+const grantRow = (id: string, extra: Partial<GrantRow> = {}): GrantRow => ({
+  id, title: `Grant ${id}`, pi: 'Test PI', agency: 'NIGMS', awarded: 400_000, received: 100_000, spent: 50_000, promised: 0,
+  available: 350_000, start: '2025-01-01', end: '2028-06-30', status: 'active', frozen: false, ...extra,
+});
+const requestRow = (extra: Partial<RequestRow> = {}): RequestRow => ({
+  id: 'rq-1', day: '2026-06-15', requester: 'scientist', item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380,
+  sharedWith: [], split: [], purpose: 'Bench use', state: 'submitted', verdicts: [], explanation: '', ...extra,
+});
+
+test('the_fallback_reading_takes_the_only_grant_that_can_pay_and_calls_two_unclear', async () => {
+  const rules = await loadRules();
+  const frozen = grantRow('G-A', { frozen: true, status: 'canceled', frozenReason: 'Canceled.' });
+  const open = grantRow('G-B');
+  assert.deepEqual(
+    [readFallback(requestRow(), [frozen, open], rules, '2026-06-15')].map((r) => [r.grantId, r.grantIsClear]),
+    [['G-B', true]],
+  );
+  const two = readFallback(requestRow(), [grantRow('G-A'), grantRow('G-B')], rules, '2026-06-15');
+  assert.equal(two.grantIsClear, false);
+  const named = readFallback(requestRow({ purpose: 'Imaging for G-A and G-B' }), [grantRow('G-A'), grantRow('G-B')], rules, '2026-06-15');
+  assert.deepEqual(named.servesGrantIds, ['G-A', 'G-B']);
+  assert.deepEqual(named.split, [], 'the fallback never invents a split');
+});
+
+const answer = (extra: Partial<Parameters<typeof sanitizeRead>[0]> = {}) => ({
+  grantId: 'G-B', grantIsClear: true, servesGrantIds: ['G-B'], split: [], splitSource: 'none' as const, note: '', ...extra,
+});
+
+test('sanitize_read_keeps_the_scientist_s_grant_and_drops_ids_outside_the_lab', () => {
+  const grants = [grantRow('G-A'), grantRow('G-B')];
+  const fallback = answer({ grantId: 'G-A', grantIsClear: false });
+  const asked = sanitizeRead(answer({ grantId: 'G-B' }), requestRow({ grantId: 'G-A' }), grants, fallback);
+  assert.deepEqual([asked.grantId, asked.grantIsClear], ['G-A', true]);
+  const outside = sanitizeRead(answer({ grantId: 'R01-NOT-OURS', servesGrantIds: ['R01-NOT-OURS', 'G-B'] }), requestRow(), grants, fallback);
+  assert.deepEqual([outside.grantId, outside.grantIsClear, outside.serves], ['G-A', false, ['G-B']]);
+});
+
+test('sanitize_read_uses_only_a_split_a_person_stated_across_two_grants', () => {
+  const grants = [grantRow('G-A'), grantRow('G-B')];
+  const stated = sanitizeRead(
+    answer({ split: [{ grantId: 'G-A', share: 0.6 }, { grantId: 'G-B', share: 0.4 }], splitSource: 'request' }), requestRow(), grants, answer(),
+  );
+  assert.deepEqual(stated.split, [{ grantId: 'G-A', share: 0.6 }, { grantId: 'G-B', share: 0.4 }]);
+  const unstated = sanitizeRead(answer({ split: [{ grantId: 'G-A', share: 0.5 }, { grantId: 'G-B', share: 0.5 }] }), requestRow(), grants, answer());
+  assert.deepEqual(unstated.split, [], 'splitSource none means no split, whatever the shares say');
+  const single = sanitizeRead(answer({ split: [{ grantId: 'G-A', share: 1 }], splitSource: 'request' }), requestRow(), grants, answer());
+  assert.deepEqual(single.split, []);
+});
+
+test('split_for_checks_an_undeclared_shared_cost_as_charged_so_the_rule_runs', () => {
+  const reading = (extra: Partial<Reading> = {}): Reading => ({
+    grantId: 'G-A', grantIsClear: true, serves: ['G-A'], split: [], splitSource: 'none', note: '', ...extra,
+  });
+  assert.deepEqual(splitFor(requestRow(), reading()), []);
+  assert.deepEqual(splitFor(requestRow(), reading({ serves: ['G-A', 'G-B'] })), [{ grantId: 'G-A', share: 1 }]);
+  assert.deepEqual(splitFor(requestRow({ sharedWith: ['G-A', 'G-B'] }), reading({ serves: ['G-A', 'G-B'] })), [], 'the module checks a declared one itself');
+  const given = [{ grantId: 'G-A', share: 0.6 }, { grantId: 'G-B', share: 0.4 }];
+  assert.deepEqual(splitFor(requestRow({ split: given }), reading({ serves: ['G-A', 'G-B'] })), given);
+  const pushedBack = [{ grantId: 'G-A', share: 0.5 }, { grantId: 'G-B', share: 0.5 }];
+  assert.deepEqual(splitFor(requestRow({ split: given }), reading({ split: pushedBack, splitSource: 'push_back' })), pushedBack, 'a push back is newer');
+});
+
+test('finish_explanation_names_a_rule_claude_left_out', () => {
+  const failed = [v('Under the card limit ($5,000)', false)];
+  assert.equal(finishExplanation('Held: it costs too much.', failed), 'Held: it costs too much. Rule: Under the card limit ($5,000).');
+  assert.equal(finishExplanation('Held: Under the card limit ($5,000) fails.', failed), 'Held: Under the card limit ($5,000) fails.');
+  assert.ok(finishExplanation('x'.repeat(2_000), []).length <= 1_000);
+});
+
+test('vendor_for_reuses_the_lab_s_vendor_for_the_same_item', () => {
+  const past = [requestRow({ id: 'rq-old', item: 'Nitrile gloves, 10 cases' }), requestRow({ id: 'rq-kit', item: 'Detergent screening kit, 2 plates', category: 'reagents' })];
+  const orders: OrderRow[] = [
+    { id: 'o-1', requestId: 'rq-old', grantId: 'G-A', vendor: 'LabSource', amount: 640, placed: '2025-01-14', state: 'paid' },
+    { id: 'o-2', requestId: 'rq-kit', grantId: 'G-A', vendor: 'MembraneChem', amount: 2300, placed: '2026-02-17', state: 'paid' },
+  ];
+  assert.equal(vendorFor(requestRow({ item: 'Nitrile gloves, 4 cases' }), past, orders), 'LabSource');
+  assert.equal(vendorFor(requestRow({ item: 'Membrane protein detergent screening kit, 4 plates', category: 'reagents' }), past, orders), 'MembraneChem');
+  assert.equal(vendorFor(requestRow({ item: 'Peristaltic pump', category: 'equipment' }), past, orders), DEFAULT_VENDOR);
+});
