@@ -2,16 +2,17 @@
 
 **Locked scope, Sat 10/24 just after midnight** (decided by @nathan; logged
 in `DECISIONS.md`). Owners: **Track A @suhu, Track B @nathan, Track C
-@ethan.** Every agent: read this file, `AGENTS.md`, `TASKS.md` and
-`DECISIONS.md` before starting.
+@ethan.** All three tracks are technical only; presentation and submission
+work sits outside them (`HUMAN_TODO.md`). Every agent: read this file,
+`AGENTS.md`, `CLAUDE.md`, `TASKS.md` and `DECISIONS.md` before starting.
 
 **How this relates to `docs/FEATURES.md`:** the IDs below are FEATURES IDs.
 This plan keeps P1 to P6, B1, B2, B4 to B7; **cuts B3 (Stripe cards) and S1
 to S4**; **adds P7 (report checker)**; and moves the proposal checker (P8)
 to the future list. Where the two files differ, this one is newer.
 
-Evidence for every number is in `docs/research/` (read its `README.md`
-before citing anything) and `docs/REPORT-grantguard.md`.
+Evidence for every rule and planted mistake is in `docs/research/` (read its
+`README.md` before citing anything) and `docs/REPORT-grantguard.md`.
 
 ---
 
@@ -23,18 +24,18 @@ grant's rules, checks invoices, writes the lab's payment requests to the
 government, and checks the lab's progress reports. It asks a human manager
 whenever it should, and logs every decision with its reason.
 
-- **Seats (Hyphenate's one line):** purchasing agent, grant accountant, and
-  payment and report preparer for a university research lab.
+- **Seats:** purchasing agent, grant accountant, and payment and report
+  preparer for a university research lab.
 - **Company:** a fictional lab, seeded with real public NIH grant records.
-- **The moment:** a court restores a canceled grant, and GrantGuard still
-  won't spend until the money actually arrives.
+- **The core behavior:** a court restores a canceled grant, and GrantGuard
+  still won't spend until the money actually arrives.
 
 ## 2. Who does what
 
 **AI agents** (each logs in with its own identity, so the database knows who
 did what):
 
-| Agent | Hyphenate seat | Job |
+| Agent | Seat | Job |
 |---|---|---|
 | Purchasing agent | purchasing | Turns requests into allowed purchases |
 | Bookkeeping agent | grant accountant | Keeps the fund tracker current; checks invoices |
@@ -183,9 +184,9 @@ discuss the retraction.
 
 - **Log (B4):** the system writes a row for every action (who, what, which
   rule, the reason). People read it and can click "why?" on any decision.
-- **Test lab and scorecard (B6):** people (us, or the judge) drop in events
-  and run the test cases; the system replays them and scores caught,
-  missed, and false alarms against the answer key.
+- **Test lab and scorecard (B6):** people drop in events and run the test
+  cases; the system replays them and scores caught, missed, and false
+  alarms against the answer key.
 
 ## 4. Windows
 
@@ -203,41 +204,36 @@ windows show information.
 | Log | everyone | Who did what, and why |
 | Test lab | us and the judges (demo only) | Drop in events, fast-forward the clock, run the test cases, see the scorecard |
 
-## 5. The demo
+## 5. The demo path (the end-to-end test the build must pass)
 
-1. **The moment:** a grant is canceled, so spending freezes. A court
-   restores it. The scientist pushes to buy; the agent holds, because the
-   money hasn't arrived, and explains. The payment lands and the purchase
-   goes through by itself. One item is still blocked (supplies in the last
-   90 days) and rerouted to another grant.
+1. A grant is canceled, so spending freezes. A court restores it. The
+   scientist pushes to buy; the agent holds, because the money hasn't
+   arrived, and explains. The payment lands and the purchase goes through
+   by itself. One item is still blocked (supplies in the last 90 days) and
+   rerouted to another grant.
 2. An invoice for a canceled order is held, with its timeline.
 3. A payment request is drafted, and the government's follow-up is answered
    with the exact purchases.
 4. The progress report catches a paper crediting the wrong grant.
-5. The scorecard: results on the planted mistakes.
+5. The scorecard shows results on the planted mistakes.
 
-**Pitch hook:** in June 2025 a federal court restored University of
-California researchers' canceled grants (*Thakur v. Trump*,
-`docs/research/pain-points/02-status-reversals.md`). A court order is not a
-payment.
-
-At the table, the judge plays the grant manager and can try their own
-inputs from the Requests window and the Test lab.
+It must also work unscripted: anyone can submit requests from the Requests
+window and inject events from the Test lab.
 
 ## 6. Build tracks
 
 Everything goes through the database: agents (B) and windows (C) never talk
 to each other directly. **Track A's tables and actions are the shared
-contract.** A ships the contract with fake data in about an hour; B and C
+contract.** A ships the contract with fixtures in about an hour; B and C
 build against it from then on, stubbing anything not ready.
 
 Every track builds in the same order, so pieces arrive together:
 **fund tracker and the freeze → invoice check → payment requests → report
 checker.**
 
-### Track A: database and rules (@suhu; `server/`, `sim/`)
+### Track A: database, rules and deploy (@suhu; `server/`, `deploy/`)
 
-Tasks in `TASKS.md`: T2, T3, then T5 to T8.
+Tasks in `TASKS.md`: T2, T3, T5, T6, T7, then T21.
 
 1. **T2:** pin the SpacetimeDB version; choose the module language
    (TypeScript if that version supports it, logged in `DECISIONS.md`);
@@ -250,112 +246,137 @@ Tasks in `TASKS.md`: T2, T3, then T5 to T8.
 4. **T6:** spending rules and hard limits.
 5. **T7:** approval gate (hold → decide with a reason → recheck → act) and a
    log row from every action.
-6. **T8:** fake university data with the planted mistakes from §3.
+6. **T21:** publish the module to hosted SpacetimeDB and host the web build
+   at a public URL.
 
-**Human-only (@suhu):** install the SpacetimeDB CLI on every machine.
+**Setup only a person can do (@suhu):** install the SpacetimeDB CLI on
+every machine.
 
-### Track B: agents and outside data (@nathan; `agents/`)
+### Track B: agents and government data (@nathan; `agents/`)
 
-Tasks in `TASKS.md`: T9 to T15.
+Tasks in `TASKS.md`: T9 to T14.
 
 1. **T9:** a worker program with one login per agent; a stub agent first.
 2. **T10:** source reader for RePORTER and USAspending by grant ID (daily,
    "check now", and before money moves); posts only changes; flags
-   disagreements.
+   disagreements, including against Track C's scraper readings.
 3. **T11:** purchasing agent.
 4. **T12:** invoice check.
 5. **T13:** payment request writer.
 6. **T14:** report checker, with about 20 papers cached for the demo plus
    live lookup.
-7. **T15:** Apify scraper for cancellation lists, feeding T10.
 
 Agents only change data through Track A's actions. Claude reads, matches and
 explains; the rules and math stay in Track A's code. Suggested models:
 `claude-sonnet-5-5` for the three agents, `claude-haiku-5-5` for the
 personas.
 
-**Human-only (@nathan):** Anthropic API key and Apify account, shared out
-of band, with their names in `.env.example`; pick the 2 real NIH grants to
-seed from.
+**Setup only a person can do (@nathan):** Anthropic API key and Apify
+account, shared out of band, with their names in `.env.example`; pick the 2
+real NIH grants to seed from.
 
-### Track C: windows, test lab and pitch (@ethan; `web/`, `eval/`)
+### Track C: windows, test data, scraper and scorecard (@ethan; `web/`, `sim/`, `eval/`, `scrapers/`)
 
-Tasks in `TASKS.md`: T16 to T20.
+Tasks in `TASKS.md`: T16, T8, T18, T17, T19, T15.
 
 1. **T16:** the 8 windows from §4, on fixture data.
-2. **T17:** live updates; Inbox buttons call Track A's actions.
+2. **T8:** fake university data with every planted mistake and decoy from
+   §3, in `sim/`.
 3. **T18:** Test lab: drop in events, fast-forward the clock.
-4. **T19:** answer key and scorecard, added to the check command.
-5. **T20:** demo script, backup video, Devpost.
+4. **T17:** live updates; Inbox buttons call Track A's actions.
+5. **T19:** answer key and scorecard, added to the check command.
+6. **T15:** Apify scraper for cancellation lists, posting readings through
+   Track A's action.
 
-**Human-only (@ethan):** visit the Hyphenate booth (ask whether a grant
-office counts as a finance team for them); interview one PI or research
-administrator for the Anthropic and Microsoft tracks; record the video;
-submit Devpost.
+### Outside the tracks, unassigned for now
+
+The demo video, Devpost, the Hyphenate booth visit and interviews
+(`HUMAN_TODO.md`). They are required for judging, so someone must own them
+by Saturday evening.
 
 ## 7. Checkpoints
 
 | When | What should work |
 |---|---|
 | Sat ~2 AM | Contract landed; stubs connected end to end (T4) |
-| Sat ~2 PM | The demo moment works live (integration check) |
-| Sat ~10 PM | Demo frozen; Devpost draft up |
+| Sat ~2 PM | The demo path works live on fresh `main` |
+| Sat ~10 PM | Demo path frozen; only fixes and robustness after this |
 | Sun 7 AM | Feature freeze |
-| Sun 9 AM | Devpost deadline |
 
 ## 8. Agent kickoff prompts
 
-Each owner pastes theirs into their agent.
+Each owner pastes theirs into Claude Code. If `/goal` isn't recognized,
+paste the rest as a normal message.
 
 **@suhu, Track A:**
 
 ```
-I'm @suhu. You're the Track A agent for GrantGuard: the SpacetimeDB
-database and rules. Read AGENTS.md, docs/MASTER-PLAN.md (sections 2, 3 and
-6), TASKS.md and DECISIONS.md first. You own server/ and sim/ only.
-Do T2, then T3. Tracks B and C are waiting on T3's contract (tables,
-action stubs, fixtures for 2 grants), so push it within about an hour,
-even if the stubs are thin. Then do T5 to T8 in order.
-Rules: every limit lives in code inside the database, never in a prompt.
-Nobody approves their own request, and no agent approves its own work.
-After the contract lands, schema changes must be additive; a breaking
-change needs a DECISIONS.md line and fixes to every caller in the same
-commit. Claim each task in TASKS.md before starting, and follow
-AGENTS.md for commits and pushes.
+/goal Track A for GrantGuard: the SpacetimeDB database, rules and deploy. Done when T2, T3, T5, T6, T7 and T21 in TASKS.md each pass their "done when" on a fresh clone and are pushed.
+
+I'm @suhu. You own server/ and deploy/ only.
+
+Read first:
+- AGENTS.md and CLAUDE.md (team rules; pull and push often)
+- docs/MASTER-PLAN.md §2 (hard limits), §3 (each feature's rules in code and planted mistakes), §6 Track A
+- TASKS.md T2 to T7 and T21
+- DECISIONS.md (SpacetimeDB lines: pin one version; the 2.0 RC has syntax churn)
+- docs/FEATURES.md B1 and P1 to P6
+- docs/research/MVP-REPORT.md (planted-error table); docs/research/pain-points/02 and 08 (status reversals, audit cases)
+
+Order: T2, then T3. Tracks B and C are waiting on T3's contract (tables, action stubs, fixtures for 2 grants), so push it within about an hour, even if thin. Then T5, T6, T7, and T21 last.
+
+Rules: every limit lives in code inside the database, never in a prompt. Nobody approves their own request; no agent approves its own work. After T3 lands, schema changes are additive only; a breaking change needs a DECISIONS.md line and fixes to every caller in the same commit. Claim each task in TASKS.md before starting.
+
+Subagents: deploy them whenever work splits cleanly. For example, one reads the pinned SpacetimeDB version's docs while you write the schema; one writes a test for each rule's planted case and decoy. Brief each one fully, since they see none of this conversation: give file paths, your owned dirs, the task's "done when" and the stay-in-lane rule. Give parallel subagents separate files, or separate worktrees. Skip them for anything that takes one or two tool calls. Review their output before you commit.
 ```
 
 **@nathan, Track B:**
 
 ```
-I'm @nathan. You're the Track B agent for GrantGuard: the agent worker
-and outside data. Read AGENTS.md, docs/MASTER-PLAN.md (sections 2, 3 and
-6), TASKS.md and DECISIONS.md first. You own agents/ only.
-Start T9 now against a stub of the contract; switch to the real one when
-Track A pushes T3. Then do T10 to T15 in order.
-Rules: each agent logs in with its own identity. Agents change data only
-by calling Track A's actions, never by writing tables directly. Claude
-reads, matches and explains; rules and math stay in Track A's code. Only
-look up the lab's own grant IDs, and record only changes. Cache every
-outside lookup so the demo works offline. Keys come from .env.local; add
-each new variable name to .env.example. Claim each task in TASKS.md
-before starting, and follow AGENTS.md for commits and pushes.
+/goal Track B for GrantGuard: the agent worker and government data readers. Done when T9 to T14 in TASKS.md each pass their "done when" and are pushed.
+
+I'm @nathan. You own agents/ only.
+
+Read first:
+- AGENTS.md and CLAUDE.md
+- docs/MASTER-PLAN.md §2 (the three agents and hard limits), §3 (what each agent does vs what people do), §6 Track B
+- TASKS.md T9 to T14; docs/FEATURES.md B2
+- docs/research/README.md (open APIs that need no key, tools that worked)
+- docs/research/pain-points/01, 02, 06, 10 (sources, status reversals, awarded vs paid, payment justifications)
+- docs/REPORT-grantguard.md §5 (citation checks and data sources: Crossref, RePORTER, PubMed)
+- use the claude-api skill for model IDs and SDK usage
+
+Order: start T9 now against a stub of the contract; switch to the real one when Track A pushes T3. Then T10 to T14.
+
+Rules: each agent logs in with its own identity and changes data only by calling Track A's actions. Claude reads, matches and explains; rules and math stay in Track A's code. Only look up the lab's own grant IDs, and record only changes. Cache every outside lookup so the demo works offline. Keys come from .env.local; add each new variable name to .env.example. Claim each task in TASKS.md before starting.
+
+Subagents: deploy them often. Run one per outside source in parallel (RePORTER, USAspending, Crossref/PubMed) to read its API docs and build a cached client. Run one per agent prompt plus its tests. Brief each fully: file paths, agents/ only, the task's "done when". Give parallel subagents separate files, or separate worktrees. Skip them for one-call lookups, and review their output before you commit.
 ```
 
 **@ethan, Track C:**
 
 ```
-I'm @ethan. You're the Track C agent for GrantGuard: the windows, the
-test lab and the scorecard. Read AGENTS.md, docs/MASTER-PLAN.md (sections
-3 to 7), TASKS.md and DECISIONS.md first. You own web/ and eval/ only.
-Start T16 now on fixture data; switch to the real contract when Track A
-pushes T3. Then do T17 to T20 in order.
-Rules: each window has one job, and only the Inbox has decision buttons.
-Every human decision needs a reason field. The Test lab is demo-only.
-The scorecard compares the system's decisions with the answer key
-(caught, missed, false alarms) and joins the check command. Claim each
-task in TASKS.md before starting, and follow AGENTS.md for commits and
-pushes.
+/goal Track C for GrantGuard: the windows, test data, Apify scraper and scorecard. Done when T16, T8, T18, T17, T19 and T15 in TASKS.md each pass their "done when" and are pushed.
+
+I'm @ethan. You own web/, sim/, eval/ and scrapers/ only.
+
+Read first:
+- AGENTS.md and CLAUDE.md
+- docs/MASTER-PLAN.md §3 (planted mistakes and decoys per feature), §4 (the 8 windows), §5 (the demo path), §6 Track C
+- TASKS.md T8, T15 to T19; docs/FEATURES.md B5, B6 and B7
+- docs/research/MVP-REPORT.md (test set and the real audit cases behind it)
+- docs/research/README.md (Apify tips) and docs/research/pain-points/01 and 02 (cancellation lists, Grant Witness)
+
+Order: start T16 now on fixture data; switch to the real contract when Track A pushes T3. Then T8, T18, T17, T19, and T15 last.
+
+Rules: each window has one job, and only the Inbox has decision buttons. Every human decision needs a reason field. The Test lab is demo-only. The fake data must contain every planted mistake and decoy in MASTER-PLAN §3, and the scorecard compares decisions with that answer key (caught, missed, false alarms) as part of the check command. The scraper writes only through Track A's actions. Claim each task in TASKS.md before starting.
+
+Subagents: deploy them often. Build independent windows in parallel, one subagent per window, each in its own files. Use one to build the fake data and answer key together, and one with the webapp-testing skill to click through the demo path. Brief each fully: file paths, your owned dirs only, the task's "done when". Skip them for one-call lookups, and review their output before you commit.
 ```
+
+**For every owner:** subagents work inside the task their parent claimed
+(`AGENTS.md` allows one claimed task per agent). A second top-level agent
+needs its own clone (`git clone ... CalHacks13.0-2`) and its own claim.
 
 ## 9. Cut and future
 
@@ -372,10 +393,12 @@ pushes.
 **Future, not built this weekend:**
 - **Proposal checker (P8):** before the lab applies for a new grant, checks
   the application's budget and cited papers using what the tracker and the
-  report checker already know. It's one "what's next" slide in the pitch.
-  Details: `docs/REPORT-grantguard.md`.
+  report checker already know. Details: `docs/REPORT-grantguard.md`.
 
-## 10. Verify before it goes on a slide
+## 10. Verify before it goes in the video or Devpost
+
+Kept for the submission drafts in `docs/submission/`, which cite it. Not
+track work.
 
 1. *Thakur v. Trump*: dates and scope. The source is the plaintiffs' law
    firm.
