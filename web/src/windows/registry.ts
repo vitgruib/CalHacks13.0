@@ -1,5 +1,5 @@
 // One entry per window (MASTER-PLAN §4). Each window lives in its own file.
-import type { ComponentType } from 'react'
+import { createContext, type ComponentType } from 'react'
 import Funds from './Funds'
 import Requests from './Requests'
 import Invoices from './Invoices'
@@ -17,6 +17,9 @@ export const roles: { id: Role; label: string; home: string }[] = [
   { id: 'grant_manager', label: 'Grant manager', home: 'funds' },
   { id: 'scientist', label: 'Scientist', home: 'ask' },
 ]
+
+/** The role the app is viewed as, for the few windows that differ by role. */
+export const RoleContext = createContext<Role>('grant_manager')
 
 export interface WindowDef { id: string; label: string; job: string; Component: ComponentType; roles: Role[] }
 

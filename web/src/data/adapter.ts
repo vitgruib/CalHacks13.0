@@ -96,6 +96,8 @@ export function toDb(db: DbConnection['db']): T.Db {
       }
       if (r.chargedGrantId !== undefined) out.chargedGrantId = r.chargedGrantId
       if (r.split.length) out.split = r.split
+      if (r.sharedWith.length) out.sharedWith = r.sharedWith
+      if (r.requestedBy) out.requestedBy = r.requestedBy.toHexString()
       return out
     })),
     orders: sorted(rows(db.order).map(o => {

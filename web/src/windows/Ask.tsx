@@ -71,11 +71,12 @@ const headline: Record<Outcome['kind'], string> = {
   not_now: 'Not right now.',
 }
 
-function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: string; price: number; category: string }; onSent: (msg: string) => void }) {
+function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: string; price: number; category: string; shared: boolean }; onSent: (msg: string) => void }) {
   const { submitRequest } = useStore()
   const [why, setWhy] = useState(false)
-  const out = checkAsk(db, ask)
-  const checks = allChecks(db, ask)
+  const facts = { ...ask, sharedWith: ask.shared ? db.grants.map(x => x.id) : [] }
+  const out = checkAsk(db, facts)
+  const checks = allChecks(db, facts)
   const g = 'grant' in out ? out.grant : undefined
   const after = g ? spendable(g) - ask.price : 0
 
@@ -90,11 +91,13 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: strin
   } else if (out.kind === 'wait') {
     const others = checks.filter(c => c.g.id !== out.grant.id).flatMap(c => plainReasons(db, c.g, c.verdicts))
     body = <>
-      <p className="ask-big">Your <strong>{shortName(out.grant)}</strong> grant can pay, but it's paused until its money arrives. Send it now and it's bought the day the money comes in.</p>
+      {out.needsManager
+        ? <p className="ask-big">Your <strong>{shortName(out.grant)}</strong> grant can pay, but it's paused until its money arrives. And anything over {money(CARD_LIMIT)} needs your grant manager to say yes, so once the money comes in it goes to them; it isn't bought on its own.</p>
+        : <p className="ask-big">Your <strong>{shortName(out.grant)}</strong> grant can pay, but it's paused until its money arrives. Send it now and it's bought the day the money comes in.</p>}
       {others.map(r => <p key={r} className="ask-sub">{r}</p>)}
       <p className="ask-sub"><a href={`#grants/${out.grant.id}`}>Where's my money?</a></p>
     </>
-    send = 'Send it, buy when the money arrives'
+    send = out.needsManager ? 'Send it, ask my grant manager when the money arrives' : 'Send it, buy when the money arrives'
   } else if (out.kind === 'not_allowed') {
     body = <p className="ask-big">Federal grants can't pay for {ask.category} things like this. If it's really for your research, change the kind of thing below and check again.</p>
   } else {
@@ -107,7 +110,7 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: strin
 
   const onSend = () => {
     if (!g) return
-    submitRequest({ item: ask.item || ask.text, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.text })
+    submitRequest({ item: ask.item || ask.text, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.text, sharedWith: facts.sharedWith })
     onSent(`Sent: ${ask.item || ask.text}. The purchasing agent has it now.`)
   }
 
@@ -137,7 +140,7 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: strin
 export default function Ask() {
   const { db } = useStore()
   const [text, setText] = useState('')
-  const [ask, setAsk] = useState<{ text: string; item: string; price?: number; category: string } | null>(null)
+  const [ask, setAsk] = useState<{ text: string; item: string; price?: number; category: string; shared: boolean } | null>(null)
   const [topic, setTopic] = useState<Topic | null>(null)
   const [sent, setSent] = useState('')
   const [price, setPrice] = useState('')
@@ -147,7 +150,7 @@ export default function Ask() {
     const t = text.trim()
     if (!t) return
     const { item, price } = parseAsk(t)
-    setAsk({ text: t, item, price, category: guessCategory(t) })
+    setAsk({ text: t, item, price, category: guessCategory(t), shared: false })
     setTopic(null)
     setSent('')
   }
@@ -189,7 +192,7 @@ export default function Ask() {
         </section>
       ) : (
         <>
-          <Verdict key={`${ask.text}|${ask.price}|${ask.category}`} db={db} ask={{ ...ask, price: ask.price }} onSent={m => { setSent(m); setAsk(null); setText('') }} />
+          <Verdict key={`${ask.text}|${ask.price}|${ask.category}|${ask.shared}`} db={db} ask={{ ...ask, price: ask.price }} onSent={m => { setSent(m); setAsk(null); setText('') }} />
           <p className="ask-read">
             We read this as <strong>{ask.item || ask.text}</strong>, {money(ask.price)}, and the kind of thing as{' '}
             <label className="ask-sr" htmlFor="ask-cat">Kind of thing</label>
@@ -197,6 +200,12 @@ export default function Ask() {
               {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </p>
+          {db.grants.length > 1 && (
+            <p className="ask-read">
+              <label><input type="checkbox" checked={ask.shared} onChange={e => setAsk({ ...ask, shared: e.target.checked })} />{' '}
+                It's shared: it serves your {db.grants.map(shortName).join(' and ')} grants</label>
+            </p>
+          )}
         </>
       ))}
 

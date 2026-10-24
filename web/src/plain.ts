@@ -80,16 +80,23 @@ export function parseAsk(text: string): { item: string; price?: number } {
 export type Outcome =
   | { kind: 'yes'; grant: Grant } // every rule passes on this grant
   | { kind: 'manager'; grant: Grant } // only the card limit fails
-  | { kind: 'wait'; grant: Grant } // only the pause stops it
+  // The pause stops it. needsManager: it is also over the card limit, so once
+  // the money arrives it still goes to the grant manager, not bought on its own.
+  | { kind: 'wait'; grant: Grant; needsManager: boolean }
   | { kind: 'not_allowed' } // a federal grant can't pay for this kind of thing
   | { kind: 'not_now'; grant: Grant }
 
 const isCardLimit = (v: Verdict) => v.rule.startsWith('Under the card limit')
 const isPause = (v: Verdict) => v.rule.startsWith('Grant is active and not frozen')
 
+/** What the researcher asked for. sharedWith: every grant a shared cost serves. */
+export interface AskFacts { category: string; price: number; sharedWith?: string[] }
+
 /** Every rule's verdict on every grant, the grant with the most money first. */
-export function allChecks(db: Db, req: { category: string; price: number }) {
-  const facts = { category: req.category, price: req.price, sharedWith: [], split: [] }
+export function allChecks(db: Db, req: AskFacts) {
+  // submit_request takes the grants a shared cost serves but not its split,
+  // so a declared shared cost is checked the way the module will see it.
+  const facts = { category: req.category, price: req.price, sharedWith: req.sharedWith ?? [], split: [] }
   return [...db.grants]
     .sort((a, b) => trulyAvailable(b) - trulyAvailable(a))
     .map(g => ({ g, verdicts: spendingVerdicts(facts, g, db.today) }))
@@ -101,12 +108,13 @@ export function plainReasons(db: Db, g: Grant, verdicts: Verdict[]): string[] {
     if (isPause(v)) return `Your ${shortName(g)} grant is paused until its money arrives.`
     if (v.rule.startsWith("Not in the grant's last 90 days")) return `Your ${shortName(g)} grant ends ${inTime(daysLeft(db, g))}, and supplies bought this close to the end are often refused by auditors.`
     if (v.rule.startsWith('Enough truly available money')) return `Your ${shortName(g)} grant has only ${money(spendable(g))} left.`
+    if (v.rule.startsWith('Shared cost split')) return `It's shared between grants, so your grant manager decides how to split it.`
     return v.detail
   })
 }
 
 /** What the purchasing agent will do with this request, by the module's rules. */
-export function checkAsk(db: Db, req: { category: string; price: number }): Outcome {
+export function checkAsk(db: Db, req: AskFacts): Outcome {
   const rows = allChecks(db, req)
   const fails = (r: (typeof rows)[number]) => r.verdicts.filter(v => !v.pass)
   if (rows[0]?.verdicts.some(v => v.rule === 'Category allowed' && !v.pass)) return { kind: 'not_allowed' }
@@ -115,6 +123,6 @@ export function checkAsk(db: Db, req: { category: string; price: number }): Outc
   const mgr = rows.find(r => fails(r).every(isCardLimit))
   if (mgr) return { kind: 'manager', grant: mgr.g }
   const wait = rows.find(r => paused(r.g) && fails(r).every(v => isPause(v) || isCardLimit(v)))
-  if (wait) return { kind: 'wait', grant: wait.g }
+  if (wait) return { kind: 'wait', grant: wait.g, needsManager: fails(wait).some(isCardLimit) }
   return { kind: 'not_now', grant: rows[0].g }
 }

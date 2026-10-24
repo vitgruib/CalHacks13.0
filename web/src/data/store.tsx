@@ -10,7 +10,9 @@ export interface Store {
   /** Grant manager decides a hold. Reason is required (MASTER-PLAN §2). */
   decide: (holdId: string, choice: Decision['choice'], reason: string) => void
   /** Scientist submits a purchase request; the purchasing agent picks it up. */
-  submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose'>) => void
+  submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose' | 'sharedWith'>) => void
+  /** The scientist who asked pushes back with new information; the agent looks again (push_back). */
+  pushBack: (requestId: string, message: string) => void
   // Test lab only (T18). Same argument shapes as Track A's reducers
   // inject_status_event, inject_invoice and advance_days, so T17 can swap them.
   /** Drop a status event into the world; applies the freeze rule (MASTER-PLAN §3.1). */
@@ -56,7 +58,12 @@ export function applyStatusEvent(d: Db, a: InjectStatusEventArgs): Db {
     next = { ...next, status: 'restored_by_court' }
   } else if (a.kind === 'payment_received') {
     next = { ...next, received: g.received + a.amount! }
-    if (g.frozen) {
+    // An open sources-disagree flag keeps it frozen until the grant manager
+    // decides, as in the module (rules.ts freezeState).
+    const disagree = d.flags.some(f => f.grantId === g.id && f.open && f.kind === 'sources_disagree')
+    if (g.frozen && disagree) {
+      next = { ...next, frozenReason: 'Sources disagree about this grant. Spending stays frozen until the grant manager decides.' }
+    } else if (g.frozen) {
       next = { ...next, frozen: false, frozenReason: undefined }
       const un: StatusEvent = { id: nextId('se'), grantId: a.grantId, day: d.today, kind: 'unfrozen', source: a.source, summary: `Spending unfrozen: a payment of ${usd(a.amount!)} arrived.` }
       events.push(un)
@@ -116,10 +123,24 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
       const id = nextId('rq')
       return {
         ...d,
-        requests: [...d.requests, { ...r, id, day: d.today, requester: 'scientist', state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' }],
+        requests: [...d.requests, { ...r, id, day: d.today, requester: 'scientist', requestedBy: 'this tab', state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' }],
         log: [...d.log, { id: nextId('l'), day: d.today, actor: 'scientist', action: `Submitted request: ${r.item}`, reason: r.purpose, refId: id }],
       }
     })
+  }
+
+  // Same refusals as the module's push_back.
+  const pushBack: Store['pushBack'] = (requestId, message) => {
+    const r = db.requests.find(x => x.id === requestId)
+    if (!r) throw new Error(`No request ${requestId}.`)
+    if (!r.requestedBy) throw new Error('Only the person who asked can push back.')
+    if (!message.trim()) throw new Error('Say what changed.')
+    if (r.state === 'bought' || r.state === 'rerouted') throw new Error(`Already ${r.state}.`)
+    setDb(d => ({
+      ...d,
+      requests: d.requests.map(x => (x.id === requestId ? { ...x, state: 'submitted' } : x)),
+      log: [...d.log, { id: nextId('l'), day: d.today, actor: 'scientist', action: `Pushed back on ${r.item}`, reason: message, refId: requestId }],
+    }))
   }
 
   // Validate against the current state up front so callers can show the error;
@@ -141,7 +162,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     }, SIMULATED_CHECK_MS)
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ db, decide, submitRequest, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

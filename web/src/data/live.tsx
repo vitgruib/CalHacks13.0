@@ -160,7 +160,14 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
     submitRequest: r => {
       call('Request', async () => {
         const c = await asScientist()
-        await c.reducers.submitRequest({ item: r.item, category: r.category, price: r.price, grantId: r.grantId || undefined, purpose: r.purpose, sharedWith: [] })
+        await c.reducers.submitRequest({ item: r.item, category: r.category, price: r.price, grantId: r.grantId || undefined, purpose: r.purpose, sharedWith: r.sharedWith ?? [] })
+      })
+    },
+    pushBack: (requestId, message) => {
+      if (!message.trim()) throw new Error('Say what changed.')
+      call('Push back', async () => {
+        const c = await asScientist()
+        await c.reducers.pushBack({ requestId, message })
       })
     },
     // The local rules run first only to catch bad input synchronously (the

@@ -2,9 +2,10 @@
 // and moves the clock (T18); the agents react to what lands here. The
 // scorecard is eval/scorecard.json, written by the check command (T19) and
 // imported at build time: it scores the seed run, not the live database.
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStore } from '../data/store'
-import type { Db, Grant } from '../data/types'
+import type { Db } from '../data/types'
+import { nextStep, paymentNote } from '../frozen'
 import { Badge, Section, grantStatus, money } from '../ui'
 import type { Tone } from '../ui'
 import scorecardJson from '../../../eval/scorecard.json'
@@ -31,13 +32,7 @@ let lastGrantId: string | undefined
 
 interface Note { id: number; tone: 'good' | 'bad'; text: string }
 
-/** The next step of the demo story for this grant (MASTER-PLAN §5). */
-function nextStep(g: Grant): string {
-  if (!g.frozen) return 'Spending is open. Cancel the grant to freeze it.'
-  if (g.status === 'canceled') return 'Frozen after a cancellation. A court order will restore the status but not the money.'
-  if (g.status === 'restored_by_court') return 'Restored by court but still frozen: a court order is not cash. A payment unfreezes it.'
-  return 'Frozen. A payment unfreezes it.'
-}
+const paymentsOn = (db: Db, grantId: string) => db.statusEvents.filter(e => e.grantId === grantId && e.kind === 'payment_received').length
 
 /** Ready-made bad invoices built from real seed orders, when those orders exist. */
 function badInvoicePresets(db: Db) {
@@ -75,17 +70,28 @@ export default function TestLab() {
   const [invAmount, setInvAmount] = useState('')
   const [days, setDays] = useState('7')
   const [notes, setNotes] = useState<Note[]>([])
+  // A payment sent but not seen yet. Live, its rows arrive later over the
+  // websocket, so the note is written once the new payment event shows up.
+  const [pendingPay, setPendingPay] = useState<{ grantId: string; amount: number; wasFrozen: boolean; seen: number } | null>(null)
 
   const grant = db.grants.find(g => g.id === grantId)
 
-  const run = (fn: () => string) => {
+  const note = (tone: Note['tone'], text: string) => setNotes(n => [{ id: Date.now() + Math.random(), tone, text }, ...n].slice(0, 6))
+  /** Run an action; a returned string becomes a note now (undefined: the action writes its own later). */
+  const run = (fn: () => string | undefined) => {
     try {
       const text = fn()
-      setNotes(n => [{ id: Date.now() + Math.random(), tone: 'good' as const, text }, ...n].slice(0, 6))
+      if (text) note('good', text)
     } catch (e) {
-      setNotes(n => [{ id: Date.now() + Math.random(), tone: 'bad' as const, text: (e as Error).message }, ...n].slice(0, 6))
+      note('bad', (e as Error).message)
     }
   }
+
+  useEffect(() => {
+    if (!pendingPay || paymentsOn(db, pendingPay.grantId) <= pendingPay.seen) return
+    setPendingPay(null)
+    note('good', paymentNote(db, pendingPay.grantId, pendingPay.amount, pendingPay.wasFrozen))
+  }, [db, pendingPay])
 
   const cancel = () => run(() => {
     injectStatusEvent({ grantId, kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Grant appears on the terminated-grants list.' })
@@ -98,9 +104,10 @@ export default function TestLab() {
   const pay = () => run(() => {
     const amount = Number(payment)
     if (!Number.isInteger(amount) || amount <= 0) throw new Error('Enter a payment in whole dollars above zero.')
-    const wasFrozen = grant?.frozen
+    const seen = paymentsOn(db, grantId)
     injectStatusEvent({ grantId, kind: 'payment_received', source: 'Payment system', summary: `Payment of ${money(amount)} received.`, amount })
-    return `${money(amount)} arrived for ${grantId}.` + (wasFrozen ? ' Spending is unfrozen.' : ' Spending was already open.')
+    setPendingPay({ grantId, amount, wasFrozen: !!grant?.frozen, seen })
+    return undefined
   })
   const badInvoice = () => run(() => {
     const p = presets.find(x => x.key === presetKey)
@@ -156,7 +163,7 @@ export default function TestLab() {
               {grant.frozen ? <Badge tone="bad">Frozen</Badge> : <Badge tone="good">Spending open</Badge>}
               <span className="muted">Received {money(grant.received)} of {money(grant.awarded)}</span>
             </span>
-            <p className="tl-next">{nextStep(grant)} <a href="#funds">See it in Funds</a></p>
+            <p className="tl-next">{nextStep(db, grant)} <a href="#funds">See it in Funds</a></p>
           </div>
         )}
         <ol className="scenarios">
@@ -173,7 +180,7 @@ export default function TestLab() {
             <label className="tl-inline">Amount ($)
               <input type="number" min={1} step={1} value={payment} onChange={e => setPayment(e.target.value)} />
             </label>
-            <span className="muted">Money actually lands. Spending unfreezes.</span>
+            <span className="muted">Money actually lands. Spending unfreezes, unless something else still holds it.</span>
           </li>
         </ol>
       </Section>

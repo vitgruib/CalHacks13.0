@@ -24,3 +24,8 @@
 .rq-audit { color: var(--muted); font-size: 12px; margin-top: 2px; }
 
 @media (max-width: 720px) { .rq-form { grid-template-columns: 1fr; } }
+
+.rq-push { margin: 0 0 8px; display: flex; flex-direction: column; gap: 6px; }
+.rq-push label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+.rq-push textarea { resize: vertical; }
+.rq-push-row { margin: 0 0 8px; }

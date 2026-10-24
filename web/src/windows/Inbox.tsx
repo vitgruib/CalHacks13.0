@@ -54,6 +54,17 @@ const kindLink: Record<HoldKind, { href: string; label: string }> = {
   source_disagreement: { href: '#funds', label: 'Funds' },
 }
 
+/** Each source once, its newest reading ("canceled (2026-06-15)"); later rows win a tie. */
+function latestPerSource(evidence: Hold['evidence']): Hold['evidence'] {
+  const dayOf = (v: string) => v.match(/\((\d{4}-\d{2}-\d{2})\)\s*$/)?.[1] ?? ''
+  const best = new Map<string, Hold['evidence'][number]>()
+  for (const e of evidence) {
+    const had = best.get(e.label)
+    if (!had || dayOf(e.value) >= dayOf(had.value)) best.set(e.label, e)
+  }
+  return [...best.values()]
+}
+
 const byDayThenId = (a: Hold, b: Hold) => a.day.localeCompare(b.day) || a.id.localeCompare(b.id)
 
 export default function Inbox() {
@@ -120,6 +131,8 @@ function HoldCard({ hold }: { hold: Hold }) {
   const hasReason = reason.trim() !== ''
   const picksSource = hold.options.includes('pick_source')
   const link = kindLink[hold.kind]
+  // Source readings: show each source once, as it reads now.
+  const evidence = hold.kind === 'source_disagreement' ? latestPerSource(hold.evidence) : hold.evidence
 
   const onDecide = (choice: Decision['choice']) => {
     const text = choice === 'pick_source' ? `Source picked: ${source}. ${reason.trim()}` : reason.trim()
@@ -137,10 +150,10 @@ function HoldCard({ hold }: { hold: Hold }) {
       </p>
       <p className="why"><strong>Why it's waiting:</strong> {hold.why}</p>
 
-      {hold.evidence.length > 0 && (
+      {evidence.length > 0 && (
         <dl className="evidence">
-          {hold.evidence.map(e => (
-            <div key={e.label}>
+          {evidence.map((e, i) => (
+            <div key={`${i}-${e.label}`}>
               <dt>{e.label}</dt>
               <dd>{e.value}</dd>
             </div>
@@ -153,8 +166,8 @@ function HoldCard({ hold }: { hold: Hold }) {
           <label htmlFor={sourceId}>Which source is right?</label>
           <select id={sourceId} value={source} onChange={e => setSource(e.target.value)}>
             <option value="">Choose a source…</option>
-            {hold.evidence.map(e => (
-              <option key={e.label} value={e.label}>{e.label}</option>
+            {[...new Set(evidence.map(e => e.label))].map(label => (
+              <option key={label} value={label}>{label}</option>
             ))}
           </select>
         </div>

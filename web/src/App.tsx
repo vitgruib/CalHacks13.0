@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from './data/store'
-import { roles, windows, type Role } from './windows/registry'
+import { RoleContext, roles, windows, type Role } from './windows/registry'
 import Notices from './Notices'
 import './scientist.css'
 
@@ -53,7 +53,7 @@ export default function App() {
         </header>
         <main className="sci-main">
           {current.id === 'requests' && <h1 style={{ marginBottom: 20 }}>My requests</h1>}
-          <current.Component />
+          <RoleContext.Provider value={role}><current.Component /></RoleContext.Provider>
         </main>
       </div>
     )

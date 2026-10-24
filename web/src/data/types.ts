@@ -79,6 +79,8 @@ export interface PurchaseRequest {
   grantId: string // grant asked for
   chargedGrantId?: string // grant actually charged (differs when rerouted)
   split?: { grantId: string; share: number }[] // shared costs; shares sum to 1
+  sharedWith?: string[] // a shared cost the requester declared: every grant it serves
+  requestedBy?: string // who asked, when asked in the app (seed requests have none); only they can push back
   purpose: string
   state: RequestState
   verdicts: RuleVerdict[]
