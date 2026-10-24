@@ -275,16 +275,35 @@ test('a_correction_notice_with_a_long_title_is_still_recorded', async () => {
   assert.equal(affiliation.correction?.kind, 'minor');
 });
 
-test('a_lookup_that_fails_leaves_that_paper_unchecked_and_the_rest_go_on', async (t) => {
+test('a_lookup_that_fails_asks_the_grant_manager_once_and_the_rest_go_on', async (t) => {
   const errors = t.mock.method(console, 'error', () => {});
   world = await realWorld([
     realPaper('r-6', 'R01AI181732', '10.1234/not-in-the-saved-answers'),
     realPaper('r-7', 'R01AI181732', '10.3201/eid3208.260433'),
   ]);
   assert.equal(paper('r-6').checked, false);
-  assert.deepEqual(reportHolds('r-6'), []);
+  const [hold, ...more] = reportHolds('r-6');
+  assert.deepEqual(more, [], 'asked once');
+  assert.equal(hold.open, true);
+  assert.match(hold.title, /public record couldn't be read/);
+  assert.match(said(hold), /10\.1234\/not-in-the-saved-answers/);
   assert.equal(paper('r-7').result, 'ok');
   assert.ok(errors.mock.calls.some((call) => String(call.arguments[0]).includes('report checker: paper r-6')));
+  const before = world.db.version();
+  await world.worker.idle();
+  assert.equal(world.db.version(), before, 'a second idle asks nothing new');
+});
+
+test('approving_a_failed_lookup_looks_the_paper_up_again_and_asks_once', async (t) => {
+  t.mock.method(console, 'error', () => {});
+  world = await realWorld([realPaper('r-6', 'R01AI181732', '10.1234/not-in-the-saved-answers')]);
+  const manager = await world.person('grant_manager');
+  await manager.call('decide_hold', { holdId: openHold('r-6').id, choice: 'approve', reason: 'Fixed the DOI typo in the report.' });
+  await world.worker.idle();
+  // Still unreachable offline: looked up again, but the same DOI isn't asked about twice.
+  assert.equal(paper('r-6').checked, false);
+  assert.deepEqual(reportHolds('r-6').filter((h) => h.open), []);
+  assert.equal(reportHolds('r-6').length, 1);
 });
 
 // ── The module refuses, and the agent copes ────────────────────────────────

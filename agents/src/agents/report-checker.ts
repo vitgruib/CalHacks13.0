@@ -247,10 +247,43 @@ export function startReportChecker(ctx: AgentContext): AgentHandle {
     });
   }
 
+  // A lookup that throws (the record can't be reached, or the DOI isn't one)
+  // would leave the paper unchecked with nothing in the Inbox. Asked once per
+  // DOI; a restart, a reloaded world or the grant manager's approval looks it
+  // up again.
+  async function lookupFailed(row: ReportPaperRow, error: unknown) {
+    const reason = error instanceof Error ? error.message : String(error);
+    console.error(`${AGENT}: paper ${row.id} (${row.doi}) failed: ${reason}`);
+    const title = `Paper ${row.id}'s public record couldn't be read`;
+    const asked = conn
+      .rows('hold')
+      .some((hold) => hold.kind === 'report' && hold.refId === row.id && hold.title === title && hold.evidence.some((e) => e.label === 'DOI' && e.value === row.doi));
+    if (asked || stopped) return;
+    await conn.call('raise_hold', {
+      kind: 'report', refId: row.id, grantId: row.grantId, title,
+      why:
+        `${row.id} ("${row.title}") is in ${row.grantId}'s progress report with DOI ${row.doi}, but its public record couldn't be read, ` +
+        `so its grant credit, PubMed Central ID and corrections aren't checked yet. Check the DOI in the report; ` +
+        'approve to look it up again, reject to keep it held.',
+      evidence: [
+        { label: 'Paper', value: row.title },
+        { label: 'DOI', value: row.doi },
+        { label: 'Lookup error', value: reason.length > 300 ? `${reason.slice(0, 297)}...` : reason },
+        { label: TO_DO, value: 'Check the DOI in the report, then approve to look it up again.' },
+      ],
+      options: ['approve', 'reject'],
+    });
+  }
+
   async function check(id: string) {
     const row = paper(id);
     if (!row || row.checked) return;
-    const record = await papers.lookup(row.doi);
+    let record: PaperRecord | null;
+    try {
+      record = await papers.lookup(row.doi);
+    } catch (error) {
+      return lookupFailed(row, error);
+    }
     // The world may have changed while the lookup ran.
     const now = paper(id);
     if (stopped || !now || now.checked || now.doi !== row.doi) return;
