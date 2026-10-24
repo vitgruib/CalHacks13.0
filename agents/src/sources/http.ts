@@ -18,6 +18,9 @@ export interface FetchOptions {
   cacheDir?: string;
   mode?: 'live' | 'offline';
   timeoutMs?: number;
+  // Keeps only the fields a client uses, before anything is saved. Use it to
+  // drop people's names and other details we don't need in git.
+  select?: (json: unknown) => unknown;
 }
 
 const DEFAULT_CACHE = fileURLToPath(new URL('../../cache', import.meta.url));
@@ -43,6 +46,7 @@ export async function fetchJson(url: string, options: FetchOptions = {}): Promis
     cacheDir = process.env.GG_CACHE_DIR ?? DEFAULT_CACHE,
     mode = process.env.GG_SOURCES === 'offline' ? 'offline' : 'live',
     timeoutMs = 20_000,
+    select = (json: unknown) => json,
   } = options;
   const body = options.body === undefined ? undefined : JSON.stringify(options.body);
   const path = cachePath(cacheDir, url, body);
@@ -61,7 +65,7 @@ export async function fetchJson(url: string, options: FetchOptions = {}): Promis
       signal: AbortSignal.timeout(timeoutMs),
     });
     if (!response.ok) throw new Error(`${method} ${url} answered ${response.status}`);
-    const json: unknown = await response.json();
+    const json = select(await response.json());
     mkdirSync(cacheDir, { recursive: true });
     writeFileSync(
       path,

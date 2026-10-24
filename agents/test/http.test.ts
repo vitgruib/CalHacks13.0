@@ -51,6 +51,18 @@ test('offline_mode_uses_only_saved_copies', async () => {
   await assert.rejects(fetchJson(URL_, { body: { id: 9 }, cacheDir, mode: 'offline' }), /no saved copy/);
 });
 
+test('select_trims_the_answer_before_it_is_saved', async () => {
+  const json = await fetchJson(URL_, {
+    body: { id: 4 },
+    cacheDir,
+    fetchImpl: answering({ keep: 1, pi_name: 'Someone' }),
+    select: (raw) => ({ keep: (raw as { keep: number }).keep }),
+  });
+  assert.deepEqual(json, { keep: 1 });
+  const saved = await fetchJson(URL_, { body: { id: 4 }, cacheDir, mode: 'offline' });
+  assert.deepEqual(saved, { keep: 1 });
+});
+
 test('different_request_bodies_are_saved_separately', async () => {
   await fetchJson(URL_, { body: { id: 1 }, cacheDir, fetchImpl: answering({ n: 1 }) });
   await fetchJson(URL_, { body: { id: 2 }, cacheDir, fetchImpl: answering({ n: 2 }) });
