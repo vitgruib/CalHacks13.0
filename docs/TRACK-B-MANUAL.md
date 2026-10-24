@@ -8,14 +8,25 @@ What only a person can do for `agents/`. Real keys go in `.env.local`
 - [x] Anthropic API key in `.env.local` as `ANTHROPIC_API_KEY`
 - [x] Apify token in `.env.local` as `APIFY_TOKEN`
 - [x] SpacetimeDB CLI 2.13.0 installed (`spacetime --version`)
-- [ ] Add these names (no values) to `.env.example` and push (agents can't read that file here):
+- [x] Env names in `.env.example` (T33): it lists `ANTHROPIC_API_KEY`, `APIFY_TOKEN`, `GG_DB`, `GG_LIVE_SOURCES` and points to `agents/README.md#environment`, which documents the rest. Full set for reference:
   `ANTHROPIC_API_KEY`, `APIFY_TOKEN`, and the optional agent settings `GG_DB` (local | spacetime),
   `GG_CLAUDE` (cached | live | offline | off), `GG_MODEL`, `GG_CLAUDE_CACHE_DIR`, `GG_CACHE_DIR`,
   `GG_SOURCES` (live | offline), `GG_LIVE_SOURCES` (1 = read RePORTER/USAspending in `npm start`),
   `GG_CONTACT_EMAIL` (sent to Crossref/NCBI as the polite-pool contact), `GG_STATE_DIR`, `GG_SPACETIME_DB`
-- [ ] DM the Apify token to @ethan (T15 scraper)
-- [ ] Pick the 2 real NIH grants to seed from, log the pick in `DECISIONS.md`, tell @ethan (T8)
+- [ ] Set `ANTHROPIC_API_KEY` on the Azure VM (T26, @ethan's `deploy/agent-worker/`)
+- [ ] Make the Apify Actor public: first set a public profile in https://console.apify.com → Settings → Account, then the Actor's page → Publication → Publish
+- [ ] `git config rebase.autoStash true` in each clone, on both machines
+- [ ] T28 researcher-screen design in `web/` (delegated by @ethan; outside Track B)
+- [ ] Product call for Track A: draft a payment request for a month on a grant that has since ended (a closeout claim)? Today an ended grant counts as frozen and is skipped
+- [ ] Someone owns T20 (Devpost draft by Sat night, demo script, backup video)
+- [ ] Does the Azure VM have `APIFY_TOKEN`? Only needed if the VM worker should read the cancellation list live (`agents/src/sources/cancellations.ts`); without it the worker uses the saved copy, which is fine for the demo
+- [x] Pick the real NIH grants to seed from (done in T30)
 - [ ] Run `npm --prefix server run dev` once and confirm it publishes `grantguard`
+
+## Demo cautions
+
+- Don't run the agent worker against maincloud from the laptop. The Azure VM has to claim the three agent seats.
+- Until T32's purchasing fix lands, don't click Approve on a purchase in the Inbox while grant A (R01GM061721) is still frozen; it gets stuck as blocked. The climax works in either order: inject the payment, and "Pick this source" on the disagreement.
 
 ## Dashboards
 
