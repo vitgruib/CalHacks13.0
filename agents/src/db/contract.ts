@@ -61,6 +61,70 @@ export interface HoldRow {
   createdAt: number;
 }
 
+export type Source =
+  | 'NIH RePORTER'
+  | 'USAspending'
+  | 'Cancellation list (Apify)'
+  | 'Court notice'
+  | 'Payment system';
+
+// What one source said about one grant. null means the source doesn't say.
+// Only changes are stored, so the latest row per (grant, source) is current.
+export interface SourceReadingRow {
+  id: number;
+  grantId: string;
+  source: Source;
+  status: GrantStatus | null;
+  awarded: number | null;
+  paid: number | null;
+  endDate: string | null;
+  url: string;
+  fetchedAt: number;
+}
+
+export type StatusEventKind =
+  | 'canceled'
+  | 'court_order'
+  | 'payment_received'
+  | 'reading_changed'
+  | 'unfrozen';
+
+export interface StatusEventRow {
+  id: number;
+  grantId: string;
+  kind: StatusEventKind;
+  source: Source;
+  summary: string;
+  amount: number | null;
+  createdAt: number;
+}
+
+export type FlagKind =
+  | 'sources_disagree'
+  | 'spend_while_canceled'
+  | 'court_order_no_payment';
+
+export interface FlagRow {
+  id: number;
+  grantId: string;
+  kind: FlagKind;
+  summary: string;
+  open: boolean;
+  raisedBy: string;
+  createdAt: number;
+}
+
+// "Check now" from a window, or a recheck right before money moves.
+// grantId null means every grant.
+export interface CheckRequestRow {
+  id: number;
+  grantId: string | null;
+  reason: 'check_now' | 'before_money_moves';
+  requestedBy: string;
+  completedAt: number | null;
+  createdAt: number;
+}
+
 export interface LogRow {
   id: number;
   at: number;
@@ -75,6 +139,10 @@ export interface Tables {
   grants: GrantRow;
   requests: RequestRow;
   holds: HoldRow;
+  source_readings: SourceReadingRow;
+  status_events: StatusEventRow;
+  flags: FlagRow;
+  check_requests: CheckRequestRow;
   log: LogRow;
 }
 
@@ -99,6 +167,13 @@ export interface Actions {
     why: string;
     evidence: Evidence[];
   };
+  // Bookkeeping agent only, for the next four.
+  post_source_reading: Omit<SourceReadingRow, 'id'>;
+  post_status_event: Omit<StatusEventRow, 'id' | 'createdAt'>;
+  raise_flag: { grantId: string; kind: FlagKind; summary: string };
+  complete_check: { id: number };
+  // Anyone: a person's "check now", or an agent before money moves.
+  request_check: { grantId: string | null; reason: CheckRequestRow['reason'] };
 }
 
 export type ActionName = keyof Actions;

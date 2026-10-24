@@ -49,6 +49,10 @@ export function createStubDb(grants: GrantRow[] = STUB_GRANTS): StubDb {
     grants: grants.map((g) => ({ ...g })),
     requests: [],
     holds: [],
+    source_readings: [],
+    status_events: [],
+    flags: [],
+    check_requests: [],
     log: [],
   };
   const listeners = new Map<TableName, Set<Listener>>();
@@ -56,7 +60,15 @@ export function createStubDb(grants: GrantRow[] = STUB_GRANTS): StubDb {
   // rows once the whole action has finished.
   let unsent: Array<() => void> = [];
   // Each table counts its own ids, like a SpacetimeDB auto-increment column.
-  const lastId = { requests: 0, holds: 0, log: 0 };
+  const lastId = {
+    requests: 0,
+    holds: 0,
+    source_readings: 0,
+    status_events: 0,
+    flags: 0,
+    check_requests: 0,
+    log: 0,
+  };
 
   function insert<T extends TableName>(table: T, row: Tables[T]): void {
     tables[table].push(row);
@@ -78,6 +90,18 @@ export function createStubDb(grants: GrantRow[] = STUB_GRANTS): StubDb {
 
   function roleOf(identity: string): Role | undefined {
     return tables.agents.find((a) => a.identity === identity)?.role;
+  }
+
+  function requireBookkeeping(sender: string, action: string): void {
+    if (roleOf(sender) !== 'bookkeeping') {
+      throw new ActionError(`${action}: only the bookkeeping agent may call this`);
+    }
+  }
+
+  function requireGrant(grantId: string): void {
+    if (!tables.grants.some((g) => g.id === grantId)) {
+      throw new ActionError(`unknown grant ${grantId}`);
+    }
   }
 
   function log(actor: string, action: string, subject: string, reason: string) {
@@ -120,6 +144,65 @@ export function createStubDb(grants: GrantRow[] = STUB_GRANTS): StubDb {
         createdAt: Date.now(),
       });
       log(sender, 'raise_hold', `${args.kind} ${args.refId}`, args.why);
+    },
+
+    post_source_reading(sender, args) {
+      requireBookkeeping(sender, 'post_source_reading');
+      requireGrant(args.grantId);
+      insert('source_readings', { id: ++lastId.source_readings, ...args });
+      log(sender, 'post_source_reading', `grant ${args.grantId}`, `${args.source} changed (${args.url})`);
+    },
+
+    post_status_event(sender, args) {
+      requireBookkeeping(sender, 'post_status_event');
+      requireGrant(args.grantId);
+      insert('status_events', { id: ++lastId.status_events, ...args, createdAt: Date.now() });
+      log(sender, 'post_status_event', `grant ${args.grantId}`, args.summary);
+    },
+
+    // A disagreement asks the grant manager, so the flag and its Inbox item
+    // are written together.
+    raise_flag(sender, args) {
+      requireBookkeeping(sender, 'raise_flag');
+      requireGrant(args.grantId);
+      const id = ++lastId.flags;
+      insert('flags', { id, ...args, open: true, raisedBy: sender, createdAt: Date.now() });
+      if (args.kind === 'sources_disagree') {
+        insert('holds', {
+          id: ++lastId.holds,
+          kind: 'source_disagreement',
+          refId: String(id),
+          grantId: args.grantId,
+          raisedBy: sender,
+          raisedByRole: 'bookkeeping',
+          title: `Which source is right about ${args.grantId}?`,
+          why: args.summary,
+          evidence: [],
+          createdAt: Date.now(),
+        });
+      }
+      log(sender, 'raise_flag', `grant ${args.grantId}`, args.summary);
+    },
+
+    request_check(sender, args) {
+      if (args.grantId !== null) requireGrant(args.grantId);
+      const id = ++lastId.check_requests;
+      insert('check_requests', {
+        id,
+        ...args,
+        requestedBy: sender,
+        completedAt: null,
+        createdAt: Date.now(),
+      });
+      log(sender, 'request_check', `check ${id}`, `${args.reason} for ${args.grantId ?? 'every grant'}`);
+    },
+
+    complete_check(sender, { id }) {
+      requireBookkeeping(sender, 'complete_check');
+      const check = tables.check_requests.find((c) => c.id === id);
+      if (!check) throw new ActionError(`unknown check request ${id}`);
+      check.completedAt = Date.now();
+      log(sender, 'complete_check', `check ${id}`, 'sources read');
     },
   };
 
