@@ -9,11 +9,14 @@
 // - a grant's freeze lifting (frozen true -> false): requests held only for
 //   that freeze are bought, and requests blocked by grant-specific rules are
 //   rerouted when a grant can now take them.
-// A request a person decided in the Inbox is never bought alone afterwards.
+// A request a person decided in the Inbox is never bought alone afterwards,
+// except an approval the module's recheck blocked only for a freeze: the
+// approval stands, so it is bought once that grant unfreezes.
 
 import { ask } from '../claude.ts';
 import {
   ActionError,
+  type DecisionRow,
   type GrantRow,
   type OrderRow,
   type RequestRow,
@@ -72,6 +75,12 @@ const GRANT_SPECIFIC = new Set<RuleKind>(['freeze', 'last_90_days', 'money']);
 export const frozenGrantOf = (verdict: RuleVerdict, checked: string | undefined): string | undefined =>
   / \(([A-Za-z0-9-]+)\)$/.exec(verdict.rule)?.[1] ?? checked;
 
+/** Every rule the module last failed for the request is a freeze, and one of them is this grant's. */
+const failsOnlyOnFreezeOf = (request: RequestRow, grantId: string): boolean => {
+  const failed = request.verdicts.filter((v) => !v.pass);
+  return failed.length > 0 && failed.every((v) => ruleKind(v.rule) === 'freeze') && failed.some((v) => frozenGrantOf(v, request.chargedGrantId) === grantId);
+};
+
 export type HoldReason = 'freeze' | 'card_limit' | 'shared_cost' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused';
 export type BlockReason = 'category' | 'grant_rules' | 'already_ordered';
 
@@ -96,7 +105,7 @@ export function planFor(verdicts: RuleVerdict[]): Plan {
 
 export interface Decision {
   action: 'buy' | 'reroute' | 'hold' | 'block';
-  reason?: HoldReason | BlockReason | 'unfrozen';
+  reason?: HoldReason | BlockReason | 'unfrozen' | 'approved';
   // The grant checked; for a reroute, the one it moves away from.
   grantId: string;
   to?: string;
@@ -107,6 +116,9 @@ export interface Decision {
   note?: string;
   // The module's message when it refused to buy at its own last check.
   refusal?: string;
+  // The grant manager's approval this buy carries out, which the module
+  // blocked while `unfrozen` was frozen.
+  approval?: { id: bigint; day: string; unfrozen: string };
 }
 
 // ── Reading the request ────────────────────────────────────────────────────
@@ -285,6 +297,8 @@ function reasonStep(decision: Decision, facts: { serves: string[]; vendor: strin
         : 'No other grant can take it right now.';
     case 'unfrozen':
       return `It was held only for the freeze, which has lifted. Ordered from ${facts.vendor}.`;
+    case 'approved':
+      return `The grant manager approved it on ${decision.approval?.day} while ${decision.approval?.unfrozen} was frozen, so it was bought once ${decision.approval?.unfrozen} unfroze. Ordered from ${facts.vendor}.`;
     default:
       return decision.action === 'reroute' ? `Every rule passes on ${decision.to}. Ordered from ${facts.vendor}.` : `Ordered from ${facts.vendor}.`;
   }
@@ -335,10 +349,15 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   const findRequest = (id: string) => conn.rows('request').find((row) => row.id === id);
   const findGrant = (id: string | undefined) => conn.rows('grant').find((row) => row.id === id);
 
-  function personDecided(requestId: string): boolean {
-    const decided = new Set(conn.rows('decision').map((decision) => decision.holdId));
-    return conn.rows('hold').some((hold) => hold.kind === 'purchase' && hold.refId === requestId && decided.has(hold.id));
+  // The grant manager's latest decision on any of the request's purchase holds.
+  function lastDecision(requestId: string): DecisionRow | undefined {
+    const holds = new Set(conn.rows('hold').filter((hold) => hold.kind === 'purchase' && hold.refId === requestId).map((hold) => hold.id));
+    return conn.rows('decision').reduce<DecisionRow | undefined>(
+      (last, decision) => (holds.has(decision.holdId) && (!last || decision.id > last.id) ? decision : last),
+      undefined,
+    );
   }
+  const personDecided = (requestId: string) => lastDecision(requestId) !== undefined;
   const agentHoldOpen = (requestId: string) =>
     conn.rows('hold').some((hold) => hold.kind === 'purchase' && hold.refId === requestId && hold.open && hold.raisedBy === AGENT);
   const ordersOf = (requestId: string) => conn.rows('order').filter((order) => order.requestId === requestId);
@@ -418,9 +437,11 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const explanation = await explain(request, decision, serves, vendor);
     const grantId = decision.action === 'reroute' ? decision.to! : decision.grantId;
     // Looked at again after the wait for Claude: a person may have decided,
-    // or the module may have ordered it, in the meantime.
-    if ((decision.action === 'buy' || decision.action === 'reroute') && (personDecided(requestId) || ordersOf(requestId).length)) {
-      console.warn(`${AGENT}: not buying ${requestId}: ${personDecided(requestId) ? 'a person decided it meanwhile' : 'it already has an order'}`);
+    // or the module may have ordered it, in the meantime. An approval being
+    // carried out still stands unless a newer decision replaced it.
+    const decidedMeanwhile = decision.approval ? lastDecision(requestId)?.id !== decision.approval.id : personDecided(requestId);
+    if ((decision.action === 'buy' || decision.action === 'reroute') && (decidedMeanwhile || ordersOf(requestId).length)) {
+      console.warn(`${AGENT}: not buying ${requestId}: ${decidedMeanwhile ? 'a person decided it meanwhile' : 'it already has an order'}`);
       return;
     }
     await conn.call('act_on_request', { requestId, action: decision.action, grantId, vendor, explanation });
@@ -548,24 +569,32 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   // a restart (no remembered reason) that's trusted only when the scientist
   // named the grant: a grant the agent picked itself may have been unclear.
   function waitsOnlyForFreeze(request: RequestRow, grantId: string): boolean {
-    const failed = request.verdicts.filter((v) => !v.pass);
-    if (failed.length === 0 || !failed.every((v) => ruleKind(v.rule) === 'freeze')) return false;
-    if (!failed.some((v) => frozenGrantOf(v, request.chargedGrantId) === grantId)) return false;
+    if (!failsOnlyOnFreezeOf(request, grantId)) return false;
     const reason = holdReasons.has(request.id) ? holdReasons.get(request.id) : request.grantId ? 'freeze' : undefined;
     return reason === 'freeze' && agentHoldOpen(request.id);
   }
 
-  async function buyWaiting(requestId: string): Promise<void> {
+  // Approved by the grant manager, then blocked by the module's recheck only
+  // for this grant's freeze, and nothing decided since. The recheck lets an
+  // approval past the card limit but act_on_request never does, so an
+  // over-limit approval stays with the grant manager.
+  function approvalWaitingOn(request: RequestRow, grantId: string): DecisionRow | undefined {
+    const approval = lastDecision(request.id);
+    return approval?.choice === 'approve' && request.state === 'blocked' && failsOnlyOnFreezeOf(request, grantId) ? approval : undefined;
+  }
+
+  // Bought on the grant it was checked on, once every rule passes there now.
+  async function buyUnfrozen(requestId: string, state: RequestRow['state'], why: Pick<Decision, 'reason' | 'approval'>): Promise<void> {
     const request = findRequest(requestId);
     const grantId = request?.chargedGrantId ?? request?.grantId;
-    if (!request || request.state !== 'waiting_on_manager' || !grantId || ordersOf(requestId).length) return;
+    if (!request || request.state !== state || !grantId || ordersOf(requestId).length) return;
     const split = request.split.map(({ grantId: id, share }) => ({ grantId: id, share }));
     if (!(await refreshAll([grantId, ...split.map((share) => share.grantId)]))) return;
     const verdicts = await evaluate(requestId, grantId, split);
-    // Still waiting on something: the agent's hold stays as it is.
+    // Still waiting on something: the request stays as it is.
     if (!verdicts.every((v) => v.pass)) return;
     const serves = unique([...request.sharedWith, ...split.map((share) => share.grantId)]);
-    await moveMoney(requestId, { action: 'buy', reason: 'unfrozen', grantId, failed: [], passed: verdicts }, split, serves);
+    await moveMoney(requestId, { action: 'buy', ...why, grantId, failed: [], passed: verdicts }, split, serves);
   }
 
   async function rerouteBlocked(requestId: string): Promise<void> {
@@ -582,9 +611,14 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   async function handleUnfrozen(grantId: string): Promise<void> {
     if (findGrant(grantId)?.frozen !== false) return;
     for (const request of conn.rows('request')) {
-      // A person's decision stands: the agent never buys those alone again.
-      if (personDecided(request.id)) continue;
-      if (request.state === 'waiting_on_manager' && waitsOnlyForFreeze(request, grantId)) await buyWaiting(request.id);
+      // A person's decision stands: the agent never buys those alone again,
+      // unless it carries out an approval the freeze held up.
+      if (personDecided(request.id)) {
+        const approval = approvalWaitingOn(request, grantId);
+        if (approval) await buyUnfrozen(request.id, 'blocked', { reason: 'approved', approval: { id: approval.id, day: approval.day, unfrozen: grantId } });
+        continue;
+      }
+      if (request.state === 'waiting_on_manager' && waitsOnlyForFreeze(request, grantId)) await buyUnfrozen(request.id, 'waiting_on_manager', { reason: 'unfrozen' });
       else if (request.state === 'blocked') await rerouteBlocked(request.id);
     }
   }
