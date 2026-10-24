@@ -2,7 +2,7 @@
 // this for the SpacetimeDB client; windows only use useDb() and the actions.
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import seed from '../../../sim/seed.json'
-import type { Db, Decision, PurchaseRequest } from './types'
+import type { Db, Decision, Invoice, PurchaseRequest, StatusEvent } from './types'
 
 interface Store {
   db: Db
@@ -10,12 +10,86 @@ interface Store {
   decide: (holdId: string, choice: Decision['choice'], reason: string) => void
   /** Scientist submits a purchase request; the purchasing agent picks it up. */
   submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose'>) => void
+  // Test lab only (T18). Same argument shapes as Track A's reducers
+  // inject_status_event, inject_invoice and advance_days, so T17 can swap them.
+  /** Drop a status event into the world; applies the freeze rule (MASTER-PLAN §3.1). */
+  injectStatusEvent: (e: InjectStatusEventArgs) => void
+  /** A vendor invoice arrives for an order, unchecked. */
+  injectInvoice: (a: { orderId: string; amount: number }) => void
+  /** Move the simulated clock forward. */
+  advanceDays: (a: { days: number }) => void
 }
+
+export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number }
 
 const Ctx = createContext<Store | null>(null)
 
 let seq = 0
 const nextId = (p: string) => `${p}-local-${++seq}`
+
+const DAY_MS = 86_400_000
+const addDays = (day: string, n: number) => new Date(Date.parse(day) + n * DAY_MS).toISOString().slice(0, 10)
+const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+
+/** The raw world's consequence of a status event (no agents run here):
+ *  canceled freezes; a court order restores the status but stays frozen
+ *  (a court order isn't cash); a payment adds to received and unfreezes. */
+export function applyStatusEvent(d: Db, a: InjectStatusEventArgs): Db {
+  const g = d.grants.find(x => x.id === a.grantId)
+  if (!g) throw new Error(`No grant ${a.grantId}`)
+  if (a.kind === 'payment_received' && !(a.amount && a.amount > 0)) throw new Error('A payment needs an amount above zero')
+  const ev: StatusEvent = { id: nextId('se'), grantId: a.grantId, day: d.today, kind: a.kind, source: a.source, summary: a.summary }
+  if (a.amount != null) ev.amount = a.amount
+  const events = [ev]
+  const log = [{ id: nextId('l'), day: d.today, actor: 'system' as const, action: `Injected ${a.kind} on ${a.grantId}`, reason: a.summary, refId: ev.id }]
+  let next = { ...g }
+  if (a.kind === 'canceled') {
+    next = { ...next, status: 'canceled', frozen: true, frozenReason: `Canceled ${d.today} (${a.source}). Spending stays frozen until a payment arrives after the cancellation.` }
+  } else if (a.kind === 'court_order') {
+    next = { ...next, status: 'restored_by_court' }
+  } else if (a.kind === 'payment_received') {
+    next = { ...next, received: g.received + a.amount! }
+    if (g.frozen) {
+      next = { ...next, frozen: false, frozenReason: undefined }
+      const un: StatusEvent = { id: nextId('se'), grantId: a.grantId, day: d.today, kind: 'unfrozen', source: a.source, summary: `Spending unfrozen: a payment of ${usd(a.amount!)} arrived.` }
+      events.push(un)
+      log.push({ id: nextId('l'), day: d.today, actor: 'system', action: `Unfroze ${a.grantId}`, reason: `Payment of ${usd(a.amount!)} arrived after the freeze`, refId: un.id })
+    }
+  }
+  return {
+    ...d,
+    grants: d.grants.map(x => (x.id === g.id ? next : x)),
+    statusEvents: [...d.statusEvents, ...events],
+    log: [...d.log, ...log],
+  }
+}
+
+export function applyInvoice(d: Db, { orderId, amount }: { orderId: string; amount: number }): Db {
+  const o = d.orders.find(x => x.id === orderId)
+  if (!o) throw new Error(`No order ${orderId}`)
+  if (!(amount > 0)) throw new Error('An invoice needs an amount above zero')
+  const inv: Invoice = {
+    id: nextId('inv'), orderId, vendor: o.vendor, amount, received: d.today,
+    state: 'matched', // placeholder until the bookkeeping agent checks it
+    timeline: [{ day: d.today, what: `Invoice arrived (${usd(amount)})` }],
+    checked: false,
+  }
+  return {
+    ...d,
+    invoices: [...d.invoices, inv],
+    log: [...d.log, { id: nextId('l'), day: d.today, actor: 'system', action: `Injected invoice ${inv.id} for ${orderId}`, reason: `${o.vendor} bills ${usd(amount)}`, refId: inv.id }],
+  }
+}
+
+export function applyAdvanceDays(d: Db, { days }: { days: number }): Db {
+  if (!Number.isInteger(days) || days < 1) throw new Error('Days must be a whole number of at least 1')
+  const today = addDays(d.today, days)
+  return {
+    ...d,
+    today,
+    log: [...d.log, { id: nextId('l'), day: today, actor: 'system', action: `Clock moved forward ${days} day${days === 1 ? '' : 's'}`, reason: `${d.today} to ${today}` }],
+  }
+}
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   // The full fake world from sim/ (T8), raw: agents still have to find the planted mistakes.
@@ -41,7 +115,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     })
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest }}>{children}</Ctx.Provider>
+  // Validate against the current state up front so callers can show the error;
+  // the updater then re-applies against the latest state.
+  const injectStatusEvent: Store['injectStatusEvent'] = a => { applyStatusEvent(db, a); setDb(d => applyStatusEvent(d, a)) }
+  const injectInvoice: Store['injectInvoice'] = a => { applyInvoice(db, a); setDb(d => applyInvoice(d, a)) }
+  const advanceDays: Store['advanceDays'] = a => { applyAdvanceDays(db, a); setDb(d => applyAdvanceDays(d, a)) }
+
+  return <Ctx.Provider value={{ db, decide, submitRequest, injectStatusEvent, injectInvoice, advanceDays }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

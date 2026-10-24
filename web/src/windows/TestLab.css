@@ -5,3 +5,16 @@
 .testlab .scenarios li { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .testlab .scenarios button { min-width: 220px; text-align: left; }
 .testlab td { font-size: 18px; }
+.testlab .tl-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 10px; margin: 0 0 10px; }
+.testlab .tl-field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
+.testlab .tl-wide { flex: 1 1 320px; }
+.testlab .tl-inline { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
+.testlab .tl-inline input { width: 110px; }
+.testlab .tl-field input[type=number] { width: 110px; }
+.testlab .tl-grant { margin: 0 0 12px; }
+.testlab .tl-badges { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.testlab .tl-next { margin: 6px 0 0; font-size: 14px; }
+.testlab .tl-notes { list-style: none; margin: 0 0 16px; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.testlab .tl-notes li { font-size: 13px; color: var(--muted); padding: 4px 10px; border-left: 3px solid var(--line); }
+.testlab .tl-notes li.latest { font-size: 14px; color: var(--text); border-left-color: var(--good); background: var(--panel); }
+.testlab .tl-notes li.bad { color: var(--bad); border-left-color: var(--bad); }

@@ -23,7 +23,6 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
-- [ ] T18 ★ [app] Test lab: drop in events + fast-forward clock — needs: T3 (stub ok) — done when: cancellation, court order, payment and bad invoice can be injected from the UI — @ethan/claude — owns: `web/src/windows/TestLab*`, `web/src/data/store.tsx` — stubbed: Track A actions (local store mirrors `inject_status_event`, `inject_invoice`, `advance_days` from the generated bindings)
 - [ ] T10 ★ [agents] Source reader: RePORTER + USAspending by grant ID, daily / check now / before money moves — needs: T3 (stub ok) — done when: real IDs return readings; a change posts a status event; disagreeing sources (including T15's scraper readings) post a flag — @nathan/claude — owns: `agents/` — stubbed: Track A contract (readings, status events, flags, check requests added to `agents/src/db/stub.ts`)
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
 
@@ -48,6 +47,7 @@ All three tracks are technical only. Presentation and submission work
 <!-- - @alex → contracts lane: need optional `score` on Result (blocks T9) -->
 
 ## Done
+- [x] T18 ★ [app] Test lab: drop in events + fast-forward clock — needs: T3 (stub ok) — done when: cancellation, court order, payment and bad invoice can be injected from the UI — @ethan/claude — owns: `web/src/windows/TestLab*`, `web/src/data/store.tsx` — on the local store; T17 swaps to the reducers
 - [x] T3 ★ [db] Shared contract: tables + actions + fixtures for 2 grants — @ethan/claude-a (covering Track A for @suhu) — `server/src/schema.ts` (20 tables), `server/src/index.ts` (27 actions + init), fixtures = web's 2-grant set; published to local SpacetimeDB 2.13.0 (`npm --prefix server run dev`), `load_seed` takes `sim/seed.json` as-is; bindings are generated per client once that package depends on `spacetimedb` (see Requests)
 - [x] T5 ★ [db] Fund tracker math + freeze rule — @ethan/claude-a — landed with T3 (`server/src/rules.ts` `freezeState`, `recomputeGrant` in index.ts); tests: court order stays frozen, payment unfreezes, payment before cancel doesn't
 - [x] T6 ★ [db] Spending rules + hard limits — @ethan/claude-a — landed with T3: 6 rules with audit cases, each planted case + decoy tested; buy refused unless every rule passes (rechecked in the action); nobody approves their own request; agents can't decide
