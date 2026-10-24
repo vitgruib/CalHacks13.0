@@ -12,14 +12,15 @@ file wins inside this repo**.
 
 - **What we're building (one sentence):** TBD
 - **The demo path (the 3-minute story judges see):** TBD
-- **Stack:** TBD
+- **Stack:** backend = **SpacetimeDB** (if we need one; see `DECISIONS.md`).
+  Everything else TBD.
 - **Run locally:** TBD (e.g. `./run.sh`)
 - **Check command (must pass before every push):** TBD (e.g. `npm run check`)
 - **Submission deadline:** Devpost, **Sun 10/25 9:00 AM** (no late entries).
   Feature freeze 7:00 AM. Draft submission up by Sat night. Judging is
   10:30–12:30 with the whole team present and a live demo.
 - **Target tracks:** Hyphenate (primary) plus stackable tracks. See
-  `docs/TRACKS.md`. Ideas are in `docs/IDEAS.md`. Every feature should
+  `docs/HYPHENATE.md` and `docs/TRACKS.md`. Ideas are in `docs/IDEAS.md`. Every feature should
   serve the primary track's judging criteria.
 - **Event rule:** all project code must be written *after* hacking opens.
   Planning docs are fine, but no code before the start.
@@ -120,6 +121,8 @@ busiest lane, with that owner's OK.
 
 1. `git pull` (it's configured to rebase; see README setup).
 2. Read `TASKS.md`, the last ~20 lines of `PROGRESS.md`, and `DECISIONS.md`.
+   Read `docs/HYPHENATE.md` once per session: every feature should serve
+   its judging criteria.
 3. Pick the next task using the order in §1 (*Picking work*). It must be
    **ready**.
 4. **Claim the task**: in `TASKS.md`, move it to *In progress* with

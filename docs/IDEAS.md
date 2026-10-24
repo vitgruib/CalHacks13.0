@@ -1,6 +1,6 @@
 # Idea brainstorm (Hyphenate-first)
 
-Every idea must answer Hyphenate's four questions (see `docs/TRACKS.md`):
+Every idea must answer Hyphenate's four questions (see `docs/HYPHENATE.md`):
 real/messy data, the seats it fills with limited access + clean record +
 knowing when to ask, something new, and one demo moment. Humans pick one at
 kickoff and record the choice in `DECISIONS.md`.
@@ -33,8 +33,10 @@ a bank API, within a $ limit. It escalates anything outside policy.
   Anthropic (name the community, e.g. "office managers at Bay Area dental
   practices doing AP by hand"), Droid (proposes new vendor-matching rules as
   reviewable diffs).
-- **Risk:** AP automation exists. Our "new" has to be the fraud-catching
-  judgment and the hire-ability (record + escalation), not the OCR.
+- **Risk:** the bank-change scenario is **Hyphenate's own listed example**,
+  so many teams will build it. The novelty has to come from an unusual
+  company (their examples: an F1 team, a music festival, a Mars colony) and
+  the multi-seat handoffs, not from the fraud catch alone.
 
 ## 2. Close-bot: month-end reconciliation for a small business
 
@@ -68,6 +70,11 @@ drafts adverse-action reasons citing specific tradelines.
   citing the exact data.
 - **Stacks:** **CRS on all fronts** (Best Overall, Financial AI Agent,
   Identity/Fraud), Microsoft, Anthropic.
+- **Fit warning (from the full brief):** Hyphenate wants a *company's own
+  finance team* (AR, AP, close, treasury...). Loan underwriting is a bank's
+  product function, not one of their workflows, so it may read as off-brief.
+  Reframe it as AR credit review (deciding a new customer's credit terms)
+  if we want to keep CRS.
 - **Risk:** fair-lending and bias questions. Address them head on (good for
   the "responsible" criteria), but don't overclaim.
 
