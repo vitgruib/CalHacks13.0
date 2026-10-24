@@ -33,12 +33,21 @@ caps the number of tracks per entry.
 | --- | --- | --- | --- |
 | **Microsoft: Built for the Real World** (+ Customer Impact Award) | Surface laptop per member + FDE talk/mentorship | "Production-minded AI agent… in finance". Its criteria (customer understanding, measurable usefulness, path to production, responsible design, end-to-end) are the same evidence Hyphenate wants. | ~Free: add a "path to production" slide/README section. |
 | **Anthropic** | $5k Claude credits + Max 20x | If Claude is the model. Needs a **named community** and a real problem someone lived. Claude must matter, and we must know where it can go wrong. | Low: pick a narrow user and talk to one. Write up the failure modes. |
-| **CRS Credit API** | $1k overall, $500 Best Financial AI Agent, interviews for identity/fraud and most unexpected use | Credit, identity, and fraud sandbox with test identities, via API or MCP. It must be central and run live against the sandbox. | Low–medium: only fits if credit or identity is part of the problem. |
+| **CRS Credit API** | $1k overall, $500 Best Financial AI Agent, interviews for identity/fraud and most unexpected use | One sandbox for consumer credit reports (soft/hard pull, single or tri-bureau, FICO/VantageScore), **business credit** (a company's debts + state filings), identity verification (KBA, OTP, document, device), public records (bankruptcies, liens, judgments), criminal/eviction, and compliance (**OFAC**, Military Lending Act). JSON API with bearer auth, plus an MCP server (`@crscreditapi/crs-calhacks-mcp-server`). Must be central and run live against the sandbox, using only their test identities. Judges also look at being "open about what it does with data". Our fit: **business credit + OFAC + public records** for vetting new vendors and customers (AP onboarding, AR credit terms). | Low–medium. **Request sandbox access by email first.** |
 | **SpacetimeDB** ✅ chosen backend | $2,048 / $1,024 / $512 | Must be the **core** real-time backend. We'll keep the company world in it: ledger, subledgers, inbox, audit trail, simulated clock. Reducers enforce double-entry balance + segregation of duties server-side, so limits live in the backend, not the prompt. Agents and human approvers subscribe live. | ~Free if we need a backend anyway. |
 | **Capital One Nessie** | $300 Giftogram/person | Mock banking API (accounts, transactions, bills, transfers). Gives the agent a bank to act on, with realistic data. | Low. |
-| **Factory Droid SDK** | $2,000 + credits | Droid is Factory's agent harness (like Claude Code), runnable headless from our code via the TS/Python SDK. The track wants it doing real work in the running product, on a trigger, with scoped permissions and visible plans/diffs. Our fit: one automated **"finance-systems" seat**. When a class of exceptions recurs, Droid writes a new matching/policy rule as a diff; the controller approves; the rule ships. That's the "automated colleague" Hyphenate describes. | Medium: needs a `FACTORY_API_KEY` + `droid` CLI, and the README must explain where Droid is used. **Stretch lane, after the core works.** |
 | **Apify** | $2k / $1k / $800 / $400 / $400 | Scraping real public data (vendor registries, sanctions lists, SEC filings) makes it "real enough". | Medium. |
 | **General: Most Technically Complex / People-First** | Prizes | Automatic consideration. | Free. |
+
+### Stretch goals (only after the core demo path works end to end)
+
+Never put these on the critical path. Build each one behind an interface the
+core works without, so cutting it costs nothing.
+
+| Track | Prize | Plan | Needs |
+| --- | --- | --- | --- |
+| **Factory Droid SDK** | $2,000 + credits | Droid (Factory's agent harness, headless via the TS/Python SDK) is an automated **finance-systems seat**. When a class of exceptions recurs, Droid writes a new matching/policy rule as a diff; the controller approves; the rule ships. That's Hyphenate's "automated colleague". Track rules: real work in the running product, a trigger we designed, scoped permissions, visible plans/diffs. **The README must explain where and how Droid is used.** | `FACTORY_API_KEY`, `droid` CLI |
+| **Cartesia** (voice) | Meta glasses (TBD) | Voice must be core for this track, so only do it if a voice surface clearly helps. E.g. the controller questions a decision out loud and the agent defends it from the audit trail. Track rules: 2-min demo-first pitch; README with setup, Cartesia features used, known limitations; no keys in repo. | Cartesia API key |
 
 ### Waiting on docs (check the Live Site at kickoff)
 
@@ -58,4 +67,3 @@ likely require their platform).
 | Best Solo / Hardware / Planet-First | Not solo, no hardware, not climate |
 | Bitdeer, Moss | Compete with our model choice (Claude) or don't fit the theme |
 | Visa, Figma | Team decision: cut |
-| Cartesia | Team decision: no voice agents (for now) |
