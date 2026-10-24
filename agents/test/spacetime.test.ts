@@ -195,3 +195,32 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
     assert.deepEqual(agents.purchasing.rows('grant').map((g) => g.id), [TEST_GRANT]);
   });
 });
+
+// Its own database: the test deletes it to make the server hang up.
+describe('spacetime adapter when the server drops a connection', { skip: !enabled && 'set GG_SPACETIME_IT=1 to run against a local SpacetimeDB' }, () => {
+  const name = `grantguard-agents-test-${randomBytes(4).toString('hex')}`;
+  let deleted = false;
+
+  before(() => void cli('publish', '--server', CLI_SERVER, '--module-path', MODULE, '--no-config', '-y', name), { timeout: 300_000 });
+  after(() => {
+    if (!deleted) cli('delete', '--server', CLI_SERVER, '--no-config', '-y', name);
+  });
+
+  test('a_connection_the_server_closes_is_reported_lost_and_a_disconnect_is_not', STEP, async () => {
+    const lost: Array<Error | undefined> = [];
+    const db = createSpacetimeDb({ uri: URI, databaseName: name, onLost: (error) => lost.push(error) });
+    await db.connect();
+    const leaving = await db.connect();
+    leaving.disconnect();
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    assert.deepEqual(lost, [], 'disconnect() is not a loss');
+
+    cli('delete', '--server', CLI_SERVER, '--no-config', '-y', name);
+    deleted = true;
+    const deadline = Date.now() + 10_000;
+    while (lost.length === 0 && Date.now() < deadline) await new Promise((resolve) => setTimeout(resolve, 50));
+    assert.equal(lost.length, 1, 'only the connection still open is lost');
+    db.close();
+    assert.equal(lost.length, 1, 'close() reports nothing more');
+  });
+});

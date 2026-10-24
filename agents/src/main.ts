@@ -38,7 +38,15 @@ if (demo && kind === 'local') {
   report(run.tables.hold, run.newLog);
   run.stop();
 } else {
-  const db = await openDb(kind);
+  // A dropped connection never comes back on its own, so exit and let the
+  // service manager start a fresh worker (systemd Restart=always on the VM);
+  // the tokens on disk keep each agent's identity.
+  const db = await openDb(kind, {
+    onLost(error) {
+      console.error(`worker: SpacetimeDB closed an agent's connection${error ? ` (${error.message})` : ''}; exiting so the worker restarts`);
+      process.exit(1);
+    },
+  });
   // Agent roles bind to their identities once, so a real server's tokens are
   // kept on disk, one folder per server and database (agents/.state/, git-
   // ignored): local and maincloud both call theirs grantguard, and a token

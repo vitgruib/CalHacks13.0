@@ -30,6 +30,12 @@ export interface SpacetimeDbOptions {
   uri?: string;
   /** Default: env GG_SPACETIME_DB, else grantguard. */
   databaseName?: string;
+  /**
+   * Called when the server closes a connection this Db opened (a network
+   * drop, a server restart), never for disconnect() or close(). The SDK does
+   * not reconnect, so that connection's agent hears nothing more.
+   */
+  onLost?: (error?: Error) => void;
 }
 
 // Contract action names are the module's reducer names; the bindings call
@@ -287,11 +293,14 @@ export function createSpacetimeDb(options: SpacetimeDbOptions = {}): Db {
               .subscribe(TABLES.map((table) => tables[table]));
           })
           .onConnectError((_ctx, error) => fail(error))
-          .onDisconnect(() => {
+          .onDisconnect((_ctx, error) => {
             if (!live?.open) return;
             live.open = false;
             lives.delete(live);
             wakeWaiters();
+            // Dropped mid-subscribe: connect() fails now, not at its timeout.
+            if (!finished) fail(error ?? new Error('the server closed the connection'));
+            else options.onLost?.(error ?? undefined);
           })
           .build();
       });
