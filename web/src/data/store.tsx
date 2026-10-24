@@ -1,7 +1,7 @@
 // Local stand-in for Track A's actions and live subscriptions. T17 swaps
 // this for the SpacetimeDB client; windows only use useDb() and the actions.
 import { createContext, useContext, useState, type ReactNode } from 'react'
-import { fixtures } from './fixtures'
+import seed from '../../../sim/seed.json'
 import type { Db, Decision, PurchaseRequest } from './types'
 
 interface Store {
@@ -18,7 +18,8 @@ let seq = 0
 const nextId = (p: string) => `${p}-local-${++seq}`
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [db, setDb] = useState<Db>(fixtures)
+  // The full fake world from sim/ (T8), raw: agents still have to find the planted mistakes.
+  const [db, setDb] = useState<Db>(() => structuredClone(seed) as unknown as Db)
 
   const decide: Store['decide'] = (holdId, choice, reason) => {
     if (!reason.trim()) throw new Error('A reason is required')

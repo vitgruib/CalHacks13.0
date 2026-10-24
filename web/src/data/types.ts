@@ -113,6 +113,9 @@ export interface Invoice {
   state: 'matched' | 'held' | 'paid' | 'rejected'
   mismatch?: string // spelled out, e.g. "Order canceled on 2026-03-02"
   timeline: { day: Day; what: string }[]
+  /** false = arrived but not yet checked by the bookkeeping agent (raw seed);
+   *  `state` is then only a placeholder. Absent = already checked. */
+  checked?: boolean
 }
 
 export interface FollowUp {
@@ -130,6 +133,8 @@ export interface PaymentRequest {
   amount: Money
   explanation: string // ≤ 1,000 characters
   includedRequestIds: string[]
+  /** Payroll rows in this request; amount = included purchases + payroll. */
+  includedPayrollIds?: string[]
   excluded: { requestId: string; why: string }[]
   state: 'drafted' | 'waiting_on_manager' | 'sent' | 'paid'
   followUps: FollowUp[]
@@ -145,6 +150,11 @@ export interface ReportPaper {
   correction?: { kind: 'material' | 'minor' | 'retraction'; disclosed: boolean; note: string }
   checks: { check: string; pass: boolean; detail: string }[]
   result: 'ok' | 'note' | 'held'
+  /** false = not yet checked by the report checker (raw seed); `result` is
+   *  then only a placeholder. Absent = already checked. */
+  checked?: boolean
+  /** Purchase requests whose costs belong to this paper (e.g. its publication fee). */
+  costRequestIds?: string[]
 }
 
 export type HoldKind = 'purchase' | 'invoice' | 'payment_request' | 'follow_up' | 'report' | 'source_disagreement'
@@ -181,6 +191,17 @@ export interface LogRow {
   refId?: string
 }
 
+/** One person's salary charged to a grant for one pay period. */
+export interface PayrollRow {
+  id: string
+  grantId: string
+  person: string
+  role: string
+  period: { from: Day; to: Day }
+  effortPct: number // percent of the person's time on this grant, 0-100
+  amount: Money
+}
+
 export interface Db {
   today: Day
   grants: Grant[]
@@ -191,6 +212,7 @@ export interface Db {
   orders: Order[]
   approvals: Approval[]
   invoices: Invoice[]
+  payroll: PayrollRow[]
   paymentRequests: PaymentRequest[]
   papers: ReportPaper[]
   holds: Hold[]

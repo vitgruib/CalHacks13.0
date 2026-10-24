@@ -21,10 +21,10 @@ const correctionLabel: Record<NonNullable<ReportPaper['correction']>['kind'], st
 const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`
 
 function Paper({ p }: { p: ReportPaper }) {
-  const r = resultBadge[p.result]
+  const r = p.checked === false ? { label: 'Not checked yet', tone: 'neutral' as Tone } : resultBadge[p.result]
   const mismatch = p.creditsGrantId !== p.grantId
   return (
-    <article className={`rp-paper rp-${p.result}`}>
+    <article className={`rp-paper ${p.checked === false ? '' : `rp-${p.result}`}`}>
       <header>
         <h3>{p.title}</h3>
         <Badge tone={r.tone}>{r.label}</Badge>
@@ -60,7 +60,7 @@ function Paper({ p }: { p: ReportPaper }) {
         ))}
       </ul>
 
-      {p.result === 'held' && <a className="rp-inbox" href="#inbox">Review in the Inbox →</a>}
+      {p.checked !== false && p.result === 'held' && <a className="rp-inbox" href="#inbox">Review in the Inbox →</a>}
     </article>
   )
 }
@@ -75,14 +75,15 @@ export default function Reports() {
       <p className="rp-note">Checks use public records only (NIH RePORTER, PubMed Central, Crossref). A flag means a record needs a look, not that anyone did anything wrong.</p>
       {grantIds.map(id => {
         const papers = db.papers.filter(p => p.grantId === id)
-        const held = papers.filter(p => p.result === 'held').length
-        const notes = papers.filter(p => p.result === 'note').length
+        const checked = papers.filter(p => p.checked !== false)
+        const held = checked.filter(p => p.result === 'held').length
+        const notes = checked.filter(p => p.result === 'note').length
         const grant = db.grants.find(g => g.id === id)
         return (
           <Section
             key={id}
             title={`Progress report: ${id}`}
-            aside={<span className="rp-summary">{plural(papers.length, 'paper')} · {held} held · {plural(notes, 'note')}</span>}
+            aside={<span className="rp-summary">{plural(papers.length, 'paper')} · {held} held · {plural(notes, 'note')}{checked.length < papers.length && ` · ${papers.length - checked.length} not checked yet`}</span>}
           >
             {grant && <p className="rp-sub">{grant.title}</p>}
             {papers.map(p => <Paper key={p.id} p={p} />)}

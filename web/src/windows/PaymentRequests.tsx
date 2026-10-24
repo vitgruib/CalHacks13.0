@@ -21,7 +21,7 @@ const followUpState: Record<FollowUp['state'], { label: string; tone: Tone }> = 
 }
 
 /** Plain description of a purchase, from the request if we have it, else from its order and invoice. */
-function describe(db: Db, requestId: string): { name: string; amount?: number; held: string | null } {
+function describe(db: Db, requestId: string, grantId: string): { name: string; amount?: number; held: string | null } {
   const rq = db.requests.find(r => r.id === requestId)
   const orders = db.orders.filter(o => o.requestId === requestId)
   const invoices = db.invoices.filter(i => orders.some(o => o.id === i.orderId))
@@ -33,7 +33,8 @@ function describe(db: Db, requestId: string): { name: string; amount?: number; h
   else if (heldInvoice) held = `invoice ${heldInvoice.id} is on hold`
   else if (openHold) held = `open hold ${openHold.id}`
 
-  if (rq) return { name: rq.item, amount: rq.price, held }
+  const share = rq?.split?.find(s => s.grantId === grantId)?.share ?? 1
+  if (rq) return { name: rq.item, amount: Math.round(rq.price * share), held }
   const o = orders[0]
   if (o) return { name: `${o.vendor} order ${o.id}${invoices[0] ? `, invoice ${invoices[0].id}` : ''}`, amount: invoices[0]?.amount ?? o.amount, held }
   return { name: `Request ${requestId} (no record found)`, held }
@@ -59,8 +60,8 @@ function RequestCard({ pr }: { pr: PaymentRequest }) {
   const { db } = useStore()
   const grant = db.grants.find(g => g.id === pr.grantId)
   const st = requestState[pr.state]
-  const included = pr.includedRequestIds.map(id => ({ id, ...describe(db, id) }))
-  const excluded = pr.excluded.map(x => ({ ...x, ...describe(db, x.requestId) }))
+  const included = pr.includedRequestIds.map(id => ({ id, ...describe(db, id, pr.grantId) }))
+  const excluded = pr.excluded.map(x => ({ ...x, ...describe(db, x.requestId, pr.grantId) }))
   const heldIncluded = included.filter(i => i.held)
   const prHold = db.holds.find(h => h.kind === 'payment_request' && h.refId === pr.id && !h.decision)
   const waiting = pr.state === 'waiting_on_manager' || !!prHold
@@ -118,7 +119,7 @@ function RequestCard({ pr }: { pr: PaymentRequest }) {
 
       <h3>Follow-up questions ({pr.followUps.length})</h3>
       {pr.followUps.length === 0 ? <Empty>The funder has not asked anything yet.</Empty> : pr.followUps.map(fu => {
-        const fs = followUpState[fu.state]
+        const fs = fu.state === 'drafted' && !fu.answerDraft ? { label: 'Not answered yet', tone: 'warn' as Tone } : followUpState[fu.state]
         const fuHold = db.holds.find(h => h.kind === 'follow_up' && h.refId === fu.id && !h.decision)
         return (
           <article key={fu.id} className="pr-fu">

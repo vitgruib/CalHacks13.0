@@ -1,0 +1,196 @@
+{
+  "about": "Answer key for sim/seed.json (T8). One case per planted mistake and decoy in docs/MASTER-PLAN.md §3, plus the demo-path purchase. T19 scores system decisions against it: a mistake is caught when the system's decision on refId is `expected` (or one of `alsoAccept`) and cites `rule`; it is missed otherwise. A decoy is a false alarm when the system fails `rule` on refId or holds/flags it for that rule. A hold for an unrelated reason (for example grant A's freeze) is not a false alarm. Any hold or flag on a record not listed here also counts as a false alarm.",
+  "today": "2026-06-15",
+  "assumptions": {
+    "cardLimit": 5000,
+    "cardLimitRule": "price <= cardLimit passes (exactly at the limit is allowed)",
+    "last90DaysCategories": ["lab supplies", "reagents"],
+    "last90DaysRule": "materials and supplies (categories above) bought when the grant ends in 90 days or fewer fail; services, publication costs and payroll are not covered",
+    "unallowableCategories": ["general office"],
+    "expectedValues": {
+      "hold": "paused for the grant manager (a hold in the Inbox); for a grant event, the grant stays frozen and a flag is raised",
+      "block": "refused outright, with the rule cited",
+      "reroute": "charged to another grant with time and money left",
+      "exclude": "left out of the payment request, with the reason",
+      "flag": "an open flag on the grant (Funds window) and a hold for the grant manager",
+      "note": "a note on the report, not a hold",
+      "pass": "the rule passes; no hold or flag for it"
+    }
+  },
+  "cases": [
+    {
+      "id": "ft-1", "feature": "fund_tracker", "kind": "mistake",
+      "case": "a grant active in one source and canceled in another",
+      "refId": "sr-008", "grantId": "R01GM000001", "expected": "flag",
+      "rule": "Any disagreement about status freezes spending and asks the grant manager",
+      "check": "open flag {kind: sources_disagree, grantId: R01GM000001}; a source_disagreement hold; grant stays frozen",
+      "why": "Today's RePORTER reading (sr-008) says active; USAspending (sr-009) and the cancellation list (sr-010) still say canceled.",
+      "source": "MASTER-PLAN §3.1 planted mistakes; MVP-REPORT test set: Grant Witness RePORTER/TAGGS mismatches"
+    },
+    {
+      "id": "ft-2", "feature": "fund_tracker", "kind": "mistake",
+      "case": "a purchase while canceled",
+      "refId": "rq-050", "grantId": "R01GM000001", "expected": "flag",
+      "rule": "Frozen from a cancellation until a payment lands after it",
+      "check": "open flag {kind: spend_while_canceled, grantId: R01GM000001} naming rq-050 / o-050",
+      "why": "An $890 card charge (order o-050) hit R01GM000001 on 2026-03-18, eight days after it was canceled and with no payment since.",
+      "source": "MASTER-PLAN §3.1 planted mistakes"
+    },
+    {
+      "id": "ft-3", "feature": "fund_tracker", "kind": "mistake",
+      "case": "a court order with no payment yet",
+      "refId": "se-a-court-order", "grantId": "R01GM000001", "expected": "hold",
+      "rule": "A court order alone doesn't unfreeze; only a payment does",
+      "check": "grant R01GM000001 stays frozen; open flag {kind: court_order_no_payment, grantId: R01GM000001}",
+      "why": "The court restored the grant on 2026-04-20, but no payment has arrived since the 2026-03-10 cancellation.",
+      "source": "MASTER-PLAN §3.1 planted mistakes and §1 core behavior; pain point 02 (status reversed by courts)"
+    },
+    {
+      "id": "pu-0", "feature": "purchases", "kind": "mistake",
+      "case": "demo path: a purchase on a grant restored by court with no payment yet",
+      "refId": "rq-101", "grantId": "R01GM000001", "expected": "hold",
+      "rule": "Grant is active and not frozen",
+      "check": "rq-101 held (waiting_on_manager) with a purchase hold; bought automatically once a payment lands on R01GM000001",
+      "why": "The scientist pushes to buy gloves because the court restored the grant, but the money hasn't arrived.",
+      "source": "MASTER-PLAN §5 step 1 and §3.1"
+    },
+    {
+      "id": "pu-1", "feature": "purchases", "kind": "mistake",
+      "case": "supplies bought in the last 90 days",
+      "refId": "rq-102", "grantId": "R21AI000002", "expected": "reroute", "alsoAccept": ["block"],
+      "rerouteTo": "R01GM000001",
+      "rule": "Not in the grant's last 90 days",
+      "check": "rq-102 rerouted to R01GM000001 (it goes through once that grant unfreezes), or blocked; cites the last-90-days rule",
+      "why": "Lab supplies on R21AI000002, which ends 2026-08-01, 50 days after the request; R01GM000001 runs to 2027-12-31.",
+      "source": "MASTER-PLAN §3.2 planted mistakes; NSF OIG 22-1-010 (WVU, $17,335 disallowed) and OIG 19-1-011 (Delaware)"
+    },
+    {
+      "id": "pu-2", "feature": "purchases", "kind": "mistake",
+      "case": "an unallowable item",
+      "refId": "rq-103", "grantId": "R21AI000002", "expected": "block",
+      "rule": "Category allowed",
+      "check": "rq-103 blocked; cites the category rule",
+      "why": "An espresso machine (general office) is not an allowable direct cost on a federal grant.",
+      "source": "MASTER-PLAN §3.2 planted mistakes; NSF OIG 17-1-002 (UC Davis)"
+    },
+    {
+      "id": "pu-3", "feature": "purchases", "kind": "mistake",
+      "case": "a shared cost charged 100% to one grant",
+      "refId": "rq-104", "grantId": "R01GM000001", "expected": "hold", "alsoAccept": ["block"],
+      "rule": "Shared items split across grants",
+      "check": "rq-104 not bought as-is: held for a split (or blocked); cites the shared-cost rule",
+      "why": "The confocal service contract serves both R01GM000001 and R21AI000002 (its purpose says so) but has no split.",
+      "source": "MASTER-PLAN §3.2 planted mistakes; NSF OIG capstone (shared-cost misallocation in 55% of audits)"
+    },
+    {
+      "id": "pu-4", "feature": "purchases", "kind": "mistake",
+      "case": "a buy over the card limit",
+      "refId": "rq-105", "grantId": "R01GM000001", "expected": "hold",
+      "rule": "Under the card limit ($5,000)",
+      "check": "rq-105 waiting_on_manager with a purchase hold citing the card limit",
+      "why": "$6,850 is over the $5,000 card limit, so only the grant manager can approve it.",
+      "source": "MASTER-PLAN §3.2 planted mistakes and §2 hard limits"
+    },
+    {
+      "id": "pu-d1", "feature": "purchases", "kind": "decoy",
+      "case": "a buy exactly at the limit",
+      "refId": "rq-106", "grantId": "R01GM000001", "expected": "pass",
+      "rule": "Under the card limit ($5,000)",
+      "check": "card-limit verdict passes on rq-106; once R01GM000001 unfreezes it is bought with no hold",
+      "why": "$5,000 is exactly the limit, which is allowed. It waits only for grant A's freeze, not for the limit.",
+      "source": "MASTER-PLAN §3.2 decoys"
+    },
+    {
+      "id": "pu-d2", "feature": "purchases", "kind": "decoy",
+      "case": "a correct shared-cost split",
+      "refId": "rq-107", "grantId": "R01GM000001", "expected": "pass",
+      "rule": "Shared items split across grants",
+      "check": "shared-cost verdict passes on rq-107 (60% R01GM000001 / 40% R21AI000002); once R01GM000001 unfreezes it is bought with no hold",
+      "why": "Mass-spec hours split 6/4 between the two projects, matching its stated use. Core-facility services are not supplies, so the 90-day rule does not apply to B's share.",
+      "source": "MASTER-PLAN §3.2 decoys"
+    },
+    {
+      "id": "in-1", "feature": "invoices", "kind": "mistake",
+      "case": "an invoice for a canceled order",
+      "refId": "inv-030", "grantId": "R21AI000002", "expected": "hold",
+      "rule": "An invoice is payable only if its order is open",
+      "check": "inv-030 held with an invoice hold and a timeline: placed 2026-02-20, canceled 2026-03-02, invoice 2026-06-11",
+      "why": "BioReagents billed $2,400 for order o-030, which the lab canceled on 2026-03-02.",
+      "source": "MASTER-PLAN §3.3 planted mistakes; §5 step 2"
+    },
+    {
+      "id": "in-2", "feature": "invoices", "kind": "mistake",
+      "case": "an approval for a different amount",
+      "refId": "inv-034", "grantId": "R21AI000002", "expected": "hold",
+      "rule": "An invoice is payable only if its amount matches the approval",
+      "check": "inv-034 held with an invoice hold naming approval ap-034 ($5,800) vs invoice $6,200",
+      "why": "The grant manager approved the plate shaker at $5,800 (ap-034); the order and invoice are $6,200.",
+      "source": "MASTER-PLAN §3.3 planted mistakes"
+    },
+    {
+      "id": "in-d1", "feature": "invoices", "kind": "decoy",
+      "case": "an invoice matching an approved change to the order",
+      "refId": "inv-036", "grantId": "R21AI000002", "expected": "pass",
+      "rule": "An invoice is payable only if its amount matches the approval",
+      "check": "inv-036 matched (ready to pay); no hold",
+      "why": "Order o-036 changed from $1,150 to $1,290 with the grant manager's approval (ap-036); the invoice is $1,290.",
+      "source": "MASTER-PLAN §3.3 decoy"
+    },
+    {
+      "id": "pr-1", "feature": "payment_requests", "kind": "mistake",
+      "case": "a held purchase that must be left out of the request",
+      "refId": "rq-037", "grantId": "R21AI000002", "expected": "exclude",
+      "relatedIds": ["inv-037", "h-004"],
+      "rule": "A request can't include held or frozen spending",
+      "check": "the May 2026 payment request for R21AI000002 (2026-05-01 to 2026-05-31) has rq-037 in `excluded`, not in includedRequestIds",
+      "why": "The broth order's invoice (inv-037) is on hold, waiting for the grant manager (h-004): billed $2,920 for a $1,460 order.",
+      "source": "MASTER-PLAN §3.4 planted mistake"
+    },
+    {
+      "id": "rp-1", "feature": "reports", "kind": "mistake",
+      "case": "a paper crediting the wrong grant",
+      "refId": "p-10", "grantId": "R21AI000002", "expected": "hold",
+      "rule": "A listed paper must credit the grant whose report lists it",
+      "proposedCostMove": { "requestId": "rq-035", "amount": 2100, "from": "R21AI000002", "to": "R01GM000001", "chargedOn": "2026-04-24", "fixBy": "2026-07-23", "daysLeft": 38 },
+      "check": "p-10 held; proposes moving rq-035's $2,100 from R21AI000002 to R01GM000001 with 38 days left on the 90-day limit",
+      "why": "Listed in R21AI000002's report, but its acknowledgments credit R01GM000001; its publication fee was charged to R21AI000002.",
+      "source": "MASTER-PLAN §3.5 planted mistakes; §5 step 4; MVP-REPORT: WashU Single Audit 2023-001 (charge on the wrong grant, corrected late)"
+    },
+    {
+      "id": "rp-2", "feature": "reports", "kind": "mistake",
+      "case": "a paper missing its PubMed Central ID",
+      "refId": "p-03", "grantId": "R01GM000001", "expected": "hold",
+      "rule": "Every listed paper needs a PubMed Central ID (NIH public access policy)",
+      "check": "p-03 held (or flagged) for the missing PMCID",
+      "why": "The paper has no PMCID, which NIH requires for every paper in a progress report.",
+      "source": "MASTER-PLAN §3.5 planted mistakes"
+    },
+    {
+      "id": "rp-3", "feature": "reports", "kind": "mistake",
+      "case": "a corrected paper listed without disclosure",
+      "refId": "p-04", "grantId": "R01GM000001", "expected": "hold",
+      "rule": "Only a material correction holds the report",
+      "check": "p-04 held; asks to disclose the correction",
+      "why": "A material correction (Figure 3 rate constants, a revised conclusion) is on record but the report doesn't disclose it.",
+      "source": "MASTER-PLAN §3.5 planted mistakes"
+    },
+    {
+      "id": "rp-d1", "feature": "reports", "kind": "decoy",
+      "case": "an author-affiliation correction",
+      "refId": "p-05", "grantId": "R01GM000001", "expected": "note", "alsoAccept": ["pass"],
+      "rule": "Only a material correction holds the report",
+      "check": "p-05 result is note (or ok), never held",
+      "why": "The only correction fixes one author's affiliation: too small to hold the report.",
+      "source": "MASTER-PLAN §3.5 decoys"
+    },
+    {
+      "id": "rp-d2", "feature": "reports", "kind": "decoy",
+      "case": "a retracted paper cited in order to discuss the retraction",
+      "refId": "p-07", "grantId": "R01GM000001", "expected": "pass", "alsoAccept": ["note"],
+      "rule": "Only a material correction holds the report",
+      "check": "p-07 result is ok (or note), never held",
+      "why": "The retraction is on record and disclosed; the report lists the paper only to explain the retraction and the repeat experiments.",
+      "source": "MASTER-PLAN §3.5 decoys"
+    }
+  ]
+}

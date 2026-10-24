@@ -9,17 +9,18 @@ const orderLabel: Record<Order['state'], string> = { open: 'Open', canceled: 'Ca
 const people: Record<string, string> = { grant_manager: 'the grant manager', scientist: 'the scientist', funder: 'the funder' }
 
 function InvoiceCard({ inv, order, approval, hold }: { inv: Invoice; order?: Order; approval?: Approval; hold?: Hold }) {
-  const held = inv.state === 'held'
+  const unchecked = inv.checked === false
+  const held = !unchecked && inv.state === 'held'
   return (
-    <article className={`inv-card ${held ? 'inv-held' : inv.state === 'rejected' ? '' : 'inv-ok'}`} aria-labelledby={`inv-${inv.id}`}>
+    <article className={`inv-card ${held ? 'inv-held' : unchecked || inv.state === 'rejected' ? '' : 'inv-ok'}`} aria-labelledby={`inv-${inv.id}`}>
       <header>
         <h3 id={`inv-${inv.id}`}>{inv.vendor}</h3>
         <span className="inv-amount">{money(inv.amount)}</span>
-        <Badge tone={stateTone[inv.state]}>{stateLabel[inv.state]}</Badge>
+        {unchecked ? <Badge>Not checked yet</Badge> : <Badge tone={stateTone[inv.state]}>{stateLabel[inv.state]}</Badge>}
         <span className="inv-muted">Invoice {inv.id}, received {inv.received}</span>
       </header>
 
-      {inv.mismatch
+      {unchecked ? <p className="inv-muted">Arrived; the bookkeeping agent hasn't matched it to its order yet.</p> : inv.mismatch
         ? <p className="inv-mismatch"><strong>Mismatch:</strong> {inv.mismatch}</p>
         : inv.state === 'matched' && <p className="inv-match">Matches its order and its approval, so it is ready to pay.</p>}
 
