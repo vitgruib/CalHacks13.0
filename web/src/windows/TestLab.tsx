@@ -3,12 +3,10 @@
 // scorecard fills from the check command in T19.
 import { useState } from 'react'
 import { useStore } from '../data/store'
-import type { Db, Grant, GrantStatus } from '../data/types'
-import { Badge, Section, money, type Tone } from '../ui'
+import type { Db, Grant } from '../data/types'
+import { Badge, Section, grantStatus, money } from '../ui'
 import './TestLab.css'
 
-const statusLabel: Record<GrantStatus, string> = { active: 'Active', canceled: 'Canceled', restored_by_court: 'Restored by court', ended: 'Ended' }
-const statusTone: Record<GrantStatus, Tone> = { active: 'good', canceled: 'bad', restored_by_court: 'warn', ended: 'neutral' }
 
 // Remember the picked grant while switching windows (the window remounts).
 let lastGrantId: string | undefined
@@ -136,7 +134,7 @@ export default function TestLab() {
         {grant && (
           <div className="tl-grant">
             <span className="tl-badges">
-              <Badge tone={statusTone[grant.status]}>{statusLabel[grant.status]}</Badge>
+              <Badge tone={grantStatus(grant).tone}>{grantStatus(grant).label}</Badge>
               {grant.frozen ? <Badge tone="bad">Frozen</Badge> : <Badge tone="good">Spending open</Badge>}
               <span className="muted">Received {money(grant.received)} of {money(grant.awarded)}</span>
             </span>

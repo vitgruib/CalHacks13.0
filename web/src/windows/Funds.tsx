@@ -2,7 +2,7 @@
 // its status timeline, and any flags. Information only; decisions live in the Inbox.
 import { useStore } from '../data/store'
 import { trulyAvailable, type Db, type Grant, type GrantStatus, type SourceReading, type StatusEvent } from '../data/types'
-import { Badge, Empty, Section, money, type Tone } from '../ui'
+import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
 import './Funds.css'
 
 const statusLabel: Record<GrantStatus, string> = {
@@ -68,7 +68,7 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
       title={`${g.id} · ${g.title}`}
       aside={
         <span className="funds-badges">
-          <Badge tone={statusTone[g.status]}>{statusLabel[g.status]}</Badge>
+          <Badge tone={grantStatus(g).tone}>{grantStatus(g).label}</Badge>
           {g.frozen ? <Badge tone="bad">Frozen</Badge> : <Badge tone="good">Spending open</Badge>}
         </span>
       }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useStore } from './data/store'
 import { windows } from './windows/registry'
+import Notices from './Notices'
 
 const fromHash = () => windows.find(w => `#${w.id}` === location.hash) ?? windows[0]
 
@@ -27,6 +28,7 @@ export default function App() {
         ))}
       </nav>
       <main>
+        <Notices />
         <h1>{current.label}</h1>
         <p className="job">{current.job}</p>
         <current.Component />
