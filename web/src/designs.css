@@ -1,0 +1,81 @@
+/* Alternate looks, picked from the Design menu (Designs.tsx). Each sets
+   <html data-design="…"> and overrides the tokens in styles.css; the
+   attribute selector outranks the plain :root rules, dark mode included.
+   Mockups: https://claude.ai/artifact/8sGsdbsBRTntzvaMMRtTd6 */
+
+/* 1. Ledger: an accountant's book. Cream paper, green ink, ruled lines, figures in mono. */
+:root[data-design="ledger"] {
+  --bg: #f4f1e8; --panel: #fbf9f2; --text: #1d1d1b; --muted: #5a5a52; --line: #cfc8b4;
+  --accent: #1f4d3a; --good: #1f4d3a; --good-bg: #dfe9e1; --bad: #a33a2f; --bad-bg: #f3e1dc;
+  --warn: #7a5200; --warn-bg: #f1e6c8; --neutral-bg: #ece7d8;
+  font-family: 'IBM Plex Serif', Georgia, serif;
+}
+[data-design="ledger"] nav { background: var(--neutral-bg); border-right: 2px solid var(--accent); }
+[data-design="ledger"] nav a { border-radius: 0; border-bottom: 1px solid var(--line); }
+[data-design="ledger"] h1 { font-size: 32px; font-weight: 600; }
+[data-design="ledger"] .section { border-radius: 0; border-color: #b9b19a; background-image: repeating-linear-gradient(transparent 0 31px, #dfe7df 31px 32px); }
+[data-design="ledger"] :is(td, input, .today, .count, .badge) { font-family: 'IBM Plex Mono', monospace; }
+[data-design="ledger"] :is(button, input, select, textarea) { border-radius: 0; }
+[data-design="ledger"] .badge { border-radius: 0; border: 1px solid currentColor; text-transform: uppercase; font-size: 11px; }
+
+/* 2. Federal form: an SF-424. Black rules, boxed fields, navy, Public Sans (the US government's typeface). */
+:root[data-design="form"] {
+  --bg: #ffffff; --panel: #ffffff; --text: #111111; --muted: #4a4a4a; --line: #111111;
+  --accent: #112e51; --good: #1a6b3c; --good-bg: #e2f0e7; --bad: #9b1c1c; --bad-bg: #f9e3e3;
+  --warn: #111111; --warn-bg: #fff4d6; --neutral-bg: #f0f0f0;
+  font-family: 'Public Sans', Arial, sans-serif;
+}
+[data-design="form"] * { border-radius: 0 !important; }
+[data-design="form"] nav { border-right: 4px solid var(--text); }
+[data-design="form"] nav .brand { background: var(--accent); color: #fff; text-transform: uppercase; letter-spacing: .04em; font-weight: 800; padding: 10px; }
+[data-design="form"] nav a { font-weight: 600; border-bottom: 1px solid #ccc; }
+[data-design="form"] nav a.active { background: transparent; color: var(--text); font-weight: 800; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 5px; }
+[data-design="form"] h1 { font-size: 28px; font-weight: 800; }
+[data-design="form"] .section { border: 2px solid var(--text); }
+[data-design="form"] th { color: var(--text); background: var(--neutral-bg); font-size: 10px; letter-spacing: .08em; }
+[data-design="form"] button { border: 2px solid var(--text); font-weight: 800; }
+[data-design="form"] button.primary { border-color: var(--accent); }
+[data-design="form"] .badge { border: 1px solid currentColor; }
+
+/* 3. Newspaper: a broadsheet front page. Heavy rules, serif headlines, one red. */
+:root[data-design="paper"] {
+  --bg: #fafaf7; --panel: #fafaf7; --text: #111111; --muted: #4d4d4a; --line: #111111;
+  --accent: #111111; --good: #1d5e3a; --good-bg: #e6efe8; --bad: #c8102e; --bad-bg: #fbe5e8;
+  --warn: #8a4b00; --warn-bg: #f7ead6; --neutral-bg: #ededea;
+  font-family: 'Newsreader', Georgia, serif;
+}
+[data-design="paper"] * { border-radius: 0 !important; }
+[data-design="paper"] :is(nav, th, button, label, .badge, .today, .job) { font-family: 'Archivo', Arial, sans-serif; }
+[data-design="paper"] nav .brand { font-family: 'Archivo', Arial, sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -.04em; border-bottom: 5px solid var(--text); padding-bottom: 8px; margin-bottom: 6px; }
+[data-design="paper"] nav a { font-weight: 600; }
+[data-design="paper"] nav a.active { background: transparent; color: var(--bad); box-shadow: inset 3px 0 0 var(--bad); }
+[data-design="paper"] h1 { font-size: 44px; font-weight: 600; letter-spacing: -.01em; line-height: 1.05; border-bottom: 1px solid var(--text); padding-bottom: 8px; }
+[data-design="paper"] .section { border: 0; border-top: 3px solid var(--text); padding-left: 0; padding-right: 0; }
+[data-design="paper"] .section h2 { font-size: 22px; font-weight: 600; }
+[data-design="paper"] .badge { background: transparent; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; padding: 0; }
+
+/* 4. Terminal: a finance terminal. Black, amber, monospace, keyed buttons. */
+:root[data-design="terminal"] {
+  --bg: #0b0b0b; --panel: #0b0b0b; --text: #e8e6df; --muted: #8f8d86; --line: #333333;
+  --accent: #ffb000; --good: #3ddc84; --good-bg: #0f2a1b; --bad: #ff5c39; --bad-bg: #2e130c;
+  --warn: #ffb000; --warn-bg: #2b2108; --neutral-bg: #1a1a1a;
+  font-family: 'JetBrains Mono', ui-monospace, monospace; font-size: 14px;
+}
+[data-design="terminal"] * { border-radius: 0 !important; }
+[data-design="terminal"] nav .brand { background: var(--accent); color: var(--bg); text-transform: uppercase; font-size: 15px; }
+[data-design="terminal"] nav a { text-transform: uppercase; font-size: 13px; }
+[data-design="terminal"] nav a.active, [data-design="terminal"] button.primary { color: var(--bg); }
+[data-design="terminal"] :is(h1, h2, h3) { text-transform: uppercase; color: var(--accent); font-size: 18px; }
+[data-design="terminal"] .section { border-color: var(--line); }
+[data-design="terminal"] .section > header { background: var(--neutral-bg); margin: -16px -16px 12px; padding: 6px 16px; }
+[data-design="terminal"] :is(input, select, textarea) { background: #000; border-color: var(--accent); }
+[data-design="terminal"] button { text-transform: uppercase; font-weight: 700; }
+
+/* All four: status shows as a full outline with a heavy top rule, not a colored left stripe. */
+:root[data-design] :is(.notice-warn, .inbox .hold, .rp-paper.rp-note) { border: 1px solid var(--warn); border-top-width: 3px; }
+:root[data-design] :is(.notice-good, .inv-card.inv-ok, .rp-paper.rp-ok) { border: 1px solid var(--good); border-top-width: 3px; }
+:root[data-design] :is(.funds-frozen, .inv-card.inv-held, .rp-paper.rp-held) { border: 1px solid var(--bad); border-top-width: 3px; }
+
+/* The Design menu itself */
+nav .design-pick { margin-top: auto; padding: 16px 8px 0; display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--muted); }
+nav .design-pick select { font-size: 13px; }

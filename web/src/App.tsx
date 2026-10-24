@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useStore } from './data/store'
 import { roles, windows, type Role } from './windows/registry'
 import Notices from './Notices'
+import DesignPicker from './Designs'
 
 const ROLE_KEY = 'grantguard.role'
 const savedRole = (): Role => {
@@ -47,6 +48,7 @@ export default function App() {
             {w.id === 'inbox' && openHolds > 0 && <span className="count">{openHolds}</span>}
           </a>
         ))}
+        <DesignPicker />
       </nav>
       <main>
         <Notices />
