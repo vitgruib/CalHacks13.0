@@ -40,8 +40,11 @@ if (demo && kind === 'local') {
 } else {
   const db = await openDb(kind);
   // Agent roles bind to their identities once, so a real server's tokens are
-  // kept on disk (agents/.state/<database>/, git-ignored).
-  const tokens = kind === 'local' ? memoryTokens() : fileTokens(process.env.GG_SPACETIME_DB ?? 'grantguard');
+  // kept on disk, one folder per server and database (agents/.state/, git-
+  // ignored): local and maincloud both call theirs grantguard, and a token
+  // only works on the server that issued it.
+  const server = new URL(process.env.GG_SPACETIME_URI ?? 'ws://127.0.0.1:3000').host.replace(/[^a-z0-9.-]/gi, '_');
+  const tokens = kind === 'local' ? memoryTokens() : fileTokens(`${server}-${process.env.GG_SPACETIME_DB ?? 'grantguard'}`);
   // The sim world's grant IDs are made up, so the government sources stay off
   // unless the world holds real ones (GG_LIVE_SOURCES=1).
   const sources =

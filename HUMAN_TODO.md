@@ -9,6 +9,8 @@ Things agents can't do. Put your name next to one when you take it.
 - [x] Pick the idea from `docs/IDEAS.md` and log it in `DECISIONS.md` — @nathan: GrantGuard, see `docs/MASTER-PLAN.md`
 - [ ] @suhu: install the SpacetimeDB CLI on every machine once T2 pins the version
 - [ ] @nathan: Anthropic API key and Apify account, shared out of band, names in `.env.example`; pick the 2 real NIH grants to seed from
+- [ ] @nathan: add the agents' variable names (no values) to `.env.example`: the list is in `docs/TRACK-B-MANUAL.md` (agents can't open `.env*` files in this setup)
+- [ ] @nathan (decide): where the agent worker runs for the live demo. Default: your MacBook, `GG_DB=spacetime GG_SPACETIME_URI=wss://maincloud.spacetimedb.com npm --prefix agents start`, left running through judging. The first run registers the three agents on maincloud's `grantguard` and binds them to tokens kept only on that machine (`agents/.state/maincloud.spacetimedb.com-grantguard/`). The PC can't take those seats unless you copy that folder over out of band (it's credentials) or @ethan republishes with `--reset`
 - [ ] **Unassigned, outside the tracks (presentation and submission):** Hyphenate booth (does a grant office count as a finance team?); interview one PI or research administrator; record the video; submit Devpost. Required to be judged, so someone must own this by Sat evening
   - Prep is in `docs/submission/`: booth sheet + interview guide + outreach drafts (`INTERVIEW-KIT.md`, fill `[email]`/`[phone]` before sending), Devpost text (`DEVPOST-DRAFT.md`), demo + video script (`DEMO-SCRIPT.md`)
   - Open: Anthropic and SpacetimeDB aren't on the Devpost prize list; ask #ask-directors or their booths how to enter
