@@ -12,6 +12,8 @@ time-sensitive (court cases, agency policy) before putting it on a slide.
 ```
 docs/research/
   README.md            ← you are here: rules + index
+  MVP-REPORT.md        ← pain points → MVP features, demo moment, test set
+  cut/                 ← pain points cut as weak (kept for reference)
   pain-points/NN-*.md  ← one file per pain point (the thing to read)
   visa-pipeline.md     ← how automated purchasing via Visa/Stripe would work
   sources/
@@ -37,14 +39,13 @@ Status: **core** = the team picked it; **stretch** = keep for later;
 | [08](pain-points/08-unallowable-purchases-audits.md) | Unallowable / end-of-award / P-card purchases keep failing audits | new | **purchase guardrails (Visa)** |
 | [09](pain-points/09-erp-outages.md) | University finance-system rollouts freeze purchasing & billing | new | reconciliation |
 | [10](pain-points/10-drawdown-justification.md) | Every federal drawdown now needs a written justification | new | **auto-justification from purchase data** |
-| [11](pain-points/11-award-limbo-backlogs.md) | Awards stuck in "administrative review" / year-long backlogs | new | status tracking |
-| [12](pain-points/12-workforce-loss.md) | Layoffs, lost postdocs, expertise that doesn't come back | new | (impact framing) |
-| [13](pain-points/13-keyword-screening.md) | Fear of keyword-based termination; self-censoring grants | new | (context only) |
-| [14](pain-points/14-application-treadmill.md) | Labs submit far more applications just to survive | new | funder matching |
+
+Pain points 11–14 were cut as weak; see [`cut/README.md`](cut/README.md).
+**What to build:** see [`MVP-REPORT.md`](MVP-REPORT.md).
 
 Strongest combined story for judges: **01 + 02 + 06** (the data is a mess),
 **04 + 05** (the replacement money is hard to find and compare), and
-**08 + 10** (the Visa purchasing pipeline that keeps spending compliant and
+**08 + 10** (the purchasing pipeline that keeps spending compliant and
 writes its own paperwork).
 
 ## Rules for agents working in this folder
