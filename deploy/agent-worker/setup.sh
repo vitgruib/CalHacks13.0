@@ -35,6 +35,8 @@ GG_DB=spacetime
 GG_SPACETIME_URI=wss://maincloud.spacetimedb.com
 GG_SPACETIME_DB=grantguard
 GG_CLAUDE=cached
+# Haiku keeps the hosted worker cheap; remove for the default (Sonnet).
+GG_MODEL=claude-haiku-5-5
 # Agent tokens and caches live outside the checkout, so git pull never
 # conflicts with them and restarts keep the same three identities.
 GG_STATE_DIR=/var/lib/grantguard-agents/state
