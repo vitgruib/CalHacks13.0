@@ -35,6 +35,14 @@ const orderTerms = (order: OrderRow | undefined) =>
 const matchedAgainst = (order: OrderRow | undefined, approvals: ApprovalRow[]) =>
   JSON.stringify([orderTerms(order), approvals.map((approval) => [approval.id, approval.amount, approval.day])]);
 
+// News about an order that its invoices were matched against: it was canceled
+// or its amount changed. Nothing in the module un-cancels an order; only a
+// world reloaded in the Test lab does that, and it rewrites the invoices too.
+const orderNews = (before: OrderRow, after: OrderRow) =>
+  (after.state === 'canceled' && before.state !== 'canceled') ||
+  after.amount !== before.amount ||
+  (after.changedAmount ?? null) !== (before.changedAmount ?? null);
+
 function orderLine(order: OrderRow): string {
   const changed = order.changedAmount === undefined ? '' : `, changed to ${dollars(order.changedAmount)}`;
   const grant = order.grantId ? ` on ${order.grantId}` : '';
@@ -146,18 +154,27 @@ export function startInvoices({ conn, tracker }: AgentContext): AgentHandle {
   const onInvoice = (invoice: InvoiceRow) => {
     if (waiting(invoice)) void queue.push(`check ${invoice.id}`, () => checkIfWaiting(invoice.id));
   };
+  // An invoice that arrives already checked (the world at startup, or one the
+  // Test lab loads) was matched against what's on file now, so only later news
+  // about its order re-checks it. Without this, loading a world re-checks its
+  // checked invoices because their approvals arrive as new rows, and pays the
+  // ones the seed left at 'matched'.
+  const onArrival = (invoice: InvoiceRow) => {
+    if (invoice.checked) checkedAgainst.set(invoice.id, matchedAgainst(orderById(invoice.orderId), approvalsFor(invoice.orderId)));
+    onInvoice(invoice);
+  };
   const onOrderChange = (orderId: string) => {
     void queue.push(`re-check invoices for ${orderId}`, () => recheckOrder(orderId));
   };
 
   // The world is loaded before agents start: check what's already waiting.
-  for (const invoice of conn.rows('invoice')) onInvoice(invoice);
+  for (const invoice of conn.rows('invoice')) onArrival(invoice);
   const stops = [
-    conn.onInsert('invoice', onInvoice),
+    conn.onInsert('invoice', onArrival),
     // A reloaded world brings invoices back unchecked under the same ids.
     conn.onUpdate('invoice', (_before, after) => onInvoice(after)),
     conn.onUpdate('order', (before, after) => {
-      if (JSON.stringify(orderTerms(before)) !== JSON.stringify(orderTerms(after))) onOrderChange(after.id);
+      if (orderNews(before, after)) onOrderChange(after.id);
     }),
     conn.onInsert('approval', (approval) => {
       if (conn.rows('invoice').some((invoice) => invoice.orderId === approval.orderId && recheckable(invoice))) onOrderChange(approval.orderId);

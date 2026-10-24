@@ -146,6 +146,44 @@ test('reloading_the_sim_world_in_the_test_lab_checks_its_invoices_again_without_
   await settle();
 });
 
+test('resetting_the_test_lab_to_the_fixtures_neither_rechecks_nor_pays_their_checked_invoices', async () => {
+  world = await startWorld();
+  const conn = world.worker.sessions.bookkeeping;
+  const lab = await world.person('grant_manager');
+  await lab.call('reset_world', {});
+  // The fixtures' inv2 is checked and 'matched' for an order whose approval
+  // arrives as a new row: that is the world loading, not news about the order.
+  const spent = () => conn.rows('grant').map((grant) => [grant.id, grant.spent, grant.promised]);
+  const before = spent();
+  await world.worker.idle();
+
+  assert.equal(invoice(conn, 'inv2').state, 'matched');
+  assert.equal(conn.rows('order').find((row) => row.id === 'o3')?.state, 'changed');
+  assert.deepEqual(spent(), before, 'no money moved');
+  const checks = conn.rows('log').filter((row) => /^(Held|Matched) invoice inv\d$/.test(row.action)).map((row) => row.action);
+  assert.deepEqual(checks, ['Held invoice inv1'], "only the fixtures' own log row");
+  await settle();
+});
+
+test('reloading_the_sim_world_after_a_cancel_leaves_the_reseeded_h_004_alone', async () => {
+  world = await startWorld();
+  const conn = world.worker.sessions.bookkeeping;
+  const lab = await world.person('grant_manager');
+  await lab.call('cancel_order', { orderId: 'o-037' });
+  await world.worker.idle();
+  assert.match(invoice(conn, 'inv-037').mismatch!, /canceled/, 'the cancellation is news: re-checked');
+
+  // The reload puts o-037 back to open and inv-037 back to its seeded hold.
+  await lab.call('load_seed', { json: readFileSync(SIM_SEED, 'utf8') });
+  await world.worker.idle();
+  const holds = invoiceHolds(conn, 'inv-037');
+  assert.equal(holds.length, 1, 'only the reseeded hold');
+  assert.equal(holds[0].open, true);
+  assert.equal(holds[0].title, 'Pay MicroMedia $2,920 for an order of $1,460?');
+  assert.equal(invoice(conn, 'inv-037').mismatch, 'Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460).');
+  await settle();
+});
+
 // ── The Test lab ───────────────────────────────────────────────────────────
 
 test('an_injected_invoice_for_a_canceled_order_is_held_with_a_timeline', async () => {
