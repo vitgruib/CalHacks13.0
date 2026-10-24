@@ -28,6 +28,8 @@ All three tracks are technical only. Presentation and submission work
 
 
 
+- [ ] T40 [agents] The hosted worker restarts itself when SpacetimeDB drops its connection: today a dropped websocket (network blip, maincloud restart) leaves the process alive with dead connections, so systemd never restarts it and the agents silently stop — needs: — — done when: a connection the server closes (not our own disconnect) makes `npm --prefix agents start` exit non-zero so `Restart=always` brings it back with the same identities; integration test on a throwaway database; `./check.sh` passes — @nathan/claude — owns: `agents/src/db/{spacetime,index}.ts`, `agents/src/main.ts`, `agents/test/spacetime.test.ts`
+
 ## Up next (priority order)
 - [ ] T28 [app] Researcher design: own the look and wording of the Scientist screens from here (Ask, My grants, the "Where's my money?" tracker, and restyling My requests, which still uses the manager form) — needs: T27 — done when: Nathan signs off on the Scientist screens and My requests matches them — **@nathan** (delegated by @ethan) — owns: `web/src/windows/Ask.*`, `web/src/windows/Grants.*`, `web/src/scientist.css`, `web/src/plain.ts` (wording only; answers must keep coming from `server/src/rules.ts`), `web/src/windows/Requests.tsx` for the Scientist view
 
