@@ -393,6 +393,37 @@ test('when_the_module_picks_differently_its_lists_win_and_the_first_draft_is_fla
   assert.equal(alone.calls.filter((call) => call.action === 'draft_payment_request').length, 2, 'one extra draft, no more');
 });
 
+test('a_grant_that_freezes_before_the_replacement_gets_none_and_the_first_draft_is_still_flagged', async () => {
+  let raced = false;
+  let refreshes = 0;
+  alone = await startAlone({
+    // The second refresh (right before the replacement) finds the grant canceled.
+    tracker: (lab) => ({
+      async refresh(grantId) {
+        if (grantId === R21 && ++refreshes === 2) {
+          await lab.call('inject_status_event', { grantId: R21, kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Listed as terminated.' });
+        }
+      },
+      idle: async () => {},
+      stop() {},
+    }),
+    beforeCall: async (action, lab) => {
+      if (action !== 'draft_payment_request' || raced) return;
+      raced = true;
+      await lab.call('cancel_order', { orderId: 'o-038' });
+    },
+  });
+  const { conn } = alone;
+  assert.equal(conn.rows('grant').find((g) => g.id === R21)!.frozen, true);
+  const [first, ...rest] = requestsFor(conn, R21);
+  assert.deepEqual(rest, [], 'no replacement on a frozen grant');
+  assert.equal(alone.calls.filter((call) => call.action === 'draft_payment_request').length, 1);
+  const flag = openHolds(conn, 'payment_request', first.id).find((hold) => hold.title.startsWith('Reject'))!;
+  assert.equal(flag.title, `Reject ${first.id}: its explanation is wrong`);
+  assert.deepEqual(flag.options, ['reject']);
+  assert.match(flag.why, /frozen now, so no replacement was drafted/);
+});
+
 // ── The module refuses ────────────────────────────────────────────────────
 
 test('a_refused_draft_is_not_retried_and_the_agent_stays_quiet', async () => {
@@ -438,6 +469,33 @@ test('a_month_with_many_purchases_still_fits_the_limit', async () => {
   for (const e of pr.excluded) assert.ok(parts(pr).leftOut.includes(e.requestId), `still names ${e.requestId} as left out`);
   const claim = claimFor(conn, TEST_GRANT, MAY)!;
   assert.deepEqual(explanationProblems(templateExplanation(claim), claim), []);
+});
+
+test('a_long_follow_up_answer_lists_every_purchase_and_cuts_no_id_in_half', async () => {
+  // 40 purchases overflow the itemized answer; 200 overflow even the compact one.
+  for (const count of [40, 200]) {
+    const requests = [];
+    const orders = [];
+    for (let i = 0; i < count; i++) {
+      const id = String(100 + i);
+      requests.push({ id: `rq-${id}`, day: '2026-05-02', requester: 'scientist', item: `Lot ${id}`, category: 'lab supplies', price: 50 + i, grantId: TEST_GRANT, purpose: 'Aim 2', state: 'bought' });
+      orders.push({ id: `o-${id}`, requestId: `rq-${id}`, grantId: TEST_GRANT, vendor: 'Example Supply', amount: 50 + i, placed: '2026-05-03', state: 'open' });
+    }
+    alone = await startAlone({ seedJson: oneGrantSeed({ requests, orders }) });
+    const { conn } = alone;
+    const [pr] = requestsFor(conn, TEST_GRANT);
+    const funder = await alone.person('funder');
+    await funder.call('ask_follow_up', { paymentRequestId: pr.id, question: 'Itemize every purchase.' });
+    await alone.quiet();
+    const fu = conn.rows('followUp').find((row) => row.paymentRequestId === pr.id)!;
+    const answer = fu.answerDraft!;
+    assert.ok(answer.length <= 2_000, `${answer.length} characters`);
+    const allowed = new Set([pr.id, fu.id, ...pr.includedRequestIds, ...pr.includedPayrollIds]);
+    for (const id of mentionedIds(answer)) assert.ok(allowed.has(id), `${count} purchases: ${id} is not in ${pr.id}`);
+    if (count === 40) for (const id of pr.includedRequestIds) assert.ok(answer.includes(id), `itemizes ${id}`);
+    alone.stop();
+    alone = undefined;
+  }
 });
 
 test('a_new_month_on_the_clock_drafts_that_months_request', async () => {
@@ -488,6 +546,7 @@ test('the_validators_reject_invented_ids_and_amounts', async () => {
   assert.match(bad(`${good.claimed} Also rq-037.`).join(), /claims rq-037/, 'a held purchase claimed');
   assert.match(bad(good.claimed.replace('$7,060', '$7,100')).join(), /total|\$7,100/, 'a recomputed total');
   assert.match(bad(good.claimed, 'Nothing was left out.').join(), /doesn't say rq-037 was left out/);
+  assert.match(bad(`${good.claimed} It also covers the Mueller-Hinton broth.`).join(), /claims Mueller-Hinton broth, 12 bottles \(rq-037\)/, 'a held purchase claimed by name');
   assert.match(bad(`${good.claimed}${' More detail.'.repeat(80)}`).join(), /over the 1000 limit/);
 
   const pr = conn.rows('paymentRequest').find((row) => row.id === 'pr-015')!;

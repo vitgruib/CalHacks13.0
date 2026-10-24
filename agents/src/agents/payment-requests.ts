@@ -66,6 +66,15 @@ const AMOUNT = /\$\s?(\d{1,3}(?:,\d{3})+|\d+)(?:\.(\d{1,2}))?/g;
 const mentionedAmounts = (text: string): number[] =>
   [...text.matchAll(AMOUNT)].map((m) => Number(`${m[1].replace(/,/g, '')}${m[2] ? `.${m[2]}` : ''}`));
 
+// Shortens text to at most `max` characters at a space, so no id or amount is
+// cut in half: "rq-123" cut to "rq-12" would name a purchase that isn't there.
+function clip(text: string, max: number): string {
+  if (text.length <= max) return text;
+  const head = text.slice(0, max - 1);
+  const space = head.lastIndexOf(' ');
+  return `${(space > 0 ? head.slice(0, space) : head).replace(/[\s;,:(]+$/, '')}…`;
+}
+
 const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 // "Research technician" reads as "research technician"; "PI" and "BamA" stay.
 const lower = (text: string) => (/^[A-Z][a-z]/.test(text) ? text.charAt(0).toLowerCase() + text.slice(1) : text);
@@ -361,8 +370,8 @@ export function templateExplanation(claim: Claim): ExplanationText {
   }
   // Dozens of categories or left-out items: cut, keeping the left-out list whole if it fits.
   const room = PAYMENT_EXPLANATION_MAX - (text.leftOut ? text.leftOut.length + 1 : 0);
-  if (room > 80) return { claimed: `${text.claimed.slice(0, room - 1)}…`, leftOut: text.leftOut };
-  return { claimed: `${joined(text).slice(0, PAYMENT_EXPLANATION_MAX - 1)}…`, leftOut: '' };
+  if (room > 80) return { claimed: clip(text.claimed, room), leftOut: text.leftOut };
+  return { claimed: clip(joined(text), PAYMENT_EXPLANATION_MAX), leftOut: '' };
 }
 
 function knownAmounts(claim: Claim): number[] {
@@ -395,6 +404,14 @@ export function explanationProblems(text: ExplanationText, claim: Claim): string
   const claimedIds = new Set([...claim.includedRequestIds, ...claim.includedPayrollIds]);
   const leftOutIds = new Set(claim.leftOut.flatMap((l) => [l.requestId, ...l.ids]));
   for (const id of mentionedIds(text.claimed)) if (!claimedIds.has(id)) problems.push(`claims ${id}, which the request doesn't include`);
+  // A left-out purchase named by what it is ("the Mueller-Hinton broth"), not
+  // its id, is still claimed. A false match only means the template is used.
+  const claimedLower = text.claimed.toLowerCase();
+  for (const l of claim.leftOut) {
+    if (claimedIds.has(l.requestId) || l.item === l.requestId) continue;
+    const name = l.item.split(/[,(:;]/)[0].trim().toLowerCase();
+    if (name.length >= 4 && claimedLower.includes(name)) problems.push(`claims ${l.item} (${l.requestId}), which was left out`);
+  }
   for (const id of mentionedIds(text.leftOut)) if (!leftOutIds.has(id)) problems.push(`lists ${id} as left out, which it isn't`);
   const named = mentionedIds(text.leftOut);
   for (const id of claim.excludedRequestIds) if (!named.includes(id)) problems.push(`doesn't say ${id} was left out`);
@@ -432,7 +449,8 @@ function explainFacts(claim: Claim) {
 // ── Follow-up answers ─────────────────────────────────────────────────────
 
 function answerLine(p: Purchase, grant: GrantRow, detail: Detail): string {
-  if (detail !== 'full') return `${p.requestId} ${p.item}, ${p.vendor}, ordered ${p.ordered}, ${money(p.amount)}`;
+  if (detail === 'counts') return `${p.requestId} ${p.ordered} ${money(p.amount)}`;
+  if (detail === 'ids') return `${p.requestId} ${p.item}, ${p.vendor}, ordered ${p.ordered}, ${money(p.amount)}`;
   const facts = [p.category, p.vendor, `ordered ${p.ordered}`, money(p.amount)];
   if (p.changedFrom !== undefined) facts.push(`changed from ${money(p.changedFrom)}`);
   if (p.sharePct !== undefined) facts.push(`${p.sharePct}% share charged to ${grant.id}`);
@@ -465,10 +483,12 @@ function answerTemplate(pr: PaymentRequestRow, claim: Claim): AnswerText {
     if (left) parts.push(`${left} item${left === 1 ? ' was' : 's were'} left out of ${pr.id} and ${left === 1 ? 'is' : 'are'} not claimed.`);
     return parts.join(' ');
   };
-  const full = build('full');
-  if (full.length <= ANSWER_MAX) return { answer: full };
-  const short = build('ids');
-  return { answer: short.length <= ANSWER_MAX ? short : `${short.slice(0, ANSWER_MAX - 1)}…` };
+  // Richest wording that fits; past that, every purchase still by id, date and amount.
+  for (const detail of ['full', 'ids', 'counts'] as const) {
+    const answer = build(detail);
+    if (answer.length <= ANSWER_MAX) return { answer };
+  }
+  return { answer: clip(build('counts'), ANSWER_MAX) };
 }
 
 /** Why an answer can't go out as written. Empty means every id and amount comes from the payment request. */
@@ -598,17 +618,31 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
   async function redraft(described: Claim, first: PaymentRequestRow, drift: string[]) {
     console.warn(`${AGENT}: ${first.id} doesn't match its explanation (${drift.join('; ')}); drafting again from the module's lists`);
     const fromModule = describe(conn, described.grant, described.period, rowPicks(first), { total: first.amount, forDraft: true });
-    // The first draft still has to be flagged if the module refuses the second.
-    const second = await draft(first.grantId, described.period, joined(templateExplanation(fromModule))).catch((error: unknown) => {
-      console.error(`${AGENT}: replacement for ${first.id} refused:`, error instanceof Error ? error.message : error);
-      return undefined;
-    });
+    // The replacement asks for money too, so the grant is refreshed again and
+    // a grant that froze meanwhile gets no replacement. The first draft still
+    // has to be flagged if the refresh fails or the module refuses the second.
+    const fresh = await tracker.refresh(first.grantId).then(
+      () => true,
+      (error: unknown) => {
+        console.error(`${AGENT}: refresh of ${first.grantId} before replacing ${first.id} failed:`, error instanceof Error ? error.message : error);
+        return false;
+      },
+    );
+    const frozen = grantRow(first.grantId)?.frozen ?? true;
+    if (frozen) console.warn(`${AGENT}: ${first.grantId} is frozen now, so ${first.id} gets no replacement`);
+    const second =
+      fresh && !frozen
+        ? await draft(first.grantId, described.period, joined(templateExplanation(fromModule))).catch((error: unknown) => {
+            console.error(`${AGENT}: replacement for ${first.id} refused:`, error instanceof Error ? error.message : error);
+            return undefined;
+          })
+        : undefined;
     await conn.call('raise_hold', {
       kind: 'payment_request',
       refId: first.id,
       grantId: first.grantId,
       title: `Reject ${first.id}: ${second ? `replaced by ${second.id}` : 'its explanation is wrong'}`,
-      why: `${first.id}'s explanation doesn't match what the module put in it. ${drift.join('. ')}. The module's lists win${second ? `, so ${second.id} was drafted from them` : ''}.`,
+      why: `${first.id}'s explanation doesn't match what the module put in it. ${drift.join('. ')}. The module's lists win${second ? `, so ${second.id} was drafted from them` : ''}.${frozen ? ` ${first.grantId} is frozen now, so no replacement was drafted.` : ''}`,
       evidence: [
         { label: `Explanation in ${first.id}`, value: first.explanation },
         ...drift.map((d) => ({ label: 'Mismatch', value: d })),
