@@ -10,6 +10,11 @@ Things agents can't do. Put your name next to one when you take it.
 - [ ] @suhu: install the SpacetimeDB CLI on every machine once T2 pins the version
 - [ ] @nathan: Anthropic API key and Apify account, shared out of band, names in `.env.example`; pick the 2 real NIH grants to seed from
 - [ ] @ethan: Hyphenate booth (does a grant office count as a finance team?); interview one PI or research administrator; record the video; submit Devpost
+  - Prep is in `docs/submission/`: booth sheet + interview guide + outreach drafts (`INTERVIEW-KIT.md`, fill `[email]`/`[phone]` before sending), Devpost text (`DEVPOST-DRAFT.md`), demo + video script (`DEMO-SCRIPT.md`)
+  - Open: Anthropic and SpacetimeDB aren't on the Devpost prize list; ask #ask-directors or their booths how to enter
+  - Open: enter Apify Best Actor (means publishing the T15 scraper as a public Actor)? MLH Commit Fellowship (supplemental form)? Are Cal Hacks general prizes opt-in?
+  - Open: check the Devpost submission form itself for a cap on prizes per entry (the event page doesn't say)
+  - Open: docket-check *Thakur v. Trump* (MASTER-PLAN §10) before it goes in the video or on a slide
 - [ ] Check whether Devpost caps the number of tracks per entry. Read the Fetch.ai hackpack (or visit their booth) and confirm the minimum build when they're posted
 - [ ] Get sponsor sandbox keys we'll use (Nessie, model API, `FACTORY_API_KEY` if we do Droid)
 - [ ] SpacetimeDB: pin one version (likely stable 1.x) and install the `spacetime` CLI on every machine

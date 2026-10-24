@@ -20,10 +20,10 @@ Scope, features and kickoff prompts: `docs/MASTER-PLAN.md`. The shared
 contract is Track A's SpacetimeDB schema and actions in `server/`.
 
 ## In progress
-- [ ] T20 [web] Demo script, backup video, Devpost draft — needs: T17 — done when: Devpost draft up by Sat 10 PM — @ethan/claude — owns: `docs/submission/` — scope now: Devpost draft text, demo script, interview + booth prep (async parts of @ethan HUMAN_TODO); recording/submitting stays human
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
 
 ## Up next (priority order)
+- [ ] T20 [web] Demo script, backup video, Devpost draft — needs: T17 — done when: Devpost draft up by Sat 10 PM — drafts done in `docs/submission/` (DEVPOST-DRAFT, DEMO-SCRIPT, INTERVIEW-KIT); left: fill `[TBD]`/`[needs Tn]` once T17/T19 land, paste into Devpost, record video
 - [ ] T2 ★ [db] Pin SpacetimeDB version, pick module language, scaffold + run script + check command — needs: — — done when: fresh clone runs and check passes; version and language in AGENTS.md §0 and DECISIONS.md
 - [ ] T3 ★ [db] Shared contract: tables + action stubs + fixtures for 2 grants (MASTER-PLAN §6 Track A) — needs: T2 — done when: B and C can call the stubs and read fixture data
 - [ ] T4 ★ [all] Thin end-to-end demo path on stubs — needs: T3, T9, T16 — done when: a request submitted in the UI shows a stub agent finding in the Inbox and a Log row
