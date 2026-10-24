@@ -13,6 +13,6 @@ if ! spacetime server ping local >/dev/null 2>&1; then
 fi
 reset=()
 [ "${1:-}" = "--reset" ] && reset=(--delete-data -y)
-spacetime publish --server local "${reset[@]}" "$DB"
+spacetime publish --server local ${reset[@]+"${reset[@]}"} "$DB"
 ./scripts/generate.sh
 echo "── published $DB on local; bindings regenerated"
