@@ -23,6 +23,7 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
+- [ ] T39 [app+db] Separate portals: one Grant office portal and two Researcher portals (Dr. Priya Nair, Marcus Webb), each researcher its own identity; every request carries who asked (additive `request.requesterName`), shown to the grant office in Requests, Inbox and Log — needs: — — done when: switching portals shows only that portal's menu, each researcher sees only their own requests and push back works per researcher, the grant office sees the requester on every request and purchase hold, `./check.sh` passes — @ethan/claude — owns: `server/src/{schema,index,seed}.ts`, `server/test/`, `sim/build-seed.mjs`, `sim/seed.json`, `web/src/` (App, registry, data/, Requests, Ask, Inbox, Log; minimal functional edits to T28's Scientist files), regenerated bindings, README/DEMO-SCRIPT portal notes
 - [ ] T38 [hero] Clay lab (mockup A, the humans' pick) refined: quiet screen (headline, one button, grant gauges, one-line story caption; everything else on hover or while it happens), a request's round trip as the authored motion, better lighting, materials and figures — needs: T23 — done when: at rest nothing but those four on screen at 1440×900 and 390×844, every working flow still reachable (send, decide a hold, scene index, ledger), `npm --prefix hero run check` passes — @nathan/claude-hero (own clone) — owns: `hero/src/demos/a/`
 
 
