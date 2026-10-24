@@ -17,3 +17,4 @@ Things agents can't do. Put your name next to one when you take it.
 - [ ] Deploy + get the public demo URL
 - [ ] Write the demo script, record the video, submit on Devpost
 - [ ] Microsoft: interview 2–3 people who do the chosen finance seat (venue, Slack, friends) and quote them in the Devpost; this feeds Customer Understanding and the Customer Impact Award (and Anthropic)
+- [ ] Nessie: log in at nessieisreal.com with GitHub, get an API key into `.env.local`, confirm the endpoints in `/docs`, and ask the Capital One booth how many winners there are and what "best use" means to them
