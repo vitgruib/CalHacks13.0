@@ -121,6 +121,14 @@ function recomputeGrant(ctx: Ctx, id: string, actor = 'system'): void {
   // Index order is not insertion order; ids only grow, so sort by id to
   // replay same-day events in the order they happened.
   const events = [...ctx.db.statusEvent.grantId.filter(id)].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  const lastCourt = events.map(e => e.kind).lastIndexOf('court_order');
+  if (lastCourt >= 0 && events.slice(lastCourt + 1).some(e => e.kind === 'payment_received')) {
+    for (const f of [...ctx.db.flag.grantId.filter(id)]) {
+      if (!f.open || f.kind !== 'court_order_no_payment') continue;
+      ctx.db.flag.id.update({ ...f, open: false });
+      writeLog(ctx, actor, `Closed flag on ${id}`, 'A payment arrived after the court order.', { refId: id });
+    }
+  }
   const disagree = [...ctx.db.flag.grantId.filter(id)].some(f => f.open && f.kind === 'sources_disagree');
   const ended = g.status === 'ended' || today(ctx) > g.end;
   const fs = freezeState(ended ? 'ended' : 'active', events, disagree);
@@ -160,6 +168,15 @@ function raiseHoldRow(
   writeLog(ctx, h.raisedBy, `Sent to the Inbox: ${h.title}`, h.why, { refId: h.refId });
   return row.id;
 }
+
+/** A bought or rerouted request has nothing left to decide: close its open purchase holds. */
+function closePurchaseHolds(ctx: Ctx, requestId: string): void {
+  for (const h of [...ctx.db.hold.iter()]) {
+    if (h.open && h.kind === 'purchase' && h.refId === requestId) ctx.db.hold.id.update({ ...h, open: false });
+  }
+}
+
+const DONE_STATES = ['bought', 'rerouted', 'rejected'];
 
 // ── Lifecycle ─────────────────────────────────────────────────────────────
 
@@ -270,7 +287,7 @@ export const act_on_request = spacetimedb.reducer(
   (ctx, a) => guard(() => {
     const role = requireAgent(ctx, 'purchasing');
     const r = ctx.db.request.id.find(a.requestId) ?? fail(`No request ${a.requestId}.`);
-    if (r.state === 'bought' || r.state === 'rejected') fail(`Request is already ${r.state}.`);
+    if (DONE_STATES.includes(r.state)) fail(`Request is already ${r.state}.`);
     if (!a.explanation.trim()) fail('Explain the decision.');
     const action = oneOf('action', ['buy', 'reroute', 'hold', 'block'] as const, a.action);
     const gid = a.grantId ?? r.chargedGrantId ?? r.grantId ?? fail('Pick a grant.');
@@ -288,6 +305,7 @@ export const act_on_request = spacetimedb.reducer(
         ...ctx.db.request.id.find(r.id)!, state: action === 'reroute' && gid !== r.grantId ? 'rerouted' : 'bought',
         chargedGrantId: gid, verdicts: vrows(verdicts), explanation: a.explanation,
       });
+      closePurchaseHolds(ctx, r.id);
       writeLog(ctx, role, `${action === 'reroute' ? `Rerouted to ${gid} and bought` : 'Bought'} ${r.item} ($${r.price})`, a.explanation, {
         rule: 'All rules pass, under card limit', refId: r.id,
       });
@@ -372,6 +390,10 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
     case 'purchase': {
       const r = ctx.db.request.id.find(h.refId);
       if (!r) return;
+      if (r.state === 'bought' || r.state === 'rerouted') {
+        writeLog(ctx, 'system', `Did not buy ${r.item} again`, `It was already ${r.state}; no second order placed.`, { refId: r.id });
+        return;
+      }
       if (c === 'reject') {
         ctx.db.request.id.update({ ...r, state: 'rejected' });
         return;

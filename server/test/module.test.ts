@@ -131,3 +131,40 @@ test('same-day grant events apply in the order they happened', () => {
     expect(db().grant.id.find(B)).toMatchObject({ status: 'active', frozen: false });
   }
 });
+
+// Settle A's source disagreement and land a payment, so A unfreezes.
+function moneyArrivesOnA(): void {
+  const disagreement = rows('hold').find(x => x.kind === 'source_disagreement' && x.open);
+  call('gm', mod.decide_hold, { holdId: disagreement.id, choice: 'pick_source', reason: 'Court order makes RePORTER right.' });
+  call('bk', mod.post_status_event, { grantId: A, kind: 'payment_received', source: 'Payment system', summary: 'Drawdown received.', amount: 25_000 });
+}
+const ordersFor = (requestId: string) => rows('order').filter(o => o.requestId === requestId);
+
+test('buying a held request closes its hold, and approving a stale hold places no second order', () => {
+  submit('sci');
+  const rq = lastRequest();
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: A, vendor: 'V', explanation: 'Grant is frozen.' });
+  moneyArrivesOnA();
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', grantId: A, vendor: 'LabSource', explanation: 'Money arrived.' });
+  expect(rows('hold').filter(x => x.refId === rq.id && x.open)).toEqual([]);
+
+  call('pa', mod.raise_hold, { kind: 'purchase', refId: rq.id, grantId: A, title: 'Buy gloves?', why: 'stale', evidence: [], options: [] });
+  const stale = rows('hold').find(x => x.refId === rq.id && x.open);
+  call('gm', mod.decide_hold, { holdId: stale.id, choice: 'approve', reason: 'ok' });
+  expect(ordersFor(rq.id)).toHaveLength(1);
+});
+
+test('a rerouted request cannot be bought again', () => {
+  call('sci', mod.submit_request, { item: 'Centrifuge service', category: 'equipment service', price: 900, grantId: A, purpose: 'Aim 1', sharedWith: [] });
+  const rq = lastRequest();
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'reroute', grantId: 'R21AI000002', vendor: 'V', explanation: 'A is frozen.' });
+  expect(db().request.id.find(rq.id).state).toBe('rerouted');
+  expect(() => call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', grantId: 'R21AI000002', vendor: 'V', explanation: 'again' })).toThrow(/already rerouted/);
+  expect(ordersFor(rq.id)).toHaveLength(1);
+});
+
+test('a payment after the court order closes the "no payment yet" flag', () => {
+  expect(rows('flag').some(f => f.grantId === A && f.kind === 'court_order_no_payment' && f.open)).toBe(true);
+  moneyArrivesOnA();
+  expect(rows('flag').filter(f => f.grantId === A && f.kind === 'court_order_no_payment' && f.open)).toEqual([]);
+});
