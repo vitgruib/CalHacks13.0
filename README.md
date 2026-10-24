@@ -132,10 +132,11 @@ simulated clock ([schema.ts](server/src/schema.ts), actions in
   lands after it unfreezes the grant; a court order alone does not. A
   disagreement between sources about status also freezes spending and asks
   the grant manager.
-- **Six spending rules** ([rules.ts](server/src/rules.ts)), each with a real
-  audit case: the grant is active and not frozen; not in its last 90 days;
-  the category is allowed; under the $5,000 card limit; enough truly
-  available money; a shared cost is split across the grants it serves.
+- **Six spending rules** ([rules.ts](server/src/rules.ts)): the grant is
+  active and not frozen; not in its last 90 days; the category is allowed;
+  at or under the $5,000 card limit; enough truly available money; a shared
+  cost is split across the grants it serves. The last-90-days, category and
+  shared-cost rules cite a real audit case when they fail.
 - **Hard limits in code:** each identity is bound to one role, once. Agents
   cannot decide Inbox items ("Agents cannot do this; only people can").
   Nobody approves their own request. A buy fails unless every rule passes,
@@ -185,7 +186,9 @@ researcher portals; the agency's follow-up questions are pre-written in the seed
 The tracker looks up only the lab's own grant IDs. Every answer is saved in
 `agents/cache/` (committed), so the agents also run offline. The Funds
 window shows "Sources last checked X ago" and a "Check now" button that runs
-a tracker check (and a fresh Apify run, when the worker has an Apify token).
+a tracker check. With the government sources switched on
+(`GG_LIVE_SOURCES=1` and an Apify token), it also starts a fresh Apify run;
+the hosted worker keeps them off, because the demo's timeline is simulated.
 
 ### The web app (`web/`, Track C)
 
