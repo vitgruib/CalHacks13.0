@@ -1,0 +1,21 @@
+{
+  "name": "grantguard-agents",
+  "private": true,
+  "type": "module",
+  "description": "GrantGuard agent worker (Track B): three agents, each with its own database identity",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "demo": "tsx src/main.ts --demo",
+    "test": "node --import tsx --test test/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm test"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}

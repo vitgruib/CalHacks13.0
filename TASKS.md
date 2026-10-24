@@ -23,7 +23,6 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
-- [ ] T9 ★ [agents] Worker with one identity per agent + stub agent — needs: T3 (stub ok) — done when: 3 agents connect as separate identities; the stub posts a finding through an action — @nathan/claude — owns: `agents/` — stubbed: Track A contract (in-memory stand-in in `agents/src/db/stub.ts` until T3 lands)
 - [ ] T16 ★ [app] The 8 windows on fixture data (MASTER-PLAN §4) — needs: T3 (stub ok) — done when: every window renders fixtures; only the Inbox has decision buttons — @ethan/claude — owns: `web/` — stubbed: Track A contract (local typed fixtures in `web/src/data/` until T3 lands)
 <!-- - [ ] T7 ★ [api] extract endpoint — @alex/claude — owns: `app/api/extract/` — stubbed: LLM call -->
 
@@ -40,6 +39,7 @@ All three tracks are technical only. Presentation and submission work
 - [ ] T12 [agents] Invoice check (P4) — needs: T8 (stub ok) — done when: canceled-order and wrong-amount invoices are held with a timeline; the decoy passes
 - [ ] T13 [agents] Payment request writer (P5) — needs: T5 (stub ok) — done when: a draft of ≤1,000 characters from purchase records, held items left out; a follow-up answered with exact purchases; both wait in the Inbox
 - [ ] T14 [agents] Report checker (P7) — needs: T3 (stub ok) — done when: ~20 cached papers; wrong grant, missing PMCID and undisclosed correction flagged; decoys not flagged; live DOI lookup works
+- [ ] T22 ★ [agents] Swap the agent worker's stub DB for Track A's generated SpacetimeDB bindings (`GG_DB=spacetime`) — needs: T3 — done when: `npm --prefix agents run demo` passes against the local module, 3 identities registered there
 - [ ] T15 [app] Apify scraper for cancellation lists, in `scrapers/`; posts status readings through Track A's action — needs: T3 (stub ok) — done when: a scraper run posts readings for the lab's grant IDs, and T10 picks them up
 - [ ] T17 ★ [app] Live updates + Inbox actions — needs: T7 (stub ok) — done when: an Inbox decision (reason required) calls an action and every window updates live
 - [ ] T18 ★ [app] Test lab: drop in events + fast-forward clock — needs: T3 (stub ok) — done when: cancellation, court order, payment and bad invoice can be injected from the UI
@@ -50,8 +50,10 @@ All three tracks are technical only. Presentation and submission work
 - [ ] T20 [submission] Demo script, backup video, Devpost draft — needs: T17 — done when: Devpost draft up by Sat 10 PM — drafts done in `docs/submission/` (DEVPOST-DRAFT, DEMO-SCRIPT, INTERVIEW-KIT); left: fill `[TBD]`/`[needs Tn]` once T17/T19 land, paste into Devpost, record video
 
 ## Requests (cross-lane asks / blockers)
+- @nathan → @suhu/claude (for T3): the agent worker codes against `agents/src/db/contract.ts`. Please include (your names win; tell me and I'll adapt): an `agents` table (identity, role) and `register_agent(role)` that binds the caller's identity to one role, once; `submit_request` (people only); `raise_hold(kind, ref_id, grant_id, title, why, evidence)` into a `holds` table (agents only; the Inbox; same shape as Track C's `Hold` in `web/src/data/types.ts`); a `log` row from every action. Reducers can't return values to clients, so rule verdicts (T6) need to land in a row the agent can read. For T10 I'll post `post_source_reading(grant_id, source, status, amounts, fetched_at, url)`; say whether the module or the agent derives status events and flags from readings.
 <!-- - @alex → contracts lane: need optional `score` on Result (blocks T9) -->
 - @nathan → @ethan/claude: the tracks are now technical only (`DECISIONS.md`, Sat 00:20). Thanks for pushing the T20 drafts; T20 now sits outside the tracks, so please pick up T16, the critical-path windows. Track C also now owns T8 (`sim/`) and T15 (`scrapers/`); see `docs/MASTER-PLAN.md` §6 and §8.
 
 ## Done
+- [x] T9 ★ [agents] Worker with one identity per agent + stub agent — @nathan/claude — on the in-memory stub (`agents/src/db/stub.ts`): 3 agents register as separate identities, keep them across restarts, and the stub agent raises a hold (Inbox item) per request plus log rows; 8 tests in `npm --prefix agents run check`. Real SpacetimeDB connection is T22
 - [x] T1 ★ [all] Fill in AGENTS.md §0 + Lanes table — @nathan/claude — product, demo path and contract filled; stack version, run and check commands come with T2
