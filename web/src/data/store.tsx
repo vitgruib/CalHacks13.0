@@ -1,10 +1,11 @@
-// Local stand-in for Track A's actions and live subscriptions. T17 swaps
-// this for the SpacetimeDB client; windows only use useDb() and the actions.
+// The store every window reads (useStore). Two backends fill it: this local
+// in-memory one (sim/seed.json, no server) and the live SpacetimeDB one in
+// live.tsx; backend.tsx picks between them (T17).
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import seed from '../../../sim/seed.json'
 import type { Db, Decision, Invoice, PurchaseRequest, StatusEvent } from './types'
 
-interface Store {
+export interface Store {
   db: Db
   /** Grant manager decides a hold. Reason is required (MASTER-PLAN §2). */
   decide: (holdId: string, choice: Decision['choice'], reason: string) => void
@@ -22,7 +23,7 @@ interface Store {
 
 export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number }
 
-const Ctx = createContext<Store | null>(null)
+export const Ctx = createContext<Store | null>(null)
 
 let seq = 0
 const nextId = (p: string) => `${p}-local-${++seq}`
@@ -91,7 +92,7 @@ export function applyAdvanceDays(d: Db, { days }: { days: number }): Db {
   }
 }
 
-export function StoreProvider({ children }: { children: ReactNode }) {
+export function LocalStoreProvider({ children }: { children: ReactNode }) {
   // The full fake world from sim/ (T8), raw: agents still have to find the planted mistakes.
   const [db, setDb] = useState<Db>(() => structuredClone(seed) as unknown as Db)
 

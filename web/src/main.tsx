@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import { StoreProvider } from './data/store'
+import { StoreProvider } from './data/backend'
 import './styles.css'
 
 createRoot(document.getElementById('root')!).render(
