@@ -16,3 +16,4 @@ Things agents can't do. Put your name next to one when you take it.
 - [ ] Demo video **opens with the moment**. Write the one line on seats, plus a real-vs-simulated + how-we-know section
 - [ ] Deploy + get the public demo URL
 - [ ] Write the demo script, record the video, submit on Devpost
+- [ ] Microsoft: interview 2–3 people who do the chosen finance seat (venue, Slack, friends) and quote them in the Devpost; this feeds Customer Understanding and the Customer Impact Award (and Anthropic)

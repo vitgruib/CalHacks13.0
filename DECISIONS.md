@@ -18,3 +18,4 @@ changes, cut features. Newest at the bottom.
 - Fri @ethan — **Backend is back to SpacetimeDB.** — 3 placing prizes vs Convex's single winner in a crowded track. Guardrails: pin one version at setup, and run the agent loop in a separate worker with one client identity per seat.
 - Fri @ethan — Atlassian out entirely. — team decision
 - Fri @ethan — **Apify kept**, Bright Data cut. — Apify has more placing prizes (5 + Best Actor vs 3) and no anti-mock DQ
+- Fri @ethan — **Microsoft kept** (2 placing awards, no Azure requirement, criteria overlap Hyphenate). — fits the win-anything priority at ~zero extra build
