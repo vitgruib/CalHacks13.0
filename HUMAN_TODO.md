@@ -8,8 +8,7 @@ Things agents can't do. Put your name next to one when you take it.
 - [ ] Attend the Hyphenate workshop **Fri 7 PM** (in person). Then visit their booth to ask what exceptions make our chosen corner hard, and note the answers in `docs/HYPHENATE.md`
 - [ ] Pick the idea from `docs/IDEAS.md` and log it in `DECISIONS.md`
 - [ ] Check whether Devpost caps the number of tracks per entry. Read the Fetch.ai hackpack (or visit their booth) and confirm the minimum build when they're posted
-- [ ] Email CRS for sandbox access (see calhacks.crscreditapi.com) and finish their account steps. Confirm which identities are test identities
-- [ ] Get sponsor sandbox keys we'll use (CRS: calhacks.crscreditapi.com, Nessie, model API, `FACTORY_API_KEY` if we do Droid)
+- [ ] Get sponsor sandbox keys we'll use (Nessie, model API, `FACTORY_API_KEY` if we do Droid)
 - [ ] SpacetimeDB: pin one version (likely stable 1.x) and install the `spacetime` CLI on every machine
 - [ ] If going for Anthropic: talk to 1–2 real people in the named community and write down what they said
 - [ ] Sat night: Devpost draft submitted

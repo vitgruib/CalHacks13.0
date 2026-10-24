@@ -111,10 +111,6 @@ Report: errors caught / missed / false alarms.
   Spend inbox, court-order events.
 
 ## How it hits the other kept tracks
-- **CRS (must be central):** vet new suppliers before the first purchase:
-  business credit, liens/judgments, OFAC. Natural fit: the purchasing seat
-  won't pay an unvetted vendor (also Hyphenate's "vendor bank details change"
-  scenario).
 - **Apify:** real public data. Scrape Grant Witness / agency termination
   lists or supplier info as an Actor feeding F3/F4.
 - **Anthropic:** named community = university research administrators and
