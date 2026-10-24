@@ -1,6 +1,6 @@
 # 07. PIs can't see trustworthy grant balances; admin eats their time
 
-**Status:** new
+**Status:** core
 **One-liner:** Researchers spend ~44% of research time on admin, and the
 finance fix they want most is accurate, timely reports of how much grant
 money is left.
@@ -38,8 +38,9 @@ Primary text: `sources/docs/fdp-2018-faculty-workload-survey.txt`
 - "The campuses are experiencing caution in PI spending from contracts and grants, especially from junior faculty, due to the intolerably high degree of uncertainty and the inability to accurately track balances in a timely fashion." — UC Academic Senate (CCGA chair Andrea Kasko), 2022-07-19 — [verified] `sources/docs/uc-senate-2022-oracle-letter.txt`
 
 ## What our product does about it
-Real-time per-grant balance computed from our own purchase ledger (see
-`visa-pipeline.md`), reconciled against the university/federal numbers.
+The fund tracker shows each grant's truly available money (awarded minus
+spent minus promised) from the lab's own orders, live, and researchers ask
+in plain words which grant can pay (`docs/MASTER-PLAN.md` §3.1).
 
 ## Gaps / caveats
 - Survey is from 2018; the 2024 FDP survey wasn't checked.

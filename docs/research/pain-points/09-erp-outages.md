@@ -1,6 +1,6 @@
 # 09. University finance-system rollouts freeze purchasing and billing
 
-**Status:** new
+**Status:** supporting (context only; no feature)
 **One-liner:** When a university switches finance systems (Workday,
 Oracle), vendors go unpaid, labs can't buy supplies, PIs can't see balances,
 and sponsors don't get billed.

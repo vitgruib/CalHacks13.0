@@ -1,6 +1,6 @@
 # 10. Every federal drawdown now needs a written justification
 
-**Status:** new — **strong fit for the purchasing pipeline + AI**
+**Status:** core (the payment request writer)
 **One-liner:** Since 2025, universities must explain in writing why they're
 drawing each payment of grant money, tied to budget categories and dates
 their accounting systems don't naturally produce; vague requests get
@@ -42,7 +42,7 @@ https://research.iastate.edu/wp-content/uploads/sites/3/2025/05/PointstoConsider
 - Worked examples of draws that can't map to one category (prior-month payables, a "rebate of $86").
 
 ## What our product does about it
-Because every purchase goes through our pipeline with grant, category, line
+Because every purchase goes through the purchasing agent with grant, category, line
 items and date, the LLM can **draft the ≤1,000-char justification per draw**
 by budget category and date range, and answer DTS follow-ups with the exact
 transactions behind it. Human approves before submission.

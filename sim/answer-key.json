@@ -25,7 +25,7 @@
       "rule": "Any disagreement about status freezes spending and asks the grant manager",
       "check": "open flag {kind: sources_disagree, grantId: R01GM061721}; a source_disagreement hold; grant stays frozen",
       "why": "Today's RePORTER reading (sr-008) says active; USAspending (sr-009) and the cancellation list (sr-010) still say canceled.",
-      "source": "MASTER-PLAN §3.1 planted mistakes; MVP-REPORT test set: Grant Witness RePORTER/TAGGS mismatches"
+      "source": "MASTER-PLAN §3.1 planted mistakes; research README precedents: Grant Witness RePORTER/TAGGS mismatches"
     },
     {
       "id": "ft-2", "feature": "fund_tracker", "kind": "mistake",
@@ -154,7 +154,7 @@
       "proposedCostMove": { "requestId": "rq-035", "amount": 2100, "from": "R21AI182745", "to": "R01GM061721", "chargedOn": "2026-04-24", "fixBy": "2026-07-23", "daysLeft": 38 },
       "check": "p-10 held; proposes moving rq-035's $2,100 from R21AI182745 to R01GM061721 with 38 days left on the 90-day limit",
       "why": "Listed in R21AI182745's report, but its acknowledgments credit R01GM061721; its publication fee was charged to R21AI182745.",
-      "source": "MASTER-PLAN §3.5 planted mistakes; §5 step 4; MVP-REPORT: WashU Single Audit 2023-001 (charge on the wrong grant, corrected late)"
+      "source": "MASTER-PLAN §3.5 planted mistakes; §5 step 4; research README precedents: WashU Single Audit 2023-001 (charge on the wrong grant, corrected late)"
     },
     {
       "id": "rp-2", "feature": "reports", "kind": "mistake",

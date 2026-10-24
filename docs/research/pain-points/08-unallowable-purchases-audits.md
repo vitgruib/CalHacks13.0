@@ -1,6 +1,6 @@
 # 08. Unallowable, end-of-award and P-card purchases keep failing audits
 
-**Status:** new — **core rationale for the Visa purchasing pipeline**
+**Status:** core (the six spending rules cite these audits)
 **One-liner:** Auditors keep finding the same lab-spending mistakes: costs
 that aren't allowed, supplies bought right before a grant expires, charges
 on the wrong grant moved too late, and card purchases without support.
@@ -58,8 +58,8 @@ later and you have to pay back anything that doesn't fit the rules.
 - "Award recipients charged NSF for costs associated with re-stocking general lab materials and supplies and did not have documentation to support that the quantity and types of materials restocked were consistent with the quantity and types of materials actually used to benefit the award charged." — same report — [verified]
 
 ## What our product does about it
-Guardrails enforced **at checkout** instead of at audit time (see
-`visa-pipeline.md`):
+Rules enforced **at purchase time** instead of at audit time
+(`docs/MASTER-PLAN.md` §3.2, `server/src/rules.ts`):
 - block/flag supply purchases in an award's last 90 days;
 - block disallowed categories and over-budget buys per grant;
 - require purpose + grant code + receipt at purchase time;
