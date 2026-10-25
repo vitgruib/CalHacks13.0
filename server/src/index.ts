@@ -235,7 +235,7 @@ function sendToGrantOffice(ctx: Ctx, r: RequestRow, pushedBack?: string): void {
   const explanation = !g
     ? 'Waiting for the grant office. No grant was picked for it.'
     : failed.length
-      ? `Flagged for the grant office: ${failed.map(v => `${v.rule} (${v.detail})`).join('; ')}.`
+      ? `Flagged for the grant office: ${failed.map(v => `${v.rule} (${v.detail.replace(/\.$/, '')})`).join('; ')}.`
       : `Every rule passes on ${gid}; waiting for the grant office to approve it.`;
   ctx.db.request.id.update({ ...r, state: 'waiting_on_manager', chargedGrantId: gid, verdicts: vrows(verdicts), explanation });
   raiseHoldRow(ctx, {

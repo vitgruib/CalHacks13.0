@@ -101,6 +101,7 @@ test('a request that fails a rule is flagged to the grant office with the rule, 
   expect(hold.title).toMatch(/^Flagged: approve/);
   expect(hold.evidence.map((e: any) => e.label)).toContain('Under the card limit ($5,000)');
   expect(rq.state).toBe('waiting_on_manager');
+  expect(rq.explanation).not.toContain('.)'); // each rule's detail ends in "."; QA nit
 });
 
 test('demo path: court order is not cash; the request on the frozen grant stays flagged until the payment lands', () => {
