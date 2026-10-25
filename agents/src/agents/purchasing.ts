@@ -98,7 +98,7 @@ const failsOnlyOnFreezeOf = (request: RequestRow, grantId: string): boolean => {
 export type HoldReason =
   | 'freeze' | 'card_limit' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused'
   | 'price_high' | 'price_check' | 'purpose' | 'category_check';
-export type BlockReason = 'category' | 'grant_rules' | 'already_ordered';
+export type BlockReason = 'category' | 'grant_rules';
 
 export type Plan =
   | { action: 'buy' }
@@ -315,8 +315,6 @@ function reasonStep(decision: Decision, facts: StepFacts): string {
       return 'A rule failed that the agent cannot place, so the grant manager decides.';
     case 'category':
       return "It cannot be charged to a federal grant, so only the grant manager's approval can buy it.";
-    case 'already_ordered':
-      return `It was already ordered (${decision.note ?? 'an order exists'}), so a push back never buys it again; the grant manager can change or cancel the order.`;
     case 'grant_rules':
       return decision.pendingTo
         ? `${decision.pendingTo} has the time and money for it but is frozen, so it will be rerouted there once ${decision.pendingTo} unfreezes, unless the grant manager decides first.`
@@ -643,15 +641,6 @@ export function startPurchasing({
   async function handleSubmitted(requestId: string): Promise<void> {
     const request = findRequest(requestId);
     if (!request || request.state !== 'submitted') return; // already handled
-    // The module lets a rerouted (so already ordered) request be pushed back
-    // to 'submitted'. Never buy it twice: say so, on the grant the order is on,
-    // without re-checking it elsewhere first.
-    const ordered = ordersOf(requestId);
-    if (ordered.length) {
-      const note = ordered.map((order) => `${order.id}: ${usd(order.amount)} on ${order.grantId} from ${order.vendor}`).join('; ');
-      await act(requestId, { action: 'block', reason: 'already_ordered', grantId: ordered[0].grantId, failed: [], passed: request.verdicts, note });
-      return;
-    }
     const grants = labGrants(request);
     if (grants.length === 0) throw new Error(`no grants to check ${requestId} against`);
     const rules = await loadRules();
