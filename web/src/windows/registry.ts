@@ -10,6 +10,7 @@ import Log from './Log'
 import TestLab from './TestLab'
 import Ask from './Ask'
 import Grants from './Grants'
+import Cases from './Cases'
 
 export type Role = 'grant_manager' | 'scientist'
 // `home` is the window a role lands on.
@@ -27,6 +28,7 @@ export const windows: WindowDef[] = [
   { id: 'ask', label: 'Ask', job: 'Type what you need; see which grant can pay, in plain words', Component: Ask, roles: ['scientist'] },
   { id: 'grants', label: 'My grants', job: 'Each grant in plain words; a paused grant shows where its money is', Component: Grants, roles: ['scientist'] },
   { id: 'funds', label: 'Funds', job: 'How much money each grant really has, its status timeline, and any flags', Component: Funds, roles: ['grant_manager'] },
+  { id: 'cases', label: 'Cases', job: 'Every problem on each grant in one place: the records that disagree, what happened, and what\'s missing', Component: Cases, roles: ['grant_manager'] },
   { id: 'requests', label: 'Requests', job: 'Every purchase request from the lab\'s researchers: who asked, for what, and what the purchasing agent did', Component: Requests, roles: ['grant_manager', 'scientist'] },
   { id: 'invoices', label: 'Invoices', job: 'Each bill: matched or held, with the mismatch spelled out', Component: Invoices, roles: ['grant_manager'] },
   { id: 'payment-requests', label: 'Payment requests', job: 'Drafted requests, follow-up questions, and their status', Component: PaymentRequests, roles: ['grant_manager'] },

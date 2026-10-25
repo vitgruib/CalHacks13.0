@@ -1,0 +1,35 @@
+.case-intro { margin: 0 0 16px; color: var(--muted); font-size: 14px; max-width: 70ch; }
+.case-muted { color: var(--muted); font-size: 13px; font-weight: 400; }
+.case-counts { display: flex; align-items: center; gap: 8px; }
+.case-group { margin-top: 12px; }
+.case-group-h { margin: 16px 0 8px; font-size: 14px; }
+.case-card { border: 1px solid var(--line); border-left-width: 4px; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+.case-card.case-needs_you { border-left-color: var(--bad); }
+.case-card.case-stopped { border-left-color: var(--warn); }
+.case-card.case-decided { border-left-color: var(--good); }
+.case-card > header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.case-card h4 { margin: 0; font-size: 15px; flex: 1 1 240px; }
+.case-conflict { margin: 8px 0; font-size: 14px; }
+.case-sub { margin: 10px 0 4px; font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+.case-records { margin: 0; font-size: 14px; display: grid; gap: 2px; }
+.case-records > div { display: grid; grid-template-columns: minmax(140px, 32%) 1fr; gap: 12px; padding: 3px 6px; border-radius: 4px; }
+.case-records dt { color: var(--muted); }
+.case-records dt a { color: inherit; }
+.case-records dd { margin: 0; }
+.case-records .tone-bad { background: var(--bad-bg); }
+.case-records .tone-bad dd { color: var(--bad); }
+.case-records .tone-warn { background: var(--warn-bg); }
+.case-records .tone-good dd { color: var(--good); }
+.case-timeline { margin: 0; padding-left: 20px; font-size: 14px; }
+.case-timeline li { margin: 2px 0; }
+.case-timeline time { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 6px; }
+.case-missing { margin: 10px 0 0; padding: 6px 10px; border-radius: 6px; background: var(--warn-bg); color: var(--warn); font-size: 14px; }
+.case-rules { margin: 10px 0 0; padding-left: 20px; font-size: 13px; }
+.case-rules li { margin: 2px 0; }
+.case-audit { color: var(--muted); }
+.case-card > footer { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-top: 10px; font-size: 13px; }
+.case-card > footer a { margin-left: auto; font-weight: 600; }
+.case-decision { color: var(--muted); }
+@media (max-width: 560px) {
+  .case-records > div { grid-template-columns: 1fr; gap: 0; }
+}
