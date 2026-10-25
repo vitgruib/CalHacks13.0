@@ -159,7 +159,7 @@ export class Feed {
   preview(input: RequestInput): Outcome {
     const g = this.grant(input.grantId)
     const facts = { category: input.category, price: input.price, sharedWith: input.sharedWith ?? [], split: input.split ?? [] }
-    return this.judge(facts, g, spendingVerdicts(facts, g, this.w.today, this.grantMap())).outcome
+    return this.judge(facts, g, spendingVerdicts(facts, g, this.w.today)).outcome
   }
 
   /** The researcher argues with a hold; the agent re-runs the rules and answers. */
@@ -320,7 +320,7 @@ export class Feed {
     if (!req) return
     const g = this.grant(req.grantId)
     const facts = { category: req.category, price: req.price, sharedWith: req.sharedWith, split: req.split }
-    const verdicts = spendingVerdicts(facts, g, this.w.today, this.grantMap()).map(v => ({ ...v, rule: this.plain(v.rule), detail: this.plain(v.detail) }))
+    const verdicts = spendingVerdicts(facts, g, this.w.today).map(v => ({ ...v, rule: this.plain(v.rule), detail: this.plain(v.detail) }))
     this.upsert({ ...req, verdicts, outcome: undefined, holdFor: undefined, explanation: 'Checking the spending rules.' })
     verdicts.forEach((v, i) =>
       this.after(PACE.rule * (i + 1), () => this.emit({ type: 'rule', requestId: id, index: i, total: verdicts.length, verdict: v })),
