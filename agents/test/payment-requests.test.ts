@@ -81,6 +81,7 @@ async function startAlone({
   beforeCall,
   checkInvoices = true,
   lastDay,
+  reworkClaude,
 }: {
   seedJson?: string;
   role?: 'payment_report' | 'bookkeeping';
@@ -88,6 +89,7 @@ async function startAlone({
   beforeCall?: (action: ActionName, lab: Connection) => Promise<void>;
   checkInvoices?: boolean;
   lastDay?: DayStore;
+  reworkClaude?: Parameters<typeof startPaymentRequests>[0]['reworkClaude'];
 } = {}): Promise<Alone> {
   const db = await createLocalDb({ world: seedJson ? { seedJson } : 'sim' });
   const raw = await db.connect();
@@ -124,6 +126,7 @@ async function startAlone({
     tracker: typeof tracker === 'function' ? tracker(lab) : tracker,
     papers: createPaperLookup({ mode: 'offline', throttle: false }),
     lastDay,
+    reworkClaude,
   });
   const quiet = async () => {
     for (let round = 0; round < 50; round++) {
@@ -286,7 +289,8 @@ test('a_funders_new_question_is_answered_within_one_idle', async () => {
   assert.deepEqual(requestsFor(conn, R21).map((row) => row.id), [pr.id], 'no new draft');
 });
 
-test('a_rejected_draft_and_a_rejected_answer_are_not_redrafted', async () => {
+// GG_CLAUDE=off: with no Claude to read the reason, a rejected draft stays as it is.
+test('with_claude_off_a_rejected_draft_and_a_rejected_answer_are_not_redrafted', async () => {
   world = await startWorld();
   const conn = world.worker.sessions.payment_report;
   const manager = await world.person('grant_manager');
@@ -303,6 +307,126 @@ test('a_rejected_draft_and_a_rejected_answer_are_not_redrafted', async () => {
   assert.equal(fu.answerDraft, answer, 'the rejected answer is left as the person left it');
   assert.equal(openHolds(conn, 'follow_up', 'fu-001').length, 0);
 });
+
+// With Claude on, the reason goes back to it, and it decides whether the
+// reason asks for a new draft.
+function reworkClient(reply: () => Record<string, unknown>) {
+  const seen: string[] = [];
+  const client = {
+    messages: {
+      parse: async (args: unknown) => {
+        seen.push(JSON.stringify(args));
+        return { model: 'claude-sonnet-5-5', stop_reason: 'end_turn', parsed_output: reply() };
+      },
+    },
+  };
+  return { client, seen };
+}
+
+async function withFakeKey<T>(run: (cacheDir: string) => Promise<T>): Promise<T> {
+  const saved = process.env.ANTHROPIC_API_KEY;
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  const cacheDir = mkdtempSync(join(tmpdir(), 'gg-rework-'));
+  try {
+    return await run(cacheDir);
+  } finally {
+    if (saved === undefined) delete process.env.ANTHROPIC_API_KEY;
+    else process.env.ANTHROPIC_API_KEY = saved;
+    rmSync(cacheDir, { recursive: true, force: true });
+  }
+}
+
+test('a_rejected_request_whose_reason_asks_for_a_change_is_drafted_again_with_the_reason', () =>
+  withFakeKey(async (cacheDir) => {
+    let reply: Record<string, unknown> = {};
+    const { client, seen } = reworkClient(() => reply);
+    alone = await startAlone({ reworkClaude: { client, mode: 'live', cacheDir } });
+    const { conn } = alone;
+    const [first] = requestsFor(conn, R21);
+    const template = templateExplanation(claimFor(conn, R21, MAY)!);
+    reply = { rework: true, why: 'It now says the purchases served the aims named.', claimed: `${template.claimed} All served the aims named.`, leftOut: template.leftOut };
+    const lab = await alone.person('grant_manager');
+    const [hold] = openHolds(conn, 'payment_request', first.id);
+    await lab.call('decide_hold', { holdId: hold.id, choice: 'reject', reason: 'Say that every purchase served the aims named.' });
+    await alone.quiet();
+
+    const drafts = requestsFor(conn, R21);
+    assert.equal(drafts.length, 2, 'one new draft for the same months');
+    const second = drafts.find((row) => row.id !== first.id)!;
+    assert.equal(drafts.find((row) => row.id === first.id)!.state, 'drafted', 'the rejected one stays rejected');
+    assert.equal(second.state, 'waiting_on_manager');
+    assert.match(second.explanation, /All served the aims named\./);
+    assert.equal(second.amount, first.amount, 'the module picked the same money');
+    const [newHold] = openHolds(conn, 'payment_request', second.id);
+    const evidence = new Map(newHold.evidence.map((e) => [e.label, e.value]));
+    assert.equal(evidence.get('You said'), 'Say that every purchase served the aims named.');
+    assert.equal(evidence.get('Replaces'), `${first.id} (rejected)`);
+    assert.equal(evidence.get(`Explanation in ${first.id}`), first.explanation);
+    assert.match(newHold.why, new RegExp(`It replaces ${first.id}, which you rejected\\. It now says`));
+    assert.equal(seen.length, 1);
+    assert.match(seen[0], /Say that every purchase served the aims named/, 'Claude read the reason');
+
+    const count = conn.rows('paymentRequest').length;
+    await alone.quiet();
+    assert.equal(conn.rows('paymentRequest').length, count, 'nothing more on a second idle');
+  }));
+
+test('a_rejected_request_whose_reason_asks_for_nothing_new_is_left_alone', () =>
+  withFakeKey(async (cacheDir) => {
+    const { client, seen } = reworkClient(() => ({ rework: false, why: 'The grant manager wants to hold it.', claimed: '', leftOut: '' }));
+    alone = await startAlone({ reworkClaude: { client, mode: 'live', cacheDir } });
+    const { conn } = alone;
+    const [first] = requestsFor(conn, R21);
+    const lab = await alone.person('grant_manager');
+    const [hold] = openHolds(conn, 'payment_request', first.id);
+    const holds = conn.rows('hold').length;
+    await lab.call('decide_hold', { holdId: hold.id, choice: 'reject', reason: 'Hold the May request for now.' });
+    await alone.quiet();
+    assert.equal(seen.length, 1, 'Claude read the reason');
+    assert.deepEqual(requestsFor(conn, R21).map((row) => [row.id, row.state]), [[first.id, 'drafted']]);
+    assert.equal(conn.rows('hold').length, holds, 'no new Inbox item');
+  }));
+
+test('a_rejected_answer_whose_reason_asks_for_a_change_is_answered_again', () =>
+  withFakeKey(async (cacheDir) => {
+    let reply: Record<string, unknown> = {};
+    const { client, seen } = reworkClient(() => reply);
+    alone = await startAlone({ reworkClaude: { client, mode: 'live', cacheDir } });
+    const { conn } = alone;
+    const before = conn.rows('followUp').find((row) => row.id === 'fu-001')!;
+    assert.equal(before.state, 'waiting_on_manager');
+    reply = { rework: true, why: 'Shorter, as asked.', answer: `${before.paymentRequestId} claims only the purchases its records list.` };
+    const lab = await alone.person('grant_manager');
+    const [hold] = openHolds(conn, 'follow_up', 'fu-001');
+    await lab.call('decide_hold', { holdId: hold.id, choice: 'reject', reason: 'Too long; one sentence.' });
+    await alone.quiet();
+
+    const fu = conn.rows('followUp').find((row) => row.id === 'fu-001')!;
+    assert.equal(fu.state, 'waiting_on_manager');
+    assert.equal(fu.answerDraft, `${before.paymentRequestId} claims only the purchases its records list.`);
+    const [again] = openHolds(conn, 'follow_up', 'fu-001');
+    const evidence = new Map(again.evidence.map((e) => [e.label, e.value]));
+    assert.equal(evidence.get('You said'), 'Too long; one sentence.');
+    assert.equal(evidence.get('Rejected answer'), before.answerDraft);
+    assert.equal(evidence.get('Draft answer'), fu.answerDraft, "the module's evidence is kept");
+    assert.match(seen[0], /Too long; one sentence\./);
+  }));
+
+test('a_rework_naming_a_purchase_the_request_does_not_claim_is_not_used', () =>
+  withFakeKey(async (cacheDir) => {
+    const { client } = reworkClient(() => ({ rework: true, why: 'Added it.', answer: 'It also claims rq-999.' }));
+    alone = await startAlone({ reworkClaude: { client, mode: 'live', cacheDir } });
+    const { conn } = alone;
+    const before = conn.rows('followUp').find((row) => row.id === 'fu-001')!;
+    const lab = await alone.person('grant_manager');
+    const [hold] = openHolds(conn, 'follow_up', 'fu-001');
+    await lab.call('decide_hold', { holdId: hold.id, choice: 'reject', reason: 'Add the missing purchase.' });
+    await alone.quiet();
+    const fu = conn.rows('followUp').find((row) => row.id === 'fu-001')!;
+    assert.equal(fu.state, 'drafted');
+    assert.equal(fu.answerDraft, before.answerDraft, 'the rejected answer stays; nothing made up goes out');
+    assert.equal(openHolds(conn, 'follow_up', 'fu-001').length, 0);
+  }));
 
 // ── Freezes and the last refresh ──────────────────────────────────────────
 

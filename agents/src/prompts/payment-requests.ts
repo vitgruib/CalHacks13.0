@@ -18,6 +18,15 @@ export type ExplanationText = z.infer<typeof ExplanationSchema>;
 export const AnswerSchema = z.object({ answer: z.string().min(1).max(ANSWER_MAX) });
 export type AnswerText = z.infer<typeof AnswerSchema>;
 
+// A draft the grant manager rejected goes back to Claude with their reason.
+// Claude decides whether the reason asks for a new text; with rework false
+// the text fields stay empty and the rejected draft is left as it is.
+export const ReworkExplanationSchema = z.object({ rework: z.boolean(), why: z.string(), claimed: z.string(), leftOut: z.string() });
+export type ReworkExplanation = z.infer<typeof ReworkExplanationSchema>;
+
+export const ReworkAnswerSchema = z.object({ rework: z.boolean(), why: z.string(), answer: z.string().max(ANSWER_MAX) });
+export type ReworkAnswer = z.infer<typeof ReworkAnswerSchema>;
+
 export const EXPLAIN_SYSTEM = `You write the justification a university research lab attaches to a federal payment request (an NIH drawdown, reviewed under "Defend the Spend"). The lab has already spent the money and is asking to be repaid.
 
 The input holds the exact records the grant office's database selected for one grant and one date range: personnel by role and effort, purchases grouped by budget category with subtotals, the total, and anything left out with the reason. The database picked these records and computed every amount; you only describe them.
@@ -42,3 +51,15 @@ Rules:
 - If the records can't answer part of the question, say so plainly instead of guessing. Where they do answer it, answer without caveats about what else the records might hold.
 - No names of people; describe staff by role and effort.
 - Plain English, at most ${ANSWER_MAX} characters.`;
+
+// Added to either prompt when a rejected draft comes back (its own saved
+// answers, so a first draft's saved answer stays valid).
+const REWORK_NOTE = (field: string) => `
+
+This time the input also has "rejected": an earlier draft the grant manager rejected (rejected.text) and the reason they gave (rejected.reason).
+- If the reason asks for a different text (something to add, cut, reword or explain), set rework to true and write the new ${field} so it does what they asked, within every rule above. If they ask for something the records don't support (a different amount, an id that isn't in the input), keep to the records and say plainly that the records show otherwise.
+- If the reason doesn't ask for a new draft (for example: hold it for now, they will handle it themselves, it shouldn't go out), set rework to false and leave the text empty.
+- why: one short sentence on what you changed, or why there is nothing to redo.`;
+
+export const REWORK_EXPLAIN_SYSTEM = EXPLAIN_SYSTEM + REWORK_NOTE('claimed and leftOut');
+export const REWORK_ANSWER_SYSTEM = ANSWER_SYSTEM + REWORK_NOTE('answer');

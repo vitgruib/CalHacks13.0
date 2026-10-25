@@ -18,11 +18,16 @@
 //   them and asks the grant manager to reject the first draft.
 // - Claude's text is only used when every id and dollar amount in it comes
 //   from the records; otherwise the template is.
+// - A draft the grant manager rejects goes back to Claude with their reason.
+//   If the reason asks for a different text, the agent drafts again (a new
+//   request for the same months, or a new answer) and the Inbox item says
+//   what it replaces and what they said; if it doesn't ("hold it", "I'll
+//   answer it myself"), or Claude is off, the rejected draft stays as it is.
 
 import { effortWhy } from '../../../server/src/rules.ts';
 import { PAYMENT_EXPLANATION_MAX } from '../../../server/src/vocab.ts';
-import { ask } from '../claude.ts';
-import type { Connection, FollowUpRow, GrantRow, InvoiceRow, PaymentRequestRow } from '../db/contract.ts';
+import { ask, type AskOptions } from '../claude.ts';
+import type { Connection, DecisionRow, FollowUpRow, GrantRow, HoldRow, InvoiceRow, PaymentRequestRow } from '../db/contract.ts';
 import { memoryDay, type DayStore } from '../identity.ts';
 import { loadRules, type SpendingRules } from './purchasing.ts';
 import {
@@ -31,6 +36,10 @@ import {
   AnswerSchema,
   EXPLAIN_SYSTEM,
   ExplanationSchema,
+  REWORK_ANSWER_SYSTEM,
+  REWORK_EXPLAIN_SYSTEM,
+  ReworkAnswerSchema,
+  ReworkExplanationSchema,
   type AnswerText,
   type ExplanationText,
 } from '../prompts/payment-requests.ts';
@@ -592,14 +601,26 @@ function answerFacts(question: string, pr: PaymentRequestRow, claim: Claim) {
 
 // The seed marks a question nobody has answered yet as drafted with no
 // answer; the module marks an answer the grant manager rejected as drafted
-// with its answer kept, and that one is a person's decision to leave alone.
+// with its answer kept, and that one only comes back as a rework.
 const needsAnswer = (fu: FollowUpRow) => fu.state === 'asked' || (fu.state === 'drafted' && !fu.answerDraft);
+// Rejections of one draft that still get a new one; after that it stays rejected.
+const MAX_REWORKS = 3;
 
-export function startPaymentRequests({ conn, tracker, lastDay = memoryDay() }: AgentContext & { lastDay?: DayStore }): AgentHandle {
+export function startPaymentRequests({
+  conn,
+  tracker,
+  lastDay = memoryDay(),
+  reworkClaude,
+}: AgentContext & {
+  lastDay?: DayStore;
+  // For the reworks of rejected drafts; tests pass a fake client.
+  reworkClaude?: Pick<AskOptions<unknown>, 'client' | 'mode' | 'cacheDir'>;
+}): AgentHandle {
   const queue = workQueue(AGENT);
   // A grant id (its last full month) or "grant id, month start" (that month).
   const queuedDrafts = new Set<string>();
   const queuedFollowUps = new Set<string>();
+  const queuedReworks = new Set<string>();
   // Drafts the module refused, so a refusal can't turn into a retry loop.
   const refusedDrafts = new Set<string>();
   const refusedAnswers = new Set<string>();
@@ -793,6 +814,156 @@ export function startPaymentRequests({ conn, tracker, lastDay = memoryDay() }: A
     }
   }
 
+  // ── Rejected drafts ────────────────────────────────────────────────────
+
+  // The grant manager's reject on a draft's own Inbox item, with their
+  // reason, when it is the last word on that draft. The agent's "Reject X:
+  // replaced by Y" item offers reject alone, so rejecting it asks for nothing.
+  function rejection(kind: 'payment_request' | 'follow_up', refId: string): { hold: HoldRow; decision: DecisionRow; rejects: number } | undefined {
+    const holds = new Map(conn.rows('hold').filter((h) => h.kind === kind && h.refId === refId).map((h) => [h.id, h]));
+    if ([...holds.values()].some((h) => h.open)) return undefined;
+    const decisions = conn.rows('decision').filter((d) => holds.has(d.holdId)).sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+    const decision = decisions.at(-1);
+    const hold = decision && holds.get(decision.holdId);
+    if (!decision || !hold || decision.choice !== 'reject' || !hold.options.includes('approve')) return undefined;
+    return { hold, decision, rejects: decisions.filter((d) => d.choice === 'reject').length };
+  }
+
+  // The module's Inbox item for a new draft, re-raised to say what it replaces.
+  async function sayReplaces(kind: 'payment_request' | 'follow_up', refId: string, why: string, evidence: { label: string; value: string }[]) {
+    const hold = conn.rows('hold').find((h) => h.open && h.kind === kind && h.refId === refId);
+    if (!hold) return;
+    await conn.call('raise_hold', {
+      kind, refId, grantId: hold.grantId, title: hold.title, why: `${hold.why} ${why}`, evidence: [...hold.evidence, ...evidence], options: hold.options,
+    });
+  }
+
+  async function reworkRequest(prId: string) {
+    const pr = conn.rows('paymentRequest').find((row) => row.id === prId);
+    if (!pr || pr.state !== 'drafted') return;
+    const rejected = rejection('payment_request', pr.id);
+    if (!rejected) return;
+    const span = `${pr.grantId} for ${pr.from} to ${pr.to}`;
+    const sameMonths = conn.rows('paymentRequest').filter((row) => row.grantId === pr.grantId && row.from === pr.from && row.to === pr.to);
+    // A newer draft for the same months is already waiting or out.
+    const others = new Set(sameMonths.filter((row) => row.id !== pr.id).map((row) => row.id));
+    if (conn.rows('hold').some((h) => h.kind === 'payment_request' && others.has(h.refId) && h.id > rejected.hold.id)) return;
+    if (sameMonths.length > MAX_REWORKS) {
+      note(`${pr.id} reworks`, `${pr.id} stays rejected: ${span} has had ${sameMonths.length} drafts already.`);
+      return;
+    }
+    const rules = await loadRules();
+    const grant = grantRow(pr.grantId);
+    const frozen = grant ? frozenNow(grant, rules) : 'it is gone';
+    if (frozen) {
+      note(`${pr.id} frozen`, `${pr.id} stays rejected: ${pr.grantId} is frozen (${frozen}).`);
+      return;
+    }
+    const period = { from: pr.from, to: pr.to };
+    const claim = claimFor(conn, pr.grantId, period)!;
+    const reason = rejected.decision.reason;
+    const reply = await ask({
+      task: 'payment_request.rework',
+      system: REWORK_EXPLAIN_SYSTEM,
+      input: { ...explainFacts(claim), rejected: { text: pr.explanation, reason } },
+      schema: ReworkExplanationSchema,
+      fallback: () => ({ rework: false, why: 'Claude is off, and the template is the text that was rejected.', claimed: '', leftOut: '' }),
+      maxTokens: 2_000,
+      ...reworkClaude,
+    });
+    const { rework, why } = reply.value;
+    if (!rework) {
+      note(`${pr.id} left`, `${pr.id} stays rejected: ${why}`);
+      return;
+    }
+    const text = { claimed: reply.value.claimed, leftOut: reply.value.leftOut };
+    const problems = text.claimed.trim() ? explanationProblems(text, claim) : ['no text'];
+    if (problems.length) {
+      console.warn(`${AGENT}: Claude's rework of ${pr.id} not used (${problems.join('; ')}); it stays rejected`);
+      return;
+    }
+    // Right before money moves, as for a first draft.
+    await tracker.refresh(pr.grantId);
+    const now = grantRow(pr.grantId);
+    if (!now || frozenNow(now, rules)) return;
+    const fresh = claimFor(conn, pr.grantId, period)!;
+    const row = await draft(pr.grantId, period, samePicks(claim, fresh) ? joined(text) : joined(templateExplanation(fresh)));
+    if (!row) return;
+    await sayReplaces('payment_request', row.id, `It replaces ${pr.id}, which you rejected. ${why}`, [
+      { label: 'Replaces', value: `${pr.id} (rejected)` },
+      { label: 'You said', value: reason },
+      { label: `Explanation in ${pr.id}`, value: pr.explanation },
+    ]);
+    const drift = differences(fresh, row);
+    if (drift.length) await redraft(fresh, row, drift);
+  }
+
+  async function reworkAnswer(followUpId: string) {
+    const fu = conn.rows('followUp').find((row) => row.id === followUpId);
+    if (!fu || fu.state !== 'drafted' || !fu.answerDraft || refusedAnswers.has(followUpId)) return;
+    const rejected = rejection('follow_up', fu.id);
+    if (!rejected) return;
+    if (rejected.rejects > MAX_REWORKS) {
+      note(`${fu.id} reworks`, `${fu.id} stays rejected: its answer was rejected ${rejected.rejects} times.`);
+      return;
+    }
+    const pr = conn.rows('paymentRequest').find((row) => row.id === fu.paymentRequestId);
+    const claim = pr && requestClaim(conn, pr);
+    if (!pr || !claim) {
+      console.error(`${AGENT}: follow-up ${followUpId} is about ${fu.paymentRequestId}, which isn't there`);
+      return;
+    }
+    const reason = rejected.decision.reason;
+    const reply = await ask({
+      task: 'payment_request.follow_up_rework',
+      system: REWORK_ANSWER_SYSTEM,
+      input: { ...answerFacts(fu.question, pr, claim), rejected: { text: fu.answerDraft, reason } },
+      schema: ReworkAnswerSchema,
+      fallback: () => ({ rework: false, why: 'Claude is off, and the template is the answer that was rejected.', answer: '' }),
+      maxTokens: 2_000,
+      ...reworkClaude,
+    });
+    const { rework, why, answer } = reply.value;
+    if (!rework) {
+      note(`${fu.id} left`, `${fu.id} stays rejected: ${why}`);
+      return;
+    }
+    const problems = answer.trim() ? answerProblems({ answer }, pr, fu.id, claim) : ['no answer'];
+    if (problems.length) {
+      console.warn(`${AGENT}: Claude's rework of ${fu.id} not used (${problems.join('; ')}); it stays rejected`);
+      return;
+    }
+    const still = conn.rows('followUp').find((row) => row.id === followUpId);
+    if (!still || still.state !== 'drafted' || still.answerDraft !== fu.answerDraft) return;
+    try {
+      await conn.call('draft_follow_up_answer', { followUpId, answer });
+    } catch (error) {
+      refusedAnswers.add(followUpId);
+      throw error;
+    }
+    await sayReplaces('follow_up', fu.id, `This answer replaces one you rejected. ${why}`, [
+      { label: 'You said', value: reason },
+      { label: 'Rejected answer', value: fu.answerDraft },
+    ]);
+  }
+
+  const takeRework = (kind: string, refId: string) => {
+    const key = `${kind} ${refId}`;
+    if (stopped || queuedReworks.has(key) || (kind !== 'payment_request' && kind !== 'follow_up')) return;
+    queuedReworks.add(key);
+    void queue.push(`rework of rejected ${refId}`, async () => {
+      queuedReworks.delete(key);
+      if (stopped) return;
+      if (kind === 'payment_request') await reworkRequest(refId);
+      else await reworkAnswer(refId);
+    });
+  };
+  const takeDecision = (decision: DecisionRow) => {
+    if (decision.choice !== 'reject') return;
+    const hold = conn.rows('hold').find((h) => h.id === decision.holdId);
+    if (hold) takeRework(hold.kind, hold.refId);
+  };
+
   // With no period, the month is the last full one when the work runs.
   const checkGrant = (grantId: string, period?: Period) => {
     const key = period ? `${grantId} ${period.from}` : grantId;
@@ -851,7 +1022,11 @@ export function startPaymentRequests({ conn, tracker, lastDay = memoryDay() }: A
 
   for (const fu of conn.rows('followUp')) takeFollowUp(fu);
   claimSince(lastDay.load() ?? conn.today(), conn.today());
+  // Rejections made while the worker was down; each checks it is still the last word.
+  for (const pr of conn.rows('paymentRequest')) if (pr.state === 'drafted') takeRework('payment_request', pr.id);
+  for (const fu of conn.rows('followUp')) if (fu.state === 'drafted' && fu.answerDraft) takeRework('follow_up', fu.id);
   const stops = [
+    conn.onInsert('decision', takeDecision),
     conn.onInsert('followUp', takeFollowUp),
     conn.onUpdate('followUp', (_before, after) => takeFollowUp(after)),
     conn.onUpdate('clock', (before, after) => {
