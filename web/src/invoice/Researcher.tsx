@@ -25,7 +25,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const mine = all.filter(s => s.researcher === name)
   const [form, setForm] = useState<{ edit?: Submission } | null>(null)
   const [open, setOpen] = useState<string | null>(null)
-  const [view, setView] = useState<'approved' | 'action' | null>(null)
+  const [view, setView] = useState<'approved' | 'action' | 'submit' | null>(null)
 
   const submit = (d: Draft, r: ReturnType<typeof check>) => {
     const prior = form?.edit
@@ -43,10 +43,6 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     setForm(null)
     setOpen(base.id)
     setView('action')
-  }
-
-  if (form) {
-    return <SubmitForm db={db} others={all} initial={form.edit ? draftOf(form.edit) : undefined} onSubmit={submit} onCancel={() => setForm(null)} />
   }
 
   const mineOrders = new Set(db.orders.filter(o => db.requests.find(r => r.id === o.requestId)?.requesterName === name).map(o => o.id))
@@ -76,7 +72,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
         <p className="iv-next"><strong>Next:</strong> {NEXT[s.status]}{(s.status === 'clarification' || s.status === 'rejected') && decision?.why && <> “{decision.why}”</>}</p>
         <div className="iv-actions">
           <button type="button" onClick={() => setOpen(open === s.id ? null : s.id)}>{open === s.id ? 'Hide details' : 'Details and history'}</button>
-          {(s.status === 'clarification' || s.status === 'rejected' || s.status === 'exception') && <button type="button" onClick={() => setForm({ edit: s })}>Revise and resubmit</button>}
+          {(s.status === 'clarification' || s.status === 'rejected' || s.status === 'exception') && <button type="button" onClick={() => { setForm({ edit: s }); setView('submit') }}>Revise and resubmit</button>}
         </div>
         {open === s.id && (
           <>
@@ -101,19 +97,20 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     </li>
   )
 
-  const pick = (v: 'approved' | 'action') => setView(x => (x === v ? null : v))
+  const pick = (v: 'approved' | 'action') => { setForm(null); setView(x => (x === v ? null : v)) }
   return (
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoices">
         <button type="button" className={`iv-tab iv-tab-orange${view === 'action' ? ' on' : ''}`} aria-pressed={view === 'action'} onClick={() => pick('action')}>
           Need your action <span className="iv-count">{nAction}</span>
         </button>
-        <button type="button" className="iv-tab iv-tab-blue" onClick={() => setForm({})}>Submit an invoice</button>
+        <button type="button" className={`iv-tab iv-tab-blue${view === 'submit' ? ' on' : ''}`} aria-pressed={view === 'submit'} onClick={() => { setForm({}); setView(v => (v === 'submit' ? null : 'submit')) }}>Submit an invoice</button>
         <button type="button" className={`iv-tab iv-tab-green${view === 'approved' ? ' on' : ''}`} aria-pressed={view === 'approved'} onClick={() => pick('approved')}>
           Approved <span className="iv-count">{nApproved}</span>
         </button>
       </div>
 
+      {view === 'submit' && <SubmitForm key={form?.edit?.id ?? 'new'} db={db} others={all} initial={form?.edit ? draftOf(form.edit) : undefined} onSubmit={submit} onCancel={() => { setForm(null); setView(null) }} />}
       {view === 'approved' && (nApproved === 0 ? <Empty>Nothing approved yet.</Empty> : <ul className="iv-list">{approvedSubs.map(card)}{approvedBills.map(bill)}</ul>)}
       {view === 'action' && (nAction === 0 ? <Empty>Nothing needs your action.</Empty> : (
         <>
