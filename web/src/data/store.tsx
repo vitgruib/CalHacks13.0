@@ -4,6 +4,7 @@
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import seed from '../../../sim/seed.json'
 import type { Researcher } from '../people'
+import { planLines, type SavedPlan } from '../spendguard/store'
 import type { Db, Decision, Invoice, PurchaseRequest, SourceCheck, StatusEvent } from './types'
 
 export interface Store {
@@ -29,6 +30,16 @@ export interface Store {
    *  YYYY-MM-DD; none = today), for one grant or every grant. Rejects if the
    *  request couldn't be sent. */
   checkNow: (asOf?: string, grantId?: string) => Promise<void>
+  /** Every researcher's experiment plans (T71), from the module's plan table. */
+  plans: SavedPlan[]
+  /** A researcher saves a draft, submits for review, or sends a plan whose
+   *  report cleared every check; a sent plan's lines become their requests. */
+  savePlan: (p: SavedPlan, by: Researcher) => void
+  /** The researcher deletes a plan whose lines aren't requests yet. */
+  deletePlan: (id: string, by: Researcher) => void
+  /** Grant manager: approve a submitted plan (its lines become requests in the
+   *  researcher's name) or return it, always with a reason. */
+  decidePlan: (id: string, choice: 'approve' | 'return', reason: string) => void
   /** Demo controls: replace the whole world with the demo seed (sim/seed.json). Live, every open window sees it. */
   loadDemoSeed: () => void
 }
@@ -177,12 +188,52 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     }, SIMULATED_CHECK_MS)
   }
 
+  // Plans, with the same refusals as the module's save_plan, delete_plan and decide_plan.
+  const [plans, setPlans] = useState<(SavedPlan & { by: Researcher })[]>([])
+  const sendLines = (p: SavedPlan, by: Researcher) => {
+    for (const l of planLines(p)) submitRequest({ item: l.item, category: l.category, price: l.price, grantId: p.plan.grantId, purpose: l.purpose, sharedWith: [] }, by)
+  }
+  const ownPlan = (id: string, by: Researcher) => {
+    const old = plans.find(x => x.id === id)
+    if (old && old.by.id !== by.id) throw new Error('Only the researcher who wrote a plan can change it.')
+    if (old?.status === 'sent') throw new Error("This plan's lines are already requests; push back on those instead.")
+    return old
+  }
+  const savePlan: Store['savePlan'] = (p, by) => {
+    const old = ownPlan(p.id, by)
+    if (p.status !== 'draft' && !p.report) throw new Error('Assess the plan before submitting it.')
+    if (p.status === 'sent' && p.report?.overall !== 'aligned') throw new Error('Only a plan that clears every check goes straight to purchasing; submit it for review instead.')
+    const row = {
+      ...p, by, researcher: by.name, savedOn: db.today, decision: undefined,
+      submittedOn: p.status === 'draft' ? undefined : db.today, sentOn: p.status === 'sent' ? db.today : undefined,
+    }
+    setPlans(ps => (old ? ps.map(x => (x.id === p.id ? row : x)) : [row, ...ps]))
+    if (row.status === 'sent') sendLines(row, by)
+  }
+  const deletePlan: Store['deletePlan'] = (id, by) => {
+    if (!ownPlan(id, by)) throw new Error(`No plan ${id}.`)
+    setPlans(ps => ps.filter(x => x.id !== id))
+  }
+  const decidePlan: Store['decidePlan'] = (id, choice, reason) => {
+    if (!reason.trim()) throw new Error('A reason is required.')
+    const p = plans.find(x => x.id === id)
+    if (!p) throw new Error(`No plan ${id}.`)
+    if (p.status !== 'submitted') throw new Error(`Plan ${id} is ${p.status}, not waiting for a decision.`)
+    const row = {
+      ...p, status: choice === 'approve' ? 'sent' as const : 'returned' as const, sentOn: choice === 'approve' ? db.today : undefined,
+      decision: { choice, reason: reason.trim(), day: db.today },
+    }
+    setPlans(ps => ps.map(x => (x.id === id ? row : x)))
+    if (choice === 'approve') sendLines(row, p.by)
+  }
+
   const loadDemoSeed: Store['loadDemoSeed'] = () => {
     setDb(structuredClone(seed) as unknown as Db)
+    setPlans([])
     setSourceCheck(seedCheck())
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, loadDemoSeed }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ db, decide, submitRequest, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, loadDemoSeed }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

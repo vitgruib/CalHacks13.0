@@ -11,7 +11,7 @@ import { grantHeading } from '../plain'
 import { Badge, money } from '../ui'
 import { assess, blankItem, CATEGORIES, planTotal, type Category, type Item, type Plan, type Report } from './assess'
 import ReportView from './ReportView'
-import { newPlanId, planRequests, savePlan, type SavedPlan } from './store'
+import { newPlanId, type SavedPlan } from './store'
 
 /** The brief's demo plan: relevant science, an unapproved model, $8,400 of spending. */
 export function examplePlan(grantId: string): Plan {
@@ -30,7 +30,7 @@ export function examplePlan(grantId: string): Plan {
 }
 
 export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; researcher: Researcher; saved?: SavedPlan; onDone: () => void }) {
-  const { submitRequest } = useStore()
+  const { savePlan } = useStore()
   const firstGrant = db.grants[0]?.id ?? ''
   const [id] = useState(saved?.id ?? newPlanId())
   const [plan, setPlan] = useState<Plan>(saved?.plan ?? { experiment: '', grantId: firstGrant, completion: '', items: [blankItem()], uploaded: [] })
@@ -50,21 +50,21 @@ export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; 
     setReport(r); setAssessedKey(JSON.stringify(plan)); setMessage('')
     return r
   }
+  // The store (the module, when live) dates the plan and, once sent, makes its requests.
   const persist = (status: SavedPlan['status'], r: Report | undefined) => {
-    const p: SavedPlan = { id, researcher: researcher.name, status, savedOn: db.today, plan, report: r }
-    if (status !== 'draft') p.submittedOn = db.today
-    if (status === 'sent') {
-      p.sentOn = db.today
-      for (const rq of planRequests(p)) submitRequest(rq, researcher)
+    try {
+      savePlan({ id, researcher: researcher.name, status, savedOn: db.today, plan, report: r }, researcher)
+      return true
+    } catch (e) {
+      setMessage(e instanceof Error ? e.message : String(e))
+      return false
     }
-    savePlan(p)
   }
-  const saveDraft = () => { persist('draft', report); setMessage('Saved as a draft.') }
+  const saveDraft = () => { if (persist('draft', report)) setMessage('Saved as a draft.') }
   const submit = () => {
     const r = stale || !report ? run() : report
     if (!r) return
-    persist(r.overall === 'aligned' ? 'sent' : 'submitted', r)
-    onDone()
+    if (persist(r.overall === 'aligned' ? 'sent' : 'submitted', r)) onDone()
   }
 
   const upload = async (e: ChangeEvent<HTMLInputElement>) => {

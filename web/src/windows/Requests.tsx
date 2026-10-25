@@ -8,12 +8,12 @@ import { useStore } from '../data/store'
 import type { Grant, PurchaseRequest, RequestState } from '../data/types'
 import { Badge, Empty, Section, money, type Tone } from '../ui'
 import { RoleContext } from './registry'
-import { RESEARCHERS, requesterLabel, researcherNamed, useResearcher } from '../people'
+import { RESEARCHERS, requesterLabel, useResearcher } from '../people'
 import { grantHeading } from '../plain'
 import { OVERALL_LABEL, planTotal, type Overall } from '../spendguard/assess'
 import PlanEditor from '../spendguard/PlanEditor'
 import ReportView from '../spendguard/ReportView'
-import { deletePlan, notBought, planRef, planRequests, savePlan, usePlans, type PlanStatus, type SavedPlan } from '../spendguard/store'
+import { notBought, planRef, type PlanStatus, type SavedPlan } from '../spendguard/store'
 import '../spendguard/SpendGuard.css'
 import './Requests.css'
 
@@ -210,7 +210,7 @@ function PushBack({ r }: { r: PurchaseRequest }) {
 function RequestCard({ r }: { r: PurchaseRequest }) {
   const role = useContext(RoleContext)
   const ref = planRef(r)
-  const plan = usePlans().find(p => p.id === ref?.planId)
+  const plan = useStore().plans.find(p => p.id === ref?.planId)
   return (
     <article className="rq-card" aria-labelledby={`rq-${r.id}`}>
       <header>
@@ -278,19 +278,12 @@ function useLineStatus(p: SavedPlan) {
 
 /** The grant office's call on a plan that didn't clear: approve sends its lines. */
 function PlanDecision({ p }: { p: SavedPlan }) {
-  const { db, submitRequest } = useStore()
+  const { decidePlan } = useStore()
   const [reason, setReason] = useState('')
   const [error, setError] = useState('')
-  const asker = researcherNamed(p.researcher)
   const decide = (choice: 'approve' | 'return') => {
     if (!reason.trim()) return setError('Give a reason; the researcher sees it.')
-    if (choice === 'approve' && !asker) return setError(`No portal for ${p.researcher}, so their lines can't be sent as their requests.`)
-    const next: SavedPlan = { ...p, decision: { choice, reason: reason.trim(), day: db.today }, status: choice === 'approve' ? 'sent' : 'returned' }
-    if (choice === 'approve') {
-      next.sentOn = db.today
-      for (const rq of planRequests(next)) submitRequest(rq, asker!)
-    }
-    savePlan(next)
+    try { decidePlan(p.id, choice, reason.trim()) } catch (e) { setError(e instanceof Error ? e.message : String(e)) }
   }
   return (
     <div className="rq-push">
@@ -308,7 +301,7 @@ function PlanDecision({ p }: { p: SavedPlan }) {
   )
 }
 
-function PlanCard({ p, onRevise }: { p: SavedPlan; onRevise?: () => void }) {
+function PlanCard({ p, onRevise, onDelete }: { p: SavedPlan; onRevise?: () => void; onDelete?: () => void }) {
   const { db } = useStore()
   const role = useContext(RoleContext)
   const [open, setOpen] = useState(role === 'grant_manager' && p.status === 'submitted')
@@ -337,11 +330,11 @@ function PlanCard({ p, onRevise }: { p: SavedPlan; onRevise?: () => void }) {
       <div className="rq-actions rq-push-row">
         {p.report && <button type="button" onClick={() => setOpen(!open)}>{open ? 'Hide report' : 'Open report'}</button>}
         {onRevise && p.status !== 'sent' && (
-          <button type="button" onClick={() => { if (p.status !== 'draft') savePlan({ ...p, status: 'draft', submittedOn: undefined, decision: undefined }); onRevise() }}>
+          <button type="button" onClick={onRevise}>
             {p.status === 'submitted' ? 'Withdraw and revise' : 'Revise'}
           </button>
         )}
-        {onRevise && p.status !== 'sent' && <button type="button" onClick={() => deletePlan(p.id)}>Delete</button>}
+        {onDelete && p.status !== 'sent' && <button type="button" onClick={onDelete}>Delete</button>}
       </div>
       {open && p.report && <ReportView report={p.report} lineStatus={lineStatus} />}
       {role === 'grant_manager' && p.status === 'submitted' && <PlanDecision p={p} />}
@@ -358,9 +351,9 @@ const newestFirst = (requests: PurchaseRequest[]) => requests
 /** A researcher's portal: ask for one item or plan an experiment, and only
  *  their own plans and requests. */
 function MyRequests() {
-  const { db } = useStore()
+  const { db, plans: all, deletePlan } = useStore()
   const me = useResearcher()
-  const plans = usePlans().filter(p => p.researcher === me.name)
+  const plans = all.filter(p => p.researcher === me.name)
   const [editing, setEditing] = useState<SavedPlan | 'new' | null>(null)
   const list = newestFirst(db.requests.filter(r => r.requesterName === me.name))
   if (editing) {
@@ -378,7 +371,7 @@ function MyRequests() {
       </Section>
       {plans.length > 0 && (
         <Section title="Your experiment plans" aside={<span className="rq-muted">{plans.length} total</span>}>
-          <div className="rq-list">{plans.map(p => <PlanCard key={p.id} p={p} onRevise={() => setEditing(p)} />)}</div>
+          <div className="rq-list">{plans.map(p => <PlanCard key={p.id} p={p} onRevise={() => setEditing(p)} onDelete={() => deletePlan(p.id, me)} />)}</div>
         </Section>
       )}
       <Section title="Your requests" aside={<span className="rq-muted">{list.length} total</span>}>
@@ -397,13 +390,13 @@ function AllRequests() {
   const list = newestFirst(db.requests.filter(r => who === 'all' || r.requesterName === who))
   const count = (name: string) => db.requests.filter(r => r.requesterName === name).length
   const order: PlanStatus[] = ['submitted', 'returned', 'sent']
-  const plans = usePlans()
+  const plans = [...useStore().plans]
     .filter(p => p.status !== 'draft' && (who === 'all' || p.researcher === who))
     .sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status))
   const waiting = plans.filter(p => p.status === 'submitted').length
   return (
     <>
-    <Section title="Experiment plans" aside={<span className="rq-muted">{waiting} waiting for you · plans live in this browser for now</span>}>
+    <Section title="Experiment plans" aside={<span className="rq-muted">{waiting} waiting for you</span>}>
       {plans.length === 0 ? <Empty>No submitted plans. A researcher's plan that doesn't clear its checks waits here for your decision.</Empty> : (
         <div className="rq-list">{plans.map(p => <PlanCard key={p.id} p={p} />)}</div>
       )}

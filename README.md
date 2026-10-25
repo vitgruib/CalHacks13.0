@@ -230,7 +230,8 @@ nav, or the researcher header) moves between them. Each window has one job
   budget and get a funding-readiness report (scope, allowability, budget,
   follow-ups) before sending it. A plan that clears all three checks sends
   each line to the purchasing agent as its own request; any other waits for
-  the grant office. Plans live in the browser for now. A researcher sees
+  the grant office. Plans are stored in SpacetimeDB, so every portal on every
+  computer sees them. A researcher sees
   only their own requests and can push back only on those. They never see the grant office's windows.
 
 Each researcher is a separate identity on the server, so every request

@@ -42,6 +42,8 @@ import CheckInvoiceReducer from "./check_invoice_reducer";
 import ClearWorldReducer from "./clear_world_reducer";
 import CompleteCheckReducer from "./complete_check_reducer";
 import DecideHoldReducer from "./decide_hold_reducer";
+import DecidePlanReducer from "./decide_plan_reducer";
+import DeletePlanReducer from "./delete_plan_reducer";
 import DraftFollowUpAnswerReducer from "./draft_follow_up_answer_reducer";
 import DraftPaymentRequestReducer from "./draft_payment_request_reducer";
 import EvaluateRequestReducer from "./evaluate_request_reducer";
@@ -58,6 +60,7 @@ import RegisterAgentReducer from "./register_agent_reducer";
 import RegisterPersonReducer from "./register_person_reducer";
 import RequestCheckReducer from "./request_check_reducer";
 import ResetWorldReducer from "./reset_world_reducer";
+import SavePlanReducer from "./save_plan_reducer";
 import SetTodayReducer from "./set_today_reducer";
 import SubmitRequestReducer from "./submit_request_reducer";
 import UnfreezeGrantReducer from "./unfreeze_grant_reducer";
@@ -80,6 +83,7 @@ import OrderRow from "./order_table";
 import PaymentRequestRow from "./payment_request_table";
 import PayrollRow from "./payroll_table";
 import PersonRow from "./person_table";
+import PlanRow from "./plan_table";
 import ReportPaperRow from "./report_paper_table";
 import RequestRow from "./request_table";
 import SourceReadingRow from "./source_reading_table";
@@ -276,6 +280,17 @@ const tablesSchema = __schema({
       { name: 'person_identity_key', constraint: 'unique', columns: ['identity'] },
     ],
   }, PersonRow),
+  plan: __table({
+    name: 'plan',
+    indexes: [
+      { accessor: 'id', name: 'plan_id_idx_btree', algorithm: 'btree', columns: [
+        'id',
+      ] },
+    ],
+    constraints: [
+      { name: 'plan_id_key', constraint: 'unique', columns: ['id'] },
+    ],
+  }, PlanRow),
   reportPaper: __table({
     name: 'report_paper',
     indexes: [
@@ -338,6 +353,8 @@ const reducersSchema = __reducers(
   __reducerSchema("clear_world", ClearWorldReducer),
   __reducerSchema("complete_check", CompleteCheckReducer),
   __reducerSchema("decide_hold", DecideHoldReducer),
+  __reducerSchema("decide_plan", DecidePlanReducer),
+  __reducerSchema("delete_plan", DeletePlanReducer),
   __reducerSchema("draft_follow_up_answer", DraftFollowUpAnswerReducer),
   __reducerSchema("draft_payment_request", DraftPaymentRequestReducer),
   __reducerSchema("evaluate_request", EvaluateRequestReducer),
@@ -354,6 +371,7 @@ const reducersSchema = __reducers(
   __reducerSchema("register_person", RegisterPersonReducer),
   __reducerSchema("request_check", RequestCheckReducer),
   __reducerSchema("reset_world", ResetWorldReducer),
+  __reducerSchema("save_plan", SavePlanReducer),
   __reducerSchema("set_today", SetTodayReducer),
   __reducerSchema("submit_request", SubmitRequestReducer),
   __reducerSchema("unfreeze_grant", UnfreezeGrantReducer),

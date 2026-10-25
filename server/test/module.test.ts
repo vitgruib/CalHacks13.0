@@ -346,3 +346,54 @@ test('the grant manager can approve a shared cost charged in full to one grant o
   expect(flagged.oneGrantBasis).toBe('Both aims image the same slides in one session.');
   expect(ordersFor(flagged.id).map((o: any) => o.grantId)).toEqual([B]);
 });
+
+// ── Experiment plans (T71) ────────────────────────────────────────────────
+
+const B2 = 'R21AI182745';
+const planArgs = (status: string, overall = 'aligned') => ({
+  id: 'pl-test', status, grantId: B2, experiment: 'Organoid imaging, aim 1', total: 1_500, overall,
+  lines: [
+    { line: 1, item: 'Matrigel', category: 'lab supplies', price: 900, purpose: 'For: organoid imaging' },
+    { line: 3, item: 'Antibody panel', category: 'lab supplies', price: 600, purpose: 'For: organoid imaging' },
+  ],
+  body: '{}', report: status === 'draft' ? '' : '{"overall":"' + overall + '"}',
+});
+const planRequests = () => rows('request').filter(r => r.purpose === 'For: organoid imaging');
+
+test('a researcher saves a plan that everyone sees; only they can change or delete it', () => {
+  call('priya', mod.register_person, { role: 'scientist', name: 'Dr. Priya Nair' });
+  call('priya', mod.save_plan, planArgs('draft'));
+  expect(db().plan.id.find('pl-test')).toMatchObject({ researcher: 'Dr. Priya Nair', status: 'draft', total: 1_500 });
+  expect(() => call('sci', mod.save_plan, planArgs('draft'))).toThrow(/researcher who wrote/);
+  expect(() => call('sci', mod.delete_plan, { id: 'pl-test' })).toThrow(/researcher who wrote/);
+  expect(() => call('gm', mod.save_plan, planArgs('draft'))).toThrow(/scientist/);
+  call('priya', mod.delete_plan, { id: 'pl-test' });
+  expect(db().plan.id.find('pl-test')).toBeFalsy();
+});
+
+test('a plan that clears every check becomes one request per line in the researcher\'s name', () => {
+  call('priya', mod.register_person, { role: 'scientist', name: 'Dr. Priya Nair' });
+  expect(() => call('priya', mod.save_plan, planArgs('sent', 'clarify'))).toThrow(/submit it for review/);
+  call('priya', mod.save_plan, planArgs('sent'));
+  expect(planRequests().map(r => [r.item, r.price, r.requesterName, r.grantId, r.state])).toEqual([
+    ['Matrigel', 900, 'Dr. Priya Nair', B2, 'submitted'],
+    ['Antibody panel', 600, 'Dr. Priya Nair', B2, 'submitted'],
+  ]);
+  expect(() => call('priya', mod.save_plan, planArgs('draft'))).toThrow(/already requests/);
+  expect(() => call('priya', mod.delete_plan, { id: 'pl-test' })).toThrow(/already requests/);
+});
+
+test('the grant manager approves or returns a submitted plan, with a reason', () => {
+  call('priya', mod.register_person, { role: 'scientist', name: 'Dr. Priya Nair' });
+  call('priya', mod.save_plan, planArgs('submitted', 'clarify'));
+  expect(planRequests()).toHaveLength(0);
+  expect(() => call('sci', mod.decide_plan, { id: 'pl-test', choice: 'approve', reason: 'ok' })).toThrow(/grant_manager/);
+  expect(() => call('gm', mod.decide_plan, { id: 'pl-test', choice: 'approve', reason: ' ' })).toThrow(/reason is required/);
+  call('gm', mod.decide_plan, { id: 'pl-test', choice: 'return', reason: 'Say which aim the antibodies serve.' });
+  expect(db().plan.id.find('pl-test')).toMatchObject({ status: 'returned', decisionChoice: 'return', decisionReason: 'Say which aim the antibodies serve.' });
+  expect(() => call('gm', mod.decide_plan, { id: 'pl-test', choice: 'approve', reason: 'ok' })).toThrow(/not waiting/);
+  call('priya', mod.save_plan, planArgs('submitted', 'clarify'));
+  call('gm', mod.decide_plan, { id: 'pl-test', choice: 'approve', reason: 'Aim 1 covers both.' });
+  expect(db().plan.id.find('pl-test').status).toBe('sent');
+  expect(planRequests()).toHaveLength(2);
+});

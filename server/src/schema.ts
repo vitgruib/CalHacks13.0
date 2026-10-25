@@ -167,6 +167,46 @@ const request = table(
   }
 );
 
+/** A purchasable line of an experiment plan: what becomes a request. */
+const PlanLine = t.object('PlanLine', {
+  line: t.u32(), // 1-based position in the plan
+  item: t.string(),
+  category: t.string(),
+  price: t.f64(),
+  purpose: t.string(),
+});
+
+/**
+ * An experiment plan (T71, was browser-only SpendGuard): a researcher's
+ * experiment and line-item budget with its funding-readiness report. A plan
+ * that clears its checks, or that the grant manager approves, becomes one
+ * request per purchasable line, made by the module. The full line items and
+ * the report are JSON in the web's shape (web/src/spendguard/assess.ts) until
+ * the scope assessment moves into the module and agents (T72, T73).
+ */
+const plan = table(
+  { public: true },
+  {
+    id: t.string().primaryKey(), // pl1, pl2, ...
+    researcher: t.string(), // name, as on requests
+    ownedBy: t.identity(),
+    status: t.string(), // draft | submitted | sent | returned
+    grantId: t.string(),
+    experiment: t.string(),
+    total: t.f64(),
+    overall: t.string(), // the report's verdict: aligned | clarify | outside ('' = not assessed)
+    lines: t.array(PlanLine),
+    body: t.string(), // JSON: the plan as the researcher entered it
+    report: t.string(), // JSON: the funding-readiness report ('' = not assessed)
+    savedOn: t.string(),
+    submittedOn: t.string(), // '' = not yet
+    sentOn: t.string(), // '' = its lines aren't requests yet
+    decisionChoice: t.string(), // approve | return ('' = none)
+    decisionReason: t.string(),
+    decisionDay: t.string(),
+  }
+);
+
 const order = table(
   { public: true },
   {
@@ -330,6 +370,7 @@ const spacetimedb = schema({
   flag,
   checkRequest,
   request,
+  plan,
   order,
   approval,
   invoice,

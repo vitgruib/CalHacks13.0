@@ -286,6 +286,91 @@ export const submit_request = spacetimedb.reducer(
   }),
 );
 
+// ── Experiment plans (T71) ────────────────────────────────────────────────
+
+const PlanLine = t.object('PlanLineArg', { line: t.u32(), item: t.string(), category: t.string(), price: t.f64(), purpose: t.string() });
+const PLAN_SAVES = ['draft', 'submitted', 'sent'] as const;
+
+type PlanRow = NonNullable<ReturnType<Ctx['db']['plan']['id']['find']>>;
+
+/** A plan's purchasable lines become requests, asked by the plan's researcher. */
+function sendPlanLines(ctx: Ctx, p: PlanRow, actor: string): void {
+  for (const l of p.lines) {
+    if (!l.item.trim() || !(l.price > 0)) fail(`Line ${l.line} needs an item and a price over $0.`);
+    const id = nextId(ctx, 'rq', x => !!ctx.db.request.id.find(x));
+    ctx.db.request.insert({
+      id, day: today(ctx), requester: 'scientist', requestedBy: p.ownedBy, item: l.item, category: l.category,
+      price: l.price, grantId: p.grantId, chargedGrantId: undefined, sharedWith: [], split: [],
+      purpose: l.purpose, state: 'submitted', verdicts: [], explanation: '', requesterName: p.researcher, oneGrantBasis: '',
+    });
+    writeLog(ctx, actor, `${p.researcher} asked to buy ${l.item} (${usd(l.price)}), line ${l.line} of plan ${p.id}`, l.purpose, { refId: id });
+  }
+}
+
+/**
+ * Researchers only: save a plan as a draft, submit it for the grant manager,
+ * or send it (its report cleared every check), which makes one request per
+ * purchasable line. The purchasing agent then checks each like any request.
+ */
+export const save_plan = spacetimedb.reducer(
+  {
+    id: t.string(), status: t.string(), grantId: t.string(), experiment: t.string(), total: t.f64(),
+    overall: t.string(), lines: t.array(PlanLine), body: t.string(), report: t.string(),
+  },
+  (ctx, a) => guard(() => {
+    const who = requirePerson(ctx, 'scientist');
+    const status = oneOf('status', PLAN_SAVES, a.status);
+    if (!/^[\w-]{1,40}$/.test(a.id)) fail('A plan id is letters, digits and dashes.');
+    getGrant(ctx, a.grantId);
+    const old = ctx.db.plan.id.find(a.id);
+    if (old && !old.ownedBy.isEqual(ctx.sender)) fail('Only the researcher who wrote a plan can change it.');
+    if (old?.status === 'sent') fail('This plan\'s lines are already requests; push back on those instead.');
+    if (status !== 'draft' && !a.report) fail('Assess the plan before submitting it.');
+    if (status === 'sent' && a.overall !== 'aligned') fail('Only a plan that clears every check goes straight to purchasing; submit it for review instead.');
+    const name = ctx.db.person.identity.find(ctx.sender)?.name ?? who;
+    const row = {
+      id: a.id, researcher: name, ownedBy: ctx.sender, status, grantId: a.grantId, experiment: a.experiment,
+      total: a.total, overall: a.overall, lines: a.lines, body: a.body, report: a.report, savedOn: today(ctx),
+      submittedOn: status === 'draft' ? '' : today(ctx), sentOn: status === 'sent' ? today(ctx) : '',
+      decisionChoice: '', decisionReason: '', decisionDay: '',
+    };
+    if (old) ctx.db.plan.id.update(row); else ctx.db.plan.insert(row);
+    const what = { draft: 'Saved a draft of', submitted: 'Submitted for review', sent: 'Sent to purchasing' }[status];
+    writeLog(ctx, who, `${what} plan ${a.id} (${usd(a.total)})`, a.experiment.slice(0, 200) || 'No experiment given.', { refId: a.id });
+    if (status === 'sent') sendPlanLines(ctx, row, who);
+  }),
+);
+
+/** The researcher deletes a plan whose lines aren't requests yet. */
+export const delete_plan = spacetimedb.reducer({ id: t.string() }, (ctx, { id }) => guard(() => {
+  const who = requirePerson(ctx, 'scientist');
+  const p = ctx.db.plan.id.find(id) ?? fail(`No plan ${id}.`);
+  if (!p.ownedBy.isEqual(ctx.sender)) fail('Only the researcher who wrote a plan can delete it.');
+  if (p.status === 'sent') fail('This plan\'s lines are already requests.');
+  ctx.db.plan.id.delete(id);
+  writeLog(ctx, who, `Deleted plan ${id}`, p.experiment.slice(0, 200) || 'No experiment given.', { refId: id });
+}));
+
+/**
+ * Grant manager only, with a reason: approve a submitted plan (its lines
+ * become requests in the researcher's name) or return it to them.
+ */
+export const decide_plan = spacetimedb.reducer({ id: t.string(), choice: t.string(), reason: t.string() }, (ctx, a) => guard(() => {
+  const who = requirePerson(ctx, 'grant_manager');
+  const choice = oneOf('choice', ['approve', 'return'] as const, a.choice);
+  if (!a.reason.trim()) fail('A reason is required.');
+  const p = ctx.db.plan.id.find(a.id) ?? fail(`No plan ${a.id}.`);
+  if (p.ownedBy.isEqual(ctx.sender)) fail('Nobody approves their own plan.');
+  if (p.status !== 'submitted') fail(`Plan ${a.id} is ${p.status}, not waiting for a decision.`);
+  const row = {
+    ...p, status: choice === 'approve' ? 'sent' : 'returned', sentOn: choice === 'approve' ? today(ctx) : '',
+    decisionChoice: choice, decisionReason: a.reason.trim(), decisionDay: today(ctx),
+  };
+  ctx.db.plan.id.update(row);
+  writeLog(ctx, who, `${choice === 'approve' ? 'Approved' : 'Returned'} plan ${p.id} (${p.researcher}, ${usd(p.total)})`, a.reason.trim(), { refId: p.id });
+  if (choice === 'approve') sendPlanLines(ctx, row, who);
+}));
+
 /** The requester pushes back with new information; the agent looks again. */
 export const push_back = spacetimedb.reducer({ requestId: t.string(), message: t.string() }, (ctx, { requestId, message }) => guard(() => {
   const who = requirePerson(ctx);

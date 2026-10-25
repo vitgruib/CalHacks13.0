@@ -231,6 +231,47 @@ export const Person = __t.object("Person", {
 });
 export type Person = __Infer<typeof Person>;
 
+export const Plan = __t.object("Plan", {
+  id: __t.string(),
+  researcher: __t.string(),
+  ownedBy: __t.identity(),
+  status: __t.string(),
+  grantId: __t.string(),
+  experiment: __t.string(),
+  total: __t.f64(),
+  overall: __t.string(),
+  get lines() {
+    return __t.array(PlanLine);
+  },
+  body: __t.string(),
+  report: __t.string(),
+  savedOn: __t.string(),
+  submittedOn: __t.string(),
+  sentOn: __t.string(),
+  decisionChoice: __t.string(),
+  decisionReason: __t.string(),
+  decisionDay: __t.string(),
+});
+export type Plan = __Infer<typeof Plan>;
+
+export const PlanLine = __t.object("PlanLine", {
+  line: __t.u32(),
+  item: __t.string(),
+  category: __t.string(),
+  price: __t.f64(),
+  purpose: __t.string(),
+});
+export type PlanLine = __Infer<typeof PlanLine>;
+
+export const PlanLineArg = __t.object("PlanLineArg", {
+  line: __t.u32(),
+  item: __t.string(),
+  category: __t.string(),
+  price: __t.f64(),
+  purpose: __t.string(),
+});
+export type PlanLineArg = __Infer<typeof PlanLineArg>;
+
 export const ReportPaper = __t.object("ReportPaper", {
   id: __t.string(),
   grantId: __t.string(),

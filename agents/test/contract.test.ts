@@ -29,6 +29,7 @@ const COLUMNS: Record<TableName, string[]> = {
   hold: ['id', 'kind', 'refId', 'grantId', 'raisedBy', 'day', 'title', 'why', 'evidence', 'options', 'open'],
   decision: ['id', 'holdId', 'choice', 'reason', 'by', 'byIdentity', 'day', 'at'],
   log: ['id', 'day', 'at', 'actor', 'action', 'rule', 'reason', 'refId'],
+  plan: ['id', 'researcher', 'ownedBy', 'status', 'grantId', 'experiment', 'total', 'overall', 'lines', 'body', 'report', 'savedOn', 'submittedOn', 'sentOn', 'decisionChoice', 'decisionReason', 'decisionDay'],
 };
 
 let world: TestWorld | undefined;
@@ -40,8 +41,12 @@ afterEach(() => {
 test('every_table_has_exactly_the_columns_contract_ts_describes', async () => {
   world = await startWorld();
   const manager = await world.person('grant_manager');
-  // Put a row in the two tables the sim world leaves empty.
+  // Put a row in the tables the sim world leaves empty.
   await manager.call('request_check', { reason: 'check_now' });
+  const scientist = await world.person('scientist');
+  await scientist.call('save_plan', {
+    id: 'pl-contract', status: 'draft', grantId: manager.rows('grant')[0].id, experiment: 'Contract shape', total: 0, overall: '', lines: [], body: '{}', report: '',
+  });
   const hold = manager.rows('hold').find((row) => row.open && row.options.includes('ask_vendor'))!;
   await manager.call('decide_hold', { holdId: hold.id, choice: 'ask_vendor', reason: 'Checking the contract shape.' });
   await world.worker.idle();

@@ -175,6 +175,35 @@ export interface RequestRow {
   /** A shared cost to charge in full to one grant: why each grant's use can't be measured ('' = none stated). */
   oneGrantBasis: string;
 }
+/** A purchasable line of an experiment plan: what becomes a request. */
+export interface PlanLine {
+  line: number;
+  item: string;
+  category: string;
+  price: number;
+  purpose: string;
+}
+/** A researcher's experiment plan (T71). body and report are JSON in the web's shape. */
+export interface PlanRow {
+  id: string;
+  researcher: string;
+  ownedBy: string;
+  status: 'draft' | 'submitted' | 'sent' | 'returned';
+  grantId: string;
+  experiment: string;
+  total: number;
+  /** The report's verdict: aligned | clarify | outside ('' = not assessed). */
+  overall: string;
+  lines: PlanLine[];
+  body: string;
+  report: string;
+  savedOn: string;
+  submittedOn: string;
+  sentOn: string;
+  decisionChoice: string;
+  decisionReason: string;
+  decisionDay: string;
+}
 export interface OrderRow {
   id: string;
   requestId: string;
@@ -304,6 +333,7 @@ export interface Tables {
   flag: FlagRow;
   checkRequest: CheckRequestRow;
   request: RequestRow;
+  plan: PlanRow;
   order: OrderRow;
   approval: ApprovalRow;
   invoice: InvoiceRow;
@@ -328,6 +358,7 @@ export const PRIMARY_KEYS = {
   flag: 'id',
   checkRequest: 'id',
   request: 'id',
+  plan: 'id',
   order: 'id',
   approval: 'id',
   invoice: 'id',
@@ -352,6 +383,11 @@ export interface Actions {
   // Purchases. People submit; the purchasing agent evaluates, then acts.
   submit_request: { item: string; category: string; price: number; grantId?: string; purpose: string; sharedWith: string[]; oneGrantBasis?: string };
   push_back: { requestId: string; message: string };
+  /** Researchers: save, submit or send (report cleared every check) a plan; a sent plan's lines become requests. */
+  save_plan: { id: string; status: 'draft' | 'submitted' | 'sent'; grantId: string; experiment: string; total: number; overall: string; lines: PlanLine[]; body: string; report: string };
+  delete_plan: { id: string };
+  /** Grant manager only, with a reason: approve (lines become requests) or return a submitted plan. */
+  decide_plan: { id: string; choice: 'approve' | 'return'; reason: string };
   /** Runs every spending rule against a grant (default: the one asked for) and stores the verdicts on the request. No money moves. */
   evaluate_request: { requestId: string; grantId?: string; split: Split[] };
   /** buy and reroute recheck the rules and are refused unless every rule passes; hold sends it to the Inbox; block refuses it. */

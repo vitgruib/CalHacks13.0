@@ -8,6 +8,8 @@ import { DbConnection } from '../module_bindings'
 import { toDb, toSourceCheck, WORLD_TABLES } from './adapter'
 import { applyAdvanceDays, applyInvoice, applyStatusEvent, Ctx, type Store } from './store'
 import type { Researcher } from '../people'
+import { planTotal, type Plan, type Report } from '../spendguard/assess'
+import { planLines, type PlanStatus, type SavedPlan } from '../spendguard/store'
 import type { Db, PersonId, SourceCheck } from './types'
 
 export const STDB_URI: string = import.meta.env.VITE_STDB_URI || 'ws://localhost:3000'
@@ -65,6 +67,17 @@ function connectAs(
   return { get: () => conn, stop: () => { stopped = true; conn.disconnect() } }
 }
 
+/** The module's plan rows (T71) in the windows' shape; newest first. */
+function toPlans(db: DbConnection['db']): SavedPlan[] {
+  return [...db.plan.iter()].map(p => ({
+    id: p.id, researcher: p.researcher, status: p.status as PlanStatus, savedOn: p.savedOn,
+    submittedOn: p.submittedOn || undefined, sentOn: p.sentOn || undefined,
+    decision: p.decisionChoice ? { choice: p.decisionChoice as 'approve' | 'return', reason: p.decisionReason, day: p.decisionDay } : undefined,
+    plan: JSON.parse(p.body) as Plan,
+    report: p.report ? JSON.parse(p.report) as Report : undefined,
+  })).sort((a, b) => b.savedOn.localeCompare(a.savedOn) || b.id.localeCompare(a.id))
+}
+
 const msg = (e: unknown) => (e instanceof Error ? e.message : String(e))
 
 export function LiveStoreProvider({ children, onFail, renderStatus }: {
@@ -74,6 +87,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
   renderStatus: (info: LiveInfo) => ReactNode
 }) {
   const [db, setDb] = useState<Db | null>(null)
+  const [plans, setPlans] = useState<SavedPlan[]>([])
   const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null, asOf: null, grantAsOf: {} })
   const [status, setStatus] = useState<LiveInfo['status']>('live')
   const [notices, setNotices] = useState<LiveInfo['notices']>([])
@@ -99,7 +113,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
         const rebuild = () => {
           if (!synced || queued) return
           queued = true
-          queueMicrotask(() => { queued = false; if (!stopped) { setDb(toDb(c.db)); setSourceCheck(toSourceCheck(c.db)) } })
+          queueMicrotask(() => { queued = false; if (!stopped) { setDb(toDb(c.db)); setSourceCheck(toSourceCheck(c.db)); setPlans(toPlans(c.db)) } })
         }
         for (const name of WORLD_TABLES) {
           const t = c.db[name] as unknown as { onInsert(cb: () => void): void; onUpdate(cb: () => void): void; onDelete(cb: () => void): void }
@@ -112,6 +126,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
             const next = toDb(c.db)
             setDb(next)
             setSourceCheck(toSourceCheck(c.db))
+            setPlans(toPlans(c.db))
             setStatus('live')
             // A wiped world: load the demo world so the windows have something.
             if (next.grants.length === 0) c.reducers.loadSeed({ json: JSON.stringify(seed) }).catch(e => notify(`Loading the demo seed failed: ${msg(e)}`))
@@ -195,6 +210,26 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
     checkNow: async (asOf, grantId) => {
       if (!manager.current || status !== 'live') throw new Error('not connected to the server; reload to reconnect')
       await conn().reducers.requestCheck({ grantId, reason: 'check_now', asOf })
+    },
+    plans,
+    savePlan: (p, by) => {
+      call('Plan', async () => {
+        const c = await asResearcher(by)
+        await c.reducers.savePlan({
+          id: p.id, status: p.status, grantId: p.plan.grantId, experiment: p.plan.experiment, total: planTotal(p.plan.items),
+          overall: p.report?.overall ?? '', lines: planLines(p), body: JSON.stringify(p.plan), report: p.report ? JSON.stringify(p.report) : '',
+        })
+      })
+    },
+    deletePlan: (id, by) => {
+      call('Deleting the plan', async () => {
+        const c = await asResearcher(by)
+        await c.reducers.deletePlan({ id })
+      })
+    },
+    decidePlan: (id, choice, reason) => {
+      if (!reason.trim()) throw new Error('A reason is required.')
+      call('Plan decision', () => conn().reducers.decidePlan({ id, choice, reason }))
     },
     loadDemoSeed: () => call('Loading the demo seed', () => conn().reducers.loadSeed({ json: JSON.stringify(seed) })),
   }
