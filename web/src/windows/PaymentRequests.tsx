@@ -4,6 +4,7 @@ import type { Db, FollowUp, PaymentRequest } from '../data/types'
 import { useStore } from '../data/store'
 import { Badge, Empty, Section, money, type Tone } from '../ui'
 import './PaymentRequests.css'
+import { grantHeading } from '../plain'
 
 const LIMIT = 1_000
 
@@ -82,7 +83,7 @@ function RequestCard({ pr }: { pr: PaymentRequest }) {
       aside={<span className="pr-head"><strong>{money(pr.amount)}</strong> <Badge tone={st.tone}>{st.label}</Badge></span>}
     >
       <div className="pr">
-      {grant && <p className="pr-sub">{grant.title}{grant.frozen && <> · <Badge tone="bad">Grant frozen</Badge></>}</p>}
+      {grant && <p className="pr-sub">{grantHeading(grant)}{grant.frozen && <> · <Badge tone="bad">Grant frozen</Badge></>}</p>}
       <InboxLink waiting={waiting} />
 
       <h3>Explanation</h3>

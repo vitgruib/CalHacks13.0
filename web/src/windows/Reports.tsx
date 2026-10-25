@@ -5,6 +5,7 @@ import type { ReportPaper } from '../data/types'
 import { useStore } from '../data/store'
 import { Badge, Empty, Section, type Tone } from '../ui'
 import './Reports.css'
+import { grantHeading } from '../plain'
 
 const resultBadge: Record<ReportPaper['result'], { label: string; tone: Tone }> = {
   ok: { label: 'OK', tone: 'good' },
@@ -85,7 +86,7 @@ export default function Reports() {
             title={`Progress report: ${id}`}
             aside={<span className="rp-summary">{plural(papers.length, 'paper')} · {held} held · {plural(notes, 'note')}{checked.length < papers.length && ` · ${papers.length - checked.length} not checked yet`}</span>}
           >
-            {grant && <p className="rp-sub">{grant.title}</p>}
+            {grant && <p className="rp-sub">{grantHeading(grant)}</p>}
             {papers.map(p => <Paper key={p.id} p={p} />)}
           </Section>
         )

@@ -16,8 +16,15 @@ export { CARD_LIMIT, trulyAvailable }
  *   "Stereolithographic Micro-Manufacturing of Crystalline Frameworks for Carbon Capture"
  */
 const HEADINGS: Record<string, { title: string; short: string }> = {
-  R01GM061721: { title: "NIH grant - Imaging Brain Interventions Against Alzheimer's Disease", short: "Alzheimer's imaging" },
-  R21AI182745: { title: 'Designing Novel RNA Therapeutics Against Neurological Diseases', short: 'RNA therapeutics' },
+  R01GM061721: { title: "Alzheimer's imaging", short: "Alzheimer's imaging" },
+  R21AI182745: { title: 'RNA therapeutics', short: 'RNA therapeutics' },
+  // The edge-case grants (cut scripts): a few words for each real title.
+  R01AI178875: { title: 'Drug-resistant bacteria', short: 'Drug-resistant bacteria' },
+  R01GM155497: { title: 'Cell cycle control', short: 'Cell cycle control' },
+  R01HL176691: { title: 'Heart muscle metabolism', short: 'Heart muscle metabolism' },
+  R01GM105672: { title: 'Nuclear envelope repair', short: 'Nuclear envelope repair' },
+  K01DK133670: { title: 'Gut microbes and obesity', short: 'Gut microbes and obesity' },
+  F31DC022138: { title: 'Smell circuits', short: 'Smell circuits' },
 }
 
 /** The heading shown for a grant. */

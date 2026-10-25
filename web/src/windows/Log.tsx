@@ -5,6 +5,7 @@ import { useStore } from '../data/store'
 import type { Actor, Db, LogRow } from '../data/types'
 import { Badge, Empty, money } from '../ui'
 import './Log.css'
+import { grantHeading } from '../plain'
 
 const actorLabel: Record<Actor, string> = {
   purchasing: 'Purchasing agent',
@@ -22,7 +23,7 @@ interface RefSummary { kind: string; summary: string; href?: string }
 /** Find what a log row points at, across every collection. */
 function lookupRef(db: Db, id: string): RefSummary | undefined {
   const g = db.grants.find(x => x.id === id)
-  if (g) return { kind: 'Grant', summary: `${g.id}: ${g.title}`, href: '#funds' }
+  if (g) return { kind: 'Grant', summary: `${grantHeading(g)} (${g.id})`, href: '#funds' }
   const se = db.statusEvents.find(x => x.id === id)
   if (se) return { kind: 'Status event', summary: `${se.day}, ${se.grantId}: ${se.summary} (source: ${se.source})`, href: '#funds' }
   const sr = db.sourceReadings.find(x => x.id === id)
