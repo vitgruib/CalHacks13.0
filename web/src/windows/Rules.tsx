@@ -6,14 +6,12 @@
 // copied here and noted where.
 import { SUPPLY_CATEGORIES, UNALLOWABLE_CATEGORIES, usd } from '../../../server/src/rules'
 import { CARD_LIMIT } from '../../../server/src/vocab'
-import { useStore } from '../data/store'
-import type { PurchaseRequest } from '../data/types'
-import { Badge, Section } from '../ui'
+import { Section } from '../ui'
 import './Rules.css'
 
 interface SpendingRule { rule: string; checks: string; fails: string; source?: string }
 
-// Names exactly as spendingVerdicts writes them, so the counts below match.
+// Names exactly as spendingVerdicts writes them.
 const SPENDING: SpendingRule[] = [
   {
     rule: 'Grant is active and not frozen',
@@ -104,12 +102,7 @@ const AGENT: AgentCheck[] = [
   },
 ]
 
-const failedRule = (r: PurchaseRequest, rule: string) => r.verdicts.some(v => v.rule === rule && !v.pass)
-
 export default function Rules() {
-  const { db } = useStore()
-  const checked = db.requests.filter(r => r.verdicts.length > 0)
-
   return (
     <>
       <Section title="How a request is decided">
@@ -130,28 +123,22 @@ export default function Rules() {
                 <th scope="col">Rule</th>
                 <th scope="col">Passes when</th>
                 <th scope="col">If it fails</th>
-                <th scope="col" className="rules-num">Caught</th>
               </tr>
             </thead>
             <tbody>
-              {SPENDING.map(s => {
-                const caught = checked.filter(r => failedRule(r, s.rule)).length
-                return (
-                  <tr key={s.rule}>
-                    <th scope="row">{s.rule}</th>
-                    <td>
-                      {s.checks}
-                      {s.source && <div className="rules-source">From: {s.source}</div>}
-                    </td>
-                    <td>{s.fails}</td>
-                    <td className="rules-num">{caught ? <Badge tone="warn">{caught}</Badge> : <span className="rules-zero">0</span>}</td>
-                  </tr>
-                )
-              })}
+              {SPENDING.map(s => (
+                <tr key={s.rule}>
+                  <th scope="row">{s.rule}</th>
+                  <td>
+                    {s.checks}
+                    {s.source && <div className="rules-source">From: {s.source}</div>}
+                  </td>
+                  <td>{s.fails}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-        <p className="rules-note">Caught: requests whose latest check failed the rule, of {checked.length} checked.</p>
       </Section>
 
       <Section title="Before a request is sent" aside={<span className="rules-note">On the researcher's Requests page</span>}>
