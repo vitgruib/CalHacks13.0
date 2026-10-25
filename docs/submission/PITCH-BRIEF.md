@@ -15,15 +15,13 @@ Tag legend, same as `docs/research/README.md`:
 - `[scrape]` verbatim text saved in `docs/research/sources/`
 - `[ours]` our own measurement; scope stated next to it
 - `[gap]` something judges may ask for that we don't have yet; don't claim it
-- `[eval WIP]` an evaluation result that is still being worked on; **don't use it** in the pitch, slides, Devpost or Q&A
 
-> **EVALS ARE A WORK IN PROGRESS. DO NOT USE THEM YET.** Every scorecard and
-> real-audit replay number in this file (planted mistakes caught, decoys,
-> false alarms, real findings caught/missed) is tagged `[eval WIP]`. Don't put
-> any of them in the pitch, slides, Devpost text or judge answers until the
-> team says the evals are final and this banner is removed. You may say *that*
-> we evaluate (replay against an answer key, counting misses and false alarms
-> on decoys), not *what it scored*.
+> **The evals are final (T113-T115) and safe to quote.** Every eval is built
+> from real cases only, each citing a saved source, and the check fails if a
+> cited fact isn't in its source. Quote them with their misses and false
+> alarms. Don't quote the old 12/12 planted-mistakes scorecard: its cases
+> are made up, so it is only a regression test now. Numbers: section 0
+> (`evals`) and README "Real audit findings".
 
 ---
 
@@ -60,10 +58,17 @@ stack:
   web: Vite + React 19 + TypeScript on Vercel, live subscriptions to the database
   data: NIH RePORTER, USAspending, Grant Witness cancellation list via our Apify Actor, Crossref, PubMed
   ci: GitHub Actions publish the module and redeploy the Azure worker on push
-scorecard_planted:  # [eval WIP] do not use yet
-  {mistakes: 12, caught: 12, missed: 0, decoys: 4, false_alarms: 0}   # eval/scorecard.json
-scorecard_real_audits:  # [eval WIP] do not use yet
-  {findings: 42, in_scope: 25, caught: 18, missed: 7, decoys: 4, false_alarms: 0}  # eval/real-findings.json
+evals:  # [ours] final, real cases only (T113-T115); run by ./check.sh
+  fund_tracker_real_grants:   # eval/fund-tracker-real.json; 37 real NIH grants from Grant Witness, replayed monthly
+    {grants: 37, checks: 73, should_freeze_or_flag: 38, caught: 38, missed: 0, should_be_open: 35, passed: 30, false_alarms: 5}
+    # all 5 false alarms: a lifted freeze ("Unfrozen" on Grant Witness) doesn't unfreeze the grant
+  real_audit_findings:        # eval/real-findings.json; questioned costs from NSF-OIG audits, graded by the funder's decision
+    {findings: 42, in_scope: 24, stopped: 18, missed: 6, funder_allowed_costs: 2, passed: 2, false_alarms: 0, out_of_scope: 18}
+    # funder-disallowed 6/6 stopped; auditor-only 8/8; auditee-agreed 2/4; partly allowed 2/4
+  item_check_real_items:      # eval/item-check-real.json; Claude Haiku on items from NSF-OIG audits and NSF letters
+    {items: 39, unallowable: 28, flagged: 28, missed: 0, accepted: 11, passed: 5, false_alarms: 6}
+    # leans toward flagging: budgeted lunches, fieldwork shirts, items with no purpose given
+regression_test_not_a_result: eval/scorecard.json (16 made-up cases on the sim seed; check.sh fails on any miss)
 tracks: [Hyphenate (primary), Microsoft Built for the Real World + Customer Impact Award, Anthropic, SpacetimeDB, Apify, Meta, Cal Hacks general]
 judging_format: 3 min pitch + 2 min questions, live demo, whole team present
 ```
@@ -78,8 +83,8 @@ cuts. In the pitch:
 | "Three agents / three seats" (purchasing agent, grant accountant, payment & report preparer) | One working seat: the **grant accountant** (bookkeeping agent). The purchasing agent was cut; the grant manager approves every request | DECISIONS T108 |
 | "The agent buys on its own" / "reroutes to grant B" | The AI **never buys and never rejects**. It flags with reasons; the human approves or rejects | DECISIONS T101, T108 |
 | Payment-request justifications, "Defend the Spend" drafting, progress-report checker | **Out of scope** (code still in repo, hidden and unscored) | DECISIONS T105 |
-| "14 of 14 caught, 5 decoys" | No scorecard numbers at all for now `[eval WIP]`; current file reads 12 of 12, 4 decoys, 0 false alarms | `eval/scorecard.json` |
-| "Real findings: 22 of 27" (README) | No real-findings numbers for now `[eval WIP]`; current file reads 18 of 25 in scope (42 findings) and disagrees with the README | `eval/real-findings.json` |
+| "14 of 14 caught, 5 decoys" / "12 of 12 caught, 4 decoys" | Made-up cases; now only a regression test. Quote the real-case evals instead (section 0 `evals`) | `eval/scorecard.json` |
+| "Real findings: 22 of 27" | 18 of 24 in scope stopped, 6 missed; 2 of 2 funder-allowed costs passed (42 findings) | `eval/real-findings.json` |
 | "GrantGuard" | **Grant Test Auto** | DECISIONS (rename) |
 | "Test lab" window | **Demo controls** | DECISIONS T67 |
 | Claude reads the court notice text | Court orders arrive as ready-made status events; text parsing is a stretch, not built | DECISIONS 01:25 Sun |
@@ -258,7 +263,8 @@ drift apart.
   price for a pack of 10 [ours, `agent-purchasing.md`].
 - **The cost of a false "yes" is real money repaid to the government; the
   cost of a false "no" is stalled research.** Both false alarms and misses
-  have to be measured, which is why the scorecard counts decoys (results `[eval WIP]`).
+  have to be measured, which is why every eval counts false alarms on costs
+  that were really allowed (item check: 0 misses but 6 of 11 false alarms) [ours].
 - **Fail-open is the default danger:** an earlier truncated model answer
   turned a flag into a purchase (fixed; and the AI can no longer buy).
 - **Segregation of duties must hold against the model itself:** a prompt
@@ -276,7 +282,7 @@ drift apart.
 | Cross-record checks (the audit failures) | Invoice checks against the order, its other invoices and dates (duplicate, canceled order, bill before order); same-day split-purchase rule; effort over 100% |
 | LLM output that quotes records | Code verifies every ID and amount in generated text; anything not in the records falls back to a template |
 | Reliable live demo with flaky outside APIs and paid model calls | Every outside lookup and Claude answer is saved and keyed by model; deterministic fallbacks; web falls back to bundled seed |
-| Proving it works without real lab data | Seed generator, validator, answer key with planted mistakes and decoys, replay harness, plus real audit findings rebuilt as records (results `[eval WIP]`) |
+| Proving it works without real lab data | Seed generator, validator, answer key with planted mistakes and decoys, replay harness, plus three evals on real cases only: real grants, real audit findings, real audited items |
 | Schema evolution on a live hosted database | Additive-only contract changes so maincloud migrates without wiping data; CI blocks a worker redeploy until the matching module publish succeeds |
 | Four people and many coding agents on one repo in 36 hours | Lanes by directory, a shared contract in `server/`, `./check.sh` gate before every push, tasks/decisions logs |
 
@@ -591,14 +597,17 @@ Illinois, Berkeley CEE, CU Boulder, UCF, Ohio State, UC Riverside;
 7. **Limits the AI can't talk past.** Segregation of duties and the money
    rules are enforced by the database per identity, so a wrong or
    manipulated model output can't approve or spend anything.
-8. **Being measured.** We're building an eval that replays planted
-   mistakes, decoys and real audit findings, counting misses and false
-   alarms. Results are `[eval WIP]`: don't quote them yet.
+8. **Measured on real cases.** Fund tracker on 37 real NIH grants: 38 of 38
+   freezes and flags caught, 5 false alarms (lifted freezes). Real audit
+   findings: 18 of 24 stopped, both funder-allowed costs passed. Claude's
+   item check on 39 real audited items: 28 of 28 flagged, 6 of 11 allowed
+   items falsely flagged [ours].
 
 **Honest limits:** it sits beside the ERP rather than replacing it; the lab
 data in the demo is simulated; there's no receiving-record or cost-transfer
-check yet (the data has no such records); and the evals are still in
-progress `[eval WIP]`.
+check yet (the data has no such records); the evals replay real cases
+from public records, not a live lab; and the item check over-flags food,
+clothing and items with no stated purpose.
 
 ## 3D. The outside sources we read, and what each one tells us
 
@@ -692,7 +701,7 @@ R01GM061721 (real NIH award), Grant B = R21AI182745 (real, ends 2026-08-31).
    Delaware audits).
 4. **Invoices:** a bill for an order canceled 2026-03-02 is held with its
    timeline; the judge decides it, reason required.
-5. ~~Scorecard~~ `[eval WIP]`: skip the scorecard in the demo until the evals are final.
+5. **Evals:** Demo controls → Fund tracker on real grants / Real audit findings / Item check on real audited items. Lead with 0 misses and say the false alarms out loud.
 
 Fallbacks: the web app falls back to bundled seed data ("Offline demo data"
 badge) if the database is unreachable; agents run on saved Claude answers
@@ -730,7 +739,7 @@ and code fallbacks with no API key.
   https://calhacks130.vercel.app themselves.
 - **Tested:** `./check.sh` runs typecheck + tests in every package (server
   67 tests, agents 227, eval 10, scrapers 11 at last QA run) and the
-  scorecard on every push (results `[eval WIP]`); QA click-path checks logged in `PROGRESS.md`.
+  three real-case evals on every push (section 0 `evals`); QA click-path checks logged in `PROGRESS.md`.
 - **Resilient demo:** offline fallback in the web app; saved Claude answers
   and deterministic fallbacks; cached outside lookups.
 - **Understandable UI:** one job per window; plain-language explanations on
@@ -754,7 +763,8 @@ and code fallbacks with no API key.
 - **Rules that cite the audit they come from,** so the warning arrives
   before the purchase, not years later in an audit.
 - **Proof built from real audits:** real questioned costs from audit reports
-  rebuilt as test cases (`eval/real-findings.mjs`); results `[eval WIP]`.
+  rebuilt as test cases (`eval/real-findings.mjs`): 18 of 24 in scope stopped,
+  6 missed, 0 false alarms [ours].
 
 ### 5.4 Technical complexity
 
@@ -784,7 +794,8 @@ Talking points that show depth:
   worker only after that commit's publish succeeds (a worker once crashed
   subscribing to a table maincloud didn't have yet).
 - **Evaluation:** replay harness scores the real module + agents against an
-  answer key, counting misses *and* false alarms on decoys (results `[eval WIP]`).
+  answer key; three evals on real cases only count misses *and* false alarms
+  (section 0 `evals`).
 
 ### 5.5 Intentionality (responsible AI)
 
@@ -814,8 +825,8 @@ was unsafe.
   [verified]; clearer balances and earlier warnings protect labs from
   disallowed costs they'd have to repay, and help keep research funded
   through cancellations.
-- **Honest scope:** the lab is simulated and the evals are still in progress
-  `[eval WIP]`; no field results.
+- **Honest scope:** the lab is simulated; the evals replay real public
+  records (grants, audits), not a live lab, so these are not field results.
 
 ---
 
@@ -828,7 +839,7 @@ proof it works (what's real, simulated, how we know).
 
 | Criterion | Our answer |
 |---|---|
-| Is it real enough? | Real NIH grant records; real scrape of the cancellation list; simulated lab with planted mistakes modeled on real audits plus decoys; eval results `[eval WIP]`, don't quote numbers |
+| Is it real enough? | Real NIH grant records; real scrape of the cancellation list; simulated lab; evals on real cases only: 37 real grants (38/38 caught, 5 false alarms), 42 real audit findings (18/24 stopped), 39 real audited items (28/28 flagged, 6 false alarms) |
 | Would you hire it? | Seat: grant accountant. Limited access (one role per identity, can't decide Inbox items), clean record (Log + "why?" on every row), knows when to ask (disagreeing sources, flagged rules, held invoices all go to the human with evidence) |
 | Did we see something new? | Post-award grant office during the 2025–26 cancellations; status as a multi-source dated timeline |
 | The moment | Court restores a grant; it still flags spending until money arrives; then every rule passes and the manager approves |
@@ -866,9 +877,9 @@ The Customer Impact Award favors real user conversations.
 | Microsoft criterion | Evidence |
 |---|---|
 | **Customer understanding** | Named customer: a university lab's grant office (grant manager + researchers). Research base of 15+ pain-point files with sources (`docs/research/pain-points/`); real procedures from Kentucky, NIU, Berkeley CEE, CU Boulder, UC Riverside show approval starts in email and checks repeat; researcher quotes from r/AskAcademia and r/NIH; UC Senate and FDP survey on balance visibility. Lifecycle mirrors how labs actually buy: request → approve → buy → invoice → approve invoice. `[gap]` no first-hand interview yet |
-| **Measurable usefulness** | Eval scores are `[eval WIP]`: don't quote them. Use instead: the size of the measured problem (44.3% of research time on admin, 94% of NSF university audits with unallowable costs, 5,098 NIH awards disrupted); each check maps to a real audit failure it would have caught before the money moved (e.g. UW-Madison $56,965 after award end, USC $304,290 near expiry); on the demo's real grant, the tracker surfaces the $2.2M gap between RePORTER and USAspending and the pay-after-restoration signal from real outlays. Say we are building an eval that counts misses and false alarms, results coming |
+| **Measurable usefulness** | Evals on real cases [ours]: fund tracker 38 of 38 caught on 37 real NIH grants (5 false alarms); real audit findings 18 of 24 stopped, 0 false alarms; item check 28 of 28 unallowable items flagged (6 of 11 allowed items over-flagged). Plus the size of the measured problem (44.3% of research time on admin, 94% of NSF university audits with unallowable costs, 5,098 NIH awards disrupted); each check maps to a real audit failure it would have caught before the money moved (e.g. UW-Madison $56,965 after award end, USC $304,290 near expiry); on the demo's real grant, the tracker surfaces the $2.2M gap between RePORTER and USAspending and the pay-after-restoration signal from real outlays. |
 | **Path from prototype to production** | Already runs as a production-shaped system: always-on **Azure VM** (systemd service, auto-restart) for the agent worker; hosted SpacetimeDB; Vercel web; CI/CD via GitHub Actions (module publish gated by the check; worker redeploys only after the matching publish succeeds); secrets only on the VM and in GitHub secrets; cost control (Haiku on the hosted worker, saved answers replayed first). Simulated ERP and government systems sit behind the same database actions a real integration would call. Next: SSO for the grant manager, a read-only "suggest" rollout, a pilot with one research administration office, a real ERP connector |
-| **Responsible design** | Human approves every purchase and invoice; AI never buys or rejects (cut after our own test showed inconsistency; §5.5). Segregation of duties in code. Reason required for every decision. Append-only log with "why?". Conservative money rule (court order ≠ cash). Fails safe to human review. Real-vs-simulated labeled in the UI; real investigators' names and work never described. Evals count misses and false alarms, not just catches (results `[eval WIP]`) |
+| **Responsible design** | Human approves every purchase and invoice; AI never buys or rejects (cut after our own test showed inconsistency; §5.5). Segregation of duties in code. Reason required for every decision. Append-only log with "why?". Conservative money rule (court order ≠ cash). Fails safe to human review. Real-vs-simulated labeled in the UI; real investigators' names and work never described. Evals count misses and false alarms, not just catches, and we publish the false alarms |
 | **End-to-end functionality** | Live at https://calhacks130.vercel.app: researcher portal → Haiku item check → database rules → grant-office approval → invoice match → charge grant and reimburse; fund tracker reads real sources and freezes/unfreezes live across all windows |
 | **Customer Impact Award** | Strongest lever is a real conversation: interview kit is ready (`docs/submission/INTERVIEW-KIT.md`, Q10 "what would you never let it do without you?", Q11 "what would make you trust or distrust this?"). Until then, lean on documented user evidence above and say plainly it's secondary research |
 
@@ -904,7 +915,7 @@ purchase and invoice.
 | 0:20 | Problem | 5,098 NIH awards disrupted, 85% marked restored, the main case still at the Supreme Court; 94% of NSF university audits find unallowable costs |
 | 0:40 | Who it's for | The grant office and its researchers; seat = grant accountant; the judge is the grant manager |
 | 0:50 | Live demo | Steps 2–4 of §4: flagged request with "why?", payment lands + pick source, approve; held canceled-order invoice, judge decides with a reason |
-| 2:10 | Proof | `[eval WIP]` no eval numbers yet. Use instead: the rules cite real audit cases (WVU, Delaware, UC Davis, NSF-OIG), and the demo runs on real NIH grant records and the real cancellation list |
+| 2:10 | Proof | Real cases only: on 37 real NIH grants the tracker caught 38 of 38 freezes and flags; Claude's item check flagged 28 of 28 unallowable items from real audits, with 6 false alarms we show; 18 of 24 real audit findings stopped |
 | 2:25 | Responsible design | "We tested letting the AI buy. Same request, different answers. So the AI flags and a person decides. Limits are in the database, not the prompt." |
 | 2:40 | Real world | Live on Azure + SpacetimeDB + Vercel; next: pilot with one research office, read-only first |
 | 2:55 | Close | "Try your own scenario." |
@@ -915,7 +926,7 @@ purchase and invoice.
 |---|---|
 | Why not let the AI approve small purchases? | We tried. 3 runs of 23 requests: never bought a bad one, but the same laptop was held twice and bought once. The university is liable for every cost (2 CFR 200.303). So it flags, a person decides |
 | What's real vs simulated? | Real: grant IDs/titles/end dates, the cancellation list scrape, audit cases, the rules code, Claude calls. Simulated: the lab, people, purchases, invoices, amounts, the cancel/court/payment timeline |
-| How do you know it works? | Every rule is tested in the module's test suite and the demo path is checked by hand; we're building an eval that replays planted mistakes, decoys and real audit findings, counting misses and false alarms. Results `[eval WIP]`: say it's in progress, give no numbers |
+| How do you know it works? | Every rule is tested in the module's test suite and the demo path is checked by hand; three evals on real cases only, each citing its source: 37 real grants (38/38, 5 false alarms), 42 audit findings (18/24 stopped, 0 false alarms), 39 audited items (28/28, 6 false alarms) |
 | What if sources disagree? | The grant freezes and the manager picks a source, with a reason, logged |
 | Can an agent approve its own work? | No. The database rejects it by caller identity, whatever the prompt says |
 | What if Claude is down? | Saved answers and deterministic fallbacks; anything uncertain goes to a human |
@@ -929,6 +940,6 @@ purchase and invoice.
 - [ ] Re-check Supreme Court docket 26-210 before saying "pending"
 - [ ] Ask organizers how to enter Anthropic and SpacetimeDB
 - [ ] Update `DEVPOST-DRAFT.md` and `DEMO-SCRIPT.md` from §1 (stale claims)
-- [ ] Finish the evals; then replace every `[eval WIP]` in this file and remove the banner at the top
-- [ ] README's real-findings line (22/27) disagrees with `eval/real-findings.json` (18/25); settle when the evals are final
+- [x] Finish the evals; then replace every `[eval WIP]` in this file and remove the banner at the top (T113-T115)
+- [x] README's real-findings line (22/27) disagrees with `eval/real-findings.json` (18/25); settle when the evals are final (now 18/24 in both)
 - [ ] Reset the live demo world right before judging
