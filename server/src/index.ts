@@ -155,8 +155,9 @@ function recomputeGrant(ctx: Ctx, id: string, actor = 'system'): void {
       rule: fs.frozen ? 'Canceled or disputed grants freeze' : 'Only a payment (or the grant manager) makes it active again',
       refId: id,
     });
-    resendWaiting(ctx, id);
   }
+  // The verdicts quote the freeze reason, so refresh them whenever it changes, not only when the freeze flips.
+  if (fs.frozen !== g.frozen || fs.status !== g.status || (fs.frozenReason ?? '') !== (g.frozenReason ?? '')) resendWaiting(ctx, id);
 }
 
 /**
@@ -575,7 +576,7 @@ export const decide_hold = spacetimedb.reducer(
   (ctx, { holdId, choice, reason }) => guard(() => {
     const who = requirePerson(ctx, 'grant_manager');
     const h = ctx.db.hold.id.find(holdId) ?? fail(`No hold ${holdId}.`);
-    if (!h.open) fail('Already decided.');
+    if (!h.open) fail('This item was already decided or replaced; check it again.');
     const c = oneOf('choice', CHOICES, choice);
     if (!h.options.includes(c)) fail(`This item can't be decided with "${c}"; options: ${h.options.join(', ')}.`);
     if (!reason.trim()) fail('A reason is required.');
@@ -626,7 +627,11 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       const decided = (what: string) => [...inv.timeline, { day: today(ctx), what: `${what}: ${reason}` }];
       if (c === 'approve') {
         const o = ctx.db.order.id.find(inv.orderId);
-        ctx.db.invoice.id.update({ ...inv, timeline: [...decided('Approved by the grant office'), { day: today(ctx), what: `Charged to ${o?.grantId ?? 'the grant'}; the researcher is reimbursed` }] });
+        // An order that is already paid is never charged twice; say so instead of claiming a charge.
+        const charge = o?.state === 'paid'
+          ? `Not charged: order ${o.id} was already paid, so ${o.grantId ?? 'the grant'} is not charged twice`
+          : `Charged to ${o?.grantId ?? 'the grant'}; the researcher is reimbursed`;
+        ctx.db.invoice.id.update({ ...inv, timeline: [...decided('Approved by the grant office'), { day: today(ctx), what: charge }] });
         payInvoice(ctx, inv.id);
       } else if (c === 'reject') ctx.db.invoice.id.update({ ...inv, state: 'rejected', timeline: decided('Rejected by the grant manager') });
       else if (c === 'ask_vendor') {

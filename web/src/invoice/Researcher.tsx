@@ -150,7 +150,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   )
 
   const tab = (v: Menu, label: string, n: number) => (
-    <button type="button" className={`iv-tab${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => { setForm(null); setView(v) }}>
+    <button key={v} type="button" className={`iv-tab${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => { setForm(null); setView(v) }}>
       {label} <span className="iv-count">{n}</span>
     </button>
   )

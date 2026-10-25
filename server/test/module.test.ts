@@ -383,6 +383,22 @@ test('a second bill for an order already paid is held, not paid twice', () => {
   expect(db().grant.id.find('R21AI182745').spent).toBe(spent);
 });
 
+test('approving a held second bill for an already-paid order says it was not charged, and charges nothing', () => {
+  const oid = boughtOrder();
+  call('gm', mod.inject_invoice, { orderId: oid, amount: 380 });
+  const first = rows('invoice').find(i => i.orderId === oid && !i.checked);
+  call('bk', mod.check_invoice, { invoiceId: first.id });
+  approve(first.id);
+  const spent = db().grant.id.find('R21AI182745').spent;
+  call('gm', mod.inject_invoice, { orderId: oid, amount: 380 });
+  const again = rows('invoice').find(i => i.orderId === oid && !i.checked);
+  call('bk', mod.check_invoice, { invoiceId: again.id });
+  const hold = rows('hold').find(x => x.open && x.refId === again.id);
+  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'Vendor insists.' });
+  expect(db().invoice.id.find(again.id).timeline.at(-1).what).toMatch(/^Not charged/);
+  expect(db().grant.id.find('R21AI182745').spent).toBe(spent);
+});
+
 test('a request an older client declares shared is checked like any other: no shared-cost rule', () => {
   call('sci', mod.submit_request, {
     item: 'Confocal time', category: 'core facility services', price: 900, grantId: B, purpose: 'Both aims', sharedWith: [B, A], oneGrantBasis: 'Same slides.',
