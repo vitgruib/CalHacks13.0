@@ -134,9 +134,13 @@ interface Tween {
   toT: Vector3
   t0: number
   ms: number
+  /** Ease out only (the opening crane: moving from its first frame, settling slowly). */
+  out?: boolean
   lift: number
 }
 
+/** Embedded, the crane waits this long for the still to dip out (demo-a1.css), ms. */
+const CRANE_DIP = 220
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
 const UP = new Vector3(0, 1, 0)
 const DRIFT = (1.5 * Math.PI) / 180
@@ -188,8 +192,12 @@ function Rig() {
       camera.position.copy(OPENING.pos)
       c.target.copy(OPENING.target)
       // t0 waits for the scene to be ready (Warm), so the crane plays in full as the canvas fades in.
-      tween.current = opening.current = { fromP: OPENING.pos.clone(), toP: hero.pos.clone(), fromT: OPENING.target.clone(), toT: hero.target.clone(), t0: Infinity, ms: 4600, lift: 2.5 }
-      if (embed.get().on) embed.set({ settled: false })
+      tween.current = opening.current = { fromP: OPENING.pos.clone(), toP: hero.pos.clone(), fromT: OPENING.target.clone(), toT: hero.target.clone(), t0: Infinity, ms: 4000, lift: 2.5, out: true }
+      if (embed.get().on) {
+        embed.set({ settled: false })
+        // The landing's still is the end framing, so it dips out before the canvas fades in on the crane's first frame (demo-a1.css).
+        gl.domElement.closest('.demo-a1')?.setAttribute('data-crane', '')
+      }
     }
     camera.lookAt(c.target)
     const stop = () => {
@@ -247,7 +255,7 @@ function Rig() {
     const s = ui.get()
     const tw = tween.current
     if (tw) {
-      if (tw.t0 === Infinity && gl.domElement.closest('.demo-a1')?.hasAttribute('data-ready')) tw.t0 = performance.now()
+      if (tw.t0 === Infinity && gl.domElement.closest('.demo-a1')?.hasAttribute('data-ready')) tw.t0 = performance.now() + (embed.get().on ? CRANE_DIP : 0)
       // Selected things that move: aim the glide at where they are now.
       if (s.selected && (s.selected.startsWith('r:') || !NET[s.selected]) && focusPoint(s.selected, fp)) {
         dv.subVectors(fp, tw.toT)
@@ -255,7 +263,7 @@ function Rig() {
         tw.toP.add(dv)
       }
       const k = tw.ms <= 0 ? 1 : Math.min(1, Math.max(0, (performance.now() - tw.t0) / tw.ms))
-      const e = ease(k)
+      const e = tw.out ? 1 - (1 - k) ** 3 : ease(k)
       camera.position.lerpVectors(tw.fromP, tw.toP, e)
       camera.position.y += Math.sin(Math.PI * e) * tw.lift
       c.target.lerpVectors(tw.fromT, tw.toT, e)
