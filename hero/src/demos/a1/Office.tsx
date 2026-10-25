@@ -3,8 +3,9 @@
 // money a glossy liquid that freezes under a frosted bell jar with a lock.
 // Every route is a groove inlaid in the slate that lights in the colour of
 // whatever runs along it. The grant manager is a person at a desk; the
-// government sources stand along the far edge; vendors and the funder wait
-// outside on their own pedestals. Nothing carries a label at rest.
+// government sources and the funder's building stand along the far edge;
+// the vendors' warehouse sits in the front-right corner. Nothing carries a
+// label at rest, and nothing stands off the deck.
 
 import { useFrame } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
@@ -36,6 +37,8 @@ const POD = '#D6CDBF'
 const POD_D = '#BDB1A2'
 const COLUMN = '#56616F'
 const GROOVE_W = 0.15
+/** The funder and vendor stations, scaled down from their old pedestal size to sit among the pods. */
+const STATION = 0.8
 const hitMat = new MeshBasicMaterial({ visible: false })
 const noRay = () => {}
 
@@ -119,9 +122,9 @@ function build() {
     k.cyl([x, 0.105, z], 0.88, 0.01, PAL.slateDeep, 40)
   }
 
-  // Ports: notches in the plinth edge where traffic enters and leaves.
-  for (const id of ['port:lab', 'port:vendors', 'port:invoice', 'port:funder']) {
-    const [x, z] = NET[id].at
+  // The lab port: a notch in the plinth edge where the lab's parcels land.
+  {
+    const [x, z] = NET['port:lab'].at
     k.cyl([x, 0.012, z], 0.2, 0.012, PAL.groove, 24)
     k.torus([x, 0.018, z], 0.2, 0.025, '#5D6977', { rot: [PI / 2, 0, 0] }, PI * 2, 24)
   }
@@ -133,30 +136,49 @@ function build() {
     k.cyl([x, 0.27, z], 0.055, 0.46, '#7B8693', 14)
   }
 
-  // Vendors: a small warehouse on its own pedestal, cartons stacked outside.
-  {
-    const [x, y, z] = VENDORS
-    k.cyl([x, y - 0.55, z], 1.15, 1.1, PAL.clay, 40)
-    k.box([x + 0.15, y + 0.36, z - 0.05], [1.2, 0.72, 0.9], '#E3DCD0', 0.03)
-    k.box([x + 0.15, y + 0.77, z - 0.05], [1.3, 0.08, 1.0], '#9C5B3E', 0.02)
-    k.box([x - 0.47, y + 0.28, z + 0.05], [0.02, 0.5, 0.56], '#8E979F', 0.004)
-    for (let i = 0; i < 5; i++) k.box([x - 0.48, y + 0.07 + i * 0.1, z + 0.05], [0.02, 0.01, 0.54], '#6F7881', 0.001)
-    k.box([x - 0.52, y + 0.6, z + 0.05], [0.14, 0.03, 0.7], '#C98B2E', 0.01)
-    k.box([x - 0.75, y + 0.16, z + 0.62], [0.36, 0.32, 0.3], '#C9A47A', 0.02)
-    k.box([x - 0.72, y + 0.45, z + 0.6], [0.3, 0.26, 0.26], '#BE9767', 0.02)
-    k.box([x - 0.35, y + 0.13, z + 0.7], [0.3, 0.26, 0.26], '#C9A47A', 0.02)
+  // Stations scaled to the pods, each on a slate pad with a groove notch
+  // where its parcels dock.
+  const S = STATION
+  const pad = (x: number, z: number, w: number, d: number) => {
+    k.box([x, 0.02, z], [w, 0.04, d], PAL.slateDeep, 0.02)
+  }
+  const notch = (x: number, z: number) => {
+    k.cyl([x, 0.012, z], 0.17, 0.012, PAL.groove, 24)
+    k.torus([x, 0.018, z], 0.17, 0.022, '#5D6977', { rot: [PI / 2, 0, 0] }, PI * 2, 24)
   }
 
-  // The funder: a small civic building with columns on its pedestal.
+  // Vendors: a small warehouse, its roll-up door facing the deck, cartons stacked outside.
   {
-    const [x, y, z] = FUNDER
-    k.cyl([x, y - 0.55, z], 1.1, 1.1, PAL.clay, 40)
-    k.box([x, y + 0.04, z], [1.3, 0.08, 0.9], '#ECE7DF', 0.01)
-    k.box([x, y + 0.11, z], [1.18, 0.06, 0.8], '#E3DCD0', 0.01)
-    for (let i = 0; i < 4; i++) k.cyl([x - 0.42 + i * 0.28, y + 0.42, z + 0.3], 0.055, 0.56, '#F2EEE7', 14)
-    k.box([x, y + 0.42, z - 0.08], [1.0, 0.56, 0.5], '#E3DCD0', 0.02)
-    k.box([x, y + 0.74, z], [1.18, 0.08, 0.82], '#ECE7DF', 0.01)
-    k.cyl([x, y + 0.86, z], 0.42, 0.82, '#ECE7DF', 3, { rot: [PI / 2, 0, PI / 2], scale: [1.45, 1, 0.34] })
+    const [x, , z] = VENDORS
+    const y = 0.04
+    const P = (dx: number, dy: number, dz: number): V3 => [x + dx * S, y + dy * S, z + dz * S]
+    const L = (w: number, h: number, d: number): V3 => [w * S, h * S, d * S]
+    pad(x - 0.06, z + 0.1, 1.55, 1.45)
+    k.box(P(0.15, 0.36, -0.05), L(1.2, 0.72, 0.9), '#E3DCD0', 0.03)
+    k.box(P(0.15, 0.77, -0.05), L(1.3, 0.08, 1.0), '#9C5B3E', 0.02)
+    k.box(P(-0.47, 0.28, 0.05), L(0.02, 0.5, 0.56), '#8E979F', 0.004)
+    for (let i = 0; i < 5; i++) k.box(P(-0.48, 0.07 + i * 0.1, 0.05), L(0.02, 0.01, 0.54), '#6F7881', 0.001)
+    k.box(P(-0.52, 0.6, 0.05), L(0.14, 0.03, 0.7), '#C98B2E', 0.01)
+    k.box(P(-0.2, 0.16, 0.66), L(0.36, 0.32, 0.3), '#C9A47A', 0.02)
+    k.box(P(-0.17, 0.45, 0.64), L(0.3, 0.26, 0.26), '#BE9767', 0.02)
+    k.box(P(0.22, 0.13, 0.7), L(0.3, 0.26, 0.26), '#C9A47A', 0.02)
+    notch(x - 0.9, z - 0.2)
+  }
+
+  // The funder: a small civic building with columns, facing the deck.
+  {
+    const [x, , z] = FUNDER
+    const y = 0.04
+    const P = (dx: number, dy: number, dz: number): V3 => [x + dx * S, y + dy * S, z + dz * S]
+    const L = (w: number, h: number, d: number): V3 => [w * S, h * S, d * S]
+    pad(x, z + 0.05, 1.45, 1.15)
+    k.box(P(0, 0.04, 0), L(1.3, 0.08, 0.9), '#ECE7DF', 0.01)
+    k.box(P(0, 0.11, 0), L(1.18, 0.06, 0.8), '#E3DCD0', 0.01)
+    for (let i = 0; i < 4; i++) k.cyl(P(-0.42 + i * 0.28, 0.42, 0.3), 0.055 * S, 0.56 * S, '#F2EEE7', 14)
+    k.box(P(0, 0.42, -0.08), L(1.0, 0.56, 0.5), '#E3DCD0', 0.02)
+    k.box(P(0, 0.74, 0), L(1.18, 0.08, 0.82), '#ECE7DF', 0.01)
+    k.cyl(P(0, 0.86, 0), 0.42 * S, 0.82 * S, '#ECE7DF', 3, { rot: [PI / 2, 0, PI / 2], scale: [1.45, 1, 0.34] })
+    notch(x + 0.1, z + 0.9)
   }
   return k.build()
 }
@@ -560,7 +582,7 @@ function GrantManager() {
 const gmHit = new CylinderGeometry(0.75, 0.75, 1.5, 12)
 
 const agentHit = new CylinderGeometry(0.7, 0.7, 1.2, 14)
-const vendorHit = new CylinderGeometry(1.15, 1.15, 1.6, 14)
+const stationHit = new CylinderGeometry(0.72, 0.72, 1.2, 14)
 
 export function OfficePlinth() {
   const geo = useMemo(build, [])
@@ -580,10 +602,10 @@ export function OfficePlinth() {
       <Sources />
       <GrantManager />
       <Pick id="v:vendors">
-        <mesh geometry={vendorHit} material={hitMat} position={[VENDORS[0], VENDORS[1] + 0.2, VENDORS[2]] as V3} />
+        <mesh geometry={stationHit} material={hitMat} position={[VENDORS[0] - 0.1, 0.6, VENDORS[2]] as V3} />
       </Pick>
       <Pick id="p:funder">
-        <mesh geometry={vendorHit} material={hitMat} position={[FUNDER[0], FUNDER[1] + 0.2, FUNDER[2]] as V3} />
+        <mesh geometry={stationHit} material={hitMat} position={[FUNDER[0], 0.6, FUNDER[2]] as V3} />
       </Pick>
       <Zone id="net" geo={geo} />
     </group>

@@ -1,7 +1,8 @@
 // Where everything sits. One world unit is roughly a metre of lab floor.
-// The lab plinth spans x -12.2..-1.4, z -3.8..3.8; the finance plinth
-// x 1.4..10.2, z -3.4..3.4; both tops at y = 0. Vendors and the funder
-// stand outside on two small pedestals.
+// The lab plinth spans x -12.2..-1.4, z -3.8..3.8; the finance plinth is
+// its mirror, x 1.4..12.2; both tops at y = 0. The funder and the vendors
+// are small stations on the finance deck itself: the funder on the back
+// edge beside the government sources, the vendors in the front-right corner.
 
 import { Vector3 } from 'three'
 
@@ -41,7 +42,7 @@ export const R21 = 'R21AI182745'
 export const GRANT_COLOR: Record<string, string> = { [R01]: '#D0607A', [R21]: '#6F62B8' }
 
 export const LAB_BOX = { x0: -12.2, x1: -1.4, z0: -3.8, z1: 3.8 }
-export const NET_BOX = { x0: 1.4, x1: 10.2, z0: -3.4, z1: 3.4 }
+export const NET_BOX = { x0: 1.4, x1: 12.2, z0: -3.8, z1: 3.8 }
 export const LAB_X = (LAB_BOX.x0 + LAB_BOX.x1) / 2
 export const NET_X = (NET_BOX.x0 + NET_BOX.x1) / 2
 
@@ -154,25 +155,27 @@ export interface NetNode {
 }
 
 export const NET: Record<string, NetNode> = {
-  'port:lab': { at: [1.85, 0.6], r: 0.26, top: 0.12 },
-  'a:purchasing': { at: [3.35, 0.6], r: 0.62, top: 1.02 },
-  'a:payment_report': { at: [3.0, -2.1], r: 0.55, top: 0.95 },
-  'p:grant_manager': { at: [5.2, -1.45], r: 0.72, top: 0.84 },
-  'a:bookkeeping': { at: [7.6, -1.3], r: 0.6, top: 1.0 },
-  [`g:${R01}`]: { at: [5.4, 1.85], r: 1.08, top: 1.2 },
-  [`g:${R21}`]: { at: [7.9, 1.85], r: 1.08, top: 1.2 },
-  's:reporter': { at: [6.0, -2.95], r: 0.2, top: 0.62 },
-  's:usaspending': { at: [6.8, -2.95], r: 0.2, top: 0.62 },
-  's:cancellations': { at: [7.6, -2.95], r: 0.2, top: 0.62 },
-  's:court': { at: [8.4, -2.95], r: 0.2, top: 0.62 },
-  's:payments': { at: [9.2, -2.95], r: 0.2, top: 0.62 },
-  'port:vendors': { at: [10.05, 3.15], r: 0.0, top: 0.1 },
-  'port:invoice': { at: [10.05, 0.4], r: 0.0, top: 0.1 },
-  'port:funder': { at: [3.0, -3.3], r: 0.0, top: 0.1 },
+  'port:lab': { at: [1.85, -0.3], r: 0.26, top: 0.12 },
+  'a:purchasing': { at: [3.0, 0.9], r: 0.62, top: 1.02 },
+  'a:payment_report': { at: [3.9, -1.6], r: 0.55, top: 0.95 },
+  'p:grant_manager': { at: [6.5, -1.0], r: 0.72, top: 0.84 },
+  'a:bookkeeping': { at: [10.0, -0.7], r: 0.6, top: 1.0 },
+  [`g:${R01}`]: { at: [5.0, 2.4], r: 1.08, top: 1.2 },
+  [`g:${R21}`]: { at: [8.1, 2.4], r: 1.08, top: 1.2 },
+  's:reporter': { at: [5.2, -3.05], r: 0.2, top: 0.62 },
+  's:usaspending': { at: [6.6, -3.05], r: 0.2, top: 0.62 },
+  's:cancellations': { at: [8.0, -3.05], r: 0.2, top: 0.62 },
+  's:court': { at: [9.4, -3.05], r: 0.2, top: 0.62 },
+  's:payments': { at: [10.8, -3.05], r: 0.2, top: 0.62 },
 }
 
-export const VENDORS: V3 = [12.4, -0.7, 2.4] // pedestal top centre
-export const FUNDER: V3 = [2.2, -0.35, -5.0]
+/** The vendors' warehouse station, front-right corner of the deck (deck top, y = 0). */
+export const VENDORS: V3 = [11.3, 0, 2.75]
+/** The funder's columned building, back edge of the deck. */
+export const FUNDER: V3 = [2.45, 0, -3.0]
+/** Where parcels dock at each station: matches dock() in routes.ts. */
+const VENDOR_DOCK: V2 = [VENDORS[0] - 0.9, VENDORS[2] - 0.2]
+const FUNDER_DOCK: V2 = [FUNDER[0] + 0.1, FUNDER[2] + 0.9]
 
 export interface Groove {
   a: string
@@ -181,7 +184,7 @@ export interface Groove {
 }
 
 const S_IDS = ['s:reporter', 's:usaspending', 's:cancellations', 's:court', 's:payments']
-const at = (id: string) => NET[id].at
+const at = (id: string): V2 => (id === 'v:vendors' ? VENDOR_DOCK : id === 'p:funder' ? FUNDER_DOCK : NET[id].at)
 export const GROOVES: Groove[] = [
   { a: 'port:lab', b: 'a:purchasing', pts: [at('port:lab'), at('a:purchasing')] },
   { a: 'port:lab', b: 'a:payment_report', pts: [at('port:lab'), at('a:payment_report')] },
@@ -193,18 +196,17 @@ export const GROOVES: Groove[] = [
   { a: 'a:bookkeeping', b: `g:${R01}`, pts: [at('a:bookkeeping'), at(`g:${R01}`)] },
   { a: 'a:bookkeeping', b: `g:${R21}`, pts: [at('a:bookkeeping'), at(`g:${R21}`)] },
   { a: 'a:purchasing', b: `g:${R01}`, pts: [at('a:purchasing'), at(`g:${R01}`)] },
-  { a: 'a:purchasing', b: `g:${R21}`, pts: [at('a:purchasing'), [6.6, 0.72], at(`g:${R21}`)] },
-  { a: `g:${R01}`, b: 'port:vendors', pts: [at(`g:${R01}`), [6.75, 3.15], at('port:vendors')] },
-  { a: `g:${R21}`, b: 'port:vendors', pts: [at(`g:${R21}`), [9.2, 3.15], at('port:vendors')] },
-  { a: 'port:invoice', b: 'a:bookkeeping', pts: [at('port:invoice'), at('a:bookkeeping')] },
-  { a: 'a:payment_report', b: 'port:funder', pts: [at('a:payment_report'), at('port:funder')] },
+  { a: 'a:purchasing', b: `g:${R21}`, pts: [at('a:purchasing'), [6.5, 0.8], at(`g:${R21}`)] },
+  { a: `g:${R01}`, b: 'v:vendors', pts: [at(`g:${R01}`), [6.2, 3.62], [9.9, 3.62], at('v:vendors')] },
+  { a: `g:${R21}`, b: 'v:vendors', pts: [at(`g:${R21}`), at('v:vendors')] },
+  { a: 'v:vendors', b: 'a:bookkeeping', pts: [at('v:vendors'), at('a:bookkeeping')] },
+  { a: 'a:payment_report', b: 'p:funder', pts: [at('a:payment_report'), at('p:funder')] },
 ]
 
-/** Which ports a node outside the plinth goes through, and which groove leg it joins. */
-export function portFor(outside: string, inside: string): string | null {
+/** Which port a node off the plinth goes through. Only researchers do now: the
+ * vendors and the funder sit on the deck and their grooves run straight to them. */
+export function portFor(outside: string, _inside: string): string | null {
   if (outside.startsWith('r:')) return 'port:lab'
-  if (outside === 'v:vendors') return inside === 'a:bookkeeping' ? 'port:invoice' : 'port:vendors'
-  if (outside === 'p:funder') return 'port:funder'
   return null
 }
 
@@ -214,14 +216,14 @@ export const PARK_Y = 0.95
 /** Parcels held until money lands wait in a row in front of their frozen grant. */
 export function parkOf(gid: string, i: number, out = new Vector3()) {
   const n = NET[`g:${gid}`] ?? NET[`g:${R01}`]
-  return out.set(n.at[0] - 0.75 + i * 0.75, PARK_Y, 3.12)
+  return out.set(n.at[0] - 0.75 + i * 0.75, PARK_Y, n.at[1] + 1.27)
 }
 
 // ── Anchors for halos, the hover card and the camera ─────────────────────
 
 const fixed: Record<string, V3> = {
-  'v:vendors': [VENDORS[0], VENDORS[1] + 0.9, VENDORS[2]],
-  'p:funder': [FUNDER[0], FUNDER[1] + 1.2, FUNDER[2]],
+  'v:vendors': [VENDORS[0], VENDORS[1] + 0.85, VENDORS[2]],
+  'p:funder': [FUNDER[0], FUNDER[1] + 1.0, FUNDER[2]],
 }
 for (const [id, n] of Object.entries(NET)) fixed[id] = [n.at[0], n.top, n.at[1]]
 
@@ -237,7 +239,7 @@ export const netFloor = (id: string, out = new Vector3()) => {
   return n ? out.set(n.at[0], 0.014, n.at[1]) : out.set(0, 0.014, 0)
 }
 export const haloSize = (id: string) =>
-  id.startsWith('g:') ? 1.75 : id.startsWith('a:') ? 1.0 : id === 'p:grant_manager' ? 1.15 : id.startsWith('s:') ? 0.42 : id.startsWith('r:') ? 0.62 : 1.5
+  id.startsWith('g:') ? 1.75 : id.startsWith('a:') ? 1.0 : id === 'p:grant_manager' ? 1.15 : id.startsWith('s:') ? 0.42 : id.startsWith('r:') ? 0.62 : 1.0
 
 /** An arc whose height grows with distance; `u` is already eased. */
 export function arcPoint(a: Vector3, b: Vector3, u: number, h: number, out: Vector3) {
