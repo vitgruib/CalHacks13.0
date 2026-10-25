@@ -34,7 +34,9 @@ function describe(db: Db, requestId: string, grantId: string): { name: string; a
   else if (openHold) held = `open hold ${openHold.id}`
 
   const share = rq?.split?.find(s => s.grantId === grantId)?.share ?? 1
-  if (rq) return { name: rq.item, amount: Math.round(rq.price * share), held }
+  // What was bought: the order's approved change if any, as the module claims it.
+  const bought = orders.filter(o => o.state !== 'canceled').reduce((s, o) => s + (o.changedAmount ?? o.amount), 0)
+  if (rq) return { name: rq.item, amount: Math.round((bought || rq.price) * share), held }
   // A salary row left out (for example, effort over 100% across grants).
   const pay = db.payroll.find(p => p.id === requestId)
   if (pay) return { name: `${pay.person}'s salary (${pay.role}, ${pay.effortPct}% effort, ${pay.period.from} to ${pay.period.to})`, amount: pay.amount, held }

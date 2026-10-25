@@ -673,7 +673,7 @@ export const draft_payment_request = spacetimedb.reducer(
       title: `Send payment request ${id} (${usd(amount)})?`, why: 'Payment requests always need the grant manager.',
       evidence: [
         { label: 'Period', value: `${a.from} to ${a.to}` },
-        { label: 'Left out', value: excluded.length ? excluded.map(e => `${e.requestId}: ${e.why}`).join('; ') : 'nothing' },
+        { label: 'Left out', value: excluded.length ? excluded.map(e => `${e.requestId}: ${e.why}`).join(' ') : 'nothing' },
       ],
       options: ['approve', 'reject'],
     });

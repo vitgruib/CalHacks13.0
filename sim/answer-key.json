@@ -201,7 +201,7 @@
       "rule": "Salary can't be claimed above 100% effort",
       "relatedIds": ["pay-R01-2026-05-1"],
       "check": "the May 2026 payment request for R21AI182745 has pay-R21-2026-05-3 in `excluded`, not in includedPayrollIds, and its total is unchanged",
-      "why": "Priya Shah's May salary is charged 40% to R21AI182745 and 70% to R01GM061721: 110% effort.",
+      "why": "Daniel Okafor's May salary is charged 40% to R21AI182745 and 70% to R01GM061721: 110% effort.",
       "source": "docs/research/pain-points/15-impossible-spend.md §2 (UF 2015, UNT HSC 2018, NYMC 2024)"
     },
     {

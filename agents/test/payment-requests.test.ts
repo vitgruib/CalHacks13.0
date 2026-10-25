@@ -237,6 +237,7 @@ test('the_seeded_follow_up_gets_an_answer_naming_only_its_requests_purchases', a
   for (const id of pr.excluded.map((e) => e.requestId)) assert.ok(!fu.answerDraft!.includes(id), `${id} was left out, not claimed`);
   // Vendors, dates and amounts, exactly as the records hold them.
   assert.match(fu.answerDraft!, /MicroMedia, ordered 2026-04-14, \$1,180/);
+  assert.ok(!fu.answerDraft!.includes('inv-201'), 'cites the paid bill, not the held second bill');
   assert.match(fu.answerDraft!, /ordered before the project end date \(2026-08-31\)/);
   assert.ok(fu.answerDraft!.includes(money(pr.amount)));
   for (const name of personNames(conn)) assert.ok(!fu.answerDraft!.includes(name), `no person names (${name})`);

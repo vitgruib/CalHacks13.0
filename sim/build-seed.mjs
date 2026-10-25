@@ -292,12 +292,12 @@ for (const [grantId, from, to] of [[A, '2025-01-01', '2026-02-01'], [B, '2024-08
   }
 }
 
-// PLANTED (payment requests, T57): Priya Shah's May salary is charged 40% to B
-// and 70% to A: 110% effort. B's May request must leave her B row out (its
+// PLANTED (payment requests, T57): Daniel Okafor's May salary is charged 40% to B
+// and 70% to A: 110% effort. B's May request must leave his B row out (its
 // total stays the same); A is frozen in May, so no request is drafted there.
 db.payroll.push(
-  { id: 'pay-R21-2026-05-3', grantId: B, person: 'Priya Shah', role: 'Postdoctoral researcher', period: { from: '2026-05-01', to: '2026-05-31' }, effortPct: 40, amount: 2_600 },
-  { id: 'pay-R01-2026-05-1', grantId: A, person: 'Priya Shah', role: 'Postdoctoral researcher', period: { from: '2026-05-01', to: '2026-05-31' }, effortPct: 70, amount: 4_550 },
+  { id: 'pay-R21-2026-05-3', grantId: B, person: 'Daniel Okafor', role: 'Research associate', period: { from: '2026-05-01', to: '2026-05-31' }, effortPct: 40, amount: 2_600 },
+  { id: 'pay-R01-2026-05-1', grantId: A, person: 'Daniel Okafor', role: 'Research associate', period: { from: '2026-05-01', to: '2026-05-31' }, effortPct: 70, amount: 4_550 },
 )
 
 // ---------------------------------------------------------------------------

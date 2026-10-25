@@ -23,7 +23,7 @@ What it covered:
   inv-202 (its order was placed after the bill); inv-203 is paid;
 - rq-108 and rq-109 (same-day split, $5,500) wait on the grant manager;
   rq-110 is bought;
-- the May payment request for B comes to $7,060 and leaves out Priya Shah's
+- the May payment request for B comes to $7,060 and leaves out Daniel Okafor's
   salary (110% effort across A and B).
 
 The cases below are what a dropped connection, a double-click or a curious
