@@ -34,9 +34,9 @@ const h = new Feed()
 h.restart()
 h.advance(150_000)
 h.restart()
-h.advance(95_100)
+h.advance(83_300) // half the story (166.6 s since T105 cut the paper and payment-request beats)
 const k = h.storyProgress()
-expect('story progress restarts', Math.abs(k - 0.5) < 0.01, `progress=${k.toFixed(3)} at 95.1s of 190.2s`)
+expect('story progress restarts', Math.abs(k - 0.5) < 0.01, `progress=${k.toFixed(3)} at 83.3s of 166.6s`)
 
 // No award number or internal id reaches the screen: play the whole story and read every text a scene can show.
 const CODE = /R01GM|R21AI|\bR0?1\b|\bR21\b|\b(?:rq|inv|pr|pk|se|h|l|o)-\d/

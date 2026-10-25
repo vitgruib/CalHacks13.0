@@ -10,9 +10,9 @@ import { act, jumpTo, reveal, rowLink, selectNode, ui, useFeed, useUi, type Sect
 import { ACTOR, GRANT_COLOR, actionWord, daysLeft, firstName, fmtDay, fmtShort, grantStatus, nodeNow, shortItem, type Now } from './words'
 
 const LIKELY: Record<Outcome, string> = {
-  accept: 'Likely bought',
+  accept: 'Likely passes',
   refine: 'Likely rerouted or sent back',
-  reject: 'Likely blocked',
+  reject: 'Likely flagged',
   hold: 'Likely held',
 }
 
@@ -355,7 +355,7 @@ export function Composer() {
       </label>
       <div className="a-compose-actions">
         <button type="submit" className="a-btn a-btn--primary">
-          Send to the purchasing agent
+          Send for the checks
         </button>
         <button type="button" className="a-btn" onClick={() => ui.set({ composing: false, composeFor: null })}>
           Cancel
@@ -476,7 +476,7 @@ function RequestsSummary() {
 
 // ── Agents and sources ────────────────────────────────────────────────────
 
-const AGENT_IDS = ['a:purchasing', 'a:bookkeeping', 'a:payment_report', 'p:grant_manager']
+const AGENT_IDS = ['a:purchasing', 'a:bookkeeping', 'p:grant_manager']
 const OUTSIDE_IDS = ['s:reporter', 's:usaspending', 's:cancellations', 's:court', 's:payments', 'v:vendors', 'p:funder']
 const STATE_WORD: Record<Now['state'], string> = { idle: 'Idle', working: 'Working', waiting: 'Waiting on you' }
 const RULES = [
@@ -746,10 +746,8 @@ export const CHAPTERS: [number, string][] = [
   [91100, 'Sent back to refine'],
   [112100, 'Exactly at the limit'],
   [123600, 'Over the limit: your call'],
-  [144600, 'A paper credits the wrong grant'],
-  [157200, 'A bill for a canceled order'],
-  [168200, 'Payment request, drafted and defended'],
-  [190200, 'Live'],
+  [144600, 'A bill for a canceled order'],
+  [166600, 'Live'],
 ]
 export const STORY_MS = CHAPTERS[CHAPTERS.length - 1][0]
 

@@ -1,4 +1,4 @@
-// The finance plinth: a slate network. The three agents are clay pods on
+// The finance plinth: a slate network. The two agents are clay pods on
 // short columns; the grants are clay reservoirs plugged into the grid, their
 // money a glossy liquid that freezes under a frosted bell jar with a lock.
 // Every route is a groove inlaid in the slate that lights in the colour of
@@ -77,18 +77,11 @@ function build() {
 
   // Agent pods, each with a small mark of its job on top.
   pod(k, 'a:purchasing')
-  pod(k, 'a:payment_report')
   pod(k, 'a:bookkeeping')
   {
     const [x, z] = NET['a:bookkeeping'].at
     const y = NET['a:bookkeeping'].top - 0.04
     for (let i = 0; i < 3; i++) k.cyl([x, y + i * 0.05, z], 0.2 - i * 0.03, 0.04, i % 2 ? '#E8E2D8' : '#2F9DB5', 24)
-  }
-  {
-    const [x, z] = NET['a:payment_report'].at
-    const y = NET['a:payment_report'].top - 0.05
-    k.box([x, y + 0.02, z], [0.36, 0.04, 0.12], '#3A4451', 0.01)
-    k.box([x, y + 0.12, z], [0.26, 0.2, 0.012], '#F6F3EC', 0.004, { rot: [-0.15, 0, 0] })
   }
   {
     const [x, z] = NET['a:purchasing'].at
@@ -289,7 +282,8 @@ function grooveGlow() {
 // ── Pods: a ring that says idle, working or waiting ──────────────────────
 
 const ringGeo = new TorusGeometry(1, 0.045, 10, 48)
-const AGENTS = ['a:purchasing', 'a:payment_report', 'a:bookkeeping'] as const
+// T105: no payment or report agent on the board.
+const AGENTS = ['a:purchasing', 'a:bookkeeping'] as const
 const IDLE = new Color('#6A7684')
 const WORK = new Color('#FFF0D2')
 const WAIT = new Color(PAL.cobalt).offsetHSL(0, 0.05, 0.12)

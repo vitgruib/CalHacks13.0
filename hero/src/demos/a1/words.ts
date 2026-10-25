@@ -9,9 +9,10 @@ export const fmtDay = (d: string) =>
 export const fmtShort = (d: string) => new Date(`${d}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })
 
 export const ACTOR: Record<LogRow['actor'], string> = {
-  purchasing: 'Purchasing agent',
+  // T108: no agent buys; this one runs a request's checks for the grant manager. T105: no payment or report agent.
+  purchasing: 'Request-check agent',
   bookkeeping: 'Bookkeeping agent',
-  payment_report: 'Payment & report agent',
+  payment_report: 'Bookkeeping agent',
   grant_manager: 'Grant manager',
   scientist: 'Researcher',
   system: 'System',
@@ -38,10 +39,10 @@ const ACTIONS: [RegExp, string][] = [
   [/^push_back/, 'Pushed back'],
   [/^decide_hold: approve/, 'Approved'],
   [/^decide_hold: reject/, 'Rejected'],
-  [/^act_on_request: buy/, 'Bought'],
+  [/^act_on_request: buy/, 'Passed the checks'],
   [/^act_on_request: reroute/, 'Rerouted'],
   [/^act_on_request: hold/, 'Held'],
-  [/^act_on_request: block/, 'Blocked'],
+  [/^act_on_request: block/, 'Flagged'],
   [/^raise_hold/, 'Asked the grant manager'],
   [/^request_check/, 'Checked again'],
   [/^post_status_event/, 'Status update'],
@@ -112,7 +113,7 @@ function describe(p: Packet, id: string, w: World): string {
     case 'verdict':
       return out ? `Answering ${who(p.to, w)}: ${lower(p.label)}` : `Hearing back: ${lower(p.label)}`
     case 'recheck':
-      if (id === 'a:purchasing') return out ? 'Asking bookkeeping to check the grant again before money moves' : 'Hearing that the grant is still good'
+      if (id === 'a:purchasing') return out ? 'Asking bookkeeping to check the grant again' : 'Hearing that the grant is still good'
       return out ? 'Confirming the grant is still good' : 'Re-reading the sources before money moves'
     case 'reading':
       return out ? 'Sending a reading to bookkeeping' : `Reading ${SOURCE[p.from] ?? 'a source'}`

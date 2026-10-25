@@ -187,10 +187,8 @@ const S_IDS = ['s:reporter', 's:usaspending', 's:cancellations', 's:court', 's:p
 const at = (id: string): V2 => (id === 'v:vendors' ? VENDOR_DOCK : id === 'p:funder' ? FUNDER_DOCK : NET[id].at)
 export const GROOVES: Groove[] = [
   { a: 'port:lab', b: 'a:purchasing', pts: [at('port:lab'), at('a:purchasing')] },
-  { a: 'port:lab', b: 'a:payment_report', pts: [at('port:lab'), at('a:payment_report')] },
   { a: 'a:purchasing', b: 'a:bookkeeping', pts: [at('a:purchasing'), at('a:bookkeeping')] },
   { a: 'a:purchasing', b: 'p:grant_manager', pts: [at('a:purchasing'), at('p:grant_manager')] },
-  { a: 'a:payment_report', b: 'p:grant_manager', pts: [at('a:payment_report'), at('p:grant_manager')] },
   { a: 'a:bookkeeping', b: 'p:grant_manager', pts: [at('a:bookkeeping'), at('p:grant_manager')] },
   ...S_IDS.map(id => ({ a: id, b: 'a:bookkeeping', pts: [at(id), at('a:bookkeeping')] })),
   { a: 'a:bookkeeping', b: `g:${R01}`, pts: [at('a:bookkeeping'), at(`g:${R01}`)] },
@@ -200,7 +198,6 @@ export const GROOVES: Groove[] = [
   { a: `g:${R01}`, b: 'v:vendors', pts: [at(`g:${R01}`), [6.2, 3.62], [9.9, 3.62], at('v:vendors')] },
   { a: `g:${R21}`, b: 'v:vendors', pts: [at(`g:${R21}`), at('v:vendors')] },
   { a: 'v:vendors', b: 'a:bookkeeping', pts: [at('v:vendors'), at('a:bookkeeping')] },
-  { a: 'a:payment_report', b: 'p:funder', pts: [at('a:payment_report'), at('p:funder')] },
 ]
 
 /** Which port a node off the plinth goes through. Only researchers do now: the

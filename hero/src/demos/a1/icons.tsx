@@ -20,16 +20,16 @@ export function TokenIcon({ outcome, size = 16 }: { outcome?: Outcome; size?: nu
 
 export function outcomeWord(r: Pick<Request, 'outcome' | 'state' | 'holdFor' | 'chargedGrantId'>) {
   if (!r.outcome) return 'Checking'
-  if (r.outcome === 'accept') return 'Bought'
+  if (r.outcome === 'accept') return 'Passed'
   if (r.outcome === 'refine') return r.state === 'rerouted' || r.chargedGrantId ? 'Rerouted' : 'Sent back'
-  if (r.outcome === 'reject') return r.state === 'rejected' ? 'Rejected' : 'Blocked'
+  if (r.outcome === 'reject') return r.state === 'rejected' ? 'Rejected' : 'Flagged'
   return r.holdFor === 'grant_manager' ? 'Waiting on you' : 'Held until money lands'
 }
 
 export const OUTCOME_LABEL: Record<Outcome, string> = {
-  accept: 'Bought',
+  accept: 'Passed',
   refine: 'Rerouted or sent back',
-  reject: 'Blocked',
+  reject: 'Flagged',
   hold: 'Held',
 }
 

@@ -8,7 +8,6 @@
 import {
   canBuyAlone,
   checkInvoice,
-  checkPaper,
   daysBetween,
   freezeState,
   rerouteTarget,
@@ -36,7 +35,7 @@ import type {
   World,
 } from './types'
 import { kindOf } from './items'
-import { AGENTS, CANCELED_ORDER_INVOICE, NODES, PAPERS, ROUTINE, SEED_REQUESTS as SEED, SOURCE_NODE, startGrants, startResearchers } from './world'
+import { AGENTS, CANCELED_ORDER_INVOICE, NODES, ROUTINE, SEED_REQUESTS as SEED, SOURCE_NODE, startGrants, startResearchers } from './world'
 
 /** Feed-time durations at 1x speed (ms). Scenes can read these to size their animations. */
 export const PACE = {
@@ -207,7 +206,7 @@ export class Feed {
     const R21 = 'R21AI182745'
     // Captions name grants plainly; award numbers never reach the screen.
     const steps: [number, () => void][] = [
-      [400, () => this.beat('A normal week in the Ortiz Lab', 'Five researchers, two NIH grants, three AI agents keeping the books. Every request runs through the same spending rules the database enforces.')],
+      [400, () => this.beat('A normal week in the Ortiz Lab', 'Five researchers, two NIH grants, AI agents checking every request and invoice against the spending rules the database enforces. The grant manager approves each one.')],
       [1200, () => this.dailyReading()],
       [1800, () => this.submit(ROUTINE[0])],
       [3200, () => this.submit(ROUTINE[2])],
@@ -227,50 +226,42 @@ export class Feed {
       }],
       [8000, () => {
         this.setToday('2026-06-15')
-        this.beat('The scientist pushes to buy', 'Sam asks for gloves on the restored grant. The purchasing agent holds the order and says why.')
+        this.beat('The scientist pushes to buy', 'Sam asks for gloves on the restored grant. The agents flag it and say why: no money has arrived.')
         this.submit(SEED.gloves, { id: SEED.gloves.id })
       }],
       [9500, () => {
-        this.beat('It defends the decision', 'Pushed, the agent re-runs the rules and holds its ground. It will buy the moment a payment lands.')
+        this.beat('It defends the decision', 'Pushed, the agents re-run the rules and keep the flag. It clears the moment a payment lands.')
         this.pushback(SEED.gloves.id, 'The court restored it. We need these for tomorrow’s prep.')
       }],
       [10500, () => {
         this.setToday('2026-06-17')
-        this.beat('The money lands', `NIH pays $18,600 into the mitochondria grant. The freeze lifts, the agent checks the sources once more, and the gloves go through on their own.`)
+        this.beat('The money lands', `NIH pays $18,600 into the mitochondria grant. The freeze lifts, the agents check the sources once more, and the gloves pass for the grant manager to approve.`)
         this.statusEvent(R01, 'payment_received', 'Payment system', 'Payment of $18,600 received.', 18600)
       }],
       [12500, () => {
-        this.beat('Rerouted to a grant with time left', `Priya’s agar plates are supplies on a grant that ends in ${daysBetween(this.w.today, this.grantMap().get(R21)?.end ?? this.w.today)} days. Auditors disallowed exactly that at WVU and Delaware, so the agent charges the mitochondria grant instead.`)
+        this.beat('Rerouted to a grant with time left', `Priya’s agar plates are supplies on a grant that ends in ${daysBetween(this.w.today, this.grantMap().get(R21)?.end ?? this.w.today)} days. Auditors disallowed exactly that at WVU and Delaware, so the agents suggest the mitochondria grant instead.`)
         this.submit(SEED.agar, { id: SEED.agar.id })
       }],
       [10500, () => {
-        this.beat('Not allowed on a federal grant', 'An espresso machine is general office spending. The agent blocks it and cites the UC Davis audit.')
+        this.beat('Not allowed on a federal grant', 'An espresso machine is general office spending. The agents flag it and cite the UC Davis audit.')
         this.submit(SEED.espresso, { id: SEED.espresso.id })
       }],
       [9500, () => {
-        this.beat('Sent back to refine', 'The confocal service contract serves both grants but is charged to one. The agent sends it back, Mateo splits it, and it goes through.')
+        this.beat('Sent back to refine', 'The confocal service contract serves both grants but is charged to one. The agents send it back, Mateo splits it, and it passes.')
         this.submit(SEED.confocal, { id: SEED.confocal.id })
       }],
       [21000, () => {
-        this.beat('Exactly at the limit', 'A $5,000 kit is at the card limit, not over it, so the agent buys it alone. Decoys like this must not be flagged.')
+        this.beat('Exactly at the limit', 'A $5,000 kit is at the card limit, not over it, so it passes every check. Decoys like this must not be flagged.')
         this.submit(SEED.detergent, { id: SEED.detergent.id })
       }],
       [11500, () => {
-        this.beat('Over the limit: your call', 'A $6,850 pump is over the $5,000 card limit, so the agent asks the grant manager. That’s you: approve or reject it, with a reason.')
+        this.beat('Over the limit: your call', 'A $6,850 pump is over the $5,000 card limit, so the agents flag it for the grant manager. That’s you: approve or reject it, with a reason.')
         this.submit(SEED.pump, { id: SEED.pump.id })
       }],
+      // T105: progress reports and payment requests are out of scope, so the story ends on the invoice.
       [21000, () => {
-        this.beat('A paper credits the wrong grant', 'The payment & report agent checks every paper in the progress report. Priya’s paper is listed under the antibiotic grant, but its acknowledgments name the mitochondria grant.')
-        this.sendPaper(PAPERS[0])
-      }],
-      [1600, () => this.sendPaper(PAPERS[2])],
-      [11000, () => {
         this.beat('A bill for a canceled order', 'BioReagents bills $2,400 for an order canceled on March 2. The bookkeeping agent holds the invoice with its timeline.')
         this.sendInvoice()
-      }],
-      [11000, () => {
-        this.beat('Payment request, drafted and defended', `The payment & report agent drafts the mitochondria grant’s payment request from exact purchases, leaves out anything on hold, and answers NIH’s follow-up with the receipts.`)
-        this.draftPaymentRequest(R01)
       }],
       [22000, () => {
         this.beat('Live', 'The lab keeps working. Send a request of your own, or step in as the grant manager.')
@@ -513,46 +504,6 @@ export class Feed {
           if (this.w.holds.find(h => h.id === hold.id)?.open) this.decide(hold.id, 'reject', 'The order was canceled before it shipped. Asked the vendor for a credit memo.', 'grant_manager')
         })
       }
-    })
-  }
-
-  private sendPaper(p: (typeof PAPERS)[number]) {
-    this.send('paper', `r:${p.researcherId}`, 'a:payment_report', short(p.title), PACE.travel, { refId: p.id }, () => {
-      const c = checkPaper(p)
-      const result = c.result as 'ok' | 'note' | 'held'
-      const checks = c.checks.map(x => ({ ...x, detail: this.plain(x.detail) }))
-      this.emit({ type: 'paper', researcherId: p.researcherId, paperId: p.id, title: p.title, result, checks })
-      const failed = checks.find(x => !x.pass)
-      this.log('payment_report', `check_paper: ${result}`, failed?.detail ?? 'Credits the right grant and has a PMCID.', p.id)
-      if (result === 'held') {
-        const hold = this.raiseHold('report', p.id, p.grantId, 'payment_report', `Paper credits the wrong grant: ${short(p.title)}`, failed?.detail ?? '', checks.map(x => ({ label: x.check, value: x.detail })))
-        this.after(PACE.autoDecide, () => {
-          if (this.w.holds.find(h => h.id === hold.id)?.open) this.decide(hold.id, 'approve', `Moved the paper to the ${p.creditsGrantId} report, where its acknowledgments point.`, 'grant_manager')
-        })
-      }
-    })
-  }
-
-  private draftPaymentRequest(grantId: string) {
-    const included = this.w.requests.filter(r => (r.chargedGrantId ?? r.grantId) === grantId && (r.state === 'bought' || r.state === 'rerouted') && !r.split.length)
-    const heldOut = this.w.requests.filter(r => r.grantId === grantId && (r.state === 'waiting_on_manager' || r.state === 'submitted'))
-    const amount = included.reduce((s, r) => s + r.price, 0)
-    const id = 'pr-016'
-    const hold = this.raiseHold('payment_request', id, grantId, 'payment_report', `Payment request: ${usd(amount)} for ${grantId}`, `Drafted from ${included.length} exact purchase records. ${heldOut.length ? `Left out ${heldOut.length} item(s) still on hold.` : 'Nothing on hold was included.'}`, included.slice(0, 5).map(r => ({ label: short(r.item), value: `${usd(r.price)} · ${r.day}` })))
-    this.log('payment_report', 'draft_payment_request', `Drafted a payment request for ${usd(amount)} from ${included.length} purchases.`, id)
-    this.after(5000, () => {
-      if (this.w.holds.find(h => h.id === hold.id)?.open) this.decide(hold.id, 'approve', 'Totals match the purchase records.', 'grant_manager')
-      if (this.w.holds.find(h => h.id === hold.id)?.decision?.choice !== 'approve') return
-      this.after(PACE.hop + 400, () =>
-        this.send('payment_request', 'a:payment_report', 'p:funder', `Payment request · ${usd(amount)}`, PACE.source, { refId: id, amount }, () => {
-          this.send('follow_up', 'p:funder', 'a:payment_report', 'What were the reagent costs?', PACE.source, { refId: id }, () => {
-            const reagents = included.filter(r => r.category === 'reagents' || r.category === 'lab supplies')
-            const answer = reagents.map(r => `${short(r.item)} ${usd(r.price)} (${r.day})`).join('; ') || 'No reagent purchases in this period.'
-            this.log('payment_report', 'answer_follow_up', answer, id)
-            this.send('payment_request', 'a:payment_report', 'p:funder', 'Answer: exact purchases', PACE.source, { refId: id })
-          })
-        }),
-      )
     })
   }
 

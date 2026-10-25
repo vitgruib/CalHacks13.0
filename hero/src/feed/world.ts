@@ -94,9 +94,10 @@ export const startResearchers = (): Researcher[] => [
 export const AGENTS: FinanceAgent[] = [
   {
     role: 'purchasing',
-    name: 'Purchasing agent',
-    seat: 'Purchasing',
-    job: 'Turns requests into allowed purchases: picks the grant, runs the six spending rules, buys, reroutes, blocks, or asks the grant manager.',
+    // T108: no agent buys. The role keeps its id; the grant manager approves every request and the researcher buys.
+    name: 'Request-check agent',
+    seat: 'Request checks',
+    job: 'Checks every request for the grant manager: picks the grant, runs the six spending rules, and passes, suggests a reroute, or flags it.',
   },
   {
     role: 'bookkeeping',
@@ -104,19 +105,12 @@ export const AGENTS: FinanceAgent[] = [
     seat: 'Grant accountant',
     job: 'Keeps the fund tracker current from NIH RePORTER, USAspending, cancellation lists, court notices and payments; checks every invoice.',
   },
-  {
-    role: 'payment_report',
-    name: 'Payment & report agent',
-    seat: 'Payment and report preparer',
-    job: 'Writes payment requests from exact purchase records, answers the funder’s follow-ups, and checks every paper in a progress report.',
-  },
 ]
 
 export const NODES: FlowNode[] = [
   ...startResearchers().map(r => ({ id: `r:${r.id}`, kind: 'researcher' as const, side: 'lab' as const, label: r.name, sub: r.role })),
-  { id: 'a:purchasing', kind: 'agent', side: 'finance', label: 'Purchasing agent', sub: 'Six spending rules' },
+  { id: 'a:purchasing', kind: 'agent', side: 'finance', label: 'Request-check agent', sub: 'Six spending rules' },
   { id: 'a:bookkeeping', kind: 'agent', side: 'finance', label: 'Bookkeeping agent', sub: 'Fund tracker and invoices' },
-  { id: 'a:payment_report', kind: 'agent', side: 'finance', label: 'Payment & report agent', sub: 'Payment requests and papers' },
   { id: 'p:grant_manager', kind: 'person', side: 'finance', label: 'Grant manager', sub: 'The only human who approves' },
   { id: `g:${R01}`, kind: 'grant', side: 'finance', label: 'Mitochondria grant', sub: 'NIH / NIGMS' },
   { id: `g:${R21}`, kind: 'grant', side: 'finance', label: 'Antibiotic grant', sub: 'NIH / NIAID' },
@@ -130,14 +124,13 @@ export const NODES: FlowNode[] = [
 ]
 
 const LAB = startResearchers().map(r => `r:${r.id}`)
-const AGENT_IDS = ['a:purchasing', 'a:bookkeeping', 'a:payment_report']
+const AGENT_IDS = ['a:purchasing', 'a:bookkeeping']
 const GRANT_IDS = [`g:${R01}`, `g:${R21}`]
 
 /** The finance network's lines: every route a packet takes in engine.ts, plus who watches or spends each grant. */
 export const EDGES: Edge[] = [
   ...LAB.map(id => ({ from: id, to: 'a:purchasing', kinds: ['request', 'pushback', 'verdict'], what: 'Requests and answers' }) satisfies Edge),
-  ...LAB.map(id => ({ from: id, to: 'a:payment_report', kinds: ['paper'], what: 'Papers for the progress report' }) satisfies Edge),
-  { from: 'a:purchasing', to: 'a:bookkeeping', kinds: ['recheck'], what: 'Check again before money moves' },
+  { from: 'a:purchasing', to: 'a:bookkeeping', kinds: ['recheck'], what: 'Check the grant again' },
   ...AGENT_IDS.map(id => ({ from: id, to: 'p:grant_manager', kinds: ['hold', 'decision'], what: 'Asks the grant manager' }) satisfies Edge),
   { from: 's:reporter', to: 'a:bookkeeping', kinds: ['reading'], what: 'Project status' },
   { from: 's:usaspending', to: 'a:bookkeeping', kinds: ['reading'], what: 'Obligations and payments' },
@@ -145,10 +138,9 @@ export const EDGES: Edge[] = [
   { from: 's:court', to: 'a:bookkeeping', kinds: ['reading'], what: 'Court orders' },
   { from: 's:payments', to: 'a:bookkeeping', kinds: ['payment'], what: 'Money arriving' },
   ...GRANT_IDS.map(id => ({ from: 'a:bookkeeping', to: id, kinds: [], what: 'Keeps its books and freeze' }) satisfies Edge),
-  ...GRANT_IDS.map(id => ({ from: 'a:purchasing', to: id, kinds: [], what: 'Spends from it under the rules' }) satisfies Edge),
+  ...GRANT_IDS.map(id => ({ from: 'a:purchasing', to: id, kinds: [], what: 'Checks requests against it' }) satisfies Edge),
   ...GRANT_IDS.map(id => ({ from: id, to: 'v:vendors', kinds: ['charge'], what: 'Orders paid' }) satisfies Edge),
   { from: 'v:vendors', to: 'a:bookkeeping', kinds: ['invoice'], what: 'Invoices to check' },
-  { from: 'a:payment_report', to: 'p:funder', kinds: ['payment_request', 'follow_up'], what: 'Payment requests and questions' },
 ]
 
 export const SOURCE_NODE: Record<string, string> = {

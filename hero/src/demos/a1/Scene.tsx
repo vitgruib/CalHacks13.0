@@ -666,7 +666,7 @@ export default function Scene() {
         camera={{ fov: 24, near: 0.5, far: 300, position: OPENING.pos.toArray() }}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         role="img"
-        aria-label={`A 3D clay model of the Ortiz Lab, a wet lab where five researchers walk between benches, and beside it the grant office as a network of agents. When a researcher asks to buy something, the thing itself flies to the purchasing agent, the spending rules light up, and it comes back bought, rerouted, blocked or held.${embed.get().on ? '' : ' Everything in the scene is also listed in the sidebar.'}`}
+        aria-label={`A 3D clay model of the Ortiz Lab, a wet lab where five researchers walk between benches, and beside it the grant office as a network of agents. When a researcher asks to buy something, the thing itself flies to the agents that check it, the spending rules light up, and it comes back passed, rerouted, flagged or held for the grant manager.${embed.get().on ? '' : ' Everything in the scene is also listed in the sidebar.'}`}
       >
         <Backdrop />
         <Ground />

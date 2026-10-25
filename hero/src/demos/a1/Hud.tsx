@@ -33,7 +33,7 @@ function Head() {
         <span>Grant Test Auto</span>
       </p>
       <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
-      <p className="a-lede">A simulated lab running a scripted story. Three AI agents check every request against the real spending rules; you, the grant manager, decide the exceptions.</p>
+      <p className="a-lede">A simulated lab running a scripted story. AI agents check every request and invoice against the real spending rules; you, the grant manager, decide the exceptions.</p>
       <a className="a-applink" href={APP_URL}>Open the Grant Test Auto app</a>
       <button type="button" className="a-btn a-btn--primary" onClick={compose}>
         Send a request

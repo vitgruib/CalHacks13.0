@@ -3,9 +3,10 @@
 import type { LogRow } from '../../feed'
 
 export const ACTOR: Record<LogRow['actor'], string> = {
-  purchasing: 'Purchasing agent',
+  // T108: no agent buys; this one runs a request's checks for the grant manager. T105: no payment or report agent.
+  purchasing: 'Request-check agent',
   bookkeeping: 'Bookkeeping agent',
-  payment_report: 'Payment & report agent',
+  payment_report: 'Bookkeeping agent',
   grant_manager: 'Grant manager',
   scientist: 'Researcher',
   system: 'System',
