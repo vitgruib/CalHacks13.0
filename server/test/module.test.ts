@@ -509,3 +509,42 @@ test('the grant office can only set active, reinstated or inactive, and only as 
   expect(() => call('gm', mod.set_grant_status, { grantId: B, status: 'active', reason: 'x' })).toThrow(/already active/);
   expect(() => call('sci', mod.set_grant_status, { grantId: B, status: 'canceled', reason: 'x' })).toThrow();
 });
+
+// Edge cases a judge can reach from the client (edge-case pass, 10/25).
+test('nobody can register the retired purchasing agent to buy without the grant office', () => {
+  expect(() => call('rogue', mod.register_agent, { role: 'purchasing' })).toThrow(/retired/);
+});
+
+test('an infinite or absurd price is refused, so a grant\'s totals never become NaN', () => {
+  for (const price of [Infinity, Number.NaN, 1e308]) expect(() => submit('sci', B, price)).toThrow(/Price must be/);
+  expect(() => call('gm', mod.inject_status_event, { grantId: B, kind: 'payment_received', source: 'Payment system', summary: 'x', amount: Infinity })).toThrow(/payment must be/i);
+});
+
+test('approving a request that names no grant is refused and the item stays open', () => {
+  call('sci', mod.submit_request, { item: 'Gloves', category: 'lab supplies', price: 50, grantId: undefined, purpose: 'x', sharedWith: [] });
+  const rq = lastRequest();
+  expect(() => approve(rq.id)).toThrow(/no grant/);
+  expect(openHold(rq.id)).toBeTruthy();
+});
+
+test('winding the clock back before a grant\'s end makes it open again', () => {
+  call('gm', mod.set_today, { day: '2026-09-15' });
+  expect(db().grant.id.find(B).status).toBe('ended');
+  call('gm', mod.set_today, { day: '2026-06-15' });
+  expect(db().grant.id.find(B).status).toBe('active');
+});
+
+test('an invoice whose order was canceled after it matched cannot be approved into a charge', () => {
+  const oid = boughtOrder();
+  call('gm', mod.inject_invoice, { orderId: oid, amount: 380 });
+  const inv = rows('invoice').find(i => i.orderId === oid && !i.checked);
+  call('bk', mod.check_invoice, { invoiceId: inv.id });
+  call('gm', mod.cancel_order, { orderId: oid });
+  const spent = db().grant.id.find(B).spent;
+  expect(() => approve(inv.id)).toThrow(/canceled/);
+  expect(db().grant.id.find(B).spent).toBe(spent);
+});
+
+test('the clock cannot be pushed to a date that does not exist', () => {
+  expect(() => call('gm', mod.advance_days, { days: 3_000_000 })).toThrow(/at most 10 years/);
+});

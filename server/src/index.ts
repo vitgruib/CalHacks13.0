@@ -63,6 +63,16 @@ function guard<T>(fn: () => T): T {
   }
 }
 
+/** Largest amount any single action takes: well above any lab purchase, far below where sums lose cents or overflow. */
+const MAX_AMOUNT = 1_000_000_000;
+
+/** A dollar amount a caller sent: a real number over $0 and at most MAX_AMOUNT (Infinity or NaN would poison the grant's totals). */
+function amountOk(n: number | undefined, what: string): number {
+  if (n === undefined || !Number.isFinite(n) || !(n > 0)) fail(`${what} must be more than $0.`);
+  if (n > MAX_AMOUNT) fail(`${what} must be at most ${usd(MAX_AMOUNT)}.`);
+  return n;
+}
+
 const today = (ctx: Ctx): string => ctx.db.clock.id.find(0)?.today ?? '2026-01-01';
 
 /** A request with the same person's other live requests that day, for the split-purchase rule. */
@@ -136,7 +146,8 @@ function recomputeGrant(ctx: Ctx, id: string, actor = 'system'): void {
   // replay same-day events in the order they happened.
   const events = [...ctx.db.statusEvent.grantId.filter(id)].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
   const disagree = [...ctx.db.flag.grantId.filter(id)].some(f => f.open && f.kind === 'sources_disagree');
-  const ended = g.status === 'ended' || today(ctx) > g.end;
+  // From the dates alone: a grant the clock was wound back past isn't ended any more.
+  const ended = today(ctx) > g.end;
   const fs = freezeState(ended ? 'ended' : 'active', events, disagree);
   // "Court order, no payment yet" only describes a grant still restored by a
   // court: once a payment or the grant manager makes it active, it's settled.
@@ -278,6 +289,7 @@ export const init = spacetimedb.init(ctx => {
 /** Binds the caller's identity to one agent role, once. One identity per role. */
 export const register_agent = spacetimedb.reducer({ role: t.string() }, (ctx, { role }) => guard(() => {
   const r = oneOf('role', AGENT_ROLES, role);
+  if (r === 'purchasing') fail('The purchasing agent was retired (T108): every purchase waits for the grant office.');
   if (ctx.db.person.identity.find(ctx.sender)) fail('This identity is a person; agents need their own.');
   const mine = ctx.db.agent.identity.find(ctx.sender);
   if (mine) {
@@ -316,8 +328,8 @@ export const submit_request = spacetimedb.reducer(
   (ctx, a) => guard(() => {
     const who = requirePerson(ctx, 'scientist', 'grant_manager');
     if (!a.item.trim()) fail('Say what to buy.');
-    if (!(a.price > 0)) fail('Price must be more than $0.');
-    if (a.grantId) getGrant(ctx, a.grantId);
+    amountOk(a.price, 'Price');
+    if (a.grantId !== undefined) getGrant(ctx, a.grantId);
     const id = nextId(ctx, 'rq', x => !!ctx.db.request.id.find(x));
     const name = ctx.db.person.identity.find(ctx.sender)?.name ?? who;
     ctx.db.request.insert({
@@ -341,7 +353,7 @@ type PlanRow = NonNullable<ReturnType<Ctx['db']['plan']['id']['find']>>;
 /** A plan's purchasable lines become requests, asked by the plan's researcher. */
 function sendPlanLines(ctx: Ctx, p: PlanRow, actor: string): void {
   for (const l of p.lines) {
-    if (!l.item.trim() || !(l.price > 0)) fail(`Line ${l.line} needs an item and a price over $0.`);
+    if (!l.item.trim() || !Number.isFinite(l.price) || !(l.price > 0) || l.price > MAX_AMOUNT) fail(`Line ${l.line} needs an item and a price over $0.`);
     const id = nextId(ctx, 'rq', x => !!ctx.db.request.id.find(x));
     ctx.db.request.insert({
       id, day: today(ctx), requester: 'scientist', requestedBy: p.ownedBy, item: l.item, category: l.category,
@@ -372,6 +384,8 @@ export const save_plan = spacetimedb.reducer(
     if (old && !old.ownedBy.isEqual(ctx.sender)) fail('Only the researcher who wrote a plan can change it.');
     if (old?.status === 'sent') fail('This plan\'s lines are already requests; push back on those instead.');
     if (status !== 'draft' && !a.report) fail('Assess the plan before submitting it.');
+    if (!Number.isFinite(a.total) || a.total < 0) fail('The plan total must be a number.');
+    if (status !== 'draft') for (const l of a.lines) if (!l.item.trim() || !Number.isFinite(l.price) || !(l.price > 0) || l.price > MAX_AMOUNT) fail(`Line ${l.line} needs an item and a price over $0.`);
     if (status === 'sent' && a.overall !== 'aligned') fail('Only a plan that clears every check becomes requests right away; submit it for review instead.');
     const name = ctx.db.person.identity.find(ctx.sender)?.name ?? who;
     const row = {
@@ -487,6 +501,8 @@ export const act_on_request = spacetimedb.reducer(
   { requestId: t.string(), action: t.string(), grantId: t.string().optional(), vendor: t.string(), explanation: t.string() },
   (ctx, a) => guard(() => {
     const role = requireAgent(ctx, 'purchasing');
+    // Retired with the purchasing agent (T108): nothing is bought without the grant office.
+    fail('Nothing is bought without the grant office: approve the request in Requests.');
     const r = ctx.db.request.id.find(a.requestId) ?? fail(`No request ${a.requestId}.`);
     if (DONE_STATES.includes(r.state)) fail(`Request is already ${r.state}.`);
     if (!a.explanation.trim()) fail('Explain the decision.');
@@ -607,7 +623,7 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
         return;
       }
       const gid = r.chargedGrantId ?? r.grantId;
-      if (!gid) return;
+      if (!gid) fail('This request names no grant to charge; reject it and ask the researcher to pick one.');
       const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx));
       const failing = verdicts.filter(v => !v.pass);
       // The approval promises the money; the researcher buys it and sends the invoice.
@@ -627,6 +643,7 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       const decided = (what: string) => [...inv.timeline, { day: today(ctx), what: `${what}: ${reason}` }];
       if (c === 'approve') {
         const o = ctx.db.order.id.find(inv.orderId);
+        if (o?.state === 'canceled') fail(`Order ${o.id} was canceled after this invoice was checked; reject the invoice instead.`);
         // An order that is already paid is never charged twice; say so instead of claiming a charge.
         const charge = o?.state === 'paid'
           ? `Not charged: order ${o.id} was already paid, so ${o.grantId ?? 'the grant'} is not charged twice`
@@ -760,7 +777,8 @@ function insertStatusEvent(ctx: Ctx, actor: string, a: { grantId: string; kind: 
   getGrant(ctx, a.grantId);
   oneOf('kind', STATUS_EVENT_KINDS, a.kind);
   oneOf('source', SOURCES, a.source);
-  if (a.kind === 'payment_received' && !(a.amount && a.amount > 0)) fail('A payment needs an amount.');
+  if (a.kind === 'payment_received') amountOk(a.amount, 'A payment');
+  else if (a.amount !== undefined && !Number.isFinite(a.amount)) fail('The amount must be a number.');
   if (a.day && !(isRealDay(a.day) && a.day <= today(ctx))) fail(`day must be a real date written YYYY-MM-DD, not after today (${today(ctx)}); got "${a.day}".`);
   const { day, ...rest } = a;
   ctx.db.statusEvent.insert({ id: 0n, ...rest, amount: a.amount, day: day || today(ctx), at: ctx.timestamp });
@@ -832,7 +850,7 @@ const ITEM_VERDICTS = ['fine', 'flag', 'unchecked'];
 export const ask_item_check = spacetimedb.reducer({ item: t.string(), purpose: t.string(), price: t.f64() }, (ctx, { item, purpose, price }) => guard(() => {
   const who = requirePerson(ctx);
   if (!item.trim()) fail('Say what you want to buy.');
-  if (!(price > 0)) fail('The price must be more than $0.');
+  amountOk(price, 'The price');
   ctx.db.itemCheck.insert({ id: 0n, item: item.trim(), purpose: purpose.trim(), price, requestedBy: who, answered: false, verdict: '', why: '', category: '' });
 }));
 
@@ -1025,7 +1043,9 @@ export const set_today = spacetimedb.reducer({ day: t.string() }, (ctx, { day })
 /** Fast-forward the simulated clock by n days. */
 export const advance_days = spacetimedb.reducer({ days: t.u32() }, (ctx, { days }) => guard(() => {
   const who = requirePerson(ctx);
+  if (days > 3650) fail('Fast-forward at most 10 years at a time.');
   const day = addDays(today(ctx), days);
+  if (!isRealDay(day)) fail(`That lands on ${day}, which isn't a date this demo can use.`);
   ctx.db.clock.id.update({ id: 0, today: day });
   writeLog(ctx, who, `Fast-forwarded ${days} days to ${day}`, 'Test lab.');
   for (const g of [...ctx.db.grant.iter()]) recomputeGrant(ctx, g.id);
@@ -1043,7 +1063,7 @@ export const inject_invoice = spacetimedb.reducer(
   (ctx, a) => guard(() => {
     const who = requirePerson(ctx);
     const o = ctx.db.order.id.find(a.orderId) ?? fail(`No order ${a.orderId}.`);
-    if (!(Number.isFinite(a.amount) && a.amount > 0)) fail('An invoice must be for more than $0.');
+    amountOk(a.amount, 'An invoice');
     const id = nextId(ctx, 'inv', x => !!ctx.db.invoice.id.find(x));
     ctx.db.invoice.insert({
       id, orderId: o.id, vendor: o.vendor, amount: a.amount, received: today(ctx), state: 'held',
@@ -1092,7 +1112,14 @@ export const load_seed = spacetimedb.reducer({ json: t.string() }, (ctx, { json 
   } catch {
     fail('Seed is not valid JSON.');
   }
-  if (!seed.today || !Array.isArray(seed.grants)) fail('Seed needs `today` and `grants`.');
+  if (!seed || typeof seed !== 'object' || Array.isArray(seed)) fail('Seed must be a JSON object.');
+  if (typeof seed.today !== 'string' || !isRealDay(seed.today) || !Array.isArray(seed.grants)) fail('Seed needs `today` (YYYY-MM-DD) and `grants`.');
+  // A hand-written seed may leave out lists it doesn't use.
+  const lists = seed as unknown as Record<string, unknown>;
+  for (const k of ['statusEvents', 'sourceReadings', 'flags', 'requests', 'orders', 'approvals', 'invoices', 'paymentRequests', 'papers', 'holds', 'log']) {
+    if (lists[k] === undefined) lists[k] = [];
+    else if (!Array.isArray(lists[k])) fail(`Seed field \`${k}\` must be a list.`);
+  }
   seedWorld(ctx, seed);
   writeLog(ctx, who, `Loaded a seed (${seed.grants.length} grants)`, 'Test lab.');
 }));
