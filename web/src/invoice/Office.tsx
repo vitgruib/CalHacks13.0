@@ -105,7 +105,7 @@ export function Review({ db, s, decide = true }: { db: Db; s: Submission; decide
   )
 }
 
-type View = 'new' | 'withheld' | 'waiting' | 'denied'
+type View = 'sent' | 'revision' | 'rejected' | 'approved'
 const MIN = 2 // a list is topped up with sample invoices to this many, and shows at most MAX
 const MAX = 3
 
@@ -124,17 +124,20 @@ export default function Office({ db }: { db: Db }) {
   const have = new Set(stored.map(s => s.id))
   const top = (real: number, samples: Submission[]) => samples.filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - real))
 
-  const heldBills = db.invoices.filter(i => i.state === 'held')
-  const newReal = stored.filter(s => s.status === 'ready' || s.status === 'exception')
-  const withheldReal = stored.filter(s => s.status === 'clarification')
-  const waitingReal = stored.filter(s => s.status === 'escalated')
-  const deniedReal = stored.filter(s => s.status === 'rejected')
+  // Sent: waiting on a decision (new, paused by the invoice agent, or with a higher approver). Rejected for
+  // revision: sent back to the researcher with a question, or a bill the bookkeeping agent held.
+  const sentReal = stored.filter(s => s.status === 'ready' || s.status === 'exception' || s.status === 'escalated')
+  const revisionReal = stored.filter(s => s.status === 'clarification')
+  const rejectedReal = stored.filter(s => s.status === 'rejected')
+  const approvedReal = stored.filter(s => s.status === 'approved')
+  const bills = (...states: Db['invoices'][number]['state'][]) => db.invoices.filter(i => states.includes(i.state))
+  const heldBills = bills('held'), rejectedBills = bills('rejected'), approvedBills = bills('matched', 'paid')
 
   const lists: Record<View, { subs: Submission[]; bills: Db['invoices'] }> = {
-    new: { subs: [...newReal, ...top(newReal.length, demo.action.filter(s => s.status === 'exception'))], bills: [] },
-    withheld: { subs: [...withheldReal, ...top(withheldReal.length + heldBills.length, demo.action.filter(s => s.status === 'clarification'))], bills: heldBills },
-    waiting: { subs: [...waitingReal, ...top(waitingReal.length, demo.escalated)], bills: [] },
-    denied: { subs: [...deniedReal, ...top(deniedReal.length, demo.denied)], bills: [] },
+    sent: { subs: [...sentReal, ...top(sentReal.length, [...demo.action.filter(s => s.status === 'exception'), ...demo.escalated])], bills: [] },
+    revision: { subs: [...revisionReal, ...top(revisionReal.length + heldBills.length, demo.action.filter(s => s.status === 'clarification'))], bills: heldBills },
+    rejected: { subs: [...rejectedReal, ...top(rejectedReal.length + rejectedBills.length, demo.denied)], bills: rejectedBills },
+    approved: { subs: [...approvedReal, ...top(approvedReal.length + approvedBills.length, demo.approved)], bills: approvedBills },
   }
   const count = (v: View) => Math.min(MAX, lists[v].subs.length + lists[v].bills.length)
 
@@ -152,9 +155,10 @@ export default function Office({ db }: { db: Db }) {
     )
   }
   const billRow = (i: Db['invoices'][number]) => (
-    <li key={i.id} className="iv-card" data-status="exception">
+    <li key={i.id} className="iv-card" data-status={i.state === 'held' ? 'exception' : i.state === 'rejected' ? 'rejected' : 'approved'}>
       <header>
-        <strong>{i.vendor}</strong><span className="iv-amt">{money(i.amount)}</span><Badge tone="bad">Held for review</Badge>
+        <strong>{i.vendor}</strong><span className="iv-amt">{money(i.amount)}</span>
+        <Badge tone={i.state === 'held' || i.state === 'rejected' ? 'bad' : 'good'}>{i.state === 'held' ? 'Held for review' : i.state === 'rejected' ? 'Rejected' : i.state === 'paid' ? 'Paid' : 'Matched, ready to pay'}</Badge>
         <OpenInvoice id={i.id} vendor={i.vendor} />
       </header>
       <p className="iv-note">Bookkeeping agent · received {i.received}</p>
@@ -168,15 +172,15 @@ export default function Office({ db }: { db: Db }) {
     </button>
   )
   const shown = view ? [...lists[view].subs.map(row), ...lists[view].bills.map(billRow)].slice(0, MAX) : []
-  const empty: Record<View, string> = { new: 'No new requests.', withheld: 'Nothing is withheld.', waiting: 'Nothing is waiting on other approvers.', denied: 'Nothing has been denied.' }
+  const empty: Record<View, string> = { sent: 'No invoices waiting on a decision.', revision: 'Nothing sent back for revision.', rejected: 'Nothing rejected.', approved: 'Nothing approved yet.' }
 
   return (
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoice requests">
-        {tab('new', 'New requests in queue')}
-        {tab('withheld', 'Withheld for further review')}
-        {tab('waiting', 'Waiting on other approvers')}
-        {tab('denied', 'Denied')}
+        {tab('sent', 'Sent')}
+        {tab('revision', 'Rejected for revision')}
+        {tab('rejected', 'Rejected')}
+        {tab('approved', 'Approved')}
       </div>
       {view && (shown.length === 0 ? <Empty>{empty[view]}</Empty> : <ul className="iv-list">{shown}</ul>)}
     </div>
