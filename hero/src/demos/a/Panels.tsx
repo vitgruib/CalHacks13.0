@@ -203,7 +203,14 @@ function Index() {
               .filter(n => test(n.id))
               .map(n => (
                 <li key={n.id}>
-                  <button type="button" onClick={() => selectNode(n.id)}>
+                  <button
+                    type="button"
+                    onClick={() => selectNode(n.id)}
+                    onFocus={() => ui.set({ hovered: n.id })}
+                    onBlur={() => ui.get().hovered === n.id && ui.set({ hovered: null })}
+                    onMouseEnter={() => ui.set({ hovered: n.id })}
+                    onMouseLeave={() => ui.get().hovered === n.id && ui.set({ hovered: null })}
+                  >
                     <span>{n.label}</span>
                     {n.sub && <span className="a-muted">{n.sub}</span>}
                   </button>

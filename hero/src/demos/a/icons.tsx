@@ -76,6 +76,13 @@ export const IconCross = (p: P) => (
     <path d="M4.5 4.5l7 7M11.5 4.5l-7 7" strokeWidth="2" />
   </S>
 )
+export const IconMore = (p: P) => (
+  <S {...p}>
+    <circle cx="3.5" cy="8" r="1.3" fill="currentColor" stroke="none" />
+    <circle cx="8" cy="8" r="1.3" fill="currentColor" stroke="none" />
+    <circle cx="12.5" cy="8" r="1.3" fill="currentColor" stroke="none" />
+  </S>
+)
 export const IconList = (p: P) => (
   <S {...p}>
     <path d="M3 4.5h10M3 8h10M3 11.5h10" />

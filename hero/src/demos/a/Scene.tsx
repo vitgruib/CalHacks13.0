@@ -1,6 +1,7 @@
-// The studio: a seamless cool-grey void, softbox lighting, two floating
-// plinths, and a camera that opens close on Sam's bench and cranes back to
-// reveal both sides as his first request crosses the gap.
+// The studio: a seamless grey void with a soft pool of light under two
+// floating plinths, a warm key from the upper left, a cool fill and a faint
+// rim. The camera opens close on Sam's bench, cranes back to reveal both
+// sides, then drifts very slowly while nobody is steering it.
 
 import { ContactShadows, Environment, Lightformer, OrbitControls, PerformanceMonitor } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
@@ -13,7 +14,7 @@ import { Flow } from './Flow'
 import { LabPlinth } from './Lab'
 import { OfficePlinth } from './Office'
 import { HERO_TALL, OPENING, PAL, STATIONS, anchorOf, floorOf, heroFor, type Framing } from './layout'
-import { reducedMotion, ui } from './store'
+import { pinnedQuality, reducedMotion, ui } from './store'
 
 function Backdrop() {
   const mat = useMemo(
@@ -35,29 +36,52 @@ function Backdrop() {
   )
 }
 
+/** The floor far below the plinths: a soft radial pool of light falling off into the void. */
+function Ground() {
+  const mat = useMemo(
+    () =>
+      new ShaderMaterial({
+        depthWrite: false,
+        uniforms: { inner: { value: new Color(PAL.ground) }, outer: { value: new Color(PAL.void) } },
+        vertexShader: 'varying vec2 vP; void main() { vP = position.xy; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+        fragmentShader:
+          'uniform vec3 inner; uniform vec3 outer; varying vec2 vP; void main() { float d = length(vP * vec2(0.62, 1.0)) / 24.0; float k = 1.0 - smoothstep(0.0, 1.0, d); gl_FragColor = vec4(mix(outer, inner, k * k), 1.0); }',
+      }),
+    [],
+  )
+  return (
+    <mesh material={mat} position={[1.2, -3.12, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={-1}>
+      <planeGeometry args={[140, 140]} />
+    </mesh>
+  )
+}
+
 function Lights() {
   return (
     <>
-      <hemisphereLight args={['#F1F5F9', '#6E7A88', 0.9]} />
+      <hemisphereLight args={['#FFF8EE', '#8A93A0', 0.62]} />
       <directionalLight
-        position={[-8, 16, 10]}
-        intensity={2.3}
+        position={[-12, 18, 9]}
+        intensity={2.7}
+        color="#FFF0DC"
         castShadow
         shadow-mapSize={[2048, 2048]}
         shadow-bias={-0.0003}
         shadow-normalBias={0.03}
-        shadow-camera-left={-17}
-        shadow-camera-right={17}
-        shadow-camera-top={12}
-        shadow-camera-bottom={-12}
+        shadow-camera-left={-18}
+        shadow-camera-right={18}
+        shadow-camera-top={13}
+        shadow-camera-bottom={-13}
         shadow-camera-near={1}
-        shadow-camera-far={60}
+        shadow-camera-far={70}
       />
-      <directionalLight position={[12, 7, -6]} intensity={0.55} color="#D7E2EE" />
+      <directionalLight position={[16, 7, 8]} intensity={0.55} color="#CFE0F5" />
+      <directionalLight position={[6, 9, -16]} intensity={0.9} color="#EAF2FF" />
       <Environment resolution={128} frames={1}>
-        <Lightformer form="rect" intensity={2.2} position={[0, 9, 2]} rotation={[Math.PI / 2, 0, 0]} scale={[16, 8, 1]} color="#FFFFFF" />
-        <Lightformer form="rect" intensity={1.1} position={[-12, 4, 6]} rotation={[0, Math.PI / 2.4, 0]} scale={[10, 4, 1]} color="#EEF3F8" />
-        <Lightformer form="rect" intensity={0.8} position={[12, 3, -4]} rotation={[0, -Math.PI / 2.2, 0]} scale={[10, 3, 1]} color="#DCE6F0" />
+        <Lightformer form="rect" intensity={2.0} position={[-4, 9, 3]} rotation={[Math.PI / 2, 0, 0]} scale={[16, 8, 1]} color="#FFF6EA" />
+        <Lightformer form="rect" intensity={1.0} position={[-12, 4, 6]} rotation={[0, Math.PI / 2.4, 0]} scale={[10, 4, 1]} color="#FFF1E2" />
+        <Lightformer form="rect" intensity={0.9} position={[12, 3, -4]} rotation={[0, -Math.PI / 2.2, 0]} scale={[10, 3, 1]} color="#D6E4F2" />
+        <Lightformer form="ring" intensity={1.4} position={[6, 6, -12]} scale={4} color="#EAF2FF" />
       </Environment>
     </>
   )
@@ -76,24 +100,28 @@ interface Tween {
 }
 
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
+const UP = new Vector3(0, 1, 0)
+const DRIFT = (1.5 * Math.PI) / 180 // ±1.5°
+const DRIFT_S = 20 // one slow sway every 20 s
+const off = new Vector3()
 
 function focusFor(id: string, hero: Framing) {
   const dir = hero.pos.clone().sub(hero.target).normalize()
   let target: Vector3
-  let dist = 11
+  let dist = 15
   if (id.startsWith('r:')) {
     const s = STATIONS[id.slice(2)]
     target = s ? new Vector3(s.fig[0] + 0.5, 0.85, s.fig[2] + 0.2) : anchorOf(id)
-    dist = 8.5
+    dist = 11.7
   } else if (id.startsWith('g:')) {
     target = floorOf(id).setY(1)
-    dist = 9.5
+    dist = 13
   } else if (id.startsWith('a:') || id === 'p:grant_manager') {
     target = anchorOf(id).setY(1)
-    dist = 9.5
+    dist = 13
   } else target = anchorOf(id).setY(0.8)
   // A phone's narrow lens needs more distance to hold the same subject.
-  if (hero === HERO_TALL) dist *= 2.1
+  if (hero === HERO_TALL) dist *= 2.25
   return { pos: target.clone().addScaledVector(dir, dist), target }
 }
 
@@ -105,6 +133,7 @@ function Rig() {
   const shift = useRef<[number, number]>([...heroFor(size.width / size.height).shift])
   const still = useMemo(reducedMotion, [])
   const heroRef = useRef<Framing>(heroFor(size.width / size.height))
+  const drift = useRef({ t: 0, a: 0, drag: false })
 
   const glide = (toP: Vector3, toT: Vector3, ms: number, lift = 0) => {
     const c = controls.current
@@ -127,8 +156,13 @@ function Rig() {
     camera.lookAt(c.target)
     const stop = () => {
       tween.current = null
+      drift.current.drag = true
+    }
+    const end = () => {
+      drift.current.drag = false
     }
     c.addEventListener('start', stop)
+    c.addEventListener('end', end)
     let last: string | null = null
     const unsub = ui.subscribe(() => {
       const s = ui.get().selected
@@ -142,6 +176,7 @@ function Rig() {
     })
     return () => {
       c.removeEventListener('start', stop)
+      c.removeEventListener('end', end)
       unsub()
     }
   }, [])
@@ -194,6 +229,18 @@ function Rig() {
       return
     }
     c.enabled = true
+    // Idle life: a very slow sway about the target while nobody is steering.
+    const d = drift.current
+    if (!still && !d.drag && !s.selected && document.visibilityState === 'visible') {
+      d.t += Math.min(dt, 0.05)
+      const a = DRIFT * Math.sin((d.t / DRIFT_S) * Math.PI * 2)
+      const da = a - d.a
+      d.a = a
+      if (da !== 0) {
+        off.subVectors(camera.position, c.target).applyAxisAngle(UP, da)
+        camera.position.copy(c.target).add(off)
+      }
+    }
     c.update()
   })
 
@@ -249,8 +296,9 @@ function Halo() {
 function Effects() {
   const [level, setLevel] = useState(2)
   const t0 = useRef(performance.now())
+  const pinned = useMemo(pinnedQuality, [])
   const decline = () => {
-    if (performance.now() - t0.current > 4000) setLevel(l => Math.max(0, l - 1))
+    if (!pinned && performance.now() - t0.current > 4000) setLevel(l => Math.max(0, l - 1))
   }
   return (
     <>
@@ -285,15 +333,16 @@ export default function Scene() {
       camera={{ fov: 30, near: 0.5, far: 300, position: OPENING.pos.toArray() }}
       gl={{ antialias: false, powerPreference: 'high-performance' }}
       role="img"
-      aria-label="A 3D model of the Ortiz Lab on one plinth and the grant office on the other. Requests travel as tokens from researchers to the purchasing agent, and answers come back as bought, rerouted, blocked or held."
+      aria-label="A 3D clay model of the Ortiz Lab on one plinth and the grant office on the other. Each request travels as a parcel from a researcher to the purchasing agent's desk, where the spending rules light up one by one, and comes back bought, rerouted, blocked or held. Every actor is also listed under More, Everything in the scene."
     >
       <Backdrop />
+      <Ground />
       <Lights />
       <LabPlinth />
       <OfficePlinth />
       <Flow />
       <Halo />
-      <ContactShadows position={[1.6, -3.1, 0]} scale={[36, 18]} blur={2.6} far={4.5} opacity={0.38} resolution={512} frames={1} color="#28313C" />
+      <ContactShadows position={[1.6, -3.1, 0]} scale={[36, 18]} blur={3} far={4.5} opacity={0.3} resolution={512} frames={1} color="#3A3530" />
       <Rig />
       <Effects />
     </Canvas>

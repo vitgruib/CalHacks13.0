@@ -1,4 +1,4 @@
-// The lab plinth: a matte clay diorama of the Ortiz Lab with five figurines
+// The lab plinth: a warm clay diorama of the Ortiz Lab with five figurines
 // at their stations, each with a tidy stack of their recent requests.
 
 import { Html } from '@react-three/drei'
@@ -8,26 +8,37 @@ import { LatheGeometry, MeshStandardMaterial, Vector2, type Group, type Material
 import { feed } from '../../feed'
 import type { Outcome, Request } from '../../feed'
 import { LAB_X, PLINTH_D, PLINTH_W, STATIONS, type Gesture, type Station, type V3 } from './layout'
-import { glazeFor, M } from './mats'
-import { B, Chip, Cyl, Pick, useFlash } from './Parts'
+import { glazeFor, M, vary } from './mats'
+import { B, Chip, Cyl, NamePlate, Pick } from './Parts'
 import { TokenIcon, outcomeWord } from './icons'
 import { fx, now, reducedMotion, ui, useFeed, useUi } from './store'
 
 const coatGeo = new LatheGeometry(
-  [new Vector2(0, 0), new Vector2(0.25, 0), new Vector2(0.255, 0.04), new Vector2(0.23, 0.45), new Vector2(0.2, 0.82), new Vector2(0, 0.82)],
+  [new Vector2(0, 0), new Vector2(0.24, 0), new Vector2(0.25, 0.04), new Vector2(0.225, 0.42), new Vector2(0.2, 0.8), new Vector2(0, 0.8)],
   40,
 )
-const chestGeo = new LatheGeometry([new Vector2(0, 0), new Vector2(0.2, 0), new Vector2(0.215, 0.3), new Vector2(0.19, 0.44), new Vector2(0.09, 0.54), new Vector2(0, 0.56)], 40)
+const chestGeo = new LatheGeometry(
+  [new Vector2(0, 0), new Vector2(0.2, 0), new Vector2(0.222, 0.2), new Vector2(0.25, 0.38), new Vector2(0.235, 0.47), new Vector2(0.14, 0.55), new Vector2(0, 0.57)],
+  40,
+)
 
-const tone = (c: string) => new MeshStandardMaterial({ color: c, roughness: 0.82 })
+const tone = (c: string) => new MeshStandardMaterial({ color: c, roughness: 0.84 })
 const BODY: Record<string, Material> = {
-  ortiz: tone('#2F3945'),
-  okafor: tone('#4E5B69'),
-  raman: tone('#64727F'),
-  silva: tone('#5A6878'),
-  park: tone('#7A8795'),
+  ortiz: tone('#5A5149'),
+  okafor: tone('#6C6359'),
+  raman: tone('#7D7368'),
+  silva: tone('#71675D'),
+  park: tone('#8A8076'),
 }
-const HEAD = tone('#DCE1E6')
+const HEAD = tone('#ECE4D8')
+// Sleeves a step lighter than the coat, so arms and gestures read against the body.
+const ARM: Record<string, Material> = Object.fromEntries(
+  Object.entries(BODY).map(([k, m]) => {
+    const a = (m as MeshStandardMaterial).clone()
+    a.color.offsetHSL(0, 0, 0.09)
+    return [k, a]
+  }),
+)
 
 const SHORT: Record<string, string> = { ortiz: 'Lena', okafor: 'Sam', raman: 'Priya', silva: 'Mateo', park: 'Jun' }
 const ROLE: Record<string, string> = { ortiz: 'PI', okafor: 'Postdoc', raman: 'Grad student', silva: 'Grad student', park: 'Lab manager' }
@@ -39,6 +50,7 @@ function gestureFor(task: string, base: Gesture): Gesture | 'read' {
 }
 
 const damp = (a: number, b: number, k: number) => a + (b - a) * k
+const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 
 function Figure({ id, s }: { id: string; s: Station }) {
   const root = useRef<Group>(null)
@@ -48,13 +60,15 @@ function Figure({ id, s }: { id: string; s: Station }) {
   const armL = useRef<Group>(null)
   const still = useMemo(reducedMotion, [])
   const phase = useMemo(() => id.length * 1.7, [id])
+  const life = useRef(0)
 
-  useFrame(({ clock }, dt) => {
+  useFrame((_, dt) => {
     if (!root.current || !torso.current || !head.current || !armR.current || !armL.current) return
-    const t = still ? 0 : clock.elapsedTime + phase
+    life.current += Math.min(dt, 0.05)
+    const t = still ? 0 : life.current + phase
     const task = feed.getWorld().researchers.find(r => r.id === id)?.task ?? ''
     const g = gestureFor(task, s.gesture)
-    let rx = -0.2, lx = -0.2, rz = 0, lz = 0, lean = 0, nod = 0, yaw = 0
+    let rx = -0.2, lx = -0.2, rz = 0.08, lz = -0.08, lean = 0, nod = 0, yaw = 0
     if (g === 'write') {
       rx = -2.0 + 0.12 * Math.sin(t * 3)
       rz = -0.15 + 0.2 * Math.sin(t * 1.7)
@@ -88,56 +102,75 @@ function Figure({ id, s }: { id: string; s: Station }) {
       nod = -0.25
       yaw = 0.2 * Math.sin(t * 0.5)
     }
-    // A short reaction when they send something or hear back.
-    let hop = 0
+    // Breathing and a slow shift of weight.
+    const breath = still ? 0 : Math.sin((t * Math.PI * 2) / 4.2)
+    const sway = still ? 0 : 0.016 * Math.sin((t * Math.PI * 2) / 9)
+    let y = 0
+    // Sending: a short dip (anticipation), then a rise as the parcel leaves.
+    // Hearing back: a hop, a slump, a glance up or a turn.
     const r = fx.reactions.get(id)
     if (r && !still) {
-      const k = (now() - r.at) / 700
-      if (k >= 0 && k < 1) {
-        const bell = Math.sin(Math.PI * k)
-        if (r.kind === 'send') rx = damp(rx, -2.6, bell)
-        else if (r.kind === 'accept') hop = 0.12 * bell
-        else if (r.kind === 'reject') {
-          lean = damp(lean, -0.18, bell)
-          nod = damp(nod, 0.55, bell)
-        } else if (r.kind === 'hold') nod = damp(nod, -0.3, bell)
-        else if (r.kind === 'refine') yaw = damp(yaw, 0.6, bell)
+      const e = now() - r.at
+      if (r.kind === 'send' && e >= 0 && e < 760) {
+        const dip = e < 120 ? Math.sin((Math.PI / 2) * (e / 120)) : clamp01(1 - (e - 120) / 180)
+        const rise = e >= 120 && e < 560 ? Math.sin((Math.PI * (e - 120)) / 440) : 0
+        y = -0.07 * dip + 0.07 * rise
+        lean = damp(lean, 0.22, dip)
+        rx = damp(rx, -2.5, Math.max(rise, dip * 0.4))
+      } else if (r.kind !== 'send') {
+        const k = e / 700
+        if (k >= 0 && k < 1) {
+          const bell = Math.sin(Math.PI * k)
+          if (r.kind === 'accept') y = 0.12 * bell
+          else if (r.kind === 'reject') {
+            lean = damp(lean, -0.18, bell)
+            nod = damp(nod, 0.55, bell)
+          } else if (r.kind === 'hold') nod = damp(nod, -0.3, bell)
+          else if (r.kind === 'refine') yaw = damp(yaw, 0.6, bell)
+        }
       }
     }
-    const k = Math.min(1, dt * 6)
+    const k = Math.min(1, dt * 7)
     armR.current.rotation.x = damp(armR.current.rotation.x, rx, k)
     armR.current.rotation.z = damp(armR.current.rotation.z, rz, k)
     armL.current.rotation.x = damp(armL.current.rotation.x, lx, k)
     armL.current.rotation.z = damp(armL.current.rotation.z, lz, k)
     torso.current.rotation.x = damp(torso.current.rotation.x, lean, k)
     torso.current.rotation.y = damp(torso.current.rotation.y, yaw, k)
+    torso.current.scale.set(1 + 0.008 * breath, 1 + 0.014 * breath, 1 + 0.008 * breath)
     head.current.rotation.x = damp(head.current.rotation.x, nod, k)
-    root.current.position.y = hop
+    root.current.position.y = y
+    root.current.rotation.z = sway
   })
 
+  const body = BODY[id] ?? M.slate
+  const sleeve = ARM[id] ?? body
   return (
     <group position={s.fig} rotation={[0, s.rot, 0]}>
       <group ref={root}>
-        <mesh geometry={coatGeo} material={BODY[id] ?? M.slate} castShadow receiveShadow />
-        <group ref={torso} position={[0, 0.8, 0]}>
-          <mesh geometry={chestGeo} material={BODY[id] ?? M.slate} castShadow receiveShadow />
-          <mesh ref={head} position={[0, 0.72, 0]} material={HEAD} castShadow receiveShadow>
-            <sphereGeometry args={[0.15, 28, 20]} />
+        <mesh geometry={coatGeo} material={body} castShadow receiveShadow />
+        <group ref={torso} position={[0, 0.78, 0]}>
+          <mesh geometry={chestGeo} material={body} castShadow receiveShadow />
+          <mesh position={[0, 0.6, 0]} material={HEAD} castShadow>
+            <cylinderGeometry args={[0.06, 0.07, 0.12, 16]} />
           </mesh>
-          <group ref={armR} position={[0.235, 0.43, 0]}>
-            <mesh position={[0, -0.24, 0]} material={BODY[id] ?? M.slate} castShadow>
-              <capsuleGeometry args={[0.052, 0.36, 4, 12]} />
+          <mesh ref={head} position={[0, 0.79, 0]} material={HEAD} castShadow receiveShadow>
+            <sphereGeometry args={[0.16, 32, 22]} />
+          </mesh>
+          <group ref={armR} position={[0.305, 0.44, 0]}>
+            <mesh position={[0, -0.24, 0]} material={sleeve} castShadow>
+              <capsuleGeometry args={[0.06, 0.34, 6, 14]} />
             </mesh>
             <mesh position={[0, -0.47, 0]} material={HEAD} castShadow>
-              <sphereGeometry args={[0.05, 14, 10]} />
+              <sphereGeometry args={[0.058, 16, 12]} />
             </mesh>
           </group>
-          <group ref={armL} position={[-0.235, 0.43, 0]}>
-            <mesh position={[0, -0.24, 0]} material={BODY[id] ?? M.slate} castShadow>
-              <capsuleGeometry args={[0.052, 0.36, 4, 12]} />
+          <group ref={armL} position={[-0.305, 0.44, 0]}>
+            <mesh position={[0, -0.24, 0]} material={sleeve} castShadow>
+              <capsuleGeometry args={[0.06, 0.34, 6, 14]} />
             </mesh>
             <mesh position={[0, -0.47, 0]} material={HEAD} castShadow>
-              <sphereGeometry args={[0.05, 14, 10]} />
+              <sphereGeometry args={[0.058, 16, 12]} />
             </mesh>
           </group>
         </group>
@@ -218,11 +251,9 @@ function StackCard({ id, ids, shown }: { id: string; ids: string[]; shown: boole
 
 const ResearcherChip = memo(function ResearcherChip({ id, s }: { id: string; s: Station }) {
   const task = useFeed(w => w.researchers.find(r => r.id === id)?.task ?? '')
-  const flash = useFlash(`r:${id}`)
-  const on = useUi(st => st.hovered === `r:${id}` || st.selected === `r:${id}`)
   return (
-    <Chip id={`r:${id}`} at={[s.fig[0], 2.0, s.fig[2]]} title={SHORT[id]} sub={ROLE[id]} quiet>
-      {(on || flash) && <span className="a-chip-task">{task}</span>}
+    <Chip id={`r:${id}`} at={[s.fig[0], 2.15, s.fig[2]]} title={SHORT[id]} sub={ROLE[id]}>
+      <span className="a-chip-task">{task}</span>
     </Chip>
   )
 })
@@ -232,18 +263,13 @@ const ResearcherChip = memo(function ResearcherChip({ id, s }: { id: string; s: 
 function Whiteboard() {
   return (
     <group position={[-8.25, 0, -2.6]} rotation={[0, 0.25, 0]}>
-      <B p={[0, 1.3, 0]} s={[1.8, 1.12, 0.07]} m={M.clay} r={0.03} />
-      <B p={[0, 1.3, 0.04]} s={[1.68, 1.0, 0.012]} m={M.board} r={0.004} />
-      <B p={[-0.35, 1.55, 0.05]} s={[0.5, 0.025, 0.006]} m={M.slate} r={0.002} />
-      <B p={[-0.42, 1.47, 0.05]} s={[0.36, 0.02, 0.006]} m={M.clayDeep} r={0.002} />
-      <B p={[0.3, 1.3, 0.05]} s={[0.36, 0.22, 0.006]} m={M.clayDeep} r={0.002} />
-      <B p={[0.3, 1.3, 0.052]} s={[0.32, 0.18, 0.006]} m={M.board} r={0.002} />
-      <B p={[-0.2, 1.08, 0.05]} s={[0.7, 0.02, 0.006]} m={M.slate} r={0.002} />
-      <B p={[0, 0.76, 0.07]} s={[1.5, 0.04, 0.09]} m={M.clay} r={0.015} />
-      <Cyl p={[-0.82, 0.38, 0]} r={0.03} h={0.76} m={M.slate} />
-      <Cyl p={[0.82, 0.38, 0]} r={0.03} h={0.76} m={M.slate} />
-      <B p={[-0.82, 0.03, 0]} s={[0.08, 0.06, 0.6]} m={M.slate} r={0.02} />
-      <B p={[0.82, 0.03, 0]} s={[0.08, 0.06, 0.6]} m={M.slate} r={0.02} />
+      <B p={[0, 1.3, 0]} s={[1.8, 1.12, 0.08]} m={vary(M.clay, 1)} r={0.035} />
+      <B p={[0, 1.3, 0.045]} s={[1.66, 0.98, 0.012]} m={M.board} r={0.004} />
+      <B p={[-0.35, 1.55, 0.055]} s={[0.5, 0.025, 0.006]} m={M.slate} r={0.002} shadow={false} />
+      <B p={[-0.42, 1.47, 0.055]} s={[0.36, 0.02, 0.006]} m={M.clayDeep} r={0.002} shadow={false} />
+      <B p={[0.3, 1.3, 0.055]} s={[0.36, 0.22, 0.006]} m={M.clayDeep} r={0.002} shadow={false} />
+      <B p={[0, 0.76, 0.07]} s={[1.5, 0.05, 0.1]} m={vary(M.clay, 1)} r={0.02} />
+      <B p={[0, 0.37, 0]} s={[1.5, 0.74, 0.12]} m={vary(M.clayDeep, 2)} r={0.04} />
     </group>
   )
 }
@@ -251,12 +277,11 @@ function Whiteboard() {
 function FumeHood() {
   return (
     <group position={[-6.5, 0, -2.62]}>
-      <B p={[0, 1.05, 0]} s={[1.45, 2.1, 0.9]} m={M.porcelain} r={0.05} />
+      <B p={[0, 1.05, 0]} s={[1.45, 2.1, 0.9]} m={vary(M.porcelain, 3)} r={0.06} />
       <B p={[0, 1.27, 0.43]} s={[1.18, 0.8, 0.06]} m={M.dark} r={0.02} />
-      <B p={[0, 1.5, 0.47]} s={[1.2, 0.42, 0.02]} m={M.glass} r={0.008} />
+      <B p={[0, 1.5, 0.47]} s={[1.2, 0.42, 0.02]} m={M.window} r={0.008} shadow={false} />
       <B p={[0, 0.84, 0.48]} s={[1.3, 0.06, 0.12]} m={M.clay} r={0.02} />
-      <B p={[0, 0.42, 0.455]} s={[0.02, 0.7, 0.01]} m={M.clayDeep} r={0.004} />
-      <Cyl p={[0.3, 2.35, -0.1]} r={0.15} h={0.5} m={M.clay} />
+      <Cyl p={[0.3, 2.35, -0.1]} r={0.16} h={0.5} m={vary(M.clay, 4)} />
     </group>
   )
 }
@@ -264,11 +289,11 @@ function FumeHood() {
 function SafetyCabinet() {
   return (
     <group position={[-5.05, 0, -2.6]}>
-      <B p={[0, 0.37, 0]} s={[1.5, 0.74, 0.8]} m={M.clay} r={0.04} />
-      <B p={[0, 1.33, 0]} s={[1.56, 1.18, 0.86]} m={M.porcelain} r={0.05} />
+      <B p={[0, 0.37, 0]} s={[1.5, 0.74, 0.8]} m={vary(M.clay, 2)} r={0.05} />
+      <B p={[0, 1.33, 0]} s={[1.56, 1.18, 0.86]} m={vary(M.porcelain, 1)} r={0.06} />
       <B p={[0, 1.13, 0.42]} s={[1.3, 0.46, 0.06]} m={M.dark} r={0.02} />
-      <B p={[0, 1.47, 0.46]} s={[1.32, 0.5, 0.016]} m={M.glass} r={0.006} rot={[-0.16, 0, 0]} />
-      <B p={[0, 1.98, 0.05]} s={[1.4, 0.12, 0.62]} m={M.clay} r={0.03} />
+      <B p={[0, 1.47, 0.46]} s={[1.32, 0.5, 0.016]} m={M.window} r={0.006} rot={[-0.16, 0, 0]} shadow={false} />
+      <B p={[0, 1.98, 0.05]} s={[1.4, 0.12, 0.62]} m={vary(M.clay, 3)} r={0.04} />
     </group>
   )
 }
@@ -276,30 +301,30 @@ function SafetyCabinet() {
 function Freezer() {
   return (
     <group position={[-2.3, 0, -2.6]}>
-      <B p={[0, 0.98, 0]} s={[0.95, 1.96, 0.88]} m={M.porcelain} r={0.06} />
+      <B p={[0, 0.98, 0]} s={[0.95, 1.96, 0.88]} m={vary(M.porcelain, 4)} r={0.07} />
       <B p={[0, 0.98, 0.445]} s={[0.86, 1.74, 0.02]} m={M.chalk} r={0.008} />
-      <B p={[0.34, 1.12, 0.48]} s={[0.05, 0.5, 0.06]} m={M.slate} r={0.02} />
-      <B p={[-0.16, 1.72, 0.465]} s={[0.3, 0.12, 0.02]} m={M.dark} r={0.008} />
+      <B p={[0.34, 1.12, 0.48]} s={[0.06, 0.5, 0.06]} m={M.slate} r={0.025} />
     </group>
   )
 }
 
 function Shelf() {
-  const boxes: [V3, V3, Material][] = [
-    [[-0.22, 0.47, 0], [0.3, 0.2, 0.3], M.chalk],
-    [[0.16, 0.45, 0], [0.34, 0.16, 0.32], M.clayDeep],
-    [[-0.18, 0.9, 0], [0.36, 0.16, 0.3], M.clay],
-    [[0.2, 0.93, 0], [0.24, 0.22, 0.28], M.porcelain],
-    [[-0.05, 1.36, 0], [0.62, 0.18, 0.3], M.chalk],
+  const boxes: [V3, V3, MeshStandardMaterial][] = [
+    [[-0.2, 0.47, 0], [0.32, 0.2, 0.3], M.chalk],
+    [[0.18, 0.45, 0], [0.3, 0.16, 0.32], M.clayDeep],
+    [[-0.12, 0.92, 0], [0.46, 0.2, 0.3], M.clay],
+    [[-0.05, 1.37, 0], [0.62, 0.18, 0.3], M.chalk],
   ]
   return (
     <group position={[-3.55, 0, -2.75]}>
       {[0.34, 0.8, 1.26, 1.72].map(y => (
-        <B key={y} p={[0, y, 0]} s={[0.92, 0.035, 0.46]} m={M.clay} r={0.01} />
+        <B key={y} p={[0, y, 0]} s={[0.92, 0.04, 0.46]} m={vary(M.clay, 2)} r={0.012} />
       ))}
-      {[-0.44, 0.44].flatMap(x => [-0.21, 0.21].map(z => <B key={`${x}${z}`} p={[x, 0.9, z]} s={[0.035, 1.8, 0.035]} m={M.slate} r={0.01} />))}
+      {[-0.46, 0.46].map(x => (
+        <B key={x} p={[x, 0.88, 0]} s={[0.05, 1.76, 0.46]} m={vary(M.clayDeep, 1)} r={0.015} />
+      ))}
       {boxes.map(([p, s, m], i) => (
-        <B key={i} p={p} s={s} m={m} r={0.02} />
+        <B key={i} p={p} s={s} m={vary(m, i)} r={0.025} />
       ))}
     </group>
   )
@@ -308,19 +333,16 @@ function Shelf() {
 function PurificationBench() {
   return (
     <group position={[-7.4, 0, 0.92]}>
-      <B p={[0, 0.41, 0]} s={[2.4, 0.82, 0.84]} m={M.clay} r={0.04} />
-      <B p={[0, 0.86, 0]} s={[2.5, 0.08, 0.94]} m={M.porcelain} r={0.03} />
-      <B p={[-0.6, 0.915, -0.05]} s={[0.32, 0.03, 0.22]} m={M.slate} r={0.01} />
-      <Cyl p={[-0.6, 1.22, -0.12]} r={0.014} h={0.6} m={M.slate} seg={10} />
-      <Cyl p={[-0.66, 1.18, -0.02]} r={0.04} h={0.36} m={M.glass} seg={16} />
-      <Cyl p={[-0.54, 1.14, -0.02]} r={0.04} h={0.3} m={M.glass} seg={16} />
-      <B p={[0.25, 1.0, 0.05]} s={[0.5, 0.2, 0.34]} m={M.chalk} r={0.03} />
-      {Array.from({ length: 10 }, (_, i) => (
-        <Cyl key={i} p={[0.06 + (i % 5) * 0.09, 1.14, -0.03 + Math.floor(i / 5) * 0.12]} r={0.022} h={0.1} m={i % 3 ? M.porcelain : M.clayDeep} seg={10} />
+      <B p={[0, 0.41, 0]} s={[2.4, 0.82, 0.84]} m={vary(M.clay, 3)} r={0.05} />
+      <B p={[0, 0.86, 0]} s={[2.5, 0.08, 0.94]} m={vary(M.porcelain, 2)} r={0.035} />
+      <B p={[-0.6, 0.93, -0.05]} s={[0.36, 0.06, 0.24]} m={M.slate} r={0.015} />
+      <Cyl p={[-0.66, 1.15, -0.04]} r={0.05} h={0.38} m={M.window} seg={20} />
+      <Cyl p={[-0.52, 1.12, -0.04]} r={0.05} h={0.32} m={M.window} seg={20} />
+      <B p={[0.25, 1.0, 0.05]} s={[0.5, 0.2, 0.34]} m={M.chalk} r={0.035} />
+      {Array.from({ length: 5 }, (_, i) => (
+        <Cyl key={i} p={[0.07 + i * 0.09, 1.15, 0.05]} r={0.026} h={0.11} m={i % 2 ? M.porcelain : M.clayDeep} seg={12} />
       ))}
-      <Cyl p={[0.8, 1.02, -0.12]} r={0.07} h={0.24} m={M.porcelain} seg={18} />
-      <Cyl p={[0.98, 0.99, -0.06]} r={0.06} h={0.18} m={M.clayDeep} seg={18} />
-      <Cyl p={[0.9, 0.97, 0.16]} r={0.05} h={0.14} m={M.chalk} seg={18} />
+      <Cyl p={[0.82, 1.02, -0.1]} r={0.08} h={0.24} m={vary(M.porcelain, 1)} seg={22} />
     </group>
   )
 }
@@ -328,21 +350,18 @@ function PurificationBench() {
 function ConfocalTable() {
   return (
     <group position={[-4.15, 0, 0.98]}>
-      {[-0.72, 0.72].flatMap(x => [-0.3, 0.3].map(z => <B key={`${x}${z}`} p={[x, 0.36, z]} s={[0.16, 0.72, 0.16]} m={M.clay} r={0.03} />))}
-      <B p={[0, 0.78, 0]} s={[1.75, 0.12, 0.88]} m={M.slateDeep} r={0.03} />
+      {[-0.66, 0.66].map(x => (
+        <B key={x} p={[x, 0.36, 0]} s={[0.18, 0.72, 0.74]} m={vary(M.clay, 1)} r={0.04} />
+      ))}
+      <B p={[0, 0.78, 0]} s={[1.75, 0.12, 0.88]} m={M.slateDeep} r={0.035} />
       <group position={[-0.15, 0.84, 0.05]}>
-        <B p={[0, 0.05, 0]} s={[0.5, 0.1, 0.42]} m={M.porcelain} r={0.03} />
-        <B p={[0, 0.42, 0.14]} s={[0.14, 0.7, 0.16]} m={M.porcelain} r={0.03} />
-        <B p={[0, 0.74, 0.0]} s={[0.17, 0.12, 0.42]} m={M.porcelain} r={0.03} />
-        <Cyl p={[0, 0.62, -0.12]} r={0.07} h={0.08} m={M.slate} />
-        <B p={[0, 0.4, -0.08]} s={[0.32, 0.03, 0.26]} m={M.slate} r={0.01} />
-        <Cyl p={[-0.04, 0.84, -0.14]} r={0.024} h={0.18} m={M.slate} rot={[0.6, 0, 0]} seg={12} />
-        <Cyl p={[0.04, 0.84, -0.14]} r={0.024} h={0.18} m={M.slate} rot={[0.6, 0, 0]} seg={12} />
-        <B p={[0.34, 0.66, 0.06]} s={[0.3, 0.28, 0.32]} m={M.chalk} r={0.04} />
+        <B p={[0, 0.05, 0]} s={[0.5, 0.1, 0.42]} m={M.porcelain} r={0.035} />
+        <B p={[0, 0.42, 0.14]} s={[0.16, 0.7, 0.18]} m={M.porcelain} r={0.04} />
+        <B p={[0, 0.74, 0.0]} s={[0.19, 0.14, 0.44]} m={M.porcelain} r={0.04} />
+        <Cyl p={[0, 0.62, -0.12]} r={0.075} h={0.08} m={M.slate} />
+        <B p={[0.34, 0.66, 0.06]} s={[0.3, 0.28, 0.32]} m={M.chalk} r={0.045} />
       </group>
-      <B p={[0.58, 0.95, 0.18]} s={[0.4, 0.22, 0.32]} m={M.clay} r={0.03} />
-      <B p={[-0.68, 1.12, 0.12]} s={[0.46, 0.3, 0.03]} m={M.dark} r={0.01} rot={[0, 0.35, 0]} />
-      <Cyl p={[-0.68, 0.92, 0.12]} r={0.02} h={0.16} m={M.slate} seg={8} />
+      <B p={[0.58, 0.95, 0.18]} s={[0.4, 0.22, 0.32]} m={vary(M.clay, 4)} r={0.035} />
     </group>
   )
 }
@@ -351,8 +370,9 @@ export const LabPlinth = memo(function LabPlinth() {
   const ids = Object.keys(STATIONS)
   return (
     <group>
-      <B p={[LAB_X, -0.56, 0]} s={[PLINTH_W, 1.1, PLINTH_D]} m={M.labBody} r={0.14} />
+      <B p={[LAB_X, -0.56, 0]} s={[PLINTH_W, 1.1, PLINTH_D]} m={M.labBody} r={0.16} />
       <B p={[LAB_X, -0.01, 0]} s={[PLINTH_W - 0.3, 0.04, PLINTH_D - 0.3]} m={M.labTop} r={0.015} />
+      <NamePlate text="The Ortiz Lab" x={LAB_X} ink="#B3A898" light="#E6DFD3" />
       <Pick id="r:ortiz">
         <Whiteboard />
       </Pick>
@@ -379,12 +399,6 @@ export const LabPlinth = memo(function LabPlinth() {
       {ids.map(id => (
         <ResearcherChip key={id} id={id} s={STATIONS[id]} />
       ))}
-      <Html position={[LAB_X, -0.5, PLINTH_D / 2 + 0.02]} zIndexRange={[19, 10]} wrapperClass="a-html" pointerEvents="none">
-        <div className="a-plaque a-plaque--light">
-          <span>The Ortiz Lab</span> five researchers
-        </div>
-      </Html>
     </group>
   )
 })
-

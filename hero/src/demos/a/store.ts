@@ -73,6 +73,9 @@ export function useFeed<T>(sel: (w: World) => T): T {
 
 export const reducedMotion = () => typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
 
+/** `?hq` pins the top quality tier (headless captures otherwise step down to the lowest). */
+export const pinnedQuality = () => typeof location !== 'undefined' && new URLSearchParams(location.search).has('hq')
+
 // ── Scene-local effects (feed time) ───────────────────────────────────────
 
 export type Form = 'coin' | 'bead' | 'money' | 'slip' | 'parcel' | 'ring' | 'tile' | 'pawn'
@@ -101,11 +104,13 @@ export const fx = {
   landings: [] as Landing[],
   reactions: new Map<string, Reaction>(), // researcher id → latest reaction
   pulses: new Map<string, number>(), // node id → feed time it last sent or received
+  slosh: new Map<string, { at: number; amp: number }>(), // grant id → when its liquid was last disturbed
   clear() {
     this.ripples.length = 0
     this.landings.length = 0
     this.reactions.clear()
     this.pulses.clear()
+    this.slosh.clear()
   },
 }
 

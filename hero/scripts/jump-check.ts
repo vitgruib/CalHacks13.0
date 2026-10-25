@@ -26,4 +26,13 @@ g.advance(64_000)
 g.on(() => {})
 expect('first subscriber keeps the fast-forward', g.getWorld().beat?.title === 'The money lands', `beat="${g.getWorld().beat?.title}"`)
 
+// The story progress bar must restart with the story, not keep the feed's running clock.
+const h = new Feed()
+h.restart()
+h.advance(150_000)
+h.restart()
+h.advance(95_100)
+const k = h.storyProgress()
+expect('story progress restarts', Math.abs(k - 0.5) < 0.01, `progress=${k.toFixed(3)} at 95.1s of 190.2s`)
+
 if (failed) process.exit(1)

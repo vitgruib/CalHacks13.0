@@ -66,6 +66,8 @@ export class Feed {
   private jobs: Job[] = []
   private seq = 0
   private epoch = 0 // bumps on restart so stale callbacks drop
+  private storyStart = 0 // feed time of the last restart
+  private storyLength = 0 // feed ms from restart to the last scripted beat
   private listeners = new Set<Listener>()
   private worldListeners = new Set<() => void>()
   private dirty = false
@@ -82,6 +84,8 @@ export class Feed {
 
   /** Feed time in ms. Packet progress = (now() − sentAt) / ms. */
   now = () => this.t
+  /** How far through the scripted story we are, 0 to 1 (1 once it goes live). */
+  storyProgress = () => (this.storyLength ? Math.min(1, (this.t - this.storyStart) / this.storyLength) : 0)
   getWorld = () => this.w
   subscribeWorld = (fn: () => void) => {
     this.worldListeners.add(fn)
@@ -114,6 +118,7 @@ export class Feed {
     this.rand = mulberry32(7)
     this.w = { ...this.freshWorld(), playing: this.w.playing, speed: this.w.speed }
     this.dirty = true
+    this.storyStart = this.t
     this.emit({ type: 'reset' })
     this.story()
     this.ambientTasks()
@@ -274,6 +279,7 @@ export class Feed {
       at += wait
       this.after(at, fn)
     }
+    this.storyLength = at
   }
 
   private ambientTasks() {
