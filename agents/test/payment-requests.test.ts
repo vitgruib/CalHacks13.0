@@ -80,12 +80,14 @@ async function startAlone({
   tracker = noTracker,
   beforeCall,
   checkInvoices = true,
+  lastDay,
 }: {
   seedJson?: string;
   role?: 'payment_report' | 'bookkeeping';
   tracker?: Tracker | ((lab: Connection) => Tracker);
   beforeCall?: (action: ActionName, lab: Connection) => Promise<void>;
   checkInvoices?: boolean;
+  lastDay?: DayStore;
 } = {}): Promise<Alone> {
   const db = await createLocalDb({ world: seedJson ? { seedJson } : 'sim' });
   const raw = await db.connect();
@@ -121,6 +123,7 @@ async function startAlone({
     conn,
     tracker: typeof tracker === 'function' ? tracker(lab) : tracker,
     papers: createPaperLookup({ mode: 'offline', throttle: false }),
+    lastDay,
   });
   const quiet = async () => {
     for (let round = 0; round < 50; round++) {
@@ -431,6 +434,22 @@ test('a_kept_day_after_today_claims_the_last_full_month_as_a_clock_moved_back_do
   const w = await startRestartable(juneOnly('2026-07-02'), lastDay);
   assert.deepEqual(requestsFor(w.lab, TEST_GRANT, JUNE_2026).map((pr) => pr.amount), [1_200]);
   assert.equal(lastDay.load(), '2026-07-02');
+});
+
+test('the_day_kept_stays_at_the_end_of_a_month_still_waiting_for_an_invoice_check', async () => {
+  const lastDay = memoryDay();
+  const seed = JSON.parse(oneGrantSeed({
+    requests: [{ id: 'rq-1', day: '2026-06-05', requester: 'scientist', item: 'Agar plates', category: 'lab supplies', price: 700, grantId: TEST_GRANT, chargedGrantId: TEST_GRANT, purpose: 'Aim 1', state: 'bought' }],
+    orders: [{ id: 'o-1', requestId: 'rq-1', grantId: TEST_GRANT, vendor: 'Test Vendor', amount: 700, placed: '2026-06-05', state: 'open' }],
+    invoices: [{ id: 'inv-1', orderId: 'o-1', vendor: 'Test Vendor', amount: 700, received: '2026-06-20', state: 'matched', checked: false }],
+  }));
+  seed.today = '2026-06-25';
+  alone = await startAlone({ seedJson: JSON.stringify(seed), checkInvoices: false, lastDay });
+  const lab = await alone.person('grant_manager');
+  await lab.call('advance_days', { days: 37 }); // 2026-08-01: June waits for inv-1
+  await alone.quiet();
+  assert.deepEqual(requestsFor(alone.conn, TEST_GRANT, JUNE_2026), []);
+  assert.equal(lastDay.load(), '2026-06-30', 'a restart now claims June again');
 });
 
 test('the_kept_day_survives_in_its_own_file_per_database', () => {

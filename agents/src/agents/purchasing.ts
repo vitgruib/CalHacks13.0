@@ -320,7 +320,7 @@ function reasonStep(decision: Decision, facts: { serves: string[]; vendor: strin
     case 'unclear_grant':
       return `The request doesn't make clear which grant it is for${decision.note ? ` (${decision.note})` : ''}, so the grant manager decides instead of the agent guessing.`;
     case 'decided_before':
-      return 'The grant manager already decided this request and the scientist pushed back, so it goes back to the Inbox instead of being bought automatically.';
+      return `The grant manager already decided this request and the scientist pushed back, so it goes back to the Inbox instead of being bought automatically.${decision.note ? ` ${decision.note}` : ''}`;
     case 'unchecked':
       return "The grant's status couldn't be refreshed right before buying, so no money moves until it is.";
     case 'refused':
@@ -611,7 +611,11 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const promisesMove = decision.reason === 'freeze' || Boolean(decision.pendingTo);
     const asHold = (reason: HoldReason, note?: string): Decision => ({ ...decision, action: 'hold', reason, to: undefined, pendingTo: undefined, note });
     if (!reading.grantIsClear && decision.action !== 'block') decision = asHold('unclear_grant', reading.note);
-    else if ((movesMoney || promisesMove) && personDecided(requestId)) decision = asHold('decided_before');
+    else if ((movesMoney || promisesMove) && personDecided(requestId)) {
+      // Approving or overriding here charges this grant, so say how it gets to the other one.
+      const elsewhere = decision.pendingTo && `${decision.pendingTo} has the time and money for it but is frozen; charging it there takes a new request on ${decision.pendingTo} once ${decision.pendingTo} unfreezes.`;
+      decision = asHold('decided_before', elsewhere || undefined);
+    }
     else if (movesMoney && !fresh) decision = asHold('unchecked');
 
     if (decision.action === 'reroute') await reroute(requestId, decision, reading.serves, 'block');

@@ -603,6 +603,7 @@ test('after_a_person_s_decision_a_block_waiting_on_a_frozen_grant_goes_back_to_t
   assert.equal(request(id).state, 'waiting_on_manager');
   const [hold] = openPurchaseHolds(id);
   assert.match(hold.why, /already decided this request/);
+  assert.match(hold.why, new RegExp(`takes a new request on ${SECOND_GRANT} once ${SECOND_GRANT} unfreezes`));
   assert.doesNotMatch(hold.why, /rerouted there once/);
   assert.doesNotMatch(hold.why, PROMISE);
 

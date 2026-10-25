@@ -826,9 +826,12 @@ export function startPaymentRequests({ conn, tracker, lastDay = memoryDay() }: A
       }
       for (const period of periods) for (const grant of conn.rows('grant')) checkGrant(grant.id, period);
     }
-    // Kept once those months are drafted, so a crash before then claims them again.
+    // Kept once those months are drafted, so a crash before then claims them
+    // again. A month still waiting for an invoice check is only in memory, so
+    // the day kept stays at that month's end until it goes out.
     void queue.push(`the day ${to}`, async () => {
-      if (!stopped) lastDay.save(to);
+      if (stopped) return;
+      lastDay.save([...waitingOn.values()].reduce((day, { period }) => (period.to < day ? period.to : day), to));
     });
   };
 
