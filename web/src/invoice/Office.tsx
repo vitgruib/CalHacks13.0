@@ -119,7 +119,7 @@ function why(s: Submission): string {
 
 export default function Office({ db }: { db: Db }) {
   const stored = useSubmissions()
-  const [view, setView] = useState<View | null>(null)
+  const [view, setView] = useState<View>('sent')
   const demo = demoSubmissions(db, 'Sofia Alvarez')
   const have = new Set(stored.map(s => s.id))
   const top = (real: number, samples: Submission[]) => samples.filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - real))
@@ -167,22 +167,22 @@ export default function Office({ db }: { db: Db }) {
   )
 
   const tab = (v: View, label: string) => (
-    <button type="button" className={`iv-tab${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => setView(x => (x === v ? null : v))}>
+    <button type="button" className={`iv-tab${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => setView(v)}>
       {label} <span className="iv-count">{count(v)}</span>
     </button>
   )
-  const shown = view ? [...lists[view].subs.map(row), ...lists[view].bills.map(billRow)].slice(0, MAX) : []
-  const empty: Record<View, string> = { sent: 'No invoices waiting on a decision.', revision: 'Nothing sent back for revision.', rejected: 'Nothing rejected.', approved: 'Nothing approved yet.' }
+  const shown = [...lists[view].subs.map(row), ...lists[view].bills.map(billRow)].slice(0, MAX)
+  const empty: Record<View, string> = { sent: 'Nothing is waiting for approval.', revision: 'Nothing sent back for revision.', rejected: 'Nothing rejected.', approved: 'Nothing approved yet.' }
 
   return (
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoice requests">
-        {tab('sent', 'Sent')}
+        {tab('sent', 'Waiting for approval')}
         {tab('revision', 'Rejected for revision')}
         {tab('rejected', 'Rejected')}
         {tab('approved', 'Approved')}
       </div>
-      {view && (shown.length === 0 ? <Empty>{empty[view]}</Empty> : <ul className="iv-list">{shown}</ul>)}
+      {shown.length === 0 ? <Empty>{empty[view]}</Empty> : <ul className="iv-list">{shown}</ul>}
     </div>
   )
 }
