@@ -1127,7 +1127,7 @@ test('a_request_claude_finds_plainly_not_for_research_is_held_instead_of_bought'
     const row = lab.rows('request').at(-1)!;
     assert.equal(row.state, 'waiting_on_manager');
     assert.equal(ordersFor(row.id, lab).length, 0);
-    assert.match(row.explanation, /doesn't look like it is for the lab's research \(A birthday cake is a party cost\.\)/);
+    assert.match(row.explanation, /isn't clear it is for the lab's research \(A birthday cake is a party cost\.\)/);
     assert.equal(openPurchaseHolds(row.id, lab).length, 1);
   }));
 

@@ -373,7 +373,7 @@ function reasonStep(decision: Decision, facts: StepFacts): string {
     case 'price_high':
       return decision.note ?? 'Its price is far above the list price found for it, so the grant manager decides.';
     case 'purpose':
-      return `It doesn't look like it is for the lab's research${decision.note ? ` (${decision.note})` : ''}, so the grant manager decides instead of the agent buying it. A push back saying what it's for gets it checked again.`;
+      return `It isn't clear it is for the lab's research${decision.note ? ` (${decision.note})` : ''}, so the grant manager decides instead of the agent buying it. A push back saying what it's for gets it checked again.`;
     case 'category_check':
       return decision.note ?? "Its kind of thing looks wrong and the rules would answer differently, so the grant manager decides.";
     case 'unplaced':
