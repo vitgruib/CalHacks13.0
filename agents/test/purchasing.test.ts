@@ -7,6 +7,7 @@ import { afterEach, test } from 'node:test';
 import { startTracker } from '../src/agents/bookkeeping.ts';
 import {
   DEFAULT_VENDOR,
+  explanationFacts,
   explanationOr,
   finishExplanation,
   loadRules,
@@ -186,6 +187,22 @@ test('pu_2_rq_103_is_blocked_citing_the_category_rule', async () => {
   assert.match(row.explanation, /Category allowed: general office is not an allowable direct cost/);
   assert.match(row.explanation, /UC Davis/);
   assert.deepEqual(openPurchaseHolds('rq-103').map((hold) => hold.options), [['approve', 'reject']]);
+});
+
+// T101: the agent only flags. What the scientist and the grant manager read
+// (the request's explanation and the Inbox item's why) says so.
+test('a_flagged_request_is_explained_as_flagged_for_the_grant_manager_not_blocked', async () => {
+  await startSim();
+  for (const id of ['rq-102', 'rq-103']) {
+    const row = request(id);
+    assert.equal(row.state, 'blocked');
+    const [hold] = openPurchaseHolds(id);
+    for (const text of [row.explanation, hold.why]) {
+      assert.match(text, /^Flagged .* for the grant manager/);
+      assert.doesNotMatch(text, /block|reject|refus/i);
+    }
+  }
+  assert.match(request('rq-103').explanation, /only the grant manager's approval can buy it/);
 });
 
 test('pu_4_rq_105_waits_on_the_manager_citing_the_card_limit', async () => {
@@ -787,6 +804,26 @@ test('explanation_or_uses_the_template_when_claude_returns_nothing', () => {
   };
   assert.match(explanationOr('  ', facts), /^Held Pipette tips \(\$380\) on G-A .*Under the card limit \(\$5,000\): \$7,200 is over the limit/);
   assert.equal(explanationOr('Held for the card limit.', facts), 'Held for the card limit.');
+});
+
+// T101: a block only flags. Claude is told "flag", and the template says so too.
+test('a_block_is_described_to_claude_and_the_template_as_a_flag_for_the_grant_manager', () => {
+  const category = v('Category allowed', false);
+  const lastDays = v("Not in the grant's last 90 days", false);
+  const cases = [
+    { action: 'block', reason: 'category', grantId: 'G-A', failed: [category], passed: [category] },
+    { action: 'block', reason: 'grant_rules', grantId: 'G-A', failed: [lastDays], passed: [lastDays] },
+    { action: 'block', reason: 'grant_rules', grantId: 'G-A', pendingTo: 'G-B', failed: [lastDays], passed: [lastDays] },
+  ] as const;
+  for (const decision of cases) {
+    const facts = explanationFacts(requestRow({ item: 'Espresso machine', category: 'general office', price: 890 }), { ...decision, failed: [...decision.failed], passed: [...decision.passed] }, DEFAULT_VENDOR);
+    assert.equal(facts.action, 'flag');
+    assert.doesNotMatch(JSON.stringify(facts), /block|reject|refus/i, 'nothing Claude reads calls it blocked');
+    const text = explanationOr('', facts);
+    assert.match(text, /^Flagged Espresso machine \(\$890\) on G-A for the grant manager/);
+    assert.match(text, /flag/i);
+    assert.doesNotMatch(text, /block/i);
+  }
 });
 
 test('finish_explanation_names_a_rule_claude_left_out', () => {

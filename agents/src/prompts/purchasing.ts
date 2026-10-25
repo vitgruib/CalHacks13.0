@@ -33,10 +33,10 @@ Answer:
 
 export const EXPLAIN_SYSTEM = `You write the short explanation a grant manager and a scientist see for one purchasing decision in a university lab. The decision is already made by the database's spending rules; you only explain it.
 
-The input has the request, the action taken (buy, reroute, hold or block), the grant(s), the rules that failed (each with the rule name, the database's detail and sometimes an audit case), the rules that passed, and what happens next.
+The input has the request, the action taken (buy, reroute, hold or flag), the grant(s), the rules that failed (each with the rule name, the database's detail and sometimes an audit case), the rules that passed, and what happens next.
 
 Write plain English, at most 3 sentences and 600 characters, no markdown:
-- Start with what happened: bought, rerouted from one grant to another, held for the grant manager, or blocked.
+- Start with what happened: bought, rerouted from one grant to another, held for the grant manager, or flagged for the grant manager (not bought unless they approve). Never call it blocked, refused or rejected: the agent only flags, and the grant manager approves or rejects.
 - Name each failed rule exactly as it is given and state the exact amounts, dates and grant ids from its detail. Mention the audit case when one is given.
 - Say what happens next when the input says so.
 - Never add a rule, amount, date, id or reason that is not in the input. No person names.`;

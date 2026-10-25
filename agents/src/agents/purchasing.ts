@@ -231,9 +231,14 @@ export function priceStep(price: number, entry: PriceEntry): string {
 
 // ── Explanations ───────────────────────────────────────────────────────────
 
+// What people are told happened. act_on_request's block only flags (T101):
+// nothing is bought unless the grant manager approves, and the agent never rejects.
+const OUTCOME = { buy: 'buy', reroute: 'reroute', hold: 'hold', block: 'flag' } as const;
+export type Outcome = (typeof OUTCOME)[Decision['action']];
+
 export interface ExplanationFacts {
   request: { id: string; item: string; category: string; price: number; purpose: string };
-  action: Decision['action'];
+  action: Outcome;
   grantId: string;
   to?: string;
   failed: Array<{ rule: string; detail: string; auditCase?: string }>;
@@ -307,18 +312,32 @@ function reasonStep(decision: Decision, facts: StepFacts): string {
     case 'unplaced':
       return 'A rule failed that the agent cannot place, so the grant manager decides.';
     case 'category':
-      return 'It cannot be charged to a federal grant.';
+      return "It cannot be charged to a federal grant, so only the grant manager's approval can buy it.";
     case 'already_ordered':
       return `It was already ordered (${decision.note ?? 'an order exists'}), so a push back never buys it again; the grant manager can change or cancel the order.`;
     case 'grant_rules':
       return decision.pendingTo
-        ? `${decision.pendingTo} has the time and money for it but is frozen, so it will be rerouted there once ${decision.pendingTo} unfreezes.`
-        : 'No other grant can take it right now.';
+        ? `${decision.pendingTo} has the time and money for it but is frozen, so it will be rerouted there once ${decision.pendingTo} unfreezes, unless the grant manager decides first.`
+        : "No other grant can take it right now, so only the grant manager's approval can buy it.";
     case 'unfrozen':
       return `It was held only for the freeze, which has lifted. Ordered from ${facts.vendor}.`;
     default:
       return decision.action === 'reroute' ? `Every rule passes on ${decision.to}. Ordered from ${facts.vendor}.` : `Ordered from ${facts.vendor}.`;
   }
+}
+
+/** What the explanation is written from, by Claude or the template. */
+export function explanationFacts(request: RequestRow, decision: Decision, vendor: string): ExplanationFacts {
+  return {
+    request: { id: request.id, item: request.item, category: request.category, price: request.price, purpose: request.purpose },
+    action: OUTCOME[decision.action],
+    grantId: decision.grantId,
+    to: decision.to,
+    failed: decision.failed.map((v) => ({ rule: v.rule, detail: v.detail, auditCase: v.auditCase })),
+    passed: decision.passed.filter((v) => v.pass).map((v) => v.rule),
+    vendor: decision.action === 'buy' || decision.action === 'reroute' ? vendor : undefined,
+    next: nextStep(decision, { vendor, frozen: [decision.grantId] }),
+  };
 }
 
 /** The plain template used when Claude isn't: the module's own rule names and details. */
@@ -329,7 +348,7 @@ export function fallbackExplanation(facts: ExplanationFacts): string {
     buy: `Bought ${item} (${usd(price)}) on ${charged}.`,
     reroute: `Rerouted ${item} (${usd(price)}) from ${facts.grantId} to ${facts.to} and bought it.`,
     hold: `Held ${item} (${usd(price)}) on ${charged} for the grant manager.`,
-    block: `Flagged ${item} (${usd(price)}) on ${charged} for the grant manager; not bought.`,
+    flag: `Flagged ${item} (${usd(price)}) on ${charged} for the grant manager; not bought.`,
   }[facts.action];
   const cites = facts.failed.map((v) => `${v.rule}: ${v.detail}${v.auditCase ? ` Audit case: ${v.auditCase}.` : ''}`);
   const passes = facts.action === 'buy' && facts.passed.length ? [`Every rule passes: ${facts.passed.join('; ')}.`] : [];
@@ -479,16 +498,7 @@ export function startPurchasing({
 
   async function explain(request: RequestRow, decision: Decision, vendor: string): Promise<string> {
     const stepFacts: StepFacts = { vendor, frozen: [decision.grantId] };
-    const facts: ExplanationFacts = {
-      request: { id: request.id, item: request.item, category: request.category, price: request.price, purpose: request.purpose },
-      action: decision.action,
-      grantId: decision.grantId,
-      to: decision.to,
-      failed: decision.failed.map((v) => ({ rule: v.rule, detail: v.detail, auditCase: v.auditCase })),
-      passed: decision.passed.filter((v) => v.pass).map((v) => v.rule),
-      vendor: decision.action === 'buy' || decision.action === 'reroute' ? vendor : undefined,
-      next: nextStep(decision, stepFacts),
-    };
+    const facts = explanationFacts(request, decision, vendor);
     const { value } = await ask({
       task: EXPLAIN_TASK,
       system: EXPLAIN_SYSTEM,
