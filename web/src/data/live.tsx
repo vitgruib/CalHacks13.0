@@ -19,7 +19,7 @@ export const STDB_DB: string = import.meta.env.VITE_STDB_DB || 'grantguard'
 // network takes several seconds, and giving up means this tab stops syncing.
 const CONNECT_TIMEOUT_MS = 20_000
 // Haiku usually answers in a few seconds; past this Ask goes on to the grants unchecked.
-const ITEM_CHECK_TIMEOUT_MS = 20_000
+const ITEM_CHECK_TIMEOUT_MS = 10_000
 
 /** The loading screen (styles in index.html, which shows the same markup before the bundle loads). */
 function Connecting() {
