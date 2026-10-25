@@ -105,7 +105,8 @@ export function disagreement(latest: Reading[]): string | null {
   const claims = latest.filter((reading) => reading.status !== null);
   const meanings = new Set(claims.map((reading) => MEANING[reading.status!]));
   if (meanings.size < 2) return null;
-  return claims.map((reading) => `${reading.source} says ${reading.status}`).join('; ');
+  // In plain words for the grant manager: "restored by court", not "restored_by_court".
+  return claims.map((reading) => `${reading.source} says ${reading.status!.replace(/_/g, ' ')}`).join('; ');
 }
 
 // The federal fiscal year a date falls in (FY2024 runs Oct 2023 to Sep 2024).

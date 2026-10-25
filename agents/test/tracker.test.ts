@@ -184,8 +184,26 @@ test('a_decided_disagreement_is_raised_again_when_a_source_reports_something_new
   await refresh();
   const flags = disagreements(conn);
   assert.equal(flags.length, 2, 'RePORTER changed, so the new disagreement is raised');
-  assert.match(flags[1].summary, /NIH RePORTER says restored_by_court/);
+  assert.match(flags[1].summary, /NIH RePORTER says restored by court/);
   assert.equal(flags[1].open, true);
+});
+
+test('a_decided_disagreement_in_the_old_wording_is_not_raised_again', async () => {
+  const conn = await startWith([
+    fakeSource('NIH RePORTER', [{ status: 'restored_by_court' }]),
+    fakeSource('Cancellation list (Apify)', [{ status: 'canceled' }]),
+  ]);
+  // A world whose flag was raised before the plain wording, then decided.
+  await decideDisagreement();
+  const [flag] = disagreements(conn);
+  assert.match(flag.summary, /says restored by court/);
+  const old = flag.summary.replace('restored by court', 'restored_by_court');
+  await conn.call('raise_flag', { grantId: TEST_GRANT, kind: 'sources_disagree', summary: old });
+  await decideDisagreement();
+  await world!.worker.tracker.refresh(TEST_GRANT);
+  await world!.worker.idle();
+  assert.equal(disagreements(conn).length, 2, 'the same readings in the old wording, so no third flag');
+  assert.equal(conn.rows('hold').filter((hold) => hold.kind === 'source_disagreement' && hold.open).length, 0);
 });
 
 test('active_and_restored_by_court_are_not_a_disagreement', async () => {

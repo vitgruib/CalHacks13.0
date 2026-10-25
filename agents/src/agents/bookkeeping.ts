@@ -147,7 +147,9 @@ export function startTracker(conn: Connection, sources: SourceClient[]): Tracker
     const flags = conn.rows('flag').filter((flag) => flag.grantId === grantId && flag.kind === 'sources_disagree');
     if (flags.some((flag) => flag.open)) return true;
     const last = flags.at(-1);
-    if (!last || last.summary !== summary) return false;
+    // Flags raised before the statuses were written in plain words say
+    // "restored_by_court"; the same disagreement in either wording is the same.
+    if (!last || last.summary.replace(/_/g, ' ') !== summary) return false;
     return !conn.rows('sourceReading').some((reading) => reading.grantId === grantId && reading.day > last.day);
   }
 
