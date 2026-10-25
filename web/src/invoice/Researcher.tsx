@@ -1,11 +1,11 @@
-// The researcher's side of Invoice: submit an invoice, see where each one is,
-// who has to review it, and what you need to do next.
+// The researcher's side of Invoice: every approved request, with a button to
+// send its invoice; then the invoices in progress (who has to review each one
+// and what you need to do next) and the approved ones.
 import { useState } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
 import { Badge, Empty, money } from '../ui'
 import { OpenInvoice, StatusBadge } from './Findings'
-import { Count } from './Stage'
 import { check, parseAmount, type Draft, type Submission } from './model'
 import { demoSubmissions } from './demo'
 import { approvedRequests, draftForRequest, type ApprovedRequest } from './requests'
@@ -39,8 +39,8 @@ function draftFromBill(db: Db, i: Db['invoices'][number]): Draft {
 export default function Researcher({ db, name }: { db: Db; name: string }) {
   const all = useSubmissions()
   const mine = all.filter(s => s.researcher === name)
-  const [form, setForm] = useState<{ edit?: Submission; seed?: Draft; seedKey?: string } | null>(null)
-  const [view, setView] = useState<'approved' | 'action' | 'submit' | 'requests' | null>(null)
+  const [form, setForm] = useState<{ edit?: Submission; seed?: Draft; seedKey?: string; title?: string } | null>(null)
+  const [view, setView] = useState<'requests' | 'progress' | 'approved' | 'submit'>('requests')
 
   const submit = (d: Draft, r: ReturnType<typeof check>) => {
     const prior = form?.edit
@@ -56,35 +56,34 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     ]
     saveSubmission(base)
     setForm(null)
-    setView('action')
+    setView('progress')
   }
 
   const mineOrders = new Set(db.orders.filter(o => db.requests.find(r => r.id === o.requestId)?.requesterName === name).map(o => o.id))
   const agentBills = db.invoices.filter(i => mineOrders.has(i.orderId))
 
-  // Approved: approved submissions and bills paid or ready to pay. Need your action: anything you can fix,
-  // plus bills on hold. What only waits on the grants office is listed under that heading in the same view.
+  // In progress: anything not approved yet, what you can fix first. Approved: approved submissions and bills paid or ready to pay.
+  const progressSubs = mine.filter(s => s.status === 'exception' || s.status === 'clarification' || s.status === 'rejected')
+    .concat(mine.filter(s => s.status === 'ready' || s.status === 'escalated'))
+  const progressBills = agentBills.filter(i => i.state === 'held')
   const approvedSubs = mine.filter(s => s.status === 'approved')
   const approvedBills = agentBills.filter(i => i.state === 'paid' || i.state === 'matched')
-  const actionSubs = mine.filter(s => s.status === 'exception' || s.status === 'clarification' || s.status === 'rejected')
-  const actionBills = agentBills.filter(i => i.state === 'held')
-  const waitingSubs = mine.filter(s => s.status === 'ready' || s.status === 'escalated')
-  // A short list is topped up with sample invoices (up to MIN items) so each button has something to open.
+  // A short list is topped up with sample invoices (up to MIN items) so each menu has something to open.
   const MIN = 2
   const demo = demoSubmissions(db, name)
   const have = new Set(all.map(s => s.id))
   const fill = (real: number, samples: Submission[]) => samples.filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - real))
+  const progressDemo = fill(progressSubs.length + progressBills.length, demo.action)
   const approvedDemo = fill(approvedSubs.length + approvedBills.length, demo.approved)
-  const actionDemo = fill(actionSubs.length + actionBills.length + waitingSubs.length, demo.action)
-  const MAX = 3 // each list shows at most this many, so the demo stays easy to read
-  const nApproved = Math.min(MAX, approvedSubs.length + approvedBills.length + approvedDemo.length)
-  const nAction = Math.min(MAX, actionSubs.length + actionBills.length + actionDemo.length) + waitingSubs.length
+  const approvedReqs = approvedRequests(db, name, all)
+  const nProgress = progressSubs.length + progressBills.length + progressDemo.length
+  const nApproved = approvedSubs.length + approvedBills.length + approvedDemo.length
 
   const card = (s: Submission) => {
     const g = db.grants.find(x => x.id === s.grantId)
     const decision = [...s.audit].reverse().find(a => a.who === 'Grant manager')
     return (
-      <li key={s.id} className="iv-card" data-tilt="card" data-status={s.status}>
+      <li key={s.id} className="iv-card" data-status={s.status}>
         <header>
           <strong>{s.vendor || 'Invoice'}</strong>
           <span className="iv-amt">{money(parseAmount(s.amount))}</span>
@@ -99,21 +98,24 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
       </li>
     )
   }
-  const approvedReqs = approvedRequests(db, name, all)
   const reqCard = (r: ApprovedRequest) => {
     const g = db.grants.find(x => x.id === r.grantId)
     return (
-      <li key={r.orderId} className="iv-card" data-tilt="card" data-status="approved">
+      <li key={r.orderId} className="iv-card" data-status="approved">
         <header>
-          <strong>{r.item}</strong><span className="iv-amt">{money(r.amount)}</span><Badge tone="good">Approved</Badge>
+          <strong>{r.item}</strong><span className="iv-amt">{money(r.amount)}</span>
+          <Badge tone={r.invoice ? 'neutral' : 'good'}>{r.invoice ? 'Invoice sent' : 'Approved'}</Badge>
+          {r.invoice && <OpenInvoice id={r.invoice} vendor={r.vendor} />}
         </header>
         <p className="iv-note">{r.vendor} · {g ? grantHeading(g) : r.grantId} · approved {r.approvedOn} by {r.by}</p>
-        <div className="iv-actions"><button type="button" className="iv-add" onClick={() => { setForm({ seed: draftForRequest(db, r), seedKey: r.orderId }); setView('submit') }}>Add invoice</button></div>
+        {!r.invoice && (
+          <div className="iv-actions"><button type="button" className="iv-add" onClick={() => { setForm({ seed: draftForRequest(db, r), seedKey: r.orderId, title: `Invoice for ${r.item}` }); setView('submit') }}>Submit invoice</button></div>
+        )}
       </li>
     )
   }
   const bill = (i: Db['invoices'][number]) => (
-    <li key={i.id} className="iv-card" data-tilt="card" data-status={i.state === 'held' ? 'exception' : 'approved'}>
+    <li key={i.id} className="iv-card" data-status={i.state === 'held' ? 'exception' : 'approved'}>
       <header>
         <strong>{i.vendor}</strong>
         <span className="iv-amt">{money(i.amount)}</span>
@@ -130,31 +132,34 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     </li>
   )
 
-  const pick = (v: 'approved' | 'action' | 'requests') => { setForm(null); setView(x => (x === v ? null : v)) }
+  const tab = (v: 'requests' | 'progress' | 'approved', label: string, n: number) => (
+    <button type="button" className={`iv-tab${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => { setForm(null); setView(v) }}>
+      {label} <span className="iv-count">{n}</span>
+    </button>
+  )
   return (
     <div className="iv">
+      <div className="iv-intro">
+        <h1>Invoices</h1>
+        <p className="iv-lede">Send the invoice for anything you were approved to buy, then follow it until it's paid.</p>
+      </div>
       <div className="iv-tabs" role="group" aria-label="Invoices">
-        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-blue${view === 'submit' ? ' on' : ''}`} aria-pressed={view === 'submit'} onClick={() => { setForm({}); setView(v => (v === 'submit' ? null : 'submit')) }}>Invoice for unexpected expenses or Overhead</button>
-        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-pink${view === 'requests' ? ' on' : ''}`} aria-pressed={view === 'requests'} onClick={() => pick('requests')}>
-          Invoices for approved requests <span className="iv-count"><Count n={approvedReqs.length} /></span>
-        </button>
-        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-orange${view === 'action' ? ' on' : ''}`} aria-pressed={view === 'action'} onClick={() => pick('action')}>
-          Need your action <span className="iv-count"><Count n={nAction} /></span>
-        </button>
-        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-green${view === 'approved' ? ' on' : ''}`} aria-pressed={view === 'approved'} onClick={() => pick('approved')}>
-          Approved <span className="iv-count"><Count n={nApproved} /></span>
-        </button>
+        {tab('requests', 'Approved requests', approvedReqs.length)}
+        {tab('progress', 'In progress', nProgress)}
+        {tab('approved', 'Approved invoices', nApproved)}
       </div>
 
-      {view === 'submit' && <SubmitForm key={form?.edit?.id ?? form?.seedKey ?? 'new'} db={db} others={all} initial={form?.edit ? draftOf(form.edit) : form?.seed} onSubmit={submit} onCancel={() => { setForm(null); setView(null) }} />}
-      {view === 'requests' && (approvedReqs.length === 0 ? <Empty>No approved requests are waiting for an invoice.</Empty> : <ul className="iv-list">{approvedReqs.map(reqCard)}</ul>)}
-      {view === 'approved' && (nApproved === 0 ? <Empty>Nothing approved yet.</Empty> : <ul className="iv-list">{[...approvedSubs.map(card), ...approvedBills.map(bill), ...approvedDemo.map(card)].slice(0, MAX)}</ul>)}
-      {view === 'action' && (nAction === 0 ? <Empty>Nothing needs your action.</Empty> : (
+      {view === 'submit' && <SubmitForm key={form?.edit?.id ?? form?.seedKey ?? 'new'} db={db} others={all} initial={form?.edit ? draftOf(form.edit) : form?.seed} title={form?.title} onSubmit={submit} onCancel={() => { setForm(null); setView('requests') }} />}
+      {view === 'requests' && (
         <>
-          <ul className="iv-list">{[...actionSubs.map(card), ...actionBills.map(bill), ...actionDemo.map(card)].slice(0, MAX)}</ul>
-          {waitingSubs.length > 0 && <><h2 className="iv-h2">With the grants office</h2><ul className="iv-list">{waitingSubs.map(card)}</ul></>}
+          {approvedReqs.length === 0 ? <Empty>You have no approved requests yet.</Empty> : <ul className="iv-list">{approvedReqs.map(reqCard)}</ul>}
+          <p className="iv-other">Something that wasn't a request?{' '}
+            <button type="button" className="iv-link" onClick={() => { setForm({}); setView('submit') }}>Invoice an unexpected expense or overhead</button>
+          </p>
         </>
-      ))}
+      )}
+      {view === 'progress' && (nProgress === 0 ? <Empty>No invoices in progress.</Empty> : <ul className="iv-list">{[...progressSubs.map(card), ...progressBills.map(bill), ...progressDemo.map(card)]}</ul>)}
+      {view === 'approved' && (nApproved === 0 ? <Empty>Nothing approved yet.</Empty> : <ul className="iv-list">{[...approvedSubs.map(card), ...approvedBills.map(bill), ...approvedDemo.map(card)]}</ul>)}
     </div>
   )
 }

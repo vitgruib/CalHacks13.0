@@ -8,7 +8,6 @@ import { grantHeading } from '../plain'
 import { Badge, Empty, money } from '../ui'
 import { demoSubmissions } from './demo'
 import { AuditTrail, BudgetCard, FindingList, OpenInvoice, StatusBadge } from './Findings'
-import { Count } from './Stage'
 import { ledgerEntry, parseAmount, purchaseOrders, type Status, type Submission } from './model'
 import { record, saveSubmission, useSubmissions } from './store'
 
@@ -142,7 +141,7 @@ export default function Office({ db }: { db: Db }) {
   const row = (s: Submission) => {
     const g = db.grants.find(x => x.id === s.grantId)
     return (
-      <li key={s.id} className="iv-card" data-tilt="card" data-status={s.status}>
+      <li key={s.id} className="iv-card" data-status={s.status}>
         <header>
           <strong>{s.vendor}</strong><span className="iv-amt">{money(parseAmount(s.amount))}</span><StatusBadge status={s.status} />
           <OpenInvoice id={s.id} vendor={s.vendor} />
@@ -153,7 +152,7 @@ export default function Office({ db }: { db: Db }) {
     )
   }
   const billRow = (i: Db['invoices'][number]) => (
-    <li key={i.id} className="iv-card" data-tilt="card" data-status="exception">
+    <li key={i.id} className="iv-card" data-status="exception">
       <header>
         <strong>{i.vendor}</strong><span className="iv-amt">{money(i.amount)}</span><Badge tone="bad">Held for review</Badge>
         <OpenInvoice id={i.id} vendor={i.vendor} />
@@ -163,9 +162,9 @@ export default function Office({ db }: { db: Db }) {
     </li>
   )
 
-  const tab = (v: View, label: string, cls: string) => (
-    <button type="button" data-tilt="tab" className={`iv-tab ${cls}${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => setView(x => (x === v ? null : v))}>
-      {label} <span className="iv-count"><Count n={count(v)} /></span>
+  const tab = (v: View, label: string) => (
+    <button type="button" className={`iv-tab${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => setView(x => (x === v ? null : v))}>
+      {label} <span className="iv-count">{count(v)}</span>
     </button>
   )
   const shown = view ? [...lists[view].subs.map(row), ...lists[view].bills.map(billRow)].slice(0, MAX) : []
@@ -173,11 +172,11 @@ export default function Office({ db }: { db: Db }) {
 
   return (
     <div className="iv">
-      <div className="iv-tabs iv-tabs-4" role="group" aria-label="Invoice requests">
-        {tab('new', 'New requests in queue', 'iv-tab-blue')}
-        {tab('withheld', 'Withheld for further review', 'iv-tab-orange')}
-        {tab('waiting', 'Waiting on other approvers', 'iv-tab-violet')}
-        {tab('denied', 'Denied', 'iv-tab-red')}
+      <div className="iv-tabs" role="group" aria-label="Invoice requests">
+        {tab('new', 'New requests in queue')}
+        {tab('withheld', 'Withheld for further review')}
+        {tab('waiting', 'Waiting on other approvers')}
+        {tab('denied', 'Denied')}
       </div>
       {view && (shown.length === 0 ? <Empty>{empty[view]}</Empty> : <ul className="iv-list">{shown}</ul>)}
     </div>

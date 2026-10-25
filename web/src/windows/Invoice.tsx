@@ -5,7 +5,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { useStore } from '../data/store'
 import InvoicePage from '../invoice/InvoicePage'
-import Stage from '../invoice/Stage'
 import Office from '../invoice/Office'
 import Researcher from '../invoice/Researcher'
 import { ResearcherContext } from '../people'
@@ -26,9 +25,5 @@ export default function Invoice() {
   const { db } = useStore()
   const researcher = useContext(ResearcherContext)
   const id = useSubId()
-  return (
-    <Stage>
-      {id ? <InvoicePage db={db} id={id} /> : researcher ? <Researcher db={db} name={researcher.name} /> : <Office db={db} />}
-    </Stage>
-  )
+  return id ? <InvoicePage db={db} id={id} /> : researcher ? <Researcher db={db} name={researcher.name} /> : <Office db={db} />
 }

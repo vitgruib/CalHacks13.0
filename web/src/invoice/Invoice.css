@@ -105,29 +105,38 @@
 .iv-form .iv-actions button.primary:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 6px 16px color-mix(in srgb, var(--v-accent) 35%, transparent); }
 .iv-form .iv-actions button.primary:disabled { opacity: .5; cursor: not-allowed; }
 
-/* The researcher's landing: three buttons, nothing else. */
-.iv-tabs { display: flex; flex-wrap: wrap; gap: 14px; margin: 8px 0 20px; }
-.iv-tab { flex: 1 1 200px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 18px; font-weight: 700; padding: 18px 22px; border-radius: 14px; border: 2px solid transparent; color: #fff; cursor: pointer; transition: transform .12s, box-shadow .15s, filter .15s; }
-.iv-tab:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(0 0 0 / .16); filter: brightness(1.05); }
-.iv-tab.on { box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 0%, transparent), inset 0 0 0 3px rgb(255 255 255 / .55); }
-.iv-tab-green { background: #1f8a4c; border-color: #1f8a4c; }
-.iv-tab-orange { background: #fbd51a; border-color: #fbd51a; color: #2b2300; }
-.iv-tab-orange .iv-count { background: rgb(43 29 0 / .14); }
-.iv-tab-blue { background: var(--accent, #2f5bd3); border-color: var(--accent, #2f5bd3); justify-content: center; }
-.sci .iv-tab-blue { background: var(--s-blue); border-color: var(--s-blue); }
-.iv-count { background: rgb(255 255 255 / .25); border-radius: 999px; padding: 2px 14px; font-size: 20px; font-variant-numeric: tabular-nums; }
+/* The menus: pill buttons like the rest of the app (the grant office's side menu, the researcher's Requests chips). */
+.iv-tabs { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0 20px; }
+.iv-tab { display: inline-flex; align-items: center; gap: 8px; border: 0; border-radius: 999px; padding: 7px 16px; background: var(--neutral-bg); color: var(--v-text); font-weight: 600; cursor: pointer; }
+.iv-tab:hover { filter: brightness(.97); }
+.iv-tab.on { background: var(--accent); color: #fff; }
+.iv-count { background: rgb(0 0 0 / .08); border-radius: 999px; padding: 0 8px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.iv-tab.on .iv-count { background: rgb(255 255 255 / .25); }
+.sci .iv-tab { background: var(--s-soft); padding: 10px 18px; font-size: 16px; }
+.sci .iv-tab.on { background: var(--s-ink); color: var(--s-on-ink); }
+.sci .iv-tab.on .iv-count { background: color-mix(in srgb, var(--s-on-ink) 20%, transparent); }
+
+/* The researcher's page: a heading like the other researcher windows, roomier cards. */
+.iv-intro { margin-bottom: 20px; }
+.iv-intro .iv-lede { margin-top: 8px; }
+.sci .iv-card { border-radius: 20px; padding: 20px 24px; background: var(--s-bg); }
+.sci .iv-card .iv-note { font-size: 15px; }
+.sci .iv-next { font-size: 16px; }
+.iv-other { margin: 18px 0 0; color: var(--v-muted); font-size: 14px; }
+.sci .iv-other, .sci .iv .iv-link { font-size: 16px; }
 
 /* The arrow on each card opens the full invoice. */
-.iv-go { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; width: 76px; height: 48px; border-radius: 14px; background: var(--v-accent); color: #fff; text-decoration: none; box-shadow: 0 4px 12px color-mix(in srgb, var(--v-accent) 35%, transparent); transition: transform .15s, box-shadow .15s, filter .15s; }
-.iv-go:hover, .iv-go:focus-visible { transform: translateX(5px); filter: brightness(1.1); box-shadow: 0 8px 18px color-mix(in srgb, var(--v-accent) 45%, transparent); outline: none; }
-.iv-go svg { display: block; }
+.iv-go { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 32px; border-radius: 8px; border: 1px solid var(--v-line); color: var(--v-accent); text-decoration: none; }
+.iv-go:hover, .iv-go:focus-visible { background: var(--neutral-bg); outline: none; }
+.sci .iv-go:hover, .sci .iv-go:focus-visible { background: var(--s-soft); }
+.iv-go svg { display: block; width: 22px; height: 14px; }
 .iv-back { display: inline-block; margin-bottom: 8px; color: var(--v-accent); text-decoration: none; font-size: 15px; }
 .iv-back:hover { text-decoration: underline; }
 .iv-page-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .iv-page-head h1 { margin: 0; font-size: 26px; }
-.iv a.iv-go, .iv a.iv-go:hover, .iv a.iv-go:visited { color: #fff; }
-.iv a.iv-go svg { stroke: #fff; }
 
-/* Edit and resubmit: filled like a primary button but small and dark orange, so the three tabs stay the loudest. */
-.iv .iv-edit { background: #b45309; border: 1px solid #b45309; color: #fff; font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 8px; cursor: pointer; transition: background .15s, transform .1s; }
-.iv .iv-edit:hover { background: #92400e; border-color: #92400e; transform: translateY(-1px); }
+/* Card buttons: Submit invoice is the primary action, Edit and resubmit the secondary one. */
+.iv .iv-add { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+.iv .iv-edit { font-weight: 600; }
+.sci .iv .iv-add { background: var(--s-ink); border: 0; color: var(--s-on-ink); border-radius: 12px; padding: 10px 20px; font-size: 16px; font-weight: 700; }
+.sci .iv .iv-edit { background: transparent; border: 1px solid var(--s-line); color: var(--s-text); border-radius: 12px; padding: 10px 20px; font-size: 16px; }

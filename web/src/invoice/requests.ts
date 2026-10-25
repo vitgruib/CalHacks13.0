@@ -1,8 +1,8 @@
-// Approved requests that still need their invoice: purchase requests the
-// purchasing agent or grant office approved (from Ask / Requests), whose order
-// has no invoice yet. Real ones come first; a short list is topped up with
-// sample approved orders for the researcher's own grant so the tab always has
-// something to open.
+// Every approved request of a researcher: purchase requests the purchasing
+// agent or grant office approved (from Requests), each with the invoice sent
+// for it, if any. A list with few left to invoice is topped up with sample
+// approved orders for the researcher's own grant so there is always something
+// to invoice.
 import type { Db } from '../data/types'
 import { RESEARCHERS } from '../people'
 import { DEMO_POS, sampleDraft, type Draft, type Submission } from './model'
@@ -17,25 +17,29 @@ export interface ApprovedRequest {
   approvedOn: string
   by: string
   demo?: boolean
+  invoice?: string // the invoice already sent for it (a submission or a bill), which `#invoices/<id>` opens
 }
 
 const MIN = 2
-const MAX = 3
 
 export function approvedRequests(db: Db, name: string, stored: Submission[]): ApprovedRequest[] {
-  const invoiced = (orderId: string) => db.invoices.some(i => i.orderId === orderId) || stored.some(s => s.poId === orderId && s.status !== 'rejected')
+  // A rejected submission doesn't count: the request needs a new invoice.
+  const invoiceFor = (orderId: string) => stored.find(s => s.poId === orderId && s.status !== 'rejected')?.id ?? db.invoices.find(i => i.orderId === orderId)?.id
   const real: ApprovedRequest[] = db.requests
     .filter(r => r.requesterName === name && r.state === 'bought')
     .flatMap(r => {
       const o = db.orders.find(x => x.requestId === r.id)
-      if (!o || o.state !== 'open' || invoiced(o.id)) return []
-      return [{ id: r.id, item: r.item, vendor: o.vendor, amount: o.changedAmount ?? o.amount, grantId: r.chargedGrantId ?? r.grantId, orderId: o.id, approvedOn: o.placed, by: 'the purchasing agent' }]
+      if (!o || o.state === 'canceled') return []
+      return [{ id: r.id, item: r.item, vendor: o.vendor, amount: o.changedAmount ?? o.amount, grantId: r.chargedGrantId ?? r.grantId, orderId: o.id, approvedOn: o.placed, by: 'the purchasing agent', invoice: invoiceFor(o.id) }]
     })
+  // Waiting for an invoice first: that's what the researcher came to do.
+  const sorted = (list: ApprovedRequest[]) => [...list.filter(r => !r.invoice), ...list.filter(r => r.invoice)]
+  if (real.filter(r => !r.invoice).length >= MIN) return sorted(real)
   const mine = RESEARCHERS.find(r => r.name === name)?.grantId
   const samples: ApprovedRequest[] = DEMO_POS
-    .filter(p => p.by === name && (!mine || p.grantId === mine) && !invoiced(p.id))
-    .map(p => ({ id: p.id, item: p.item, vendor: p.vendor, amount: p.amount, grantId: p.grantId, orderId: p.id, approvedOn: p.approvedOn, by: 'the grant manager', demo: true }))
-  return [...real, ...samples.slice(0, Math.max(0, MIN - real.length))].slice(0, MAX)
+    .filter(p => p.by === name && (!mine || p.grantId === mine))
+    .map(p => ({ id: p.id, item: p.item, vendor: p.vendor, amount: p.amount, grantId: p.grantId, orderId: p.id, approvedOn: p.approvedOn, by: 'the grant manager', demo: true, invoice: invoiceFor(p.id) }))
+  return sorted([...real, ...samples])
 }
 
 /** The invoice form for an approved request: the vendor, grant and item are filled in; the sequencing sample brings its $4,800 bill. */

@@ -35,7 +35,7 @@ export const RoleContext = createContext<Role>('grant_manager')
 export interface WindowDef { id: string; label: string; job: string; Component: ComponentType; roles: Role[]; hidden?: boolean; badge?: (s: Store) => number }
 
 export const windows: WindowDef[] = [
-  { id: 'ask', label: 'Ask', job: 'Type what you need; see which grant can pay, in plain words', Component: Ask, roles: ['scientist'] },
+  { id: 'ask', label: 'Requests', job: 'Type what you need; see which grant can pay, in plain words', Component: Ask, roles: ['scientist'] },
   { id: 'grants', label: 'My grants', job: 'Each grant in plain words; a paused grant shows where its money is', Component: Grants, roles: ['scientist'] },
   { id: 'funds', label: 'Funds', job: 'How much money each grant really has, its status timeline, and any flags', Component: Funds, roles: ['grant_manager'] },
   { id: 'cases', label: 'Cases', job: 'Every problem on each grant in one place: the records that disagree, what happened, and what\'s missing', Component: Cases, roles: ['grant_manager'], hidden: true },

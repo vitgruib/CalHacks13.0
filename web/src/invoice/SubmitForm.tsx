@@ -18,8 +18,8 @@ function Field({ label, hint, grow, children }: { label: string; hint: string; g
   )
 }
 
-export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: {
-  db: Db; others: Submission[]; initial?: Draft; onSubmit: (d: Draft, r: ReturnType<typeof check>) => void; onCancel: () => void
+export default function SubmitForm({ db, others, initial, title, onSubmit, onCancel }: {
+  db: Db; others: Submission[]; initial?: Draft; title?: string; onSubmit: (d: Draft, r: ReturnType<typeof check>) => void; onCancel: () => void
 }) {
   const [d, setD] = useState<Draft>(initial ?? sampleDraft())
   const set = (patch: Partial<Draft>) => setD(x => ({ ...x, ...patch }))
@@ -36,7 +36,7 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
   return (
     <div className="iv-form">
       <div className="iv-bar">
-        <h2>{initial ? 'Revise invoice' : 'Invoice for unexpected expenses or overhead'}</h2>
+        <h2>{title ?? (initial ? 'Revise invoice' : 'Invoice for an unexpected expense or overhead')}</h2>
         <button type="button" className="iv-link" onClick={onCancel}>Cancel</button>
       </div>
 
