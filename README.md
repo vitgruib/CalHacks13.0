@@ -69,11 +69,9 @@ The demo runs on the sim world (`sim/seed.json`, simulated today
    Inbox, settle "Which source is right about R01GM061721?" (RePORTER says
    active; USAspending and the cancellation list say canceled) with "Pick
    this source" and a reason. Both steps are needed, in either order. Grant A
-   unfreezes, and the waiting purchases go through on their own: the gloves,
-   a kit priced exactly at the card limit, and a cost split 60/40 across
-   both grants. Agar plates requested on grant B, now inside its last 90
-   days, are rerouted to grant A, citing the NSF-OIG audits of WVU and
-   Delaware.
+   unfreezes, and the waiting gloves go through on their own. Agar plates
+   requested on grant B, now inside its last 90 days, are rerouted to grant
+   A, citing the NSF-OIG audits of WVU and Delaware.
 4. **Invoices.** An invoice for an order canceled on 2026-03-02 is held, with
    the timeline of what happened. The judge decides it in the Inbox. The
    reason field is required.
@@ -84,13 +82,17 @@ The demo runs on the sim world (`sim/seed.json`, simulated today
    manager.
 6. **Reports.** The progress-report check holds a paper that credits the
    wrong grant and proposes moving its cost, with the days left on the
-   90-day limit. It also holds a paper with no PubMed Central ID and a
-   corrected paper listed without disclosure.
+   90-day limit.
 7. **Demo controls: the scorecard.** Planted mistakes caught, missed, and false
-   alarms on decoys.
+   alarms on decoys. It is the run on the full seed (`sim/seed.json`), which
+   has more cases than the app shows: a kit priced exactly at the card
+   limit, a cost split 60/40 across both grants, a paper with no PubMed
+   Central ID and a corrected paper listed without disclosure, among others.
 
-On the live site, Demo controls → Start over → "Reset to the demo seed…" →
-"Yes, reset everything" resets the world to the sim seed. Demo controls also
+The app loads a smaller demo world (`sim/demo-seed.json`, 11 of the 24
+purchases and 2 of the 7 papers) so each step above is easy to find; see
+`sim/README.md`. On the live site, Demo controls → Start over → "Reset to
+the demo seed…" → "Yes, reset everything" resets the world to it. Demo controls also
 holds the four cut scripts. The live site is one shared world: anyone with
 the link acts as the grant manager, and Demo controls changes the world for
 everyone. Presenter
@@ -249,7 +251,7 @@ back on it. The grant office uses this to know which researcher to answer.
 | The lab, its people, purchases, invoices, approvals, payroll, amounts and start dates | Simulated. None of it describes the real investigators or their work |
 | The cancel, court order and payment timeline | Simulated (ready-made status events). The real R01GM061721 was terminated in 2025 and reinstated under *Thakur v. Trump*, which is why live government lookups stay off in the scripted demo (`GG_LIVE_SOURCES`) |
 | The cancellation list | Real: the Grant Witness NIH CSV, scraped by our Apify Actor (5,776 rows into 5,635 grants on 2026-10-24) [ours] |
-| Papers in the progress report | Simulated (7 papers). The report checker's live lookup was verified on 2026-10-24 on 12 real papers and their 8 correction and retraction notices, saved for offline use |
+| Papers in the progress report | Simulated (7 papers in the full seed, 2 in the app's demo world). The report checker's live lookup was verified on 2026-10-24 on 12 real papers and their 8 correction and retraction notices, saved for offline use |
 | Government payment system and follow-up questions | Simulated; the questions are pre-written in the seed |
 | Rules, money math and limits | Real code in the module, with a test for each planted case and decoy |
 | The audit cases the rules cite (WVU, Delaware, UC Davis, the NSF-OIG summary) | Real public audit findings ([pain point 08](docs/research/pain-points/08-unallowable-purchases-audits.md)) |

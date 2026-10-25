@@ -57,7 +57,7 @@ get an "unchecked" state. There are no flags, and no holds on planted
 records. Settled history is already filled in: past purchases, paid invoices,
 payment events, decided holds and log rows.
 
-**After the demo payment lands on R01GM061721:** the gloves (rq-101), the
+**In the full seed, after the demo payment lands on R01GM061721:** the gloves (rq-101), the
 at-limit kit (rq-106), the 60/40 split (rq-107) and the rerouted agar plates
 (rq-102) go through. The over-limit pump (rq-105) and the unsplit shared
 contract (rq-104) still wait for the grant manager.
