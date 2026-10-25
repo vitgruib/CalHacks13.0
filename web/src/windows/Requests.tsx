@@ -127,7 +127,7 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
         </p>
       ))}
       {hold
-        ? <HoldCard hold={hold} embedded />
+        ? <HoldCard key={hold.id} hold={hold} embedded />
         : r.state === 'waiting_on_manager' && role === 'scientist' && <p className="rq-wait">Waiting for the grant manager to decide. Their answer will show up here.</p>}
       {role === 'scientist' && canPushBack(r) && <PushBack r={r} />}
       {r.verdicts.length > 0 && (

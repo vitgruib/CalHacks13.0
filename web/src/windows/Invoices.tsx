@@ -26,7 +26,7 @@ function InvoiceCard({ inv, order, approval, hold }: { inv: Invoice; order?: Ord
         : inv.state === 'matched' && <p className="inv-match">Matches its order and its approval, so it is ready to pay.</p>}
 
       {hold && !hold.decision
-        ? <HoldCard hold={hold} embedded />
+        ? <HoldCard key={hold.id} hold={hold} embedded />
         : held && hold?.decision && <p className="inv-muted">Decided by {people[hold.decision.by] ?? hold.decision.by} on {hold.decision.day}: {hold.decision.choice.replace('_', ' ')}. Reason: {hold.decision.reason}</p>}
 
       <dl className="inv-facts">

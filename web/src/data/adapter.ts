@@ -165,7 +165,7 @@ export function toSourceCheck(db: DbConnection['db']): T.SourceCheck {
 const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
 
 /** See the header: replay each grant's events the way the module's freeze rule does. */
-function withCourtRestorations(d: T.Db): T.Db {
+export function withCourtRestorations(d: T.Db): T.Db {
   const extra: T.StatusEvent[] = []
   const restored = new Set<string>()
   for (const g of d.grants) {
@@ -174,20 +174,30 @@ function withCourtRestorations(d: T.Db): T.Db {
     let canceled = false
     let court = false
     let restoredNow = false
+    // The latest restoration's 'unfrozen', held back until we know the grant is open now.
+    let latest: T.StatusEvent | null = null
     events.forEach((e, i) => {
-      if (e.kind === 'canceled') { canceled = true; court = false; restoredNow = false }
+      if (e.kind === 'canceled') {
+        canceled = true; court = false; restoredNow = false
+        if (latest) { extra.push(latest); latest = null }
+      }
       else if (e.kind === 'court_order' && canceled) court = true
       else if (e.kind === 'payment_received' && canceled) {
         if (court) {
           restoredNow = true
           if (events[i + 1]?.kind !== 'unfrozen') {
-            extra.push({ id: `${e.id}-unfrozen`, grantId: g.id, day: e.day, kind: 'unfrozen', source: e.source, summary: `Spending unfrozen: a payment of ${usd(e.amount ?? 0)} arrived.` })
+            latest = { id: `${e.id}-unfrozen`, grantId: g.id, day: e.day, kind: 'unfrozen', source: e.source, summary: `Spending unfrozen: a payment of ${usd(e.amount ?? 0)} arrived.` }
           }
         }
         canceled = false
         court = false
       }
     })
+    // Money after a court order sets the status back to active, but something
+    // else can still hold the grant (sources that disagree freeze it too): no
+    // "spending reopens" until it is actually open. Setting it active then
+    // logs the module's own 'unfrozen'.
+    if (latest && !g.frozen) extra.push(latest)
     if (restoredNow && g.status === 'active' && !g.frozen) restored.add(g.id)
   }
   if (!extra.length && !restored.size) return d
