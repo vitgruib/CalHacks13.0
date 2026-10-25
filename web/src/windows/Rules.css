@@ -1,0 +1,13 @@
+.rules-flow { margin: 0; padding-left: 20px; line-height: 1.5; }
+.rules-flow li + li { margin-top: 4px; }
+
+.rules-note { color: var(--muted); font-size: 13px; }
+p.rules-note { margin: 10px 0 0; }
+
+.rules-scroll { overflow-x: auto; }
+.rules-table { table-layout: auto; min-width: 560px; }
+.rules-table th[scope="row"] { text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--text); width: 22%; vertical-align: top; }
+.rules-table td { vertical-align: top; line-height: 1.45; }
+.rules-source { color: var(--muted); font-size: 12px; margin-top: 4px; }
+.rules-num { text-align: right; white-space: nowrap; width: 1%; }
+.rules-zero { color: var(--muted); }

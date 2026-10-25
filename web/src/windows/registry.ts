@@ -10,6 +10,7 @@ import Log from './Log'
 import Ask from './Ask'
 import Grants from './Grants'
 import Cases from './Cases'
+import Rules from './Rules'
 import { openHolds } from './Inbox'
 import type { Store } from '../data/store'
 
@@ -43,5 +44,6 @@ export const windows: WindowDef[] = [
   { id: 'payment-requests', label: 'Payment requests', job: 'Drafted requests, follow-up questions, and their status', Component: PaymentRequests, roles: ['grant_manager'], hidden: true },
   { id: 'reports', label: 'Reports', job: 'Each paper in the progress report, with its check results', Component: Reports, roles: ['grant_manager'], hidden: true },
   { id: 'inbox', label: 'Inbox', job: 'Everything waiting for a human decision, with its evidence', Component: Inbox, roles: ['grant_manager'], hidden: true, badge: s => s.db.holds.filter(h => !h.decision).length },
+  { id: 'rules', label: 'Rules', job: 'Every check a purchase request goes through before the purchasing agent buys it, and what happens when one fails', Component: Rules, roles: ['grant_manager'] },
   { id: 'log', label: 'Log', job: 'Who did what, and why', Component: Log, roles: ['grant_manager'], hidden: true },
 ]
