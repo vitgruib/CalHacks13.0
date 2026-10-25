@@ -32,8 +32,8 @@ export function HeroStub({ onEnter }: HeroEmbedProps) {
       <HeroStill />
       <div className="hero-stub-copy">
         <h1>Grant Test Auto</h1>
-        <p>An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
-        <p className="hero-stub-lede">A still of the simulated lab; the spending rules are the real ones.</p>
+        <p className="hero-stub-problem">Researchers spend 44% of their federally funded research time on administration.</p>
+        <p>AI agents do the grant office’s checking: status, balance, rules and invoices. Researchers do science, and the grant manager decides only the exceptions.</p>
       </div>
       {/* The two ways in sit over their plinths, where the embed puts them (hero 9925fa6). */}
       <button type="button" className="hero-stub-way lab" aria-label="Research lab: open the research portal" onClick={() => onEnter?.('researcher')}>Research lab</button>

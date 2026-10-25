@@ -30,24 +30,25 @@ html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavio
 /* A veil in the stage's grey under the copy, so it reads over any framing of the still. */
 .hero-stub .hero-still::after { content: ''; position: absolute; inset: 0 0 auto; height: 54%; background: linear-gradient(to bottom, rgb(201 206 213 / 0.94), rgb(201 206 213 / 0.82) 62%, rgb(201 206 213 / 0)); pointer-events: none; }
 .hero-stub :focus-visible { outline-color: #1e3f7a; }
-/* Like the embed: the title centred across the top, the product line and the
-   replay line under it; the still fills the stage behind. */
+/* Like the embed: the title centred across the top, the problem in ink and
+   the answer in grey under it; the still fills the stage behind. */
 .hero-stub-copy { position: absolute; top: clamp(16px, 3.5vh, 36px); left: clamp(16px, 2.4vw, 40px); right: clamp(16px, 2.4vw, 40px); text-align: center; }
-.hero-stub h1 { margin: 0 0 6px; font-size: clamp(32px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
-.hero-stub-copy p { margin: 0 0 4px; color: #3c4753; font-size: clamp(14px, 1.05vw, 16px); }
-.hero-stub-copy .hero-stub-lede { font-size: 12px; }
-/* The two ways in, over their plinths: the pill's top centre at the embed's
-   positions on its stills (percent of the stage). */
+.hero-stub h1 { margin: 0 0 8px; font-size: clamp(32px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
+.hero-stub-copy p { margin: 0 0 2px; color: #3c4753; font-size: clamp(13px, 0.95vw, 15px); text-wrap: balance; }
+.hero-stub-copy .hero-stub-problem { color: #1c232c; font-size: clamp(15px, 1.2vw, 18px); font-weight: 600; }
+/* The two ways in, on one line over their plinths: each pill's top centre as a
+   percent of the stage, over its plinth on the embed's stills. */
 .hero-stub-way { position: absolute; transform: translate(-50%, 0); padding: 7px 14px 8px; border: 0; border-radius: 999px; background: #1c232c; color: #f3f5f7; font: inherit; font-size: 15px; font-weight: 600; white-space: nowrap; cursor: pointer; }
 .hero-stub-way:hover { background: #2e5ba6; }
 .hero-stub-way:active { transform: translate(-50%, 1px); }
-.hero-stub-way.lab { left: 23%; top: 35.8%; }
+.hero-stub-way.lab { left: 23%; top: 24.8%; }
 .hero-stub-way.net { left: 68.8%; top: 24.8%; }
 @media (max-width: 759px) {
   .landing-bar { padding: 0 16px; }
   .hero-stub-copy { top: 16px; }
   .hero-stub h1 { font-size: 32px; margin-bottom: 6px; }
-  .hero-stub-copy p { font-size: 14px; }
+  .hero-stub-copy p { font-size: 13px; }
+  .hero-stub-copy .hero-stub-problem { font-size: 15px; }
   .hero-stub-way { font-size: 13.5px; }
   .hero-stub-way.lab { left: 55.4%; top: 48.4%; }
   .hero-stub-way.net { left: 71.3%; top: 19.4%; }
