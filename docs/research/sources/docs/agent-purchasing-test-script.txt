@@ -1,0 +1,68 @@
+// Manual nuance test of the purchasing agent: fresh world, two grants in different
+// fields, one scientist per request (so the same-day card-limit rule never links them).
+const A = '/Users/ethancai/Projects/Ongoing/CalHacks13.0/agents';
+const { createLocalDb } = await import(`${A}/src/db/local.ts`);
+const { createPaperLookup } = await import(`${A}/src/sources/papers.ts`);
+const { startWorker } = await import(`${A}/src/worker.ts`);
+
+const G1 = 'R01GM900001', G2 = 'R01MH900002';
+const seed = JSON.stringify({
+  today: '2026-06-15',
+  grants: [
+    { id: G1, title: 'Membrane protein transport across the bacterial cell envelope', pi: 'Dr. Lee', agency: 'NIGMS',
+      awarded: 1_500_000, received: 600_000, spent: 100_000, promised: 0, start: '2025-01-01', end: '2029-06-30', status: 'active' },
+    { id: G2, title: 'Sleep and memory consolidation in humans and mice', pi: 'Dr. Lee', agency: 'NIMH',
+      awarded: 1_500_000, received: 600_000, spent: 100_000, promised: 0, start: '2025-01-01', end: '2029-06-30', status: 'active' },
+  ],
+  statusEvents: [], sourceReadings: [], flags: [], requests: [], orders: [], approvals: [],
+  invoices: [], payroll: [], paymentRequests: [], papers: [], holds: [], log: [],
+});
+
+type Exp = 'buy' | 'stop' | 'either';
+const cases: [Exp, string, Record<string, unknown>][] = [
+  ['buy', 'routine tips', { item: 'Pipette tips, 10 racks', category: 'lab supplies', price: 95, grantId: G1, purpose: 'PCR setup for transporter knockouts, Aim 2' }],
+  ['buy', 'antibody', { item: 'Anti-GFP antibody, 100 ug', category: 'reagents', price: 420, grantId: G1, purpose: 'Western blots of GFP-tagged transporter' }],
+  ['buy', 'ethanol (not alcohol)', { item: 'Ethanol, 200 proof, 4 L', category: 'reagents', price: 180, grantId: G2, purpose: 'Tissue fixation and dehydration for mouse brain histology' }],
+  ['buy', 'mouse running wheels', { item: 'Running wheels for mouse cages, 12', category: 'lab supplies', price: 480, grantId: G2, purpose: 'Voluntary exercise cohort for the sleep and memory study, Aim 1' }],
+  ['buy', 'conference travel', { item: 'Economy flight and 3 nights hotel, ASM Microbe 2026, Atlanta', category: 'travel', price: 1_600, grantId: G1, purpose: 'Present poster on outer membrane transporter results' }],
+  ['buy', 'BSC service', { item: 'Biosafety cabinet annual certification and HEPA check', category: 'equipment service', price: 380, grantId: G1, purpose: 'Required annual certification of the BSC used for E. coli work' }],
+  ['buy', 'participant payments', { item: 'Prepaid cards for study participants, 20 x $25', category: 'other', price: 500, grantId: G2, purpose: 'IRB-approved compensation for overnight sleep study participants (protocol 2026-114)' }],
+  ['buy', 'no grant named, clear fit', { item: 'Mouse EEG headmount electrodes, 10', category: 'lab supplies', price: 900, purpose: 'Recording sleep stages in mice for the memory consolidation experiments' }],
+  ['stop', 'party wine', { item: 'Wine for lab holiday party', category: 'alcohol', price: 150, grantId: G1, purpose: 'Team morale' }],
+  ['stop', 'coffee as lab supplies', { item: 'Starbucks coffee beans, 6 bags', category: 'lab supplies', price: 90, grantId: G1, purpose: 'For the lab' }],
+  ['stop', 'headphones disguised', { item: 'Bose QC Ultra noise cancelling headphones', category: 'lab supplies', price: 350, grantId: G2, purpose: 'Focus during data analysis' }],
+  ['stop', 'chairs as equipment', { item: 'Ergonomic office chairs, 4', category: 'equipment', price: 1_200, grantId: G1, purpose: 'Seating for the microscopy room' }],
+  ['stop', 'vague amazon', { item: 'Amazon order', category: 'lab supplies', price: 480, grantId: G1, purpose: 'misc' }],
+  ['stop', 'thank-you gift cards', { item: 'Amazon gift cards, 10 x $50', category: 'other', price: 500, grantId: G2, purpose: 'Thank the lab for the renewal push' }],
+  ['stop', 'wrong field', { item: 'Mouse cages, 20', category: 'lab supplies', price: 600, grantId: G1, purpose: 'Housing for cohort 3 of the sleep and memory study' }],
+  ['stop', 'wrong-field conference', { item: 'Registration and flight, Society for Neuroscience 2026, San Diego', category: 'travel', price: 1_900, grantId: G1, purpose: 'Learn about memory research' }],
+  ['stop', 'resort travel', { item: 'Flight and 5 nights resort, Maui', category: 'travel', price: 4_200, grantId: G2, purpose: 'Write the sleep study paper somewhere quiet' }],
+  ['stop', 'business class', { item: 'Business class flight to Berlin', category: 'travel', price: 4_800, grantId: G1, purpose: 'Visit collaborator lab at Charite to run transport assays' }],
+  ['stop', 'tips overpriced', { item: 'Pipette tips, 1 box', category: 'lab supplies', price: 900, grantId: G1, purpose: 'PCR setup' }],
+  ['stop', 'freezer too cheap', { item: 'Thermo -80C ultra-low freezer', category: 'equipment', price: 45, grantId: G2, purpose: 'Store mouse brain samples' }],
+  ['stop', 'peloton', { item: 'Peloton bike', category: 'equipment', price: 1_500, grantId: G2, purpose: 'Exercise paradigm for the sleep study' }],
+  ['stop', 'laptop vague', { item: 'MacBook Pro 16"', category: 'equipment', price: 2_400, grantId: G1, purpose: 'research' }],
+  ['either', 'laptop with use', { item: 'Dell workstation laptop', category: 'equipment', price: 1_900, grantId: G2, purpose: 'Run the EEG sleep-scoring pipeline at the mouse vivarium rig' }],
+];
+
+const db = await createLocalDb({ world: { seedJson: seed } });
+const worker = await startWorker(db, { papers: createPaperLookup({ mode: 'offline', throttle: false }) });
+await worker.idle();
+const ids: string[] = [];
+for (const [i, [, , req]] of cases.entries()) {
+  const c = await db.connect();
+  await c.call('register_person', { role: 'scientist', name: `Scientist ${i}` });
+  await c.call('submit_request', { sharedWith: [], grantId: undefined, ...req });
+}
+await worker.idle();
+const rows = worker.sessions.purchasing.rows('request');
+let bad = 0;
+for (const [i, [exp, label, req]] of cases.entries()) {
+  const r = rows.find((x: any) => x.item === req.item && x.price === req.price);
+  const got = ['bought', 'rerouted'].includes(r?.state) ? 'buy' : 'stop';
+  const ok = exp === 'either' || exp === got;
+  if (!ok) bad++;
+  console.log(`${ok ? 'ok ' : 'BAD'} ${label.padEnd(26)} exp=${exp.padEnd(6)} state=${r?.state} on=${r?.chargedGrantId ?? '-'}\n      ${String(r?.explanation).replace(/\s+/g, ' ').slice(0, 260)}`);
+}
+console.log(`\n${bad} wrong of ${cases.length}`);
+worker.stop(); db.close();

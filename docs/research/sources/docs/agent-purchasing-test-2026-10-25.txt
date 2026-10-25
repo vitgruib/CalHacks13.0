@@ -1,0 +1,173 @@
+Manual test of the purchasing agent (agents/src/agents/purchasing.ts), 2026-10-25 00:15-00:40 PDT, live Claude (GG_CLAUDE=live), main at 7b62725.
+Script: agent-purchasing-test-script.txt in this folder. Each run is a fresh in-process world (two grants, one scientist per request).
+Expected outcomes were written into the script before any run. 'BAD' = the outcome differs from that expectation.
+Run 1's outcome list was replayed from its saved Claude answers (GG_CLAUDE=offline) because the live run's stdout wasn't kept; outcomes are identical to the live run.
+
+===================== Run 1: outcomes and explanations
+ok  routine tips               exp=buy    state=bought on=R01GM900001
+      Bought Pipette tips, 10 racks ($95) on R01GM900001. Every rule passes: Grant is active and not frozen; Not in the grant's last 90 days; Enough truly available money; Category allowed; Under the card limit ($5,000). Ordered from Department purchasing office.
+ok  antibody                   exp=buy    state=bought on=R01GM900001
+      Bought Anti-GFP antibody, 100 ug ($420) on R01GM900001. Every rule passes: Grant is active and not frozen; Not in the grant's last 90 days; Enough truly available money; Category allowed; Under the card limit ($5,000). Ordered from Department purchasing office
+ok  ethanol (not alcohol)      exp=buy    state=bought on=R01MH900002
+      Bought Ethanol, 200 proof, 4 L ($180) on R01MH900002. Every rule passes: Grant is active and not frozen; Not in the grant's last 90 days; Enough truly available money; Category allowed; Under the card limit ($5,000). Ordered from Department purchasing office.
+ok  mouse running wheels       exp=buy    state=bought on=R01MH900002
+      Bought Running wheels for mouse cages, 12 ($480) on R01MH900002. Every rule passes: Grant is active and not frozen; Not in the grant's last 90 days; Enough truly available money; Category allowed; Under the card limit ($5,000). Ordered from Department purchasi
+ok  conference travel          exp=buy    state=bought on=R01GM900001
+      Bought Economy flight and 3 nights hotel, ASM Microbe 2026, Atlanta ($1,600) on R01GM900001. Every rule passes: Grant is active and not frozen; Enough truly available money; Category allowed; Under the card limit ($5,000). Ordered from Department purchasing of
+ok  BSC service                exp=buy    state=bought on=R01GM900001
+      Bought Biosafety cabinet annual certification and HEPA check ($380) on R01GM900001. Every rule passes: Grant is active and not frozen; Enough truly available money; Category allowed; Under the card limit ($5,000). Ordered from Department purchasing office.
+BAD participant payments       exp=buy    state=waiting_on_manager on=R01MH900002
+      Held Prepaid cards for study participants, 20 x $25 ($500) on R01MH900002 for the grant manager. It isn't clear it is for the lab's research (Prepaid cards are gift-card-like items; the purpose (IRB-approved participant compensation for protocol 2026-114) fits
+BAD no grant named, clear fit  exp=buy    state=waiting_on_manager on=R01MH900002
+      Held Mouse EEG headmount electrodes, 10 ($900) on R01MH900002 for the grant manager. Its price, $900, is more than twice the list price found for it: $287.8 for "8201-EEG: 3 EEG Mouse Headmount with no EMG Leads (listed per headmount, x10)" at Pinnacle Technol
+ok  party wine                 exp=stop   state=blocked on=R01GM900001
+      Flagged Wine for lab holiday party ($150) on R01GM900001 for the grant manager; not bought. Category allowed: alcohol is not an allowable direct cost on a federal grant. Audit case: NSF OIG audit of UC Davis: unallowable items charged to awards. It cannot be c
+ok  coffee as lab supplies     exp=stop   state=waiting_on_manager on=R01GM900001
+      Held Starbucks coffee beans, 6 bags ($90) on R01GM900001 for the grant manager. It isn't clear it is for the lab's research (Coffee beans are a general-use consumable with no stated research use; purpose 'For the lab' does not explain how they serve membrane t
+ok  headphones disguised       exp=stop   state=waiting_on_manager on=R01MH900002
+      Held Bose QC Ultra noise cancelling headphones ($350) on R01MH900002 for the grant manager. It isn't clear it is for the lab's research (Headphones are a general-use personal device; 'focus during data analysis' does not explain why the grant needs them, and a
+ok  chairs as equipment        exp=stop   state=waiting_on_manager on=R01GM900001
+      Held Ergonomic office chairs, 4 ($1,200) on R01GM900001 for the grant manager. It isn't clear it is for the lab's research (Office chairs for a room don't show how they serve the membrane transport research, and furniture is general-use the way a person could 
+ok  vague amazon               exp=stop   state=waiting_on_manager on=R01GM900001
+      Held Amazon order ($480) on R01GM900001 for the grant manager. It isn't clear it is for the lab's research (Purpose 'misc' gives no research use and the item name 'Amazon order' does not say what was bought, so nothing shows it serves membrane transport resear
+ok  thank-you gift cards       exp=stop   state=waiting_on_manager on=R01MH900002
+      Held Amazon gift cards, 10 x $50 ($500) on R01MH900002 for the grant manager. It isn't clear it is for the lab's research (Gift cards are not research items; the stated purpose (thanking the lab for a renewal push) is a personal reward, not a research use for 
+ok  wrong field                exp=stop   state=waiting_on_manager on=R01GM900001
+      Held Mouse cages, 20 ($600) on R01GM900001 for the grant manager. It isn't clear it is for the lab's research (Sleep and memory study in mice does not match a bacterial membrane protein transport grant; the research field is clearly different.), so it needs th
+ok  wrong-field conference     exp=stop   state=waiting_on_manager on=R01GM900001
+      Held Registration and flight, Society for Neuroscience 2026, San Diego ($1,900) on R01GM900001 for the grant manager. It isn't clear it is for the lab's research (Neuroscience conference and 'learn about memory research' do not match a bacterial membrane prote
+ok  resort travel              exp=stop   state=waiting_on_manager on=R01MH900002
+      Held Flight and 5 nights resort, Maui ($4,200) on R01MH900002 for the grant manager. It isn't clear it is for the lab's research (Writing a paper somewhere quiet names no research need for a Maui resort; holiday travel and a resort stay are not tied to the sle
+ok  business class             exp=stop   state=waiting_on_manager on=R01GM900001
+      Held Business class flight to Berlin ($4,800) on R01GM900001 for the grant manager. Its price looks wrong for what it is (Business class round-trip to Berlin usually costs about $1,000 to $2,500; $4,800 is roughly double or more, and business class is not just
+ok  tips overpriced            exp=stop   state=waiting_on_manager on=R01GM900001
+      Held Pipette tips, 1 box ($900) on R01GM900001 for the grant manager. Its price looks wrong for what it is ($900 for one box of pipette tips; a box usually costs about $20 to $100 at US university lab prices.), so it needs the grant manager's approval; the age
+ok  freezer too cheap          exp=stop   state=waiting_on_manager on=R01MH900002
+      Held Thermo -80C ultra-low freezer ($45) on R01MH900002 for the grant manager. Its price looks wrong for what it is (A Thermo -80C ultra-low freezer usually costs about $8,000 to $15,000; $45 is far below that, so the request may be incomplete or part of a spl
+ok  peloton                    exp=stop   state=waiting_on_manager on=R01MH900002
+      Held Peloton bike ($1,500) on R01MH900002 for the grant manager. It isn't clear it is for the lab's research (A Peloton bike is a consumer exercise device a person could use privately; the stated exercise paradigm does not explain why a commercial bike, rather
+ok  laptop vague               exp=stop   state=waiting_on_manager on=R01GM900001
+      Held MacBook Pro 16" ($2,400) on R01GM900001 for the grant manager. It isn't clear it is for the lab's research (A laptop is a general-use device a person could use privately, and the purpose 'research' does not explain how this laptop serves the membrane tran
+ok  laptop with use            exp=either state=waiting_on_manager on=R01MH900002
+      Held Dell workstation laptop ($1,900) on R01MH900002 for the grant manager. It isn't clear it is for the lab's research (A laptop is a general-use device a person could use privately. The stated EEG pipeline fits the grant, but the request doesn't explain why 
+2 wrong of 23
+
+----- Run 1: list prices the web price check found (agents/src/agents/price-check.ts)
+{"item": "Pipette tips, 10 racks", "category": "lab supplies", "found": true, "vendor": "Fisher Scientific", "product": "USA Scientific Inc TipOne 20 uL natural, beveled filter pipette tips in racks, sterile, 10 racks of 96 tips (960 tips)", "listPrice": 144.67, "sameQuantity": true, "url": "https://www.fishersci.com/shop/products/1-20ul-barrier-tip-960-pk/NC9190176", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Anti-GFP antibody, 100 ug", "category": "reagents", "found": true, "vendor": "Thermo Fisher Scientific", "product": "GFP Polyclonal Antibody (Cat # PA5-143588), 100 \u00b5g", "listPrice": 488.65, "sameQuantity": true, "url": "https://www.thermofisher.com/antibody/product/GFP-Antibody-Polyclonal/PA5-143588", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Ethanol, 200 proof, 4 L", "category": "reagents", "found": true, "vendor": "Fisher Scientific", "product": "Ethanol, Absolute (200 Proof), Molecular Biology Grade, Fisher BioReagents, 4 L (Catalog No. BP28184)", "listPrice": 568, "sameQuantity": true, "url": "https://www.fishersci.com/shop/products/ethanol-absolute-200-proof-molecular-biology-grade-fisher-bioreagents-3/BP28184", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Running wheels for mouse cages, 12", "category": "lab supplies", "found": true, "vendor": "Tecniplast USA", "product": "Running Wheels (single wheel, listed unit price $29.27; 12 units at that price)", "listPrice": 351.24, "sameQuantity": true, "url": "https://shop.tecniplastusa.com/products/running-wheels", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Mouse EEG headmount electrodes, 10", "category": "lab supplies", "found": true, "vendor": "Pinnacle Technology", "product": "8201-EEG: 3 EEG Mouse Headmount with no EMG Leads (listed per headmount, x10)", "listPrice": 287.8, "sameQuantity": true, "url": "https://store.pinnaclet.com/products/8201-eeg-3-eeg-mouse-headmount", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+
+===================== Run 2: outcomes and explanations
+ok  routine tips               exp=buy    state=bought on=R01GM900001
+      Bought: 10 racks of pipette tips for $95 were charged to grant R01GM900001 and ordered from the Department purchasing office. No rules failed. The grant is active and not frozen, it is not in its last 90 days, it has enough truly available money, the category 
+ok  antibody                   exp=buy    state=bought on=R01GM900001
+      Bought: the Anti-GFP antibody (100 ug, $420, reagents) was purchased on grant R01GM900001. No spending rules failed; the grant is active and not frozen, it is not in its last 90 days, enough money is truly available, the category is allowed, and $420 is under 
+ok  ethanol (not alcohol)      exp=buy    state=bought on=R01MH900002
+      Bought: the $180 request for Ethanol, 200 proof, 4 L was charged to grant R01MH900002. No rules failed; the grant is active and not frozen, it is not in its last 90 days, enough money is truly available, the category is allowed, and the price is under the $5,0
+ok  mouse running wheels       exp=buy    state=bought on=R01MH900002
+      Bought: the 12 mouse cage running wheels ($480) were charged to grant R01MH900002 because no rules failed. The grant is active and not frozen, it is not in its last 90 days, it has enough truly available money, lab supplies is an allowed category, and the pric
+ok  conference travel          exp=buy    state=bought on=R01GM900001
+      Bought: the $1,600 economy flight and 3 nights hotel for ASM Microbe 2026 in Atlanta was charged to grant R01GM900001. No rules failed. The grant is active and not frozen, it has enough truly available money, travel is an allowed category, and the price is und
+ok  BSC service                exp=buy    state=bought on=R01GM900001
+      Bought: the $380 biosafety cabinet annual certification and HEPA check was approved on grant R01GM900001. No rules failed. The grant is active and not frozen, it has enough truly available money, the category is allowed, and the price is under the $5,000 card 
+BAD participant payments       exp=buy    state=waiting_on_manager on=R01MH900002
+      The request for 20 prepaid cards at $25 each ($500) was held for the grant manager on grant R01MH900002. No spending rule failed: the grant is active and not frozen, there is enough truly available money, the category is allowed, and it is under the $5,000 car
+BAD no grant named, clear fit  exp=buy    state=waiting_on_manager on=R01MH900002
+      Request rq8, 10 mouse EEG headmount electrodes at $900 on grant R01MH900002, was held for the grant manager even though no spending rule failed. Its price is more than twice the list price found: $362.8 at Pinnacle Technology, checked 2026-10-25. The grant man
+ok  party wine                 exp=stop   state=blocked on=R01GM900001
+      The $150 purchase of wine for the lab holiday party was blocked on grant R01GM900001. It failed the rule "Category allowed": alcohol is not an allowable direct cost on a federal grant, which is the kind of problem raised in the NSF OIG audit of UC Davis: unall
+ok  coffee as lab supplies     exp=stop   state=waiting_on_manager on=R01GM900001
+      The $90 request for 6 bags of Starbucks coffee beans on grant R01GM900001 was held for the grant manager. No spending rules failed, but it isn't clear the beans are for the lab's research: they are a general-use food item and 'For the lab' does not explain any
+ok  headphones disguised       exp=stop   state=waiting_on_manager on=R01MH900002
+      The $350 request for Bose QC Ultra noise cancelling headphones (rq11) was held for the grant manager on grant R01MH900002. No spending rule failed, but it isn't clear the item is for the lab's research: headphones are a general-use personal device, and 'focus 
+ok  chairs as equipment        exp=stop   state=waiting_on_manager on=R01GM900001
+      The request for 4 ergonomic office chairs ($1,200) on grant R01GM900001 was held for the grant manager. No spending rules failed: the grant is active and not frozen, there is enough truly available money, the category is allowed, and it is under the $5,000 car
+ok  vague amazon               exp=stop   state=waiting_on_manager on=R01GM900001
+      The $480 Amazon order (lab supplies) on grant R01GM900001 was held for the grant manager. No spending rules failed: the grant is active, it is outside the last 90 days, funds are available, the category is allowed and it is under the $5,000 card limit. However
+ok  thank-you gift cards       exp=stop   state=waiting_on_manager on=R01MH900002
+      The request for 10 Amazon gift cards at $50 each ($500 total) on grant R01MH900002 was held for the grant manager. No spending rules failed, since the grant is active and not frozen, the money is available, the category is allowed and the price is under the $5
+ok  wrong field                exp=stop   state=waiting_on_manager on=R01GM900001
+      The request for 20 mouse cages ($600) on grant R01GM900001 was held for the grant manager. No spending rules failed: the grant is active and not frozen, it is not in its last 90 days, enough money is available, the category is allowed and the price is under th
+ok  wrong-field conference     exp=stop   state=waiting_on_manager on=R01GM900001
+      The $1,900 Society for Neuroscience 2026 registration and flight request was held for the grant manager on grant R01GM900001. No spending rule failed: the grant is active, funds are available, travel is allowed and it is under the $5,000 card limit. However, i
+ok  resort travel              exp=stop   state=waiting_on_manager on=R01MH900002
+      The $4,200 Maui flight and 5-night resort request (rq17) was held for the grant manager on grant R01MH900002. No spending rule failed: the grant is active, funds are available, travel is allowed and it is under the $5,000 card limit. But it isn't clear it is f
+ok  business class             exp=stop   state=waiting_on_manager on=R01GM900001
+      Request rq18, a $4,800 business class flight to Berlin, was held for the grant manager rather than bought on grant R01GM900001. No spending rules failed, since the grant is active, funds are available, travel is allowed and the price is under the $5,000 card l
+ok  tips overpriced            exp=stop   state=waiting_on_manager on=R01GM900001
+      The request for one box of pipette tips ($900) on grant R01GM900001 was held for the grant manager. No spending rules failed, and it passed all five checks, including active grant, enough available money, allowed category and under the $5,000 card limit. Howev
+ok  freezer too cheap          exp=stop   state=waiting_on_manager on=R01MH900002
+      The request for a Thermo -80C ultra-low freezer ($45) on grant R01MH900002 was held for the grant manager. No spending rules failed, since the grant is active and not frozen, there is enough available money, the category is allowed, and it is under the $5,000 
+ok  peloton                    exp=stop   state=waiting_on_manager on=R01MH900002
+      The $1,500 Peloton bike request (rq21) was held for the grant manager on grant R01MH900002. No spending rule failed: the grant is active and not frozen, enough money is available, equipment is an allowed category, and the price is under the $5,000 card limit. 
+ok  laptop vague               exp=stop   state=waiting_on_manager on=R01GM900001
+      The request rq22 for a MacBook Pro 16" ($2,400) on grant R01GM900001 was held for the grant manager. No spending rules failed, and it passed the active grant, enough available money, allowed category and $5,000 card limit checks. It is held because it isn't cl
+ok  laptop with use            exp=either state=waiting_on_manager on=R01MH900002
+      The $1,900 Dell workstation laptop request (rq23) was held for the grant manager on grant R01MH900002; no rules failed, and it passed the active grant, enough available money, category allowed and under the $5,000 card limit checks. It is held because it isn't
+2 wrong of 23
+
+----- Run 2: list prices the web price check found (agents/src/agents/price-check.ts)
+{"item": "Pipette tips, 10 racks", "category": "lab supplies", "found": true, "vendor": "Fisher Scientific", "product": "USA Scientific Inc TipOne 20 uL natural, beveled filter pipette tips in racks, sterile, 10 racks of 96 tips (960 tips)", "listPrice": 144.67, "sameQuantity": true, "url": "https://www.fishersci.com/shop/products/1-20ul-barrier-tip-960-pk/NC9190176", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Anti-GFP antibody, 100 ug", "category": "reagents", "found": true, "vendor": "Thermo Fisher Scientific", "product": "GFP Polyclonal Antibody (Cat # 600-901-215), 100 \u00b5g", "listPrice": 284.65, "sameQuantity": true, "url": "https://www.thermofisher.com/antibody/product/GFP-Antibody-Polyclonal/600-901-215", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Ethanol, 200 proof, 4 L", "category": "reagents", "found": true, "vendor": "Fisher Scientific", "product": "Ethanol, Absolute (200 Proof), Molecular Biology Grade, Fisher BioReagents, 4 L (Catalog BP28184)", "listPrice": 568, "sameQuantity": true, "url": "https://www.fishersci.com/shop/products/ethanol-absolute-200-proof-molecular-biology-grade-fisher-bioreagents-3/BP28184", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Running wheels for mouse cages, 12", "category": "lab supplies", "found": true, "vendor": "Protech International", "product": "In-Cage Running Wheels with Reed Switch Include Mouse 12cm (listed at $415.00 each, multiplied by 12)", "listPrice": 4980, "sameQuantity": true, "url": "https://protechinternational.com/products/bone-forceps-scissors", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Mouse EEG headmount electrodes, 10", "category": "lab supplies", "found": true, "vendor": "Pinnacle Technology", "product": "8201: 2 EEG/1 EMG Mouse Headmount (8201, 8201-SS, 8201-SS-270), priced per unit, x10", "listPrice": 362.8, "sameQuantity": true, "url": "https://store.pinnaclet.com/products/8201-2-eeg-1-emg-mouse-headmount", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+
+===================== Run 3: outcomes and explanations
+ok  routine tips               exp=buy    state=bought on=R01GM900001
+      Bought: 10 racks of pipette tips for $95 on grant R01GM900001, for PCR setup for transporter knockouts, Aim 2. No rules failed. The grant is active and not frozen, it is not in its last 90 days, it has enough truly available money, the category is allowed, and
+ok  antibody                   exp=buy    state=bought on=R01GM900001
+      The $420 Anti-GFP antibody (100 ug) for request rq2 was bought on grant R01GM900001 because every spending rule passed. The grant is active and not frozen, it is not in its last 90 days, it has enough available money, reagents are an allowed category, and the 
+ok  ethanol (not alcohol)      exp=buy    state=bought on=R01MH900002
+      Bought: the $180 request for Ethanol, 200 proof, 4 L was approved on grant R01MH900002. No rules failed; the grant is active and not frozen, it is not in its last 90 days, enough money is truly available, the reagents category is allowed, and the price is unde
+ok  mouse running wheels       exp=buy    state=bought on=R01MH900002
+      The request for 12 mouse cage running wheels ($480) was bought on grant R01MH900002. No rules failed: the grant is active and not frozen, it is not in its last 90 days, enough money is truly available, the category is allowed, and the price is under the $5,000
+ok  conference travel          exp=buy    state=bought on=R01GM900001
+      The request rq5 for an economy flight and 3 nights hotel at ASM Microbe 2026 in Atlanta ($1,600) was bought on grant R01GM900001. No rules failed: the grant is active and not frozen, there is enough truly available money, the travel category is allowed, and th
+ok  BSC service                exp=buy    state=bought on=R01GM900001
+      Bought: the $380 biosafety cabinet annual certification and HEPA check was ordered on grant R01GM900001. No rules failed. The grant is active and not frozen, there is enough truly available money, the category is allowed, and the price is under the $5,000 card
+BAD participant payments       exp=buy    state=waiting_on_manager on=R01MH900002
+      The $500 request for 20 prepaid cards at $25 each was held for the grant manager on grant R01MH900002. No rules failed: the grant is active and not frozen, there is enough truly available money, the category is allowed, and it is under the $5,000 card limit. P
+BAD no grant named, clear fit  exp=buy    state=waiting_on_manager on=R01MH900002
+      The request rq8 for 10 mouse EEG headmount electrodes ($900) on grant R01MH900002 was held for the grant manager, even though no spending rule failed. The price is more than twice the list price found: $362.8 for 10 units of the 8201 headmount at Pinnacle Tech
+ok  party wine                 exp=stop   state=blocked on=R01GM900001
+      The $150 wine request for the lab holiday party (rq9) was blocked on grant R01GM900001. It failed the rule "Category allowed": alcohol is not an allowable direct cost on a federal grant, which echoes the NSF OIG audit of UC Davis on unallowable items charged t
+ok  coffee as lab supplies     exp=stop   state=waiting_on_manager on=R01GM900001
+      The request for 6 bags of Starbucks coffee beans ($90) on grant R01GM900001 was held for the grant manager. No spending rules failed, but it isn't clear the beans are for the lab's research: they are general-use consumables and the purpose 'For the lab' does n
+ok  headphones disguised       exp=stop   state=waiting_on_manager on=R01MH900002
+      The $350 Bose QC Ultra headphones request (rq11) on grant R01MH900002 was held for the grant manager. No spending rule failed: the grant is active, it is outside the last 90 days, funds are available, the category is allowed and the price is under the $5,000 c
+ok  chairs as equipment        exp=stop   state=waiting_on_manager on=R01GM900001
+      Request rq12 (4 ergonomic office chairs, $1,200) on grant R01GM900001 was held for the grant manager. No spending rules failed: the grant is active and not frozen, enough money is available, the equipment category is allowed, and it is under the $5,000 card li
+ok  vague amazon               exp=stop   state=waiting_on_manager on=R01GM900001
+      The $480 Amazon order (lab supplies) on grant R01GM900001 was held for the grant manager; no spending rule failed and all checks passed, including active grant, enough available money, allowed category and the $5,000 card limit. It is held because it isn't cle
+ok  thank-you gift cards       exp=stop   state=waiting_on_manager on=R01MH900002
+      The request for 10 Amazon gift cards at $500 total was held for the grant manager on grant R01MH900002. No spending rule failed, since the grant is active, the money is available, the category is allowed and the price is under the $5,000 card limit. However, i
+ok  wrong field                exp=stop   state=waiting_on_manager on=R01GM900001
+      The request for 20 mouse cages ($600) was held for the grant manager on grant R01GM900001; no spending rules failed. The hold is because it isn't clear the purchase is for the lab's research: the sleep and memory study is a different field from a bacterial mem
+ok  wrong-field conference     exp=stop   state=waiting_on_manager on=R01GM900001
+      The $1,900 Society for Neuroscience 2026 registration and flight request was held for the grant manager on grant R01GM900001. No rules failed: the grant is active and not frozen, enough money is available, travel is allowed, and it is under the $5,000 card lim
+ok  resort travel              exp=stop   state=waiting_on_manager on=R01MH900002
+      The $4,200 Maui flight and 5-night resort request (rq17) on grant R01MH900002 was held for the grant manager. No spending rule failed: the grant is active, funds are available, travel is an allowed category, and it is under the $5,000 card limit. It isn't clea
+ok  business class             exp=stop   state=waiting_on_manager on=R01GM900001
+      The business class flight to Berlin ($4,800) was held for the grant manager on grant R01GM900001. No spending rules failed: the grant is active and not frozen, funds are available, travel is allowed, and the price is under the $5,000 card limit. However, its p
+ok  tips overpriced            exp=stop   state=waiting_on_manager on=R01GM900001
+      The request for 1 box of pipette tips at $900 on grant R01GM900001 was held for the grant manager. No spending rules failed: the grant is active and not frozen, it is not in its last 90 days, enough money is available, the category is allowed, and the price is
+ok  freezer too cheap          exp=stop   state=waiting_on_manager on=R01MH900002
+      The request rq20 for a Thermo -80C ultra-low freezer ($45) on grant R01MH900002 was held for the grant manager. No spending rules failed, but its price looks wrong: $45 is far below the roughly $8,000 to $15,000 such a freezer normally costs. It needs the gran
+ok  peloton                    exp=stop   state=waiting_on_manager on=R01MH900002
+      The $1,500 Peloton bike request (rq21) on grant R01MH900002 was held for the grant manager. No spending rules failed: the grant is active and not frozen, enough money is available, the equipment category is allowed, and it is under the $5,000 card limit. It is
+ok  laptop vague               exp=stop   state=waiting_on_manager on=R01GM900001
+      The $2,400 MacBook Pro 16" request (rq22) was held for the grant manager on grant R01GM900001. No spending rule failed, and the grant is active, has enough available money, allows the category and is under the $5,000 card limit, but the purpose 'research' does
+ok  laptop with use            exp=either state=bought on=R01MH900002
+      Bought: the $1,900 Dell workstation laptop (request rq23) was ordered on grant R01MH900002 because it passed every spending rule, including active grant, enough truly available money, allowed category and the $5,000 card limit. No rules failed, and it was orde
+2 wrong of 23
+
+----- Run 3: list prices the web price check found (agents/src/agents/price-check.ts)
+{"item": "Pipette tips, 10 racks", "category": "lab supplies", "found": true, "vendor": "Fisher Scientific", "product": "Thermo Scientific ART Non-Filtered Extended Length Hinged Rack Pipette Tips, 10\u03bcL, Pack of 960 (3512HR)", "listPrice": 103.3, "sameQuantity": true, "url": "https://www.fishersci.com/shop/products/art-non-filtered-hinged-rack-pipette-tips/p-6021001", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Anti-GFP antibody, 100 ug", "category": "reagents", "found": true, "vendor": "Thermo Fisher Scientific", "product": "GFP Polyclonal Antibody (PA5-143588), 100 \u00b5g", "listPrice": 488.65, "sameQuantity": true, "url": "https://www.thermofisher.com/antibody/product/GFP-Antibody-Polyclonal/PA5-143588", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Ethanol, 200 proof, 4 L", "category": "reagents", "found": true, "vendor": "Fisher Scientific", "product": "Ethanol, Absolute (200 Proof), Molecular Biology Grade, Fisher BioReagents 4 L (Catalog BP28184)", "listPrice": 568, "sameQuantity": true, "url": "https://www.fishersci.com/shop/products/ethanol-absolute-200-proof-molecular-biology-grade-fisher-bioreagents-3/BP28184", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Running wheels for mouse cages, 12", "category": "lab supplies", "found": true, "vendor": "Tecniplast USA", "product": "Running Wheels (priced per single wheel; 12 ordered)", "listPrice": 351.24, "sameQuantity": true, "url": "https://shop.tecniplastusa.com/products/running-wheels", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Mouse EEG headmount electrodes, 10", "category": "lab supplies", "found": true, "vendor": "Pinnacle Technology", "product": "8201: 2 EEG/1 EMG Mouse Headmount (8201, 8201-SS, 8201-SS-270), priced per unit; 10 units", "listPrice": 362.8, "sameQuantity": true, "url": "https://store.pinnaclet.com/products/8201-2-eeg-1-emg-mouse-headmount", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
+{"item": "Dell workstation laptop", "category": "equipment", "found": true, "vendor": "Dell", "product": "Dell Pro Precision 5 Series 16 Laptop (Model PW516261), single unit", "listPrice": 4211, "sameQuantity": false, "url": "https://www.dell.com/en-us/shop/laptop-computers/spd/dellproprecision516pw516261", "checkedOn": "2026-10-25", "by": "claude-haiku-5-5"}
