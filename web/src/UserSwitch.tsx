@@ -47,7 +47,7 @@ export default function UserSwitch({ portal, onSwitch, align = 'left' }: { porta
           {edgeCases.length > 0 && (
             <div className="us-edge">
               <button type="button" className="us-head us-fold" aria-expanded={edgeOpen} onClick={() => setEdgeOpen(o => !o)}>
-                <span aria-hidden="true">{edgeOpen ? '▾' : '▸'}</span> Edge cases ({edgeCases.length})
+                <span aria-hidden="true">{edgeOpen ? '▾' : '▸'}</span> Failure cases ({edgeCases.length})
               </button>
               {edgeOpen && edgeCases.map(item)}
             </div>

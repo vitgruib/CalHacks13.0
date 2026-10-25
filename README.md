@@ -58,13 +58,15 @@ today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
 
 1. **Funds.** Grant A was canceled on 2026-03-10 and restored by a court
    order on 2026-04-20. No payment has arrived since, so it is still frozen.
-   The Demo controls buttons "Cancel grant", "Court order restores it" and
-   "Payment arrives" replay this sequence on either grant.
+   Demo controls → Real failure cases → "Court restored, no cash" runs the
+   same sequence (cut, court order, payment) on a real cut grant.
 2. **A scientist asks to buy** nitrile gloves ($640) on grant A, noting that
    the court restored it. A rule engine reading "restored" would say yes.
    Grant Test Auto sends it to the Inbox flagged, and explains: no money has
    arrived since the court order. Click "why?" on its Log row.
-3. **The money lands.** In Demo controls, press "Payment arrives". In the
+3. **The money lands.** (Demo controls no longer has a payment button for
+   grant A; the payment step lives on the "Court restored, no cash" failure
+   case.) In the
    Inbox, settle "Which source is right about R01GM061721?" (RePORTER says
    active, USAspending says canceled, the cancellation list says restored by
    court) with "Pick this source" and a reason. Both steps are needed, in either order. Grant A

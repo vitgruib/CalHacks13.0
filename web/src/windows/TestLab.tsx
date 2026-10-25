@@ -195,7 +195,7 @@ export default function TestLab() {
           <label className="tl-field">Grant
             <select value={grantId} onChange={e => setGrantId(e.target.value)}>
               {db.grants.filter(g => !isEdgeGrant(g)).map(g => <option key={g.id} value={g.id}>{grantHeading(g)} ({g.id})</option>)}
-              <optgroup label="Edge cases">
+              <optgroup label="Failure cases">
                 {db.grants.filter(isEdgeGrant).map(g => <option key={g.id} value={g.id}>{edgeCaseOf(g)}: {grantHeading(g)} ({g.id})</option>)}
               </optgroup>
             </select>

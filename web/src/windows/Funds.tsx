@@ -27,7 +27,7 @@ export const fundsHref = (grantId: string) => `#funds/${encodeURIComponent(grant
 
 const cardId = (grantId: string) => `funds-${grantId}`
 
-/** Scroll to a grant's card, unfolding the Edge cases group when the card is in it. */
+/** Scroll to a grant's card, unfolding the Failure cases group when the card is in it. */
 function showGrant(grantId: string) {
   const el = document.getElementById(cardId(grantId))
   if (!el) return
@@ -124,7 +124,7 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
       title={grantHeading(g)}
       aside={
         <span className="funds-badges">
-          {edgeCase && <Badge tone="neutral">Edge case: {edgeCase}</Badge>}
+          {edgeCase && <Badge tone="neutral">Failure case: {edgeCase}</Badge>}
           <Badge tone={grantStatus(g).tone}>{grantStatus(g).label}</Badge>
           {g.frozen && g.status !== 'ended' && <Badge tone="bad">Spending paused</Badge>}
         </span>

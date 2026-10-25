@@ -25,7 +25,7 @@ export default function Entry({ onPick }: { onPick: (portal: string) => void }) 
         <h2>Researchers</h2>
         <PeopleList list={people} onPick={onPick} />
         <details className="entry-edge">
-          <summary>Edge cases ({edgeCases.length})</summary>
+          <summary>Failure cases ({edgeCases.length})</summary>
           <PeopleList list={edgeCases} onPick={onPick} />
         </details>
       </div>

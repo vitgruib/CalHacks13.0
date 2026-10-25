@@ -470,6 +470,9 @@ const DEMO_REQUESTS = new Set([
 // Payment requests and progress reports are out of scope (T105): archive only.
 const DEMO_PAPERS = new Set()
 const DEMO_DROP = new Set(['inv-201']) // a second bill for o-033: archive only
+// Of the script grants, the demo keeps only the three real failure cases
+// (web/src/FailureCases.tsx); the other three are archive only.
+const DEMO_DROP_GRANTS = new Set(['R01AI178875', 'R01GM105672', 'F31DC022138'])
 
 const writeWorld = (file, w) => {
   writeFileSync(join(HERE, file), JSON.stringify(w, null, 2) + '\n')
@@ -478,6 +481,7 @@ const writeWorld = (file, w) => {
 
 const demoWorld = full => {
   const w = structuredClone(full)
+  for (const k of ['grants', 'statusEvents', 'sourceReadings', 'checkRequests', 'payroll']) w[k] = w[k].filter(x => !DEMO_DROP_GRANTS.has(x.id ?? x.grantId))
   w.requests = w.requests.filter(r => DEMO_REQUESTS.has(r.id))
   w.orders = w.orders.filter(o => DEMO_REQUESTS.has(o.requestId))
   const orders = new Set(w.orders.map(o => o.id))

@@ -15,14 +15,11 @@ export interface Researcher {
 export const RESEARCHERS: Researcher[] = [
   { id: 'priya', name: 'Dr. Priya Nair', title: 'Postdoctoral researcher', grantId: 'R01GM061721' },
   { id: 'sofia', name: 'Sofia Alvarez', title: 'Graduate researcher', grantId: 'R21AI182745' },
-  // Edge cases: one per real failure case (T65, FailureCases.tsx), each on a grant cut on
-  // the real list. Pickers file them in an Edge cases folder, labeled by failure.
-  { id: 'amara', name: 'Dr. Amara Osei', title: 'Postdoctoral researcher', grantId: 'R01AI178875', failure: 'Terminated for good' },
+  // Failure cases: one per real failure case (T65, FailureCases.tsx), each on a grant cut on
+  // the real list. Pickers file them in a Failure cases folder, labeled by failure.
   { id: 'kenji', name: 'Kenji Watanabe', title: 'Graduate researcher', grantId: 'R01GM155497', failure: 'Bought after the cut' },
   { id: 'elena', name: 'Dr. Elena Petrova', title: 'Research scientist', grantId: 'R01HL176691', failure: 'Court restored, no cash' },
-  { id: 'rahul', name: 'Rahul Mehta', title: 'Graduate researcher', grantId: 'R01GM105672', failure: 'Only a supplement was cut' },
   { id: 'jordan', name: 'Jordan Kim', title: 'Research associate', grantId: 'K01DK133670', failure: 'Paid while terminated' },
-  { id: 'noah', name: 'Noah Bennett', title: 'Graduate fellow', grantId: 'F31DC022138', failure: 'Restored, then cut again' },
 ]
 
 /** The demo's main researchers, then the edge cases. */
@@ -48,7 +45,7 @@ export const researcherNamed = (name: string | undefined) => RESEARCHERS.find(r 
 /** "Dr. Priya Nair, Postdoctoral researcher"; "a researcher" when unknown. */
 export const requesterLabel = (name: string | undefined) => {
   const r = researcherNamed(name)
-  return r ? (r.failure ? `Edge case: ${r.failure}` : `${r.name}, ${r.title}`) : name || 'a researcher'
+  return r ? (r.failure ? `Failure case: ${r.failure}` : `${r.name}, ${r.title}`) : name || 'a researcher'
 }
 
 export const firstNameOf = (r: Researcher) => r.name.replace(/^Dr\.?\s*/, '').split(' ')[0]
