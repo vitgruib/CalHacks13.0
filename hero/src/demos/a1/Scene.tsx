@@ -139,8 +139,6 @@ interface Tween {
   lift: number
 }
 
-/** Embedded, the crane waits this long for the still to dip out (demo-a1.css), ms. */
-const CRANE_DIP = 220
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
 const UP = new Vector3(0, 1, 0)
 const DRIFT = (1.5 * Math.PI) / 180
@@ -149,17 +147,15 @@ const off = new Vector3()
 const fp = new Vector3()
 const dv = new Vector3()
 
-// Embedded, the opening crane plays once per tab: coming back to the landing opens on the hero framing.
-// Marked when it ends, not when it starts: StrictMode remounts the whole canvas tree before the first frame.
-let craned = false
-
 function Rig() {
   const controls = useRef<OrbitControlsImpl>(null)
   const { camera, size, gl } = useThree()
   const tween = useRef<Tween | null>(null)
   const opening = useRef<Tween | null>(null)
   const still = useMemo(reducedMotion, [])
-  const [crane] = useState(() => !embed.get().on || !craned)
+  // Embedded, the opening crane plays once per tab: coming back to the landing opens on the hero framing.
+  // Marked when it ends (embed craned), not when it starts: StrictMode remounts the whole canvas tree before the first frame.
+  const [crane] = useState(() => !embed.get().on || !embed.get().craned)
   // Embedded, the view is fixed so the names stay put over their plinths: no orbit, no wheel, no idle sway.
   const [locked] = useState(() => embed.get().on)
   const heroRef = useRef<Framing>(heroFor(size.width / Math.max(1, size.height)))
@@ -193,11 +189,7 @@ function Rig() {
       c.target.copy(OPENING.target)
       // t0 waits for the scene to be ready (Warm), so the crane plays in full as the canvas fades in.
       tween.current = opening.current = { fromP: OPENING.pos.clone(), toP: hero.pos.clone(), fromT: OPENING.target.clone(), toT: hero.target.clone(), t0: Infinity, ms: 4000, lift: 2.5, out: true }
-      if (embed.get().on) {
-        embed.set({ settled: false })
-        // The landing's still is the end framing, so it dips out before the canvas fades in on the crane's first frame (demo-a1.css).
-        gl.domElement.closest('.demo-a1')?.setAttribute('data-crane', '')
-      }
+      if (embed.get().on) embed.set({ settled: false })
     }
     camera.lookAt(c.target)
     const stop = () => {
@@ -255,7 +247,7 @@ function Rig() {
     const s = ui.get()
     const tw = tween.current
     if (tw) {
-      if (tw.t0 === Infinity && gl.domElement.closest('.demo-a1')?.hasAttribute('data-ready')) tw.t0 = performance.now() + (embed.get().on ? CRANE_DIP : 0)
+      if (tw.t0 === Infinity && gl.domElement.closest('.demo-a1')?.hasAttribute('data-ready')) tw.t0 = performance.now()
       // Selected things that move: aim the glide at where they are now.
       if (s.selected && (s.selected.startsWith('r:') || !NET[s.selected]) && focusPoint(s.selected, fp)) {
         dv.subVectors(fp, tw.toT)
@@ -277,10 +269,7 @@ function Rig() {
     }
     c.enabled = true
     // The crane is over (or a drag or a glide cut it short): the hover zones come on.
-    if (!embed.get().settled) {
-      craned = true
-      embed.set({ settled: true })
-    }
+    if (!embed.get().settled) embed.set({ settled: true, craned: true })
     // Follow a selected researcher (or item) as it moves.
     if (s.selected && (s.selected.startsWith('r:') || !NET[s.selected]) && focusPoint(s.selected, fp)) {
       dv.subVectors(fp, c.target).multiplyScalar(still ? 1 : 1 - Math.exp(-Math.min(dt, 0.1) * 3))

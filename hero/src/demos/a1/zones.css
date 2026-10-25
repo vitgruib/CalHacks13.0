@@ -144,6 +144,10 @@
 .demo-a1 .a1-zone-pins[data-on] .a1-zone-pin {
   pointer-events: auto;
 }
+/* A live name shows only once ZonePins has put it over its plinth (never at the stage's corner). */
+.demo-a1 .a1-zone-pins:not(.a-still-pins) .a1-zone-pin:not([data-placed]) {
+  visibility: hidden;
+}
 .demo-a1 .a1-zone-pin[data-lit] {
   background: var(--cobalt);
 }

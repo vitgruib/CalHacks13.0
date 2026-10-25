@@ -13,11 +13,13 @@ interface EmbedState {
   awake: boolean
   /** The host's call to action; a role when the visitor picked a side. */
   onEnter?: (role?: Role) => void
-  /** False while the opening crane plays (Scene.tsx Rig); the hover zones wait for it. */
+  /** False while the opening crane plays (Scene.tsx Rig); the hover zones and names wait for it. */
   settled: boolean
+  /** The opening crane has played in this tab (once per tab: coming back opens on the hero framing, over the still). */
+  craned: boolean
 }
 
-let state: EmbedState = { on: false, awake: true, settled: true }
+let state: EmbedState = { on: false, awake: true, settled: true, craned: false }
 const fns = new Set<() => void>()
 
 export const embed = {

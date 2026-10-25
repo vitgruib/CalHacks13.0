@@ -1582,27 +1582,14 @@
   visibility: hidden;
   transition: visibility 0s 800ms;
 }
-/* Embedded, the still is the hero framing, the crane's end. When the crane
-   plays (data-crane, Scene.tsx Rig), the still dips out to the stage colour
-   and the canvas fades in on the crane's first frame, never the two at once.
-   Without the crane (reduced motion, coming back) the still dissolves into the
-   same framing. */
+/* Embedded and coming back (no crane), the still of the hero framing
+   dissolves quickly into the same framing. A tab's first landing has no still
+   (index.tsx): the canvas fades in over the bare stage on the crane's first frame. */
 .demo-a1.is-embed .a-canvas {
   transition-duration: 400ms;
 }
 .demo-a1.is-embed[data-ready] .a-stage-still {
   transition-delay: 450ms;
-}
-.demo-a1.is-embed[data-crane] .a-stage-still {
-  transition: opacity 200ms ease-in;
-}
-.demo-a1.is-embed[data-crane][data-ready] .a-stage-still {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 200ms ease-in, visibility 0s 200ms;
-}
-.demo-a1.is-embed[data-crane] .a-canvas {
-  transition: opacity 360ms ease-out 200ms;
 }
 @media (prefers-reduced-motion: reduce) {
   .demo-a1 .a-canvas {

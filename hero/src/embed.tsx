@@ -92,7 +92,8 @@ function Still({ go }: { go: (role?: Role) => void }) {
 function Live({ go }: { go: (role?: Role) => void }) {
   const box = useRef<HTMLDivElement>(null)
   // a1 reads this as it mounts, so it's set before the first render, not in an effect.
-  useState(() => embed.set({ on: true, awake: true, onEnter: go }))
+  // Until the opening crane has played, the names wait for it (Scene.tsx Rig) from the first render.
+  useState(() => embed.set({ on: true, awake: true, onEnter: go, settled: embed.get().craned }))
   useEffect(() => {
     const el = box.current
     if (!el) return

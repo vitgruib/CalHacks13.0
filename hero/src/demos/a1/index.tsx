@@ -5,7 +5,7 @@
 // and a few lines of copy sit over its empty side (EmbedHud).
 // The root never re-renders, so the Canvas tree only changes from inside.
 
-import { Component, Suspense, lazy, useEffect, useRef, type ReactNode } from 'react'
+import { Component, Suspense, lazy, useEffect, useRef, useState, type ReactNode } from 'react'
 import './demo-a1.css'
 import { StageStill } from './EmbedBar'
 import { EmbedHud, Hud } from './Hud'
@@ -33,11 +33,13 @@ export default function Demo() {
     return () => ui.reset()
   }, [])
   const embedded = embed.get().on
+  // A tab's first landing opens with the crane from a close-up, so the still (the end framing) would show the lab wide, close, then wide: the copy waits over the bare stage instead.
+  const [under] = useState(() => embedded && embed.get().craned)
   return (
     <div className={embedded ? 'demo-a1 is-embed' : 'demo-a1'} ref={root}>
       <div className="a-stage">
-        {/* Embedded, the landing's still stays under the canvas until the scene fades in over it. */}
-        {embedded && <StageStill />}
+        {/* Embedded and coming back, the landing's still stays under the canvas until the scene fades in over it. */}
+        {under && <StageStill />}
         <SceneGuard>
           <Suspense fallback={null}>
             <Scene />

@@ -505,6 +505,7 @@ export function ZonePins() {
       if (!el) continue
       const y = tall ? spot[id].y : top
       el.style.transform = `translate(${spot[id].x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, ${tall ? '-50%' : 'calc(-100% - 10px)'})`
+      el.dataset.placed = ''
     }
   })
   return null
