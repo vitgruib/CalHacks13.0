@@ -311,6 +311,7 @@ const HALO_PAD = 0.75
  */
 export function Zone({ id, geo }: { id: ZoneId; geo: BufferGeometry }) {
   const on = useZones()
+  const settled = useEmbed(s => s.settled)
   const gl = useThree(s => s.gl)
   const down = useRef('mouse')
   const lift = useRef<Mesh>(null)
@@ -382,7 +383,8 @@ export function Zone({ id, geo }: { id: ZoneId; geo: BufferGeometry }) {
     }
   }, [on, id])
 
-  if (!on) return null
+  // While the opening crane plays the plinths don't take the pointer yet.
+  if (!on || !settled) return null
 
   const root = () => gl.domElement.closest('.demo-a1')
   const point = (e: ThreeEvent<PointerEvent | MouseEvent>) => {
@@ -455,6 +457,83 @@ export function Zone({ id, geo }: { id: ZoneId; geo: BufferGeometry }) {
         raycast={noRay}
       />
     </>
+  )
+}
+
+// ── On the stage: a name over each plinth ────────────────────────────────
+
+/** Each name sits on the middle of its plinth's top edge that's highest on screen: the back edge on a wide stage, whichever faces up on a tall one. */
+const EDGES: Record<ZoneId, Vector3[]> = Object.fromEntries(
+  (['lab', 'net'] as ZoneId[]).map(id => {
+    const b = BOX[id]
+    const y = id === 'lab' ? b.y1 : b.y1 - 0.4
+    const x0 = b.x - b.w / 2
+    const x1 = b.x + b.w / 2
+    return [id, [new Vector3(b.x, y, -b.d / 2), new Vector3(b.x, y, b.d / 2), new Vector3(x0, y, 0), new Vector3(x1, y, 0)]]
+  }),
+) as Record<ZoneId, Vector3[]>
+const NAME: Record<ZoneId, { text: string; label: string }> = {
+  lab: { text: 'Research lab', label: 'Research lab: open the research portal' },
+  net: { text: 'Grant manager network', label: 'Grant manager network: open the grant manager portal' },
+}
+const pinEls: Record<ZoneId, HTMLButtonElement | null> = { lab: null, net: null }
+const _p = new Vector3()
+
+/** In the Canvas: puts each name where its plinth's back edge is on screen, every frame (the crane moves the camera). */
+export function ZonePins() {
+  const on = useZones()
+  useFrame(({ camera, size }) => {
+    if (!on) return
+    for (const id of ['lab', 'net'] as ZoneId[]) {
+      const el = pinEls[id]
+      if (!el) continue
+      let x = 0
+      let y = Infinity
+      for (const e of EDGES[id]) {
+        _p.copy(e).project(camera)
+        const sy = ((1 - _p.y) / 2) * size.height
+        if (sy < y) {
+          y = sy
+          x = ((_p.x + 1) / 2) * size.width
+        }
+      }
+      // Wide: just above the edge. Tall (the plinths stacked): astride it, as the gap between them is narrow.
+      const lift = size.width / size.height < 0.85 ? '-50%' : 'calc(-100% - 10px)'
+      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, ${lift})`
+    }
+  })
+  return null
+}
+
+/** Beside the Canvas: the two names, buttons that light their side as they're pointed at and open its portal. */
+export function ZoneLabels() {
+  const on = useZones()
+  const settled = useEmbed(s => s.settled)
+  const lit = useLitZone()
+  if (!on) return null
+  return (
+    <div className="a1-zone-pins" data-on={settled ? '' : undefined}>
+      {(['lab', 'net'] as ZoneId[]).map(id => (
+        <button
+          key={id}
+          type="button"
+          className="a1-zone-pin"
+          data-lit={lit === id ? '' : undefined}
+          aria-label={NAME[id].label}
+          tabIndex={settled ? 0 : -1}
+          ref={el => {
+            pinEls[id] = el
+          }}
+          onPointerEnter={e => e.pointerType !== 'touch' && hintZone(id)}
+          onPointerLeave={() => hintZone(null)}
+          onFocus={() => hintZone(id)}
+          onBlur={() => hintZone(null)}
+          onClick={e => go(id, e.currentTarget)}
+        >
+          {NAME[id].text}
+        </button>
+      ))}
+    </div>
   )
 }
 

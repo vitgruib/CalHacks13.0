@@ -105,3 +105,79 @@
     transform: none;
   }
 }
+
+/* The two names over the plinths (zones.tsx ZoneLabels): slate pills that turn
+   cobalt while their side is lit, placed every frame by ZonePins. */
+.demo-a1 .a1-zone-pins {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 400ms ease-out;
+}
+.demo-a1 .a1-zone-pins[data-on] {
+  opacity: 1;
+}
+.demo-a1 .a1-zone-pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 7px 14px 8px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--on-slate);
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  box-shadow: 0 6px 18px rgb(20 24 30 / 0.18);
+  cursor: pointer;
+  pointer-events: none;
+  will-change: transform;
+  transition: background-color 150ms ease-out;
+}
+.demo-a1 .a1-zone-pins[data-on] .a1-zone-pin {
+  pointer-events: auto;
+}
+.demo-a1 .a1-zone-pin[data-lit] {
+  background: var(--cobalt);
+}
+.demo-a1 .a1-zone-pin:focus-visible {
+  outline: 2px solid var(--cobalt-ink);
+  outline-offset: 3px;
+}
+@media (max-width: 759px) {
+  .demo-a1 .a1-zone-pin {
+    padding: 6px 12px 7px;
+    font-size: 13.5px;
+  }
+}
+
+/* The still (embed.tsx Still): the names where the live view puts them, as a
+   share of the stage the stills were shot at (1440x864 wide, 390x808 tall). */
+.demo-a1 .a-still-pins .a1-zone-pin {
+  transform: translate(-50%, 0);
+}
+.demo-a1 .a-still-pin-lab {
+  left: 23%;
+  top: 35.8%;
+}
+.demo-a1 .a-still-pin-net {
+  left: 68.8%;
+  top: 24.8%;
+}
+@media (max-width: 759px) {
+  .demo-a1 .a-still-pin-lab {
+    left: 55.4%;
+    top: 48.4%;
+  }
+  .demo-a1 .a-still-pin-net {
+    left: 71.3%;
+    top: 19.4%;
+  }
+}

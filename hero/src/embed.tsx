@@ -7,12 +7,13 @@
 // - its listeners sit on its own root, except the tab's visibilitychange;
 // - off screen or in a hidden tab, the canvas and the story's clock stop;
 // - with no WebGL, a scene error, or reduced motion, a still of the lab offers
-//   the same prompt and ways in.
+//   the same two named ways in.
 
 import { Component, useEffect, useRef, useState, type ReactNode } from 'react'
 import Demo from './demos/a1'
 import { StageStill } from './demos/a1/EmbedBar'
 import { embed, type Role } from './demos/a1/embed'
+import './demos/a1/zones.css' // the names over the plinths, for the still too (the scene that also loads it comes later)
 import './embed.css'
 import { feed } from './feed'
 
@@ -66,24 +67,21 @@ function Still({ go }: { go: (role?: Role) => void }) {
       <div className="demo-a1 is-embed">
         <div className="a-stage">
           <StageStill />
+          {/* The live view's names over the plinths (zones.tsx ZoneLabels), where they sit on the still (CSS sets them per still). */}
+          <div className="a1-zone-pins a-still-pins" data-on="">
+            <button type="button" className="a1-zone-pin a-still-pin-lab" aria-label="Research lab: open the research portal" onClick={() => go('researcher')}>
+              Research lab
+            </button>
+            <button type="button" className="a1-zone-pin a-still-pin-net" aria-label="Grant manager network: open the grant manager portal" onClick={() => go('grant_office')}>
+              Grant manager network
+            </button>
+          </div>
         </div>
         <div className="a-embed-copy">
           <header className="a-embed-head">
             <h1>Grant Test Auto</h1>
             <p className="a-embed-sub">An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
             <p className="a-lede">A still of the simulated lab; the spending rules are the real ones.</p>
-            <p className="a-embed-prompt">
-              <span className="a-verb-mouse">Choose</span>
-              <span className="a-verb-touch">Tap</span> the{' '}
-              <button type="button" className="a-embed-way" aria-label="Research lab: open the research portal" onClick={() => go('researcher')}>
-                research lab
-              </button>{' '}
-              or the{' '}
-              <button type="button" className="a-embed-way" aria-label="Grant manager network: open the grant manager portal" onClick={() => go('grant_office')}>
-                grant manager network
-              </button>{' '}
-              to enter.
-            </p>
           </header>
         </div>
       </div>

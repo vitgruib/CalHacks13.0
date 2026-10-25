@@ -13,9 +13,11 @@ interface EmbedState {
   awake: boolean
   /** The host's call to action; a role when the visitor picked a side. */
   onEnter?: (role?: Role) => void
+  /** False while the opening crane plays (Scene.tsx Rig); the hover zones wait for it. */
+  settled: boolean
 }
 
-let state: EmbedState = { on: false, awake: true }
+let state: EmbedState = { on: false, awake: true, settled: true }
 const fns = new Set<() => void>()
 
 export const embed = {

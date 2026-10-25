@@ -13,7 +13,6 @@ import { embed, useEmbed } from './embed'
 import { IconChevron, IconPause, IconPlay, IconReplay, Mark, outcomeWord } from './icons'
 import { act, jumpTo, selectNode, ui, useFeed, useUi, type Section } from './ui'
 import { fmtDay, nodeName, nodeNow, requestStatus, shortItem } from './words'
-import { enterZone, hintZone, useLitZone, type ZoneId } from './zones'
 
 const PHONE = '(max-width: 759px)'
 const onPhoneChange = (fn: () => void) => {
@@ -262,8 +261,9 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
 
 /**
  * Inside another page (embed.ts) the dashboard steps aside and the scene takes
- * the whole box: the name, one line on the product, one on the replay and a
- * prompt sit in the sky over it (Scene.tsx fits the scene under them). The way in is the scene itself;
+ * the whole box: the name, one line on the product and one on the replay sit
+ * in the sky over it, and the two ways in are named over their plinths
+ * (zones.tsx ZoneLabels; Scene.tsx fits the scene under all of it). The way in is the scene itself;
  * the prompt's two phrases are the same two ways in for keys, screen readers
  * and anyone who would rather not aim, and they light their side of the scene.
  */
@@ -274,36 +274,8 @@ export function EmbedHud({ root }: { root: RefObject<HTMLDivElement | null> }) {
         <h1>Grant Test Auto</h1>
         <p className="a-embed-sub">An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
         <p className="a-lede">A simulated lab replaying a scripted story; the spending rules are the real ones.</p>
-        <p className="a-embed-prompt">
-          <span className="a-verb-mouse">Hover over</span>
-          <span className="a-verb-touch">Tap</span> the <Way id="lab" label="Research lab: open the research portal">research lab</Way> or the{' '}
-          <Way id="net" label="Grant manager network: open the grant manager portal">grant manager network</Way>
-          <span className="a-verb-mouse">, then click</span>.
-        </p>
       </header>
       <RootSync root={root} phone={false} />
     </div>
-  )
-}
-
-/** One of the prompt's phrases: pointing at or focusing it lights its zone; it lights too while the zone itself is hovered. */
-function Way({ id, label, children }: { id: ZoneId; label: string; children: string }) {
-  const lit = useLitZone() === id
-  return (
-    <button
-      type="button"
-      className="a-embed-way"
-      aria-label={label}
-      data-lit={lit ? '' : undefined}
-      onPointerEnter={e => {
-        if (e.pointerType !== 'touch') hintZone(id)
-      }}
-      onPointerLeave={() => hintZone(null)}
-      onFocus={() => hintZone(id)}
-      onBlur={() => hintZone(null)}
-      onClick={e => enterZone(id, e.currentTarget)}
-    >
-      {children}
-    </button>
   )
 }

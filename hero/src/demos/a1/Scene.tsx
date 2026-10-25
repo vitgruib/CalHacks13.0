@@ -21,7 +21,7 @@ import { OfficePlinth } from './Office'
 import { NET, OPENING, PAL, clearing, haloSize, heroFor, netAnchor, netFloor, type Framing } from './layout'
 import { fx, pinnedQuality, pointer, reducedMotion, ui } from './store'
 import { grantStatus, nodeName, nodeNow } from './words'
-import { ZoneCard, onZoneGo } from './zones'
+import { ZoneCard, ZoneLabels, ZonePins, onZoneGo } from './zones'
 import './scene.css'
 
 function Backdrop() {
@@ -145,11 +145,19 @@ const off = new Vector3()
 const fp = new Vector3()
 const dv = new Vector3()
 
+// Embedded, the opening crane plays once per tab: coming back to the landing opens on the hero framing.
+// Marked when it ends, not when it starts: StrictMode remounts the whole canvas tree before the first frame.
+let craned = false
+
 function Rig() {
   const controls = useRef<OrbitControlsImpl>(null)
-  const { camera, size } = useThree()
+  const { camera, size, gl } = useThree()
   const tween = useRef<Tween | null>(null)
+  const opening = useRef<Tween | null>(null)
   const still = useMemo(reducedMotion, [])
+  const [crane] = useState(() => !embed.get().on || !craned)
+  // Embedded, the view is fixed so the names stay put over their plinths: no orbit, no wheel, no idle sway.
+  const [locked] = useState(() => embed.get().on)
   const heroRef = useRef<Framing>(heroFor(size.width / Math.max(1, size.height)))
   const drift = useRef({ t: 0, a: 0, drag: false })
   const fov = useRef(0)
@@ -173,14 +181,15 @@ function Rig() {
     if (!c) return
     const hero = heroRef.current
     const at = new URLSearchParams(location.search).has('at')
-    // Embedded, the landing's still of this framing hands over to it, so there's no opening crane.
-    if (still || at || embed.get().on) {
+    if (still || at || !crane) {
       camera.position.copy(hero.pos)
       c.target.copy(hero.target)
     } else {
       camera.position.copy(OPENING.pos)
       c.target.copy(OPENING.target)
-      tween.current = { fromP: OPENING.pos.clone(), toP: hero.pos.clone(), fromT: OPENING.target.clone(), toT: hero.target.clone(), t0: performance.now() + 350, ms: 4600, lift: 2.5 }
+      // t0 waits for the scene to be ready (Warm), so the crane plays in full as the canvas fades in.
+      tween.current = opening.current = { fromP: OPENING.pos.clone(), toP: hero.pos.clone(), fromT: OPENING.target.clone(), toT: hero.target.clone(), t0: Infinity, ms: 4600, lift: 2.5 }
+      if (embed.get().on) embed.set({ settled: false })
     }
     camera.lookAt(c.target)
     const stop = () => {
@@ -213,6 +222,7 @@ function Rig() {
       c.removeEventListener('end', end)
       unsub()
       offZone()
+      if (!embed.get().settled) embed.set({ settled: true })
     }
   }, [])
 
@@ -223,7 +233,11 @@ function Rig() {
     const hero = heroFor(size.width / Math.max(1, size.height))
     if (hero !== heroRef.current) {
       heroRef.current = hero
-      if (!ui.get().selected) glide(hero.pos.clone(), hero.target.clone(), still ? 0 : 900)
+      // A refit during the opening crane (the embed's copy measured, a resize) moves where it lands rather than cutting it short.
+      if (tween.current && tween.current === opening.current) {
+        tween.current.toP.copy(hero.pos)
+        tween.current.toT.copy(hero.target)
+      } else if (!ui.get().selected) glide(hero.pos.clone(), hero.target.clone(), still ? 0 : 900)
     }
     if (fov.current !== hero.fov) {
       fov.current = hero.fov
@@ -233,6 +247,7 @@ function Rig() {
     const s = ui.get()
     const tw = tween.current
     if (tw) {
+      if (tw.t0 === Infinity && gl.domElement.closest('.demo-a1')?.hasAttribute('data-ready')) tw.t0 = performance.now()
       // Selected things that move: aim the glide at where they are now.
       if (s.selected && (s.selected.startsWith('r:') || !NET[s.selected]) && focusPoint(s.selected, fp)) {
         dv.subVectors(fp, tw.toT)
@@ -253,6 +268,11 @@ function Rig() {
       return
     }
     c.enabled = true
+    // The crane is over (or a drag or a glide cut it short): the hover zones come on.
+    if (!embed.get().settled) {
+      craned = true
+      embed.set({ settled: true })
+    }
     // Follow a selected researcher (or item) as it moves.
     if (s.selected && (s.selected.startsWith('r:') || !NET[s.selected]) && focusPoint(s.selected, fp)) {
       dv.subVectors(fp, c.target).multiplyScalar(still ? 1 : 1 - Math.exp(-Math.min(dt, 0.1) * 3))
@@ -261,7 +281,7 @@ function Rig() {
     }
     // Idle life: a very slow sway about the target while nobody is steering.
     const d = drift.current
-    if (!still && !d.drag && !s.selected && document.visibilityState === 'visible') {
+    if (!still && !locked && !d.drag && !s.selected && document.visibilityState === 'visible') {
       d.t += Math.min(dt, 0.05)
       const a = DRIFT * Math.sin((d.t / DRIFT_S) * Math.PI * 2)
       const da = a - d.a
@@ -282,8 +302,9 @@ function Rig() {
       enableDamping
       dampingFactor={0.08}
       rotateSpeed={0.55}
+      enableRotate={!locked}
       // Inside another page the wheel scrolls that page instead.
-      enableZoom={!embed.get().on}
+      enableZoom={!locked}
       zoomSpeed={0.7}
       minDistance={5}
       maxDistance={110}
@@ -526,7 +547,8 @@ function Clearing() {
     clearing.w = Math.round(c.width)
     clearing.h = Math.round(c.height)
     clearing.left = 0
-    clearing.top = Math.round(r.bottom - c.top + CLEAR_GAP / 2)
+    // Plus room for the names that sit over the plinths' back edges (zones.tsx ZoneLabels).
+    clearing.top = Math.round(r.bottom - c.top + CLEAR_GAP / 2 + (c.width < 760 ? 34 : 44))
   }
   useState(() => on && measure())
   useEffect(() => {
@@ -625,6 +647,7 @@ export default function Scene() {
         <ContactShadows position={[0, -3.1, 0]} scale={[40, 20]} blur={3} far={4.5} opacity={0.3} resolution={512} frames={1} color="#3A3530" />
         <Clearing />
         <Rig />
+        <ZonePins />
         <CardTracker />
         <DrawCalls />
         <Sleep />
@@ -633,7 +656,9 @@ export default function Scene() {
         <Effects />
       </Canvas>
       <HoverCard />
+      <ZoneLabels />
       <ZoneCard />
     </>
   )
 }
+

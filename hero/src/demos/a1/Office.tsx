@@ -25,7 +25,7 @@ import {
 import { PACE, feed, progress } from '../../feed'
 import { kit, type Kit } from './kit'
 import { FUNDER, GLAZE, GRANT_COLOR, GROOVES, NET, NET_BOX, NET_X, PAL, R01, R21, VENDORS, type V3 } from './layout'
-import { CLAY, glass, liquid } from './mats'
+import { CLAY, SHEEN, glass } from './mats'
 import { GrantManagerFigure } from './People'
 import { Pick } from './Parts'
 import { GLOW } from './routes'
@@ -113,13 +113,12 @@ function build() {
     k.cyl([x, 0.03, cz], 0.26, 0.04, '#2E333A', 20)
   }
 
-  // Reservoirs: a clay basin set into the slate, its collar in the grant's colour.
+  // Grants: a low clay plate on the slate, ringed in the grant's colour, for its heap of money.
   for (const gid of [R01, R21]) {
     const n = NET[`g:${gid}`]
     const [x, z] = n.at
-    k.lathe([x, 0, z], [[0.9, 0], [1.02, 0], [1.06, 0.06], [1.04, 0.5], [0.98, 0.56], [0.9, 0.56], [0.88, 0.1], [0.0, 0.1]], POD, {}, 48)
-    k.torus([x, 0.56, z], 0.96, 0.05, GRANT_COLOR[gid], { rot: [PI / 2, 0, 0] }, PI * 2, 48)
-    k.cyl([x, 0.105, z], 0.88, 0.01, PAL.slateDeep, 40)
+    k.cyl([x, 0.04, z], 1.02, 0.08, POD, 48)
+    k.torus([x, 0.08, z], 1.0, 0.035, GRANT_COLOR[gid], { rot: [PI / 2, 0, 0] }, PI * 2, 48)
   }
 
   // The lab port: a notch in the plinth edge where the lab's parcels land.
@@ -403,7 +402,7 @@ function Pods() {
   )
 }
 
-// ── Reservoirs: money level, freeze, lock ────────────────────────────────
+// ── Grants: a heap of cash and coins, freeze, lock ───────────────────────
 
 const LOCK = (() => {
   const k = kit()
@@ -414,7 +413,41 @@ const LOCK = (() => {
 })()
 const SHACKLE = new TorusGeometry(0.085, 0.022, 10, 20, PI)
 const shackleMat = new MeshBasicMaterial({ color: '#AEB5BC' })
-const liquidGeo = new CylinderGeometry(0.86, 0.86, 1, 48)
+// A bundle of bills: green notes with a paper band, and a coin.
+const BILL = (() => {
+  const k = kit()
+  k.box([0, 0.055, 0], [0.5, 0.11, 0.25], '#8DB383', 0.02)
+  k.box([0, 0.055, 0], [0.1, 0.118, 0.258], '#F1EADA', 0.01)
+  return k.build()
+})()
+const COIN = (() => {
+  const k = kit()
+  k.cyl([0, 0.016, 0], 0.11, 0.032, '#D9B24C', 18)
+  return k.build()
+})()
+// Where each piece goes, in the order the heap grows: bundles in three stacks, then a coin pile in front.
+const BILLS: [number, number, number, number][] = []
+for (let level = 0; level < 5; level++) {
+  const stacks: [number, number, number][] = [[-0.3, -0.22, 0.25], [0.28, -0.3, -0.35], [-0.02, 0.18, 1.2]]
+  stacks.forEach(([x, z, r], i) => {
+    if (level < 5 - i) BILLS.push([x + 0.02 * Math.sin(level * 2.1 + i), 0.08 + level * 0.11, z + 0.02 * Math.cos(level * 1.7 + i), r + 0.12 * Math.sin(level * 1.3 + i * 2)])
+  })
+}
+BILLS.sort((a, b) => a[1] - b[1])
+const COINS: [number, number, number, number, number][] = []
+{
+  let i = 0
+  for (let layer = 0; layer < 4; layer++) {
+    const n = [11, 7, 4, 1][layer]
+    const r = [0.3, 0.2, 0.1, 0][layer]
+    for (let j = 0; j < n; j++) {
+      const a = (j / n) * PI * 2 + layer * 0.7
+      COINS.push([0.42 + r * Math.cos(a), 0.08 + layer * 0.034, 0.5 + r * Math.sin(a), 0.25 * Math.sin(i * 1.9), 0.25 * Math.cos(i * 2.3)])
+      i++
+    }
+  }
+}
+const HEAP = BILLS.length + COINS.length
 const jarGeo = (() => {
   const k = kit()
   k.lathe([0, 0, 0], [[1.08, 0], [1.08, 0.82], [1.0, 1.04], [0.78, 1.2], [0.4, 1.28], [0.12, 1.3], [0.09, 1.38], [0.12, 1.44], [0, 1.45]], '#FFFFFF', {}, 48)
@@ -423,11 +456,11 @@ const jarGeo = (() => {
 
 function Reservoir({ gid }: { gid: string }) {
   const n = NET[`g:${gid}`]
-  const liq = useRef<Mesh>(null)
+  const bills = useRef<InstancedMesh>(null)
+  const coins = useRef<InstancedMesh>(null)
   const jar = useRef<Mesh>(null)
   const lock = useRef<Group>(null)
   const shackle = useRef<Mesh>(null)
-  const liqMat = useMemo(() => liquid(PAL.money), [])
   const jarMat = useMemo(() => glass(), [])
   const still = useMemo(reducedMotion, [])
   const st = useMemo(() => ({ fill: -1, down: -1, frost: 0, lock: 0, open: 0 }), [])
@@ -453,15 +486,24 @@ function Reservoir({ gid }: { gid: string }) {
     st.open += ((restored ? 1 : 0) - st.open) * k
     const sl = fx.slosh.get(gid)
     const wob = sl && !still && t > sl.at && t - sl.at < 1400 ? 0.03 * Math.sin((t - sl.at) / 70) * (1 - (t - sl.at) / 1400) : 0
-    const h = 0.04 + st.fill * 0.4
-    if (liq.current) {
-      liq.current.scale.set(1, h, 1)
-      liq.current.position.y = 0.11 + h / 2 + wob
+    // The heap: as many pieces as the share of money left, the newest growing in or shrinking away; money landing makes it hop.
+    const shown = st.fill * HEAP
+    const hop = Math.abs(wob) * 3
+    const place = (m: InstancedMesh | null, list: number[][], from: number, coin: boolean) => {
+      if (!m) return
+      list.forEach((q, i) => {
+        const sc = Math.max(0.001, Math.min(1, shown - (from + i)))
+        o.position.set(q[0], q[1] + hop * (1 + q[1]), q[2])
+        if (coin) o.rotation.set(q[3], 0, q[4])
+        else o.rotation.set(0, q[3], 0)
+        o.scale.setScalar(sc)
+        o.updateMatrix()
+        m.setMatrixAt(i, o.matrix)
+      })
+      m.instanceMatrix.needsUpdate = true
     }
-    const u = liqMat.userData.u as { uPulse: { value: number } }
-    u.uPulse.value = sl && t > sl.at ? Math.max(0, 1 - (t - sl.at) / 900) : 0
-    if (g.status === 'ended') liqMat.color.set('#8FA9B0')
-    else liqMat.color.set(PAL.money)
+    place(bills.current, BILLS, 0, false)
+    place(coins.current, COINS, BILLS.length, true)
     if (jar.current) {
       jar.current.position.y = 0.5 + (1 - st.down) * 2.4
       jar.current.visible = st.down > 0.02
@@ -479,7 +521,8 @@ function Reservoir({ gid }: { gid: string }) {
     <Pick id={`g:${gid}`}>
       <group position={[n.at[0], 0, n.at[1]]}>
         <mesh geometry={hitCyl} material={hitMat} position={[0, 0.7, 0]} />
-        <mesh ref={liq} geometry={liquidGeo} material={liqMat} position={[0, 0.3, 0]} receiveShadow raycast={noRay} />
+        <instancedMesh ref={bills} args={[BILL, CLAY, BILLS.length]} castShadow receiveShadow raycast={noRay} />
+        <instancedMesh ref={coins} args={[COIN, SHEEN, COINS.length]} castShadow receiveShadow raycast={noRay} />
         <mesh ref={jar} geometry={jarGeo} material={jarMat} renderOrder={4} raycast={noRay} />
         <group ref={lock} position={[0, 0.34, 1.1]}>
           <mesh geometry={LOCK} material={CLAY} castShadow raycast={noRay} />

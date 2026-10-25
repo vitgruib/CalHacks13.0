@@ -1570,6 +1570,14 @@
   visibility: hidden;
   transition: visibility 0s 800ms;
 }
+/* Embedded, the opening crane starts as the canvas shows: the still of the
+   hero framing dissolves into it quickly, then the crane pulls out to that framing. */
+.demo-a1.is-embed .a-canvas {
+  transition-duration: 400ms;
+}
+.demo-a1.is-embed[data-ready] .a-stage-still {
+  transition-delay: 450ms;
+}
 @media (prefers-reduced-motion: reduce) {
   .demo-a1 .a-canvas {
     transition: none;
