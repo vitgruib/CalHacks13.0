@@ -24,10 +24,13 @@ const savedPortal = (): Portal | null => {
 }
 const roleOf = (p: Portal | null): Role => (p === 'grant_office' || !p ? 'grant_manager' : 'scientist')
 
-const menu = (role: Role) => windows.filter(w => w.roles.includes(role))
+// Every window a role may open. Soft-deleted windows (`hidden: true` in
+// registry.ts) are left out of the side menu only; their URLs still open them.
+const allowed = (role: Role) => windows.filter(w => w.roles.includes(role))
+const menu = (role: Role) => allowed(role).filter(w => !w.hidden)
 const home = (role: Role) => menu(role).find(w => w.id === roles.find(r => r.id === role)?.home) ?? menu(role)[0]
 // `#grants/R01GM061721` opens the grants window on one grant.
-const fromHash = (role: Role) => menu(role).find(w => `#${w.id}` === location.hash.split('/')[0]) ?? home(role)
+const fromHash = (role: Role) => allowed(role).find(w => `#${w.id}` === location.hash.split('/')[0]) ?? home(role)
 
 export default function App() {
   const { db } = useStore()
