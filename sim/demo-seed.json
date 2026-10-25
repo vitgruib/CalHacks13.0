@@ -288,46 +288,6 @@
       "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
-      "id": "rq-030",
-      "day": "2026-02-20",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Ceftazidime-avibactam reference powder",
-      "category": "reagents",
-      "price": 2400,
-      "grantId": "R21AI182745",
-      "purpose": "Resistance panel",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$2,400."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and the grant office approved it. The lab canceled the order on 2026-03-02 (back-ordered for 10 weeks)."
-    },
-    {
       "id": "rq-101",
       "day": "2026-06-14",
       "requester": "scientist",
@@ -366,15 +326,6 @@
       "state": "paid"
     },
     {
-      "id": "o-030",
-      "requestId": "rq-030",
-      "vendor": "BioReagents Inc",
-      "amount": 2400,
-      "placed": "2026-02-20",
-      "state": "canceled",
-      "canceledOn": "2026-03-02"
-    },
-    {
       "id": "o-060",
       "requestId": "rq-060",
       "vendor": "Cayman Chemical",
@@ -406,21 +357,6 @@
           "what": "Paid"
         }
       ]
-    },
-    {
-      "id": "inv-030",
-      "orderId": "o-030",
-      "vendor": "BioReagents Inc",
-      "amount": 2400,
-      "received": "2026-06-11",
-      "state": "matched",
-      "timeline": [
-        {
-          "day": "2026-06-11",
-          "what": "Invoice arrived ($2,400)"
-        }
-      ],
-      "checked": false
     }
   ],
   "payroll": [
@@ -617,39 +553,6 @@
     },
     {
       "id": "l-0006",
-      "day": "2026-02-20",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Ceftazidime-avibactam reference powder ($2,400)",
-      "reason": "Resistance panel",
-      "refId": "rq-030"
-    },
-    {
-      "id": "l-0007",
-      "day": "2026-02-20",
-      "actor": "grant_manager",
-      "action": "Approved ceftazidime-avibactam reference powder ($2,400) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-030"
-    },
-    {
-      "id": "l-0008",
-      "day": "2026-02-20",
-      "actor": "scientist",
-      "action": "Bought ceftazidime-avibactam reference powder ($2,400) on R21AI182745",
-      "reason": "Approved by the grant office.",
-      "refId": "rq-030"
-    },
-    {
-      "id": "l-0009",
-      "day": "2026-03-02",
-      "actor": "scientist",
-      "action": "Canceled order o-030",
-      "reason": "Vendor back-ordered it for 10 weeks; we used a colleague's stock instead.",
-      "refId": "o-030"
-    },
-    {
-      "id": "l-0010",
       "day": "2026-03-02",
       "actor": "payment_report",
       "action": "Drafted payment request pr-005 ($13,700)",
@@ -657,7 +560,7 @@
       "refId": "pr-005"
     },
     {
-      "id": "l-0011",
+      "id": "l-0007",
       "day": "2026-03-03",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-005",
@@ -665,7 +568,7 @@
       "refId": "pr-005"
     },
     {
-      "id": "l-0012",
+      "id": "l-0008",
       "day": "2026-03-07",
       "actor": "bookkeeping",
       "action": "Recorded payment of $13,700 on R01GM061721",
@@ -673,7 +576,7 @@
       "refId": "se-001"
     },
     {
-      "id": "l-0013",
+      "id": "l-0009",
       "day": "2026-03-10",
       "actor": "bookkeeping",
       "action": "Froze R01GM061721",
@@ -682,7 +585,7 @@
       "refId": "se-a-canceled-list"
     },
     {
-      "id": "l-0014",
+      "id": "l-0010",
       "day": "2026-04-06",
       "actor": "payment_report",
       "action": "Drafted payment request pr-014 ($5,130)",
@@ -690,7 +593,7 @@
       "refId": "pr-014"
     },
     {
-      "id": "l-0015",
+      "id": "l-0011",
       "day": "2026-04-07",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-014",
@@ -698,7 +601,7 @@
       "refId": "pr-014"
     },
     {
-      "id": "l-0016",
+      "id": "l-0012",
       "day": "2026-04-11",
       "actor": "bookkeeping",
       "action": "Recorded payment of $5,130 on R21AI182745",
@@ -706,7 +609,7 @@
       "refId": "se-002"
     },
     {
-      "id": "l-0017",
+      "id": "l-0013",
       "day": "2026-05-07",
       "actor": "payment_report",
       "action": "Drafted payment request pr-015 ($8,410)",
@@ -714,7 +617,7 @@
       "refId": "pr-015"
     },
     {
-      "id": "l-0018",
+      "id": "l-0014",
       "day": "2026-05-08",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-015",
@@ -722,7 +625,7 @@
       "refId": "pr-015"
     },
     {
-      "id": "l-0019",
+      "id": "l-0015",
       "day": "2026-05-28",
       "actor": "funder",
       "action": "Asked a follow-up on pr-015",
@@ -730,7 +633,7 @@
       "refId": "fu-001"
     },
     {
-      "id": "l-0020",
+      "id": "l-0016",
       "day": "2026-06-14",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",

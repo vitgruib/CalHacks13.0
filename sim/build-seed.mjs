@@ -465,7 +465,6 @@ db.log.forEach((row, i) => { row.id = `l-${pad(i + 1, 4)}` })
 const DEMO_REQUESTS = new Set([
   'rq-101', // demo path: buy on the restored, unpaid grant
   'rq-012', // ordinary past order, the vendor rq-101 reuses
-  'rq-030', // an invoice for a canceled order
   'rq-060', // the "Bought after the cut" edge case
 ])
 // Payment requests and progress reports are out of scope (T105): archive only.
