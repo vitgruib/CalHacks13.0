@@ -106,7 +106,13 @@ export function asksFor(paper: HeldPaper): string[] {
       if (paper.costMoves.length > 0) {
         const first = paper.costMoves.reduce((a, b) => (b.daysLeft < a.daysLeft ? b : a));
         const when = first.daysLeft >= 0 ? ` by ${first.fixBy}` : ` now (the 90-day limit ended ${first.fixBy})`;
-        asks.push(`Approve the cost move${when} and list the paper in ${paper.creditsGrantId}'s report.`);
+        // Approve only marks the paper a note (the module moves no money), so
+        // the person makes the move in the ledger and approves after.
+        const moves = paper.costMoves.map(moveLine).join(' and ');
+        asks.push(
+          `${moves[0].toUpperCase()}${moves.slice(1)} in the ledger${when} (GrantGuard doesn't move charges), ` +
+            `list the paper in ${paper.creditsGrantId}'s report, then approve.`,
+        );
       } else if (paper.creditedIsLabGrant) {
         asks.push(`List the paper in ${paper.creditsGrantId}'s report instead, or confirm with the authors that it also credits ${paper.reportGrantId}.`);
       } else {
@@ -160,7 +166,7 @@ export function fallbackExplanation(paper: HeldPaper): string {
   // The module's approve only marks the paper a note; it moves no money.
   lines.push(
     paper.costMoves.length > 0
-      ? 'Approve to accept the proposed cost move (the paper then shows as a note; GrantGuard does not move the charge itself); reject to keep it held.'
+      ? 'Approve once the charge is moved (the paper then shows as a note); reject to keep it held.'
       : 'Approve once it is fixed (the paper then shows as a note); reject to keep it held.',
   );
   return clip(lines.join(' '), WHY_MAX);
