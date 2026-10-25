@@ -41,7 +41,7 @@ and every invoice.
 
 | Their question | Where to look |
 |---|---|
-| Is it real enough? | Real NIH grant records and a real scrape of the public cancellation list. A simulated lab with 12 planted mistakes modeled on real audit findings, plus 4 decoys. Scorecard: 12 of 12 caught, 0 false alarms ([below](#whats-real-and-whats-simulated)). |
+| Is it real enough? | Real NIH grant records and a real scrape of the public cancellation list. Evaluated only on real cases: 42 questioned costs from real audit reports, graded by what the funder or auditor decided. 18 of 24 in-scope findings stopped, both costs the funder allowed passed, 0 false alarms ([below](#real-audit-findings)). |
 | Would you hire it? | Each agent logs in as its own database identity. Limits live in the database code, not in prompts: agents cannot decide Inbox items, nobody approves their own request, and nothing is bought or paid without the grant manager's approval. Every action has a Log row with a "why?". |
 | Did we see something new? | The corner: the post-award grant office of a research lab during the 2025 to 2026 grant cancellations, where a grant's status is a timeline of dated events with sources, not one field. |
 | The moment | A court restores a canceled grant, and Grant Test Auto still flags spending on it until the money arrives. Then the request clears every rule and the grant manager can approve it. |
@@ -78,10 +78,10 @@ today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
    reason field is required. A matching invoice also waits in the Inbox;
    approving it charges the grant (promised becomes spent) and reimburses
    the researcher.
-5. **Demo controls: the scorecard.** Planted mistakes caught, missed, and false
-   alarms on decoys. It is the run on the full seed (`sim/seed.json`), which
-   has more cases than the app shows, such as a kit priced exactly at the
-   card limit.
+5. **Demo controls: real audit findings.** Questioned costs from real audit
+   reports, run through the real module and agents and graded by what the
+   funder or auditor decided: stopped, missed, and costs the funder allowed
+   that passed.
 
 Payment requests to the government and progress-report checks are out of
 scope (T105): Grant Test Auto is the interface between the grant office and the
@@ -249,39 +249,37 @@ back on it. The grant office uses this to know which researcher to answer.
 | Rules, money math and limits | Real code in the module, with a test for each planted case and decoy |
 | The audit cases the rules cite (WVU, Delaware, UC Davis, the NSF-OIG summary) | Real public audit findings ([pain point 08](docs/research/pain-points/08-unallowable-purchases-audits.md)) |
 
-### The scorecard
+### Regression test on the sim seed
 
 `eval/` ([score.mjs](eval/score.mjs)) replays the sim seed through the real
-module and agents and scores the result against
-[sim/answer-key.json](sim/answer-key.json). It runs in `./check.sh`; Demo
-controls shows it.
-
-| Area | Planted mistakes caught | Decoys passed (no false alarm) |
-|---|---|---|
-| Fund tracker | 3 of 3 | none planted |
-| Purchases | 5 of 5 | 2 of 2 |
-| Invoices | 4 of 4 | 2 of 2 |
-| **Total** | **12 of 12, 0 missed** | **4 of 4, 0 false alarms** |
-
-Payment request and progress report cases stay in the key but aren't scored
-(out of scope, T105). From `node eval/score.mjs` on 2026-10-25 (T105); same
-as the committed [eval/scorecard.json](eval/scorecard.json). It measures our
-own planted cases, modeled on real audit findings, in a simulated lab, with
-saved Claude answers or code fallbacks (`GG_CLAUDE=offline`). So it tests
-the rules and the pipeline end to end, not live model judgment, and these
-are not field results. Every case: [sim/README.md](sim/README.md#planted-cases).
+module and agents and judges the result against
+[sim/answer-key.json](sim/answer-key.json). Its cases are made up (modeled
+on real findings), so it is not shown as a result: `./check.sh` runs it with
+`--strict` and fails on any miss or false alarm, as a regression test for
+the demo path. Every case: [sim/README.md](sim/README.md#planted-cases).
 
 ### Real audit findings
 
-`eval/real-findings.mjs` (T80) takes 40 questioned costs from real audit
+`eval/real-findings.mjs` (T80) takes 42 questioned costs from real audit
 reports saved in `docs/research/sources/docs/`, rebuilds each one as
 records in a fresh copy of the sim seed, and runs it through the same
-module and agents, scored by the scorecard's judge. Each case's quote is
-checked against its saved source. In
-[eval/real-findings.json](eval/real-findings.json) (`GG_CLAUDE=offline`):
-27 of the 40 findings are in scope, and 22 of the 27 are caught, with 5
-missed. All 3 decoys pass with 0 false alarms. The other 13 findings have
-no Grant Test Auto rule and are listed as out of scope.
+module and agents. Each case's quote is checked against its saved source,
+and each is graded by what was finally decided about that cost. There are no
+made-up cases or decoys (T113): the only decoys are costs a funder allowed.
+In [eval/real-findings.json](eval/real-findings.json) (`GG_CLAUDE=offline`):
+
+| Decided by | Stopped | Allowed costs passed | Out of scope |
+|---|---|---|---|
+| Funder disallowed (NSF resolution letter) | 6 of 6 | | 4 |
+| Funder allowed (NSF resolution letter) | | 2 of 2 | 2 |
+| Auditee agreed | 2 of 4 | | 3 |
+| Auditor only | 8 of 8 | | 9 |
+| Partly allowed (items not named) | 2 of 4 | | |
+| **Total** | **18 of 24, 6 missed** | **2 of 2, 0 false alarms** | **18** |
+
+The 18 out-of-scope findings have no Grant Test Auto rule to test (or need
+progress reports, out of scope since T105) and are listed with the reason.
+Demo controls shows every finding.
 
 ## Run it locally
 
@@ -317,9 +315,10 @@ with defaults: [agents/README.md#environment](agents/README.md#environment).
 
 Installs each package on a fresh clone, then runs typecheck and tests for
 `server/`, `agents/`, `eval/` and `scrapers/`, a typecheck and production
-build for `web/` (it has no tests), and prints the scorecard. It rewrites `eval/scorecard.json`. A miss or false alarm is
-printed but does not fail the check; `node eval/score.mjs --strict` exits 1
-on either.
+build for `web/` (it has no tests), then the evals. It rewrites
+`eval/real-findings.json` and `eval/scorecard.json`. A miss or false alarm on
+the sim seed fails the check (`score.mjs --strict`); real-findings misses
+are reported, not failed.
 
 ### Fastest: everything in one process, no server, no key
 
@@ -393,7 +392,7 @@ URL above.
 | [agents/](agents/README.md) | Agent worker: the agents, source clients, Claude helper, saved answers | B |
 | `web/` | The web app; windows in `web/src/windows/` | C |
 | [sim/](sim/README.md) | The simulated lab: seed, answer key, generator, validator | C |
-| `eval/` | The scorecard: replay, judge, `scorecard.json` | C |
+| `eval/` | Evals: real audit findings, plus the sim-seed regression test | C |
 | [scrapers/](scrapers/README.md) | Apify Actor for the Grant Witness NIH list | C |
 | `hero/` | Standalone 3D hero-dashboard mockups on a scripted feed (T23, in progress) | none |
 | `deploy/` | Maincloud publish script; agent worker VM setup, update and service | A |

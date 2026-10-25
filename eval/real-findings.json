@@ -36,21 +36,21 @@
     },
     "auditor": {
       "findings": 17,
-      "outOfScope": 8,
+      "outOfScope": 9,
       "mistakes": 8,
       "caught": 8,
-      "decoys": 2,
-      "passed": 2
+      "decoys": 0,
+      "passed": 0
     }
   },
   "totals": {
     "findings": 42,
-    "inScope": 25,
+    "inScope": 24,
     "caught": 18,
-    "missed": 7,
-    "outOfScope": 17,
-    "decoys": 4,
-    "correctPasses": 4,
+    "missed": 6,
+    "outOfScope": 18,
+    "decoys": 2,
+    "correctPasses": 2,
     "falseAlarms": 0
   },
   "findings": [
@@ -620,15 +620,6 @@
           "got": "hold",
           "outcome": "caught",
           "detail": "waiting_on_manager; Under the card limit, counting same-day purchases: $7,584 with rf-19a ($2,076), rf-19b ($1,820), rf-19d ($934), same person, category and day: over the limit together, so the grant manager decides."
-        },
-        {
-          "id": "rf-19-d",
-          "kind": "decoy",
-          "refId": "rf-19-d2",
-          "expected": "pass",
-          "got": "pass",
-          "outcome": "correct pass",
-          "detail": "$5,000 with rf-19-d1 the same day."
         }
       ],
       "falseAlarms": 0,
@@ -789,15 +780,6 @@
           "got": "hold",
           "outcome": "caught",
           "detail": "Invoice is $46,600 but the approved amount is $14,000."
-        },
-        {
-          "id": "rf-24-dc",
-          "kind": "decoy",
-          "refId": "rf-24-d",
-          "expected": "pass",
-          "got": "pass",
-          "outcome": "correct pass",
-          "detail": "Invoice matched."
         }
       ],
       "falseAlarms": 0,
@@ -884,13 +866,8 @@
         "file": "nsf-oig-22-6-002-promising-practices.txt",
         "label": "auditor"
       },
-      "rule": "A listed paper must credit the grant whose report lists it",
-      "auditee": "NSF OIG compendium",
-      "outcome": "no case",
-      "cases": [],
-      "falseAlarms": 0,
-      "extras": [],
-      "errors": []
+      "outcome": "out of scope",
+      "why": "Progress reports are out of scope (T105), so no paper is checked."
     },
     {
       "id": "rf-28",

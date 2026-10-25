@@ -11,6 +11,9 @@
 // "ending in 16 days" ends 16 days after the sim's today). Findings with no
 // Grant Test Auto rule to test are listed with `outOfScope` instead of left out.
 //
+// Real cases only (T113): every mistake and every decoy is a cost a real
+// auditor or funder decided on, with no made-up near misses beside them.
+//
 // Every finding also carries `decision`: what was finally decided about the
 // cost, which is the ground truth the eval grades against (T88). An audit
 // only questions a cost; the funder then decides in a resolution letter, and
@@ -256,11 +259,8 @@ export const FINDINGS = [
     plant(seed) {
       const who = 'Dr. Rf Scsu';
       [2076, 1820, 2754, 934].forEach((price, i) => request(seed, { id: `rf-19${'abcd'[i]}`, item: `Lab equipment order ${i + 1}`, category: 'lab equipment', price, purpose: 'Lab setup', requesterName: who }));
-      request(seed, { id: 'rf-19-d1', day: '2026-06-15', item: 'Instrument part', category: 'lab equipment', price: 2500, purpose: 'Repair', requesterName: 'Dr. Rf Near Miss' });
-      request(seed, { id: 'rf-19-d2', day: '2026-06-15', item: 'Instrument part', category: 'lab equipment', price: 2500, purpose: 'Repair', requesterName: 'Dr. Rf Near Miss' });
       return [
         purchase('rf-19-c', 'rf-19c', CLEAN, 'hold', SAME_DAY, 'Scaled 2x to the $5,000 limit: $2,076 + $1,820 + $2,754 + $934 = $7,584, each under the limit.', { relatedIds: ['rf-19a', 'rf-19b', 'rf-19d'] }),
-        purchaseDecoy('rf-19-d', 'rf-19-d2', CLEAN, SAME_DAY, 'Two same-day parts totaling exactly $5,000, which the limit allows.'),
       ];
     },
   },
@@ -316,12 +316,8 @@ export const FINDINGS = [
       order(seed, { id: 'rf-24-o', vendor: 'Facilities Contractor', amount: 14000, placed: '2026-03-02', item: 'Instrument room renovation' });
       seed.approvals.push({ id: 'rf-24-ap', orderId: 'rf-24-o', amount: 14000, by: 'grant_manager', day: '2026-03-02' });
       invoice(seed, { id: 'rf-24', orderId: 'rf-24-o', vendor: 'Facilities Contractor', amount: 46600, received: '2026-06-11' });
-      order(seed, { id: 'rf-24-od', vendor: 'Facilities Contractor', amount: 14000, placed: '2026-03-02', item: 'Second room renovation' });
-      seed.approvals.push({ id: 'rf-24-apd', orderId: 'rf-24-od', amount: 14000, by: 'grant_manager', day: '2026-03-02' });
-      invoice(seed, { id: 'rf-24-d', orderId: 'rf-24-od', vendor: 'Facilities Contractor', amount: 14000, received: '2026-06-11' });
       return [
         invoiceCase('rf-24-c', 'rf-24', 'mistake', AMOUNT, 'Billed $46,600 against a $14,000 approval.', { relatedIds: ['rf-24-ap'] }),
-        invoiceCase('rf-24-dc', 'rf-24-d', 'decoy', AMOUNT, 'The same contract billed at its approved $14,000.'),
       ];
     },
   },
@@ -354,13 +350,7 @@ export const FINDINGS = [
     id: 'rf-27', file: 'nsf-oig-22-6-002-promising-practices.txt', auditee: 'NSF OIG compendium', year: '2022', amount: null,
     what: 'Awardees charged NSF to publish papers that did not credit the award charged.',
     quote: 'Common Findings: Award recipients charged NSF for costs incurred to publish',
-    // Already planted in the seed: p-10 is listed on R21AI182745, whose
-    // publication fee it paid, but credits R01GM061721.
-    plant: () => [{
-      id: 'rf-27-c', feature: 'reports', kind: 'mistake', refId: 'p-10', grantId: 'R21AI182745', expected: 'hold',
-      rule: 'A listed paper must credit the grant whose report lists it', check: 'p-10 held',
-      why: "The seed's p-10: its fee was charged to R21AI182745, its acknowledgments credit R01GM061721.",
-    }],
+    outOfScope: 'Progress reports are out of scope (T105), so no paper is checked.',
   },
 
   // ---- Out of scope: no Grant Test Auto rule tests these ----

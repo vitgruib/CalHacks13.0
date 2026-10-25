@@ -18,8 +18,8 @@ file wins inside this repo**.
 - **The demo path (the 3-minute story judges see):** a grant is canceled
   and spending freezes; a court restores it, but Grant Test Auto flags spending
   until the money actually arrives, then the grant manager can approve it. Then an invoice for a
-  canceled order is held, and the scorecard shows results on planted
-  mistakes (`docs/MASTER-PLAN.md` §5).
+  canceled order is held, and the evals show results on real audit
+  findings (`docs/MASTER-PLAN.md` §5).
 - **Stack:** backend = **SpacetimeDB** (see `DECISIONS.md`); pinned
   at **2.13.0** (npm `spacetimedb` and the CLI);
   module language **TypeScript** (`server/src/`). The agent loop runs in a separate worker that

@@ -2,8 +2,9 @@
 // action lives here: start over from the demo seed, the real failure cases (T65),
 // drop events into the raw world (T18); the agents react to what lands here.
 // Demos change grants directly (cancel, restore, pay); nothing moves the clock. The
-// scorecard is eval/scorecard.json, written by the check command (T19) and
-// imported at build time: it scores the seed run, not the live database.
+// results shown are real cases only (T113): eval/real-findings.json, written by
+// the check command and imported at build time. The seed's made-up cases
+// (eval/scorecard.json) are a regression test in check.sh and aren't shown.
 import { useEffect, useState } from 'react'
 import FailureCases from '../FailureCases'
 import { useStore } from '../data/store'
@@ -11,27 +12,31 @@ import type { Db } from '../data/types'
 import { nextStep, paymentNote } from '../frozen'
 import { Badge, Section, grantStatus, money } from '../ui'
 import type { Tone } from '../ui'
-import scorecardJson from '../../../eval/scorecard.json'
+import realFindingsJson from '../../../eval/real-findings.json'
 import { edgeCaseOf, isEdgeGrant } from '../people'
 import { openHolds } from './Inbox'
 import { GRANT_HOLDS, fundsHref } from './Funds'
 import './TestLab.css'
 import { grantHeading } from '../plain'
 
-interface Score { caught: number; missed: number; falseAlarms: number; correctPasses: number; notRun: number; mistakes: number; decoys: number }
-interface Scorecard {
-  today: string
-  runner: string
-  totals: Score
-  features: (Score & { feature: string; label: string })[]
-  cases: { id: string; feature: string; kind: string; refId: string; expected: string; got: string; outcome: string; notRun: boolean; detail: string }[]
-  unlistedFalseAlarms: { feature: string; refId: string; what: string }[]
-  unimplemented: { feature: string; label: string; notRun: number }[]
-  withStandIns: { about: string; totals: Score; features: (Score & { feature: string })[]; cases: Record<string, { outcome: string }> }
+interface Finding {
+  id: string
+  what: string
+  rule?: string
+  outcome: string
+  why?: string
+  source: { auditee: string; year?: string; amount: number | null; file: string }
+  decision: { label: string; note?: string }
 }
-const scorecard = scorecardJson as Scorecard
+interface Tally { findings: number; outOfScope: number; mistakes: number; caught: number; decoys: number; passed: number }
+interface RealFindings {
+  byDecision: Record<'disallowed' | 'allowed' | 'partly' | 'agreed' | 'auditor', Tally>
+  totals: { findings: number; inScope: number; caught: number; missed: number; outOfScope: number; decoys: number; correctPasses: number; falseAlarms: number }
+  findings: Finding[]
+}
+const realFindings = realFindingsJson as RealFindings
 
-const outcomeTone: Record<string, Tone> = { caught: 'good', 'correct pass': 'good', missed: 'bad', 'false alarm': 'bad', 'not run': 'neutral' }
+const outcomeTone: Record<string, Tone> = { caught: 'good', 'correct pass': 'good', missed: 'bad', 'false alarm': 'bad', 'no case': 'bad', 'out of scope': 'neutral' }
 
 
 // Remember the picked grant while switching windows (the window remounts).
@@ -223,66 +228,74 @@ export default function TestLab() {
         </div>
       </Section>
 
-      <Section title="Planted mistakes scorecard" aside={<Badge>seed run, {scorecard.today}</Badge>}>
-        <Scoreboard />
+      <Section title="Real audit findings" aside={<Badge>{realFindings.totals.findings} real costs</Badge>}>
+        <RealFindingsBoard />
       </Section>
     </div>
   )
 }
 
-/** eval/scorecard.json: what the agents caught on the seed's planted mistakes and decoys. */
-function Scoreboard() {
-  const { totals, features, withStandIns: alone } = scorecard
+const DECIDED: Record<string, string> = {
+  disallowed: 'Funder disallowed',
+  allowed: 'Funder allowed',
+  partly: 'Partly allowed',
+  agreed: 'Auditee agreed',
+  auditor: 'Auditor only',
+}
+
+/**
+ * eval/real-findings.json: questioned costs from real audit reports, rebuilt
+ * as records and run through the real module and agents, graded by what was
+ * finally decided about each cost.
+ */
+function RealFindingsBoard() {
+  const { totals: t, byDecision: b, findings } = realFindings
   const ratio = (n: number, of: number) => (of ? `${n}/${of}` : '—')
-  const row = (label: string, n: Score, rules?: Score) => (
+  const row = (label: string, x: Tally, graded: string) => (
     <tr key={label}>
       <th scope="row">{label}</th>
-      <td>{ratio(n.caught, n.mistakes)}</td>
-      <td>{n.missed}</td>
-      <td>{n.falseAlarms}</td>
-      <td>{ratio(n.correctPasses, n.decoys)}</td>
-      <td>{n.notRun || ''}</td>
-      <td className="tl-alone">{rules ? `${ratio(rules.caught, rules.mistakes)} caught, ${rules.falseAlarms} false` : ''}</td>
+      <td>{ratio(x.caught, x.mistakes)}</td>
+      <td>{ratio(x.passed, x.decoys)}</td>
+      <td>{x.outOfScope || ''}</td>
+      <td className="muted">{graded}</td>
     </tr>
   )
   return (
     <>
+      <p>
+        <strong>{t.caught} of {t.inScope}</strong> in-scope findings stopped, {t.missed} missed;
+        {' '}<strong>{t.correctPasses} of {t.decoys}</strong> costs the funder allowed passed; {t.falseAlarms} false alarms.
+        {' '}{t.outOfScope} more are listed as out of scope, with the reason.
+      </p>
       <div className="tl-scroll">
       <table className="tl-score">
         <thead>
-          <tr><th>Feature</th><th>Caught</th><th>Missed</th><th>False alarms</th><th>Correct passes</th><th>Not run</th><th>Rules alone</th></tr>
+          <tr><th>Decided by</th><th>Stopped</th><th>Allowed costs passed</th><th>Out of scope</th><th>Ground truth</th></tr>
         </thead>
         <tbody>
-          {features.map(f => row(f.label, f, alone.features.find(a => a.feature === f.feature)))}
-          {row('Overall', totals, alone.totals)}
+          {row(DECIDED.disallowed, b.disallowed, "the funder's resolution letter")}
+          {row(DECIDED.allowed, b.allowed, "the funder's resolution letter")}
+          {row(DECIDED.agreed, b.agreed, 'the auditee agreed in the report')}
+          {row(DECIDED.auditor, b.auditor, "the auditor's finding")}
+          {row(DECIDED.partly, b.partly, 'part allowed, items not named')}
         </tbody>
       </table>
       </div>
-      {scorecard.unimplemented.length > 0 && (
-        <p className="muted">
-          Not run yet (no agent acts on these): {scorecard.unimplemented.map(f => f.label).join(', ')}. They count as missed.
-          "Rules alone" calls the module's checks directly in place of those agents.
-        </p>
-      )}
-      {scorecard.unlistedFalseAlarms.length > 0 && (
-        <p className="muted">False alarms on records the key doesn't list: {scorecard.unlistedFalseAlarms.map(x => `${x.refId} (${x.what})`).join('; ')}</p>
-      )}
       <details className="tl-cases">
-        <summary>Every case ({scorecard.cases.length})</summary>
+        <summary>Every finding ({findings.length})</summary>
         <div className="tl-scroll">
         <table>
           <thead>
-            <tr><th>Case</th><th>Record</th><th>Expected</th><th>Got</th><th>Outcome</th><th>Rules alone</th></tr>
+            <tr><th>Case</th><th>Audited</th><th>What the auditors found</th><th>Decided</th><th>Outcome</th></tr>
           </thead>
           <tbody>
-            {scorecard.cases.map(c => (
-              <tr key={c.id} title={c.detail}>
-                <td>{c.id}</td>
-                <td>{c.refId}</td>
-                <td>{c.expected}</td>
-                <td>{c.got}</td>
-                <td><Badge tone={outcomeTone[c.outcome] ?? 'neutral'}>{c.outcome}{c.notRun && c.outcome !== 'not run' ? ' (not run)' : ''}</Badge></td>
-                <td><Badge tone={outcomeTone[alone.cases[c.id]?.outcome] ?? 'neutral'}>{alone.cases[c.id]?.outcome ?? '—'}</Badge></td>
+            {findings.map(f => (
+              <tr key={f.id} title={f.why ?? f.rule ?? ''}>
+                <td>{f.id}</td>
+                <td>{f.source.auditee} {f.source.year ?? ''}{f.source.amount != null ? `, ${money(f.source.amount)}` : ''}</td>
+                <td>{f.what}{f.why ? <span className="muted"> ({f.why})</span> : null}</td>
+                <td>{DECIDED[f.decision.label] ?? f.decision.label}</td>
+                <td><Badge tone={outcomeTone[f.outcome] ?? 'neutral'}>{f.outcome}</Badge></td>
               </tr>
             ))}
           </tbody>
@@ -290,8 +303,9 @@ function Scoreboard() {
         </div>
       </details>
       <p className="muted">
-        From <code>./check.sh</code> (<code>node eval/score.mjs</code>), which runs sim/seed.json through {scorecard.runner} and
-        compares the result with sim/answer-key.json. Imported when the app is built, so it shows the seed run, not live changes.
+        From <code>./check.sh</code> (<code>node eval/real-findings.mjs</code>). Each case quotes a saved audit report in
+        docs/research/sources/docs/, and the check fails if the quote isn't there. The cost is rebuilt as records in a copy of the
+        simulated lab and run through the real module and agents. Imported when the app is built.
       </p>
     </>
   )

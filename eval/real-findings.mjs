@@ -179,7 +179,7 @@ export function formatFindings(card) {
     `  allowed costs passed ${b.allowed.passed}/${b.allowed.decoys}${scope(b.allowed)}`,
     'No funder decision saved:',
     `  auditee agreed: stopped ${b.agreed.caught}/${b.agreed.mistakes}${scope(b.agreed)}`,
-    `  auditor only: stopped ${b.auditor.caught}/${b.auditor.mistakes}, our decoys passed ${b.auditor.passed}/${b.auditor.decoys}${scope(b.auditor)}`,
+    `  auditor only: stopped ${b.auditor.caught}/${b.auditor.mistakes}${scope(b.auditor)}`,
     `Partly allowed, not graded: stopped ${b.partly.caught}/${b.partly.mistakes}${scope(b.partly)}`,
     `All: false alarms ${t.falseAlarms}; out of scope ${t.outOfScope} of ${t.findings} findings.`,
   );
