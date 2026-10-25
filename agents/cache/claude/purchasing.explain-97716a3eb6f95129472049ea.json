@@ -1,7 +1,7 @@
 {
   "task": "purchasing.explain",
   "model": "claude-sonnet-5-5",
-  "savedAt": "2026-10-25T06:26:08.053Z",
+  "savedAt": "2026-10-25T07:15:08.524Z",
   "input": {
     "request": {
       "id": "rq-109",
@@ -28,6 +28,6 @@
     "next": "Only the grant manager can approve a purchase over the card limit."
   },
   "answer": {
-    "explanation": "Request rq-109 ($2,600, sequencing core run 2 of 2) was held for the grant manager on grant R21AI182745. It failed \"Under the card limit, counting same-day purchases\": with rq-108 ($2,900), same person, category and day, the total is $5,500, over the limit together; the audit case is Southern Connecticut State Univ. (CT auditors, 2025), where orders of $1,038, $910, $1,377 and $467 with one vendor on the same day were split to stay under the $2,500 limit. Only the grant manager can approve a purchase over the card limit."
+    "explanation": "Request rq-109 ($2,600, sequencing core run 2 of 2) was held for the grant manager on grant R21AI182745. It failed the rule \"Under the card limit, counting same-day purchases\": together with rq-108 ($2,900), same person, category and day, the total is $5,500, over the limit. This matches the audit case at Southern Connecticut State Univ. (CT auditors, 2025), where same-day orders were split to stay under the $2,500 limit; only the grant manager can approve a purchase over the card limit."
   }
 }
