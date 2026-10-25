@@ -1,0 +1,94 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "body": {
+      "criteria": {
+        "project_nums": [
+          "K23MH130250"
+        ]
+      },
+      "include_fields": [
+        "ApplId",
+        "CoreProjectNum",
+        "ProjectNum",
+        "FiscalYear",
+        "AwardAmount",
+        "AwardNoticeDate",
+        "ProjectEndDate"
+      ],
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-25T08:20:50.073Z",
+  "response": {
+    "meta": {
+      "total": 7
+    },
+    "results": [
+      {
+        "appl_id": 11386477,
+        "core_project_num": "K23MH130250",
+        "project_num": "5K23MH130250-05",
+        "fiscal_year": 2026,
+        "award_amount": 175458,
+        "award_notice_date": "2026-03-24T00:00:00",
+        "project_end_date": "2027-02-28T00:00:00"
+      },
+      {
+        "appl_id": 11494046,
+        "core_project_num": "K23MH130250",
+        "project_num": "3K23MH130250-05S1",
+        "fiscal_year": 2026,
+        "award_amount": 23760,
+        "award_notice_date": "2026-04-06T00:00:00",
+        "project_end_date": "2027-02-28T00:00:00"
+      },
+      {
+        "appl_id": 11058377,
+        "core_project_num": "K23MH130250",
+        "project_num": "5K23MH130250-04",
+        "fiscal_year": 2025,
+        "award_amount": 171961,
+        "award_notice_date": "2025-08-06T00:00:00",
+        "project_end_date": "2027-02-28T00:00:00"
+      },
+      {
+        "appl_id": 11381935,
+        "core_project_num": "K23MH130250",
+        "project_num": "3K23MH130250-04S1",
+        "fiscal_year": 2025,
+        "award_amount": 27000,
+        "award_notice_date": "2025-09-11T00:00:00",
+        "project_end_date": "2027-02-28T00:00:00"
+      },
+      {
+        "appl_id": 10798314,
+        "core_project_num": "K23MH130250",
+        "project_num": "5K23MH130250-03",
+        "fiscal_year": 2024,
+        "award_amount": 198971,
+        "award_notice_date": "2024-03-19T00:00:00",
+        "project_end_date": "2027-02-28T00:00:00"
+      },
+      {
+        "appl_id": 10577883,
+        "core_project_num": "K23MH130250",
+        "project_num": "5K23MH130250-02",
+        "fiscal_year": 2023,
+        "award_amount": 199252,
+        "award_notice_date": "2023-03-01T00:00:00",
+        "project_end_date": "2027-02-28T00:00:00"
+      },
+      {
+        "appl_id": 10480973,
+        "core_project_num": "K23MH130250",
+        "project_num": "1K23MH130250-01",
+        "fiscal_year": 2022,
+        "award_amount": 201150,
+        "award_notice_date": "2022-02-22T00:00:00",
+        "project_end_date": "2027-02-28T00:00:00"
+      }
+    ]
+  }
+}

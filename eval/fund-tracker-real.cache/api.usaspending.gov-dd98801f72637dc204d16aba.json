@@ -1,0 +1,94 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.usaspending.gov/api/v2/transactions/",
+    "body": {
+      "award_id": "ASST_NON_R01GM118786_075",
+      "limit": 100,
+      "page": 1,
+      "sort": "action_date",
+      "order": "asc"
+    }
+  },
+  "savedAt": "2026-10-25T08:20:02.365Z",
+  "response": {
+    "results": [
+      {
+        "action_date": "2017-01-05",
+        "federal_action_obligation": 242858,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2017-12-07",
+        "federal_action_obligation": 235480,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2018-05-28",
+        "federal_action_obligation": 26165,
+        "modification_number": "001"
+      },
+      {
+        "action_date": "2018-09-14",
+        "federal_action_obligation": 105222,
+        "modification_number": "002"
+      },
+      {
+        "action_date": "2018-12-18",
+        "federal_action_obligation": 261296,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2019-12-27",
+        "federal_action_obligation": 234844,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2020-03-10",
+        "federal_action_obligation": 26094,
+        "modification_number": "001"
+      },
+      {
+        "action_date": "2021-05-30",
+        "federal_action_obligation": 0,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2021-09-06",
+        "federal_action_obligation": 324714,
+        "modification_number": "001"
+      },
+      {
+        "action_date": "2022-08-15",
+        "federal_action_obligation": 324185,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2023-07-04",
+        "federal_action_obligation": 98919,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2023-08-17",
+        "federal_action_obligation": 323642,
+        "modification_number": "001"
+      },
+      {
+        "action_date": "2024-08-14",
+        "federal_action_obligation": 323082,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2024-09-04",
+        "federal_action_obligation": 113272,
+        "modification_number": "001"
+      },
+      {
+        "action_date": "2026-04-02",
+        "federal_action_obligation": -834.53,
+        "modification_number": "000"
+      }
+    ],
+    "hasNext": false
+  }
+}

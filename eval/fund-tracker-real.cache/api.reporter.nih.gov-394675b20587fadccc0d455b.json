@@ -1,0 +1,40 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "body": {
+      "criteria": {
+        "project_nums": [
+          "R21NS139078"
+        ]
+      },
+      "include_fields": [
+        "ApplId",
+        "CoreProjectNum",
+        "ProjectNum",
+        "FiscalYear",
+        "AwardAmount",
+        "AwardNoticeDate",
+        "ProjectEndDate"
+      ],
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-25T08:20:39.717Z",
+  "response": {
+    "meta": {
+      "total": 1
+    },
+    "results": [
+      {
+        "appl_id": 10953239,
+        "core_project_num": "R21NS139078",
+        "project_num": "1R21NS139078-01",
+        "fiscal_year": 2024,
+        "award_amount": 388158,
+        "award_notice_date": "2024-07-05T00:00:00",
+        "project_end_date": "2027-06-30T00:00:00"
+      }
+    ]
+  }
+}

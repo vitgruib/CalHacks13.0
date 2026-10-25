@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.usaspending.gov/api/v2/transactions/",
+    "body": {
+      "award_id": "ASST_NON_R01AI173214_075",
+      "limit": 100,
+      "page": 1,
+      "sort": "action_date",
+      "order": "asc"
+    }
+  },
+  "savedAt": "2026-10-25T08:20:37.505Z",
+  "response": {
+    "results": [
+      {
+        "action_date": "2023-05-26",
+        "federal_action_obligation": 710048,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2024-05-20",
+        "federal_action_obligation": 703874,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2025-06-04",
+        "federal_action_obligation": 695335,
+        "modification_number": "000"
+      },
+      {
+        "action_date": "2026-06-01",
+        "federal_action_obligation": 686456,
+        "modification_number": "000"
+      }
+    ],
+    "hasNext": false
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://reporter.nih.gov/services/Projects/ProjectInfo?projectId=11384371",
+    "body": null
+  },
+  "savedAt": "2026-10-25T08:21:26.072Z",
+  "response": {
+    "appl_id": 11384371,
+    "post_award_action_type": {
+      "revision_type_code": null
+    }
+  }
+}

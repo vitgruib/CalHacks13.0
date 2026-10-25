@@ -1,0 +1,94 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "body": {
+      "criteria": {
+        "project_nums": [
+          "R35GM145374"
+        ]
+      },
+      "include_fields": [
+        "ApplId",
+        "CoreProjectNum",
+        "ProjectNum",
+        "FiscalYear",
+        "AwardAmount",
+        "AwardNoticeDate",
+        "ProjectEndDate"
+      ],
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-25T08:21:02.100Z",
+  "response": {
+    "meta": {
+      "total": 7
+    },
+    "results": [
+      {
+        "appl_id": 11370095,
+        "core_project_num": "R35GM145374",
+        "project_num": "5R35GM145374-05",
+        "fiscal_year": 2026,
+        "award_amount": 683292,
+        "award_notice_date": "2026-07-07T00:00:00",
+        "project_end_date": "2027-06-30T00:00:00"
+      },
+      {
+        "appl_id": 11112301,
+        "core_project_num": "R35GM145374",
+        "project_num": "5R35GM145374-04",
+        "fiscal_year": 2025,
+        "award_amount": 683292,
+        "award_notice_date": "2025-06-09T00:00:00",
+        "project_end_date": "2027-06-30T00:00:00"
+      },
+      {
+        "appl_id": 11061126,
+        "core_project_num": "R35GM145374",
+        "project_num": "3R35GM145374-03S2",
+        "fiscal_year": 2025,
+        "award_amount": 75861,
+        "award_notice_date": "2024-11-22T00:00:00",
+        "project_end_date": "2025-06-30T00:00:00"
+      },
+      {
+        "appl_id": 10865030,
+        "core_project_num": "R35GM145374",
+        "project_num": "5R35GM145374-03",
+        "fiscal_year": 2024,
+        "award_amount": 683292,
+        "award_notice_date": "2024-06-11T00:00:00",
+        "project_end_date": "2027-06-30T00:00:00"
+      },
+      {
+        "appl_id": 11035891,
+        "core_project_num": "R35GM145374",
+        "project_num": "3R35GM145374-03S1",
+        "fiscal_year": 2024,
+        "award_amount": 18934,
+        "award_notice_date": "2024-08-07T00:00:00",
+        "project_end_date": "2027-06-30T00:00:00"
+      },
+      {
+        "appl_id": 10652499,
+        "core_project_num": "R35GM145374",
+        "project_num": "5R35GM145374-02",
+        "fiscal_year": 2023,
+        "award_amount": 683292,
+        "award_notice_date": "2023-06-12T00:00:00",
+        "project_end_date": "2027-06-30T00:00:00"
+      },
+      {
+        "appl_id": 10406690,
+        "core_project_num": "R35GM145374",
+        "project_num": "1R35GM145374-01",
+        "fiscal_year": 2022,
+        "award_amount": 716149,
+        "award_notice_date": "2022-06-23T00:00:00",
+        "project_end_date": "2027-06-30T00:00:00"
+      }
+    ]
+  }
+}

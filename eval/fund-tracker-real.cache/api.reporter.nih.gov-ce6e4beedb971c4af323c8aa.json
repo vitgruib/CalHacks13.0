@@ -1,0 +1,67 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "body": {
+      "criteria": {
+        "project_nums": [
+          "K01HL161026"
+        ]
+      },
+      "include_fields": [
+        "ApplId",
+        "CoreProjectNum",
+        "ProjectNum",
+        "FiscalYear",
+        "AwardAmount",
+        "AwardNoticeDate",
+        "ProjectEndDate"
+      ],
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-25T08:19:50.998Z",
+  "response": {
+    "meta": {
+      "total": 4
+    },
+    "results": [
+      {
+        "appl_id": 10756107,
+        "core_project_num": "K01HL161026",
+        "project_num": "5K01HL161026-03",
+        "fiscal_year": 2024,
+        "award_amount": 157740,
+        "award_notice_date": "2023-12-26T00:00:00",
+        "project_end_date": "2024-12-31T00:00:00"
+      },
+      {
+        "appl_id": 10545049,
+        "core_project_num": "K01HL161026",
+        "project_num": "5K01HL161026-02",
+        "fiscal_year": 2023,
+        "award_amount": 157552,
+        "award_notice_date": "2022-12-20T00:00:00",
+        "project_end_date": "2025-12-31T00:00:00"
+      },
+      {
+        "appl_id": 10893919,
+        "core_project_num": "K01HL161026",
+        "project_num": "3K01HL161026-02S1",
+        "fiscal_year": 2023,
+        "award_amount": 49635,
+        "award_notice_date": "2023-08-26T00:00:00",
+        "project_end_date": "2024-08-31T00:00:00"
+      },
+      {
+        "appl_id": 10350297,
+        "core_project_num": "K01HL161026",
+        "project_num": "1K01HL161026-01",
+        "fiscal_year": 2022,
+        "award_amount": 157544,
+        "award_notice_date": "2021-12-31T00:00:00",
+        "project_end_date": "2025-12-31T00:00:00"
+      }
+    ]
+  }
+}

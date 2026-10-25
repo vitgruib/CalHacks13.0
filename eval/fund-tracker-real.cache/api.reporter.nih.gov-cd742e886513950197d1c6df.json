@@ -1,0 +1,67 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "body": {
+      "criteria": {
+        "project_nums": [
+          "T32GM148391"
+        ]
+      },
+      "include_fields": [
+        "ApplId",
+        "CoreProjectNum",
+        "ProjectNum",
+        "FiscalYear",
+        "AwardAmount",
+        "AwardNoticeDate",
+        "ProjectEndDate"
+      ],
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-25T08:20:46.069Z",
+  "response": {
+    "meta": {
+      "total": 4
+    },
+    "results": [
+      {
+        "appl_id": 11373503,
+        "core_project_num": "T32GM148391",
+        "project_num": "5T32GM148391-04",
+        "fiscal_year": 2026,
+        "award_amount": 669996,
+        "award_notice_date": "2026-01-30T00:00:00",
+        "project_end_date": "2028-01-31T00:00:00"
+      },
+      {
+        "appl_id": 11010846,
+        "core_project_num": "T32GM148391",
+        "project_num": "5T32GM148391-03",
+        "fiscal_year": 2025,
+        "award_amount": 614913,
+        "award_notice_date": "2025-07-14T00:00:00",
+        "project_end_date": "2028-01-31T00:00:00"
+      },
+      {
+        "appl_id": 10767782,
+        "core_project_num": "T32GM148391",
+        "project_num": "5T32GM148391-02",
+        "fiscal_year": 2024,
+        "award_amount": 689687,
+        "award_notice_date": "2024-01-12T00:00:00",
+        "project_end_date": "2028-01-31T00:00:00"
+      },
+      {
+        "appl_id": 10557521,
+        "core_project_num": "T32GM148391",
+        "project_num": "1T32GM148391-01",
+        "fiscal_year": 2023,
+        "award_amount": 334845,
+        "award_notice_date": "2023-01-24T00:00:00",
+        "project_end_date": "2028-01-31T00:00:00"
+      }
+    ]
+  }
+}

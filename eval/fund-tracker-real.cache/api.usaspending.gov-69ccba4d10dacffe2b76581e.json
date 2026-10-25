@@ -1,0 +1,253 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.usaspending.gov/api/v2/awards/funding/",
+    "body": {
+      "award_id": "ASST_NON_F31AI176739_075",
+      "limit": 100,
+      "page": 1,
+      "sort": "reporting_fiscal_date",
+      "order": "asc"
+    }
+  },
+  "savedAt": "2026-10-25T08:19:54.521Z",
+  "response": {
+    "results": [
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": 41923,
+        "gross_outlay_amount": null
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 4062
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6324
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 2,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 4524
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 3,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6786
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 4,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 13110
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 5,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 15372
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 17634
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 19896
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 22158
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 24420
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 26682
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": 36918,
+        "gross_outlay_amount": null
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 33060
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 35322
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 2,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 2,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 4427
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 3,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 3,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 3,
+        "transaction_obligated_amount": -21191,
+        "gross_outlay_amount": null
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 4,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 4,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 5,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 5,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 6869
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 277
+      },
+      {
+        "reporting_fiscal_year": 2026,
+        "reporting_fiscal_month": 4,
+        "transaction_obligated_amount": -8858,
+        "gross_outlay_amount": null
+      }
+    ],
+    "hasNext": false
+  }
+}

@@ -1,0 +1,445 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.usaspending.gov/api/v2/awards/funding/",
+    "body": {
+      "award_id": "ASST_NON_R01CA242593_075",
+      "limit": 100,
+      "page": 1,
+      "sort": "reporting_fiscal_date",
+      "order": "asc"
+    }
+  },
+  "savedAt": "2026-10-25T08:20:04.470Z",
+  "response": {
+    "results": [
+      {
+        "reporting_fiscal_year": 2019,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": 368288,
+        "gross_outlay_amount": 0
+      },
+      {
+        "reporting_fiscal_year": 2020,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": 368288,
+        "gross_outlay_amount": null
+      },
+      {
+        "reporting_fiscal_year": 2021,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": 448788,
+        "gross_outlay_amount": null
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 2,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 63374.73
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 3,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 102854.33
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 4,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 141306.98
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 5,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 173005.11
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 5,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 3215.23
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 173005.11
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 53478.63
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 173005.11
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 80445.78
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 115210.18
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 173005.11
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 151858.83
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 173005.11
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 173005.11
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 191435.9
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 261412.13
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 173005.11
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": 368288,
+        "gross_outlay_amount": null
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 274714.72
+      },
+      {
+        "reporting_fiscal_year": 2022,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 173005.11
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 2,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 40298.26
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 3,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 60390.5
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 4,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 88902.38
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 5,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 119881.83
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 4383.17
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 148803.59
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 39976.05
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 148803.59
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 102827.83
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 148803.59
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 128724.05
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 148803.59
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 166027.72
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 148803.59
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": 360922,
+        "gross_outlay_amount": null
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 194100.82
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 148803.59
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 225605.97
+      },
+      {
+        "reporting_fiscal_year": 2023,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 148803.59
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 2,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 52801.37
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 3,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 78737.85
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 4,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 105574.93
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 5,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 133985.96
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 142567.11
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 19963.62
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 142567.11
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 49002.5
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 142567.11
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 74189.26
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 142567.11
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 107924.9
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 142567.11
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 134178.88
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 142567.11
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 159284.68
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 142567.11
+      },
+      {
+        "reporting_fiscal_year": 2024,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 180585.29
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 2,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 23151.66
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 3,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 23151.66
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 4,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 96436.6
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 5,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 102941.18
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 6,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 136724.18
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 7,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 154230.63
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 8,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 170412.76
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 9,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 180336.71
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 10,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 180336.71
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 11,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 180336.71
+      },
+      {
+        "reporting_fiscal_year": 2025,
+        "reporting_fiscal_month": 12,
+        "transaction_obligated_amount": null,
+        "gross_outlay_amount": 180336.71
+      }
+    ],
+    "hasNext": false
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "body": {
+      "criteria": {
+        "project_nums": [
+          "DP2HD118273"
+        ]
+      },
+      "include_fields": [
+        "ApplId",
+        "CoreProjectNum",
+        "ProjectNum",
+        "FiscalYear",
+        "AwardAmount",
+        "AwardNoticeDate",
+        "ProjectEndDate"
+      ],
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-25T08:21:08.082Z",
+  "response": {
+    "meta": {
+      "total": 2
+    },
+    "results": [
+      {
+        "appl_id": 11412792,
+        "core_project_num": "DP2HD118273",
+        "project_num": "3DP2HD118273-01S1",
+        "fiscal_year": 2026,
+        "award_amount": 85639,
+        "award_notice_date": "2026-04-28T00:00:00",
+        "project_end_date": "2027-08-31T00:00:00"
+      },
+      {
+        "appl_id": 10910543,
+        "core_project_num": "DP2HD118273",
+        "project_num": "1DP2HD118273-01",
+        "fiscal_year": 2024,
+        "award_amount": 1463997,
+        "award_notice_date": "2024-08-27T00:00:00",
+        "project_end_date": "2027-08-31T00:00:00"
+      }
+    ]
+  }
+}

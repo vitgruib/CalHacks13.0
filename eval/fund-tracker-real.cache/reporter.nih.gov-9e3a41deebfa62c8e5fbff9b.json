@@ -1,0 +1,14 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://reporter.nih.gov/services/Projects/ProjectInfo?projectId=10946400",
+    "body": null
+  },
+  "savedAt": "2026-10-25T08:19:45.323Z",
+  "response": {
+    "appl_id": 10946400,
+    "post_award_action_type": {
+      "revision_type_code": "TERMINATED_DEPT_AUTH"
+    }
+  }
+}
