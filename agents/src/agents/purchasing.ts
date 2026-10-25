@@ -14,7 +14,7 @@
 // approval stands, so it is bought once that grant unfreezes (or, over the
 // card limit, put back in the Inbox for the grant manager to buy).
 
-import { ask } from '../claude.ts';
+import { ask, type AskOptions } from '../claude.ts';
 import {
   ActionError,
   type DecisionRow,
@@ -25,7 +25,8 @@ import {
   type Split,
 } from '../db/contract.ts';
 import {
-  EXPLAIN_SYSTEM, EXPLAIN_TASK, ExplainAnswer, READ_SYSTEM, READ_TASK, ReadAnswer, SHARED_USE_SYSTEM, SHARED_USE_TASK, SharedUseAnswer,
+  CHECK_CATEGORIES, EXPLAIN_SYSTEM, EXPLAIN_TASK, ExplainAnswer, PURPOSE_MODEL, PURPOSE_SYSTEM, PURPOSE_TASK, PurposeAnswer, READ_SYSTEM, READ_TASK,
+  ReadAnswer, SHARED_USE_SYSTEM, SHARED_USE_TASK, SharedUseAnswer,
 } from '../prompts/purchasing.ts';
 import { checkPrice, type PriceEntry } from './price-check.ts';
 import { workQueue, type AgentContext, type AgentHandle } from './types.ts';
@@ -104,7 +105,7 @@ const failsOnlyOnFreezeOf = (request: RequestRow, grantId: string, besides?: Rul
 
 export type HoldReason =
   | 'freeze' | 'card_limit' | 'shared_cost' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused' | 'approved_over_limit'
-  | 'price_high';
+  | 'price_high' | 'purpose' | 'category_check';
 export type BlockReason = 'category' | 'grant_rules' | 'already_ordered';
 
 export type Plan =
@@ -371,6 +372,10 @@ function reasonStep(decision: Decision, facts: StepFacts): string {
       return 'The grant manager decides.';
     case 'price_high':
       return decision.note ?? 'Its price is far above the list price found for it, so the grant manager decides.';
+    case 'purpose':
+      return `It doesn't look like it is for the lab's research${decision.note ? ` (${decision.note})` : ''}, so the grant manager decides instead of the agent buying it. A push back saying what it's for gets it checked again.`;
+    case 'category_check':
+      return decision.note ?? "Its kind of thing looks wrong and the rules would answer differently, so the grant manager decides.";
     case 'unplaced':
       return 'A rule failed that the agent cannot place, so the grant manager decides.';
     case 'category':
@@ -427,7 +432,27 @@ const readableDetail = (verdict: RuleVerdict, serves: string[]): string =>
 
 // ── The agent ──────────────────────────────────────────────────────────────
 
-export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
+/**
+ * What a category hold says (T86): the kind of thing it looks like, and how
+ * the rules would answer for it. `failsAs` are the rules that would fail only
+ * as `better`; `passesAs` the ones that fail now and would pass as `better`.
+ */
+export function categoryStep(given: string, better: string, why: string, failsAs: string[], passesAs: string[]): string {
+  const because = why.trim() ? ` (${why.trim().replace(/[.\s]+$/, '')})` : '';
+  const effect = failsAs.length ? `it would fail ${failsAs.join('; ')}` : `${passesAs.join('; ')} would pass`;
+  return `It looks like ${better}, not ${given}${because}. As ${better}, ${effect}, so the grant manager decides which it is.`;
+}
+
+const clip = (text: string, max = 160) => (text.length <= max ? text.trim() : `${text.slice(0, max - 1).trim()}…`);
+
+export function startPurchasing({
+  conn,
+  tracker,
+  purposeClaude,
+}: AgentContext & {
+  // For the purpose and category check; tests pass a fake client.
+  purposeClaude?: Pick<AskOptions<unknown>, 'client' | 'mode' | 'cacheDir'>;
+}): AgentHandle {
   const queue = workQueue(AGENT);
   let stopped = false;
 
@@ -508,6 +533,46 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       maxTokens: 600,
     });
     return by === 'fallback' ? undefined : { measurable: value.measurable, how: value.how.slice(0, 200) };
+  }
+
+  // A light look before the agent buys alone, or promises to (T86). A purpose
+  // that is plainly not research is held; a kind of thing that looks wrong is
+  // held only when the rules would answer differently for the one it looks
+  // like. With no Claude answer, nothing is held.
+  async function concernOf(request: RequestRow, decision: Decision, split: Split[]): Promise<{ reason: HoldReason; note: string } | undefined> {
+    const grantId = decision.to ?? decision.pendingTo ?? decision.grantId;
+    const grant = findGrant(grantId);
+    const { value, by } = await ask({
+      task: PURPOSE_TASK,
+      system: PURPOSE_SYSTEM,
+      model: PURPOSE_MODEL,
+      input: {
+        request: { item: request.item, category: request.category, price: request.price, purpose: request.purpose },
+        pushBacks: pushBacks(request.id),
+        grant: { id: grantId, title: grant?.title ?? '' },
+        categories: CHECK_CATEGORIES,
+      },
+      schema: PurposeAnswer,
+      fallback: () => ({ purpose: 'fine' as const, purposeWhy: '', categoryFits: true, betterCategory: 'other' as const, categoryWhy: '' }),
+      effort: 'low',
+      maxTokens: 400,
+      ...purposeClaude,
+    });
+    if (by === 'fallback') return undefined;
+    if (value.purpose === 'flag') return { reason: 'purpose', note: clip(value.purposeWhy) };
+    const given = request.category.toLowerCase();
+    if (value.categoryFits || value.betterCategory === given || !grant) return undefined;
+    const rules = await loadRules();
+    const grantsById = new Map(conn.rows('grant').map((row) => [row.id, row]));
+    const shareSplit = decision.to ? [] : split;
+    const failing = (category: string) =>
+      rules.spendingVerdicts({ ...factsOf(request, shareSplit), category }, grant, conn.today(), grantsById).filter((v) => !v.pass).map((v) => v.rule);
+    const now = failing(request.category);
+    const as = failing(value.betterCategory);
+    const failsAs = as.filter((rule) => !now.includes(rule));
+    const passesAs = now.filter((rule) => !as.includes(rule));
+    if (!failsAs.length && !passesAs.length) return undefined;
+    return { reason: 'category_check', note: categoryStep(request.category, value.betterCategory, clip(value.categoryWhy), failsAs, passesAs) };
   }
 
   async function explain(request: RequestRow, decision: Decision, serves: string[], vendor: string): Promise<string> {
@@ -715,6 +780,12 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       decision = asHold('decided_before', elsewhere || undefined);
     }
     else if (movesMoney && !fresh) decision = asHold('unchecked');
+
+    // Still about to buy alone, or to promise a buy later: one light look first.
+    if (decision.action === 'buy' || decision.action === 'reroute' || decision.reason === 'freeze' || decision.pendingTo) {
+      const concern = await concernOf(request, decision, split);
+      if (concern) decision = asHold(concern.reason, concern.note);
+    }
 
     if (decision.action === 'reroute') await reroute(requestId, decision, reading.serves, 'block');
     else if (decision.action === 'buy') await moveMoney(requestId, decision, split, reading.serves);

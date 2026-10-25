@@ -853,14 +853,18 @@ test('after_a_restart_only_a_hold_that_promised_the_buy_is_bought_when_its_grant
 
 // The purchasing agent alone on its own connection, so a test can step in
 // between the agent's last look and its buy.
-async function startAlone(seedJson: string, wrap: (purchasing: Connection) => Connection) {
+async function startAlone(
+  seedJson: string,
+  wrap: (purchasing: Connection) => Connection = (purchasing) => purchasing,
+  purposeClaude?: Parameters<typeof startPurchasing>[0]['purposeClaude'],
+) {
   const db = await createLocalDb({ world: { seedJson } });
   const bookkeeping = await db.connect();
   await bookkeeping.call('register_agent', { role: 'bookkeeping' });
   const purchasing = await db.connect();
   await purchasing.call('register_agent', { role: 'purchasing' });
   const tracker = startTracker(bookkeeping, []);
-  const agent = startPurchasing({ conn: wrap(purchasing), tracker, papers: createPaperLookup({ mode: 'offline', throttle: false }) });
+  const agent = startPurchasing({ conn: wrap(purchasing), tracker, papers: createPaperLookup({ mode: 'offline', throttle: false }), purposeClaude });
   cleanup = () => {
     agent.stop();
     tracker.stop();
@@ -1097,3 +1101,51 @@ test('an_overpriced_request_held_for_the_freeze_or_rerouted_is_held_for_its_pric
   }
   assert.equal(request('rq-106').state, 'bought');
 });
+
+// T86: Claude's light look before the agent buys alone, with a fake Claude
+// that answers the purpose check and nothing else (every other question is off).
+async function withPurposeAnswer(answer: Record<string, unknown>, run: (scientist: Connection, idle: () => Promise<void>, lab: Connection) => Promise<void>) {
+  const key = process.env.ANTHROPIC_API_KEY;
+  process.env.ANTHROPIC_API_KEY = 'test-key';
+  const cacheDir = mkdtempSync(join(tmpdir(), 'gg-purpose-'));
+  const client = { messages: { parse: async () => ({ model: 'claude-haiku-5-5', stop_reason: 'end_turn', parsed_output: answer }) } };
+  try {
+    const setup = await startAlone(oneGrantSeed(), undefined, { client, mode: 'live', cacheDir });
+    await run(await setup.person('scientist'), setup.idle, setup.purchasing);
+  } finally {
+    if (key === undefined) delete process.env.ANTHROPIC_API_KEY;
+    else process.env.ANTHROPIC_API_KEY = key;
+    rmSync(cacheDir, { recursive: true, force: true });
+  }
+}
+const fits = { purpose: 'fine', purposeWhy: '', categoryFits: true, categoryWhy: '' };
+
+test('a_request_claude_finds_plainly_not_for_research_is_held_instead_of_bought', () =>
+  withPurposeAnswer({ ...fits, purpose: 'flag', purposeWhy: 'A birthday cake is a party cost.', betterCategory: 'food' }, async (scientist, idle, lab) => {
+    await scientist.call('submit_request', { ...gloves, item: 'Birthday cake', price: 60, purpose: "Sofia's birthday" });
+    await idle();
+    const row = lab.rows('request').at(-1)!;
+    assert.equal(row.state, 'waiting_on_manager');
+    assert.equal(ordersFor(row.id, lab).length, 0);
+    assert.match(row.explanation, /doesn't look like it is for the lab's research \(A birthday cake is a party cost\.\)/);
+    assert.equal(openPurchaseHolds(row.id, lab).length, 1);
+  }));
+
+test('a_kind_of_thing_that_looks_wrong_is_held_when_the_rules_would_answer_differently', () =>
+  withPurposeAnswer({ ...fits, categoryFits: false, betterCategory: 'furniture', categoryWhy: 'Chairs are furniture.' }, async (scientist, idle, lab) => {
+    await scientist.call('submit_request', { ...gloves, item: 'Office chairs, 4', category: 'equipment', price: 1_200, purpose: 'Seating for the analysis room' });
+    await idle();
+    const row = lab.rows('request').at(-1)!;
+    assert.equal(row.state, 'waiting_on_manager');
+    assert.equal(ordersFor(row.id, lab).length, 0);
+    assert.match(row.explanation, /It looks like furniture, not equipment \(Chairs are furniture\)\. As furniture, it would fail Category allowed/);
+  }));
+
+test('a_kind_of_thing_that_looks_wrong_is_still_bought_when_the_rules_answer_the_same', () =>
+  withPurposeAnswer({ ...fits, categoryFits: false, betterCategory: 'equipment', categoryWhy: 'A laptop is equipment.' }, async (scientist, idle, lab) => {
+    await scientist.call('submit_request', { ...gloves, item: 'Laptop for image analysis', category: 'reagents', price: 1_400, purpose: 'Analyzing the imaging runs' });
+    await idle();
+    const row = lab.rows('request').at(-1)!;
+    assert.equal(row.state, 'bought');
+    assert.equal(purchaseHolds(row.id, lab).length, 0);
+  }));
