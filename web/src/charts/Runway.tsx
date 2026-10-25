@@ -64,7 +64,8 @@ export default function RunwayChart({ r }: { r: Runway }) {
 
   const ended = r.todayMs >= r.endMs
   const x0 = r.startMs
-  const x1 = Math.max(r.endMs, r.todayMs) + (Math.max(r.endMs, r.todayMs) - r.startMs) * 0.04
+  // The plot ends at the end date, so the dashed projection runs to the right edge.
+  const x1 = Math.max(r.endMs, r.todayMs)
   const yMax = r.awarded * 1.05
   const yMin = Math.min(0, r.left)
   const innerW = width - PAD.left - PAD.right
