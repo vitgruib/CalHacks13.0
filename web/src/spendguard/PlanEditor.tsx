@@ -2,7 +2,7 @@
 // with the report below it. Propose → assess → revise → assess again → save or
 // submit. Changing anything after an assessment marks the report out of date.
 // A submitted plan that clears all three checks goes straight to the
-// purchasing agent, one request per line; any other waits for the grant office.
+// grant office, one request per line; any other waits for the grant office.
 import { useMemo, useState, type ChangeEvent } from 'react'
 import { useStore } from '../data/store'
 import type { Db } from '../data/types'
@@ -207,7 +207,7 @@ export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; 
           </div>
           <p className="sg-note">
             {report.overall === 'aligned'
-              ? 'All three checks pass, so submitting sends each line to the purchasing agent as its own request. The spending rules still check every one.'
+              ? 'All three checks pass, so submitting sends each line to the grant office as its own request. The spending rules still check every one.'
               : 'Submitting sends the plan and this report to the grant office. Nothing is bought until they approve it.'}
           </p>
         </>

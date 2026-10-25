@@ -33,7 +33,7 @@ const kindLabel: Record<HoldKind, string> = {
 }
 
 const agentLabel: Record<AgentId, string> = {
-  purchasing: 'Purchasing agent',
+  purchasing: 'Agent (retired)',
   bookkeeping: 'Bookkeeping agent',
   payment_report: 'Payment and report agent',
 }

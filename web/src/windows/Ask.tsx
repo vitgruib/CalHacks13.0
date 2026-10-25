@@ -1,6 +1,6 @@
 // The researcher's home. It does two things, and says so: ask to buy
 // something (a plain answer from the module's spending rules, sent to the
-// purchasing agent in one click), or one of four questions about the grants.
+// grant office in one click), or one of four questions about the grants.
 // Their requests and plans are tracked underneath (My requests, merged in T100).
 import { useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { useStore } from '../data/store'
@@ -26,11 +26,11 @@ const TOPICS: { id: Topic; label: string }[] = [
 ]
 
 const requestState: Record<PurchaseRequest['state'], string> = {
-  submitted: 'sent, waiting for the purchasing agent',
-  bought: 'bought',
+  submitted: 'sent, waiting for the grant office',
+  bought: 'approved: buy it and send the invoice',
   blocked: 'not bought',
   rerouted: 'moved to another grant',
-  waiting_on_manager: 'waiting for your grant manager',
+  waiting_on_manager: 'waiting for the grant office',
   rejected: 'turned down',
   canceled: 'not bought: its order was canceled',
 }
@@ -72,15 +72,15 @@ function TopicAnswer({ db, topic, me }: { db: Db; topic: Topic; me: Researcher }
 }
 
 const headline: Record<Outcome['kind'], string> = {
-  yes: 'Yes, you can buy this.',
-  manager: 'Yes, with your grant manager\'s OK.',
+  yes: 'Yes, a grant can pay for this.',
+  manager: 'Yes, with a closer look from the grant office.',
   wait: 'Not today, but it can wait.',
   not_allowed: 'No, a grant can\'t pay for this.',
   not_now: 'Not right now.',
 }
 
 // grantId: the grant the researcher chose to pay from; '' lets us pick.
-// flag: why the purchasing agent's item check (Haiku, T103) thinks no grant can pay for it.
+// flag: why the item check (Haiku, T103) thinks no grant can pay for it.
 type BuyAsk = { item: string; price: number; purpose: string; category: string; grantId: string; flag?: string }
 
 /** The grants a request is checked on: the chosen one, or all of them. */
@@ -103,21 +103,21 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
   let body: ReactNode
   let send: string | undefined
   if (out.kind === 'yes') {
-    body = <p className="ask-big">Put it on your <strong>{shortName(out.grant)}</strong> grant. After this you'll still have <strong>{money(after)}</strong> to spend there.</p>
-    send = 'Send the order'
+    body = <p className="ask-big">Put it on your <strong>{shortName(out.grant)}</strong> grant. After this you'll still have <strong>{money(after)}</strong> to spend there. Once the grant office approves it, you buy it and send the invoice.</p>
+    send = 'Send it to the grant office'
   } else if (out.kind === 'manager') {
-    body = <p className="ask-big">It can go on your <strong>{shortName(out.grant)}</strong> grant, but anything over {money(CARD_LIMIT)} needs your grant manager to say yes. We'll ask them for you.</p>
-    send = 'Send it to my grant manager'
+    body = <p className="ask-big">It can go on your <strong>{shortName(out.grant)}</strong> grant, but anything over {money(CARD_LIMIT)} gets a closer look from the grant office before they approve it.</p>
+    send = 'Send it to the grant office'
   } else if (out.kind === 'wait') {
     const others = checks.filter(c => c.g.id !== out.grant.id).flatMap(c => plainReasons(db, c.g, c.verdicts))
     body = <>
       {out.needsManager
-        ? <p className="ask-big">Your <strong>{shortName(out.grant)}</strong> grant can pay, but it's paused until its money arrives. And anything over {money(CARD_LIMIT)} needs your grant manager to say yes, so once the money comes in it goes to them; it isn't bought on its own.</p>
-        : <p className="ask-big">Your <strong>{shortName(out.grant)}</strong> grant can pay, but it's paused until its money arrives. Send it now and it's bought the day the money comes in.</p>}
+        ? <p className="ask-big">Your <strong>{shortName(out.grant)}</strong> grant can pay, but it's paused until its money arrives, and anything over {money(CARD_LIMIT)} gets a closer look. Send it now; the grant office decides once the money comes in.</p>
+        : <p className="ask-big">Your <strong>{shortName(out.grant)}</strong> grant can pay, but it's paused until its money arrives. Send it now; the grant office can approve it once the money comes in.</p>}
       {others.map(r => <p key={r} className="ask-sub">{r}</p>)}
       <p className="ask-sub"><a href={`#grants/${out.grant.id}`}>Where's my money?</a></p>
     </>
-    send = out.needsManager ? 'Send it, ask my grant manager when the money arrives' : 'Send it, buy when the money arrives'
+    send = 'Send it to the grant office'
   } else if (out.kind === 'not_allowed') {
     const no = NOT_ALLOWED[ask.category]
     body = <>
@@ -136,7 +136,7 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
   const onSend = () => {
     if (!g) return
     submitRequest({ item: ask.item, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.purpose }, me)
-    onSent(`Sent: ${ask.item}. The purchasing agent has it now.`)
+    onSent(`Sent: ${ask.item}. The grant office has it now.`)
   }
 
   return (
@@ -155,7 +155,7 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
         <div className="ask-checks">
           <h3>The thing itself</h3>
           <ul>
-            {ask.flag && <li><Check ok={false} /><span><strong>Item check by the purchasing agent.</strong> {ask.flag}</span></li>}
+            {ask.flag && <li><Check ok={false} /><span><strong>Item check.</strong> {ask.flag}</span></li>}
             {checks[0]?.verdicts.filter(v => v.rule === 'Category allowed').map(v => <li key={v.rule}><Check ok={v.pass} /><span><strong>{v.rule}.</strong> {v.detail}</span></li>)}
           </ul>
         </div>
@@ -249,7 +249,7 @@ export default function Ask() {
 
       {sent && <p role="status" className="ask-sent">{sent} <a href="#ask" onClick={toMine}>See my requests</a></p>}
 
-      {checking && <p role="status" className="ask-sub">The purchasing agent is checking whether a grant can pay for this kind of thing at all…</p>}
+      {checking && <p role="status" className="ask-sub">Checking whether a grant can pay for this kind of thing at all…</p>}
 
       {ask && !sent && (
         <>

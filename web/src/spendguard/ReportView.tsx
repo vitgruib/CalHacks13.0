@@ -23,7 +23,7 @@ const whoShort: Record<Who, string> = {
 /** The report as prose: what the verdict means, then each check in a sentence or two. */
 export function summaryParagraphs(r: Report): string[] {
   const verdict = {
-    aligned: 'All three checks pass for the plan as entered, so its lines can go to the purchasing agent. The grant office still reviews anything the spending rules hold.',
+    aligned: 'All three checks pass for the plan as entered, so its lines can go out as requests. The grant office still approves each one.',
     clarify: 'Do not charge or approve this plan yet: the questions below need answers first.',
     outside: 'As entered, part of this plan may fall outside what the award funds. Revise it or ask the grant office.',
   }[r.overall]

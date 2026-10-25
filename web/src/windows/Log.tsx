@@ -8,7 +8,7 @@ import './Log.css'
 import { grantHeading } from '../plain'
 
 const actorLabel: Record<Actor, string> = {
-  purchasing: 'Purchasing agent',
+  purchasing: 'Agent (retired)',
   bookkeeping: 'Bookkeeping agent',
   payment_report: 'Payment & report agent',
   grant_manager: 'Grant manager',

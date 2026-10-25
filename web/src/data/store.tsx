@@ -7,20 +7,20 @@ import type { Researcher } from '../people'
 import { planLines, type SavedPlan } from '../spendguard/store'
 import type { Db, Decision, Invoice, PurchaseRequest, SourceCheck, StatusEvent } from './types'
 
-/** The purchasing agent's look at an item, before any grant (T103). category: the kind of thing it is ('' = not read). */
+/** The item check's look at an item, before any grant (T103). category: the kind of thing it is ('' = not read). */
 export interface ItemCheck { verdict: 'fine' | 'flag' | 'unchecked'; why: string; category: string }
 
 export interface Store {
   db: Db
   /** Grant manager decides a hold. Reason is required (MASTER-PLAN §2). */
   decide: (holdId: string, choice: Decision['choice'], reason: string) => void
-  /** A researcher submits a purchase request as themselves; the purchasing agent picks it up. */
+  /** A researcher submits a purchase request as themselves; it goes to the grant office (submit_request). */
   submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose'>, by: Researcher) => void
   /** Ask's item check (T103): is it a research cost at all, before any grant?
-   *  Resolves with the purchasing agent's answer (Haiku), or 'unchecked' when
+   *  Resolves with the bookkeeping agent's answer (Haiku), or 'unchecked' when
    *  none comes in time (offline: no agents, always). */
   checkItem: (a: { item: string; purpose: string; price: number }, by: Researcher) => Promise<ItemCheck>
-  /** The researcher who asked pushes back with new information; the agent looks again (push_back). */
+  /** The researcher who asked pushes back with new information; the grant office looks again (push_back). */
   pushBack: (requestId: string, message: string, by: Researcher) => void
   // Test lab only (T18). Same argument shapes as Track A's reducers
   // inject_status_event, inject_invoice and advance_days, so T17 can swap them.
@@ -153,7 +153,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
       const id = nextId('rq')
       return {
         ...d,
-        requests: [...d.requests, { ...r, id, day: d.today, requester: 'scientist', requestedBy: by.id, requesterName: by.name, state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' }],
+        requests: [...d.requests, { ...r, id, day: d.today, requester: 'scientist', requestedBy: by.id, requesterName: by.name, state: 'submitted', verdicts: [], explanation: 'Waiting for the grant office.' }],
         log: [...d.log, { id: nextId('l'), day: d.today, actor: 'scientist', action: `${by.name} asked to buy ${r.item} (${usd(r.price)})`, reason: r.purpose, refId: id }],
       }
     })
@@ -215,7 +215,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
   const savePlan: Store['savePlan'] = (p, by) => {
     const old = ownPlan(p.id, by)
     if (p.status !== 'draft' && !p.report) throw new Error('Assess the plan before submitting it.')
-    if (p.status === 'sent' && p.report?.overall !== 'aligned') throw new Error('Only a plan that clears every check goes straight to purchasing; submit it for review instead.')
+    if (p.status === 'sent' && p.report?.overall !== 'aligned') throw new Error('Only a plan that clears every check goes straight out as requests; submit it for review instead.')
     const row = {
       ...p, by, researcher: by.name, savedOn: db.today, decision: undefined,
       submittedOn: p.status === 'draft' ? undefined : db.today, sentOn: p.status === 'sent' ? db.today : undefined,

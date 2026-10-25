@@ -2,7 +2,7 @@
 // (SpendGuard, merged in T67). A researcher asks for one item on Ask or plans an
 // experiment here with a line-item budget; a plan's lines become requests once it
 // clears its checks or the grant office approves it, and from there each line
-// is an ordinary request: the purchasing agent, the spending rules, the Inbox.
+// is an ordinary request: the spending rules, then the grant office's approval.
 // The grant office decides a held request right on its card (the Inbox's card).
 import { useContext, useState, type FormEvent } from 'react'
 import { useStore } from '../data/store'
@@ -21,10 +21,10 @@ import './Requests.css'
 
 const stateLabel: Record<RequestState, string> = {
   submitted: 'Submitted',
-  bought: 'Bought',
+  bought: 'Approved',
   blocked: 'Flagged',
   rerouted: 'Rerouted',
-  waiting_on_manager: 'Waiting for the grant manager',
+  waiting_on_manager: 'Waiting for the grant office',
   rejected: 'Rejected',
   canceled: 'Order canceled',
 }
@@ -83,14 +83,14 @@ function PushBack({ r }: { r: PurchaseRequest }) {
     return (
       <div className="rq-actions rq-push-row">
         <button type="button" onClick={() => { setOpen(true); setSent(false) }}>Push back</button>
-        <span role="status" className="rq-sent">{sent && 'Sent. The purchasing agent will look at it again.'}</span>
+        <span role="status" className="rq-sent">{sent && 'Sent. The grant office will look at it again.'}</span>
       </div>
     )
   }
   return (
     <form className="rq-push" onSubmit={send}>
       <label>
-        What should the purchasing agent know? (e.g. a grant it serves, a split, why it's needed)
+        What should the grant office know? (e.g. a grant it serves, a split, why it's needed)
         <textarea rows={2} value={text} onChange={e => { setText(e.target.value); setError('') }} />
       </label>
       <div className="rq-actions">
@@ -120,7 +120,7 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
       {ref && <p className="rq-plan">Line {ref.line} of {ref.of} in the plan <a href="#requests" onClick={e => { e.preventDefault(); document.getElementById(`plan-${ref.planId}`)?.scrollIntoView({ behavior: 'smooth' }) }}>{plan ? short(plan.plan.experiment, 70) : ref.planId}</a></p>}
       <p className="rq-muted rq-meta">{r.day} · {r.category} · {ref ? ref.rest : r.purpose}</p>
       <GrantLine r={r} />
-      <p className="rq-explain"><span className="rq-muted">Purchasing agent: </span>{r.explanation}</p>
+      <p className="rq-explain"><span className="rq-muted">Status: </span>{r.explanation}</p>
       {decided.map(h => (
         <p key={h.id} className={h.decision!.choice === 'reject' ? 'rq-wait' : 'rq-explain'}>
           <span className="rq-muted">Grant manager, {h.decision!.day}: </span>{decisionLabel[h.decision!.choice]}. {h.decision!.reason}
@@ -161,7 +161,7 @@ const overallTone: Record<Overall, Tone> = { aligned: 'good', clarify: 'warn', o
 const planLabel: Record<PlanStatus, [Tone, string]> = {
   draft: ['neutral', 'Draft'],
   submitted: ['warn', 'Waiting for the grant office'],
-  sent: ['good', 'Sent to the purchasing agent'],
+  sent: ['good', 'Lines sent as requests'],
   returned: ['bad', 'Returned to the researcher'],
 }
 
@@ -195,11 +195,11 @@ function PlanDecision({ p }: { p: SavedPlan }) {
         <textarea rows={2} value={reason} onChange={e => { setReason(e.target.value); setError('') }} placeholder="e.g. Organoids are covered by aim 2 per the PI's note; quote on file" />
       </label>
       <div className="rq-actions">
-        <button type="button" className="primary" onClick={() => decide('approve')}>Approve: send lines to purchasing</button>
+        <button type="button" className="primary" onClick={() => decide('approve')}>Approve: send its lines as requests</button>
         <button type="button" onClick={() => decide('return')}>Return to the researcher</button>
         <span role="status" className="rq-error">{error}</span>
       </div>
-      <p className="rq-muted rq-small">Approving clears the plan's scope questions. Each line is still checked by the spending rules, and anything they hold waits for you under Requests.</p>
+      <p className="rq-muted rq-small">Approving clears the plan's scope questions. Each line becomes its own request, checked by the spending rules, and waits for your approval in the Inbox.</p>
     </div>
   )
 }

@@ -6,7 +6,7 @@
 export type Day = string
 export type Money = number // whole US dollars
 
-export type AgentId = 'purchasing' | 'bookkeeping' | 'payment_report'
+export type AgentId = 'purchasing' | 'bookkeeping' | 'payment_report' // purchasing: retired in T108, kept for old log rows
 export type PersonId = 'grant_manager' | 'scientist' | 'funder'
 export type Actor = AgentId | PersonId | 'system'
 
@@ -83,7 +83,7 @@ export interface PurchaseRequest {
   purpose: string
   state: RequestState
   verdicts: RuleVerdict[]
-  explanation: string // purchasing agent's plain-language reason
+  explanation: string // plain-language status, from the module
 }
 
 export interface Order {

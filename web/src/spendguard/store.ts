@@ -20,7 +20,7 @@ export interface SavedPlan {
   submittedOn?: string
   /** The grant office's call on a plan that didn't clear on its own. */
   decision?: { choice: 'approve' | 'return'; reason: string; day: string }
-  sentOn?: string // its lines went to the purchasing agent
+  sentOn?: string // its lines went out as requests
   plan: Plan
   report?: Report
 }
@@ -43,7 +43,7 @@ const amount = (s: string) => {
   return Number.isFinite(n) && n > 0 ? Math.round(n * 100) / 100 : 0
 }
 
-/** Why a line is not sent to the purchasing agent; undefined if it is. */
+/** Why a line is not sent as a request; undefined if it is. */
 export function notBought(it: Item): string | undefined {
   if (REQUEST_CATEGORY[it.category] === null) return 'Paid through payroll, not bought'
   if (amount(it.cost) === 0) return 'No cost entered'

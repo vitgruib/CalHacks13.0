@@ -1,6 +1,6 @@
 // Grant facts in plain words for the researcher's screens (Ask, My grants).
 // The spending rules are the module's own (server/src/rules.ts), so what Ask
-// tells a researcher matches what the purchasing agent will do.
+// tells a researcher matches what the grant office will see.
 import { canBuyAlone, daysBetween, spendingVerdicts, trulyAvailable, type Verdict } from '../../server/src/rules'
 import { CARD_LIMIT } from '../../server/src/vocab'
 import type { Db, Grant } from './data/types'
@@ -117,8 +117,8 @@ export function parseAsk(text: string): { item: string; price?: number } {
 export type Outcome =
   | { kind: 'yes'; grant: Grant } // every rule passes on this grant
   | { kind: 'manager'; grant: Grant } // only the card limit fails
-  // The pause stops it. needsManager: it is also over the card limit, so once
-  // the money arrives it still goes to the grant manager, not bought on its own.
+  // The pause stops it. needsManager: it is also over the card limit, so the
+  // grant office gets it flagged even after the money arrives.
   | { kind: 'wait'; grant: Grant; needsManager: boolean }
   | { kind: 'not_allowed' } // a federal grant can't pay for this kind of thing
   | { kind: 'not_now'; grant: Grant }
@@ -147,7 +147,7 @@ export function plainReasons(db: Db, g: Grant, verdicts: Verdict[]): string[] {
   })
 }
 
-/** What the purchasing agent will do with this request, by the module's rules. */
+/** How this request will look to the grant office, by the module's rules. */
 export function checkAsk(db: Db, req: AskFacts): Outcome {
   const rows = allChecks(db, req)
   const fails = (r: (typeof rows)[number]) => r.verdicts.filter(v => !v.pass)

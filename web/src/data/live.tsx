@@ -186,7 +186,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
         await c.reducers.submitRequest({ item: r.item, category: r.category, price: r.price, grantId: r.grantId || undefined, purpose: r.purpose, sharedWith: [] })
       })
     },
-    // The worker's purchasing agent answers with Haiku (answer_item_check);
+    // The worker's bookkeeping agent answers with Haiku (answer_item_check);
     // the answer is read from the grant manager's subscription.
     checkItem: async (a, by) => {
       const unchecked: ItemCheck = { verdict: 'unchecked', why: '', category: '' }

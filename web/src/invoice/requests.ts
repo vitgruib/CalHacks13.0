@@ -1,5 +1,5 @@
-// Every approved request of a researcher: purchase requests the purchasing
-// agent or grant office approved (from Requests), each with the invoice sent
+// Every approved request of a researcher: purchase requests the grant office
+// approved (from Requests), each with the invoice sent
 // for it, if any. A list with few left to invoice is topped up with sample
 // approved orders for the researcher's own grant so there is always something
 // to invoice.
@@ -30,7 +30,7 @@ export function approvedRequests(db: Db, name: string, stored: Submission[]): Ap
     .flatMap(r => {
       const o = db.orders.find(x => x.requestId === r.id)
       if (!o || o.state === 'canceled') return []
-      return [{ id: r.id, item: r.item, vendor: o.vendor, amount: o.changedAmount ?? o.amount, grantId: r.chargedGrantId ?? r.grantId, orderId: o.id, approvedOn: o.placed, by: 'the purchasing agent', invoice: invoiceFor(o.id) }]
+      return [{ id: r.id, item: r.item, vendor: o.vendor, amount: o.changedAmount ?? o.amount, grantId: r.chargedGrantId ?? r.grantId, orderId: o.id, approvedOn: o.placed, by: 'the grant office', invoice: invoiceFor(o.id) }]
     })
   // Waiting for an invoice first: that's what the researcher came to do.
   const sorted = (list: ApprovedRequest[]) => [...list.filter(r => !r.invoice), ...list.filter(r => r.invoice)]
