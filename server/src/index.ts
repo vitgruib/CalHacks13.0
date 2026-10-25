@@ -517,12 +517,16 @@ export const post_source_reading = spacetimedb.reducer(
   }),
 );
 
-function insertStatusEvent(ctx: Ctx, actor: string, a: { grantId: string; kind: string; source: string; summary: string; amount?: number }): void {
+// day (T65): the day the source says it happened (e.g. the list's
+// termination date), not after today; none = today.
+function insertStatusEvent(ctx: Ctx, actor: string, a: { grantId: string; kind: string; source: string; summary: string; amount?: number; day?: string }): void {
   getGrant(ctx, a.grantId);
   oneOf('kind', STATUS_EVENT_KINDS, a.kind);
   oneOf('source', SOURCES, a.source);
   if (a.kind === 'payment_received' && !(a.amount && a.amount > 0)) fail('A payment needs an amount.');
-  ctx.db.statusEvent.insert({ id: 0n, ...a, amount: a.amount, day: today(ctx), at: ctx.timestamp });
+  if (a.day && !(isRealDay(a.day) && a.day <= today(ctx))) fail(`day must be a real date written YYYY-MM-DD, not after today (${today(ctx)}); got "${a.day}".`);
+  const { day, ...rest } = a;
+  ctx.db.statusEvent.insert({ id: 0n, ...rest, amount: a.amount, day: day || today(ctx), at: ctx.timestamp });
   if (a.kind === 'payment_received') adjustMoney(ctx, a.grantId, { received: a.amount });
   writeLog(ctx, actor, `${a.grantId}: ${a.kind.replace(/_/g, ' ')}`, a.summary, { refId: a.grantId });
   recomputeGrant(ctx, a.grantId, actor);
@@ -530,7 +534,7 @@ function insertStatusEvent(ctx: Ctx, actor: string, a: { grantId: string; kind: 
 
 /** Bookkeeping agent: a status change (canceled, court order, payment...). Freeze is recomputed. */
 export const post_status_event = spacetimedb.reducer(
-  { grantId: t.string(), kind: t.string(), source: t.string(), summary: t.string(), amount: t.f64().optional() },
+  { grantId: t.string(), kind: t.string(), source: t.string(), summary: t.string(), amount: t.f64().optional(), day: t.string().optional() },
   (ctx, a) => guard(() => insertStatusEvent(ctx, requireAgent(ctx, 'bookkeeping'), a)),
 );
 

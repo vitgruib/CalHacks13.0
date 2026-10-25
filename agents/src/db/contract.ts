@@ -364,7 +364,7 @@ export interface Actions {
 
   // Fund tracker (bookkeeping agent).
   post_source_reading: { grantId: string; source: Source; status?: GrantStatus; awarded?: number; paid?: number; endDate?: string; url: string };
-  post_status_event: { grantId: string; kind: StatusEventKind; source: Source; summary: string; amount?: number };
+  post_status_event: { grantId: string; kind: StatusEventKind; source: Source; summary: string; amount?: number; day?: string }; // day: when the source says it happened (T65)
   /** A sources_disagree flag freezes the grant and the module puts it in the Inbox. */
   raise_flag: { grantId: string; kind: FlagKind; summary: string };
   request_check: { grantId?: string; reason: CheckReason; asOf?: string };

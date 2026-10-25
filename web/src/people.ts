@@ -14,6 +14,11 @@ export interface Researcher {
 export const RESEARCHERS: Researcher[] = [
   { id: 'priya', name: 'Dr. Priya Nair', title: 'Postdoctoral researcher', grantId: 'R01GM061721' },
   { id: 'sofia', name: 'Sofia Alvarez', title: 'Graduate researcher', grantId: 'R21AI182745' },
+  // One per cut script (T65, DemoScripts.tsx), each on a grant cut on the real list.
+  { id: 'amara', name: 'Dr. Amara Osei', title: 'Postdoctoral researcher', grantId: 'R01AI178875' },
+  { id: 'kenji', name: 'Kenji Watanabe', title: 'Graduate researcher', grantId: 'R01GM155497' },
+  { id: 'elena', name: 'Dr. Elena Petrova', title: 'Research scientist', grantId: 'R01HL176691' },
+  { id: 'rahul', name: 'Rahul Mehta', title: 'Graduate researcher', grantId: 'R01GM105672' },
 ]
 
 export const researcherNamed = (name: string | undefined) => RESEARCHERS.find(r => r.name === name)

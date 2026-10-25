@@ -14,7 +14,8 @@ const standInOutcome = (card, id) => card.withStandIns.cases[id].outcome;
 
 test('sources that agree raise no disagreement, so the planted one is missed', async () => {
   const s = seed();
-  s.sourceReadings.find(r => r.id === 'sr-008').status = 'canceled'; // RePORTER now agrees with the others
+  s.sourceReadings.find(r => r.id === 'sr-008').status = 'canceled'; // RePORTER now agrees with USAspending
+  s.sourceReadings.find(r => r.id === 'sr-010').status = 'canceled'; // and so does the list
 
   const card = await scoreSeed(s, key);
 

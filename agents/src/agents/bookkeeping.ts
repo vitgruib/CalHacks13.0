@@ -86,8 +86,16 @@ export function startTracker(conn: Connection, sources: SourceClient[]): Tracker
   // which the database rows don't keep. Filled again by each refresh.
   const freshReadings = new Map<string, Reading>();
 
+  // A status change is dated when the source says it happened (T65), if
+  // that's a real past day on the sim clock; otherwise today.
+  const eventDay = (since: string | null | undefined) => (since && since <= conn.today() ? since : undefined);
+
   async function record(reading: Reading) {
     freshReadings.set(`${reading.grantId}\n${reading.source}`, reading);
+    const notice = reading.notice;
+    if (notice && !conn.rows('statusEvent').some((event) => event.grantId === reading.grantId && event.summary === notice)) {
+      await conn.call('post_status_event', { grantId: reading.grantId, source: reading.source, kind: 'reading_changed', summary: notice, day: eventDay(reading.since) });
+    }
     const previous = latestReadings(conn, reading.grantId).find((r) => r.source === reading.source);
     const merged = merge(previous, reading);
     if (changedFields(previous, merged).length === 0) return;
@@ -102,7 +110,8 @@ export function startTracker(conn: Connection, sources: SourceClient[]): Tracker
       url: merged.url,
     });
     for (const event of eventsFor(previous, merged)) {
-      await conn.call('post_status_event', { grantId: reading.grantId, source: reading.source, ...event });
+      const day = event.kind === 'payment_received' ? undefined : eventDay(reading.since);
+      await conn.call('post_status_event', { grantId: reading.grantId, source: reading.source, ...event, day });
     }
   }
 
@@ -168,7 +177,22 @@ export function startTracker(conn: Connection, sources: SourceClient[]): Tracker
     await checkCourtOrderWithoutPayment(grantId);
   }
 
-  async function refreshGrant(grantId: string) {
+  // Demo time (T59): the real day the list is read as of, set by the newest
+  // check_now up to the check being handled. A check_now for just this grant
+  // (a cut script, T65) wins over one for every grant, so a plain Check now
+  // doesn't jump a script ahead. It holds for every read after it (rechecks
+  // before money moves too), across restarts, until another changes it.
+  const demoDayFor = (grantId: string, upTo?: bigint) => {
+    const newest = (own: boolean) =>
+      conn
+        .rows('checkRequest')
+        .filter((c) => c.reason === 'check_now' && (own ? c.grantId === grantId : c.grantId == null) && (upTo === undefined || c.id <= upTo))
+        .reduce<CheckRequestRow | undefined>((a, b) => (!a || b.id > a.id ? b : a), undefined);
+    return (newest(true) ?? newest(false))?.asOf || null;
+  };
+
+  async function refreshGrant(grantId: string, upTo?: bigint) {
+    for (const source of sources) source.viewAsOf?.(demoDayFor(grantId, upTo));
     const results = await Promise.allSettled(sources.map((source) => source.read(grantId)));
     for (const [index, result] of results.entries()) {
       if (result.status === 'rejected') {
@@ -181,32 +205,21 @@ export function startTracker(conn: Connection, sources: SourceClient[]): Tracker
     await audit(grantId);
   }
 
-  async function refreshNow(grantId?: string) {
+  async function refreshNow(grantId?: string, upTo?: bigint) {
     const grants = conn.rows('grant').filter((grant) => grantId === undefined || grant.id === grantId);
     if (grantId !== undefined && grants.length === 0) {
       throw new Error(`tracker: unknown grant ${grantId}`);
     }
-    for (const grant of grants) await refreshGrant(grant.id);
+    for (const grant of grants) await refreshGrant(grant.id, upTo);
   }
-
-  // Demo time (T59): the newest check_now's asOf stays in force for every
-  // read after it (rechecks before money moves too), across restarts, until
-  // another check_now changes it.
-  const demoDay = () =>
-    conn.rows('checkRequest').filter((c) => c.reason === 'check_now').reduce<CheckRequestRow | undefined>((a, b) => (!a || b.id > a.id ? b : a), undefined)?.asOf || null;
-  const showDemoDay = () => {
-    for (const source of sources) source.viewAsOf?.(demoDay());
-  };
-  showDemoDay();
 
   const handleCheck = (check: CheckRequestRow) => {
     if (check.done) return;
     enqueue(async () => {
-      showDemoDay();
       const notes = await Promise.all(sources.map((source) => source.beforeCheck?.(check.reason).catch((error: unknown) => `${source.source}: ${error}`)));
       const said = notes.filter((note) => note !== undefined);
       if (said.length) console.log(`tracker: check request ${check.id} (${check.reason}): ${said.join('; ')}`);
-      await refreshNow(check.grantId);
+      await refreshNow(check.grantId, check.id);
       await conn.call('complete_check', { id: check.id });
     }).catch((error: unknown) => {
       console.error(`tracker: check request ${check.id} failed`, error);

@@ -302,6 +302,19 @@ test('after_grant_a_reopens_new_supplies_asked_for_on_grant_b_are_rerouted_to_it
   assert.match(row.explanation, /Not in the grant's last 90 days: R21AI182745 ends 2026-08-31/);
 });
 
+test('supplies_in_grant_b_s_last_90_days_are_never_rerouted_to_another_pi_s_grant', async () => {
+  world = await startWorld();
+  const scientist = await world.person('scientist');
+  await scientist.call('submit_request', {
+    item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380, grantId: GRANT_B, purpose: 'Assay plates', sharedWith: [],
+  });
+  await world.worker.idle();
+  const pis = new Map(conn().rows('grant').map((grant) => [grant.id, grant.pi]));
+  const row = newestRequest();
+  assert.equal(pis.get(row.chargedGrantId ?? GRANT_B), pis.get(GRANT_B));
+  assert.ok(ordersFor(row.id).every((order) => pis.get(order.grantId) === pis.get(GRANT_B)));
+});
+
 // The grant manager approves rq-101 while grant A is still frozen: the
 // module's recheck fails on the freeze and blocks it. The approval stands,
 // so it is bought once grant A unfreezes, as if nobody had clicked.

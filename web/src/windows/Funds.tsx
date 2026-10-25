@@ -1,6 +1,7 @@
 // Funds window (MASTER-PLAN §3.1, §4): how much money each grant really has,
 // its status timeline, and any flags. Information only; decisions live in the Inbox.
 import SourceCheck from '../SourceCheck'
+import DemoScripts from '../DemoScripts'
 import MoneyCharts from '../charts/MoneyCharts'
 import { useStore } from '../data/store'
 import { type Db, type Grant, type GrantStatus, type SourceReading, type StatusEvent } from '../data/types'
@@ -44,6 +45,7 @@ export default function Funds() {
   return (
     <>
       <SourceCheck />
+      <DemoScripts />
       {db.grants.map(g => <GrantCard key={g.id} g={g} db={db} />)}
       <p className="funds-sim-note">{SIM_NOTE}</p>
     </>

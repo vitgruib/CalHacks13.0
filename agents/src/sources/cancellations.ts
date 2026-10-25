@@ -24,6 +24,9 @@
 //   before terminatedOn the grant isn't listed, until restoredOn it's
 //   canceled, from restoredOn on it has its current status. A row without
 //   terminatedOn (an older saved copy) can't be placed, so it isn't listed.
+// Supplements (T65): a row for a supplement (3R01GM105672-12S1) is filed
+//   under its award's core number, but only the supplement was cut. It gives
+//   the award no status, only a notice, so the award isn't frozen for it.
 // GG_LAB_GRANTS (comma-separated): the saved copy keeps only these grants, so
 //   agents/cache/ doesn't hold the whole list.
 // GG_CANCELLATIONS_FILE: read a local file instead (default
@@ -46,6 +49,9 @@ export interface ListedGrant {
   listedOn: string | null;
   terminatedOn: string | null;
   restoredOn: string | null;
+  // The supplement this row is about (S1), or null for the award itself.
+  supplement: string | null;
+  fullAwardNumber: string | null;
 }
 
 const STATUS_WORDS: Array<[RegExp, GrantStatus]> = [
@@ -86,7 +92,15 @@ export function parseList(raw: unknown): ListedGrant[] {
     const grantId = grantIdOf(item?.grantId);
     const status = statusOf(item?.status);
     if (!grantId || !status || typeof item.url !== 'string') continue;
-    rows.push({ grantId, status, url: item.url, listedOn: dayOf(item.listedOn), terminatedOn: dayOf(item.terminatedOn), restoredOn: dayOf(item.restoredOn) });
+    const full = typeof item.fullAwardNumber === 'string' ? item.fullAwardNumber.trim() : null;
+    const supplement =
+      typeof item.supplement === 'string' && item.supplement.trim()
+        ? item.supplement.trim()
+        : (/-\d+(S\d+)$/i.exec(full ?? String(item.grantId))?.[1]?.toUpperCase() ?? null);
+    rows.push({
+      grantId, status, url: item.url, listedOn: dayOf(item.listedOn), terminatedOn: dayOf(item.terminatedOn), restoredOn: dayOf(item.restoredOn),
+      supplement, fullAwardNumber: full,
+    });
   }
   return rows;
 }
@@ -118,7 +132,7 @@ export function createCancellationListSource(options: CancellationListOptions = 
 
   const mode = options.mode ?? (process.env.GG_SOURCES === 'offline' ? 'offline' : 'live');
   const canRun = !dataset && actor && token && mode === 'live';
-  const FIELDS = 'clean=true&format=json&fields=grantId,status,url,listedOn,terminatedOn,restoredOn';
+  const FIELDS = 'clean=true&format=json&fields=grantId,status,url,listedOn,terminatedOn,restoredOn,supplement,fullAwardNumber';
 
   // A check reads every grant within moments; the list changes at most daily.
   const FRESH_MS = 10 * 60_000;
@@ -201,8 +215,23 @@ export function createCancellationListSource(options: CancellationListOptions = 
         .filter((row) => row !== null);
       if (listed.length === 0) return null;
       // The newest listing wins; undated rows count as oldest.
-      const latest = listed.reduce((a, b) => ((b.listedOn ?? '') >= (a.listedOn ?? '') ? b : a));
-      return { grantId, source: 'Cancellation list (Apify)', status: latest.status, awarded: null, paid: null, endDate: null, url: latest.url };
+      const newest = (rows: ListedGrant[]) => rows.reduce((a, b) => ((b.listedOn ?? '') >= (a.listedOn ?? '') ? b : a));
+      const award = listed.filter((row) => !row.supplement);
+      if (award.length === 0) {
+        const cut = newest(listed);
+        const what = cut.status === 'canceled' ? 'terminated' : cut.status === 'restored_by_court' ? 'restored by a court' : 'active again';
+        return {
+          grantId, source: 'Cancellation list (Apify)', status: null, awarded: null, paid: null, endDate: null, url: cut.url,
+          since: cut.status === 'canceled' ? cut.terminatedOn : (cut.restoredOn ?? cut.listedOn),
+          notice:
+            `Cancellation list (Apify) lists ${cut.fullAwardNumber ?? `supplement ${cut.supplement}`} as ${what}` +
+            `${cut.terminatedOn ? ` (cut ${cut.terminatedOn})` : ''}. That is supplement ${cut.supplement}, not the award ${grantId} itself: ` +
+            `only the supplement's money stops, so ${grantId} is not frozen.`,
+        };
+      }
+      const latest = newest(award);
+      const since = latest.status === 'canceled' ? latest.terminatedOn : (latest.restoredOn ?? latest.listedOn);
+      return { grantId, source: 'Cancellation list (Apify)', status: latest.status, awarded: null, paid: null, endDate: null, url: latest.url, since };
     },
   };
 }

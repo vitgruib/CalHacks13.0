@@ -384,10 +384,11 @@ db.sourceReadings.push(
   { id: 'sr-005', grantId: A, day: '2026-03-12', source: 'USAspending', status: 'canceled' },
   { id: 'sr-006', grantId: B, day: '2026-01-05', source: 'NIH RePORTER', status: 'active' },
   { id: 'sr-007', grantId: B, day: '2026-01-05', source: 'USAspending', status: 'active' },
-  // Today's readings. PLANTED: RePORTER now says A is active; USAspending and the list still say canceled.
+  // Today's readings. PLANTED: RePORTER now says A is active, USAspending still says canceled, the list says restored by a court.
   { id: 'sr-008', grantId: A, day: TODAY, source: 'NIH RePORTER', status: 'active' },
   { id: 'sr-009', grantId: A, day: TODAY, source: 'USAspending', status: 'canceled' },
-  { id: 'sr-010', grantId: A, day: TODAY, source: 'Cancellation list (Apify)', status: 'canceled' },
+  // The list shows A reinstated, as the court ordered (se-a-court-order), so a check today posts no second court order.
+  { id: 'sr-010', grantId: A, day: TODAY, source: 'Cancellation list (Apify)', status: 'restored_by_court' },
   { id: 'sr-011', grantId: B, day: TODAY, source: 'NIH RePORTER', status: 'active' },
   { id: 'sr-012', grantId: B, day: TODAY, source: 'USAspending', status: 'active' },
 )
@@ -424,6 +425,49 @@ db.papers.push(
 for (const p of db.papers) if (p.pmcid === undefined) delete p.pmcid
 
 // ---------------------------------------------------------------------------
+// Cut scripts (T65): four more grants, each cut on the real cancellation list
+// (Grant Witness via Apify) on a real day. They start clean: no events or
+// readings, so the live list, read as of the script's demo times, drives them.
+// Real numbers, titles and dates from the list; the PIs and researchers are
+// made up. Two are financial headaches the agent manages, two are mistakes
+// it marks.
+// ---------------------------------------------------------------------------
+const scriptGrants = [
+  // Headache: terminated 2025-04-17 and never restored. $394,729 of the
+  // award will never arrive.
+  { id: 'R01AI178875', title: 'Susceptibility and resistance of multidrug-resistant gram-negative bacteria', pi: 'Dr. Hannah Brooks', agency: 'NIH / NIAID',
+    awarded: 950_647, received: 555_918, spent: 555_918, start: '2023-08-01', end: '2028-07-31', before: '2025-04-16' },
+  // Marked error: terminated 2025-06-04; a card charge on 2025-06-09 spent
+  // money the grant no longer had (rq-060 below).
+  { id: 'R01GM155497', title: 'PP2A/B55alpha substrate specificity and function in cell cycle progression', pi: 'Dr. Samuel Reyes', agency: 'NIH / NIGMS',
+    awarded: 661_956, received: 144_216, spent: 144_216, start: '2024-07-01', end: '2029-06-30', before: '2025-06-03' },
+  // Headache: terminated 2025-07-31, reinstated by a court 2026-02-23
+  // (Thakur v. Trump), but no money has come since.
+  { id: 'R01HL176691', title: 'Role of macrophages in regulating cardiac muscle metabolism', pi: 'Dr. Grace Liu', agency: 'NIH / NHLBI',
+    awarded: 771_750, received: 131_667, spent: 131_667, start: '2024-12-01', end: '2028-11-30', before: '2025-07-30' },
+  // Marked error: the list's row is supplement 3R01GM105672-12S1 ($47,738),
+  // filed under the award's number. Only the supplement was cut; freezing
+  // the whole award would be the mistake. Award amounts are made up.
+  { id: 'R01GM105672', title: 'The mechanism of ESCRT-mediated surveillance of the nuclear envelope', pi: 'Dr. Tomas Varga', agency: 'NIH / NIGMS',
+    awarded: 1_412_000, received: 1_180_000, spent: 1_165_400, start: '2013-09-01', end: '2026-08-31', before: '2025-06-16' },
+]
+
+// Each script grant starts at the day before its cut (a finished check for
+// just that grant), so a plain Check now for every grant reads it as of then
+// and doesn't run the script ahead (T65).
+db.checkRequests = scriptGrants.map(g => ({ grantId: g.id, reason: 'check_now', requestedBy: 'grant_manager', day: TODAY, asOf: g.before }))
+
+// PLANTED (cut script 2): a card charge five days after R01GM155497 was cut.
+// Raises spend_while_canceled once the list's cut (dated 2025-06-04) lands.
+db.requests.push({
+  id: 'rq-060', day: '2025-06-09', requester: 'scientist', requesterName: 'Kenji Watanabe', item: 'Okadaic acid, 25 µg', category: 'reagents', price: 1_240, grantId: 'R01GM155497',
+  purpose: 'Inhibiting PP2A in the B55alpha knockdown time course', state: 'bought', verdicts: [],
+  explanation: 'Charged directly on the department purchasing card on 2025-06-09, outside GrantGuard. Imported from the university ledger.',
+})
+db.orders.push({ id: 'o-060', requestId: 'rq-060', vendor: 'Cayman Chemical', amount: 1_240, placed: '2025-06-09', state: 'paid' })
+log('2025-06-11', 'system', 'Imported a card charge from the university ledger', 'Cayman Chemical $1,240 on R01GM155497, charged 2025-06-09.', 'rq-060')
+
+// ---------------------------------------------------------------------------
 // Grant totals from the records.
 // ---------------------------------------------------------------------------
 for (const g of [A, B]) {
@@ -433,6 +477,10 @@ for (const g of [A, B]) {
   const received = db.statusEvents.filter(e => e.grantId === g && e.kind === 'payment_received').reduce((s, e) => s + e.amount, 0)
   const { id, title, pi, agency, awarded, start, end, status, frozen, frozenReason } = grantMeta[g]
   db.grants.push({ id, title, pi, agency, awarded, received, spent: purchases + payroll, promised, start, end, status, frozen, ...(frozenReason ? { frozenReason } : {}) })
+}
+for (const { before, ...g } of scriptGrants) {
+  const card = db.orders.filter(o => o.state === 'paid' && db.requests.find(r => r.id === o.requestId)?.grantId === g.id).reduce((t, o) => t + o.amount, 0)
+  db.grants.push({ ...g, spent: g.spent + card, promised: 0, status: 'active', frozen: false })
 }
 
 db.log.sort((x, y) => x.day.localeCompare(y.day) || x.id.localeCompare(y.id))

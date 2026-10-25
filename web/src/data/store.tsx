@@ -26,8 +26,9 @@ export interface Store {
   sourceCheck: SourceCheck
   /** Ask the bookkeeping agent to check every source now (request_check
    *  'check_now'), with the cancellation list read as of `asOf` (a real day,
-   *  YYYY-MM-DD; none = today). Rejects if the request couldn't be sent. */
-  checkNow: (asOf?: string) => Promise<void>
+   *  YYYY-MM-DD; none = today), for one grant or every grant. Rejects if the
+   *  request couldn't be sent. */
+  checkNow: (asOf?: string, grantId?: string) => Promise<void>
 }
 
 export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number }
@@ -153,14 +154,16 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
 
   // Offline demo data has no agents, so Check now here is SIMULATED: a short
   // pause, then "finished". Nothing outside this tab is read.
-  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null, asOf: null })
-  const checkNow: Store['checkNow'] = async asOf => {
+  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null, asOf: null, grantAsOf: {} })
+  const checkNow: Store['checkNow'] = async (asOf, grantId) => {
     const id = nextId('check')
-    setSourceCheck(c => ({ ...c, pendingSince: new Date(), asOf: asOf ?? null }))
-    setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: 'Asked for a source check', reason: `check now${asOf ? `, cancellation list as of ${asOf}` : ''}`, refId: id }] }))
+    const days = (c: SourceCheck) => (grantId ? { asOf: c.asOf, grantAsOf: { ...c.grantAsOf, [grantId]: asOf ?? null } } : { asOf: asOf ?? null, grantAsOf: c.grantAsOf })
+    const what = grantId ?? 'all grants'
+    setSourceCheck(c => ({ ...c, pendingSince: new Date(), ...days(c) }))
+    setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: 'Asked for a source check', reason: `check now for ${what}${asOf ? `, cancellation list as of ${asOf}` : ''}`, refId: id }] }))
     setTimeout(() => {
-      setSourceCheck({ last: { at: new Date(), what: 'all grants (simulated: offline demo data, no sources read)' }, pendingSince: null, asOf: asOf ?? null })
-      setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'bookkeeping', action: 'Finished a source check', reason: 'all grants (simulated offline)', refId: id }] }))
+      setSourceCheck(c => ({ ...c, last: { at: new Date(), what: `${what} (simulated: offline demo data, no sources read)` }, pendingSince: null }))
+      setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'bookkeeping', action: 'Finished a source check', reason: `${what} (simulated offline)`, refId: id }] }))
     }, SIMULATED_CHECK_MS)
   }
 

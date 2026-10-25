@@ -14,6 +14,13 @@ export interface Reading {
   // notices, USAspending's obligations), for comparing the sources year by
   // year. Kept in memory only; the database stores the totals.
   awards?: AwardAction[];
+  // Optional (T65): the real day the source says the status began (the
+  // cancellation list's termination or restoration date), so its event is
+  // dated then instead of today.
+  since?: string | null;
+  // Optional (T65): something the source shows that isn't a status of this
+  // grant, posted once to its timeline (e.g. only a supplement was cut).
+  notice?: string;
 }
 
 export interface AwardAction {
@@ -34,8 +41,8 @@ export interface SourceClient {
   // for (reason 'check_now' or 'before_money_moves'), e.g. to start a fresh
   // scraper run. Never throws; resolves to a note for the check's log line.
   beforeCheck?(reason: string): Promise<string | undefined>;
-  // Optional: the demo time buttons (T59). Read as the source stood on this
-  // real day (YYYY-MM-DD) from now on; null = today. Only sources that keep
-  // dated history (the cancellation list) implement it.
+  // Optional: demo time (T59; per grant since T65). Read as the source stood
+  // on this real day (YYYY-MM-DD) from now on; null = today. Only sources
+  // that keep dated history (the cancellation list) implement it.
   viewAsOf?(day: string | null): void;
 }

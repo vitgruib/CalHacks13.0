@@ -16,4 +16,5 @@ export default {
   source: __t.string(),
   summary: __t.string(),
   amount: __t.option(__t.f64()),
+  day: __t.option(__t.string()),
 };

@@ -607,13 +607,34 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     await act(requestId, whenTargetFails === 'hold' ? keptInInbox(fallback) : fallback, serves);
   }
 
+  // The grants a request can go on. One that asks for a grant, or names one,
+  // can go on any. One that doesn't is read only against its requester's lab
+  // (T65: the office also holds other PIs' grants): the PI of the grants they
+  // asked for before, else the PI holding the most grants.
+  function labGrants(request: RequestRow): GrantRow[] {
+    const grants = conn.rows('grant');
+    if (request.grantId || namedGrants(request, grants.map((grant) => grant.id)).length) return grants;
+    const piOf = new Map(grants.map((grant) => [grant.id, grant.pi]));
+    const theirs = new Set(
+      conn
+        .rows('request')
+        .filter((r) => r.id !== request.id && request.requesterName && r.requesterName === request.requesterName)
+        .map((r) => piOf.get(r.chargedGrantId ?? r.grantId ?? ''))
+        .filter((pi) => pi !== undefined),
+    );
+    const count = (pi: string) => grants.filter((grant) => grant.pi === pi).length;
+    const pi = theirs.size === 1 ? [...theirs][0] : grants.map((grant) => grant.pi).reduce((a, b) => (count(b) > count(a) ? b : a));
+    return grants.filter((grant) => grant.pi === pi);
+  }
+
   // Another grant for a request blocked by grant-specific rules: one where
   // every rule passes now (rerouteTarget), or one failing only on its freeze.
+  // Only the same PI's grants: another lab's grant doesn't cover this work.
   async function rerouteOptions(request: RequestRow, from: string, split: Split[]): Promise<{ to?: string; pendingTo?: string }> {
     const fromGrant = findGrant(from);
     if (split.length || !fromGrant) return {};
     const rules = await loadRules();
-    const grants = conn.rows('grant');
+    const grants = conn.rows('grant').filter((grant) => grant.pi === fromGrant.pi);
     const facts = factsOf(request, []);
     const to = rules.rerouteTarget(facts, fromGrant, conn.today(), grants);
     if (to) return { to };
@@ -637,7 +658,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       await act(requestId, { action: 'block', reason: 'already_ordered', grantId: ordered[0].grantId, failed: [], passed: request.verdicts, note }, request.sharedWith);
       return;
     }
-    const grants = conn.rows('grant');
+    const grants = labGrants(request);
     if (grants.length === 0) throw new Error(`no grants to check ${requestId} against`);
     const rules = await loadRules();
     const reading = await read(request, grants, rules);

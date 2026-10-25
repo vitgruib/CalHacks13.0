@@ -140,7 +140,8 @@ export function toDb(db: DbConnection['db']): T.Db {
 /** Last checked = the newest 'Finished a source check' log row (complete_check
  *  writes it); pending = the newest check_now request, while not done, timed
  *  from its 'Asked for a source check' log row (request_check writes it);
- *  asOf = that request's demo time. */
+ *  asOf = the newest all-grant request's demo time, grantAsOf = the newest
+ *  one-grant request's for each grant (it wins over asOf). */
 export function toSourceCheck(db: DbConnection['db']): T.SourceCheck {
   let last: T.SourceCheck['last'] = null
   const asked = new Map<string, Date>()
@@ -152,9 +153,16 @@ export function toSourceCheck(db: DbConnection['db']): T.SourceCheck {
       asked.set(l.refId, l.at.toDate())
     }
   }
-  const newest = rows(db.checkRequest).filter(c => c.reason === 'check_now').sort((a, b) => Number(b.id - a.id))[0]
+  const checks = rows(db.checkRequest).filter(c => c.reason === 'check_now').sort((a, b) => Number(a.id - b.id))
+  const newest = checks.at(-1)
   const pendingSince = newest && !newest.done ? asked.get(newest.id.toString()) ?? new Date() : null
-  return { last, pendingSince, asOf: newest?.asOf || null }
+  let asOf: string | null = null
+  const grantAsOf: Record<string, string | null> = {}
+  for (const c of checks) {
+    if (c.grantId == null) asOf = c.asOf || null
+    else grantAsOf[c.grantId] = c.asOf || null
+  }
+  return { last, pendingSince, asOf, grantAsOf }
 }
 
 const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })

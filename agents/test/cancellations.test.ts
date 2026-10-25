@@ -29,8 +29,8 @@ test('list_words_map_to_our_statuses_and_unreadable_rows_are_dropped', () => {
     { grantId: 'R01GM000009', status: 'under review', url: 'https://list.test/4' },
   ]);
   assert.deepEqual(rows, [
-    { grantId: 'R01GM061721', status: 'canceled', url: 'https://list.test/1', listedOn: '2026-03-10', terminatedOn: null, restoredOn: null },
-    { grantId: 'R21AI182745', status: 'restored_by_court', url: 'https://list.test/2', listedOn: null, terminatedOn: null, restoredOn: null },
+    { grantId: 'R01GM061721', status: 'canceled', url: 'https://list.test/1', listedOn: '2026-03-10', terminatedOn: null, restoredOn: null, supplement: null, fullAwardNumber: null },
+    { grantId: 'R21AI182745', status: 'restored_by_court', url: 'https://list.test/2', listedOn: null, terminatedOn: null, restoredOn: null, supplement: null, fullAwardNumber: null },
   ]);
 });
 
@@ -91,7 +91,7 @@ test('reads_only_the_needed_fields_of_the_actor_s_latest_run_once_per_check', as
   const url = new URL(urls[0]);
   assert.equal(url.pathname, '/v2/acts/someone~cancellation-list/runs/last/dataset/items');
   assert.equal(url.searchParams.get('status'), 'SUCCEEDED');
-  assert.equal(url.searchParams.get('fields'), 'grantId,status,url,listedOn,terminatedOn,restoredOn');
+  assert.equal(url.searchParams.get('fields'), 'grantId,status,url,listedOn,terminatedOn,restoredOn,supplement,fullAwardNumber');
 });
 
 test('the_saved_copy_keeps_only_the_lab_s_grants', async () => {
@@ -220,4 +220,61 @@ test('a_demo_time_that_is_not_a_real_day_is_refused', async () => {
   world = await startWorld({ seedJson: oneGrantSeed() });
   const grantManager = await world.person('grant_manager');
   await assert.rejects(grantManager.call('request_check', { reason: 'check_now', asOf: '2025-02-30' }), /real date/);
+});
+
+// Cut scripts (T65).
+test('a_backdated_cut_is_dated_on_the_list_s_termination_day_and_flags_an_order_placed_after_it', async () => {
+  const order = { id: 'o-late', requestId: 'rq-late', grantId: TEST_GRANT, vendor: 'Sigma-Aldrich', amount: 1240, placed: '2025-08-05', state: 'paid' };
+  world = await startWorld({ seedJson: oneGrantSeed({ orders: [order] }), sources: [createCancellationListSource({ file: listFile([realRow]) })] });
+  const conn = world.worker.sessions.bookkeeping;
+  await checkAsOf('2025-08-15');
+  await world.worker.idle();
+
+  const cut = conn.rows('statusEvent').find((event) => event.kind === 'canceled');
+  assert.equal(cut?.day, '2025-07-31');
+  const flag = conn.rows('flag').find((row) => row.kind === 'spend_while_canceled');
+  assert.match(flag?.summary ?? '', /o-late.*5 days after/);
+});
+
+test('a_listed_supplement_posts_a_notice_once_and_does_not_freeze_the_award', async () => {
+  const supplementRow = {
+    grantId: TEST_GRANT, status: 'Terminated', url: 'https://list.test/s1', listedOn: '2025-06-17', terminatedOn: '2025-06-17',
+    supplement: 'S1', fullAwardNumber: `3${TEST_GRANT}-12S1`,
+  };
+  world = await startWorld({ seedJson: oneGrantSeed(), sources: [createCancellationListSource({ file: listFile([supplementRow]) })] });
+  const conn = world.worker.sessions.bookkeeping;
+  await checkAsOf('2025-07-01');
+  await checkAsOf('2025-07-02');
+
+  assert.deepEqual(listReadings(conn), []);
+  const events = conn.rows('statusEvent');
+  assert.equal(events.length, 1);
+  assert.equal(events[0].kind, 'reading_changed');
+  assert.equal(events[0].day, '2025-06-17');
+  assert.match(events[0].summary, /supplement S1.*not frozen/);
+  assert.equal(conn.rows('grant')[0].frozen, false);
+});
+
+test('a_check_for_one_grant_moves_only_that_grant_s_demo_time', async () => {
+  const base = JSON.parse(oneGrantSeed());
+  const other = { ...base.grants[0], id: 'R21AI182745', title: 'Other grant' };
+  const rows = [realRow, { ...realRow, grantId: other.id, url: 'https://list.test/other' }];
+  world = await startWorld({ seedJson: oneGrantSeed({ grants: [base.grants[0], other] }), sources: [createCancellationListSource({ file: listFile(rows) })] });
+  const conn = world.worker.sessions.bookkeeping;
+  const grantManager = await world.person('grant_manager');
+  await checkAsOf('2025-07-30');
+  await grantManager.call('request_check', { grantId: other.id, reason: 'check_now', asOf: '2025-08-15' });
+  await world.worker.idle();
+  await checkAsOf(undefined, 'before_money_moves');
+
+  const statusOf = (grantId: string) => conn.rows('sourceReading').filter((r) => r.grantId === grantId).map((r) => r.status);
+  assert.deepEqual(statusOf(TEST_GRANT), [], 'still as of 2025-07-30');
+  assert.deepEqual(statusOf(other.id), ['canceled']);
+});
+
+test('a_check_for_every_grant_keeps_a_grant_at_its_own_demo_time', async () => {
+  const before = { grantId: TEST_GRANT, reason: 'check_now', requestedBy: 'grant_manager', day: '2026-06-15', asOf: '2025-07-30' };
+  world = await startWorld({ seedJson: oneGrantSeed({ checkRequests: [before] }), sources: [createCancellationListSource({ file: listFile([realRow]) })] });
+  await checkAsOf(undefined);
+  assert.deepEqual(listReadings(world.worker.sessions.bookkeeping), [], 'still as of 2025-07-30, not today');
 });

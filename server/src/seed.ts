@@ -63,6 +63,9 @@ export interface Seed {
     evidence: { label: string; value: string }[]; options: string[]; decision?: unknown;
   })[];
   log: (Opt & { day: Day; actor: string; action: string; rule?: string; reason: string; refId?: string })[];
+  // Optional (T65): finished check requests, e.g. a cut script's grant set
+  // to a demo time before its cut. Loaded done, so no agent acts on them.
+  checkRequests?: (Opt & { grantId?: string | null; reason: string; requestedBy: string; day: Day; asOf?: string })[];
 }
 
 const DOMAIN_TABLES = [
@@ -109,6 +112,9 @@ export function loadSeed(ctx: Ctx, seed: Seed): void {
       awarded: opt(r.awarded), paid: opt(r.paid), endDate: opt(r.endDate),
       url: r.url ?? '', day: r.day, at,
     });
+  }
+  for (const c of seed.checkRequests ?? []) {
+    ctx.db.checkRequest.insert({ id: 0n, grantId: opt(c.grantId), reason: c.reason, requestedBy: c.requestedBy, day: c.day, done: true, asOf: c.asOf ?? '' });
   }
   const flagIds = new Map<string, string>();
   for (const f of seed.flags) {

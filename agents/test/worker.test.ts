@@ -99,13 +99,13 @@ test('the_sim_world_loads_with_grant_a_frozen_by_a_court_order_without_payment',
   assert.equal(grantA?.status, 'restored_by_court');
   assert.equal(grantA?.frozen, true);
   assert.equal(conn.today(), '2026-06-15');
-  assert.equal(conn.rows('request').length, 51);
+  assert.equal(conn.rows('request').length, 52);
 });
 
 test('run_sim_returns_every_table_once_the_agents_are_quiet', async () => {
   const run = await runSim();
   try {
-    assert.equal(run.tables.grant.length, 2);
+    assert.equal(run.tables.grant.length, 6); // grants A and B, and the four cut-script grants (T65)
     assert.ok(run.tables.log.length > 0);
     assert.equal(run.tables.agent.length, 3);
   } finally {

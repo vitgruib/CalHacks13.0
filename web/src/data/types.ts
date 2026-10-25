@@ -231,6 +231,9 @@ export interface SourceCheck {
   /** When the newest "check now" was asked for, while it hasn't finished. */
   pendingSince: Date | null
   /** Demo time (T59): the real day the cancellation list is read as of,
-   *  set by the newest "check now"; null = today. */
+   *  set by the newest "check now" for every grant; null = today. */
   asOf: string | null
+  /** Demo time for one grant (cut scripts, T65): set by the newest "check
+   *  now" for just that grant; wins over asOf for that grant. */
+  grantAsOf: Record<string, string | null>
 }
