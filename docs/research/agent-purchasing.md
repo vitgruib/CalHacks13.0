@@ -4,9 +4,10 @@
 **One-liner:** The evidence says a person should approve every research
 purchase, with the agent preparing the check and the recommendation. The
 agent is good at spotting bad requests, but its judgments are inconsistent
-and its price lookups are unreliable. Federal rules make the grantee
-answerable for each cost, and security guidance says high-impact actions
-need human approval.
+and its price lookups are unreliable. Federal rules don't ban automated
+purchasing or require a person per purchase, but they make the university
+answerable for every cost it charges, and security guidance says high-impact
+actions need human approval.
 
 Collected 2026-10-25. Raw test output is in
 `sources/docs/agent-purchasing-test-2026-10-25.txt`; the script is in
@@ -143,8 +144,9 @@ This is a decision for the humans, not made here. The options:
 
 1. **A person approves every purchase.** The agent still runs the rules,
    the strict check and the price lookup, and writes a recommendation with
-   its reasons. The grant manager clicks approve. This matches 2 CFR 200.303
-   and OWASP LLM06.
+   its reasons. The grant manager clicks approve. This is one way to give
+   the "reasonable assurance" 2 CFR 200.303 asks for (not something it
+   requires), and it is what OWASP LLM06 recommends.
 2. **The agent may buy alone only a narrow list** (named consumables under a
    low limit). Everything else goes to a person.
 3. **Keep the current behavior** and treat the variance and price-lookup
@@ -156,6 +158,11 @@ This is a decision for the humans, not made here. The options:
   2026-10-25. It didn't test prompt injection or many requests over time.
 - The Vending-Bench claim is unverified; the other outside quotes were read
   from the primary pages.
+- **2 CFR 200 doesn't forbid this.** It requires effective internal control
+  and costs that meet the allowability and allocability standards. It doesn't
+  say a person must approve each purchase, and purchase cards already run on
+  review after the fact. Don't say on a slide that letting the agent buy alone
+  "violates federal rules".
 - No evidence found yet of a university policy that bans software agents
   from placing orders. The rules above require controls and judgment;
   they don't mention AI.
