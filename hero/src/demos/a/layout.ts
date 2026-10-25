@@ -59,7 +59,7 @@ export const STATIONS: Record<string, Station> = {
 
 export const PURCHASING: V3 = [2.95, 0, 0.25]
 export const DESK_H = 0.74
-export const PARCEL = 0.4
+export const PARCEL = 0.56
 /** Where a request parcel rests while the purchasing agent checks it. */
 export const DESK_SPOT: V3 = [PURCHASING[0], DESK_H + PARCEL / 2, PURCHASING[2] + 0.12]
 export const BOOKKEEPING: V3 = [5.55, 0, -1.55]
@@ -111,10 +111,13 @@ export function landOf(id: string, out = new Vector3()) {
   return out.set(s.stack[0] + 0.42, PARCEL * 0.42, s.stack[2] + 0.18)
 }
 
-/** Parcels held until money lands hover beside their grant, nearest the purchasing desk. */
+/**
+ * Parcels held until money lands hover in front of their grant, toward the purchasing
+ * desk: low and forward enough that, from the hero camera, they clear both the jar and the desk.
+ */
 export function parkOf(gid: string, i: number, out = new Vector3()) {
   const p = RESERVOIRS[gid] ?? RESERVOIRS.R01GM061721
-  return out.set(p[0] - 1.45, 1.35, p[2] + 0.75 - i * 0.5)
+  return out.set(p[0] - 2.8 - i * 0.72, 1.1, p[2] + 1.45)
 }
 
 export const isLab = (id: string) => id.startsWith('r:')

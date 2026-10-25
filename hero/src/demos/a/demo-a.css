@@ -374,6 +374,13 @@
   left: 32px;
   bottom: 30px;
   width: min(428px, calc(50vw - 300px));
+  transition: opacity 240ms ease, visibility 0s linear 0s;
+}
+/* A panel brings the camera in close; the caption steps aside rather than sit over the scene. */
+.demo-a[data-panel] .a-caption {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease, visibility 0s linear 200ms;
 }
 .demo-a .a-caption .a-date {
   display: none;
@@ -1322,9 +1329,6 @@
     margin-bottom: 6px;
     font-size: 13px;
   }
-  .demo-a[data-panel] .a-caption {
-    visibility: hidden;
-  }
   .demo-a .a-panel {
     top: auto;
     left: 8px;
@@ -1344,6 +1348,10 @@
   }
   .demo-a .a-gauge {
     padding: 4px 8px 5px;
+  }
+  /* The tall camera lines the reservoirs up; R21's gauge steps up clear of R01's. */
+  .demo-a .a-gauge[data-side='r'] {
+    translate: -28% calc(-100% - 36px);
   }
   .demo-a .a-gauge-id,
   .demo-a .a-gauge-state {

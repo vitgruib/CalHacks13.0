@@ -195,7 +195,7 @@ function FlowFx() {
       const carried = !!req && (p.kind === 'request' || (p.kind === 'verdict' && p.outcome !== 'hold') || p.kind === 'hold' || p.kind === 'decision')
       if (trailed(p)) {
         const path = pathOf(p, carried, { a: new Vector3(), b: new Vector3(), h: 0 })
-        fading.push({ ...path, color: trailColor(p), width: carried ? 0.16 : 0.07, at: t })
+        fading.push({ ...path, color: trailColor(p), width: carried ? CARRY_W : 0.07, at: t })
       }
       if (p.kind === 'request' && p.to === 'a:purchasing') {
         fx.ripples.push({ pos: new Vector3(DESK.x, DESK_H + 0.012, DESK.z), color: '#F3F8FF', at: t, size: 0.95, ms: 700 })
@@ -331,7 +331,9 @@ function writeTrail(s: TrailSlot, path: Path, u0: number, u1: number, width: num
 
 // ── Geometry and materials ───────────────────────────────────────────────
 
-const parcelGeo = new RoundedBoxGeometry(PARCEL, PARCEL * 0.84, PARCEL, 4, 0.085)
+const parcelGeo = new RoundedBoxGeometry(PARCEL, PARCEL * 0.84, PARCEL, 4, PARCEL * 0.21)
+const BLOB = PARCEL * 1.55 // a parcel's soft shadow
+const CARRY_W = PARCEL * 0.4 // the trail behind a parcel
 const parcelMat = new MeshPhysicalMaterial({ color: '#ffffff', roughness: 0.48, clearcoat: 0.35, clearcoatRoughness: 0.4 })
 const beadGeo = new SphereGeometry(0.09, 20, 14)
 const beadMat = new MeshStandardMaterial({ color: '#ffffff', roughness: 0.5 })
@@ -415,7 +417,7 @@ function Moving() {
       m.setMatrixAt(i, o.matrix)
       m.setColorAt(i, c)
     }
-    const blob = (x: number, y: number, z: number, height: number, size = 0.62) => {
+    const blob = (x: number, y: number, z: number, height: number, size = BLOB) => {
       if (nbl >= CAP) return
       const strength = 0.42 * clamp01(1 - height / 4.2)
       if (strength <= 0.01) return
@@ -427,7 +429,7 @@ function Moving() {
     }
     const ground = (x: number, y: number, z: number, h = 0) => {
       const g = groundAt(x, z)
-      if (g !== null) blob(x, g, z, y - g, h || 0.62)
+      if (g !== null) blob(x, g, z, y - g, h || BLOB)
     }
     const trail = (pth: Path, u0: number, u1: number, c: Color, width: number, alpha: number) => {
       if (ntr >= TRAILS || u1 <= u0 + 0.001) return
@@ -547,11 +549,11 @@ function Moving() {
           const u = still ? k : inOut((k - LAUNCH) / (1 - LAUNCH))
           arcPoint(path.a, path.b, u, path.h, o.position)
           orient(path, u, u * Math.PI * 0.75)
-          trail(path, Math.max(0, u - 0.5), u, TRAIL_LIGHT, 0.16, 0.7)
+          trail(path, Math.max(0, u - 0.5), u, TRAIL_LIGHT, CARRY_W, 0.88)
         }
       } else if (state === 'desk') {
         pa.copy(DESK)
-        pa.x += atDesk === 0 ? 0 : (atDesk % 2 ? -0.48 : 0.48)
+        pa.x += atDesk === 0 ? 0 : (atDesk % 2 ? -0.6 : 0.6)
         atDesk++
         if (rest(pa)) {
           const q = still ? 0 : squash(t - life.restAt)
@@ -584,7 +586,7 @@ function Moving() {
           arcPoint(path.a, path.b, u, path.h, o.position)
           orient(path, u, state === 'return' ? u * Math.PI * 0.75 : 0)
           col.copy(GL[to])
-          if (state !== 'toPark') trail(path, Math.max(0, u - 0.5), u, GL[to], 0.16, 0.75)
+          if (state !== 'toPark') trail(path, Math.max(0, u - 0.5), u, GL[to], CARRY_W, 0.9)
           if (state === 'toPark' && raw >= 1 && !still) o.position.y += 0.06 * Math.sin((t / 2400) * Math.PI * 2 + r.id.length)
         }
         if (k >= stampEnd) life.tint = GL[to]
@@ -604,7 +606,7 @@ function Moving() {
 
       life.pos.copy(o.position)
       if (np < CAP) put(P, np++, col)
-      if (shadowY !== null) blob(o.position.x, shadowY, o.position.z, 0, 0.6)
+      if (shadowY !== null) blob(o.position.x, shadowY, o.position.z, 0, BLOB)
       else ground(o.position.x, o.position.y, o.position.z)
     }
     for (const [id, l] of lives) if (frame - l.seen > 2) lives.delete(id)
@@ -644,7 +646,7 @@ function Moving() {
       o.scale.set(Math.max(1e-4, sx), Math.max(1e-4, sy), Math.max(1e-4, sx))
       o.position.y = l.pos.y - ((1 - sy) * PARCEL * 0.84) / 2 + (o.position.y - l.pos.y)
       if (np < CAP) put(P, np++, col)
-      if (sx > 0.05) blob(l.pos.x, 0, l.pos.z, 0, 0.62 * sx)
+      if (sx > 0.05) blob(l.pos.x, 0, l.pos.z, 0, BLOB * sx)
     }
 
     // Everything else that travels: beads, slips and drops.
@@ -731,7 +733,7 @@ function Moving() {
         if (e >= 1) fading.splice(i, 1)
         continue
       }
-      trail(f, 0.5 + 0.5 * e, 1, f.color, f.width, (f.width > 0.1 ? 0.75 : 0.6) * (1 - e))
+      trail(f, 0.5 + 0.5 * e, 1, f.color, f.width, (f.width > 0.1 ? 0.88 : 0.6) * (1 - e))
     }
 
     for (const [m, n] of [
