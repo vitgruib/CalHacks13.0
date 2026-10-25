@@ -35,10 +35,10 @@ export default function TestLab() {
   const grant = db.grants.find(g => g.id === grantId)
 
   const note = (tone: Note['tone'], text: string, link?: Note['link']) => setNotes(n => [{ id: Date.now() + Math.random(), tone, text, link }, ...n].slice(0, 6))
-  /** Run an action; a returned string becomes a note now (undefined: the action writes its own later). */
-  const run = (fn: () => string | undefined) => {
+  /** Run an action; once it lands, `text` becomes a note (none: the action writes its own later). A refusal becomes a bad note. */
+  const run = async (act: () => Promise<void>, text?: string) => {
     try {
-      const text = fn()
+      await act()
       if (text) note('good', text)
     } catch (e) {
       note('bad', (e as Error).message)
@@ -52,23 +52,27 @@ export default function TestLab() {
     note('good', paymentNote(db, id, pendingPay.amount, pendingPay.wasFrozen), waitingOn(db, id) ? { href: fundsHref(id), label: 'Decide it in Funds' } : undefined)
   }, [db, pendingPay])
 
-  const cancel = () => run(() => {
-    injectStatusEvent({ grantId, kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Grant appears on the terminated-grants list.' })
-    return `${grantId} canceled on ${db.today}. Spending is frozen.`
-  })
-  const courtOrder = () => run(() => {
-    injectStatusEvent({ grantId, kind: 'court_order', source: 'Court notice', summary: `Court order restores ${grantId}. No payment schedule is set.` })
-    return `Court order restores ${grantId}. Spending stays frozen: a court order is not cash.`
-  })
+  const cancel = () => run(
+    () => injectStatusEvent({ grantId, kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Grant appears on the terminated-grants list.' }),
+    `${grantId} canceled on ${db.today}. Spending is frozen.`,
+  )
+  const courtOrder = () => run(
+    () => injectStatusEvent({ grantId, kind: 'court_order', source: 'Court notice', summary: `Court order restores ${grantId}. No payment schedule is set.` }),
+    `Court order restores ${grantId}. Spending stays frozen: a court order is not cash.`,
+  )
   // The award is the budget (T119): a payment means the funder pays again, so
   // it sends the rest of the award; there is no amount to type.
-  const pay = () => run(() => {
-    if (!grant) return undefined
+  const pay = () => run(async () => {
+    if (!grant) return
     const amount = Math.max(1, Math.round(grant.awarded - grant.received))
     const seen = paymentsOn(db, grantId)
-    injectStatusEvent({ grantId, kind: 'payment_received', source: 'Payment system', summary: `The funder pays again: ${money(amount)}, the rest of the award (simulated).`, amount })
-    setPendingPay({ grantId, amount, wasFrozen: !!grant?.frozen, seen })
-    return undefined
+    setPendingPay({ grantId, amount, wasFrozen: !!grant.frozen, seen })
+    try {
+      await injectStatusEvent({ grantId, kind: 'payment_received', source: 'Payment system', summary: `The funder pays again: ${money(amount)}, the rest of the award (simulated).`, amount })
+    } catch (e) {
+      setPendingPay(null)
+      throw e
+    }
   })
 
   return (
@@ -88,7 +92,7 @@ export default function TestLab() {
         <p className="muted">Replace the whole world with the demo seed. Its grants are real NIH awards (real grant IDs, institutes and end dates); the lab around them is simulated. It holds grant A frozen by a court order with no payment yet and the planted mistakes. Live, this resets the shared world for everyone, and nothing done since can be brought back.</p>
         {confirmReset
           ? <div className="tl-row">
-              <button type="button" className="tl-danger" onClick={() => { setConfirmReset(false); run(() => { loadDemoSeed(); return 'Loaded the demo seed.' }) }}>Yes, reset everything</button>
+              <button type="button" className="tl-danger" onClick={() => { setConfirmReset(false); run(loadDemoSeed, 'Loaded the demo seed.') }}>Yes, reset everything</button>
               <button type="button" onClick={() => setConfirmReset(false)}>Cancel</button>
             </div>
           : <button type="button" onClick={() => setConfirmReset(true)}>Reset to the demo seed…</button>}
