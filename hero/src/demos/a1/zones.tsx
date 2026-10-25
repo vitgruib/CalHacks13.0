@@ -77,12 +77,14 @@ interface ZoneState {
   open: ZoneId | null
   /** The zone being entered: the camera glides in, the card is gone, clicks wait. */
   going: ZoneId | null
+  /** The zone the copy's prompt points at (a phrase hovered or focused): lit, with no card. */
+  hint: ZoneId | null
 }
-let zs: ZoneState = { hover: null, open: null, going: null }
+let zs: ZoneState = { hover: null, open: null, going: null, hint: null }
 const subs = new Set<() => void>()
 const setZone = (p: Partial<ZoneState>) => {
   const n = { ...zs, ...p }
-  if (n.hover === zs.hover && n.open === zs.open && n.going === zs.going) return
+  if (n.hover === zs.hover && n.open === zs.open && n.going === zs.going && n.hint === zs.hint) return
   zs = n
   subs.forEach(f => f())
 }
@@ -93,7 +95,12 @@ const subscribe = (f: () => void) => {
   }
 }
 const getZone = () => zs
-const litZone = () => zs.going ?? zs.open ?? zs.hover
+const litZone = () => zs.going ?? zs.open ?? zs.hover ?? zs.hint
+
+/** For the copy's prompt (Hud.tsx): light a zone as its phrase is pointed at or focused, follow which zone is lit, and enter one. */
+export const hintZone = (id: ZoneId | null) => setZone({ hint: id })
+export const useLitZone = () => useSyncExternalStore(subscribe, litZone)
+export const enterZone = (id: ZoneId, from: Element) => go(id, from)
 
 interface Box {
   x: number
@@ -224,11 +231,11 @@ function go(id: ZoneId, from: Element | null) {
   root?.removeAttribute('data-zone')
   document.body.style.cursor = ''
   if (reducedMotion() || !root) {
-    setZone({ hover: null, open: null })
+    setZone({ hover: null, open: null, hint: null })
     enter(role)
     return
   }
-  setZone({ going: id, hover: null, open: null })
+  setZone({ going: id, hover: null, open: null, hint: null })
   goFns.forEach(f => f(CENTRE[id]))
   const veil = document.createElement('div')
   veil.className = 'a1-zone-veil'
@@ -371,7 +378,7 @@ export function Zone({ id, geo }: { id: ZoneId; geo: BufferGeometry }) {
     if (!on) return
     return () => {
       if (zs.hover === id) document.body.style.cursor = ''
-      if (zs.hover === id || zs.open === id || zs.going === id) setZone({ hover: null, open: null, going: null })
+      if (zs.hover === id || zs.open === id || zs.going === id || zs.hint === id) setZone({ hover: null, open: null, going: null, hint: null })
     }
   }, [on, id])
 

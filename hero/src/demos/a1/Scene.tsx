@@ -507,10 +507,10 @@ function Warm() {
 }
 
 /**
- * Embedded, the copy sits over the stage's empty side (Hud.tsx EmbedHud). This
- * measures the room it takes into layout's `clearing` before the Rig reads its
- * first framing, so the scene opens already fitted beside the copy, then slides
- * the picture over by half that room so the scene fills the rest of the stage.
+ * Embedded, the copy runs across the stage's top (Hud.tsx EmbedHud). This
+ * measures the band it takes into layout's `clearing` before the Rig reads its
+ * first framing, so the scene opens already fitted under the copy, then slides
+ * the picture down by half the band so the scene fills the rest of the stage.
  */
 const CLEAR_GAP = 24
 function Clearing() {
@@ -521,12 +521,11 @@ function Clearing() {
     const c = gl.domElement.getBoundingClientRect()
     if (!head || c.width < 1 || c.height < 1) return
     const r = head.getBoundingClientRect()
-    // A column beside the scene on a wide stage; a band above it when the copy spans the stage (a phone).
-    const band = r.width > c.width * 0.6
+    // The copy is a band across the top; the scene takes everything under it.
     clearing.w = Math.round(c.width)
     clearing.h = Math.round(c.height)
-    clearing.left = band ? 0 : Math.round(r.right - c.left + CLEAR_GAP)
-    clearing.top = band ? Math.round(r.bottom - c.top + CLEAR_GAP / 2) : 0
+    clearing.left = 0
+    clearing.top = Math.round(r.bottom - c.top + CLEAR_GAP / 2)
   }
   useState(() => on && measure())
   useEffect(() => {

@@ -7,7 +7,7 @@
 // - its listeners sit on its own root, except the tab's visibilitychange;
 // - off screen or in a hidden tab, the canvas and the story's clock stop;
 // - with no WebGL, a scene error, or reduced motion, a still of the lab offers
-//   the same ways in.
+//   the same prompt and ways in.
 
 import { Component, useEffect, useRef, useState, type ReactNode } from 'react'
 import Demo from './demos/a1'
@@ -17,7 +17,7 @@ import './embed.css'
 import { feed } from './feed'
 
 export interface HeroEmbedProps {
-  /** The landing's way in: no role scrolls to "Who are you?", a role goes to that side. */
+  /** The landing's way in: a role goes to that side (no role: the landing's own choice). */
   onEnter?: (role?: Role) => void
 }
 
@@ -71,14 +71,18 @@ function Still({ go }: { go: (role?: Role) => void }) {
           <header className="a-embed-head">
             <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
             <p className="a-lede">A still of the simulated lab. Three AI agents check every request against the real spending rules, and the grant manager decides the exceptions.</p>
-            <div className="a-head-acts">
-              <button type="button" className="a-btn a-btn--primary" onClick={() => go('researcher')}>
-                Go to the research portal
+            <p className="a-embed-prompt">
+              <span className="a-verb-mouse">Select</span>
+              <span className="a-verb-touch">Tap</span> the{' '}
+              <button type="button" className="a-embed-way" aria-label="Research lab: open the research portal" onClick={() => go('researcher')}>
+                research lab
+              </button>{' '}
+              or the{' '}
+              <button type="button" className="a-embed-way" aria-label="Grant manager network: open the grant manager portal" onClick={() => go('grant_office')}>
+                grant manager network
               </button>
-              <button type="button" className="a-btn" onClick={() => go('grant_office')}>
-                Go to the grant manager portal
-              </button>
-            </div>
+              .
+            </p>
           </header>
         </div>
       </div>

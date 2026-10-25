@@ -4,7 +4,7 @@
 // are small stations on the finance deck itself: the funder on the back
 // edge beside the government sources, the vendors in the front-right corner.
 
-import { Vector3 } from 'three'
+import { MathUtils, Vector3 } from 'three'
 
 export type V3 = [number, number, number]
 export type V2 = [number, number]
@@ -266,9 +266,10 @@ export interface Framing {
 const FIT: V3[] = [
   [LAB_BOX.x0, 0, LAB_BOX.z0], [LAB_BOX.x0, 0, LAB_BOX.z1], [LAB_BOX.x1, 0, LAB_BOX.z0], [LAB_BOX.x1, 0, LAB_BOX.z1],
   [LAB_BOX.x0, -1.1, LAB_BOX.z1], [LAB_BOX.x1, -1.1, LAB_BOX.z1], [LAB_BOX.x0, 2.4, LAB_BOX.z0 + 0.2], [LAB_BOX.x1, 2.2, LAB_BOX.z0 + 0.2],
-  [NET_BOX.x0, 0, NET_BOX.z0], [NET_BOX.x1, 0, NET_BOX.z0], [NET_BOX.x0, -1.1, NET_BOX.z1], [NET_BOX.x1, -1.1, NET_BOX.z1],
-  [VENDORS[0] + 1.2, VENDORS[1], VENDORS[2] + 1.1], [VENDORS[0] + 1.2, VENDORS[1] - 0.6, VENDORS[2] + 1.1], [VENDORS[0] + 1.2, VENDORS[1] + 1.0, VENDORS[2] - 1.1],
-  [FUNDER[0] - 1.2, FUNDER[1] + 1.4, FUNDER[2] - 1.0], [FUNDER[0] + 1.2, FUNDER[1] + 1.4, FUNDER[2] - 1.0],
+  [NET_BOX.x0, 0, NET_BOX.z0], [NET_BOX.x0, 0, NET_BOX.z1], [NET_BOX.x1, 0, NET_BOX.z0], [NET_BOX.x1, 0, NET_BOX.z1],
+  [NET_BOX.x0, -1.1, NET_BOX.z1], [NET_BOX.x1, -1.1, NET_BOX.z1],
+  // The deck's tallest pieces: the funder's building on the back edge, the vendors' shop.
+  [FUNDER[0] - 0.6, 1.5, FUNDER[2] - 0.5], [FUNDER[0] + 0.6, 1.5, FUNDER[2] - 0.5], [VENDORS[0] + 0.6, 1.1, VENDORS[2]],
 ]
 
 const _r = new Vector3()
@@ -309,6 +310,10 @@ function fit(dir: Vector3, fov: number, aspect: number, margin: number, share = 
 
 const WIDE_DIR = new Vector3(-0.47, 0.72, 0.6).normalize()
 const TALL_DIR = new Vector3(-0.66, 0.74, 0.12).normalize()
+// A very wide room (the landing's, under its copy band): from nearly in front, so
+// the lab and the network sit side by side and span the width.
+const FRONT_DIR = new Vector3(-0.16, 0.7, 0.7).normalize()
+const _dir = new Vector3()
 let lastAspect = -1
 let lastLeft = -1
 let lastTop = -1
@@ -316,8 +321,9 @@ let lastFraming: Framing | null = null
 
 /**
  * Embedded (embed.ts), the copy sits over one side of the stage, and the scene
- * fits in the room it leaves: beside a column on the left, or under a band on
- * a phone. Px of the stage; Scene.tsx measures it and slides the picture over.
+ * fits in the room it leaves: under its band across the top (or beside a
+ * column on the left). Px of the stage; Scene.tsx measures it and slides the
+ * picture over.
  */
 export const clearing = { w: 1, h: 1, left: 0, top: 0 }
 
@@ -333,7 +339,11 @@ export function heroFor(aspect: number): Framing {
   const sw = 1 - Math.min(0.7, left / w)
   const sh = 1 - Math.min(0.7, top / h)
   const ra = (a * sw) / sh
-  lastFraming = ra < 0.85 ? fit(TALL_DIR, 30, ra, 0.94, sh) : fit(WIDE_DIR, 24, ra, 0.93, sh)
+  if (ra < 0.85) lastFraming = fit(TALL_DIR, 30, ra, 0.94, sh)
+  else {
+    _dir.lerpVectors(WIDE_DIR, FRONT_DIR, MathUtils.smoothstep(ra, 1.5, 2.4)).normalize()
+    lastFraming = fit(_dir.clone(), 24, ra, 0.95, sh)
+  }
   return lastFraming
 }
 

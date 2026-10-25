@@ -8,11 +8,12 @@ import { useEffect, useRef, useSyncExternalStore, type RefObject } from 'react'
 import { APP_URL } from '../../chrome'
 import { feed } from '../../feed'
 import type { World } from '../../feed'
-import { CHAPTERS, Composer, SECTIONS, STORY_MS, Waiting, useChapter } from './Panels'
+import { CHAPTERS, SECTIONS, STORY_MS, Waiting, useChapter } from './Panels'
 import { embed, useEmbed } from './embed'
 import { IconChevron, IconPause, IconPlay, IconReplay, Mark, outcomeWord } from './icons'
 import { act, jumpTo, selectNode, ui, useFeed, useUi, type Section } from './ui'
 import { fmtDay, nodeName, nodeNow, requestStatus, shortItem } from './words'
+import { enterZone, hintZone, useLitZone, type ZoneId } from './zones'
 
 const PHONE = '(max-width: 759px)'
 const onPhoneChange = (fn: () => void) => {
@@ -261,52 +262,46 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
 
 /**
  * Inside another page (embed.ts) the dashboard steps aside and the scene takes
- * the whole box: the headline, one line and the two ways in sit over the
- * stage's empty side (Scene.tsx fits the scene beside them), the request form
- * opens under them, and one line follows what the visitor sent.
+ * the whole box: the headline, one line and a prompt run across its top
+ * (Scene.tsx fits the scene under them). The way in is the scene itself;
+ * the prompt's two phrases are the same two ways in for keys, screen readers
+ * and anyone who would rather not aim, and they light their side of the scene.
  */
 export function EmbedHud({ root }: { root: RefObject<HTMLDivElement | null> }) {
-  const composing = useUi(s => s.composing)
   return (
     <div className="a-embed-copy" data-float="embed-copy">
       <header className="a-embed-head">
         <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
         <p className="a-lede">A simulated lab, replaying a scripted story; the spending rules are the real ones. Three AI agents check every request, and the grant manager decides the exceptions.</p>
-        <div className="a-head-acts">
-          <button type="button" className="a-btn a-btn--primary" onClick={() => embed.get().onEnter?.()}>
-            Choose a portal
-          </button>
-          <button
-            type="button"
-            className="a-btn a-compose-toggle"
-            aria-expanded={composing}
-            onClick={() => ui.set({ composing: !composing, composeFor: null })}
-          >
-            Send a request
-          </button>
-        </div>
+        <p className="a-embed-prompt">
+          <span className="a-verb-mouse">Hover over and select</span>
+          <span className="a-verb-touch">Tap</span> the <Way id="lab" label="Research lab: open the research portal">research lab</Way> or the{' '}
+          <Way id="net" label="Grant manager network: open the grant manager portal">grant manager network</Way>.
+        </p>
       </header>
-      {composing ? <Composer /> : <MineLine />}
       <RootSync root={root} phone={false} />
     </div>
   )
 }
 
-function MineLine() {
-  const id = useUi(s => s.mine[0])
-  const line = useFeed(w => {
-    const r = id ? findMine(id, w) : undefined
-    return r ? `${r.outcome ?? 'pending'}|${mineLine(r, w)}` : ''
-  })
-  const [tone, text] = line.split('|')
+/** One of the prompt's phrases: pointing at or focusing it lights its zone; it lights too while the zone itself is hovered. */
+function Way({ id, label, children }: { id: ZoneId; label: string; children: string }) {
+  const lit = useLitZone() === id
   return (
-    <p className="a-embed-mine" aria-live="polite">
-      {text && (
-        <>
-          <span className={`a-peek-dot a-peek-dot--${tone}`} aria-hidden="true" />
-          {text}
-        </>
-      )}
-    </p>
+    <button
+      type="button"
+      className="a-embed-way"
+      aria-label={label}
+      data-lit={lit ? '' : undefined}
+      onPointerEnter={e => {
+        if (e.pointerType !== 'touch') hintZone(id)
+      }}
+      onPointerLeave={() => hintZone(null)}
+      onFocus={() => hintZone(id)}
+      onBlur={() => hintZone(null)}
+      onClick={e => enterZone(id, e.currentTarget)}
+    >
+      {children}
+    </button>
   )
 }
