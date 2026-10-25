@@ -1,0 +1,69 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-25T02:57:55.539Z",
+  "input": {
+    "request": {
+      "item": "Sequencing core: 48 isolates, run 1 of 2",
+      "category": "core facility services",
+      "price": 2900,
+      "purpose": "Resistance-gene survey of the clinical isolate panel",
+      "askedForGrant": "R21AI182745",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "F31DC022138",
+        "title": "Cellular and functional heterogeneity of interhemispheric connections in the anterior olfactory nucleus",
+        "end": "2027-01-31"
+      },
+      {
+        "id": "K01DK133670",
+        "title": "Microbial drivers of metabolically unhealthy obese phenotype",
+        "end": "2027-04-30"
+      },
+      {
+        "id": "R01AI178875",
+        "title": "Susceptibility and resistance of multidrug-resistant gram-negative bacteria",
+        "end": "2028-07-31"
+      },
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R01GM105672",
+        "title": "The mechanism of ESCRT-mediated surveillance of the nuclear envelope",
+        "end": "2026-08-31"
+      },
+      {
+        "id": "R01GM155497",
+        "title": "PP2A/B55alpha substrate specificity and function in cell cycle progression",
+        "end": "2029-06-30"
+      },
+      {
+        "id": "R01HL176691",
+        "title": "Role of macrophages in regulating cardiac muscle metabolism",
+        "end": "2028-11-30"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R21AI182745",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R21AI182745"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist asked for R21AI182745; no sharing or proportions stated in the request, so no split."
+  }
+}
