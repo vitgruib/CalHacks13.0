@@ -44,3 +44,12 @@
 /* The small dark-orange Edit and resubmit button (wins over the page-wide button style). */
 .iv-stage button.iv-edit { background: #b45309; border: 1px solid #b45309; color: #fff; font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 12px rgb(180 83 9 / .28); transition: background .15s, transform .1s; }
 .iv-stage button.iv-edit:hover { background: #92400e; border-color: #92400e; transform: translateY(-1px); }
+
+/* Grant office: four tabs. */
+.iv-tab-violet { background: #7c3aed; border-color: #7c3aed; }
+.iv-tab-red { background: #dc2626; border-color: #dc2626; }
+.iv-stage .iv-tab-violet { background: linear-gradient(145deg, #9b6bff, #5b2bd6); box-shadow: 0 14px 30px rgb(124 58 237 / .36), inset 0 1px 0 rgb(255 255 255 / .35); }
+.iv-stage .iv-tab-red { background: linear-gradient(145deg, #f45a5a, #b91c1c); box-shadow: 0 14px 30px rgb(220 38 38 / .34), inset 0 1px 0 rgb(255 255 255 / .35); }
+.iv-tabs-4 .iv-tab { flex: 1 1 220px; }
+.iv-stage .iv-tabs-4 .iv-tab:nth-child(4) { animation-delay: -1s; }
+.iv-tab-violet .iv-count, .iv-tab-red .iv-count { background: rgb(255 255 255 / .25); }

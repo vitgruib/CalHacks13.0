@@ -5,11 +5,12 @@
 import { useState } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
-import Bills from '../windows/Invoices'
-import { Empty, money } from '../ui'
+import { Badge, Empty, money } from '../ui'
+import { demoSubmissions } from './demo'
 import { AuditTrail, BudgetCard, FindingList, OpenInvoice, StatusBadge } from './Findings'
+import { Count } from './Stage'
 import { ledgerEntry, parseAmount, purchaseOrders, type Status, type Submission } from './model'
-import { record, useSubmissions } from './store'
+import { record, saveSubmission, useSubmissions } from './store'
 
 type Choice = 'approve' | 'reject' | 'clarify' | 'escalate'
 const OFFICE = 'Grant manager'
@@ -22,6 +23,7 @@ const RESULT: Record<Choice, { status: Status; what: string }> = {
 }
 
 function Decision({ s, blocks, today }: { s: Submission; blocks: number; today: string }) {
+  const stored = useSubmissions()
   const [reason, setReason] = useState('')
   const [to, setTo] = useState('Principal investigator')
   const decided = s.status === 'approved' || s.status === 'rejected'
@@ -30,7 +32,9 @@ function Decision({ s, blocks, today }: { s: Submission; blocks: number; today: 
   const go = (c: Choice) => {
     if (!ok) return
     const r = RESULT[c]
-    record(s.id, { day: today, who: OFFICE, what: c === 'escalate' ? `${r.what} to the ${to.toLowerCase()}.` : r.what, why: reason.trim() }, r.status)
+    const entry = { day: today, who: OFFICE, what: c === 'escalate' ? `${r.what} to the ${to.toLowerCase()}.` : r.what, why: reason.trim() }
+    if (stored.some(x => x.id === s.id)) record(s.id, entry, r.status)
+    else saveSubmission({ ...s, status: r.status, audit: [...s.audit, entry] }) // a sample invoice: keep it from now on
     setReason('')
   }
   return (
@@ -102,39 +106,80 @@ export function Review({ db, s, decide = true }: { db: Db; s: Submission; decide
   )
 }
 
-const order: Status[] = ['exception', 'ready', 'escalated', 'clarification', 'approved', 'rejected']
+type View = 'new' | 'withheld' | 'waiting' | 'denied'
+const MIN = 2 // a list is topped up with sample invoices to this many, and shows at most MAX
+const MAX = 3
+
+/** The one line that says why an invoice is where it is. */
+function why(s: Submission): string {
+  const decision = [...s.audit].reverse().find(a => a.who === OFFICE)
+  if (decision?.why) return decision.why
+  const f = s.findings.find(x => x.level === 'block') ?? s.findings.find(x => x.level === 'warn')
+  return f ? f.title : 'Documents and records are consistent.'
+}
 
 export default function Office({ db }: { db: Db }) {
-  const subs = [...useSubmissions()].sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status))
-  const [open, setOpen] = useState<string | null>(null)
-  const count = (...st: Status[]) => subs.filter(s => st.includes(s.status)).length
+  const stored = useSubmissions()
+  const [view, setView] = useState<View | null>(null)
+  const demo = demoSubmissions(db, 'Sofia Alvarez')
+  const have = new Set(stored.map(s => s.id))
+  const top = (real: number, samples: Submission[]) => samples.filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - real))
+
+  const heldBills = db.invoices.filter(i => i.state === 'held')
+  const newReal = stored.filter(s => s.status === 'ready' || s.status === 'exception')
+  const withheldReal = stored.filter(s => s.status === 'clarification')
+  const waitingReal = stored.filter(s => s.status === 'escalated')
+  const deniedReal = stored.filter(s => s.status === 'rejected')
+
+  const lists: Record<View, { subs: Submission[]; bills: Db['invoices'] }> = {
+    new: { subs: [...newReal, ...top(newReal.length, demo.action.filter(s => s.status === 'exception'))], bills: [] },
+    withheld: { subs: [...withheldReal, ...top(withheldReal.length + heldBills.length, demo.action.filter(s => s.status === 'clarification'))], bills: heldBills },
+    waiting: { subs: [...waitingReal, ...top(waitingReal.length, demo.escalated)], bills: [] },
+    denied: { subs: [...deniedReal, ...top(deniedReal.length, demo.denied)], bills: [] },
+  }
+  const count = (v: View) => Math.min(MAX, lists[v].subs.length + lists[v].bills.length)
+
+  const row = (s: Submission) => {
+    const g = db.grants.find(x => x.id === s.grantId)
+    return (
+      <li key={s.id} className="iv-card" data-tilt="card" data-status={s.status}>
+        <header>
+          <strong>{s.vendor}</strong><span className="iv-amt">{money(parseAmount(s.amount))}</span><StatusBadge status={s.status} />
+          <OpenInvoice id={s.id} vendor={s.vendor} />
+        </header>
+        <p className="iv-note">{s.researcher} · {g ? grantHeading(g) : s.grantId} · submitted {s.submittedOn}</p>
+        <p className="iv-next">{why(s)}</p>
+      </li>
+    )
+  }
+  const billRow = (i: Db['invoices'][number]) => (
+    <li key={i.id} className="iv-card" data-tilt="card" data-status="exception">
+      <header>
+        <strong>{i.vendor}</strong><span className="iv-amt">{money(i.amount)}</span><Badge tone="bad">Held for review</Badge>
+        <OpenInvoice id={i.id} vendor={i.vendor} />
+      </header>
+      <p className="iv-note">Bookkeeping agent · received {i.received}</p>
+      {i.mismatch && <p className="iv-next">{i.mismatch}</p>}
+    </li>
+  )
+
+  const tab = (v: View, label: string, cls: string) => (
+    <button type="button" data-tilt="tab" className={`iv-tab ${cls}${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => setView(x => (x === v ? null : v))}>
+      {label} <span className="iv-count"><Count n={count(v)} /></span>
+    </button>
+  )
+  const shown = view ? [...lists[view].subs.map(row), ...lists[view].bills.map(billRow)].slice(0, MAX) : []
+  const empty: Record<View, string> = { new: 'No new requests.', withheld: 'Nothing is withheld.', waiting: 'Nothing is waiting on other approvers.', denied: 'Nothing has been denied.' }
+
   return (
     <div className="iv">
-      <p className="iv-lede">Invoices researchers submitted, each checked against its purchase order and the grant. Exceptions pause payment until you record a decision.</p>
-      <div className="iv-stats">
-        <div className={count('exception') ? 'iv-hot' : ''}><strong>{count('exception')}</strong><span>Exceptions</span></div>
-        <div><strong>{count('ready')}</strong><span>Ready for review</span></div>
-        <div><strong>{count('clarification', 'escalated')}</strong><span>Waiting on others</span></div>
-        <div><strong>{count('approved')}</strong><span>Approved</span></div>
+      <div className="iv-tabs iv-tabs-4" role="group" aria-label="Invoice requests">
+        {tab('new', 'New requests in queue', 'iv-tab-blue')}
+        {tab('withheld', 'Withheld for further review', 'iv-tab-orange')}
+        {tab('waiting', 'Waiting on other approvers', 'iv-tab-violet')}
+        {tab('denied', 'Denied', 'iv-tab-red')}
       </div>
-      <h2 className="iv-h2">Review queue</h2>
-      {subs.length === 0 ? <Empty>No submitted invoices yet. When a researcher submits one it appears here.</Empty> : (
-        <ul className="iv-list">
-          {subs.map(s => (
-            <li key={s.id} className="iv-card" data-tilt="card" data-status={s.status}>
-              <header>
-                <strong>{s.vendor}</strong><span className="iv-amt">{money(parseAmount(s.amount))}</span><StatusBadge status={s.status} />
-                <OpenInvoice id={s.id} vendor={s.vendor} />
-              </header>
-              <p className="iv-note">{s.researcher} · {s.grantId}{s.poId && ` · ${s.poId}`} · submitted {s.submittedOn}{s.findings.some(f => f.level === 'block') && ` · ${s.findings.filter(f => f.level === 'block').length} problems`}</p>
-              <div className="iv-actions"><button type="button" onClick={() => setOpen(open === s.id ? null : s.id)}>{open === s.id ? 'Close review' : 'Review'}</button></div>
-              {open === s.id && <Review db={db} s={s} />}
-            </li>
-          ))}
-        </ul>
-      )}
-      <h2 className="iv-h2">Bills the bookkeeping agent checked</h2>
-      <Bills />
+      {view && (shown.length === 0 ? <Empty>{empty[view]}</Empty> : <ul className="iv-list">{shown}</ul>)}
     </div>
   )
 }
