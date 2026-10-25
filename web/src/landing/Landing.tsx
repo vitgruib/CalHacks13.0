@@ -2,6 +2,7 @@
 // The 3D hero fills the first screen; below it, T81's Entry is the "Who are
 // you?" section, and picking there opens that portal.
 import { useLayoutEffect, useRef } from 'react'
+import type { HeroRole } from '@hero/embed'
 import Entry from '../Entry'
 import HeroSlot from './HeroSlot'
 import './Landing.css'
@@ -13,11 +14,16 @@ export default function Landing({ onPick }: { onPick: (portal: string) => void }
     scrollTo(0, 0)
     return () => scrollTo(0, 0)
   }, [])
-  const toPicker = () => {
+  // To "Who are you?"; with `researchers`, to its researcher list (T90).
+  const toPicker = (researchers = false) => {
     const still = matchMedia('(prefers-reduced-motion: reduce)').matches
-    who.current?.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' })
-    who.current?.focus({ preventScroll: true })
+    const list = researchers ? who.current?.querySelector<HTMLElement>('.entry h2') : null
+    ;(list ?? who.current)?.scrollIntoView({ behavior: still ? 'auto' : 'smooth', block: 'start' })
+    const first = researchers ? who.current?.querySelector<HTMLElement>('.entry-people button') : null
+    ;(first ?? who.current)?.focus({ preventScroll: true })
   }
+  // The hero's calls to action: the grant office opens directly; a researcher must be picked.
+  const enter = (role?: HeroRole) => (role === 'grant_office' ? onPick('grant_office') : toPicker(role === 'researcher'))
   const jump = (e: { preventDefault: () => void }) => { e.preventDefault(); toPicker() }
 
   return (
@@ -28,7 +34,7 @@ export default function Landing({ onPick }: { onPick: (portal: string) => void }
           <a href="#who" className="landing-jump" onClick={jump}>Choose a portal</a>
         </header>
         <div className="landing-stage">
-          <div className="landing-embed"><HeroSlot onEnter={toPicker} /></div>
+          <div className="landing-embed"><HeroSlot onEnter={enter} /></div>
         </div>
         {/* A pointer-only cue; keyboard and screen reader users have the link above. */}
         <a href="#who" className="landing-cue" aria-hidden="true" tabIndex={-1} onClick={jump}>

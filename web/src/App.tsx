@@ -7,20 +7,34 @@ import Notices from './Notices'
 import DemoDock from './DemoDock'
 import UserSwitch from './UserSwitch'
 import Landing from './landing/Landing'
+import BrandLink from './landing/BrandLink'
 import './scientist.css'
 
 // Two kinds of portal, kept apart (T39): the grant office (the grant manager's
 // windows, the only decision buttons) and one portal per researcher, who sees
 // only their own requests. A portal is 'grant_office' or a researcher id.
 type Portal = 'grant_office' | string
-// Asked on entry (T81): a new tab starts at "Who are you?"; a reload keeps the
-// answer. Switching afterwards is the same UserSwitch in both portals.
-const PORTAL_KEY = 'grantguard.portal'
-const savedPortal = (): Portal | null => {
-  try {
-    const p = sessionStorage.getItem(PORTAL_KEY)
-    return p && (p === 'grant_office' || RESEARCHERS.some(r => r.id === p)) ? p : null
-  } catch { return null }
+// The URL is the state (T90): a reload stays put and back/forward work.
+// - no hash: the landing (T75), always;
+// - `#<window>` (`#funds`, `#inbox`, `#grants/R01GM061721`): the grant office;
+// - `?researcher=<id>#<window>`: that researcher's portal. The id sits in the query,
+//   not the hash, so the windows' own links (`#grants/<id>`, `#requests`) keep it;
+// - `#detail/…`: a details page (new tab, keeps the query); anything else: the landing.
+// Switching afterwards is the same UserSwitch in both portals (T81).
+const AS = 'researcher'
+const head = (hash: string) => hash.slice(1).split('/')[0]
+const portalOf = (url: URL): Portal | null => {
+  if (!url.hash.slice(1)) return null
+  const id = url.searchParams.get(AS)
+  if (id && RESEARCHERS.some(r => r.id === id)) return id
+  return windows.some(w => w.id === head(url.hash)) ? 'grant_office' : null
+}
+const urlFor = (p: Portal, hash: string) => {
+  const q = new URLSearchParams(location.search)
+  if (p === 'grant_office') q.delete(AS)
+  else q.set(AS, p)
+  const query = q.toString()
+  return `${location.pathname}${query ? `?${query}` : ''}${hash}`
 }
 const roleOf = (p: Portal | null): Role => (p === 'grant_office' || !p ? 'grant_manager' : 'scientist')
 
@@ -30,27 +44,30 @@ const allowed = (role: Role) => windows.filter(w => w.roles.includes(role))
 const menu = (role: Role) => allowed(role).filter(w => !w.hidden)
 const home = (role: Role) => menu(role).find(w => w.id === roles.find(r => r.id === role)?.home) ?? menu(role)[0]
 // `#grants/R01GM061721` opens the grants window on one grant.
-const fromHash = (role: Role) => allowed(role).find(w => `#${w.id}` === location.hash.split('/')[0]) ?? home(role)
+const fromHash = (role: Role, hash: string) => allowed(role).find(w => w.id === head(hash)) ?? home(role)
 
 export default function App() {
   const { db } = useStore()
-  const [portal, setPortal] = useState(savedPortal)
+  const [href, setHref] = useState(() => location.href)
+  useEffect(() => {
+    const on = () => setHref(location.href)
+    addEventListener('hashchange', on)
+    addEventListener('popstate', on)
+    return () => { removeEventListener('hashchange', on); removeEventListener('popstate', on) }
+  }, [])
+  // pushState, not a page load: the local demo data lives in this tab's memory.
+  const go = (to: string) => { history.pushState(null, '', to); setHref(location.href) }
+  const url = new URL(href)
+  const hash = url.hash
+  const portal = portalOf(url)
   const role = roleOf(portal)
   const researcher = RESEARCHERS.find(r => r.id === portal) ?? null
-  const [current, setCurrent] = useState(() => fromHash(role))
-  const [hash, setHash] = useState(location.hash)
-  useEffect(() => {
-    const on = () => { setCurrent(fromHash(role)); setHash(location.hash) }
-    addEventListener('hashchange', on)
-    return () => removeEventListener('hashchange', on)
-  }, [role])
+  const current = fromHash(role, hash)
   const switchPortal = (next: Portal) => {
-    try { sessionStorage.setItem(PORTAL_KEY, next) } catch { /* the choice just won't survive a reload */ }
-    setPortal(next)
-    const w = fromHash(roleOf(next))
-    setCurrent(w)
-    if (location.hash.split('/')[0] !== `#${w.id}`) location.hash = w.id
+    const w = fromHash(roleOf(next), hash)
+    go(urlFor(next, head(hash) === w.id ? hash : `#${w.id}`))
   }
+  const toLanding = () => go(location.pathname)
   const openHolds = db.holds.filter(h => !h.decision).length
 
   // A donut color or the forecast, opened on its own page in a new tab.
@@ -64,7 +81,7 @@ export default function App() {
       <div className="sci">
         <header className="sci-top">
           <div className="sci-bar">
-            <span className="sci-brand">GrantGuard <span className="sci-portal">Researcher portal</span></span>
+            <span className="sci-brand"><BrandLink onHome={toLanding} /> <span className="sci-portal">Researcher portal</span></span>
             <nav className="sci-nav" aria-label="Main">
               {menu(role).map(w => (
                 <a key={w.id} href={`#${w.id}`} className={w === current ? 'active' : ''} aria-current={w === current ? 'page' : undefined}>
@@ -93,7 +110,7 @@ export default function App() {
   return (
     <div className="app">
       <nav>
-        <div className="brand">GrantGuard</div>
+        <BrandLink className="brand" onHome={toLanding} />
         <div className="portal-name">Grant office portal</div>
         <div className="today">Today: {db.today}</div>
         <div className="nav-user"><UserSwitch portal={portal} onSwitch={switchPortal} /></div>

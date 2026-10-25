@@ -51,6 +51,9 @@
 .hero-stub button { padding: 12px 20px; border: 0; border-radius: 8px; background: #1c232c; color: #f3f5f7; font-weight: 600; }
 .hero-stub button:hover { background: #26303b; }
 .hero-stub button:active { transform: translateY(1px); }
+.hero-stub-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero-stub .hero-stub-alt { background: rgb(247 245 240 / 0.9); color: #1c232c; box-shadow: inset 0 0 0 1px rgb(28 35 44 / 0.28); }
+.hero-stub .hero-stub-alt:hover { background: #fff; }
 .hero-stub-note { position: absolute; left: clamp(16px, 2.4vw, 40px); bottom: 14px; margin: 0; color: #3c4753; font-size: 13px; }
 @media (max-width: 640px) {
   .hero-still img { object-position: 50% 0%; }

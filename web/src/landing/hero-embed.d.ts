@@ -3,9 +3,16 @@
 // hero's sources (hero has its own check). Keep in step with T76 in TASKS.md.
 import type { ComponentType } from 'react'
 
+/** Which side of the demo a hero click opens (T90). */
+export type HeroRole = 'researcher' | 'grant_office'
+
 export interface HeroEmbedProps {
-  /** Called by the hero's call to action; the landing scrolls to "Who are you?". */
-  onEnter?: () => void
+  /**
+   * Called by the hero's calls to action. No role: the landing scrolls to
+   * "Who are you?". 'grant_office' opens the grant office. 'researcher' scrolls
+   * to the researcher list, because a researcher must be picked first.
+   */
+  onEnter?: (role?: HeroRole) => void
 }
 
 /**

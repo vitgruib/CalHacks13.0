@@ -1,0 +1,3 @@
+/* Looks like the name it replaced; reads as a link on hover. */
+.brand-link { color: inherit; text-decoration: none; }
+.brand-link:hover { text-decoration: underline; text-underline-offset: 3px; }
