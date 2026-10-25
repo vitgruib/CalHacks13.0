@@ -46,7 +46,7 @@ function MoleculeField() {
         for (let j = i + 1; j < atoms.length; j++) {
           const d = Math.hypot(atoms[i].x - atoms[j].x, atoms[i].y - atoms[j].y)
           if (d < 118) {
-            ctx.strokeStyle = `hsla(${atoms[i].hue}, 90%, 70%, ${(1 - d / 118) * 0.35})`
+            ctx.strokeStyle = `hsla(${atoms[i].hue}, 80%, 48%, ${(1 - d / 118) * 0.32})`
             ctx.lineWidth = 1
             ctx.beginPath(); ctx.moveTo(atoms[i].x, atoms[i].y); ctx.lineTo(atoms[j].x, atoms[j].y); ctx.stroke()
           }
@@ -54,8 +54,8 @@ function MoleculeField() {
       }
       for (const a of atoms) {
         const g = ctx.createRadialGradient(a.x, a.y, 0, a.x, a.y, a.r * 4)
-        g.addColorStop(0, `hsla(${a.hue}, 95%, 75%, .95)`)
-        g.addColorStop(1, `hsla(${a.hue}, 95%, 60%, 0)`)
+        g.addColorStop(0, `hsla(${a.hue}, 85%, 52%, .85)`)
+        g.addColorStop(1, `hsla(${a.hue}, 85%, 52%, 0)`)
         ctx.fillStyle = g
         ctx.beginPath(); ctx.arc(a.x, a.y, a.r * 4, 0, Math.PI * 2); ctx.fill()
       }
