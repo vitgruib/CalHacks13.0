@@ -56,6 +56,11 @@ const ASK: AgentCheck[] = [
     checks: 'When a researcher asks on Requests, Claude (Haiku) reads the item first, before any grant is matched. Flagged: alcohol, entertainment, personal things, food and drinks, furniture, decor and general office supplies (2 CFR 200.403, 200.423, 200.438), and a general-use item whose purpose doesn\'t say how it serves the research.',
     fails: 'The researcher sees why and no grant is matched. They can still send it, and then it comes to you like any request.',
   },
+  {
+    check: 'The price is near the list price',
+    checks: 'For lab supplies, reagents and equipment, the same check looks up the item\'s public list price: a saved price first, else Claude (Haiku) searches lab suppliers\' sites. Flagged when the asked price is more than twice the list price for the same quantity and at least $100 over it. No list price found (or none in time for the check\'s answer) means no price flag; a price found late is saved for the next request.',
+    fails: 'The researcher sees the vendor\'s list price. They can still send it, and then it comes to you like any request.',
+  },
 ]
 
 export default function Rules() {
@@ -63,7 +68,7 @@ export default function Rules() {
     <>
       <Section title="How a request is decided">
         <ol className="rules-flow">
-          <li>When a researcher asks on Requests, the item is checked first: could a grant pay for this kind of thing at all?</li>
+          <li>When a researcher asks on Requests, the item is checked first: could a grant pay for this kind of thing at all, and is the price near the list price?</li>
           <li>Once it is sent, the database checks every spending rule below against the grant the request is charged to.</li>
           <li>Every request then comes to you in the Inbox with those verdicts: "Approve" when every rule passes, "Flagged" when one fails, with the failed rules as evidence. Nothing is bought on its own.</li>
           <li>You approve (the money is promised on that grant and the researcher buys it) or reject, always with a reason. A researcher can push back on a rejection with new information, and it comes back to you.</li>

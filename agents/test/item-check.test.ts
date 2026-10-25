@@ -2,7 +2,7 @@
 // Claude before any grant is matched. Claude is faked at the network edge.
 
 import assert from 'node:assert/strict';
-import { mkdtempSync, rmSync } from 'node:fs';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, test } from 'node:test';
@@ -21,6 +21,13 @@ async function start(answer: (item: string) => Record<string, unknown> | Error) 
   const key = process.env.ANTHROPIC_API_KEY;
   process.env.ANTHROPIC_API_KEY = 'test-key';
   const cacheDir = mkdtempSync(join(tmpdir(), 'gg-item-'));
+  // One saved list price, so the price check never searches the web here.
+  const priceCatalog = join(cacheDir, 'prices.json');
+  writeFileSync(priceCatalog, JSON.stringify([{
+    item: 'Nitrile gloves, 10 cases', category: 'lab supplies', found: true, vendor: 'Fisher Scientific',
+    product: 'Nitrile gloves, case of 10', listPrice: 2410, sameQuantity: true, url: 'https://example.com/gloves',
+    checkedOn: '2026-10-25', by: 'claude-haiku-5-5',
+  }]));
   const client = {
     messages: {
       parse: async ({ messages }: { messages: { content: string }[] }) => {
@@ -33,7 +40,7 @@ async function start(answer: (item: string) => Record<string, unknown> | Error) 
   const db = await createLocalDb({ world: { seedJson: oneGrantSeed() } });
   const bookkeeping = await db.connect();
   await bookkeeping.call('register_agent', { role: 'bookkeeping' });
-  const agent = startItemChecks({ conn: bookkeeping, itemClaude: { client, mode: 'live', cacheDir } });
+  const agent = startItemChecks({ conn: bookkeeping, itemClaude: { client, mode: 'live', cacheDir }, priceCatalog });
   const scientist = await db.connect();
   await scientist.call('register_person', { role: 'scientist', name: 'scientist' });
   cleanup = () => {
@@ -43,8 +50,8 @@ async function start(answer: (item: string) => Record<string, unknown> | Error) 
     if (key === undefined) delete process.env.ANTHROPIC_API_KEY;
     else process.env.ANTHROPIC_API_KEY = key;
   };
-  const askAndWait = async (item: string) => {
-    await scientist.call('ask_item_check', { item, purpose: 'for the lab', price: 500 });
+  const askAndWait = async (item: string, price = 500) => {
+    await scientist.call('ask_item_check', { item, purpose: 'for the lab', price });
     await db.settled();
     await agent.idle();
     await db.settled();
@@ -67,6 +74,23 @@ test('with_no_claude_answer_the_item_comes_back_unchecked', async () => {
   const row = await askAndWait('Nitrile gloves');
   assert.equal(row.answered, true);
   assert.equal(row.verdict, 'unchecked');
+});
+
+const gloves = () => ({ verdict: 'fine', why: '', category: 'lab supplies' });
+
+test('a_price_more_than_twice_the_list_price_is_flagged_with_the_vendors_price', async () => {
+  const { askAndWait } = await start(gloves);
+  const row = await askAndWait('Nitrile gloves, 10 cases', 6000);
+  assert.deepEqual(
+    { verdict: row.verdict, why: row.why },
+    { verdict: 'flag', why: 'Fisher Scientific lists this at $2,410; $6,000 is more than twice that.' },
+  );
+});
+
+test('a_price_near_the_list_price_stays_fine', async () => {
+  const { askAndWait } = await start(gloves);
+  const row = await askAndWait('Nitrile gloves, 10 cases', 2600);
+  assert.deepEqual({ verdict: row.verdict, why: row.why }, { verdict: 'fine', why: '' });
 });
 
 test('only_a_person_can_ask_and_only_an_agent_can_answer', async () => {

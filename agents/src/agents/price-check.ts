@@ -1,6 +1,7 @@
-// Unused since T108 (the purchasing agent was cut). The price check (T69): before the purchasing agent buys lab supplies,
-// reagents or equipment on its own, it compares the request's price with a
-// public list price. A price far above it goes to the grant manager instead.
+// The price check (T69): the request's price against a public list price for
+// lab supplies, reagents and equipment. Since T117 Ask's item check runs it
+// (agents/item-check.ts) and a price far above list flags the item; it was
+// first written for the purchasing agent, cut in T108.
 //
 // It looks in the saved price lists first: every item checked before, found
 // or not, matched by its words and numbers, so a repeat or a reworded request
