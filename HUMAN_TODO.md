@@ -3,6 +3,10 @@
 Things agents can't do. Put your name next to one when you take it. Done
 items are removed; what landed is in `PROGRESS.md`.
 
+## Urgent
+
+- [ ] **Vercel is rate-limited: pushes no longer deploy the web app** (commit 694e7f4: "Deployment rate limited — retry in 24 hours", which is past the deadline). https://calhacks130.vercel.app still serves the 34062fd build, which is fine for the demo. Its only gap is that April's pr-015 shows a false "held items" fail on the agar plates. To redeploy before judging: upgrade the Vercel plan, or deploy `web/` from another Vercel account and point the README link at it. Meanwhile every push spends a deploy attempt, so think about a Vercel "Ignored Build Step" that skips pushes not touching `web/` or `sim/`.
+
 ## Submission (required to be judged; deadline Sun 10/25 9:00 AM)
 
 Unassigned, outside the tracks. Someone must own this. Prep is in
