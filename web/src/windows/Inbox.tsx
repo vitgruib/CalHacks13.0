@@ -136,6 +136,8 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
   const request = hold.kind === 'purchase' && !embedded ? db.requests.find(r => r.id === hold.refId) : undefined
   const [reason, setReason] = useState('')
   const [source, setSource] = useState('')
+  // One click decides: the buttons stay off until the server answers (the card then goes away), or a few seconds if it fails.
+  const [sending, setSending] = useState(false)
   const reasonId = useId()
   const sourceId = useId()
   const hasReason = reason.trim() !== ''
@@ -146,6 +148,9 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
 
   const onDecide = (choice: Decision['choice']) => {
     const text = choice === 'pick_source' ? `Source picked: ${source}. ${reason.trim()}` : reason.trim()
+    if (sending) return
+    setSending(true)
+    setTimeout(() => setSending(false), 4000)
     decide(hold.id, choice, text)
   }
 
@@ -198,7 +203,7 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
       <div className="actions">
         {/* "Ask vendor" only logged that someone asked; it contacted nobody, so it's not offered. */}
         {hold.options.filter(choice => choice !== 'ask_vendor').map(choice => {
-          const disabled = !hasReason || (choice === 'pick_source' && !source)
+          const disabled = sending || !hasReason || (choice === 'pick_source' && !source)
           return (
             <button
               key={choice}

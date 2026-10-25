@@ -99,8 +99,7 @@ export function Review({ db, s, decide = true }: { db: Db; s: Submission; decide
 }
 
 type View = 'sent' | 'rejected' | 'approved'
-const MIN = 2 // a list is topped up with sample invoices to this many, and shows at most MAX
-const MAX = 3
+const MIN = 2 // a list is topped up with sample invoices to this many; every real invoice is always shown
 
 /** The one line that says why an invoice is where it is. */
 function why(s: Submission): string {
@@ -133,7 +132,7 @@ export default function Office({ db }: { db: Db }) {
     rejected: { subs: [...rejectedReal, ...top(rejectedReal.length + rejectedBills.length, demo.denied)], bills: rejectedBills },
     approved: { subs: [...approvedReal, ...top(approvedReal.length + approvedBills.length, demo.approved)], bills: approvedBills },
   }
-  const count = (v: View) => Math.min(MAX, lists[v].subs.length + lists[v].bills.length)
+  const count = (v: View) => lists[v].subs.length + lists[v].bills.length
 
   const row = (s: Submission) => {
     const g = db.grants.find(x => x.id === s.grantId)
@@ -165,7 +164,7 @@ export default function Office({ db }: { db: Db }) {
       {label} <span className="iv-count">{count(v)}</span>
     </button>
   )
-  const shown = [...lists[view].subs.map(row), ...lists[view].bills.map(billRow)].slice(0, MAX)
+  const shown = [...lists[view].bills.map(billRow), ...lists[view].subs.map(row)]
   const empty: Record<View, string> = { sent: 'Nothing is waiting for approval.', rejected: 'Nothing rejected.', approved: 'Nothing approved yet.' }
 
   return (

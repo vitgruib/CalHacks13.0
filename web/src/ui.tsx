@@ -2,7 +2,8 @@
 import type { ReactNode } from 'react'
 import type { Grant, GrantStatus } from './data/types'
 
-export const money = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+// A missing or broken amount reads as a dash, never $NaN or $∞.
+export const money = (n: number) => Number.isFinite(n) ? n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }) : '—'
 
 export function Section({ title, children, aside }: { title: string; children: ReactNode; aside?: ReactNode }) {
   return (

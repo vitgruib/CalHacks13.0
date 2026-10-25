@@ -6,7 +6,7 @@ import { useMemo, useState, type ChangeEvent, type ReactNode } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
 import { money } from '../ui'
-import { check, sampleDraft, type Draft, type Submission } from './model'
+import { check, parseAmount, sampleDraft, type Draft, type Submission } from './model'
 
 /** A field label with a "?" that explains what to enter. */
 function Field({ label, hint, grow, children }: { label: string; hint: string; grow?: boolean; children: ReactNode }) {
@@ -25,6 +25,11 @@ export default function SubmitForm({ db, others, initial, title, onSubmit, onCan
   const set = (patch: Partial<Draft>) => setD(x => ({ ...x, ...patch }))
   const result = useMemo(() => check(d, db, others), [d, db, others])
   const grant = db.grants.find(g => g.id === d.grantId)
+  // What still keeps Submit off, in the order the form asks for it.
+  const missing = !d.vendor.trim() ? 'Enter the vendor to submit.'
+    : !(parseAmount(d.amount) > 0) ? 'Enter a total over $0 to submit.'
+    : !d.receipt ? 'Add a receipt to submit.'
+    : ''
 
   const addReceipt = (e: ChangeEvent<HTMLInputElement>) => {
     const names = [...(e.target.files ?? [])].map(f => f.name)
@@ -76,8 +81,8 @@ export default function SubmitForm({ db, others, initial, title, onSubmit, onCan
       )}
 
       <div className="iv-actions">
-        <button type="button" className="primary" disabled={!d.receipt} onClick={() => onSubmit(d, result)}>Submit invoice</button>
-        {!d.receipt && <span className="iv-note">Add a receipt to submit.</span>}
+        <button type="button" className="primary" disabled={!!missing} onClick={() => onSubmit(d, result)}>Submit invoice</button>
+        {missing && <span className="iv-note">{missing}</span>}
       </div>
     </div>
   )

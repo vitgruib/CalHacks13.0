@@ -68,8 +68,12 @@ export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; 
   }
 
   const upload = async (e: ChangeEvent<HTMLInputElement>) => {
+    // Plans are text: a big or binary file would bloat the plan every client receives, so only its name is kept.
     const files = [...(e.target.files ?? [])]
-    const read = await Promise.all(files.map(async f => ({ name: f.name, text: await f.text() })))
+    const read = await Promise.all(files.map(async f => ({
+      name: f.name,
+      text: f.size > 200_000 ? `(${f.name} is over 200 KB, so it was not read.)` : (await f.text()).replace(/\u0000/g, ''),
+    })))
     edit({ uploaded: [...plan.uploaded, ...read] })
     e.target.value = ''
   }

@@ -19,7 +19,8 @@ export default function InvoicePage({ db, id }: { db: Db; id: string }) {
   const researcher = useContext(ResearcherContext)
   const subs = useSubmissions()
   const samples = demoSubmissions(db, researcher?.name ?? 'Sofia Alvarez')
-  const sub = subs.find(s => s.id === id) ?? [...samples.action, ...samples.approved, ...samples.denied].find(s => s.id === id)
+  // In a researcher's portal, only their own invoices open (a pasted link to someone else's reads as unavailable).
+  const sub = subs.find(s => s.id === id && (!researcher || s.researcher === researcher.name)) ?? [...samples.action, ...samples.approved, ...samples.denied].find(s => s.id === id)
   const bill = db.invoices.find(i => i.id === id)
   const back = <a className="iv-back" href="#invoices"><span aria-hidden="true">←</span> All invoices</a>
 
