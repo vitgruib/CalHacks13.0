@@ -464,17 +464,12 @@ db.log.forEach((row, i) => { row.id = `l-${pad(i + 1, 4)}` })
 // ---------------------------------------------------------------------------
 const DEMO_REQUESTS = new Set([
   'rq-101', // demo path: buy on the restored, unpaid grant
-  'rq-102', // supplies in the last 90 days: rerouted
-  'rq-103', // an unallowable item: blocked
-  'rq-012', 'rq-033', // ordinary past orders, and the vendors rq-101 and rq-102 reuse
-  'rq-017', // ordinary past order, in A's paid payment request pr-005
+  'rq-012', // ordinary past order, the vendor rq-101 reuses
   'rq-030', // an invoice for a canceled order
-  'rq-034', // in April's request pr-015 (and its invoice bills a different amount)
-  'rq-035', // the fee behind the paper crediting the wrong grant (p-10)
-  'rq-037', // the held invoice left out of May's payment request
   'rq-060', // the "Bought after the cut" edge case
 ])
-const DEMO_PAPERS = new Set(['p-01', 'p-10'])
+// Payment requests and progress reports are out of scope (T105): archive only.
+const DEMO_PAPERS = new Set()
 const DEMO_DROP = new Set(['inv-201']) // a second bill for o-033: archive only
 
 const writeWorld = (file, w) => {
@@ -490,11 +485,9 @@ const demoWorld = full => {
   w.approvals = w.approvals.filter(a => orders.has(a.orderId))
   w.invoices = w.invoices.filter(i => orders.has(i.orderId) && !DEMO_DROP.has(i.id))
   w.papers = w.papers.filter(p => DEMO_PAPERS.has(p.id))
+  w.paymentRequests = []
   const kept = new Set([...DEMO_REQUESTS, ...orders, ...w.invoices.map(i => i.id), ...w.papers.map(p => p.id)])
   w.holds = w.holds.filter(h => kept.has(h.refId))
-  // Every payment request's purchases are kept, so its amount and payment stand.
-  const prIds = pr => [...pr.includedRequestIds, ...pr.excluded.map(x => x.requestId)]
-  if (!w.paymentRequests.every(pr => prIds(pr).every(id => DEMO_REQUESTS.has(id)))) throw new Error('demo world: keep every purchase a payment request lists')
   for (const h of w.holds) kept.add(h.id)
   const archived = new Set([...full.requests, ...full.orders, ...full.invoices, ...full.papers, ...full.holds].map(x => x.id).filter(id => !kept.has(id)))
   w.log = w.log.filter(row => !archived.has(row.refId))

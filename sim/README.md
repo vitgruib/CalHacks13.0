@@ -10,7 +10,7 @@ system's decisions with it: caught, missed, and false alarms.
 |---|---|
 | `build-seed.mjs` | Generates `seed.json`. Edit this, not the JSON, then regenerate. |
 | `seed.json` | The full world as a `Db` (`web/src/data/types.ts`): the archive. The scorecard, eval and tests run on it. |
-| `demo-seed.json` | The demo world the web app loads (T83): a few ordinary examples and the cases the demo shows, cut from `seed.json` by `build-seed.mjs` (`DEMO_REQUESTS`, `DEMO_PAPERS`). Same ids. |
+| `demo-seed.json` | The demo world the web app loads (T83, trimmed in T111): only the demo path's requests (rq-101, its vendor history rq-012, the canceled-order invoice rq-030, the "Bought after the cut" case rq-060), no payment requests or papers. Cut from `seed.json` by `build-seed.mjs` (`DEMO_REQUESTS`, `DEMO_PAPERS`). Same ids. |
 | `answer-key.json` | One case per planted mistake and decoy, plus the rules' assumptions (card limit, 90-day categories). |
 | `validate.mjs` | Checks the seed and key against each other. |
 
