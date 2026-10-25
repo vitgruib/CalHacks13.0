@@ -70,7 +70,7 @@ export function applyStatusEvent(d: Db, a: InjectStatusEventArgs): Db {
   const log = [{ id: nextId('l'), day: d.today, actor: 'system' as const, action: `Injected ${a.kind} on ${a.grantId}`, reason: a.summary, refId: ev.id }]
   let next = { ...g }
   if (a.kind === 'canceled') {
-    next = { ...next, status: 'canceled', frozen: true, frozenReason: `Canceled ${d.today} (${a.source}). Spending stays frozen until a payment arrives after the cancellation.` }
+    next = { ...next, status: 'canceled', frozen: true, frozenReason: `Canceled ${ev.day} (${a.source}). Spending stays frozen until a payment arrives after the cancellation.` }
   } else if (a.kind === 'court_order') {
     next = { ...next, status: 'restored_by_court' }
   } else if (a.kind === 'payment_received') {

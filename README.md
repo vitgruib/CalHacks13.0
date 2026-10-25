@@ -200,14 +200,12 @@ window shows "Sources last checked X ago" and a "Check now" button that runs
 a tracker check. With the government sources switched on
 (`GG_LIVE_SOURCES=1` and an Apify token), it also starts a fresh Apify run.
 The hosted worker reads only the live cancellation list (`GG_LIVE_SOURCES=list`):
-the demo's timeline is simulated, and live RePORTER says R21AI182745 has ended.
-Run the worker locally with `GG_LIVE_SOURCES=list` too, or the cut scripts
-change nothing. With no Apify Actor or scraper output, it reads the saved
-copy of the lab grants' rows in `agents/cache/cancellation-list-lab.json`.
-Demo time buttons under Check now (Before the cut 2025-07-30, After the cut
-2025-08-15, After the court 2025-09-22, Today) run the same check with the
-real cancellation list read as it stood that day. The pick stays in force
-for later checks until another is pressed.
+live RePORTER says R21AI182745 has ended. With no Apify Actor or scraper
+output, it reads the saved copy of the lab grants' rows in
+`agents/cache/cancellation-list-lab.json`. The demo's cut scripts don't move
+the clock or read the list as of another day: each step changes the grant
+directly (cancel it, restore it by court order, land a payment), dated the
+day that really happened, and the agents react.
 
 ### The web app (`web/`, Track C)
 
@@ -226,7 +224,7 @@ nav, or the researcher header) moves between them. Each window has one job
   Payment requests, Reports (each paper's checks), Inbox (waiting for a
   human, with evidence; a purchase hold names the researcher who asked), Log
   (who did what, and why), Demo controls (demo only: start over, the cut
-  scripts, inject events, fast-forward, scorecard).
+  scripts, inject events, scorecard).
 - **Researcher portals**, one per researcher: **Dr. Priya Nair**
   (postdoctoral researcher, grant A, R01GM061721) and **Sofia Alvarez**
   (graduate researcher, grant B, R21AI182745). Each has Ask (which grant can

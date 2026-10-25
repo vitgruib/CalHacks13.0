@@ -1,7 +1,7 @@
 // Demo controls (was "Test lab"): demo only, for us and the judges. Every demo
 // action lives here: the run sheet (T79), start over from the demo seed, the cut scripts (T65),
-// drop events into the raw world and move the clock (T18); the agents react
-// to what lands here. The
+// drop events into the raw world (T18); the agents react to what lands here.
+// Demos change grants directly (cancel, restore, pay); nothing moves the clock. The
 // scorecard is eval/scorecard.json, written by the check command (T19) and
 // imported at build time: it scores the seed run, not the live database.
 import { useEffect, useState } from 'react'
@@ -66,7 +66,7 @@ function badInvoicePresets(db: Db) {
 }
 
 export default function TestLab() {
-  const { db, injectStatusEvent, injectInvoice, advanceDays, loadDemoSeed } = useStore()
+  const { db, injectStatusEvent, injectInvoice, loadDemoSeed } = useStore()
   const [confirmReset, setConfirmReset] = useState(false)
   const [grantId, setGrantIdState] = useState(lastGrantId ?? db.grants[0]?.id ?? '')
   const setGrantId = (id: string) => { lastGrantId = id; setGrantIdState(id) }
@@ -75,7 +75,6 @@ export default function TestLab() {
   const [presetKey, setPresetKey] = useState(presets[0]?.key ?? 'custom')
   const [orderId, setOrderId] = useState(db.orders[0]?.id ?? '')
   const [invAmount, setInvAmount] = useState('')
-  const [days, setDays] = useState('7')
   const [notes, setNotes] = useState<Note[]>([])
   // A payment sent but not seen yet. Live, its rows arrive later over the
   // websocket, so the note is written once the new payment event shows up.
@@ -124,13 +123,6 @@ export default function TestLab() {
     injectInvoice({ orderId: oid, amount })
     return `Invoice for ${oid} (${money(amount)}) arrived, not checked yet.` + (p ? ` It should be held: ${p.expect}.` : '')
   })
-  const fastForward = () => run(() => {
-    const n = Number(days)
-    if (!Number.isInteger(n) || n < 1) throw new Error('Enter a whole number of days, at least 1.')
-    const from = db.today
-    advanceDays({ days: n })
-    return `Clock moved forward ${n} day${n === 1 ? '' : 's'} from ${from}.`
-  })
 
   return (
     <div className="testlab">
@@ -161,16 +153,6 @@ export default function TestLab() {
 
       <Section title="Cut scripts">
         <DemoScripts />
-      </Section>
-
-      <Section title="Simulated clock">
-        <p className="today-big">Today is <strong>{db.today}</strong></p>
-        <div className="tl-row">
-          <label className="tl-field">Days
-            <input type="number" min={1} step={1} value={days} onChange={e => setDays(e.target.value)} />
-          </label>
-          <button type="button" onClick={fastForward}>Fast-forward {days || 'N'} days</button>
-        </div>
       </Section>
 
       <Section title="Grant status events">
