@@ -246,11 +246,19 @@ test('a_second_source_reporting_the_same_cancellation_keeps_the_first_date', () 
   assert.equal(canceledWhenPlaced(order('2026-03-18'), events)?.day, '2026-03-10');
 });
 
-test('an_order_before_the_cancellation_or_after_a_payment_was_not', () => {
+test('an_order_before_the_cancellation_or_after_a_court_order_and_payment_was_not', () => {
   assert.equal(canceledWhenPlaced(order('2026-03-01'), [event('2026-03-10', 'canceled')]), undefined);
   assert.equal(
-    canceledWhenPlaced(order('2026-05-02'), [event('2026-03-10', 'canceled'), event('2026-05-01', 'payment_received')]),
+    canceledWhenPlaced(order('2026-05-02'), [event('2026-03-10', 'canceled'), event('2026-04-20', 'court_order'), event('2026-05-01', 'payment_received')]),
     undefined,
+  );
+});
+
+test('money_with_nothing_restoring_the_grant_does_not_end_the_cancellation', () => {
+  // Closeout money (2 CFR 200.343), as in the module's freeze rule.
+  assert.equal(
+    canceledWhenPlaced(order('2026-05-02'), [event('2026-03-10', 'canceled'), event('2026-05-01', 'payment_received')])?.day,
+    '2026-03-10',
   );
 });
 

@@ -30,6 +30,7 @@ export const HOLD_KINDS = [
   'follow_up',
   'report',
   'source_disagreement',
+  'paid_while_canceled',
 ] as const;
 export const CHOICES = ['approve', 'reject', 'override', 'ask_vendor', 'pick_source'] as const;
 export type Choice = (typeof CHOICES)[number];

@@ -414,6 +414,7 @@ async function holdThenUnfreezeInLast90Days(grants: Array<Record<string, unknown
   assert.match(openPurchaseHolds(id)[0].why, PROMISE);
   const grantManager = await world.person('grant_manager');
   await grantManager.call('advance_days', { days: 15 }); // 87 days left
+  await grantManager.call('inject_status_event', { grantId: TEST_GRANT, kind: 'court_order', source: 'Court notice', summary: 'A court restored the grant.' });
   await grantManager.call('inject_status_event', {
     grantId: TEST_GRANT, kind: 'payment_received', source: 'Payment system', summary: 'Payment of $10,000 received.', amount: 10_000,
   });
@@ -603,6 +604,7 @@ async function freezeTestGrant(grantManager: Connection) {
 // cancellation and leave the grant frozen (reported to Track A).
 async function payTestGrant(grantManager: Connection) {
   await grantManager.call('advance_days', { days: 1 });
+  await grantManager.call('inject_status_event', { grantId: TEST_GRANT, kind: 'court_order', source: 'Court notice', summary: 'A court restored the grant.' });
   await grantManager.call('inject_status_event', {
     grantId: TEST_GRANT, kind: 'payment_received', source: 'Payment system', summary: 'Payment of $10,000 received.', amount: 10_000,
   });
@@ -656,6 +658,7 @@ test('after_a_person_s_decision_a_block_waiting_on_a_frozen_grant_goes_back_to_t
   assert.doesNotMatch(hold.why, /rerouted there once/);
   assert.doesNotMatch(hold.why, PROMISE);
 
+  await grantManager.call('inject_status_event', { grantId: SECOND_GRANT, kind: 'court_order', source: 'Court notice', summary: 'A court restored the grant.' });
   await grantManager.call('inject_status_event', { grantId: SECOND_GRANT, kind: 'payment_received', source: 'Payment system', summary: 'Paid.', amount: 10_000 });
   await world.worker.idle();
   assert.equal(request(id).state, 'waiting_on_manager');

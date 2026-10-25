@@ -19,6 +19,8 @@ export const RESEARCHERS: Researcher[] = [
   { id: 'kenji', name: 'Kenji Watanabe', title: 'Graduate researcher', grantId: 'R01GM155497' },
   { id: 'elena', name: 'Dr. Elena Petrova', title: 'Research scientist', grantId: 'R01HL176691' },
   { id: 'rahul', name: 'Rahul Mehta', title: 'Graduate researcher', grantId: 'R01GM105672' },
+  { id: 'jordan', name: 'Jordan Kim', title: 'Research associate', grantId: 'K01DK133670' },
+  { id: 'noah', name: 'Noah Bennett', title: 'Graduate fellow', grantId: 'F31DC022138' },
 ]
 
 export const researcherNamed = (name: string | undefined) => RESEARCHERS.find(r => r.name === name)

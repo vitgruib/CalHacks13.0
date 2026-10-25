@@ -180,7 +180,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
     // Test lab shows those inline); the module decides what really happens.
     injectStatusEvent: a => {
       applyStatusEvent(db, a)
-      call('Status event', () => conn().reducers.injectStatusEvent({ grantId: a.grantId, kind: a.kind, source: a.source, summary: a.summary, amount: a.amount }))
+      call('Status event', () => conn().reducers.injectStatusEvent({ grantId: a.grantId, kind: a.kind, source: a.source, summary: a.summary, amount: a.amount, day: a.day }))
     },
     injectInvoice: a => {
       applyInvoice(db, a)

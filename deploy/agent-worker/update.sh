@@ -13,6 +13,14 @@ npm ci --prefix agents --no-audit --no-fund --loglevel=error
 sudo mkdir -p "$STATE/state" "$STATE/cache"
 sudo chown -R "$USER:" "$STATE"
 cp -r --update=none agents/cache/. "$STATE/cache/"
+# setup.sh writes the env file only once; keep its lab grant list in step, so
+# a new cut script's grant is read from the list (T74).
+ENV_FILE=/etc/grantguard/agents.env
+want=$(grep -m1 '^GG_LAB_GRANTS=' deploy/agent-worker/setup.sh || true)
+if [ -n "$want" ] && sudo grep -q '^GG_LAB_GRANTS=' "$ENV_FILE" && ! sudo grep -qxF "$want" "$ENV_FILE"; then
+  sudo sed -i "s/^GG_LAB_GRANTS=.*/$want/" "$ENV_FILE"
+  echo "── updated GG_LAB_GRANTS in $ENV_FILE"
+fi
 sudo systemctl restart grantguard-agents
 # "Active" alone passes a crash loop (Restart=always, RestartSec=5), so also
 # fail if systemd restarted the worker while we watched it connect and subscribe.

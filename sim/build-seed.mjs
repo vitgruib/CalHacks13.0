@@ -450,6 +450,20 @@ const scriptGrants = [
   // the whole award would be the mistake. Award amounts are made up.
   { id: 'R01GM105672', title: 'The mechanism of ESCRT-mediated surveillance of the nuclear envelope', pi: 'Dr. Tomas Varga', agency: 'NIH / NIGMS',
     awarded: 1_412_000, received: 1_180_000, spent: 1_165_400, start: '2013-09-01', end: '2026-08-31', before: '2025-06-16' },
+  // Headache (T74): terminated 2025-06-30 and still listed terminated, yet
+  // USAspending shows NIH paid $34,026 by 2025-11 (and obligated $152,388 in
+  // 2025-07). Money with nothing restoring the grant may be closeout money,
+  // so the grant manager decides. Amounts are USAspending's: $839,040
+  // obligated, $359,886 paid before the cut. End is the original 2027-04-30.
+  { id: 'K01DK133670', title: 'Microbial drivers of metabolically unhealthy obese phenotype', pi: 'Dr. Leila Haddad', agency: 'NIH / NIDDK',
+    awarded: 839_040, received: 359_886, spent: 359_886, start: '2022-07-01', end: '2027-04-30', before: '2025-06-29' },
+  // Headache (T74): terminated 2025-05-06, restored 2025-09-18 (Harvard v.
+  // HHS), paid $5,116 by 2025-12, then listed terminated again; USAspending
+  // moved its end to 2025-12-31 and took back $7,739 in 2026-01. Amounts are
+  // USAspending's ($37,547 obligated, $22,068 paid in fiscal 2025); end is
+  // the original 2027-01-31.
+  { id: 'F31DC022138', title: 'Cellular and functional heterogeneity of interhemispheric connections in the anterior olfactory nucleus', pi: 'Dr. Ruth Okafor', agency: 'NIH / NIDCD',
+    awarded: 37_547, received: 22_068, spent: 22_068, start: '2025-02-01', end: '2027-01-31', before: '2025-05-05' },
 ]
 
 // Each script grant starts at the day before its cut (a finished check for

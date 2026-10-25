@@ -329,6 +329,7 @@ test('a_frozen_grant_gets_no_request_until_a_payment_unfreezes_it', async () => 
   assert.ok(!alone.calls.some((call) => call.action === 'draft_payment_request'), 'not even tried');
 
   const lab = await alone.person('grant_manager');
+  await lab.call('inject_status_event', { grantId: TEST_GRANT, kind: 'court_order', source: 'Court notice', summary: 'A court restored the grant.' });
   await lab.call('inject_status_event', { grantId: TEST_GRANT, kind: 'payment_received', source: 'Payment system', summary: 'Drawdown paid.', amount: 5_000 });
   await alone.quiet();
   assert.equal(conn.rows('grant')[0].frozen, false);
@@ -503,6 +504,7 @@ test('a_cancellation_found_by_the_last_refresh_stops_the_draft', async () => {
   // The money arrives a few days later: now it goes out.
   const lab = await alone.person('grant_manager');
   await lab.call('advance_days', { days: 3 });
+  await lab.call('inject_status_event', { grantId: R21, kind: 'court_order', source: 'Court notice', summary: 'A court restored the grant.' });
   await lab.call('inject_status_event', { grantId: R21, kind: 'payment_received', source: 'Payment system', summary: 'Drawdown paid.', amount: 7_000 });
   await alone.quiet();
   assert.equal(conn.rows('grant').find((g) => g.id === R21)!.frozen, false);

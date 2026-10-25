@@ -147,12 +147,40 @@ function recomputeGrant(ctx: Ctx, id: string, actor = 'system'): void {
   const fs = freezeState(ended ? 'ended' : 'active', events, disagree);
   const available = g.awarded - g.spent - g.promised;
   ctx.db.grant.id.update({ ...g, status: fs.status, frozen: fs.frozen, frozenReason: fs.frozenReason, available });
+  askAboutPaymentWhileCanceled(ctx, id, events, fs.paidWhileCanceled);
   if (fs.frozen !== g.frozen) {
     writeLog(ctx, actor, `${fs.frozen ? 'Froze' : 'Unfroze'} ${id}`, fs.frozenReason ?? 'A payment arrived after the cancellation.', {
       rule: fs.frozen ? 'Canceled or disputed grants freeze' : 'Only a payment (or the grant manager) unfreezes',
       refId: id,
     });
   }
+}
+
+/**
+ * Money that arrived on a canceled grant nothing restored may be closeout
+ * money (2 CFR 200.343): the grant manager decides whether it restores the
+ * grant. One hold per payment; a hold that no longer applies is closed.
+ */
+function askAboutPaymentWhileCanceled(ctx: Ctx, id: string, events: { id: bigint; day: string; kind: string; amount?: number }[], paidOn?: string): void {
+  const payment = paidOn ? events.filter(e => e.kind === 'payment_received' && e.day === paidOn).at(-1) : undefined;
+  for (const h of [...ctx.db.hold.iter()]) {
+    if (h.open && h.kind === 'paid_while_canceled' && h.grantId === id && h.refId !== payment?.id.toString()) ctx.db.hold.id.update({ ...h, open: false });
+  }
+  if (!payment || [...ctx.db.hold.iter()].some(h => h.kind === 'paid_while_canceled' && h.refId === payment.id.toString())) return;
+  const canceled = events.filter(e => e.kind === 'canceled' && e.day <= payment.day).at(-1);
+  raiseHoldRow(ctx, {
+    kind: 'paid_while_canceled', refId: payment.id.toString(), grantId: id, raisedBy: 'bookkeeping',
+    title: `Money arrived on canceled ${id}`,
+    why: `${usd(payment.amount ?? 0)} arrived on ${payment.day}, but ${id} was canceled${canceled ? ` on ${canceled.day}` : ''} and no court order or notice has restored it. ` +
+      'After a termination, money still comes in for costs incurred before it (2 CFR 200.343), so this may be closeout money, not a restored grant. ' +
+      'Approve to unfreeze if the funder confirms the grant is live again; reject to keep spending frozen.',
+    evidence: [
+      ...(canceled ? [{ label: 'Canceled', value: canceled.day }] : []),
+      { label: 'Payment', value: `${usd(payment.amount ?? 0)} (${payment.day})` },
+      { label: 'Restored by', value: 'nothing on record' },
+    ],
+    options: ['approve', 'reject'],
+  });
 }
 
 function adjustMoney(ctx: Ctx, id: string, d: { spent?: number; promised?: number; received?: number }): void {
@@ -474,6 +502,12 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       if (p && c !== 'reject') ctx.db.reportPaper.id.update({ ...p, result: 'note' });
       return;
     }
+    case 'paid_while_canceled': {
+      if (c !== 'approve' || !h.grantId) return;
+      ctx.db.statusEvent.insert({ id: 0n, grantId: h.grantId, day: today(ctx), kind: 'unfrozen', source: 'Payment system', summary: `Unfrozen by the grant manager: the money restores the grant. ${reason}`, amount: undefined, at: ctx.timestamp });
+      recomputeGrant(ctx, h.grantId, who);
+      return;
+    }
     case 'source_disagreement': {
       const f = ctx.db.flag.id.find(BigInt(h.refId));
       if (f) {
@@ -768,7 +802,7 @@ export const advance_days = spacetimedb.reducer({ days: t.u32() }, (ctx, { days 
 
 /** Drop in a status event (cancellation, court order, payment). */
 export const inject_status_event = spacetimedb.reducer(
-  { grantId: t.string(), kind: t.string(), source: t.string(), summary: t.string(), amount: t.f64().optional() },
+  { grantId: t.string(), kind: t.string(), source: t.string(), summary: t.string(), amount: t.f64().optional(), day: t.string().optional() },
   (ctx, a) => guard(() => insertStatusEvent(ctx, requirePerson(ctx), a)),
 );
 

@@ -43,7 +43,7 @@ GG_REUSE_SAVED=1
 # Actor on Check now; the government sources stay off (simulated timeline).
 GG_LIVE_SOURCES=list
 GG_APIFY_ACTOR=nathanqiu~nih-grant-cancellation-list
-GG_LAB_GRANTS=R01GM061721,R21AI182745,R01AI178875,R01GM155497,R01HL176691,R01GM105672
+GG_LAB_GRANTS=R01GM061721,R21AI182745,R01AI178875,R01GM155497,R01HL176691,R01GM105672,K01DK133670,F31DC022138
 APIFY_TOKEN=
 # Agent tokens and caches live outside the checkout, so git pull never
 # conflicts with them and restarts keep the same three identities.

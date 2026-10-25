@@ -85,6 +85,34 @@
       "promised": 0,
       "status": "active",
       "frozen": false
+    },
+    {
+      "id": "K01DK133670",
+      "title": "Microbial drivers of metabolically unhealthy obese phenotype",
+      "pi": "Dr. Leila Haddad",
+      "agency": "NIH / NIDDK",
+      "awarded": 839040,
+      "received": 359886,
+      "spent": 359886,
+      "start": "2022-07-01",
+      "end": "2027-04-30",
+      "promised": 0,
+      "status": "active",
+      "frozen": false
+    },
+    {
+      "id": "F31DC022138",
+      "title": "Cellular and functional heterogeneity of interhemispheric connections in the anterior olfactory nucleus",
+      "pi": "Dr. Ruth Okafor",
+      "agency": "NIH / NIDCD",
+      "awarded": 37547,
+      "received": 22068,
+      "spent": 22068,
+      "start": "2025-02-01",
+      "end": "2027-01-31",
+      "promised": 0,
+      "status": "active",
+      "frozen": false
     }
   ],
   "statusEvents": [
@@ -6374,6 +6402,20 @@
       "requestedBy": "grant_manager",
       "day": "2026-06-15",
       "asOf": "2025-06-16"
+    },
+    {
+      "grantId": "K01DK133670",
+      "reason": "check_now",
+      "requestedBy": "grant_manager",
+      "day": "2026-06-15",
+      "asOf": "2025-06-29"
+    },
+    {
+      "grantId": "F31DC022138",
+      "reason": "check_now",
+      "requestedBy": "grant_manager",
+      "day": "2026-06-15",
+      "asOf": "2025-05-05"
     }
   ]
 }

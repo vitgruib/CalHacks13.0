@@ -22,7 +22,8 @@
 // Demo time (T59, viewAsOf): read the list as it stood on a past real day,
 //   from each row's own dates (scrapers/ T57 does the same in the Actor):
 //   before terminatedOn the grant isn't listed, until restoredOn it's
-//   canceled, from restoredOn on it has its current status. A row without
+//   canceled, from restoredOn on it has its current status. A row still
+//   terminated on and after its restoredOn was cut again (T74). A row without
 //   terminatedOn (an older saved copy) can't be placed, so it isn't listed.
 // Supplements (T65): a row for a supplement (3R01GM105672-12S1) is filed
 //   under its award's core number, but only the supplement was cut. It gives
@@ -231,7 +232,10 @@ export function createCancellationListSource(options: CancellationListOptions = 
       }
       const latest = newest(award);
       const since = latest.status === 'canceled' ? latest.terminatedOn : (latest.restoredOn ?? latest.listedOn);
-      return { grantId, source: 'Cancellation list (Apify)', status: latest.status, awarded: null, paid: null, endDate: null, url: latest.url, since };
+      // Restored, then listed as terminated again (T74): the list keeps only
+      // the latest status, so the restoration day is all it shows of it.
+      const cutAgainAfter = latest.status === 'canceled' ? latest.restoredOn : null;
+      return { grantId, source: 'Cancellation list (Apify)', status: latest.status, awarded: null, paid: null, endDate: null, url: latest.url, since, cutAgainAfter };
     },
   };
 }

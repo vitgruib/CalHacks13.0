@@ -236,6 +236,31 @@ test('a_backdated_cut_is_dated_on_the_list_s_termination_day_and_flags_an_order_
   assert.match(flag?.summary ?? '', /o-late.*5 days after/);
 });
 
+// T74: F31DC022138's real row. Restored by a court on 2025-09-18 (Harvard v.
+// HHS), then listed as terminated again; the list keeps only the latest status.
+test('a_list_that_still_says_terminated_after_a_restoration_cuts_the_grant_again_once', async () => {
+  const recut = { grantId: TEST_GRANT, status: 'Terminated', url: 'https://list.test/gw', listedOn: '2025-05-06', terminatedOn: '2025-05-06', restoredOn: '2025-09-18' };
+  world = await startWorld({ seedJson: oneGrantSeed(), sources: [createCancellationListSource({ file: listFile([recut]) })] });
+  const conn = world.worker.sessions.bookkeeping;
+  const grant = () => conn.rows('grant').find((row) => row.id === TEST_GRANT)!;
+  const cuts = () => conn.rows('statusEvent').filter((event) => event.kind === 'canceled').map((event) => event.day);
+  await checkAsOf('2025-05-06');
+  const grantManager = await world.person('grant_manager');
+  await grantManager.call('inject_status_event', { grantId: TEST_GRANT, kind: 'court_order', source: 'Court notice', summary: 'Harvard v. HHS.', day: '2025-09-18' });
+  await grantManager.call('inject_status_event', { grantId: TEST_GRANT, kind: 'payment_received', source: 'Payment system', summary: 'Drawdown.', amount: 5_116, day: '2025-11-30' });
+  await world.worker.idle();
+  assert.equal(grant().frozen, false, 'restored and paid');
+
+  await checkAsOf('2026-01-31');
+  assert.deepEqual(cuts(), ['2025-05-06', '2026-06-15'], 'cut again, noticed today');
+  assert.equal(grant().status, 'canceled');
+  assert.equal(grant().frozen, true);
+  assert.match(conn.rows('statusEvent').at(-1)?.summary ?? '', /2025-09-18/);
+
+  await checkAsOf('2026-02-28');
+  assert.equal(cuts().length, 2, 'posted once');
+});
+
 test('a_listed_supplement_posts_a_notice_once_and_does_not_freeze_the_award', async () => {
   const supplementRow = {
     grantId: TEST_GRANT, status: 'Terminated', url: 'https://list.test/s1', listedOn: '2025-06-17', terminatedOn: '2025-06-17',

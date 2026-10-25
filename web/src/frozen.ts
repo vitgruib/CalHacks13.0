@@ -21,7 +21,11 @@ export function whyFrozen(db: Db, g: Grant): FreezeCause[] {
     .sort((a, b) => a.e.day.localeCompare(b.e.day) || a.i - b.i)
     .map(x => x.e.kind)
   const canceledAt = events.lastIndexOf('canceled')
-  if (canceledAt >= 0 && !events.slice(canceledAt + 1).some(k => k === 'payment_received' || k === 'unfrozen')) {
+  const after = events.slice(canceledAt + 1)
+  const paidUnrestored = canceledAt >= 0 && g.status === 'canceled' && after.includes('payment_received') && !after.includes('unfrozen')
+  if (paidUnrestored) {
+    out.push({ kind: 'other', text: 'money arrived, but nothing has restored the grant (it may be closeout money); the grant manager decides in the Inbox' })
+  } else if (canceledAt >= 0 && !after.some(k => k === 'payment_received' || k === 'unfrozen')) {
     out.push({
       kind: 'payment',
       text: events.slice(canceledAt + 1).includes('court_order')
@@ -53,6 +57,7 @@ export function nextStep(db: Db, g: Grant): string {
     : g.status === 'canceled'
       ? 'Frozen after a cancellation. A court order will restore the status but not the money.'
       : 'Frozen.'
+  if (g.status === 'canceled') return `${base} A payment before then goes to the grant manager: it may be closeout money.${others.length ? ` Also ${list(others)}.` : ''}`
   return others.length ? `${base} A payment alone won't unfreeze it: also ${list(others)}.` : `${base} A payment unfreezes it.`
 }
 

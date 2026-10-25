@@ -33,7 +33,7 @@ export interface Store {
   loadDemoSeed: () => void
 }
 
-export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number }
+export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number; day?: string }
 
 export const Ctx = createContext<Store | null>(null)
 
@@ -47,12 +47,13 @@ const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', curren
 
 /** The raw world's consequence of a status event (no agents run here):
  *  canceled freezes; a court order restores the status but stays frozen
- *  (a court order isn't cash); a payment adds to received and unfreezes. */
+ *  (a court order isn't cash); a payment adds to received and unfreezes
+ *  only after a court order (otherwise it may be closeout money). */
 export function applyStatusEvent(d: Db, a: InjectStatusEventArgs): Db {
   const g = d.grants.find(x => x.id === a.grantId)
   if (!g) throw new Error(`No grant ${a.grantId}`)
   if (a.kind === 'payment_received' && !(a.amount && a.amount > 0)) throw new Error('A payment needs an amount above zero')
-  const ev: StatusEvent = { id: nextId('se'), grantId: a.grantId, day: d.today, kind: a.kind, source: a.source, summary: a.summary }
+  const ev: StatusEvent = { id: nextId('se'), grantId: a.grantId, day: a.day ?? d.today, kind: a.kind, source: a.source, summary: a.summary }
   if (a.amount != null) ev.amount = a.amount
   const events = [ev]
   const log = [{ id: nextId('l'), day: d.today, actor: 'system' as const, action: `Injected ${a.kind} on ${a.grantId}`, reason: a.summary, refId: ev.id }]
@@ -66,7 +67,9 @@ export function applyStatusEvent(d: Db, a: InjectStatusEventArgs): Db {
     // An open sources-disagree flag keeps it frozen until the grant manager
     // decides, as in the module (rules.ts freezeState).
     const disagree = d.flags.some(f => f.grantId === g.id && f.open && f.kind === 'sources_disagree')
-    if (g.frozen && disagree) {
+    if (g.frozen && g.status === 'canceled') {
+      next = { ...next, frozenReason: `Money arrived, but nothing has restored ${g.id}: it may be closeout money (2 CFR 200.343). Spending stays frozen until the grant manager decides.` }
+    } else if (g.frozen && disagree) {
       next = { ...next, frozenReason: 'Sources disagree about this grant. Spending stays frozen until the grant manager decides.' }
     } else if (g.frozen) {
       next = { ...next, frozen: false, frozenReason: undefined }

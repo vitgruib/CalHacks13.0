@@ -24,7 +24,7 @@ export type Source =
 export type StatusEventKind = 'canceled' | 'court_order' | 'payment_received' | 'reading_changed' | 'unfrozen';
 export type FlagKind = 'sources_disagree' | 'spend_while_canceled' | 'court_order_no_payment';
 export type CheckReason = 'check_now' | 'before_money_moves';
-export type HoldKind = 'purchase' | 'invoice' | 'payment_request' | 'follow_up' | 'report' | 'source_disagreement';
+export type HoldKind = 'purchase' | 'invoice' | 'payment_request' | 'follow_up' | 'report' | 'source_disagreement' | 'paid_while_canceled';
 export type Choice = 'approve' | 'reject' | 'override' | 'ask_vendor' | 'pick_source';
 export type RequestState = 'submitted' | 'bought' | 'blocked' | 'rerouted' | 'waiting_on_manager' | 'rejected' | 'canceled';
 export type OrderState = 'open' | 'canceled' | 'changed' | 'paid';
@@ -384,7 +384,7 @@ export interface Actions {
   // Test lab (any registered person; demo only).
   set_today: { day: string };
   advance_days: { days: number };
-  inject_status_event: { grantId: string; kind: StatusEventKind; source: Source; summary: string; amount?: number };
+  inject_status_event: { grantId: string; kind: StatusEventKind; source: Source; summary: string; amount?: number; day?: string };
   inject_invoice: { orderId: string; amount: number };
   cancel_order: { orderId: string };
   reset_world: Record<string, never>;

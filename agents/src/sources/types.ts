@@ -18,6 +18,10 @@ export interface Reading {
   // cancellation list's termination or restoration date), so its event is
   // dated then instead of today.
   since?: string | null;
+  // Optional (T74): the day the source recorded a restoration it has since
+  // taken back (it lists the grant as canceled again), so a grant restored
+  // here is cut again.
+  cutAgainAfter?: string | null;
   // Optional (T65): something the source shows that isn't a status of this
   // grant, posted once to its timeline (e.g. only a supplement was cut).
   notice?: string;

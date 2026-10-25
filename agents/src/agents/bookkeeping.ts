@@ -36,15 +36,21 @@ const dollars = (amount: number) => `$${amount.toLocaleString('en-US')}`;
 const daysBetween = (from: string, to: string) => Math.round((Date.parse(to) - Date.parse(from)) / DAY_MS);
 
 // The cancellation still in force on a day: canceled until a payment arrives
-// after it (a court order alone isn't cash). Same reading as the module's
-// freeze rule, which also keeps the first date when a second source reports
-// the same cancellation.
+// after a court order (a court order alone isn't cash, and money with nothing
+// restoring the grant may be closeout money, T74), or the grant manager
+// unfreezes it. Same reading as the module's freeze rule, which also keeps
+// the first date when a second source reports the same cancellation.
 export function cancellationOn(day: string, events: StatusEventRow[]): StatusEventRow | undefined {
   let cancellation: StatusEventRow | undefined;
+  let court = false;
   for (const event of [...events].sort(byDay)) {
     if (event.day > day) break;
-    if (event.kind === 'canceled') cancellation ??= event;
-    if (event.kind === 'payment_received' || event.kind === 'unfrozen') cancellation = undefined;
+    if (event.kind === 'canceled') {
+      cancellation ??= event;
+      court = false;
+    }
+    if (event.kind === 'court_order' && cancellation) court = true;
+    if ((event.kind === 'payment_received' && court) || event.kind === 'unfrozen') cancellation = undefined;
   }
   return cancellation;
 }
@@ -97,6 +103,7 @@ export function startTracker(conn: Connection, sources: SourceClient[]): Tracker
       await conn.call('post_status_event', { grantId: reading.grantId, source: reading.source, kind: 'reading_changed', summary: notice, day: eventDay(reading.since) });
     }
     const previous = latestReadings(conn, reading.grantId).find((r) => r.source === reading.source);
+    if (previous?.status === 'canceled') await noticeCutAgain(reading);
     const merged = merge(previous, reading);
     if (changedFields(previous, merged).length === 0) return;
 
@@ -113,6 +120,23 @@ export function startTracker(conn: Connection, sources: SourceClient[]): Tracker
       const day = event.kind === 'payment_received' ? undefined : eventDay(reading.since);
       await conn.call('post_status_event', { grantId: reading.grantId, source: reading.source, ...event, day });
     }
+  }
+
+  // T74: a source that recorded a restoration but lists the grant as canceled
+  // again, while it isn't canceled here (a court order or payment since):
+  // the grant was cut again. The source said canceled before too, so the
+  // reading hasn't changed; the cut is posted once, dated today, because the
+  // source doesn't say when it happened.
+  async function noticeCutAgain(reading: Reading) {
+    if (reading.status !== 'canceled' || !reading.cutAgainAfter) return;
+    const grant = conn.rows('grant').find((row) => row.id === reading.grantId);
+    if (!grant || grant.status === 'canceled' || grant.status === 'ended') return;
+    await conn.call('post_status_event', {
+      grantId: reading.grantId,
+      source: reading.source,
+      kind: 'canceled',
+      summary: `${reading.source} recorded ${reading.grantId} as restored on ${reading.cutAgainAfter} but lists it as terminated again: the grant was cut again.`,
+    });
   }
 
   // A disagreement the grant manager decided stays decided until a source

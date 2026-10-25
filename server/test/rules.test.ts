@@ -42,12 +42,31 @@ describe('fund tracker', () => {
     expect(s.frozenReason).toContain('no payment has arrived');
   });
 
-  test('a payment after the cancellation unfreezes', () => {
+  test('a payment after a court order unfreezes', () => {
     expect(freezeState('active', [
       { day: '2026-03-10', kind: 'canceled' },
       { day: '2026-04-20', kind: 'court_order' },
       { day: '2026-06-20', kind: 'payment_received' },
     ], false)).toEqual({ status: 'active', frozen: false });
+  });
+
+  // Closeout money (2 CFR 200.343): a terminated award can still pay for
+  // costs incurred before the cut, so money alone doesn't prove it's live.
+  test('a payment with nothing restoring the grant keeps it frozen for the grant manager', () => {
+    const s = freezeState('active', [
+      { day: '2025-06-30', kind: 'canceled' },
+      { day: '2025-11-30', kind: 'payment_received' },
+    ], false);
+    expect(s).toMatchObject({ status: 'canceled', frozen: true, paidWhileCanceled: '2025-11-30' });
+    expect(s.frozenReason).toContain('grant manager');
+  });
+
+  test('the grant manager can unfreeze a grant paid while canceled', () => {
+    expect(freezeState('active', [
+      { day: '2025-06-30', kind: 'canceled' },
+      { day: '2025-11-30', kind: 'payment_received' },
+      { day: '2026-06-15', kind: 'unfrozen' },
+    ], false)).toEqual({ status: 'canceled', frozen: false });
   });
 
   test('a payment before the cancellation does not unfreeze', () => {

@@ -105,7 +105,7 @@ test('the_sim_world_loads_with_grant_a_frozen_by_a_court_order_without_payment',
 test('run_sim_returns_every_table_once_the_agents_are_quiet', async () => {
   const run = await runSim();
   try {
-    assert.equal(run.tables.grant.length, 6); // grants A and B, and the four cut-script grants (T65)
+    assert.equal(run.tables.grant.length, 8); // grants A and B, and the six cut-script grants (T65, T74)
     assert.ok(run.tables.log.length > 0);
     assert.equal(run.tables.agent.length, 3);
   } finally {

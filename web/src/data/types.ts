@@ -161,7 +161,7 @@ export interface ReportPaper {
   costRequestIds?: string[]
 }
 
-export type HoldKind = 'purchase' | 'invoice' | 'payment_request' | 'follow_up' | 'report' | 'source_disagreement'
+export type HoldKind = 'purchase' | 'invoice' | 'payment_request' | 'follow_up' | 'report' | 'source_disagreement' | 'paid_while_canceled'
 
 /** Anything waiting for the grant manager. Only the Inbox shows these buttons. */
 export interface Hold {

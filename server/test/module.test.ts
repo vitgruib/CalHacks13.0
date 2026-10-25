@@ -149,9 +149,23 @@ test('same-day grant events apply in the order they happened', () => {
     event('payment_received', 1_000);
     event('canceled');
     expect(db().grant.id.find(B)).toMatchObject({ status: 'canceled', frozen: true });
+    event('court_order');
     event('payment_received', 1_000);
     expect(db().grant.id.find(B)).toMatchObject({ status: 'active', frozen: false });
   }
+});
+
+test('money on a canceled grant that nothing restored waits for the grant manager', () => {
+  const B = 'R21AI182745'; // fixtures: active
+  call('gm', mod.inject_status_event, { grantId: B, kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Terminated.', day: '2025-06-30' });
+  call('gm', mod.inject_status_event, { grantId: B, kind: 'payment_received', source: 'Payment system', summary: 'Drawdown.', amount: 34_026, day: '2025-11-30' });
+  expect(db().grant.id.find(B)).toMatchObject({ status: 'canceled', frozen: true });
+  const hold = rows('hold').find(x => x.kind === 'paid_while_canceled' && x.grantId === B && x.open);
+  expect(hold?.options).toEqual(['approve', 'reject']);
+
+  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'NIH confirmed the award is reinstated.' });
+  expect(db().grant.id.find(B)).toMatchObject({ frozen: false });
+  expect(rows('hold').filter(x => x.kind === 'paid_while_canceled' && x.open)).toEqual([]);
 });
 
 // Settle A's source disagreement and land a payment, so A unfreezes.

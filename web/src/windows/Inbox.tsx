@@ -31,6 +31,7 @@ const kindLabel: Record<HoldKind, string> = {
   follow_up: 'Follow-up question',
   report: 'Progress report',
   source_disagreement: 'Sources disagree',
+  paid_while_canceled: 'Paid while canceled',
 }
 
 const agentLabel: Record<AgentId, string> = {
@@ -53,6 +54,7 @@ const kindLink: Record<HoldKind, { href: string; label: string }> = {
   follow_up: { href: '#payment-requests', label: 'Payment requests' },
   report: { href: '#reports', label: 'Reports' },
   source_disagreement: { href: '#funds', label: 'Funds' },
+  paid_while_canceled: { href: '#funds', label: 'Funds' },
 }
 
 /** Each source once, its newest reading ("canceled (2026-06-15)"); later rows win a tie. */

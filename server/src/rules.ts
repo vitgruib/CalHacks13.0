@@ -55,13 +55,18 @@ export interface FreezeState {
   status: string;
   frozen: boolean;
   frozenReason?: string;
+  /** The day money arrived while canceled with nothing restoring the grant
+   *  (it may be closeout money); the grant manager decides. */
+  paidWhileCanceled?: string;
 }
 
 /**
  * Status and freeze from the grant's events. A cancellation freezes
  * spending; a court order restores the status but does NOT unfreeze; only a
- * payment received on or after the cancellation (or a grant manager's
- * unfreeze) does. An open sources-disagree flag freezes too.
+ * payment received after a court order (or a grant manager's unfreeze) does.
+ * A payment with nothing restoring the grant keeps it frozen: after a
+ * termination, money still comes in for costs incurred before it
+ * (2 CFR 200.343), so it doesn't prove the grant is live. An open sources-disagree flag freezes too.
  * Events are processed in day order; same-day ties keep insertion order.
  */
 export function freezeState(
@@ -73,6 +78,7 @@ export function freezeState(
   let canceledOn: string | undefined;
   let courtOn: string | undefined;
   let frozenByCancel = false;
+  let paidOn: string | undefined;
   const sorted = events.map((e, i) => ({ e, i })).sort((a, b) =>
     a.e.day === b.e.day ? a.i - b.i : a.e.day < b.e.day ? -1 : 1,
   );
@@ -83,11 +89,14 @@ export function freezeState(
       status = 'canceled';
       courtOn = undefined;
       frozenByCancel = true;
+      paidOn = undefined;
     } else if (e.kind === 'court_order' && canceledOn) {
       status = 'restored_by_court';
       courtOn = e.day;
+    } else if (e.kind === 'payment_received' && canceledOn && !courtOn) {
+      if (frozenByCancel) paidOn = e.day;
     } else if (e.kind === 'payment_received' && canceledOn) {
-      // Money actually arrived after the cancellation: the grant is live again.
+      // Money actually arrived after the court order: the grant is live again.
       status = 'active';
       canceledOn = undefined;
       courtOn = undefined;
@@ -95,15 +104,22 @@ export function freezeState(
     } else if (e.kind === 'unfrozen') {
       // The grant manager unfroze it early (reason is in the log).
       frozenByCancel = false;
+      paidOn = undefined;
     }
   }
   if (baseStatus === 'ended') status = 'ended';
 
   if (status === 'ended') return { status, frozen: true, frozenReason: 'The grant has ended.' };
   if (frozenByCancel) {
+    if (paidOn) {
+      return {
+        status, frozen: true, paidWhileCanceled: paidOn,
+        frozenReason: `Canceled ${canceledOn}, and nothing has restored it, but money arrived on ${paidOn}. After a termination, money still comes in for costs incurred before it (2 CFR 200.343), so spending stays frozen until the grant manager decides.`,
+      };
+    }
     const frozenReason = courtOn
       ? `Canceled ${canceledOn}. A court restored it on ${courtOn}, but no payment has arrived since, so spending stays frozen.`
-      : `Canceled ${canceledOn}. Spending is frozen until a payment arrives.`;
+      : `Canceled ${canceledOn}. Spending is frozen until a court restores it and a payment arrives.`;
     return { status, frozen: true, frozenReason };
   }
   if (openDisagreement) {
