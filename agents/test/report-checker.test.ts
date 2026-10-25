@@ -70,6 +70,38 @@ test('rp_1_a_paper_crediting_the_wrong_grant_is_held_with_the_cost_move_and_the_
   assert.deepEqual(hold.options, ['approve', 'reject']);
 });
 
+// The demo's climax unfreezes R01GM061721 after p-10 was explained; the
+// item then quotes its status as it is, not "frozen right now".
+test('rp_1_once_the_credited_grant_unfreezes_the_inbox_item_says_so', async () => {
+  world = await startWorld();
+  const before = openHold('p-10');
+  assert.match(before.why, /R01GM061721 is frozen right now/);
+  const grantManager = await world.person('grant_manager');
+  await grantManager.call('inject_status_event', {
+    grantId: 'R01GM061721', kind: 'payment_received', source: 'Payment system', summary: 'Payment of $25,000 received.', amount: 25_000,
+  });
+  await world.worker.idle();
+  const disagreement = conn().rows('hold').find((h) => h.kind === 'source_disagreement' && h.open && h.grantId === 'R01GM061721');
+  if (disagreement) {
+    await grantManager.call('decide_hold', { holdId: disagreement.id, choice: 'pick_source', reason: 'RePORTER is right: the payment arrived.' });
+    await world.worker.idle();
+  }
+  assert.equal(conn().rows('grant').find((g) => g.id === 'R01GM061721')?.frozen, false);
+
+  const after = openHold('p-10');
+  assert.doesNotMatch(after.why, /frozen right now/);
+  const evidence = new Map(after.evidence.map((e) => [e.label, e.value]));
+  assert.match(evidence.get('R01GM061721 now') ?? '', /not frozen/);
+  assert.equal(after.title, before.title);
+  assert.equal(evidence.get('Proposed cost move'), "move rq-035's $2,100 from R21AI182745 to R01GM061721 (o-035, charged 2026-04-24)");
+  assert.equal(evidence.get('Credits this grant'), "Listed in R21AI182745's report, but its acknowledgments name R01GM061721.");
+  assert.equal(after.evidence.length, before.evidence.length, 'the same rows, two of them updated');
+
+  const holds = reportHolds('p-10').length;
+  await world.worker.idle();
+  assert.equal(reportHolds('p-10').length, holds, 'restated once');
+});
+
 test('rp_2_a_paper_missing_its_pmcid_is_held', async () => {
   world = await startWorld();
   const p03 = paper('p-03');

@@ -164,11 +164,13 @@ export function startReportChecker(ctx: AgentContext): AgentHandle {
     return moves;
   }
 
-  async function grantStatus(grantId: string): Promise<{ text: string; frozen: boolean } | undefined> {
+  async function grantStatus(grantId: string, refresh = true): Promise<{ text: string; frozen: boolean } | undefined> {
     // Read the sources first, so the status quoted next to a cost move isn't stale.
-    await tracker.refresh(grantId).catch((error: unknown) => {
-      console.error(`${AGENT}: could not refresh ${grantId}:`, error instanceof Error ? error.message : error);
-    });
+    if (refresh) {
+      await tracker.refresh(grantId).catch((error: unknown) => {
+        console.error(`${AGENT}: could not refresh ${grantId}:`, error instanceof Error ? error.message : error);
+      });
+    }
     const grant = conn.rows('grant').find((g) => g.id === grantId);
     if (!grant) return undefined;
     const status = grant.status.replace(/_/g, ' ');
@@ -178,22 +180,20 @@ export function startReportChecker(ctx: AgentContext): AgentHandle {
     };
   }
 
-  // A held paper's Inbox item, rewritten to say what to do.
-  async function explain(id: string, record?: PaperRecord | null, assessment?: string) {
-    const row = paper(id);
-    const hold = openHold(id);
-    if (!row?.checked || row.result !== 'held' || !hold || hold.evidence.some((e) => e.label === TO_DO)) return;
-
+  async function heldPaper(row: ReportPaperRow, refresh = true): Promise<HeldPaper> {
     const failed = row.checks.filter((c) => !c.pass).map(({ check, detail }) => ({ check, detail }));
     const creditedIsLabGrant = conn.rows('grant').some((g) => g.id === row.creditsGrantId);
     const creditFailed = failed.some((c) => c.check === 'Credits this grant');
     const costMoves = creditFailed && creditedIsLabGrant ? costMovesFor(row, row.creditsGrantId) : [];
-    const status = costMoves.length > 0 ? await grantStatus(row.creditsGrantId) : undefined;
-    const held: HeldPaper = {
+    const status = costMoves.length > 0 ? await grantStatus(row.creditsGrantId, refresh) : undefined;
+    return {
       paperId: row.id, title: row.title, doi: row.doi, reportGrantId: row.grantId, creditsGrantId: row.creditsGrantId,
       creditedIsLabGrant, failed, rule: PAPER_RULE, correctionKind: row.correction?.kind, costMoves,
       creditedGrantStatus: status?.text, creditedGrantFrozen: status?.frozen,
     };
+  }
+
+  async function explanation(held: HeldPaper): Promise<string> {
     const draft = fallbackExplanation(held);
     const answer = await ask({
       task: 'report-checker.explain',
@@ -202,11 +202,20 @@ export function startReportChecker(ctx: AgentContext): AgentHandle {
       schema: explainSchema,
       fallback: () => ({ why: draft }),
     });
-    let why = answer.value.why;
-    if (!mentionsAll(why, mustMention(held))) {
-      console.warn(`${AGENT}: the explanation for ${id} dropped an id or amount; using the template`);
-      why = draft;
-    }
+    if (mentionsAll(answer.value.why, mustMention(held))) return answer.value.why;
+    console.warn(`${AGENT}: the explanation for ${held.paperId} dropped an id or amount; using the template`);
+    return draft;
+  }
+
+  // A held paper's Inbox item, rewritten to say what to do.
+  async function explain(id: string, record?: PaperRecord | null, assessment?: string) {
+    const row = paper(id);
+    const hold = openHold(id);
+    if (!row?.checked || row.result !== 'held' || !hold || hold.evidence.some((e) => e.label === TO_DO)) return;
+
+    const held = await heldPaper(row);
+    const { failed, costMoves } = held;
+    const why = await explanation(held);
 
     const evidence: Evidence[] = [...hold.evidence];
     for (const move of costMoves) {
@@ -226,6 +235,31 @@ export function startReportChecker(ctx: AgentContext): AgentHandle {
       kind: 'report', refId: row.id, grantId: row.grantId, title: holdTitle(held), why, evidence,
       options: hold.options.length > 0 ? hold.options : ['approve', 'reject'],
     });
+  }
+
+  // An explained item quotes the credited grant's status ("frozen right now").
+  // When that grant freezes or unfreezes, the item is written again with the
+  // status as it is now; its other rows stay.
+  async function restate(id: string) {
+    const row = paper(id);
+    const hold = openHold(id);
+    if (!row?.checked || row.result !== 'held' || !hold) return;
+    const label = `${row.creditsGrantId} now`;
+    const said = hold.evidence.find((e) => e.label === label);
+    if (!said || !hold.evidence.some((e) => e.label === TO_DO)) return;
+    const held = await heldPaper(row, false);
+    if (!held.creditedGrantStatus || held.creditedGrantStatus === said.value) return;
+    const why = await explanation(held);
+    const fresh = new Map<string, string>([[label, held.creditedGrantStatus], [TO_DO, asksFor(held).join(' ')]]);
+    // One "90-day limit" row per cost move, in the same order.
+    const limits = held.costMoves.map((move) => `Charged ${move.chargedOn}: ${daysLeftPhrase(move)}`);
+    let nth = 0;
+    const evidence = hold.evidence.map((e) => {
+      if (e.label === '90-day limit') return { label: e.label, value: limits[nth++] ?? e.value };
+      return fresh.has(e.label) ? { label: e.label, value: fresh.get(e.label)! } : e;
+    });
+    if (stopped || openHold(id)?.id !== hold.id) return;
+    await conn.call('raise_hold', { kind: 'report', refId: row.id, grantId: row.grantId, title: holdTitle(held), why, evidence, options: hold.options });
   }
 
   async function unknownDoi(row: ReportPaperRow) {
@@ -315,6 +349,12 @@ export function startReportChecker(ctx: AgentContext): AgentHandle {
     conn.onInsert('reportPaper', queueCheck),
     // load_seed replaces a paper in place, which arrives as an update.
     conn.onUpdate('reportPaper', (_before, after) => queueCheck(after)),
+    conn.onUpdate('grant', (before, after) => {
+      if (before.frozen === after.frozen || stopped) return;
+      for (const row of conn.rows('reportPaper')) {
+        if (row.result === 'held' && row.creditsGrantId === after.id) void queue.push(`restate ${row.id}`, () => restate(row.id));
+      }
+    }),
   ];
 
   return {
