@@ -926,7 +926,7 @@
         "quote": "NSF’s management decision is to disallow all questioned costs in the amount of $73,260."
       },
       "outcome": "out of scope",
-      "why": "GrantGuard charges a grant only through request, order and invoice; it has no journal entries to test."
+      "why": "Grant Test Auto charges a grant only through request, order and invoice; it has no journal entries to test."
     },
     {
       "id": "rf-30",
@@ -1084,7 +1084,7 @@
         "label": "auditor"
       },
       "outcome": "out of scope",
-      "why": "GrantGuard does not check receipt of goods or who owns a vendor."
+      "why": "Grant Test Auto does not check receipt of goods or who owns a vendor."
     },
     {
       "id": "rf-39",
@@ -1102,7 +1102,7 @@
         "quote": "it is the NSF management decision that the $1,276,668 questioned as excess senior salaries are allowable costs"
       },
       "outcome": "out of scope",
-      "why": "NSF's two-month salary rule is not modeled; GrantGuard checks only effort above 100%."
+      "why": "NSF's two-month salary rule is not modeled; Grant Test Auto checks only effort above 100%."
     },
     {
       "id": "rf-40",

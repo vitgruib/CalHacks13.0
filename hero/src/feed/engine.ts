@@ -1,4 +1,4 @@
-// The scripted feed: a world that plays the GrantGuard story on a virtual
+// The scripted feed: a world that plays the Grant Test Auto story on a virtual
 // clock and emits FlowEvents for scenes to animate. Spending, freeze,
 // invoice and paper decisions come from server/src/rules.ts, the same
 // functions the database module runs, so every verdict here is the one the

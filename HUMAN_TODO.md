@@ -15,6 +15,7 @@ Unassigned, outside the tracks. Someone must own this. Prep is in
 (`DEVPOST-DRAFT.md`), demo and video script (`DEMO-SCRIPT.md`).
 
 - [ ] Devpost draft submitted Sat night, then keep editing it
+- [ ] Rename the project on Devpost (and anywhere typed outside the repo: slides, video title cards, Apify Actor listing) from GrantGuard to Grant Test Auto
 - [ ] Record the backup video. It **opens with the moment**, and includes the one line on seats and a real-vs-simulated + how-we-know section
 - [ ] Interview one or more PIs or research administrators and quote them in the Devpost (Anthropic track, Microsoft Customer Impact Award)
 - [ ] Hyphenate booth: does a grant office count as a finance team?

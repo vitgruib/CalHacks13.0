@@ -2,7 +2,7 @@
   "name": "grantguard-scrapers",
   "private": true,
   "type": "module",
-  "description": "GrantGuard T15: Apify Actor that scrapes public NIH grant cancellation lists for the fund tracker",
+  "description": "Grant Test Auto T15: Apify Actor that scrapes public NIH grant cancellation lists for the fund tracker",
   "engines": {
     "node": ">=22"
   },

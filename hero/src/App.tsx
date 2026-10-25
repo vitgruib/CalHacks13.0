@@ -23,10 +23,10 @@ class Fallback extends Component<{ children: ReactNode }, { failed: boolean }> {
     if (!this.state.failed) return this.props.children
     return (
       <main className="hero-fallback">
-        <h1>GrantGuard</h1>
+        <h1>Grant Test Auto</h1>
         <p>An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
         <p className="hero-fallback-note">This simulated lab needs 3D graphics (WebGL), and this browser could not start them.</p>
-        <a href={APP_URL}>Open the GrantGuard app</a>
+        <a href={APP_URL}>Open the Grant Test Auto app</a>
       </main>
     )
   }

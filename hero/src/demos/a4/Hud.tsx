@@ -25,12 +25,12 @@ function Head() {
     <header className="a-head">
       <p className="a-brand">
         <Mark size={20} />
-        <span>GrantGuard</span>
+        <span>Grant Test Auto</span>
         <span className="a-demo">Simulated</span>
       </p>
       <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
       <p className="a-lede">A simulated lab running a scripted story. Three AI agents check every request against the real spending rules; you, the grant manager, decide the exceptions.</p>
-      <a className="a-applink" href={APP_URL}>Open the GrantGuard app</a>
+      <a className="a-applink" href={APP_URL}>Open the Grant Test Auto app</a>
       <button type="button" className="a-btn a-btn--primary" onClick={() => ui.set({ section: 'requests', composing: true, composeFor: null, selected: null })}>
         <IconPlus size={15} />
         Send a request
@@ -212,7 +212,7 @@ function Peek() {
             <time className="a-peek-day" dateTime={today}>
               {fmtDay(today).replace(/, \d{4}$/, '')}
             </time>
-            <span className="a-peek-beat">{beat ?? 'GrantGuard'}</span>
+            <span className="a-peek-beat">{beat ?? 'Grant Test Auto'}</span>
           </>
         )}
       </span>
@@ -228,7 +228,7 @@ export function Sidebar() {
   const phone = usePhone()
   const sheet = useUi(s => s.sheet)
   return (
-    <aside className="a-side" data-float={phone ? 'sheet' : 'sidebar'} data-open={phone && sheet ? '' : undefined} aria-label="GrantGuard dashboard">
+    <aside className="a-side" data-float={phone ? 'sheet' : 'sidebar'} data-open={phone && sheet ? '' : undefined} aria-label="Grant Test Auto dashboard">
       {phone && <Peek />}
       <div className="a-side-body" id="a-side-body" inert={phone && !sheet}>
         <div className="a-side-scroll">

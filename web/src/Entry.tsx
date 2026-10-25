@@ -16,7 +16,7 @@ export default function Entry({ onPick }: { onPick: (portal: string) => void }) 
   return (
     <div className="entry">
       <div className="entry-card">
-        <div className="entry-brand">GrantGuard</div>
+        <div className="entry-brand">Grant Test Auto</div>
         <h1>Who are you?</h1>
         <p className="entry-sub">Pick a user to open their portal.</p>
         <button type="button" className="entry-office" onClick={() => onPick(office.id)}>

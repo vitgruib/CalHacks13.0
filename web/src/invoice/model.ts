@@ -1,4 +1,4 @@
-// GrantGuard Invoice: what a researcher submits, the checks the invoice agent
+// Grant Test Auto Invoice: what a researcher submits, the checks the invoice agent
 // runs (document, duplicate, purchase order, grant allocation, budget, research
 // fit, authorization) and the audit trail. Plain rules over the app's own
 // records, so the same invoice always gets the same findings. Reading an

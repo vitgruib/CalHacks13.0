@@ -1,4 +1,4 @@
-// GrantGuard's actions (reducers): the only way anything changes. Who may
+// Grant Test Auto's actions (reducers): the only way anything changes. Who may
 // call what is checked here, by identity, never in a prompt:
 // - agents register once per identity with one role; people register
 //   separately, and one identity can't be both;

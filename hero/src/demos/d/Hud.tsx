@@ -482,7 +482,7 @@ function SheetInfo({ w }: { w: World }) {
         </tbody>
       </table>
       <div className="dd-tblock">
-        <div className="dd-tb-title">GrantGuard · grant office of the Ortiz Lab</div>
+        <div className="dd-tb-title">Grant Test Auto · grant office of the Ortiz Lab</div>
         <dl>
           <div>
             <dt>Date</dt>
@@ -531,9 +531,9 @@ export function Hud() {
   return (
     <div className="dd-hud">
       <div className="dd-top">
-        <a className="dd-brand" href="#d" aria-label="GrantGuard">
+        <a className="dd-brand" href="#d" aria-label="Grant Test Auto">
           <Mark />
-          <span>GrantGuard</span>
+          <span>Grant Test Auto</span>
         </a>
         <div className="dd-top-r">
           <button className="dd-btn dd-desk" aria-expanded={parts} onClick={() => setParts(p => !p)}>

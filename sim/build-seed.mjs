@@ -1,4 +1,4 @@
-// Builds sim/seed.json: the fake university world for GrantGuard (T8).
+// Builds sim/seed.json: the fake university world for Grant Test Auto (T8).
 // Run: node sim/build-seed.mjs   (then: node sim/validate.mjs)
 //
 // The world is in its RAW, pre-agent state where it matters: every planted
@@ -182,11 +182,11 @@ for (const [n, grantId, day, item, vendor, category, price, purpose] of backgrou
 }
 
 // PLANTED (fund tracker): a purchase while the grant was canceled. Charged on
-// the department card outside GrantGuard; arrives through the university ledger.
+// the department card outside Grant Test Auto; arrives through the university ledger.
 db.requests.push({
   id: 'rq-050', day: '2026-03-18', requester: 'scientist', requesterName: 'Dr. Priya Nair', item: 'DDM detergent, 5 g', category: 'reagents', price: 890, grantId: A,
   purpose: 'Solubilizing outer membrane proteins', state: 'bought', verdicts: [],
-  explanation: 'Charged directly on the department purchasing card on 2026-03-18, outside GrantGuard. Imported from the university ledger.',
+  explanation: 'Charged directly on the department purchasing card on 2026-03-18, outside Grant Test Auto. Imported from the university ledger.',
 })
 db.orders.push({ id: 'o-050', requestId: 'rq-050', vendor: 'MembraneChem', amount: 890, placed: '2026-03-18', state: 'paid' })
 log('2026-03-20', 'system', 'Imported a card charge from the university ledger', 'MembraneChem $890 on R01GM061721, charged 2026-03-18.', 'rq-050')
@@ -432,7 +432,7 @@ db.checkRequests = scriptGrants.map(g => ({ grantId: g.id, reason: 'check_now', 
 db.requests.push({
   id: 'rq-060', day: '2025-06-09', requester: 'scientist', requesterName: 'Kenji Watanabe', item: 'Okadaic acid, 25 µg', category: 'reagents', price: 1_240, grantId: 'R01GM155497',
   purpose: 'Inhibiting PP2A in the B55alpha knockdown time course', state: 'bought', verdicts: [],
-  explanation: 'Charged directly on the department purchasing card on 2025-06-09, outside GrantGuard. Imported from the university ledger.',
+  explanation: 'Charged directly on the department purchasing card on 2025-06-09, outside Grant Test Auto. Imported from the university ledger.',
 })
 db.orders.push({ id: 'o-060', requestId: 'rq-060', vendor: 'Cayman Chemical', amount: 1_240, placed: '2025-06-09', state: 'paid' })
 log('2025-06-11', 'system', 'Imported a card charge from the university ledger', 'Cayman Chemical $1,240 on R01GM155497, charged 2025-06-09.', 'rq-060')

@@ -1,4 +1,4 @@
-// The shared contract (T3): every table GrantGuard keeps. Agents (Track B)
+// The shared contract (T3): every table Grant Test Auto keeps. Agents (Track B)
 // and windows (Track C) only ever talk through these tables and the actions
 // in index.ts. Shapes follow Track C's stand-in (web/src/data/types.ts) so
 // the windows swap over with little change.

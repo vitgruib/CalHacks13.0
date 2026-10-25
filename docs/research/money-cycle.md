@@ -2,7 +2,7 @@
 
 A federal grant's money passes through five phases, and each phase is
 recorded by a different system. This file lists what goes wrong between
-each pair of phases, how GrantGuard combines its three public sources,
+each pair of phases, how Grant Test Auto combines its three public sources,
 and a proposed reliability score for each grant. Written 2026-10-24
 (@ethan/claude). Follow the rules in [`README.md`](README.md).
 
@@ -123,7 +123,7 @@ record status, and they don't always agree.
   [07](pain-points/07-balance-visibility-admin-burden.md).
 - **Promised money isn't on the books yet.** Orders placed but not yet
   invoiced still use up the grant, so "spent" understates what's gone.
-  GrantGuard tracks this as *promised*.
+  Grant Test Auto tracks this as *promised*.
 - **Charges land on the wrong grant and get fixed late.** NIH wants cost
   transfers done within 90 days; WashU's Single Audit found transfers 8 to 16
   days late. `[agent-reported]` Pain point
@@ -132,7 +132,7 @@ record status, and they don't always agree.
   supplies bought near or after the award's end was disallowed. `[verified]`
   Same file.
 
-## How GrantGuard combines the three sources
+## How Grant Test Auto combines the three sources
 
 The bookkeeping agent's fund tracker (`agents/src/agents/bookkeeping.ts`,
 rules in `agents/src/tracker/compare.ts`; the freeze itself is in

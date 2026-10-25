@@ -16,7 +16,7 @@ export const FEATURES = {
   reports: 'Progress reports',
 };
 
-// Out of scope since T105: GrantGuard is the grant office ↔ researcher
+// Out of scope since T105: Grant Test Auto is the grant office ↔ researcher
 // interface. Their cases stay in the key (and their judges below) but are
 // neither scored nor listed.
 const CUT = new Set(['payment_requests', 'reports']);

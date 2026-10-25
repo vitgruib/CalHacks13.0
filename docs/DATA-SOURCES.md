@@ -214,7 +214,7 @@ Notes on how sure we are:
 
 **Recommendation.** For the demo, none are needed. For the pitch, PMS is the
 answer to "what about the 1–2 month lag?": a real university already has
-this data for its own grants, so GrantGuard would read it and drop the lag.
+this data for its own grants, so Grant Test Auto would read it and drop the lag.
 CourtListener and SAM.gov are the two that could actually be built in a few
 hours: CourtListener strengthens the court-order story, and SAM.gov adds a
 rule judges would recognize.

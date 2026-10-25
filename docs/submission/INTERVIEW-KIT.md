@@ -1,4 +1,4 @@
-# GrantGuard interview kit (print this)
+# Grant Test Auto interview kit (print this)
 
 For @ethan, Sat 10/24. Two in-person jobs: **(A)** the Hyphenate booth and
 **(B)** one interview with a PI or research administrator. Devpost is due
@@ -14,14 +14,14 @@ yourself, by hand.
 
 ## A. Hyphenate booth sheet
 
-**One-line pitch:** "GrantGuard is an AI grant office for a university
+**One-line pitch:** "Grant Test Auto is an AI grant office for a university
 research lab. Three agent seats (purchasing, grant accountant, and the
 payment-and-report preparer) keep spending within grant rules and keep the
 books reconciled across sources that disagree. They ask the human grant
 manager when they should, and they log why."
 
 **The moment (if they ask):** a court restores a canceled grant, and
-GrantGuard still won't spend until the money actually arrives.
+Grant Test Auto still won't spend until the money actually arrives.
 
 ### What hyphenate.ai says publicly (checked Sat 10/24)
 
@@ -124,7 +124,7 @@ unless they say yes to that separately.
 
 **Rules:** ask open questions, never "Wouldn't it be great if...". Ask them
 about the last real time something happened, not about what usually
-happens. Don't describe GrantGuard until the end. Write the best line down
+happens. Don't describe Grant Test Auto until the end. Write the best line down
 word for word, then read it back to them.
 
 ### 10-minute version
@@ -234,7 +234,7 @@ Fastest first:
 ### Draft: Slack / Discord post (hackathon channel)
 
 > **Grad students / postdocs / lab managers:** do you buy lab supplies on
-> a grant? Our team is building an AI grant office (GrantGuard). We'd love
+> a grant? Our team is building an AI grant office (Grant Test Auto). We'd love
 > 5 minutes of your stories about grant balances, purchases getting
 > bounced, or end-of-award spending. Anonymous is fine. DM me or come to
 > table [##]. We have snacks/stickers to trade. 🙏

@@ -1,7 +1,7 @@
-# GrantGuard hero
+# Grant Test Auto hero
 
 A 3D hero page: a simulated wet lab whose researchers send purchase requests to
-a network of GrantGuard's finance agents, and get bought, rerouted, blocked or
+a network of Grant Test Auto's finance agents, and get bought, rerouted, blocked or
 held back. The story is scripted (`src/feed/`), but every verdict comes from
 the real spending rules in `server/src/rules.ts`.
 
@@ -26,7 +26,7 @@ in (`npm --prefix hero run story` prints the beat times), `?hq` keeps full quali
 | Build command | `npm run build` |
 | Output directory | `dist` |
 | `VITE_HERO_VARIANT` | the version to ship, e.g. `a1`. It drops the gallery, the number keys and the overview |
-| `VITE_APP_URL` | optional; where "Open the GrantGuard app" goes (default `https://calhacks130.vercel.app`) |
+| `VITE_APP_URL` | optional; where "Open the Grant Test Auto app" goes (default `https://calhacks130.vercel.app`) |
 
 If WebGL cannot start, the page shows a still fallback with the app link
 instead of a blank screen.

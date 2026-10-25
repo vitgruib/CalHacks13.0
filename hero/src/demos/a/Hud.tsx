@@ -255,7 +255,7 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
       <div className="a-top">
         <header className="a-brand">
           <Mark />
-          <span>GrantGuard</span>
+          <span>Grant Test Auto</span>
         </header>
         <HeroCopy />
       </div>

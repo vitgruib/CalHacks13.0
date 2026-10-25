@@ -126,7 +126,7 @@ function politeFetch(inner: typeof fetch, contactEmail: string | undefined, thro
     // Added here, below fetchJson, so the address never lands in a cache key
     // or a committed saved copy.
     if (site === 'crossref') {
-      headers.set('user-agent', `GrantGuard/0.1 (CalHacks 13.0 project${contactEmail ? `; mailto:${contactEmail}` : ''})`);
+      headers.set('user-agent', `GrantTestAuto/0.1 (CalHacks 13.0 project${contactEmail ? `; mailto:${contactEmail}` : ''})`);
     }
     if (site === 'ncbi' && contactEmail) url += `&email=${encodeURIComponent(contactEmail)}`;
     for (let attempt = 0; ; attempt++) {

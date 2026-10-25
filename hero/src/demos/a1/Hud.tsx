@@ -31,11 +31,11 @@ function Head() {
     <header className="a-head">
       <p className="a-brand">
         <Mark />
-        <span>GrantGuard</span>
+        <span>Grant Test Auto</span>
       </p>
       <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
       <p className="a-lede">A simulated lab running a scripted story. Three AI agents check every request against the real spending rules; you, the grant manager, decide the exceptions.</p>
-      <a className="a-applink" href={APP_URL}>Open the GrantGuard app</a>
+      <a className="a-applink" href={APP_URL}>Open the Grant Test Auto app</a>
       <button type="button" className="a-btn a-btn--primary" onClick={compose}>
         Send a request
       </button>
@@ -178,7 +178,7 @@ function usePeekLine(): { tone: string; text: string } {
     const r = findMine(mine, w)
     if (r) return { tone: r.outcome ?? 'pending', text: mineLine(r, w) }
   }
-  return { tone: 'story', text: w.beat?.title ?? 'GrantGuard' }
+  return { tone: 'story', text: w.beat?.title ?? 'Grant Test Auto' }
 }
 
 function Peek({ open }: { open: boolean }) {
@@ -245,7 +245,7 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
   const sheet = useUi(s => s.sheet)
   const open = !phone || sheet
   return (
-    <aside className="a-side" data-float={phone ? 'sheet' : 'sidebar'} data-open={open ? '' : undefined} aria-label="GrantGuard dashboard">
+    <aside className="a-side" data-float={phone ? 'sheet' : 'sidebar'} data-open={open ? '' : undefined} aria-label="Grant Test Auto dashboard">
       {phone && <Peek open={sheet} />}
       <div className="a-side-body" id="a-side-body" inert={!open}>
         <div className="a-scroll">
@@ -271,7 +271,7 @@ export function EmbedHud({ root }: { root: RefObject<HTMLDivElement | null> }) {
   return (
     <div className="a-embed-copy" data-float="embed-copy">
       <header className="a-embed-head">
-        <h1>GrantGuard</h1>
+        <h1>Grant Test Auto</h1>
         <p className="a-embed-sub">An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
         <p className="a-lede">A simulated lab replaying a scripted story; the spending rules are the real ones.</p>
         <p className="a-embed-prompt">

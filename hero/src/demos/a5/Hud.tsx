@@ -33,7 +33,7 @@ function Head() {
       <div className="a-brand-row">
         <p className="a-brand">
           <Mark size={20} />
-          <span>GrantGuard</span>
+          <span>Grant Test Auto</span>
         </p>
         <button type="button" className="a-btn a-btn--primary" onClick={compose}>
           Send a request
@@ -41,7 +41,7 @@ function Head() {
       </div>
       <h1 id="a5-headline">An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
       <p className="a-lede">A simulated lab running a scripted story. Three AI agents check every request against the real spending rules; you decide the exceptions.</p>
-      <a className="a-applink" href={APP_URL}>Open the GrantGuard app</a>
+      <a className="a-applink" href={APP_URL}>Open the Grant Test Auto app</a>
     </header>
   )
 }
@@ -187,7 +187,7 @@ function Peek() {
       }
     }
     if (openHolds(w)) return `${openHolds(w)} decision${openHolds(w) === 1 ? '' : 's'} waiting on you`
-    return w.beat?.title ?? 'GrantGuard'
+    return w.beat?.title ?? 'Grant Test Auto'
   })
   return (
     <button type="button" className="a-peek" aria-expanded={sheet} aria-controls="a5-side-body" onClick={() => toggleSheet(!sheet)}>
@@ -297,7 +297,7 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
   const sheet = useUi(s => s.sheet)
   const side = useRef<HTMLDivElement>(null)
   return (
-    <aside ref={side} className="a-side" data-float={narrow ? 'sheet' : 'sidebar'} data-open={narrow && sheet ? '' : undefined} aria-label="GrantGuard dashboard">
+    <aside ref={side} className="a-side" data-float={narrow ? 'sheet' : 'sidebar'} data-open={narrow && sheet ? '' : undefined} aria-label="Grant Test Auto dashboard">
       {narrow && <Peek />}
       <div className="a-side-body" id="a5-side-body" inert={narrow && !sheet}>
         <Head />

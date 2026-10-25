@@ -28,7 +28,7 @@ const cut = (grantId: string, day: string, by = 'NIH'): Event => ({ kind: 'cance
 export const CASES: FailureCase[] = [
   {
     grantId: 'R01GM155497', researcher: 'kenji', kind: 'error', title: 'Bought after the cut',
-    story: 'Terminated 2025-06-04. Five days later a $1,240 card charge (rq-060) was placed on it outside GrantGuard.',
+    story: 'Terminated 2025-06-04. Five days later a $1,240 card charge (rq-060) was placed on it outside Grant Test Auto.',
     steps: [
       { label: 'The cut', event: cut('R01GM155497', '2025-06-04'), watch: 'The cancellation lands dated 2025-06-04, so the agent marks the 2025-06-09 charge: money spent 5 days after the grant was canceled.' },
     ],

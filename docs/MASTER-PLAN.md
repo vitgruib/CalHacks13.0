@@ -1,6 +1,6 @@
-# GrantGuard master plan
+# Grant Test Auto master plan
 
-The product spec: what GrantGuard does, who does what, the rules in code,
+The product spec: what Grant Test Auto does, who does what, the rules in code,
 the planted mistakes, the windows and the demo path. Scope locked Sat 10/24
 just after midnight (`DECISIONS.md`); updated as decisions land. Live work is
 in `TASKS.md`; evidence for every rule and planted mistake is in
@@ -13,7 +13,7 @@ numbering.
 
 ## 1. The product
 
-GrantGuard is the interface between a university lab's researchers and its
+Grant Test Auto is the interface between a university lab's researchers and its
 grant office. Researchers ask to buy things and send in invoices; the
 database checks each against every grant's money, status and rules, and
 puts it in front of the human grant manager with the verdicts. Every
@@ -32,11 +32,11 @@ and out of the menu and scorecard.
 
 - **Seat:** grant accountant for a university research lab.
 - **Company:** a fictional lab, seeded with real public NIH grant records.
-- **The core behavior:** a court restores a canceled grant, and GrantGuard
+- **The core behavior:** a court restores a canceled grant, and Grant Test Auto
   still won't spend until the money actually arrives.
 - **Proposed thesis (not yet adopted; `DECISIONS.md`):** the funder, the
   grant office and the researcher each keep their own record of the same
-  money, and GrantGuard keeps those three in sync.
+  money, and Grant Test Auto keeps those three in sync.
 
 ## 2. Who does what
 
@@ -215,7 +215,7 @@ where its money is) and My requests (only their own, with push back).
 ## 5. The demo path (the end-to-end test the build must pass)
 
 1. A grant is canceled, so spending freezes. A court restores it. The
-   researcher asks to buy; GrantGuard flags it for the grant manager,
+   researcher asks to buy; Grant Test Auto flags it for the grant manager,
    because the money hasn't arrived, and explains. The payment lands, every
    rule passes, and the grant manager approves it. One item is still
    flagged (supplies in the last 90 days).
@@ -274,7 +274,7 @@ Tasks and commits cite these IDs.
 **Cut:** purchase cards through Stripe or Visa (B3); cloud computing rules;
 a separate sources-disagree view (now part of the tracker); the payment
 request writer (P5, §3.4) and report checker (P7, §3.5), cut in T105 to keep
-GrantGuard to the grant office ↔ researcher interface; the AI rule
+Grant Test Auto to the grant office ↔ researcher interface; the AI rule
 writer (Factory Droid, S3); the replacement-funder finder (S1); clinical
 trial rescue (S2); the voice and "ask why" agent (S4); Nessie; an AI
 scientist persona.

@@ -248,7 +248,7 @@ export function assess(plan: Plan, g: Grant, today: string): Report {
   } else {
     affordable = 'yes'
     affordableSummary = `The plan totals ${money(total)} and ${money(available)} is available, leaving ${money(available - total)} after it.`
-    note = `Available balance per GrantGuard's records, after spending and orders already placed.`
+    note = `Available balance per Grant Test Auto's records, after spending and orders already placed.`
   }
   if (total === 0) { affordable = 'clarify'; affordableSummary = 'Add estimated costs to check the plan against the balance.'; note = 'No costs entered yet.' }
 

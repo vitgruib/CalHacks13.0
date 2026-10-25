@@ -1,6 +1,6 @@
 # sim/: the fake university world (T8)
 
-`seed.json` is the full test world for GrantGuard: one fictional lab (Dr. Lena
+`seed.json` is the full test world for Grant Test Auto: one fictional lab (Dr. Lena
 Ortiz, microbiology) with two real NIH grant IDs, holding every planted mistake and decoy
 from `docs/MASTER-PLAN.md` §3 as real records. `answer-key.json` lists each
 one with the decision the system should make. T19's scorecard compares the

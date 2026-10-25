@@ -61,7 +61,7 @@ test('rp_1_a_paper_crediting_the_wrong_grant_is_held_with_the_cost_move_and_the_
   // Approve moves no money, so the To do says who moves the charge.
   assert.equal(
     evidence.get('What to do'),
-    "Move rq-035's $2,100 from R21AI182745 to R01GM061721 in the ledger by 2026-07-23 (GrantGuard doesn't move charges), list the paper in R01GM061721's report, then approve.",
+    "Move rq-035's $2,100 from R21AI182745 to R01GM061721 in the ledger by 2026-07-23 (Grant Test Auto doesn't move charges), list the paper in R01GM061721's report, then approve.",
   );
   // The grant the cost would move to is frozen; the Inbox says so, in the module's words.
   assert.match(evidence.get('R01GM061721 now') ?? '', /spending frozen/);

@@ -1,6 +1,6 @@
 # What each agent does
 
-GrantGuard's agents each sign in as their own seat (the purchasing agent was
+Grant Test Auto's agents each sign in as their own seat (the purchasing agent was
 cut in T108; the payment and report agent is out of scope since T105). They share one
 rule: **the database's rules decide, and the agents act on those decisions.**
 Claude reads what people wrote and writes what people read. Anything that

@@ -110,7 +110,7 @@ export function asksFor(paper: HeldPaper): string[] {
         // the person makes the move in the ledger and approves after.
         const moves = paper.costMoves.map(moveLine).join(' and ');
         asks.push(
-          `${moves[0].toUpperCase()}${moves.slice(1)} in the ledger${when} (GrantGuard doesn't move charges), ` +
+          `${moves[0].toUpperCase()}${moves.slice(1)} in the ledger${when} (Grant Test Auto doesn't move charges), ` +
             `list the paper in ${paper.creditsGrantId}'s report, then approve.`,
         );
       } else if (paper.creditedIsLabGrant) {

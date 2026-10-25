@@ -1,0 +1,32 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T07:13:44.243Z",
+  "input": {
+    "request": {
+      "item": "PS5",
+      "category": "entertainment",
+      "price": 500,
+      "purpose": "for the lab",
+      "askedForGrant": "R01GM061721"
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R01GM061721",
+    "grantIsClear": true,
+    "note": "Scientist asked for grant R01GM061721, so the request is charged to it; the item is a PS5 bought for vague 'for the lab' purpose, which the spending rules will assess."
+  }
+}

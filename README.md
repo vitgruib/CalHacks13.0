@@ -1,4 +1,4 @@
-# GrantGuard
+# Grant Test Auto
 
 An AI grant office for a university research lab. Built at Cal Hacks 13.0
 for the Hyphenate track, "The Hyphenated Enterprise: Autonomous Systems for
@@ -10,7 +10,7 @@ to the hosted database and the always-on agent worker)
 
 ## What it is
 
-GrantGuard is the go-between for a lab's researchers and its grant office.
+Grant Test Auto is the go-between for a lab's researchers and its grant office.
 Researchers ask to buy things and send in invoices; AI agents check each one
 against the grant's real balance, status and rules, and either act or pass
 it to the one human grant manager with the reason. Anything unclear or over a limit waits for the
@@ -44,7 +44,7 @@ and every invoice.
 | Is it real enough? | Real NIH grant records and a real scrape of the public cancellation list. A simulated lab with 12 planted mistakes modeled on real audit findings, plus 4 decoys. Scorecard: 12 of 12 caught, 0 false alarms ([below](#whats-real-and-whats-simulated)). |
 | Would you hire it? | Each agent logs in as its own database identity. Limits live in the database code, not in prompts: agents cannot decide Inbox items, nobody approves their own request, and nothing is bought or paid without the grant manager's approval. Every action has a Log row with a "why?". |
 | Did we see something new? | The corner: the post-award grant office of a research lab during the 2025 to 2026 grant cancellations, where a grant's status is a timeline of dated events with sources, not one field. |
-| The moment | A court restores a canceled grant, and GrantGuard still flags spending on it until the money arrives. Then the request clears every rule and the grant manager can approve it. |
+| The moment | A court restores a canceled grant, and Grant Test Auto still flags spending on it until the money arrives. Then the request clears every rule and the grant manager can approve it. |
 
 ## The 3-minute demo
 
@@ -62,7 +62,7 @@ today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
    "Payment arrives" replay this sequence on either grant.
 2. **A scientist asks to buy** nitrile gloves ($640) on grant A, noting that
    the court restored it. A rule engine reading "restored" would say yes.
-   GrantGuard sends it to the Inbox flagged, and explains: no money has
+   Grant Test Auto sends it to the Inbox flagged, and explains: no money has
    arrived since the court order. Click "why?" on its Log row.
 3. **The money lands.** In Demo controls, press "Payment arrives". In the
    Inbox, settle "Which source is right about R01GM061721?" (RePORTER says
@@ -84,7 +84,7 @@ today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
    card limit.
 
 Payment requests to the government and progress-report checks are out of
-scope (T105): GrantGuard is the interface between the grant office and the
+scope (T105): Grant Test Auto is the interface between the grant office and the
 lab's researchers. Their code is still in the repo, unused.
 
 The app loads a smaller demo world (`sim/demo-seed.json`, 11 of the 22
@@ -281,7 +281,7 @@ checked against its saved source. In
 [eval/real-findings.json](eval/real-findings.json) (`GG_CLAUDE=offline`):
 27 of the 40 findings are in scope, and 22 of the 27 are caught, with 5
 missed. All 3 decoys pass with 0 false alarms. The other 13 findings have
-no GrantGuard rule and are listed as out of scope.
+no Grant Test Auto rule and are listed as out of scope.
 
 ## Run it locally
 

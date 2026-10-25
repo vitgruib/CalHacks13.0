@@ -2,7 +2,7 @@
   "name": "grantguard-server",
   "private": true,
   "type": "module",
-  "description": "GrantGuard SpacetimeDB module (Track A): tables, rules and actions — the shared contract",
+  "description": "Grant Test Auto SpacetimeDB module (Track A): tables, rules and actions — the shared contract",
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

@@ -1,6 +1,6 @@
 # Where the request, invoice and grant-check loop actually happens
 
-The back-and-forth GrantGuard sits in (a researcher asks to buy something,
+The back-and-forth Grant Test Auto sits in (a researcher asks to buy something,
 someone checks the grant can pay for it, an invoice arrives and someone
 checks it against the order) doesn't happen in one system. It's spread across
 email, a purchasing marketplace, the finance system, an accounts-payable
@@ -30,7 +30,7 @@ Details vary by school, but the shape is the same everywhere we looked.
 
 The same three questions (money left? grant still open? allowed?) get asked
 at steps 2, 4, 5, 8, 9 and 10, by different people in different tools.
-That's GrantGuard's core idea: answer them once, from one record of the grant.
+That's Grant Test Auto's core idea: answer them once, from one record of the grant.
 
 ## Evidence
 
@@ -95,7 +95,7 @@ That's GrantGuard's core idea: answer them once, from one record of the grant.
   not matching vendor invoice", "POs not Received/OK to Pay" and "POs not
   having enough encumbered funds". `[verified]`
   https://accounting.ucr.edu/accounts-payable/vendor-invoice-process
-  Those three delay causes are exactly what GrantGuard's invoice check looks
+  Those three delay causes are exactly what Grant Test Auto's invoice check looks
   for (`docs/MASTER-PLAN.md`).
 - Also central AP email inboxes `[unverified]`: UCLA (since Dec 2023), Yale,
   Drew. Boston University auto-pays PO invoices under $5,000 unless the
@@ -135,11 +135,11 @@ That's GrantGuard's core idea: answer them once, from one record of the grant.
   `sources/docs/fdp-2018-faculty-workload-survey.txt`
   (the 44%-of-time figure is in [pain point 07](pain-points/07-balance-visibility-admin-burden.md)).
 
-## What this means for GrantGuard
+## What this means for Grant Test Auto
 
 - **Pitch line:** a purchase is checked for the same three things up to six
   times, by different people in different tools, starting in an email thread.
-  GrantGuard checks once, against the live state of the grant, and shows
+  Grant Test Auto checks once, against the live state of the grant, and shows
   everyone the same answer.
 - **Where we sit:** next to the marketplace and the AP inbox, not instead of
   them. Don't claim to replace Workday, Oracle or BearBuy. The ERP rollout

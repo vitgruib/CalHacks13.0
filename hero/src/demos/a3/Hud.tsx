@@ -37,7 +37,7 @@ function Header() {
       <div className="a-brand-row">
         <p className="a-brand">
           <Mark />
-          <span>GrantGuard</span>
+          <span>Grant Test Auto</span>
         </p>
         <button type="button" className="a-btn a-btn--primary a-btn--sm" onClick={() => ui.set({ tab: 'requests', selected: null, composing: true, sheet: true })}>
           Send a request
@@ -45,7 +45,7 @@ function Header() {
       </div>
       <h1 id="a-headline">An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
       <p className="a-lede">A simulated lab running a scripted story. Three AI agents check every request against the real spending rules; you, the grant manager, decide the exceptions.</p>
-      <a className="a-applink" href={APP_URL}>Open the GrantGuard app</a>
+      <a className="a-applink" href={APP_URL}>Open the Grant Test Auto app</a>
     </header>
   )
 }
@@ -221,10 +221,10 @@ function Peek() {
   const selected = useUi(s => s.selected)
   const mine = useUi(s => s.mine)
   const open = w.holds.filter(h => h.open)
-  let line = w.beat?.title ?? 'GrantGuard'
+  let line = w.beat?.title ?? 'Grant Test Auto'
   const sel = selected ? w.nodes.find(n => n.id === selected) : undefined
   const r = mine[0] ? (w.requests.find(q => q.revisionOf === mine[0]) ?? w.requests.find(q => q.id === mine[0])) : undefined
-  if (sheet) line = 'GrantGuard' // open, the sheet itself shows everything else
+  if (sheet) line = 'Grant Test Auto' // open, the sheet itself shows everything else
   else if (sel) line = sel.kind === 'agent' || sel.id === 'p:grant_manager' ? `${sel.label}: ${agentNow(w, sel.id).word.toLowerCase()}` : sel.label
   else if (open.length) line = `Waiting on you: ${open[0].title}`
   else if (r && (!r.outcome || w.packets.some(p => p.refId === r.id))) line = `Your ${shortItem(r.item).toLowerCase()}: ${outcomeText(r, w).toLowerCase()}`
@@ -278,7 +278,7 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
   const sheet = useUi(s => s.sheet)
   const shut = narrow && !sheet
   return (
-    <aside className="a-side" data-float={narrow ? 'sheet' : 'sidebar'} data-open={narrow && sheet ? '' : undefined} aria-label="GrantGuard dashboard">
+    <aside className="a-side" data-float={narrow ? 'sheet' : 'sidebar'} data-open={narrow && sheet ? '' : undefined} aria-label="Grant Test Auto dashboard">
       {narrow && <Peek />}
       <div className="a-side-inner" id="a-side-inner" inert={shut}>
         <Header />

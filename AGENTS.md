@@ -10,13 +10,13 @@ file wins inside this repo**.
 
 ## 0. Project facts (fill in at kickoff, keep current)
 
-- **What we're building (one sentence):** GrantGuard, the interface
+- **What we're building (one sentence):** Grant Test Auto, the interface
   between a university lab's researchers and its grant office: agents track
   every grant's money and status and check invoices; the grant manager
   approves every request and invoice (T108, no purchasing agent). Payment
   requests and progress reports are out of scope (T105). Full scope, owners and kickoff prompts: `docs/MASTER-PLAN.md`.
 - **The demo path (the 3-minute story judges see):** a grant is canceled
-  and spending freezes; a court restores it, but GrantGuard flags spending
+  and spending freezes; a court restores it, but Grant Test Auto flags spending
   until the money actually arrives, then the grant manager can approve it. Then an invoice for a
   canceled order is held, and the scorecard shows results on planted
   mistakes (`docs/MASTER-PLAN.md` §5).

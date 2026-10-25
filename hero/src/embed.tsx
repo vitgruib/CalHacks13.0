@@ -69,7 +69,7 @@ function Still({ go }: { go: (role?: Role) => void }) {
         </div>
         <div className="a-embed-copy">
           <header className="a-embed-head">
-            <h1>GrantGuard</h1>
+            <h1>Grant Test Auto</h1>
             <p className="a-embed-sub">An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
             <p className="a-lede">A still of the simulated lab; the spending rules are the real ones.</p>
             <p className="a-embed-prompt">

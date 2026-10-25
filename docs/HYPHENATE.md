@@ -119,9 +119,9 @@ person Fri 10/23, 7 PM** ("an hour after hacking starts", so hacking starts
 
 ## What this means for us
 
-How GrantGuard answers each requirement (details in `docs/MASTER-PLAN.md`).
+How Grant Test Auto answers each requirement (details in `docs/MASTER-PLAN.md`).
 
-| Their requirement | GrantGuard |
+| Their requirement | Grant Test Auto |
 | --- | --- |
 | Build the company too | A simulated university lab on two real NIH grant records: orders, invoices, approvals, payroll, papers, a simulated clock, and the grant manager and researchers it answers to (§1, §2) |
 | Several seats, not one | Grant accountant (bookkeeping agent) and the grant manager who approves every request and invoice, each its own database identity (§2; the purchasing agent was cut in T108) |

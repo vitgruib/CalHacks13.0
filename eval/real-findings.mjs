@@ -3,7 +3,7 @@
 // report saved in docs/research/sources/docs/, rebuilt as records planted in
 // a fresh copy of sim/seed.json. The copy runs through the real module and
 // agents (the same replay as the scorecard), and the case is scored with the
-// scorecard's judge. Findings GrantGuard has no rule for are listed as out of
+// scorecard's judge. Findings Grant Test Auto has no rule for are listed as out of
 // scope rather than left out.
 //
 // T88: the grade comes from what was finally decided about each cost, not
@@ -159,7 +159,7 @@ const pad = (s, n) => String(s).padEnd(n);
 const money = n => (n == null ? '' : `$${n.toLocaleString('en-US')}`);
 
 export function formatFindings(card) {
-  const lines = ['Real audit findings, replayed through GrantGuard', ''];
+  const lines = ['Real audit findings, replayed through Grant Test Auto', ''];
   lines.push(`${pad('case', 7)}${pad('auditee', 30)}${pad('amount', 12)}${pad('decided', 12)}${pad('outcome', 14)}what`);
   for (const r of card.findings) {
     lines.push(`${pad(r.id, 7)}${pad(`${r.auditee ?? r.source.auditee} ${r.source.year ?? ''}`.slice(0, 29), 30)}${pad(money(r.source.amount), 12)}${pad(r.decision.label, 12)}${pad(r.outcome, 14)}${r.what}`);

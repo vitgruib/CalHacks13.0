@@ -1,4 +1,4 @@
-# Devpost draft: GrantGuard
+# Devpost draft: Grant Test Auto
 
 Paste-ready text for the Devpost form. Drafted Sat 10/24 before any product
 code landed, so **everything describing the product is the plan in
@@ -65,7 +65,7 @@ Devpost prize names, as listed, for the ones we want:
 
 ## Project name
 
-GrantGuard
+Grant Test Auto
 
 ## Tagline (200 chars max)
 
@@ -73,7 +73,7 @@ An AI grant office for a university lab: it tracks every grant's real money, kee
 
 ## The seats it fills (Hyphenate's "one line")
 
-GrantGuard fills three seats in a university lab's grant office: the purchasing agent, the grant accountant, and the payment and report preparer, all reporting to one human grant manager.
+Grant Test Auto fills three seats in a university lab's grant office: the purchasing agent, the grant accountant, and the payment and report preparer, all reporting to one human grant manager.
 
 ---
 
@@ -121,7 +121,7 @@ that does it on its own and asks a human when it should.
 
 ## What it does
 
-GrantGuard runs a lab's grant office with three AI agents and one human grant
+Grant Test Auto runs a lab's grant office with three AI agents and one human grant
 manager. Each agent logs in under its own identity, and the database, not
 the prompt, decides what each one is allowed to do.
 
@@ -231,7 +231,7 @@ yourself: `[TBD: check command, from T2]`.
 ## Accomplishments that we're proud of
 
 `[TBD: confirm each against what runs.]`
-- The moment works live: a court restores a grant and GrantGuard still
+- The moment works live: a court restores a grant and Grant Test Auto still
   holds, then spends on its own the minute the payment lands.
 - An answer key built from real audit findings, scored on every build,
   including false alarms on decoys.
@@ -246,7 +246,7 @@ yourself: `[TBD: check command, from T2]`.
 - Rules and math belong in code; the model is best at reading messy text,
   matching it to records, and explaining.
 
-## What's next for GrantGuard
+## What's next for Grant Test Auto
 
 - **Proposal checker:** before the lab applies for a new grant, check the
   application's budget and cited papers using what the tracker and the
@@ -279,7 +279,7 @@ Order of priority. Each paragraph below can go in the Devpost text, the
 README, or the sponsor's own form, wherever that sponsor reads.
 
 **1. Hyphenate (select all three place entries).**
-GrantGuard is "the company and the system it works in": a fictional lab with
+Grant Test Auto is "the company and the system it works in": a fictional lab with
 real NIH grant records, three agent seats and three people, and planted
 mistakes from real audits. It hits each hard part of the brief. Sources
 disagree (RePORTER, USAspending and cancellation lists, each reading kept
@@ -303,7 +303,7 @@ behind the same database actions a real integration would call.
 Impact Award favors real user conversations.]`
 
 **3. Apify (select 1st to 5th; add Best Actor only if we publish the scraper
-as a public Actor).** GrantGuard's fund tracker depends on knowing when a
+as a public Actor).** Grant Test Auto's fund tracker depends on knowing when a
 grant is canceled or restored, and the official lists don't agree. Our Apify
 scraper `[needs T15; TBD: which list]` reads cancellation lists for the
 lab's own grant IDs and feeds them into the tracker as source readings,

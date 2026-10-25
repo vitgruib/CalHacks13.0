@@ -4,7 +4,7 @@
 **One-liner:** No single government system says both "is this grant on?"
 and "can the money actually be drawn?". The people who track it best do it
 by hand, crossing NIH RePORTER, USAspending and other systems, the same way
-GrantGuard's fund tracker does it automatically.
+Grant Test Auto's fund tracker does it automatically.
 
 ## What happens (plain language)
 - NIH's grant database (RePORTER) says whether NIH lists a grant as terminated.
@@ -17,7 +17,7 @@ restoration as real only once USAspending shows money flowing again. In
 court, under oath, one of them called these databases "technically public"
 but "difficult to access and interpret".
 
-This is the complaint behind GrantGuard's design, and confirmation that the
+This is the complaint behind Grant Test Auto's design, and confirmation that the
 design copies how the real system works. Related: 01 (no complete list), 02
 (status reversals), 06 (awarded vs paid), 10 (drawdown justifications).
 
@@ -28,9 +28,9 @@ statement for money moving, and the statement is a month or two behind.
 
 ## Evidence
 
-### It's the real system: how GrantGuard's sources line up with practice
+### It's the real system: how Grant Test Auto's sources line up with practice
 
-| GrantGuard assumes (`docs/DATA-SOURCES.md`) | Confirmed by |
+| Grant Test Auto assumes (`docs/DATA-SOURCES.md`) | Confirmed by |
 | --- | --- |
 | RePORTER's termination flag is the NIH-side status signal, and it needs checking | Grant Witness snapshots RePORTER and uses the "Terminated - Departmental Authority" flag being added or removed as its termination and reinstatement signal, with manual review. [verified] https://grantwitness.org/nih/updates/methodology |
 | USAspending outlays show whether money actually moves, monthly | Grant Witness uses USAspending File C "primarily for outlay actions"; File C "is released roughly once a month". [verified] same page |
@@ -82,7 +82,7 @@ The fund tracker does what Grant Witness's volunteers do by hand:
 See `docs/DATA-SOURCES.md` and `money-cycle.md`.
 
 ## Gaps / caveats
-- **PMS is invisible to us too.** The payment system's holds aren't public. GrantGuard sees money move only through USAspending outlays, one to two months late, so it can't see a hold directly. It sees the absence of payments.
+- **PMS is invisible to us too.** The payment system's holds aren't public. Grant Test Auto sees money move only through USAspending outlays, one to two months late, so it can't see a hold directly. It sees the absence of payments.
 - **Mostly 2025 sources.** Most evidence is from the 2025 termination wave. Grant Witness reports new terminations have been quiet in 2026 (see 01).
 - **Interested sources.** Delaney and Ross run Grant Witness and Delaney's declaration was filed for the plaintiffs. They are the best-placed witnesses to how the data works, but not neutral on the policy.
 - **Reddit roles are self-described** and unverified.

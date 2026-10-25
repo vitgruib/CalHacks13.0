@@ -1,4 +1,4 @@
-// Mockup E, "Rule machine": GrantGuard as a precise marble-run instrument.
+// Mockup E, "Rule machine": Grant Test Auto as a precise marble-run instrument.
 // Every request is a steel ball that runs six physical spending-rule gates;
 // a switch sends it to a grant's hopper, across to the other grant, into the
 // blocked bin, onto the grant manager's cradle, or round the waiting loop.

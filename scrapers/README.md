@@ -2,7 +2,7 @@
 
 An Apify Actor (Apify SDK + Crawlee) that reads the public list of disrupted
 NIH grants kept by [Grant Witness](https://grantwitness.org/nih) and turns it
-into one row per grant, in the shape GrantGuard's fund tracker reads.
+into one row per grant, in the shape Grant Test Auto's fund tracker reads.
 
 - **Source:** Grant Witness's own "download the full dataset" CSV,
   `https://data.grantwitness.org/nih/dl-table.csv` (no HTML scraping). On

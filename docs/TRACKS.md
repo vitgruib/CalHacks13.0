@@ -28,7 +28,7 @@ are in `docs/HYPHENATE.md`.** Read it before building anything.
 Each one requires *meaningful* use, so we enter only tracks that are core to
 the build.
 
-| Track | Prize | What judges want | How GrantGuard uses it |
+| Track | Prize | What judges want | How Grant Test Auto uses it |
 | --- | --- | --- | --- |
 | **Microsoft: Built for the Real World** (+ Customer Impact Award) | Grand: Surface laptop per member, a Microsoft FDE tech talk, 1:1 mentorship with senior FDEs. Customer Impact Award: the talk and mentorship | A production-minded finance agent: customer understanding, measurable usefulness, path to production, responsible design, end-to-end function. No Azure requirement | The agent worker runs always-on on an Azure VM; the scorecard is the measurement; limits live in the database; real-user interviews feed the Customer Impact Award |
 | **Anthropic** | $5k Claude credits + Max 20x | A **named community** with a real problem someone lived; Claude must matter; know where it fails | Research administrators and PIs; Claude reads requests and writes explanations, checked against the records |

@@ -1,0 +1,35 @@
+{
+  "task": "purchasing.explain",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T07:13:45.782Z",
+  "input": {
+    "request": {
+      "id": "rq5",
+      "item": "PS5",
+      "category": "entertainment",
+      "price": 500,
+      "purpose": "for the lab"
+    },
+    "action": "block",
+    "grantId": "R01GM061721",
+    "failed": [
+      {
+        "rule": "Grant is active and not frozen",
+        "detail": "Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen."
+      },
+      {
+        "rule": "Category allowed",
+        "detail": "entertainment is not an allowable direct cost on a federal grant.",
+        "auditCase": "NSF OIG audit of UC Davis: unallowable items charged to awards"
+      }
+    ],
+    "passed": [
+      "Enough truly available money",
+      "Under the card limit ($5,000)"
+    ],
+    "next": "It cannot be charged to a federal grant."
+  },
+  "answer": {
+    "explanation": "The PS5 request rq5 for $500 was blocked and cannot be charged to grant R01GM061721. The grant is not active and not frozen: it was canceled 2026-03-10, and although a court restored it on 2026-04-20, no payment has arrived since, so spending stays frozen. The category rule also failed because entertainment is not an allowable direct cost on a federal grant, citing the NSF OIG audit of UC Davis: unallowable items charged to awards. It cannot be charged to a federal grant."
+  }
+}

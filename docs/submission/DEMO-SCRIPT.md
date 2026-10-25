@@ -1,4 +1,4 @@
-# GrantGuard demo script
+# Grant Test Auto demo script
 
 Drafted Sat 10/24 before product code landed. It follows the demo path in
 `docs/MASTER-PLAN.md` §5 and the windows in §4. Every step that depends on
@@ -24,12 +24,12 @@ window open, Inbox empty. All outside lookups cached.
 
 | Time | Window | Action | Say |
 |---|---|---|---|
-| 0:00 | Funds | Nothing yet. Point at grant A's "truly available" number. | "GrantGuard is an AI grant office for a university lab. Three agents fill the purchasing, grant accountant, and payment-and-report seats. You're the grant manager, the only one who can approve. In June 2025 a federal court ordered canceled UC grants reinstated. A court order is not a payment. Watch." |
+| 0:00 | Funds | Nothing yet. Point at grant A's "truly available" number. | "Grant Test Auto is an AI grant office for a university lab. Three agents fill the purchasing, grant accountant, and payment-and-report seats. You're the grant manager, the only one who can approve. In June 2025 a federal court ordered canceled UC grants reinstated. A court order is not a payment. Watch." |
 | 0:15 | Test lab | Drop in a **cancellation** for grant A. `[needs T18, T5]` | "The government cancels grant A." |
 | 0:20 | Funds | Grant A turns frozen; status timeline gains a "canceled" event with its source. `[needs T17]` | "The bookkeeping agent records the change with its source and freezes spending." |
 | 0:30 | Test lab | Drop in a **court order** restoring grant A. Claude reads the notice text. `[needs T10/T18]` | "Now a court restores it. The agent read the notice and matched it to the grant." |
 | 0:40 | Requests | Driver switches to **Dr. Priya Nair's researcher portal**, asks to buy a reagent on grant A and pushes: "the court restored it." Switch back to the **grant office portal**: the request says "Requested by Dr. Priya Nair". `[needs T11]` | "Priya, a postdoc, wants to buy; the grant office sees exactly who asked. A rule engine reading 'status: active' would say yes." |
-| 0:50 | Requests / Log | Request held; explanation shown. Click "why?" on the Log row. `[needs T7, T11]` | "GrantGuard holds it: the order restored the grant, but no money has arrived. Here's the rule and the reason." |
+| 0:50 | Requests / Log | Request held; explanation shown. Click "why?" on the Log row. `[needs T7, T11]` | "Grant Test Auto holds it: the order restored the grant, but no money has arrived. Here's the rule and the reason." |
 | 1:05 | Test lab | Drop in the **payment** for grant A. | "Now the payment lands." |
 | 1:10 | Funds / Requests | Grant A unfreezes; the held purchase rechecks and goes through by itself. A second item (supplies in grant A's last 90 days) is blocked and rerouted to grant B. `[needs T5, T6, T11]` | "It unfreezes, rechecks, and buys on its own. The second item would land in the grant's last 90 days, which is what auditors disallowed at West Virginia, so it reroutes it to grant B, which has time and money left." |
 | 1:30 | Invoices | An invoice for a **canceled order** shows red with its timeline. `[needs T12]` | "The bookkeeping agent caught an invoice for an order we canceled. Every record looks fine alone; the timeline shows the problem." |
@@ -53,15 +53,15 @@ cleaner).
 
 | Time | Shot (on screen) | Narration |
 |---|---|---|
-| 0:00–0:05 | Funds window, grant A **frozen** (red), timeline shows "canceled". Caption: "Grant canceled." | "This research grant was just canceled. GrantGuard froze its spending." |
-| 0:05–0:15 | Test lab: court order dropped in. Funds timeline gains "court order: restored", grant **stays frozen**. Caption: "Court restores it." | "Then a court restored it. Most systems would flip it back to active. GrantGuard doesn't." |
+| 0:00–0:05 | Funds window, grant A **frozen** (red), timeline shows "canceled". Caption: "Grant canceled." | "This research grant was just canceled. Grant Test Auto froze its spending." |
+| 0:05–0:15 | Test lab: court order dropped in. Funds timeline gains "court order: restored", grant **stays frozen**. Caption: "Court restores it." | "Then a court restored it. Most systems would flip it back to active. Grant Test Auto doesn't." |
 | 0:15–0:27 | Requests: Priya asks to buy from her researcher portal, pushes back. Hold appears with explanation; close-up on the "why?" text. `[needs T11]` | "Priya asks to buy. The agent holds: a court order is not a payment, and no money has arrived." |
 | 0:27–0:37 | Payment lands. Grant A unfreezes; purchase rechecks and executes by itself; Log rows appear live. `[needs T5, T17]` | "The moment the payment lands, it rechecks and buys on its own." |
-| 0:37–0:45 | Title card: "GrantGuard: an AI grant office for a university research lab." Below: the seats line. | "GrantGuard fills three seats: purchasing agent, grant accountant, and payment and report preparer, under one human grant manager." |
+| 0:37–0:45 | Title card: "Grant Test Auto: an AI grant office for a university research lab." Below: the seats line. | "Grant Test Auto fills three seats: purchasing agent, grant accountant, and payment and report preparer, under one human grant manager." |
 | 0:45–1:00 | Quote cards (one at a time): "I won't believe it until ALL the funding has been disbursed" (r/AskAcademia, NEH grantee). Then the WVU $17,335 end-of-award disallowance. | "Researchers lived this in 2025. And the spending mistakes it guards against are the ones auditors keep finding, like supplies bought at the very end of a grant." |
 | 1:00–1:12 | Requests: second item blocked (last 90 days) and rerouted to grant B, citing the rule and the audit case. `[needs T6, T11]` | "This item would arrive in the grant's last 90 days, so it's rerouted to a grant with time left, with the rule and the audit case cited." |
 | 1:12–1:30 | Invoices: canceled-order invoice red, timeline expanded. Cut to Inbox: grant manager rejects with a reason. `[needs T12, T17]` | "An invoice for a canceled order: each record looks fine, the timeline doesn't. It's held for the grant manager, who has to give a reason." |
-| 1:30–1:50 | Payment requests: draft justification with the character count; follow-up question and drafted answer listing exact purchases. `[needs T13]` | "Every federal payment request now needs a written justification. GrantGuard drafts it from the purchase records, leaves out anything on hold, and answers the government's follow-ups." |
+| 1:30–1:50 | Payment requests: draft justification with the character count; follow-up question and drafted answer listing exact purchases. `[needs T13]` | "Every federal payment request now needs a written justification. Grant Test Auto drafts it from the purchase records, leaves out anything on hold, and answers the government's follow-ups." |
 | 1:50–2:02 | Reports: paper credits the wrong grant; proposed cost move with days left. `[needs T14]` | "It checks the lab's progress report too: this paper credits the wrong grant, and here's how long we have to fix the charge." |
 | 2:02–2:17 | Log window, then a self-approval attempt rejected by the database (e.g. an agent tries to approve its own payment request; error shown). `[needs T6, T7]` | "Each agent logs in as itself. The database, not the prompt, stops anyone approving their own work, and every action has a reason in the log." |
 | 2:17–2:35 | Test lab scorecard, full screen. `[needs T19]` | "Proof it works: [N] planted mistakes from real audits plus decoys. Caught [N], missed [N], false alarms [N]. It runs on every build." (Fill from the recorded screen.) |

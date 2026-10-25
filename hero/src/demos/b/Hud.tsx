@@ -595,7 +595,7 @@ export function Hud() {
     <div className="b-hud" data-sheet={sheet ?? ''} data-selected={selected ? '1' : '0'}>
       <header className="b-title">
         <div className="b-brand-row">
-          <p className="b-brand">GrantGuard</p>
+          <p className="b-brand">Grant Test Auto</p>
           {narrow && <Playback w={w} />}
         </div>
         <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>

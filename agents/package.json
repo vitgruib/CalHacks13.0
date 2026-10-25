@@ -2,7 +2,7 @@
   "name": "grantguard-agents",
   "private": true,
   "type": "module",
-  "description": "GrantGuard agent worker (Track B): three agents, each with its own database identity",
+  "description": "Grant Test Auto agent worker (Track B): three agents, each with its own database identity",
   "engines": {
     "node": ">=22"
   },

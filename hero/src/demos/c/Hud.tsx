@@ -43,7 +43,7 @@ export function Hud() {
             <path d="M9 25 C11 18 13.5 15 16 15 C18.5 15 21 18 23 25" />
             <path d="M2 25 H30" />
           </svg>
-          GrantGuard
+          Grant Test Auto
         </p>
         <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
         <p className="c-lede">

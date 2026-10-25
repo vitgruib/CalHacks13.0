@@ -1,6 +1,6 @@
 # Research: pain points and evidence
 
-The evidence behind GrantGuard: what hurts, who says so, and a source for
+The evidence behind Grant Test Auto: what hurts, who says so, and a source for
 every claim. **Read this file before citing, adding to, or building on
 anything in this folder.** Judge-facing summary with as-of dates:
 [`docs/submission/IMPACT-EVIDENCE.md`](../submission/IMPACT-EVIDENCE.md).
@@ -29,7 +29,7 @@ Numbers 03 to 05 and 11 to 14 were about features we cut (replacement
 funders, clinical trials, and weaker leads); they were deleted and remain in
 git history.
 
-| # | Pain point | Status | GrantGuard feature (`docs/MASTER-PLAN.md`) |
+| # | Pain point | Status | Grant Test Auto feature (`docs/MASTER-PLAN.md`) |
 |---|---|---|---|
 | [01](pain-points/01-no-source-of-truth.md) | Nobody has a complete, consistent list of which grants were cut | core | Fund tracker: sources that disagree (§3.1) |
 | [02](pain-points/02-status-reversals.md) | A court can reverse "terminated"; status is never final | core | Fund tracker: status timeline, the freeze (§3.1) |

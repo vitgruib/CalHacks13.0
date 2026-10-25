@@ -5,7 +5,7 @@ or unfrozen, with a status you can act on. The Actor downloads
 [Grant Witness](https://grantwitness.org/nih)'s own "full dataset" CSV on
 every run (no HTML scraping) and normalizes it.
 
-Built for [GrantGuard](https://github.com/vitgruib/CalHacks13.0), an AI grant office for
+Built for [Grant Test Auto](https://github.com/vitgruib/CalHacks13.0), an AI grant office for
 research labs, whose fund tracker compares this list with NIH RePORTER and
 USAspending and asks a person when they disagree.
 

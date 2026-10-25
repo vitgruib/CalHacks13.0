@@ -1,4 +1,4 @@
-# GrantGuard: why it matters (evidence for judges)
+# Grant Test Auto: why it matters (evidence for judges)
 
 Compiled Sat 2026-10-24. Every number has a source and an as-of date. Tags
 follow `docs/research/README.md`: **[verified]** = we opened the primary
@@ -20,7 +20,7 @@ NIH GPS rev. March 2026], **94% of 18 NSF university audits found
 unallowable expenses** [verified, NSF-OIG 2022], and researchers spend
 **44.3% of their federally funded research time on administration**
 [verified, FDP survey 2018]. This sits on **$64B+ a year of federally funded
-university R&D** [verified, NSF, FY2024]. GrantGuard is the grant office
+university R&D** [verified, NSF, FY2024]. Grant Test Auto is the grant office
 that tracks all of this on its own. On our planted test set it **caught 14
 of 14 mistakes with 0 false alarms on 5 decoys** [ours].
 
@@ -50,9 +50,9 @@ output: `docs/research/sources/docs/grantwitness-csv-summary*.{py,txt}`.
 Grant Witness is a volunteer, advocacy-adjacent project; its numbers are the
 best public count, not an official one.
 
-## 2. Why it's hard today, and what GrantGuard does
+## 2. Why it's hard today, and what Grant Test Auto does
 
-| Why it's hard | Evidence | GrantGuard feature | Demo moment |
+| Why it's hard | Evidence | Grant Test Auto feature | Demo moment |
 |---|---|---|---|
 | **No single source of truth.** Official lists disagree. | ~300 terminated NIH grants appeared in only one of NIH's two official sources; HHS stopped posting terminations to TAGGS; NSF's list hasn't updated since June 2025 [verified, Grant Witness] | Fund tracker reads RePORTER, USAspending and the Grant Witness list (our Apify scraper), keeps each reading with its source, and freezes and asks when they disagree | "Sources disagree" flag in the Inbox |
 | **Status is never final.** Canceled, restored, appealed. | 85% of disrupted NIH awards restored; *Thakur* still at the Supreme Court [verified] | Status is a timeline of dated events with sources, not one field | Cancel, then court order: grant **stays frozen** |
@@ -77,7 +77,7 @@ proof that nothing exists.
 | **NIH "Defend the Spend" justifications** | Written today by grant staff for every drawdown; COGR estimates "approximately 53,749 hours of redundant work for recipients and federal agencies" | **No tool found** that drafts NIH drawdown justifications. The only product hit was GoEngage, for Head Start agencies, not NIH | [verified, interested source] NCURA Magazine 2025 (COGR authors); search 2026-10-24 |
 | **Other hackathon projects** | Most grant projects on Devpost help find or write grants (Grant Scout, Granted, GrantHarbor). Closest to us: **GrantLoop**, "Agents carry every budget commitment from application through award and spending to an audit-ready SF-425", and **GrantProof**, which "checks grant proposals, agreements and reports against the funder's rules" | Neither tracks cancellations and reinstatements across sources, holds spending until a payment actually arrives, or checks purchases against past audit findings. Only one "grant termination" hit (ConractIQ, aimed at hospitals) | [verified] Devpost search, 2026-10-24 (`docs/research/sources/devpost-scan*.txt`) |
 
-**What only GrantGuard does, as far as we found:**
+**What only Grant Test Auto does, as far as we found:**
 
 1. **Status from several sources, kept as a dated history.** It reads
    RePORTER, USAspending and Grant Witness, freezes the grant when they
@@ -94,7 +94,7 @@ proof that nothing exists.
 
 **Honest overlap:** finance systems already block overspending on a budget
 line, and GrantLoop also tracks spending commitments through to reporting.
-GrantGuard is not a finance system. It sits beside one and adds the
+Grant Test Auto is not a finance system. It sits beside one and adds the
 grant's real status and the audit rules.
 
 ## 4. Who benefits and how big the market is

@@ -9,14 +9,14 @@
 // each case says so: dollar limits (the sim's card limit is $5,000, so a
 // split under another school's limit is scaled to it), and dates (an award
 // "ending in 16 days" ends 16 days after the sim's today). Findings with no
-// GrantGuard rule to test are listed with `outOfScope` instead of left out.
+// Grant Test Auto rule to test are listed with `outOfScope` instead of left out.
 //
 // Every finding also carries `decision`: what was finally decided about the
 // cost, which is the ground truth the eval grades against (T88). An audit
 // only questions a cost; the funder then decides in a resolution letter, and
 // often allows much of what was questioned. Labels:
-//   disallowed  the funder's letter disallowed it: GrantGuard should stop it
-//   allowed     the funder's letter allowed it: a decoy GrantGuard should pass
+//   disallowed  the funder's letter disallowed it: Grant Test Auto should stop it
+//   allowed     the funder's letter allowed it: a decoy Grant Test Auto should pass
 //   partly      the funder allowed part of the finding without naming items
 //   agreed      no funder decision saved, but the auditee agreed in the report
 //   auditor     the auditor's finding only
@@ -82,7 +82,7 @@ const PLACED = 'An invoice is payable only if its order was placed before it';
 
 export const FINDINGS = [
   // ---- Shared costs charged to one award: out of scope since T95 ----
-  // GrantGuard charges each purchase to one grant and has no shared-cost rule.
+  // Grant Test Auto charges each purchase to one grant and has no shared-cost rule.
   {
     id: 'rf-01', file: 'nsf-oig-15-1-014-uwm.txt', auditee: 'Univ. of Wisconsin-Madison', year: '2015', amount: 70189,
     what: 'An underwater vehicle serving two NSF awards and a NOAA project was charged 68% to one award and 0% to NOAA.',
@@ -363,7 +363,7 @@ export const FINDINGS = [
     }],
   },
 
-  // ---- Out of scope: no GrantGuard rule tests these ----
+  // ---- Out of scope: no Grant Test Auto rule tests these ----
   {
     id: 'rf-28', file: 'nsf-oig-17-1-009-usc.txt', auditee: 'Univ. of Southern California', year: '2017', amount: 1863,
     what: 'Conference travel was posted 15 months after the trip and 8 months after the award expired.',
@@ -374,7 +374,7 @@ export const FINDINGS = [
     id: 'rf-29', file: 'nsf-oig-19-1-006-minnesota.txt', auditee: 'Univ. of Minnesota', year: '2019', amount: 5675,
     what: 'Estimated future publication costs were charged to an expired award with no invoice.',
     quote: 'the grant was charged based on an estimate and not based on',
-    outOfScope: 'GrantGuard charges a grant only through request, order and invoice; it has no journal entries to test.',
+    outOfScope: 'Grant Test Auto charges a grant only through request, order and invoice; it has no journal entries to test.',
   },
   {
     id: 'rf-30', file: 'nsf-oig-21-1-016-southcarolina.txt', auditee: 'Univ. of South Carolina', year: '2021', amount: 3685,
@@ -428,13 +428,13 @@ export const FINDINGS = [
     id: 'rf-38', file: 'doj-university-grant-settlements.txt', auditee: 'Stony Brook Univ.', year: '2020', amount: 200000,
     what: 'A PI paid sham companies, partly from NIH funds, for goods never received.',
     quote: 'payment to the sham companies for equipment, goods and services that were never received or',
-    outOfScope: 'GrantGuard does not check receipt of goods or who owns a vendor.',
+    outOfScope: 'Grant Test Auto does not check receipt of goods or who owns a vendor.',
   },
   {
     id: 'rf-39', file: 'nsf-oig-15-1-014-uwm.txt', auditee: 'Univ. of Wisconsin-Madison', year: '2015', amount: 1276668,
     what: "Senior salary above NSF's two-month limit.",
     quote: 'the auditors questioned $1,276,668 in senior personnel salary that exceeded NSF’s two-month',
-    outOfScope: 'NSF\'s two-month salary rule is not modeled; GrantGuard checks only effort above 100%.',
+    outOfScope: 'NSF\'s two-month salary rule is not modeled; Grant Test Auto checks only effort above 100%.',
   },
   {
     id: 'rf-40', file: 'hhs-oig-2024-a-04-20-03583-nymc-summary.txt', auditee: 'New York Medical College', year: '2024', amount: 7469306,
@@ -443,7 +443,7 @@ export const FINDINGS = [
     outOfScope: 'Payroll rows are taken as given; nothing compares claimed effort with actual work.',
   },
 
-  // ---- Costs the funder allowed: decoys GrantGuard should pass ----
+  // ---- Costs the funder allowed: decoys Grant Test Auto should pass ----
   {
     id: 'rf-41', file: 'nsf-oig-17-1-002-ucdavis-report.txt', auditee: 'UC Davis', year: '2017 (resolved 2018)', amount: 53719,
     what: 'Equipment bought two to four months before the award ended, questioned by the auditors and allowed by NSF.',

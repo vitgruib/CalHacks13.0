@@ -47,7 +47,7 @@ function Hero({ compact }: { compact: boolean }) {
     <header className={`e-hero e-panel${compact ? ' is-compact' : ''}`}>
       <div className="e-brand">
         <Mark />
-        <span className="e-brand-name">GrantGuard</span>
+        <span className="e-brand-name">Grant Test Auto</span>
         <span className="e-demo-tag">Demo data</span>
       </div>
       <h1 className="e-h1">An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>

@@ -34,7 +34,7 @@ export default function DetailPage({ role }: { role: Role }) {
     <div className={role === 'scientist' ? 'sci' : undefined}>
       <main className={what === 'all' ? 'dp dp-wide' : 'dp'}>
         <div className="dp-top">
-          <span className="dp-brand">GrantGuard</span>
+          <span className="dp-brand">Grant Test Auto</span>
           <button type="button" onClick={close}>Close tab</button>
         </div>
         {!g || !title ? (

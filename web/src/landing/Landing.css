@@ -5,7 +5,7 @@
 /* Set on <html> only while the landing is mounted (Landing.tsx). */
 html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavior: none; }
 
-/* A thin bar, then the hero fills the rest of the viewport. Its title is GrantGuard. */
+/* A thin bar, then the hero fills the rest of the viewport. Its title is Grant Test Auto. */
 .landing { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100vh; height: 100dvh; overflow: hidden; background: #c9ced5; color: var(--text); line-height: 1.5; }
 .landing-bar { display: flex; align-items: center; height: 36px; padding: 0 20px; background: var(--bg); border-bottom: 1px solid var(--line); }
 .landing-mark { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }

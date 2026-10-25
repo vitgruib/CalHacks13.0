@@ -1,6 +1,6 @@
 # systemd unit for the agent worker (T26); setup.sh fills in @USER@.
 [Unit]
-Description=GrantGuard agent worker
+Description=Grant Test Auto agent worker
 After=network-online.target
 Wants=network-online.target
 

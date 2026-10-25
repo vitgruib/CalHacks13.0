@@ -93,7 +93,7 @@ function Head() {
       <div className="a-brandrow">
         <p className="a-brand">
           <Mark />
-          <span>GrantGuard</span>
+          <span>Grant Test Auto</span>
         </p>
         <button type="button" className="a-btn a-btn--primary a-btn--small" onClick={() => ui.set({ tab: 'requests', composing: true, composeFor: null })}>
           <IconPlus size={14} />
@@ -102,7 +102,7 @@ function Head() {
       </div>
       <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
       <p className="a-head-note">A simulated lab running a scripted story. The spending rules are the real ones.</p>
-      <a className="a-applink" href={APP_URL}>Open the GrantGuard app</a>
+      <a className="a-applink" href={APP_URL}>Open the Grant Test Auto app</a>
     </header>
   )
 }
@@ -310,7 +310,7 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
   const open = !phone || sheet
   return (
     <>
-      <aside className={`a-side${phone ? ' is-sheet' : ''}${phone && sheet ? ' is-open' : ''}`} data-float={phone ? 'sheet' : 'sidebar'} aria-label="GrantGuard dashboard">
+      <aside className={`a-side${phone ? ' is-sheet' : ''}${phone && sheet ? ' is-open' : ''}`} data-float={phone ? 'sheet' : 'sidebar'} aria-label="Grant Test Auto dashboard">
         {phone && <Peek open={sheet} />}
         <div id="a2-sheet-body" className="a-side-body" inert={!open}>
           <div className="a-scroll">

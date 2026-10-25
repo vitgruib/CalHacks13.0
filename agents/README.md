@@ -1,6 +1,6 @@
 # agents/ (Track B)
 
-The agent worker: the three GrantGuard agents (`docs/MASTER-PLAN.md` §2),
+The agent worker: the three Grant Test Auto agents (`docs/MASTER-PLAN.md` §2),
 each connected to the database with its own identity. Agents only change
 data by calling Track A's actions; rules and money math live in Track A's
 code (`server/`). Claude reads, matches and explains; every Claude call has

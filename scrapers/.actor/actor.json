@@ -2,7 +2,7 @@
   "actorSpecification": 1,
   "name": "nih-grant-cancellation-list",
   "title": "NIH grant cancellation list (Grant Witness)",
-  "description": "Reads Grant Witness's public list of disrupted NIH grants (terminated, frozen, reinstated, unfrozen) and returns one row per core project number, with a normalized status. Built for GrantGuard's fund tracker.",
+  "description": "Reads Grant Witness's public list of disrupted NIH grants (terminated, frozen, reinstated, unfrozen) and returns one row per core project number, with a normalized status. Built for Grant Test Auto's fund tracker.",
   "version": "0.1",
   "buildTag": "latest",
   "readme": "./README.md",

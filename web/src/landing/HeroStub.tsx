@@ -31,7 +31,7 @@ export function HeroStub({ onEnter }: HeroEmbedProps) {
     <div className="hero-stub">
       <HeroStill />
       <div className="hero-stub-copy">
-        <h1>GrantGuard</h1>
+        <h1>Grant Test Auto</h1>
         <p>An AI grant office that keeps a lab’s spending inside its grants’ rules. Three AI agents check every request; the grant manager decides the exceptions.</p>
         <p className="hero-stub-prompt">
           Select the{' '}
