@@ -58,7 +58,7 @@ export interface Answer<T> {
   model?: string; // set when by is claude or saved
   // Why Claude's own answer wasn't used: 'off' | 'no key' |
   // 'offline, nothing saved' | 'refusal' | 'invalid answer' |
-  // '<ErrorClass> <status>'. Also set on a saved answer that stood in for a
+  // 'cut off at max_tokens <n>' | '<ErrorClass> <status>'. Also set on a saved answer that stood in for a
   // failed live call.
   note?: string;
 }
@@ -206,6 +206,9 @@ export async function ask<T>(options: AskOptions<T>): Promise<Answer<T>> {
   }
   if (message.stop_reason === 'refusal') return whenClaudeFails(options, 'refusal', saved);
   const parsed = message.parsed_output == null ? undefined : schema.safeParse(message.parsed_output);
+  // Out of room before the answer (thinking can use it all): the task's
+  // maxTokens is too small, which is a different fix from a wrong answer.
+  if (!parsed?.success && message.stop_reason === 'max_tokens') return whenClaudeFails(options, `cut off at max_tokens ${maxTokens}`, saved);
   if (!parsed?.success || (options.accept && !options.accept(parsed.data, message))) return whenClaudeFails(options, 'invalid answer', saved);
 
   const answeredBy = typeof message.model === 'string' ? message.model : model;

@@ -422,7 +422,7 @@ export function startPurchasing({
   async function concernOf(request: RequestRow, decision: Decision): Promise<{ reason: HoldReason; note: string } | undefined> {
     const grantId = decision.to ?? decision.pendingTo ?? decision.grantId;
     const grant = findGrant(grantId);
-    const { value, by } = await ask({
+    const { value, by, note } = await ask({
       task: PURPOSE_TASK,
       system: PURPOSE_SYSTEM,
       model: PURPOSE_MODEL,
@@ -435,10 +435,15 @@ export function startPurchasing({
       schema: PurposeAnswer,
       fallback: () => ({ purpose: 'fine' as const, purposeWhy: '', categoryFits: true, betterCategory: 'other' as const, categoryWhy: '' }),
       effort: 'low',
-      maxTokens: 400,
+      // Haiku thinks before a borderline answer (up to ~600 tokens seen live);
+      // at 400 it was cut off, fell back to 'fine' and the request was bought.
+      maxTokens: 1_500,
       ...purposeClaude,
     });
-    if (by === 'fallback') return undefined;
+    if (by === 'fallback') {
+      if (note?.startsWith('cut off')) console.warn(`${AGENT}: ${request.id} goes on unchecked for its purpose: Claude's answer was ${note}`);
+      return undefined;
+    }
     if (value.purpose === 'flag') return { reason: 'purpose', note: clip(value.purposeWhy) };
     const given = request.category.toLowerCase();
     if (value.categoryFits || value.betterCategory === given || !grant) return undefined;

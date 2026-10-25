@@ -963,11 +963,13 @@ test('an_overpriced_request_held_for_the_freeze_or_rerouted_is_held_for_its_pric
 
 // T86: Claude's light look before the agent buys alone, with a fake Claude
 // that answers the purpose check and nothing else (every other question is off).
-async function withPurposeAnswer(answer: Record<string, unknown>, run: (scientist: Connection, idle: () => Promise<void>, lab: Connection) => Promise<void>) {
+type PurposeRun = (scientist: Connection, idle: () => Promise<void>, lab: Connection) => Promise<void>;
+const withPurposeAnswer = (answer: Record<string, unknown>, run: PurposeRun) =>
+  withPurposeClient({ messages: { parse: async () => ({ model: 'claude-haiku-5-5', stop_reason: 'end_turn', parsed_output: answer }) } }, run);
+async function withPurposeClient(client: { messages: { parse: (request: { max_tokens: number }) => Promise<unknown> } }, run: PurposeRun) {
   const key = process.env.ANTHROPIC_API_KEY;
   process.env.ANTHROPIC_API_KEY = 'test-key';
   const cacheDir = mkdtempSync(join(tmpdir(), 'gg-purpose-'));
-  const client = { messages: { parse: async () => ({ model: 'claude-haiku-5-5', stop_reason: 'end_turn', parsed_output: answer }) } };
   try {
     const setup = await startAlone(oneGrantSeed(), undefined, { client, mode: 'live', cacheDir });
     await run(await setup.person('scientist'), setup.idle, setup.purchasing);
@@ -1008,3 +1010,35 @@ test('a_kind_of_thing_that_looks_wrong_is_still_bought_when_the_rules_answer_the
     assert.equal(row.state, 'bought');
     assert.equal(purchaseHolds(row.id, lab).length, 0);
   }));
+
+// T99: live, Haiku used up to ~600 output tokens on a borderline purpose (it
+// thinks first). At 400 it was cut off, the check fell back to 'fine', and a
+// Peloton for "my own cognition" was bought with no hold.
+test('a_borderline_purpose_check_has_room_to_finish_so_its_flag_still_holds_the_request', async (t) => {
+  const warn = t.mock.method(console, 'warn', () => {});
+  const flag = { ...fits, purpose: 'flag', purposeWhy: 'A personal exercise bike for a self-study is not this grant\'s research.', betterCategory: 'equipment' };
+  const sent: number[] = [];
+  const client = {
+    messages: {
+      parse: async ({ max_tokens }: { max_tokens: number }) => {
+        sent.push(max_tokens);
+        return max_tokens < 600
+          ? { model: 'claude-haiku-5-5', stop_reason: 'max_tokens', parsed_output: null }
+          : { model: 'claude-haiku-5-5', stop_reason: 'end_turn', parsed_output: flag };
+      },
+    },
+  };
+  await withPurposeClient(client, async (scientist, idle, lab) => {
+    await scientist.call('submit_request', {
+      ...gloves, item: 'Peloton bike', category: 'equipment', price: 2_200,
+      purpose: 'Aim 2: measure the effect of exercise on my own cognition as a pilot n=1 study',
+    });
+    await idle();
+    const row = lab.rows('request').at(-1)!;
+    assert.ok(sent.length > 0, 'the purpose check asked Claude');
+    assert.equal(row.state, 'waiting_on_manager');
+    assert.equal(ordersFor(row.id, lab).length, 0);
+    assert.match(row.explanation, /isn't clear it is for the lab's research \(A personal exercise bike/);
+  });
+  assert.ok(!warn.mock.calls.some((call) => /cut off/.test(String(call.arguments[0]))), 'no answer was cut off');
+});

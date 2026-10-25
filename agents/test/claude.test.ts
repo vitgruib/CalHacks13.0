@@ -209,6 +209,20 @@ test('a_missing_or_wrong_shaped_answer_is_an_invalid_answer', async (t) => {
   assert.equal(readdirSync(cacheDir).length, 0);
 });
 
+test('a_reply_cut_off_at_max_tokens_falls_back_and_says_it_was_cut_off', async (t) => {
+  const warn = t.mock.method(console, 'warn', () => {});
+  const answer = await ask(question({ client: answering(null, 'max_tokens'), maxTokens: 400 }));
+  assert.deepEqual(answer, { value: FALLBACK, by: 'fallback', note: 'cut off at max_tokens 400' });
+  assert.match(String(warn.mock.calls[0].arguments[0]), /purchasing\.explain got no usable answer \(cut off at max_tokens 400\), using the fallback/);
+  assert.equal(readdirSync(cacheDir).length, 0);
+});
+
+test('a_whole_answer_that_ends_on_max_tokens_is_still_used', async () => {
+  const answer = await ask(question({ client: answering(CLAUDE_SAYS, 'max_tokens') }));
+  assert.equal(answer.by, 'claude');
+  assert.deepEqual(answer.value, CLAUDE_SAYS);
+});
+
 test('an_answer_the_sdk_cannot_parse_is_an_invalid_answer', async (t) => {
   t.mock.method(console, 'warn', () => {});
   // What the SDK's parse() throws when the reply isn't JSON or fails the schema.
