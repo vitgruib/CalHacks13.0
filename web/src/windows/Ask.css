@@ -33,8 +33,8 @@
 .ask-buy { display: grid; grid-template-columns: 1fr 180px; gap: 14px; align-items: end; }
 .ask-buy label { display: flex; flex-direction: column; gap: 6px; font-size: 16px; font-weight: 700; min-width: 0; }
 .ask-buy .ask-wide { grid-column: 1 / -1; }
-.ask-buy input { font-size: 18px; font-weight: 400; padding: 14px 16px; border-radius: 14px; border: 2px solid var(--s-line); background: var(--s-bg); color: var(--s-text); min-width: 0; width: 100%; box-sizing: border-box; }
-.ask-buy input:focus { outline: none; border-color: var(--s-blue); }
+.ask-buy input, .ask-buy select { font-size: 18px; font-weight: 400; padding: 14px 16px; border-radius: 14px; border: 2px solid var(--s-line); background: var(--s-bg); color: var(--s-text); min-width: 0; width: 100%; box-sizing: border-box; }
+.ask-buy input:focus, .ask-buy select:focus { outline: none; border-color: var(--s-blue); }
 .ask-dollar { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: 400; }
 .ask-buy .ask-primary { justify-self: start; }
 @media (max-width: 520px) { .ask-buy { grid-template-columns: 1fr; } }
