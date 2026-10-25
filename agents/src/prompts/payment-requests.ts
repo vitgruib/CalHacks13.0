@@ -58,6 +58,7 @@ const REWORK_NOTE = (field: string) => `
 
 This time the input also has "rejected": an earlier draft the grant manager rejected (rejected.text) and the reason they gave (rejected.reason).
 - If the reason asks for a different text (something to add, cut, reword or explain), set rework to true and write the new ${field} so it does what they asked, within every rule above. If they ask for something the records don't support (a different amount, an id that isn't in the input), keep to the records and say plainly that the records show otherwise.
+- When you shorten or reword, keep the facts that answer the question (the ids, the amounts and the research aim each purchase served), and leave no phrase that points at something you cut.
 - If the reason doesn't ask for a new draft (for example: hold it for now, they will handle it themselves, it shouldn't go out), set rework to false and leave the text empty.
 - why: one short sentence on what you changed, or why there is nothing to redo.`;
 
