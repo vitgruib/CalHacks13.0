@@ -15,3 +15,8 @@
 .user-switch .us-menu button.current { background: var(--neutral-bg); }
 .user-switch .us-tick { color: var(--accent); font-weight: 700; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* Edge cases: folded away and faded, so the demo's real people lead. */
+.user-switch .us-edge { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; opacity: .45; transition: opacity .15s; }
+.user-switch .us-edge:hover, .user-switch .us-edge:focus-within { opacity: .8; }
+.user-switch .us-menu button.us-fold { display: block; width: auto; padding: 2px 6px 4px; border: 0; border-radius: 6px; color: var(--muted); font-size: 11px; }
+.user-switch .us-menu button.us-fold:hover { color: var(--text); }
