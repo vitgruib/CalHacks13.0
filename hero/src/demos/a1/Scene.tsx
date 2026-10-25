@@ -622,10 +622,44 @@ function DrawCalls() {
   return null
 }
 
+/**
+ * A lost WebGL context (the GPU reset, or the browser reclaimed it): keep it
+ * restorable, then remount the canvas when it's back or after a second,
+ * whichever comes first. The stage shows what's under the canvas meanwhile.
+ */
+function Lost({ remount }: { remount: () => void }) {
+  const gl = useThree(s => s.gl)
+  useEffect(() => {
+    const el = gl.domElement
+    let wait = 0
+    const again = () => {
+      clearTimeout(wait)
+      remount()
+    }
+    const lost = (e: Event) => {
+      e.preventDefault()
+      el.closest('.demo-a1')?.removeAttribute('data-ready')
+      clearTimeout(wait)
+      wait = window.setTimeout(again, 1000)
+    }
+    el.addEventListener('webglcontextlost', lost)
+    el.addEventListener('webglcontextrestored', again)
+    return () => {
+      clearTimeout(wait)
+      el.removeEventListener('webglcontextlost', lost)
+      el.removeEventListener('webglcontextrestored', again)
+    }
+  }, [gl, remount])
+  return null
+}
+
 export default function Scene() {
+  const [gen, setGen] = useState(0)
+  const remount = useMemo(() => () => setGen(g => g + 1), [])
   return (
     <>
       <Canvas
+        key={gen}
         className="a-canvas"
         shadows="percentage"
         dpr={[1, DPR_MAX]}
@@ -650,6 +684,7 @@ export default function Scene() {
         <Sleep />
         <ShadowClock />
         <Warm />
+        <Lost remount={remount} />
         <Effects />
       </Canvas>
       <HoverCard />

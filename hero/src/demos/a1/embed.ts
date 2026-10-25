@@ -19,7 +19,11 @@ interface EmbedState {
   craned: boolean
 }
 
-let state: EmbedState = { on: false, awake: true, settled: true, craned: false }
+// Kept across a dev hot reload, so an edit here doesn't replay the crane or lose the host's state.
+let state: EmbedState = import.meta.hot?.data.state ?? { on: false, awake: true, settled: true, craned: false }
+import.meta.hot?.dispose(data => {
+  data.state = state
+})
 const fns = new Set<() => void>()
 
 export const embed = {

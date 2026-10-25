@@ -16,6 +16,8 @@ import { Feed } from './engine'
 import type { FlowEvent, Packet, World } from './types'
 
 export const feed = new Feed()
+// A dev hot reload makes a new feed (awake); the old one stops its clock rather than run on unseen.
+import.meta.hot?.dispose(() => feed.setAwake(false))
 
 export function useWorld(): World {
   return useSyncExternalStore(feed.subscribeWorld, feed.getWorld)
