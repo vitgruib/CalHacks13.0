@@ -281,6 +281,30 @@ The 18 out-of-scope findings have no Grant Test Auto rule to test (or need
 progress reports, out of scope since T105) and are listed with the reason.
 Demo controls shows every finding.
 
+### Item check on real audited items
+
+`eval/item-check-real.mjs` (T115) runs Claude's item check (Haiku, through
+`agents/src/claude.ts`) on 39 real items from NSF-OIG audits and NSF
+resolution letters: 28 the auditors questioned as unallowable (alcohol,
+entertainment, gifts, meals, general-use computers) and 11 the funder or
+auditor accepted. Each item quotes its saved source and the decision on it.
+Claude was asked once per item; the answers are saved in
+`agents/cache/claude/` and replayed by `./check.sh`.
+
+| Decided by | Flagged | Accepted items passed |
+|---|---|---|
+| Funder disallowed | 22 of 22 | |
+| Funder allowed | | 3 of 6 |
+| Auditee agreed | 3 of 3 | |
+| Auditor only | 3 of 3 | 2 of 5 |
+| **Total** | **28 of 28, 0 missed** | **5 of 11, 6 false alarms** |
+
+It never missed an unallowable item, but it leans toward flagging: it
+flagged budgeted training lunches, polo shirts for fieldwork, a research
+vessel with no purpose given and a laptop, all later accepted. A flag is
+advice to the researcher before they send the request; it blocks nothing,
+and the grant manager still decides every request.
+
 ## Run it locally
 
 ### Prerequisites

@@ -13,6 +13,7 @@ import { nextStep, paymentNote } from '../frozen'
 import { Badge, Section, grantStatus, money } from '../ui'
 import type { Tone } from '../ui'
 import realFindingsJson from '../../../eval/real-findings.json'
+import itemCheckJson from '../../../eval/item-check-real.json'
 import { edgeCaseOf, isEdgeGrant } from '../people'
 import { openHolds } from './Inbox'
 import { GRANT_HOLDS, fundsHref } from './Funds'
@@ -36,7 +37,27 @@ interface RealFindings {
 }
 const realFindings = realFindingsJson as RealFindings
 
-const outcomeTone: Record<string, Tone> = { caught: 'good', 'correct pass': 'good', missed: 'bad', 'false alarm': 'bad', 'no case': 'bad', 'out of scope': 'neutral' }
+interface ItemCase {
+  id: string
+  auditee: string
+  year?: string
+  item: string
+  price: number
+  expect: 'flag' | 'pass'
+  why?: string
+  outcome: string
+  decision: { label: string }
+}
+interface ItemTally { items: number; mistakes: number; caught: number; missed: number; decoys: number; correctPasses: number; falseAlarms: number; notRun: number }
+interface ItemCheck {
+  model: string
+  totals: ItemTally & { categoryAgrees: number; categoryChecked: number }
+  byDecision: Record<string, ItemTally>
+  items: ItemCase[]
+}
+const itemCheck = itemCheckJson as ItemCheck
+
+const outcomeTone: Record<string, Tone> = { caught: 'good', 'correct pass': 'good', missed: 'bad', 'false alarm': 'bad', 'no case': 'bad', 'out of scope': 'neutral', 'not run': 'neutral' }
 
 
 // Remember the picked grant while switching windows (the window remounts).
@@ -231,6 +252,9 @@ export default function TestLab() {
       <Section title="Real audit findings" aside={<Badge>{realFindings.totals.findings} real costs</Badge>}>
         <RealFindingsBoard />
       </Section>
+      <Section title="Item check on real audited items" aside={<Badge>{itemCheck.totals.items} real items</Badge>}>
+        <ItemCheckBoard />
+      </Section>
     </div>
   )
 }
@@ -306,6 +330,66 @@ function RealFindingsBoard() {
         From <code>./check.sh</code> (<code>node eval/real-findings.mjs</code>). Each case quotes a saved audit report in
         docs/research/sources/docs/, and the check fails if the quote isn't there. The cost is rebuilt as records in a copy of the
         simulated lab and run through the real module and agents. Imported when the app is built.
+      </p>
+    </>
+  )
+}
+
+/**
+ * eval/item-check-real.json: items auditors questioned (should be flagged) and
+ * items the funder or auditor accepted (should pass), each run once through
+ * Claude's item check with the answer saved and replayed by the check.
+ */
+function ItemCheckBoard() {
+  const { totals: t, byDecision: b, items, model } = itemCheck
+  const ratio = (n: number, of: number) => (of ? `${n}/${of}` : '—')
+  return (
+    <>
+      <p>
+        <strong>{t.caught} of {t.mistakes}</strong> unallowable items flagged, {t.missed} missed;
+        {' '}<strong>{t.correctPasses} of {t.decoys}</strong> accepted items passed, {t.falseAlarms} false alarms.
+        {' '}Claude ({model}) leans toward flagging: food, clothing and items with no stated purpose get flagged even when the funder allowed them.
+      </p>
+      <div className="tl-scroll">
+      <table className="tl-score">
+        <thead>
+          <tr><th>Decided by</th><th>Flagged</th><th>Accepted items passed</th></tr>
+        </thead>
+        <tbody>
+          {Object.entries(b).map(([label, x]) => (
+            <tr key={label}>
+              <th scope="row">{DECIDED[label] ?? label}</th>
+              <td>{ratio(x.caught, x.mistakes)}</td>
+              <td>{ratio(x.correctPasses, x.decoys)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      </div>
+      <details className="tl-cases">
+        <summary>Every item ({items.length})</summary>
+        <div className="tl-scroll">
+        <table>
+          <thead>
+            <tr><th>Case</th><th>Audited</th><th>Item</th><th>Decided</th><th>Outcome</th></tr>
+          </thead>
+          <tbody>
+            {items.map(c => (
+              <tr key={c.id} title={c.why ?? ''}>
+                <td>{c.id}</td>
+                <td>{c.auditee} {c.year ?? ''}</td>
+                <td>{c.item}, {money(c.price)}{c.why ? <span className="muted"> (Claude: {c.why})</span> : null}</td>
+                <td>{DECIDED[c.decision.label] ?? c.decision.label}</td>
+                <td><Badge tone={outcomeTone[c.outcome] ?? 'neutral'}>{c.outcome}</Badge></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+      </details>
+      <p className="muted">
+        From <code>./check.sh</code> (<code>node eval/item-check-real.mjs</code>). Each item quotes a saved audit report and the
+        decision on it in docs/research/sources/docs/. Claude was asked once per item; its answers are saved and replayed.
       </p>
     </>
   )
