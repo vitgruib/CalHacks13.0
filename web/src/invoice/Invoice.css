@@ -116,3 +116,11 @@
 .iv-tab-blue { background: var(--accent, #2f5bd3); border-color: var(--accent, #2f5bd3); justify-content: center; }
 .sci .iv-tab-blue { background: var(--s-blue); border-color: var(--s-blue); }
 .iv-count { background: rgb(255 255 255 / .25); border-radius: 999px; padding: 2px 14px; font-size: 20px; font-variant-numeric: tabular-nums; }
+
+/* The arrow on each card opens the full invoice. */
+.iv-go { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--v-line); color: var(--v-accent); font-size: 20px; text-decoration: none; transition: transform .15s, background .15s, border-color .15s; }
+.iv-go:hover, .iv-go:focus-visible { background: var(--v-accent); color: #fff; border-color: var(--v-accent); transform: translateX(3px); outline: none; }
+.iv-back { display: inline-block; margin-bottom: 8px; color: var(--v-accent); text-decoration: none; font-size: 15px; }
+.iv-back:hover { text-decoration: underline; }
+.iv-page-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.iv-page-head h1 { margin: 0; font-size: 26px; }

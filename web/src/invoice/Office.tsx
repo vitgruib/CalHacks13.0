@@ -55,7 +55,7 @@ function Decision({ s, blocks, today }: { s: Submission; blocks: number; today: 
   )
 }
 
-function Review({ db, s }: { db: Db; s: Submission }) {
+export function Review({ db, s, decide = true }: { db: Db; s: Submission; decide?: boolean }) {
   const g = db.grants.find(x => x.id === s.grantId)
   const po = purchaseOrders(db).find(p => p.id === s.poId)
   const blocks = s.findings.filter(f => f.level === 'block').length
@@ -85,7 +85,7 @@ function Review({ db, s }: { db: Db; s: Submission }) {
       {g && s.effect && <><h3 className="iv-h3">Budget effect on {grantHeading(g)}</h3><BudgetCard effect={s.effect} grantLabel={g.id} /></>}
       <h3 className="iv-h3">What the invoice agent found</h3>
       <FindingList findings={s.findings} />
-      <Decision s={s} blocks={blocks} today={db.today} />
+      {decide && <Decision s={s} blocks={blocks} today={db.today} />}
       {s.status === 'approved' && (
         <>
           <h3 className="iv-h3">Accounting entry (prepared, not posted)</h3>
@@ -124,6 +124,7 @@ export default function Office({ db }: { db: Db }) {
             <li key={s.id} className="iv-card">
               <header>
                 <strong>{s.vendor}</strong><span className="iv-amt">{money(parseAmount(s.amount))}</span><StatusBadge status={s.status} />
+                <a className="iv-go" href={`#invoices/${s.id}`} aria-label={`Open the full invoice from ${s.vendor}`} title="Open the full invoice">→</a>
               </header>
               <p className="iv-note">{s.researcher} · {s.grantId}{s.poId && ` · ${s.poId}`} · submitted {s.submittedOn}{s.findings.some(f => f.level === 'block') && ` · ${s.findings.filter(f => f.level === 'block').length} problems`}</p>
               <div className="iv-actions"><button type="button" onClick={() => setOpen(open === s.id ? null : s.id)}>{open === s.id ? 'Close review' : 'Review'}</button></div>

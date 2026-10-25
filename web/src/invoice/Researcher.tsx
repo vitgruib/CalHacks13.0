@@ -89,6 +89,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
           <strong>{s.vendor || 'Invoice'}</strong>
           <span className="iv-amt">{money(parseAmount(s.amount))}</span>
           <StatusBadge status={s.status} />
+          <a className="iv-go" href={`#invoices/${s.id}`} aria-label={`Open the full invoice from ${s.vendor}`} title="Open the full invoice">→</a>
         </header>
         <p className="iv-note">{g ? grantHeading(g) : s.grantId} · submitted {s.submittedOn}</p>
         <p className="iv-next"><strong>Next:</strong> {NEXT[s.status]}{(s.status === 'clarification' || s.status === 'rejected') && decision?.why && <> “{decision.why}”</>}</p>
@@ -113,6 +114,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
         <strong>{i.vendor}</strong>
         <span className="iv-amt">{money(i.amount)}</span>
         <Badge tone={i.state === 'held' ? 'bad' : 'good'}>{i.state === 'held' ? 'Held for review' : i.state === 'paid' ? 'Paid' : i.state === 'matched' ? 'Matched, ready to pay' : 'Rejected'}</Badge>
+        <a className="iv-go" href={`#invoices/${i.id}`} aria-label={`Open the full invoice from ${i.vendor}`} title="Open the full invoice">→</a>
       </header>
       <p className="iv-note">Received {i.received}</p>
       {i.mismatch && <p className="iv-next"><strong>Why:</strong> {i.mismatch}</p>}
