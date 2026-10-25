@@ -178,9 +178,10 @@ export default function Ask() {
   const me = useResearcher()
   const { db: all, checkItem } = useStore()
   const db = forResearcher(all, me)
-  const [item, setItem] = useState('')
-  const [price, setPrice] = useState('')
-  const [purpose, setPurpose] = useState('')
+  // Prefilled with the demo video's request (docs/submission/VIDEO-SCRIPT.md), so nobody types on camera.
+  const [item, setItem] = useState('Trip to the Bahamas')
+  const [price, setPrice] = useState('9500')
+  const [purpose, setPurpose] = useState("Study Alzheimer's disease")
   const [grantId, setGrantId] = useState('')
   const [ask, setAsk] = useState<BuyAsk | null>(null)
   const [topic, setTopic] = useState<Topic | null>(null)

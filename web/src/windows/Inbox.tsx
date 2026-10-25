@@ -134,7 +134,8 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
   const { db, decide } = useStore()
   // A purchase hold says which researcher asked, so the grant office knows who to answer.
   const request = hold.kind === 'purchase' && !embedded ? db.requests.find(r => r.id === hold.refId) : undefined
-  const [reason, setReason] = useState('')
+  // Prefilled for the demo: a request that passes every rule only needs the grant manager's yes.
+  const [reason, setReason] = useState(hold.kind === 'purchase' && hold.why.includes('Every rule passes') ? 'Money arrived; all rules pass.' : '')
   const [source, setSource] = useState('')
   // One click decides: the buttons stay off until the server answers (the card then goes away), or a few seconds if it fails.
   const [sending, setSending] = useState(false)
