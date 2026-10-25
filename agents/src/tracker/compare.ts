@@ -123,7 +123,9 @@ const daysBefore = (date: string, days: number) => new Date(Date.parse(date) - d
 export function awardGap(latest: Reading[], today: string): string | null {
   const nih = latest.find((reading) => reading.source === 'NIH RePORTER')?.awards;
   const spending = latest.find((reading) => reading.source === 'USAspending')?.awards;
-  if (!nih?.length || !spending) return null;
+  // An empty obligation list says nothing: a grant RePORTER lists awards for
+  // has obligations, so none means the list didn't come through.
+  if (!nih?.length || !spending?.length) return null;
 
   const competing = nih.filter((award) => award.competing).map((award) => award.date);
   const start = competing.length ? competing.reduce((a, b) => (a > b ? a : b)) : nih.map((a) => a.date).reduce((a, b) => (a < b ? a : b));

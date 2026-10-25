@@ -392,6 +392,16 @@ test('an_award_from_the_last_45_days_is_not_a_gap_yet', () => {
   assert.equal(awardGap([readingWith('NIH RePORTER', R01_NIH), readingWith('USAspending', spending)], '2025-09-01'), null);
 });
 
+test('an_empty_obligation_list_from_usaspending_raises_no_flag', async () => {
+  const conn = await startWith([
+    fakeSource('NIH RePORTER', [{ status: 'active', awards: R01_NIH }]),
+    fakeSource('USAspending', [{ awards: [] }]),
+  ]);
+  await refresh();
+  assert.deepEqual(disagreements(conn), []);
+  assert.equal(grant().frozen, false);
+});
+
 test('an_award_missing_from_usaspending_raises_a_disagreement_flag', async () => {
   const conn = await startWith([
     fakeSource('NIH RePORTER', [{ status: 'active', awards: R01_NIH }]),
