@@ -681,8 +681,32 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     await reroute(requestId, { action: 'reroute', grantId: from, to, failed, passed: [] }, request.sharedWith, 'leave');
   }
 
+  // Held by the agent on more than this grant's freeze (a shared cost, the
+  // card limit), so its Inbox text still names the freeze. Only a request
+  // naming its grant: an unclear one's hold says why it is unclear.
+  function heldAlsoForFreezeOf(request: RequestRow, grantId: string): boolean {
+    return request.state === 'waiting_on_manager' && Boolean(request.grantId) && openAgentHold(request.id) !== undefined
+      && request.verdicts.some((v) => !v.pass && ruleKind(v.rule) === 'freeze' && frozenGrantOf(v, request.chargedGrantId) === grantId);
+  }
+
+  // Checked again on the same grant and split, and held again with what fails
+  // now, so the Inbox stops saying the grant is frozen.
+  async function recheckHold(requestId: string): Promise<void> {
+    const request = findRequest(requestId);
+    const grantId = request?.chargedGrantId ?? request?.grantId;
+    if (!request || request.state !== 'waiting_on_manager' || !grantId || personDecided(requestId) || ordersOf(requestId).length) return;
+    const split = request.split.map(({ grantId: id, share }) => ({ grantId: id, share }));
+    const verdicts = await evaluate(requestId, grantId, split);
+    const plan = planFor(verdicts, endedFreeze(grantId));
+    if (plan.action !== 'hold') return;
+    const named = namedGrants(request, conn.rows('grant').map((grant) => grant.id));
+    const serves = unique([...request.sharedWith, ...split.map((share) => share.grantId), ...named]);
+    await act(requestId, { action: 'hold', reason: plan.reason, grantId, failed: verdicts.filter((v) => !v.pass), passed: verdicts }, serves);
+  }
+
   async function handleUnfrozen(grantId: string): Promise<void> {
     if (findGrant(grantId)?.frozen !== false) return;
+    const recheck: string[] = [];
     for (const request of conn.rows('request')) {
       // A person's decision stands: the agent never buys those alone again,
       // unless it carries out an approval the freeze held up.
@@ -693,7 +717,10 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       }
       if (request.state === 'waiting_on_manager' && waitsOnlyForFreeze(request, grantId)) await buyUnfrozen(request.id, 'waiting_on_manager', { reason: 'unfrozen' });
       else if (request.state === 'blocked') await rerouteBlocked(request.id);
+      else if (heldAlsoForFreezeOf(request, grantId)) recheck.push(request.id);
     }
+    // After the buys, so the purchases people are waiting for land first.
+    for (const requestId of recheck) await recheckHold(requestId);
   }
 
   const push = (label: string, work: () => Promise<void>) =>

@@ -246,10 +246,16 @@ test('once_grant_a_is_paid_and_its_sources_agree_the_waiting_purchases_go_throug
   assert.match(rerouted.explanation, /Rerouted .* from R21AI182745 to R01GM061721/);
   assert.match(rerouted.explanation, /Not in the grant's last 90 days/);
 
-  // Still waiting on what only a person can fix, and not bought.
-  for (const id of ['rq-104', 'rq-105']) {
+  // Still waiting on what only a person can fix, and not bought; the Inbox
+  // says what still holds them, no longer the freeze.
+  for (const [id, rule] of [['rq-104', 'Shared cost split'], ['rq-105', 'Under the card limit']]) {
     assert.equal(request(id).state, 'waiting_on_manager', id);
     assert.equal(ordersFor(id).length, 0, id);
+    const holds = openPurchaseHolds(id);
+    assert.equal(holds.length, 1, id);
+    assert.ok(holds[0].why.includes(rule), id);
+    assert.ok(!holds[0].why.includes('Grant is active and not frozen'), `${id}: ${holds[0].why}`);
+    assert.ok(holds[0].evidence.every((row) => !row.label.startsWith('Grant is active')), id);
   }
   assert.equal(request('rq-103').state, 'blocked');
 });
