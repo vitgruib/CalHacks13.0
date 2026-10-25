@@ -1,0 +1,44 @@
+{
+  "task": "purchasing.purpose",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T07:07:55.228Z",
+  "input": {
+    "request": {
+      "item": "Travel to the Bahamas",
+      "category": "travel",
+      "price": 3200,
+      "purpose": "travel to bahamas to study alzheimers"
+    },
+    "grant": {
+      "id": "R21AI182745",
+      "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity"
+    },
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "purpose": "flag",
+    "purposeWhy": "Travel to the Bahamas (a resort destination) for Alzheimer's study does not fit the antibiotic ploidy grant; nothing about the work requires the Bahamas.",
+    "price": "flag",
+    "priceWhy": "$3,200 for a trip to the Bahamas; a few days' economy travel in the US typically costs far less, and this destination is a holiday location with no named need.",
+    "categoryFits": true,
+    "betterCategory": "travel",
+    "categoryWhy": ""
+  }
+}

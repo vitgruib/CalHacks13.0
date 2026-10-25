@@ -97,7 +97,7 @@ const failsOnlyOnFreezeOf = (request: RequestRow, grantId: string, besides?: Rul
 
 export type HoldReason =
   | 'freeze' | 'card_limit' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused' | 'approved_over_limit'
-  | 'price_high' | 'purpose' | 'category_check';
+  | 'price_high' | 'price_check' | 'purpose' | 'category_check';
 export type BlockReason = 'category' | 'grant_rules' | 'already_ordered';
 
 export type Plan =
@@ -305,6 +305,8 @@ function reasonStep(decision: Decision, facts: StepFacts): string {
       return decision.note ?? 'Its price is far above the list price found for it, so the grant manager decides.';
     case 'purpose':
       return `It isn't clear it is for the lab's research${decision.note ? ` (${decision.note})` : ''}, so it needs the grant manager's approval; the agent won't buy it alone, even after a push back.`;
+    case 'price_check':
+      return `Its price looks wrong for what it is${decision.note ? ` (${decision.note})` : ''}, so it needs the grant manager's approval; the agent won't buy it alone.`;
     case 'category_check':
       return decision.note ?? "Its kind of thing looks wrong and the rules would answer differently, so the grant manager decides.";
     case 'unplaced':
@@ -439,7 +441,8 @@ export function startPurchasing({
   }
 
   // A strict look before the agent buys alone, or promises to (T86). A request
-  // not plainly for the grant's research is held for the grant manager; a kind of thing that looks wrong is
+  // not plainly for the grant's research, or priced out of line for what it
+  // is, is held for the grant manager; a kind of thing that looks wrong is
   // held only when the rules would answer differently for the one it looks
   // like. With no Claude answer, nothing is held.
   async function concernOf(request: RequestRow, decision: Decision): Promise<{ reason: HoldReason; note: string } | undefined> {
@@ -457,7 +460,7 @@ export function startPurchasing({
         categories: CHECK_CATEGORIES,
       },
       schema: PurposeAnswer,
-      fallback: () => ({ purpose: 'fine' as const, purposeWhy: '', categoryFits: true, betterCategory: 'other' as const, categoryWhy: '' }),
+      fallback: () => ({ purpose: 'fine' as const, purposeWhy: '', price: 'fine' as const, priceWhy: '', categoryFits: true, betterCategory: 'other' as const, categoryWhy: '' }),
       effort: 'low',
       // Haiku thinks before a borderline answer (up to ~600 tokens seen live);
       // at 400 it was cut off, fell back to 'fine' and the request was bought.
@@ -469,6 +472,7 @@ export function startPurchasing({
       return undefined;
     }
     if (value.purpose === 'flag') return { reason: 'purpose', note: clip(value.purposeWhy) };
+    if (value.price === 'flag') return { reason: 'price_check', note: clip(value.priceWhy) };
     const given = request.category.toLowerCase();
     if (value.categoryFits || value.betterCategory === given || !grant) return undefined;
     const rules = await loadRules();

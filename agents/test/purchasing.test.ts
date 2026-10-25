@@ -887,7 +887,7 @@ async function withPurposeClient(client: { messages: { parse: (request: { max_to
     rmSync(cacheDir, { recursive: true, force: true });
   }
 }
-const fits = { purpose: 'fine', purposeWhy: '', categoryFits: true, categoryWhy: '' };
+const fits = { purpose: 'fine', purposeWhy: '', price: 'fine', priceWhy: '', categoryFits: true, categoryWhy: '' };
 
 test('a_request_claude_finds_plainly_not_for_research_is_held_instead_of_bought', () =>
   withPurposeAnswer({ ...fits, purpose: 'flag', purposeWhy: 'A birthday cake is a party cost.', betterCategory: 'food' }, async (scientist, idle, lab) => {
@@ -898,6 +898,16 @@ test('a_request_claude_finds_plainly_not_for_research_is_held_instead_of_bought'
     assert.equal(ordersFor(row.id, lab).length, 0);
     assert.match(row.explanation, /isn't clear it is for the lab's research \(A birthday cake is a party cost\.\)/);
     assert.equal(openPurchaseHolds(row.id, lab).length, 1);
+  }));
+
+test('a_price_claude_finds_out_of_line_for_the_item_is_held_for_the_grant_manager', () =>
+  withPurposeAnswer({ ...fits, price: 'flag', priceWhy: '$2,400 for 4 cases of gloves; a case is usually about $60.', betterCategory: 'lab supplies' }, async (scientist, idle, lab) => {
+    await scientist.call('submit_request', { ...gloves, price: 2_400 });
+    await idle();
+    const row = lab.rows('request').at(-1)!;
+    assert.equal(row.state, 'waiting_on_manager');
+    assert.equal(ordersFor(row.id, lab).length, 0);
+    assert.match(row.explanation, /price looks wrong for what it is \(\$2,400 for 4 cases of gloves/);
   }));
 
 // A fake Claude that is talked round by any push back it is shown: a flag

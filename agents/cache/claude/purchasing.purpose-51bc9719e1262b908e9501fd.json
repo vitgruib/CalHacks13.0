@@ -1,0 +1,44 @@
+{
+  "task": "purchasing.purpose",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T07:07:50.393Z",
+  "input": {
+    "request": {
+      "item": "Membrane protein detergent screening kit, 4 plates",
+      "category": "reagents",
+      "price": 5000,
+      "purpose": "BamA detergent screen, round 2"
+    },
+    "grant": {
+      "id": "R01GM061721",
+      "title": "Biogenesis of the mitochondrial inner membrane"
+    },
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "purpose": "fine",
+    "purposeWhy": "",
+    "price": "fine",
+    "priceWhy": "",
+    "categoryFits": true,
+    "betterCategory": "reagents",
+    "categoryWhy": ""
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "task": "purchasing.purpose",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T07:07:53.797Z",
+  "input": {
+    "request": {
+      "item": "Travel to the Bahamas",
+      "category": "travel",
+      "price": 3200,
+      "purpose": "travel to bahamas to study alzheimers"
+    },
+    "grant": {
+      "id": "R01GM061721",
+      "title": "Biogenesis of the mitochondrial inner membrane"
+    },
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "purpose": "flag",
+    "purposeWhy": "Travel to the Bahamas for Alzheimer's study is a resort destination with no stated need for the location, and Alzheimer's research is a different field from mitochondrial inner membrane biogenesis.",
+    "price": "flag",
+    "priceWhy": "$3,200 for Bahamas travel is well above a typical economy trip for a few days of US-based work, roughly $1,000 to $2,000 for comparable travel.",
+    "categoryFits": true,
+    "betterCategory": "travel",
+    "categoryWhy": ""
+  }
+}
