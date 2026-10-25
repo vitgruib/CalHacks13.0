@@ -86,8 +86,8 @@ for (const [n, grantId, day, item, vendor, category, price, purpose] of backgrou
     id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, purpose,
     state: 'bought', verdicts: passVerdicts(price, category),
     explanation: overLimit
-      ? `Over the $5,000 card limit, so I paused it for the grant manager, who approved it at ${money(price)}. Then I ordered it.`
-      : 'Every rule passed and it is under the card limit, so I bought it.',
+      ? `Over the $5,000 card limit, so it was flagged for the grant office, which approved it at ${money(price)}. The researcher bought it and sent the invoice.`
+      : 'Every rule passed and the grant office approved it. The researcher bought it and sent the invoice.',
   })
   log(day, 'scientist', `${researcherFor(grantId)} asked to buy ${item} (${money(price)})`, purpose, id)
 
@@ -96,18 +96,19 @@ for (const [n, grantId, day, item, vendor, category, price, purpose] of backgrou
     const hid = newHoldId(), decided = addDays(day, 1)
     placed = addDays(day, 2)
     db.holds.push({
-      id: hid, kind: 'purchase', refId: id, grantId, raisedBy: 'purchasing', day,
-      title: `Buy ${item.toLowerCase()} (${money(price)}), over the card limit?`,
+      id: hid, kind: 'purchase', refId: id, grantId, raisedBy: 'system', day,
+      title: `Flagged: approve ${item.toLowerCase()} (${money(price)})?`,
       why: 'Over the $5,000 card limit, so the grant manager has to approve it.',
       evidence: [{ label: 'Price', value: money(price) }, { label: 'Card limit', value: '$5,000' }],
       options: ['approve', 'reject'],
       decision: { choice: 'approve', reason: 'Needed for the aims; quote checked against two vendors.', by: 'grant_manager', day: decided },
     })
     db.approvals.push({ id: `ap-${pad(n)}`, orderId: oid, amount: price, by: 'grant_manager', day: decided })
-    log(day, 'purchasing', `Paused ${item.toLowerCase()} for the grant manager`, `${money(price)} is over the card limit.`, hid, 'Under the card limit ($5,000)')
+    log(day, 'system', `Sent to the Inbox: flagged ${item.toLowerCase()}`, `${money(price)} is over the card limit.`, hid, 'Under the card limit ($5,000)')
     log(decided, 'grant_manager', `Decided ${hid}: approve`, 'Needed for the aims; quote checked against two vendors.', hid)
   }
-  log(placed, 'purchasing', `Bought ${item.toLowerCase()} (${money(price)}) on ${grantId}`, 'Every rule passed.', id, overLimit ? 'Approved by the grant manager' : 'All rules pass, under card limit')
+  if (!overLimit) log(day, 'grant_manager', `Approved ${item.toLowerCase()} (${money(price)}) on ${grantId}`, 'Every rule passed.', id, 'All rules pass, under card limit')
+  log(placed, 'scientist', `Bought ${item.toLowerCase()} (${money(price)}) on ${grantId}`, 'Approved by the grant office.', id)
 
   const order = { id: oid, requestId: id, vendor, amount: price, placed, state: 'paid' }
   const invoice = {
@@ -126,12 +127,12 @@ for (const [n, grantId, day, item, vendor, category, price, purpose] of backgrou
     // PLANTED (invoices): an invoice for a canceled order. Raw: not yet checked.
     order.state = 'canceled'; order.canceledOn = '2026-03-02'
     Object.assign(invoice, { received: '2026-06-11', state: 'matched', checked: false, timeline: [{ day: '2026-06-11', what: `Invoice arrived (${money(price)})` }] })
-    db.requests.at(-1).explanation = 'Every rule passed, so I bought it. The lab canceled the order on 2026-03-02 (back-ordered for 10 weeks).'
+    db.requests.at(-1).explanation = 'Every rule passed and the grant office approved it. The lab canceled the order on 2026-03-02 (back-ordered for 10 weeks).'
     log('2026-03-02', 'scientist', `Canceled order ${oid}`, 'Vendor back-ordered it for 10 weeks; we used a colleague\'s stock instead.', oid)
   } else if (item === 'Orbital plate shaker') {
     // PLANTED (invoices): the approval is for a different amount than the invoice.
     order.amount = 6_200; order.state = 'open'
-    db.requests.at(-1).explanation = 'Over the $5,000 card limit, so I paused it for the grant manager, who approved the $5,800 quote. The department purchasing office placed the order on 2026-04-22.'
+    db.requests.at(-1).explanation = 'Over the $5,000 card limit, so it was flagged for the grant office, which approved the $5,800 quote. The department purchasing office placed the order on 2026-04-22.'
     db.log.at(-1).action = `Order for ${item.toLowerCase()} placed by the department purchasing office`
     Object.assign(invoice, { amount: 6_200, received: '2026-06-09', state: 'matched', checked: false, timeline: [{ day: '2026-06-09', what: 'Invoice arrived ($6,200)' }] })
   } else if (item === 'Ultra-low freezer service contract') {
@@ -139,7 +140,7 @@ for (const [n, grantId, day, item, vendor, category, price, purpose] of backgrou
     order.state = 'changed'; order.changedAmount = 1_290
     const hid = newHoldId()
     db.holds.push({
-      id: hid, kind: 'purchase', refId: id, grantId, raisedBy: 'purchasing', day: '2026-05-03',
+      id: hid, kind: 'purchase', refId: id, grantId, raisedBy: 'scientist', day: '2026-05-03',
       title: 'Approve a change to the CoolChain order: $1,150 to $1,290?',
       why: 'The vendor added a required compressor check; changes to an order need the grant manager.',
       evidence: [{ label: 'Original order', value: '$1,150 (2026-05-01)' }, { label: 'Changed to', value: '$1,290' }],
@@ -147,7 +148,7 @@ for (const [n, grantId, day, item, vendor, category, price, purpose] of backgrou
       decision: { choice: 'approve', reason: 'The compressor check is required by the service contract.', by: 'grant_manager', day: '2026-05-04' },
     })
     db.approvals.push({ id: `ap-${pad(n)}`, orderId: oid, amount: 1_290, by: 'grant_manager', day: '2026-05-04' })
-    log('2026-05-03', 'purchasing', 'Paused a change to order o-036 for the grant manager', 'Order changed from $1,150 to $1,290.', hid, 'Order changes need the grant manager')
+    log('2026-05-03', 'scientist', 'Sent a change to order o-036 to the grant office', 'Order changed from $1,150 to $1,290.', hid, 'Order changes need the grant manager')
     log('2026-05-04', 'grant_manager', `Decided ${hid}: approve`, 'The compressor check is required by the service contract.', hid)
     Object.assign(invoice, { amount: 1_290, received: '2026-06-08', state: 'matched', checked: false, timeline: [{ day: '2026-06-08', what: 'Invoice arrived ($1,290)' }] })
   } else if (item === 'Mueller-Hinton broth, 12 bottles' && day === '2026-05-01') {
@@ -206,10 +207,11 @@ for (const [n, day, item, vendor, category, price, purpose, received] of [
   const id = `rq-${n}`, oid = `o-${n}`
   db.requests.push({
     id, day, requester: 'scientist', requesterName: researcherFor(B), item, category, price, grantId: B, purpose,
-    state: 'bought', verdicts: passVerdicts(price, category), explanation: 'Every rule passed and it is under the card limit, so I bought it.',
+    state: 'bought', verdicts: passVerdicts(price, category), explanation: 'Every rule passed and the grant office approved it. The researcher bought it and sent the invoice.',
   })
   log(day, 'scientist', `${researcherFor(B)} asked to buy ${item} (${money(price)})`, purpose, id)
-  log(day, 'purchasing', `Bought ${item.toLowerCase()} (${money(price)}) on ${B}`, 'Every rule passed.', id, 'All rules pass, under card limit')
+  log(day, 'grant_manager', `Approved ${item.toLowerCase()} (${money(price)}) on ${B}`, 'Every rule passed.', id, 'All rules pass, under card limit')
+  log(day, 'scientist', `Bought ${item.toLowerCase()} (${money(price)}) on ${B}`, 'Approved by the grant office.', id)
   db.orders.push({ id: oid, requestId: id, vendor, amount: price, placed: day, state: 'open' })
   db.invoices.push({ id: `inv-${n}`, orderId: oid, vendor, amount: price, received, state: 'matched', checked: false, timeline: [{ day: received, what: `Invoice arrived (${money(price)})` }] })
 }
@@ -231,7 +233,7 @@ const raw = [
   ['rq-110', '2026-06-15', 'Biosafety cabinet filter replacement', 'equipment service', 2_400, B, 'HEPA filter replacement found at certification'],
 ]
 for (const [id, day, item, category, price, grantId, purpose] of raw) {
-  db.requests.push({ id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, purpose, state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' })
+  db.requests.push({ id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, purpose, state: 'submitted', verdicts: [], explanation: 'Waiting for the grant office.' })
   log(day, 'scientist', `${researcherFor(grantId)} asked to buy ${item} (${money(price)})`, purpose, id)
 }
 

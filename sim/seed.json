@@ -285,7 +285,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-012",
@@ -325,7 +325,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-017",
@@ -365,7 +365,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-030",
@@ -405,7 +405,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed, so I bought it. The lab canceled the order on 2026-03-02 (back-ordered for 10 weeks)."
+      "explanation": "Every rule passed and the grant office approved it. The lab canceled the order on 2026-03-02 (back-ordered for 10 weeks)."
     },
     {
       "id": "rq-033",
@@ -445,7 +445,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-034",
@@ -485,7 +485,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Over the $5,000 card limit, so I paused it for the grant manager, who approved the $5,800 quote. The department purchasing office placed the order on 2026-04-22."
+      "explanation": "Over the $5,000 card limit, so it was flagged for the grant office, which approved the $5,800 quote. The department purchasing office placed the order on 2026-04-22."
     },
     {
       "id": "rq-035",
@@ -525,7 +525,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-036",
@@ -565,7 +565,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-037",
@@ -605,7 +605,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-038",
@@ -645,7 +645,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-050",
@@ -699,7 +699,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-203",
@@ -739,7 +739,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+      "explanation": "Every rule passed and the grant office approved it. The researcher bought it and sent the invoice."
     },
     {
       "id": "rq-101",
@@ -753,7 +753,7 @@
       "purpose": "Membrane prep for aim 2. The court restored the grant, so the money is coming.",
       "state": "submitted",
       "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
+      "explanation": "Waiting for the grant office."
     },
     {
       "id": "rq-102",
@@ -767,7 +767,7 @@
       "purpose": "Assay validation runs before the grant ends",
       "state": "submitted",
       "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
+      "explanation": "Waiting for the grant office."
     },
     {
       "id": "rq-103",
@@ -781,7 +781,7 @@
       "purpose": "Lab morale during the final push",
       "state": "submitted",
       "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
+      "explanation": "Waiting for the grant office."
     },
     {
       "id": "rq-105",
@@ -795,7 +795,7 @@
       "purpose": "Continuous-flow folding experiments, aim 3",
       "state": "submitted",
       "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
+      "explanation": "Waiting for the grant office."
     },
     {
       "id": "rq-106",
@@ -809,7 +809,7 @@
       "purpose": "BamA detergent screen, round 2",
       "state": "submitted",
       "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
+      "explanation": "Waiting for the grant office."
     },
     {
       "id": "rq-108",
@@ -823,7 +823,7 @@
       "purpose": "Resistance-gene survey of the clinical isolate panel",
       "state": "submitted",
       "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
+      "explanation": "Waiting for the grant office."
     },
     {
       "id": "rq-109",
@@ -837,7 +837,7 @@
       "purpose": "Resistance-gene survey of the clinical isolate panel",
       "state": "submitted",
       "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
+      "explanation": "Waiting for the grant office."
     },
     {
       "id": "rq-110",
@@ -851,7 +851,7 @@
       "purpose": "HEPA filter replacement found at certification",
       "state": "submitted",
       "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
+      "explanation": "Waiting for the grant office."
     },
     {
       "id": "rq-060",
@@ -1556,9 +1556,9 @@
       "kind": "purchase",
       "refId": "rq-034",
       "grantId": "R21AI182745",
-      "raisedBy": "purchasing",
+      "raisedBy": "system",
       "day": "2026-04-20",
-      "title": "Buy orbital plate shaker ($5,800), over the card limit?",
+      "title": "Flagged: approve orbital plate shaker ($5,800)?",
       "why": "Over the $5,000 card limit, so the grant manager has to approve it.",
       "evidence": [
         {
@@ -1586,7 +1586,7 @@
       "kind": "purchase",
       "refId": "rq-036",
       "grantId": "R21AI182745",
-      "raisedBy": "purchasing",
+      "raisedBy": "scientist",
       "day": "2026-05-03",
       "title": "Approve a change to the CoolChain order: $1,150 to $1,290?",
       "why": "The vendor added a required compressor check; changes to an order need the grant manager.",
@@ -1657,14 +1657,22 @@
     {
       "id": "l-0003",
       "day": "2025-09-09",
-      "actor": "purchasing",
-      "action": "Bought proteomics core: 10 hours of mass spec ($1,800) on R01GM061721",
+      "actor": "grant_manager",
+      "action": "Approved proteomics core: 10 hours of mass spec ($1,800) on R01GM061721",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-011"
     },
     {
       "id": "l-0004",
+      "day": "2025-09-09",
+      "actor": "scientist",
+      "action": "Bought proteomics core: 10 hours of mass spec ($1,800) on R01GM061721",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-011"
+    },
+    {
+      "id": "l-0005",
       "day": "2025-09-15",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-011 to order o-011",
@@ -1673,7 +1681,7 @@
       "refId": "inv-011"
     },
     {
-      "id": "l-0005",
+      "id": "l-0006",
       "day": "2025-10-14",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",
@@ -1681,16 +1689,24 @@
       "refId": "rq-012"
     },
     {
-      "id": "l-0006",
+      "id": "l-0007",
       "day": "2025-10-14",
-      "actor": "purchasing",
-      "action": "Bought nitrile gloves, 10 cases ($640) on R01GM061721",
+      "actor": "grant_manager",
+      "action": "Approved nitrile gloves, 10 cases ($640) on R01GM061721",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-012"
     },
     {
-      "id": "l-0007",
+      "id": "l-0008",
+      "day": "2025-10-14",
+      "actor": "scientist",
+      "action": "Bought nitrile gloves, 10 cases ($640) on R01GM061721",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-012"
+    },
+    {
+      "id": "l-0009",
       "day": "2025-10-20",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-012 to order o-012",
@@ -1699,7 +1715,7 @@
       "refId": "inv-012"
     },
     {
-      "id": "l-0008",
+      "id": "l-0010",
       "day": "2026-02-17",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Detergent screening kit, 2 plates ($2,300)",
@@ -1707,16 +1723,24 @@
       "refId": "rq-017"
     },
     {
-      "id": "l-0009",
+      "id": "l-0011",
       "day": "2026-02-17",
-      "actor": "purchasing",
-      "action": "Bought detergent screening kit, 2 plates ($2,300) on R01GM061721",
+      "actor": "grant_manager",
+      "action": "Approved detergent screening kit, 2 plates ($2,300) on R01GM061721",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-017"
     },
     {
-      "id": "l-0010",
+      "id": "l-0012",
+      "day": "2026-02-17",
+      "actor": "scientist",
+      "action": "Bought detergent screening kit, 2 plates ($2,300) on R01GM061721",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-017"
+    },
+    {
+      "id": "l-0013",
       "day": "2026-02-20",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Ceftazidime-avibactam reference powder ($2,400)",
@@ -1724,16 +1748,24 @@
       "refId": "rq-030"
     },
     {
-      "id": "l-0011",
+      "id": "l-0014",
       "day": "2026-02-20",
-      "actor": "purchasing",
-      "action": "Bought ceftazidime-avibactam reference powder ($2,400) on R21AI182745",
+      "actor": "grant_manager",
+      "action": "Approved ceftazidime-avibactam reference powder ($2,400) on R21AI182745",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-030"
     },
     {
-      "id": "l-0012",
+      "id": "l-0015",
+      "day": "2026-02-20",
+      "actor": "scientist",
+      "action": "Bought ceftazidime-avibactam reference powder ($2,400) on R21AI182745",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-030"
+    },
+    {
+      "id": "l-0016",
       "day": "2026-02-23",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-017 to order o-017",
@@ -1742,7 +1774,7 @@
       "refId": "inv-017"
     },
     {
-      "id": "l-0013",
+      "id": "l-0017",
       "day": "2026-03-02",
       "actor": "scientist",
       "action": "Canceled order o-030",
@@ -1750,7 +1782,7 @@
       "refId": "o-030"
     },
     {
-      "id": "l-0014",
+      "id": "l-0018",
       "day": "2026-03-02",
       "actor": "payment_report",
       "action": "Drafted payment request pr-005 ($13,700)",
@@ -1758,7 +1790,7 @@
       "refId": "pr-005"
     },
     {
-      "id": "l-0015",
+      "id": "l-0019",
       "day": "2026-03-03",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-005",
@@ -1766,7 +1798,7 @@
       "refId": "pr-005"
     },
     {
-      "id": "l-0016",
+      "id": "l-0020",
       "day": "2026-03-07",
       "actor": "bookkeeping",
       "action": "Recorded payment of $13,700 on R01GM061721",
@@ -1774,7 +1806,7 @@
       "refId": "se-001"
     },
     {
-      "id": "l-0017",
+      "id": "l-0021",
       "day": "2026-03-10",
       "actor": "bookkeeping",
       "action": "Froze R01GM061721",
@@ -1783,7 +1815,7 @@
       "refId": "se-a-canceled-list"
     },
     {
-      "id": "l-0018",
+      "id": "l-0022",
       "day": "2026-03-20",
       "actor": "system",
       "action": "Imported a card charge from the university ledger",
@@ -1791,7 +1823,7 @@
       "refId": "rq-050"
     },
     {
-      "id": "l-0019",
+      "id": "l-0023",
       "day": "2026-04-06",
       "actor": "payment_report",
       "action": "Drafted payment request pr-014 ($5,130)",
@@ -1799,7 +1831,7 @@
       "refId": "pr-014"
     },
     {
-      "id": "l-0020",
+      "id": "l-0024",
       "day": "2026-04-07",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-014",
@@ -1807,7 +1839,7 @@
       "refId": "pr-014"
     },
     {
-      "id": "l-0021",
+      "id": "l-0025",
       "day": "2026-04-11",
       "actor": "bookkeeping",
       "action": "Recorded payment of $5,130 on R21AI182745",
@@ -1815,7 +1847,7 @@
       "refId": "se-002"
     },
     {
-      "id": "l-0022",
+      "id": "l-0026",
       "day": "2026-04-14",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Agar plates, 40 packs ($1,180)",
@@ -1823,16 +1855,24 @@
       "refId": "rq-033"
     },
     {
-      "id": "l-0023",
+      "id": "l-0027",
       "day": "2026-04-14",
-      "actor": "purchasing",
-      "action": "Bought agar plates, 40 packs ($1,180) on R21AI182745",
+      "actor": "grant_manager",
+      "action": "Approved agar plates, 40 packs ($1,180) on R21AI182745",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-033"
     },
     {
-      "id": "l-0024",
+      "id": "l-0028",
+      "day": "2026-04-14",
+      "actor": "scientist",
+      "action": "Bought agar plates, 40 packs ($1,180) on R21AI182745",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-033"
+    },
+    {
+      "id": "l-0029",
       "day": "2026-04-20",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-033 to order o-033",
@@ -1841,7 +1881,7 @@
       "refId": "inv-033"
     },
     {
-      "id": "l-0025",
+      "id": "l-0030",
       "day": "2026-04-20",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Orbital plate shaker ($5,800)",
@@ -1849,16 +1889,16 @@
       "refId": "rq-034"
     },
     {
-      "id": "l-0026",
+      "id": "l-0031",
       "day": "2026-04-20",
-      "actor": "purchasing",
-      "action": "Paused orbital plate shaker for the grant manager",
+      "actor": "system",
+      "action": "Sent to the Inbox: flagged orbital plate shaker",
       "rule": "Under the card limit ($5,000)",
       "reason": "$5,800 is over the card limit.",
       "refId": "h-002"
     },
     {
-      "id": "l-0027",
+      "id": "l-0032",
       "day": "2026-04-21",
       "actor": "grant_manager",
       "action": "Decided h-002: approve",
@@ -1866,16 +1906,15 @@
       "refId": "h-002"
     },
     {
-      "id": "l-0028",
+      "id": "l-0033",
       "day": "2026-04-22",
-      "actor": "purchasing",
+      "actor": "scientist",
       "action": "Order for orbital plate shaker placed by the department purchasing office",
-      "rule": "Approved by the grant manager",
-      "reason": "Every rule passed.",
+      "reason": "Approved by the grant office.",
       "refId": "rq-034"
     },
     {
-      "id": "l-0029",
+      "id": "l-0034",
       "day": "2026-04-24",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Open-access publication fee, J. Appl. Microb. Methods ($2,100)",
@@ -1883,16 +1922,24 @@
       "refId": "rq-035"
     },
     {
-      "id": "l-0030",
+      "id": "l-0035",
       "day": "2026-04-24",
-      "actor": "purchasing",
-      "action": "Bought open-access publication fee, j. appl. microb. methods ($2,100) on R21AI182745",
+      "actor": "grant_manager",
+      "action": "Approved open-access publication fee, j. appl. microb. methods ($2,100) on R21AI182745",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-035"
     },
     {
-      "id": "l-0031",
+      "id": "l-0036",
+      "day": "2026-04-24",
+      "actor": "scientist",
+      "action": "Bought open-access publication fee, j. appl. microb. methods ($2,100) on R21AI182745",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-035"
+    },
+    {
+      "id": "l-0037",
       "day": "2026-04-30",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-035 to order o-035",
@@ -1901,7 +1948,7 @@
       "refId": "inv-035"
     },
     {
-      "id": "l-0032",
+      "id": "l-0038",
       "day": "2026-05-01",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Ultra-low freezer service contract ($1,150)",
@@ -1909,16 +1956,24 @@
       "refId": "rq-036"
     },
     {
-      "id": "l-0033",
+      "id": "l-0039",
       "day": "2026-05-01",
-      "actor": "purchasing",
-      "action": "Bought ultra-low freezer service contract ($1,150) on R21AI182745",
+      "actor": "grant_manager",
+      "action": "Approved ultra-low freezer service contract ($1,150) on R21AI182745",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-036"
     },
     {
-      "id": "l-0034",
+      "id": "l-0040",
+      "day": "2026-05-01",
+      "actor": "scientist",
+      "action": "Bought ultra-low freezer service contract ($1,150) on R21AI182745",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-036"
+    },
+    {
+      "id": "l-0041",
       "day": "2026-05-01",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Mueller-Hinton broth, 12 bottles ($1,460)",
@@ -1926,25 +1981,33 @@
       "refId": "rq-037"
     },
     {
-      "id": "l-0035",
+      "id": "l-0042",
       "day": "2026-05-01",
-      "actor": "purchasing",
-      "action": "Bought mueller-hinton broth, 12 bottles ($1,460) on R21AI182745",
+      "actor": "grant_manager",
+      "action": "Approved mueller-hinton broth, 12 bottles ($1,460) on R21AI182745",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-037"
     },
     {
-      "id": "l-0036",
+      "id": "l-0043",
+      "day": "2026-05-01",
+      "actor": "scientist",
+      "action": "Bought mueller-hinton broth, 12 bottles ($1,460) on R21AI182745",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-037"
+    },
+    {
+      "id": "l-0044",
       "day": "2026-05-03",
-      "actor": "purchasing",
-      "action": "Paused a change to order o-036 for the grant manager",
+      "actor": "scientist",
+      "action": "Sent a change to order o-036 to the grant office",
       "rule": "Order changes need the grant manager",
       "reason": "Order changed from $1,150 to $1,290.",
       "refId": "h-003"
     },
     {
-      "id": "l-0037",
+      "id": "l-0045",
       "day": "2026-05-04",
       "actor": "grant_manager",
       "action": "Decided h-003: approve",
@@ -1952,7 +2015,7 @@
       "refId": "h-003"
     },
     {
-      "id": "l-0038",
+      "id": "l-0046",
       "day": "2026-05-07",
       "actor": "payment_report",
       "action": "Drafted payment request pr-015 ($8,410)",
@@ -1960,7 +2023,7 @@
       "refId": "pr-015"
     },
     {
-      "id": "l-0039",
+      "id": "l-0047",
       "day": "2026-05-08",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-015",
@@ -1968,7 +2031,7 @@
       "refId": "pr-015"
     },
     {
-      "id": "l-0040",
+      "id": "l-0048",
       "day": "2026-05-20",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Genomics core: sequencing run for 24 isolates ($640)",
@@ -1976,16 +2039,24 @@
       "refId": "rq-038"
     },
     {
-      "id": "l-0041",
+      "id": "l-0049",
       "day": "2026-05-20",
-      "actor": "purchasing",
-      "action": "Bought genomics core: sequencing run for 24 isolates ($640) on R21AI182745",
+      "actor": "grant_manager",
+      "action": "Approved genomics core: sequencing run for 24 isolates ($640) on R21AI182745",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-038"
     },
     {
-      "id": "l-0042",
+      "id": "l-0050",
+      "day": "2026-05-20",
+      "actor": "scientist",
+      "action": "Bought genomics core: sequencing run for 24 isolates ($640) on R21AI182745",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-038"
+    },
+    {
+      "id": "l-0051",
       "day": "2026-05-27",
       "actor": "bookkeeping",
       "action": "Held invoice inv-037",
@@ -1994,7 +2065,7 @@
       "refId": "inv-037"
     },
     {
-      "id": "l-0043",
+      "id": "l-0052",
       "day": "2026-05-28",
       "actor": "funder",
       "action": "Asked a follow-up on pr-015",
@@ -2002,7 +2073,7 @@
       "refId": "fu-001"
     },
     {
-      "id": "l-0044",
+      "id": "l-0053",
       "day": "2026-06-02",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Genomics core: sequencing run for 24 isolates, second batch ($640)",
@@ -2010,16 +2081,24 @@
       "refId": "rq-203"
     },
     {
-      "id": "l-0045",
+      "id": "l-0054",
       "day": "2026-06-02",
-      "actor": "purchasing",
-      "action": "Bought genomics core: sequencing run for 24 isolates, second batch ($640) on R21AI182745",
+      "actor": "grant_manager",
+      "action": "Approved genomics core: sequencing run for 24 isolates, second batch ($640) on R21AI182745",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-203"
     },
     {
-      "id": "l-0046",
+      "id": "l-0055",
+      "day": "2026-06-02",
+      "actor": "scientist",
+      "action": "Bought genomics core: sequencing run for 24 isolates, second batch ($640) on R21AI182745",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-203"
+    },
+    {
+      "id": "l-0056",
       "day": "2026-06-10",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Biosafety cabinet annual certification ($1,240)",
@@ -2027,16 +2106,24 @@
       "refId": "rq-202"
     },
     {
-      "id": "l-0047",
+      "id": "l-0057",
       "day": "2026-06-10",
-      "actor": "purchasing",
-      "action": "Bought biosafety cabinet annual certification ($1,240) on R21AI182745",
+      "actor": "grant_manager",
+      "action": "Approved biosafety cabinet annual certification ($1,240) on R21AI182745",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-202"
     },
     {
-      "id": "l-0048",
+      "id": "l-0058",
+      "day": "2026-06-10",
+      "actor": "scientist",
+      "action": "Bought biosafety cabinet annual certification ($1,240) on R21AI182745",
+      "reason": "Approved by the grant office.",
+      "refId": "rq-202"
+    },
+    {
+      "id": "l-0059",
       "day": "2026-06-12",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Agar plates, 40 packs ($1,180)",
@@ -2044,7 +2131,7 @@
       "refId": "rq-102"
     },
     {
-      "id": "l-0049",
+      "id": "l-0060",
       "day": "2026-06-13",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Espresso machine for the lab ($890)",
@@ -2052,7 +2139,7 @@
       "refId": "rq-103"
     },
     {
-      "id": "l-0050",
+      "id": "l-0061",
       "day": "2026-06-14",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",
@@ -2060,7 +2147,7 @@
       "refId": "rq-101"
     },
     {
-      "id": "l-0051",
+      "id": "l-0062",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Peristaltic pump with controller ($6,850)",
@@ -2068,7 +2155,7 @@
       "refId": "rq-105"
     },
     {
-      "id": "l-0052",
+      "id": "l-0063",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Membrane protein detergent screening kit, 4 plates ($5,000)",
@@ -2076,7 +2163,7 @@
       "refId": "rq-106"
     },
     {
-      "id": "l-0053",
+      "id": "l-0064",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 1 of 2 ($2,900)",
@@ -2084,7 +2171,7 @@
       "refId": "rq-108"
     },
     {
-      "id": "l-0054",
+      "id": "l-0065",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 2 of 2 ($2,600)",
@@ -2092,7 +2179,7 @@
       "refId": "rq-109"
     },
     {
-      "id": "l-0055",
+      "id": "l-0066",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Biosafety cabinet filter replacement ($2,400)",
