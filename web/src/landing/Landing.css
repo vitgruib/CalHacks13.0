@@ -5,8 +5,11 @@
 /* Set on <html> only while the landing is mounted (Landing.tsx). */
 html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavior: none; }
 
-/* The hero fills the whole viewport: no bar, no margin. Its title is GrantGuard. */
-.landing { position: relative; height: 100vh; height: 100dvh; overflow: hidden; background: #c9ced5; color: var(--text); line-height: 1.5; }
+/* A thin bar, then the hero fills the rest of the viewport. Its title is GrantGuard. */
+.landing { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100vh; height: 100dvh; overflow: hidden; background: #c9ced5; color: var(--text); line-height: 1.5; }
+.landing-bar { display: flex; align-items: center; height: 36px; padding: 0 20px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.landing-mark { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
+.landing-stage { position: relative; overflow: hidden; }
 .landing ::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); color: var(--text); }
 .landing :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
@@ -30,18 +33,19 @@ html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavio
 /* Like the embed: the headline across the top, the description under it, the
    prompt below; the still fills the stage behind. */
 .hero-stub-copy { position: absolute; top: clamp(16px, 3.5vh, 36px); left: clamp(16px, 2.4vw, 40px); right: clamp(16px, 2.4vw, 40px); }
-.hero-stub h1 { margin: 0 0 8px; font-size: clamp(48px, 6.4vw, 96px); line-height: 1; letter-spacing: -0.035em; font-weight: 700; }
-.hero-stub-copy p { margin: 0 0 18px; color: #3c4753; font-size: clamp(15px, 1.25vw, 18px); }
-/* The landing's only choice, in big text: the two phrases are the buttons. */
-.hero-stub-copy .hero-stub-prompt { margin: 0; max-width: none; color: #1c232c; font-size: clamp(22px, 2.1vw, 30px); line-height: 1.6; font-weight: 600; letter-spacing: -0.01em; }
-.hero-stub-prompt button { padding: 2px 12px 4px; border: 0; border-radius: 8px; background: #1c232c; color: #f3f5f7; font: inherit; cursor: pointer; }
+.hero-stub h1 { margin: 0 0 6px; font-size: clamp(32px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
+.hero-stub-copy p { margin: 0 0 12px; color: #3c4753; font-size: clamp(14px, 1.05vw, 16px); }
+/* The landing's only choice, a quiet italic line: the two phrases are the buttons. */
+.hero-stub-copy .hero-stub-prompt { margin: 0; max-width: none; color: #1c232c; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.7; font-style: italic; font-weight: 400; }
+.hero-stub-prompt button { padding: 1px 8px 2px; border: 0; border-radius: 6px; background: #1c232c; color: #f3f5f7; font: inherit; font-style: normal; font-weight: 600; font-size: 0.92em; cursor: pointer; }
 .hero-stub-prompt button:hover { background: #2e5ba6; }
 .hero-stub-prompt button:active { transform: translateY(1px); }
 .hero-stub-note { position: absolute; left: clamp(16px, 2.4vw, 40px); bottom: 14px; margin: 0; color: #3c4753; font-size: 13px; }
 @media (max-width: 759px) {
+  .landing-bar { padding: 0 16px; }
   .hero-still img { object-position: 50% 100%; }
   .hero-stub-copy { top: 16px; }
-  .hero-stub h1 { font-size: 48px; margin-bottom: 8px; }
-  .hero-stub-copy p { margin-bottom: 14px; font-size: 15px; }
-  .hero-stub-copy .hero-stub-prompt { font-size: 22px; }
+  .hero-stub h1 { font-size: 32px; margin-bottom: 6px; }
+  .hero-stub-copy p { margin-bottom: 10px; font-size: 14px; }
+  .hero-stub-copy .hero-stub-prompt { font-size: 15px; }
 }

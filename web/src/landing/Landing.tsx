@@ -27,7 +27,10 @@ export default function Landing({ onPick }: { onPick: (portal: string) => void }
 
   return (
     <div className="landing">
-      <div className="landing-embed"><HeroSlot onEnter={enter} /></div>
+      <header className="landing-bar"><span className="landing-mark">GrantGuard</span></header>
+      <div className="landing-stage">
+        <div className="landing-embed"><HeroSlot onEnter={enter} /></div>
+      </div>
     </div>
   )
 }
