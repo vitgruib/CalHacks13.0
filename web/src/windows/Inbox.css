@@ -9,7 +9,13 @@
 .hold .evidence { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin: 0 0 12px; font-size: 14px; }
 .hold .evidence > div { display: contents; }
 .hold .evidence dt { color: var(--muted); font-weight: 600; }
-.hold .evidence dd { margin: 0; }
+.hold .evidence dd { margin: 0; overflow-wrap: anywhere; }
+/* On a phone a long rule name ("Grant is active and not frozen") would hold the
+   label column wider than the screen: each label sits over its value instead. */
+@media (max-width: 720px) {
+  .hold .evidence { grid-template-columns: minmax(0, 1fr); }
+  .hold .evidence dd { margin-bottom: 6px; }
+}
 .hold .field { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
 .hold .field label { font-size: 13px; font-weight: 600; }
 .hold .field select { align-self: flex-start; }
