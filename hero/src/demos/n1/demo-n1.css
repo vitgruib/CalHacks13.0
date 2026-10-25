@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Public+Sans:wght@300..800&display=swap');
+
+/* Round 3 network mock n1 "Neural net". Every rule is scoped under .demo-n1. */
+
+.demo-n1 {
+  --ink: #1c232c;
+  --ink-2: #3c4753;
+  --ink-3: #6a7480;
+  --celadon: #4f9c80;
+  --ochre: #c98b2e;
+  --oxblood: #9c2e2a;
+  --cobalt: #2e5ba6;
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 40% 18%, #e6e8eb, #c7ccd2 70%);
+  color: var(--ink);
+  font-family: 'Public Sans', 'Archivo', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.demo-n1 .n1-canvas {
+  position: absolute !important;
+  inset: 0;
+}
+
+.demo-n1 .n1-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+.demo-n1 .n1-labels > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.demo-n1 .n1-label {
+  display: block;
+  white-space: nowrap;
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 560;
+  font-stretch: 92%;
+  letter-spacing: 0.01em;
+  color: var(--ink-2);
+}
+
+.demo-n1 .n1-label--agent {
+  font-size: 13px;
+  font-weight: 640;
+  color: var(--ink);
+}
+
+.demo-n1 .n1-label--quiet {
+  font-weight: 500;
+  color: var(--ink-3);
+}
+
+.demo-n1 .n1-word {
+  display: block;
+  white-space: nowrap;
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 650;
+}
+.demo-n1 .n1-word--accept {
+  color: #2f6e57;
+}
+.demo-n1 .n1-word--refine {
+  color: #8a5a12;
+}
+.demo-n1 .n1-word--hold {
+  color: var(--cobalt);
+}
+.demo-n1 .n1-word--reject {
+  color: var(--oxblood);
+}
+
+.demo-n1 .n1-caption {
+  position: absolute;
+  left: 24px;
+  bottom: 20px;
+  margin: 0;
+  font-family: 'Archivo', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink-2);
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .demo-n1 .n1-caption {
+    left: 16px;
+    bottom: 16px;
+    font-size: 13px;
+  }
+  .demo-n1 .n1-label {
+    font-size: 10px;
+  }
+}

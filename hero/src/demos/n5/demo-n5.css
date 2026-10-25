@@ -1,0 +1,87 @@
+/* n5 "Card board": a full-window canvas, a few small labels pinned in 3D,
+   and one caption line. Everything is scoped under .demo-n5. */
+
+.demo-n5 {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #dfe2e6;
+  color: #1c232c;
+  font-family: 'Public Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.demo-n5 .n5-canvas {
+  position: absolute !important;
+  inset: 0;
+}
+
+.demo-n5 .n5-pins {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.demo-n5 .n5-pins > div {
+  position: absolute;
+  left: 0;
+  top: 0;
+  will-change: transform;
+}
+
+.demo-n5 .n5-label {
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+
+/* Agent names sit on their lane tabs. */
+.demo-n5 .n5-agent {
+  color: #1c232c;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.demo-n5 .n5-grant {
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(251, 250, 247, 0.85);
+  color: #1c232c;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.demo-n5 .n5-tray,
+.demo-n5 .n5-port,
+.demo-n5 .n5-small {
+  color: #475260;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* The paperweight's tag: who or what a held card is waiting on. */
+.demo-n5 .n5-label.n5-weight {
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #2e5ba6;
+  color: #f5f7fb;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.demo-n5 .n5-caption {
+  position: absolute;
+  left: 20px;
+  bottom: 16px;
+  margin: 0;
+  color: #2a323c;
+  font-size: 14px;
+  font-weight: 600;
+  pointer-events: none;
+}

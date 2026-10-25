@@ -1,11 +1,11 @@
 import { Component, Suspense, lazy, useEffect, useState, type ReactNode } from 'react'
 import { APP_URL, bare, pinnedId } from './chrome'
-import { demos, earlier, type Demo } from './demos/registry'
+import { demos, earlier, network, type Demo } from './demos/registry'
 import { feed } from './feed'
 
 const Overview = lazy(() => import('./Overview'))
 
-const all = [...demos, ...earlier]
+const all = [...demos, ...earlier, ...network]
 const pinned = pinnedId ? all.find(d => d.id === pinnedId) : undefined
 const fromHash = (): Demo | undefined => pinned ?? all.find(d => `#${d.id}` === location.hash)
 const roundOne = earlier[0] // Clay lab, the pick round 2 builds on

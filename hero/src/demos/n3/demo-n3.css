@@ -1,0 +1,73 @@
+/* n3 "Marble run": a full-window canvas, a few pinned labels, one caption line. */
+
+.demo-n3 {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #d9dde2;
+  color: #1c232c;
+  font-family: 'Public Sans', 'Archivo', system-ui, -apple-system, sans-serif;
+}
+
+.demo-n3 .n3-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.demo-n3 .n3-pins {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.demo-n3 .n3-pin {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  will-change: transform, opacity;
+  font-size: 12.5px;
+  line-height: 1.2;
+}
+
+/* Agent and grant names: quiet ink on the clay, no boxes. */
+.demo-n3 .n3-pin-name,
+.demo-n3 .n3-pin-lab {
+  color: #3a4451;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.demo-n3 .n3-pin-lab {
+  color: #5a6370;
+  font-size: 11.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* Outcome words: appear beside a cup only while a marble is in it. */
+.demo-n3 .n3-pin-word {
+  padding: 2px 7px 3px;
+  border-radius: 999px;
+  background: rgba(251, 250, 247, 0.86);
+  color: #1c232c;
+  font-size: 12px;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(28, 35, 44, 0.1);
+}
+
+.demo-n3 .n3-caption {
+  position: absolute;
+  left: 22px;
+  bottom: 18px;
+  color: #3a4451;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+}
+
+.demo-n3 .n3-caption:empty {
+  display: none;
+}

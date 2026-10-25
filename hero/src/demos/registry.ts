@@ -77,3 +77,37 @@ export const earlier: Demo[] = [
     Component: lazy(() => import('./e')),
   },
 ]
+
+/** Round 3: five rough takes on only the finance network, for a1 to adopt one. Reachable at #n1 to #n5. */
+export const network: Demo[] = [
+  {
+    id: 'n1',
+    name: 'Neural net',
+    thesis: 'The three agents as layers of neurons: a request is a signal that propagates and lights the weights it crosses; a hold stops at a gate.',
+    Component: lazy(() => import('./n1')),
+  },
+  {
+    id: 'n2',
+    name: 'Robots',
+    thesis: 'The three agents as small clay robots that travel a graph between rule stations and hand the parcel to each other.',
+    Component: lazy(() => import('./n2')),
+  },
+  {
+    id: 'n3',
+    name: 'Marble run',
+    thesis: 'A request is a marble rolling down a clay run: each rule is a gate it passes or a switch that turns it, and it lands in a cup for bought, rerouted, blocked or held.',
+    Component: lazy(() => import('./n3')),
+  },
+  {
+    id: 'n4',
+    name: 'Plumbing',
+    thesis: 'The money as liquid: grants are tanks, the agents are valves that open or close, a hold is a shut valve, and money arriving fills the tank.',
+    Component: lazy(() => import('./n4')),
+  },
+  {
+    id: 'n5',
+    name: 'Card board',
+    thesis: 'Each request is a card that slides across three agent lanes, gets a stamp at every rule, and lands on its outcome pile.',
+    Component: lazy(() => import('./n5')),
+  },
+]

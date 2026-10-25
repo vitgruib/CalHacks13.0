@@ -1,0 +1,97 @@
+/* n2 "Robots": a full-window canvas, a handful of small name tags that
+   follow the robots and vaults, and one caption line. */
+
+.demo-n2 {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: #d9dde2;
+  color: #1c232c;
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.demo-n2 .n2-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.demo-n2 .n2-tags {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.demo-n2 .n2-tags .n2-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  will-change: transform;
+}
+
+.demo-n2 .n2-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 9px 3px 8px;
+  border-radius: 999px;
+  background: rgba(251, 250, 247, 0.82);
+  box-shadow: 0 1px 4px rgba(28, 35, 44, 0.12);
+  color: #2a323c;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.demo-n2 .n2-label::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--dot, #9aa3ad);
+}
+
+.demo-n2 .n2-label-p { --dot: #e9785c; }
+.demo-n2 .n2-label-b { --dot: #2f9db5; }
+.demo-n2 .n2-label-r { --dot: #e3b23c; }
+.demo-n2 .n2-label-r01 { --dot: #d0607a; }
+.demo-n2 .n2-label-r21 { --dot: #6f62b8; }
+
+.demo-n2 .n2-label-port {
+  background: transparent;
+  box-shadow: none;
+  color: #56606c;
+  font-weight: 500;
+}
+
+.demo-n2 .n2-label-port::before {
+  display: none;
+}
+
+.demo-n2 .n2-caption {
+  position: absolute;
+  left: 20px;
+  bottom: 18px;
+  margin: 0;
+  max-width: calc(100% - 40px);
+  color: #2a323c;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .demo-n2 .n2-label {
+    font-size: 10.5px;
+    padding: 2px 7px;
+  }
+  .demo-n2 .n2-caption {
+    left: 16px;
+    bottom: 14px;
+    font-size: 14px;
+  }
+}
