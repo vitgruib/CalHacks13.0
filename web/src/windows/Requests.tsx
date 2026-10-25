@@ -117,7 +117,9 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
       <GrantLine r={r} />
       <p className="rq-explain"><span className="rq-muted">Purchasing agent: </span>{r.explanation}</p>
       {r.state === 'waiting_on_manager' && (
-        <p className="rq-wait">Waiting for the grant manager. See it in the <a href="#inbox">Inbox</a>.</p>
+        role === 'grant_manager'
+          ? <p className="rq-wait">Waiting for the grant manager. See it in the <a href="#inbox">Inbox</a>.</p>
+          : <p className="rq-wait">Waiting for the grant manager to decide. Their answer will show up here.</p>
       )}
       {role === 'scientist' && canPushBack(r) && <PushBack r={r} />}
       {r.verdicts.length > 0 && (
