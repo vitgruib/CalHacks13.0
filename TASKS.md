@@ -33,7 +33,7 @@ All three tracks are technical only. Presentation and submission work
 
 
 
-- [ ] T61 [research] Evidence that the grant-status data system is real and contrived: official docs confirming RePORTER/USAspending/Grant Witness work as GrantGuard assumes, and complaints (GAO, researchers, reporters, Reddit) about having to piece status and money together — needs: — — done when: new pain point file with tagged, sourced quotes per docs/research/README.md, index row added — @ethan/claude — owns: `docs/research/pain-points/16-*.md`, `docs/research/sources/`, `docs/research/README.md` (index row)
+- [ ] T62 [research] Evidence that the grant-status data system is real and contrived: official docs confirming RePORTER/USAspending/Grant Witness work as GrantGuard assumes, and complaints (GAO, researchers, reporters, Reddit) about having to piece status and money together — needs: — — done when: new pain point file with tagged, sourced quotes per docs/research/README.md, index row added — @ethan/claude — owns: `docs/research/pain-points/16-*.md`, `docs/research/sources/`, `docs/research/README.md` (index row)
 
 ## Up next (priority order)
 - [ ] T28 [app] Researcher design: own the look and wording of the Scientist screens from here (Ask, My grants, the "Where's my money?" tracker, and restyling My requests, which still uses the manager form) — needs: T27 — done when: Nathan signs off on the Scientist screens and My requests matches them — **@nathan** (delegated by @ethan) — owns: `web/src/windows/Ask.*`, `web/src/windows/Grants.*`, `web/src/scientist.css`, `web/src/plain.ts` (wording only; answers must keep coming from `server/src/rules.ts`), `web/src/windows/Requests.tsx` for the Scientist view
