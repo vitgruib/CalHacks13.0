@@ -172,7 +172,8 @@ function Rig() {
     if (!c) return
     const hero = heroRef.current
     const at = new URLSearchParams(location.search).has('at')
-    if (still || at) {
+    // Embedded, the landing's still of this framing hands over to it, so there's no opening crane.
+    if (still || at || embed.get().on) {
       camera.position.copy(hero.pos)
       c.target.copy(hero.target)
     } else {
@@ -419,36 +420,82 @@ function HoverCard() {
 
 // ── Quality ──────────────────────────────────────────────────────────────
 
-/** Full quality on a real GPU; steps down (MSAA, then AO) if the frame rate can't hold. */
+/**
+ * Full quality on a real GPU, at most 1.5 device pixels per CSS pixel. If the
+ * frame rate can't hold, the pixel ratio steps down first (no shader rebuild),
+ * and only at 1 does the composer drop ambient occlusion (one rebuild).
+ */
+const DPR_MAX = 1.5
 function Effects() {
-  const [level, setLevel] = useState(2)
-  const t0 = useRef(performance.now())
+  const setDpr = useThree(s => s.setDpr)
+  const [ao, setAo] = useState(true)
   const pinned = useMemo(pinnedQuality, [])
+  const st = useRef({ at: performance.now() + 4000, dpr: Math.min(DPR_MAX, devicePixelRatio || 1) })
   const decline = () => {
-    if (!pinned && performance.now() - t0.current > 4000) setLevel(l => Math.max(0, l - 1))
+    const s = st.current
+    const now = performance.now()
+    if (pinned || now < s.at) return
+    s.at = now + 2500 // let each step settle before judging the next
+    if (s.dpr > 1) {
+      s.dpr = Math.max(1, s.dpr - 0.25)
+      setDpr(s.dpr)
+    } else setAo(false)
   }
   return (
     <>
       <PerformanceMonitor ms={250} iterations={4} onDecline={decline} />
-      {level === 2 ? (
-        <EffectComposer key="fx2" multisampling={4}>
+      {ao ? (
+        <EffectComposer key="ao" multisampling={4}>
           <N8AO halfRes quality="low" aoRadius={0.6} distanceFalloff={0.7} intensity={2.0} color="#26303B" />
           <ToneMapping mode={ToneMappingMode.NEUTRAL} />
         </EffectComposer>
-      ) : level === 1 ? (
-        <EffectComposer key="fx1" multisampling={0}>
-          <N8AO halfRes quality="performance" aoRadius={0.6} distanceFalloff={0.7} intensity={2.0} color="#26303B" />
-          <ToneMapping mode={ToneMappingMode.NEUTRAL} />
-          <SMAA />
-        </EffectComposer>
       ) : (
-        <EffectComposer key="fx0" multisampling={0}>
+        <EffectComposer key="plain" multisampling={0}>
           <ToneMapping mode={ToneMappingMode.NEUTRAL} />
           <SMAA />
         </EffectComposer>
       )}
     </>
   )
+}
+
+/** The key light's shadows redraw every other frame: walkers move millimetres a frame, so the lag never shows, and the shadow pass halves. */
+function ShadowClock() {
+  const gl = useThree(s => s.gl)
+  const n = useRef(0)
+  useEffect(() => {
+    gl.shadowMap.autoUpdate = false
+    gl.shadowMap.needsUpdate = true
+    return () => {
+      gl.shadowMap.autoUpdate = true
+    }
+  }, [gl])
+  useFrame(() => {
+    if (++n.current % 2 === 0) gl.shadowMap.needsUpdate = true
+  })
+  return null
+}
+
+/**
+ * Compiles every shader before the first frame shows, then lets the stage fade
+ * the canvas in (data-ready on .demo-a1), so nothing pops or stalls mid-move.
+ */
+function Warm() {
+  const { gl, scene, camera } = useThree()
+  useEffect(() => {
+    let off = false
+    const show = () => {
+      if (off) return
+      requestAnimationFrame(() => requestAnimationFrame(() => !off && gl.domElement.closest('.demo-a1')?.setAttribute('data-ready', '')))
+    }
+    gl.compileAsync(scene, camera).then(show, show)
+    const late = setTimeout(show, 3000) // a driver that never reports ready still shows the scene
+    return () => {
+      off = true
+      clearTimeout(late)
+    }
+  }, [gl, scene, camera])
+  return null
 }
 
 /** Stops drawing while an embedded demo is off screen or its tab is hidden. */
@@ -499,7 +546,7 @@ export default function Scene() {
       <Canvas
         className="a-canvas"
         shadows="percentage"
-        dpr={[1, 2]}
+        dpr={[1, DPR_MAX]}
         camera={{ fov: 24, near: 0.5, far: 300, position: OPENING.pos.toArray() }}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         role="img"
@@ -517,6 +564,8 @@ export default function Scene() {
         <CardTracker />
         <DrawCalls />
         <Sleep />
+        <ShadowClock />
+        <Warm />
         <Effects />
       </Canvas>
       <HoverCard />

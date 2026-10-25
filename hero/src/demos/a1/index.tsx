@@ -34,6 +34,8 @@ export default function Demo() {
   return (
     <div className={embedded ? 'demo-a1 is-embed' : 'demo-a1'} ref={root}>
       <div className="a-stage">
+        {/* Embedded, the landing's still stays under the canvas until the scene fades in over it. */}
+        {embedded && <StageStill />}
         <SceneGuard>
           <Suspense fallback={null}>
             <Scene />

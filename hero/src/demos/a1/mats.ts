@@ -9,8 +9,8 @@ const clay = (color: string, roughness = 0.88) => new MeshStandardMaterial({ col
 
 /** The one clay: colour comes from the vertices (see kit.ts). */
 export const CLAY = new MeshStandardMaterial({ vertexColors: true, roughness: 0.86, metalness: 0 })
-/** The same, a touch of sheen for instruments, glassware and parcels. */
-export const SHEEN = new MeshPhysicalMaterial({ vertexColors: true, roughness: 0.42, metalness: 0, clearcoat: 0.45, clearcoatRoughness: 0.35 })
+/** The same, a touch of sheen for instruments, glassware and parcels (standard, not clearcoat: same look, one specular lobe). */
+export const SHEEN = new MeshStandardMaterial({ vertexColors: true, roughness: 0.36, metalness: 0, envMapIntensity: 1.15 })
 
 export const M = {
   labBody: clay(PAL.labBody),
@@ -25,7 +25,7 @@ export const M = {
   slateDeep: clay(PAL.slateDeep, 0.74),
   ink: clay(PAL.ink, 0.7),
   lens: new MeshBasicMaterial({ color: PAL.lens, toneMapped: false }),
-  window: new MeshPhysicalMaterial({ color: '#D5DEE6', roughness: 0.12, metalness: 0, clearcoat: 1, transparent: true, opacity: 0.32, depthWrite: false }),
+  window: new MeshStandardMaterial({ color: '#D5DEE6', roughness: 0.08, metalness: 0, envMapIntensity: 1.3, transparent: true, opacity: 0.32, depthWrite: false }),
   screen: new MeshStandardMaterial({ color: '#2A313A', roughness: 0.4, emissive: new Color('#9CC3E0'), emissiveIntensity: 0 }),
 }
 
