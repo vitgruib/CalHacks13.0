@@ -5,34 +5,33 @@
 /* Set on <html> only while the landing is mounted (Landing.tsx). */
 html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavior: none; }
 
-.landing { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100vh; height: 100dvh; overflow: hidden; background: var(--bg); color: var(--text); line-height: 1.5; }
+/* The hero fills the whole viewport: no bar, no margin. Its title is GrantGuard. */
+.landing { position: relative; height: 100vh; height: 100dvh; overflow: hidden; background: #c9ced5; color: var(--text); line-height: 1.5; }
 .landing ::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); color: var(--text); }
 .landing :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-.landing-bar { display: flex; align-items: center; height: 56px; padding: 0 24px; border-bottom: 1px solid var(--line); }
-.landing-mark { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
-.landing-stage { position: relative; overflow: hidden; background: #c9ced5; }
 .landing-embed { position: absolute; inset: 0; }
 
-/* The backend status (data/backend.css) is fixed bottom right in the portals; on
-   the landing that is the hero's copy and zone cards. Here only its small badge
-   shows, in the bar; the detail line and notices wait for the portals. */
-.landing ~ .backend-status { top: 14px; bottom: auto; right: 16px; }
-.landing ~ .backend-status .backend-detail, .landing ~ .backend-status .backend-notice { display: none; }
-
-@media (max-width: 720px) {
-  .landing-bar { padding: 0 16px; }
-}
+/* The backend status (data/backend.css) is fixed bottom right in the portals. The
+   landing's hero is a scripted replay that never reads the backend, and every
+   corner of it holds the title, the prompt or a zone card, so the status waits
+   for the portals. */
+.landing ~ .backend-status { display: none; }
 
 /* The stand-in hero: hero a1's palette, light in both color schemes. */
 .hero-still { position: absolute; inset: 0; display: block; }
-.hero-still img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+/* The embed's still framing (.a-stage-still in hero/src/demos/a1/demo-a1.css), so the handover doesn't jump. */
+.hero-still img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }
 .hero-stub { position: absolute; inset: 0; color: #1c232c; }
 .hero-stub ::selection { background: #2e5ba6; color: #fff; }
+/* A veil in the stage's grey under the copy, so it reads over any framing of the still. */
+.hero-stub .hero-still::after { content: ''; position: absolute; inset: 0 0 auto; height: 54%; background: linear-gradient(to bottom, rgb(201 206 213 / 0.94), rgb(201 206 213 / 0.82) 62%, rgb(201 206 213 / 0)); pointer-events: none; }
 .hero-stub :focus-visible { outline-color: #1e3f7a; }
-.hero-stub-copy { position: absolute; top: clamp(24px, 6vh, 56px); left: clamp(16px, 2.4vw, 40px); max-width: min(36rem, calc(100% - 32px)); }
-.hero-stub h1 { margin: 0 0 16px; font-size: clamp(28px, 3.6vw, 52px); line-height: 1.04; letter-spacing: -0.025em; font-weight: 700; text-wrap: balance; }
-.hero-stub-copy p { margin: 0 0 24px; max-width: 44ch; color: #3c4753; font-size: clamp(15px, 1.25vw, 17px); }
+/* Like the embed: the headline across the top, the description under it, the
+   prompt below; the still fills the stage behind. */
+.hero-stub-copy { position: absolute; top: clamp(16px, 3.5vh, 36px); left: clamp(16px, 2.4vw, 40px); right: clamp(16px, 2.4vw, 40px); }
+.hero-stub h1 { margin: 0 0 8px; font-size: clamp(48px, 6.4vw, 96px); line-height: 1; letter-spacing: -0.035em; font-weight: 700; }
+.hero-stub-copy p { margin: 0 0 18px; color: #3c4753; font-size: clamp(15px, 1.25vw, 18px); }
 /* The landing's only choice, in big text: the two phrases are the buttons. */
 .hero-stub-copy .hero-stub-prompt { margin: 0; max-width: none; color: #1c232c; font-size: clamp(22px, 2.1vw, 30px); line-height: 1.6; font-weight: 600; letter-spacing: -0.01em; }
 .hero-stub-prompt button { padding: 2px 12px 4px; border: 0; border-radius: 8px; background: #1c232c; color: #f3f5f7; font: inherit; cursor: pointer; }
@@ -40,9 +39,9 @@ html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavio
 .hero-stub-prompt button:active { transform: translateY(1px); }
 .hero-stub-note { position: absolute; left: clamp(16px, 2.4vw, 40px); bottom: 14px; margin: 0; color: #3c4753; font-size: 13px; }
 @media (max-width: 759px) {
-  .hero-still img { object-position: 50% 0%; }
-  .hero-stub-copy { top: 20px; }
-  .hero-stub h1 { font-size: 27px; margin-bottom: 12px; }
-  .hero-stub-copy p { margin-bottom: 18px; font-size: 15px; }
+  .hero-still img { object-position: 50% 100%; }
+  .hero-stub-copy { top: 16px; }
+  .hero-stub h1 { font-size: 48px; margin-bottom: 8px; }
+  .hero-stub-copy p { margin-bottom: 14px; font-size: 15px; }
   .hero-stub-copy .hero-stub-prompt { font-size: 22px; }
 }

@@ -1,5 +1,5 @@
-// The landing (T75, T96): one screen that never scrolls. Under the GrantGuard
-// mark the 3D hero fills the rest, and its two big choices open a portal.
+// The landing (T75, T96): one screen that never scrolls. The 3D hero fills the
+// whole viewport (its title is GrantGuard), and its two big choices open a portal.
 // "Who are you?" (Entry.tsx) is no longer shown here; the UserSwitch inside
 // each portal changes who you are.
 import { useLayoutEffect } from 'react'
@@ -27,12 +27,7 @@ export default function Landing({ onPick }: { onPick: (portal: string) => void }
 
   return (
     <div className="landing">
-      <header className="landing-bar">
-        <span className="landing-mark">GrantGuard</span>
-      </header>
-      <div className="landing-stage">
-        <div className="landing-embed"><HeroSlot onEnter={enter} /></div>
-      </div>
+      <div className="landing-embed"><HeroSlot onEnter={enter} /></div>
     </div>
   )
 }

@@ -8,9 +8,9 @@ export type HeroRole = 'researcher' | 'grant_office'
 
 export interface HeroEmbedProps {
   /**
-   * Called by the hero's calls to action. No role: the landing scrolls to
-   * "Who are you?". 'grant_office' opens the grant office. 'researcher' scrolls
-   * to the researcher list, because a researcher must be picked first.
+   * Called by the hero's ways in (T96): 'researcher' opens the researcher
+   * portal as Dr. Priya Nair, the demo path's researcher; 'grant_office', or no
+   * role, opens the grant office. The landing has no picker and doesn't scroll.
    */
   onEnter?: (role?: HeroRole) => void
 }
