@@ -15,6 +15,7 @@ import {
   sanitizeRead,
   startPurchasing,
   vendorFor,
+  withFreezePromise,
 } from '../src/agents/purchasing.ts';
 import type { Actions, ActionName, Connection, GrantRow, OrderRow, RequestRow, RuleVerdict, Source } from '../src/db/contract.ts';
 import { createLocalDb } from '../src/db/local.ts';
@@ -915,6 +916,35 @@ test('finish_explanation_names_a_rule_claude_left_out', () => {
   assert.equal(finishExplanation('Held: it costs too much.', failed), 'Held: it costs too much. Rule: Under the card limit ($5,000).');
   assert.equal(finishExplanation('Held: Under the card limit ($5,000) fails.', failed), 'Held: Under the card limit ($5,000) fails.');
   assert.ok(finishExplanation('x'.repeat(2_000), []).length <= 1_000);
+});
+
+// T99: the Live Tester's two repeats, on the gloves and the NovaSeq lane.
+test('a_freeze_promise_claude_already_made_in_its_own_words_is_said_once', () => {
+  const step = 'Every other rule passes, so it will be bought automatically once R01GM061721 unfreezes.';
+  const frozen = ['R01GM061721'];
+  const why = 'It failed the rule "Grant is active and not frozen" on grant R01GM061721: the grant was canceled 2026-03-10, a court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen.';
+  const repros = [
+    `${why} All other rules passed, and the purchase will be made automatically once R01GM061721 unfreezes.`,
+    `${why} All other rules passed, including enough truly available money, category allowed, and the $5,000 card limit, so the purchase will be made automatically once R01GM061721 unfreezes.`,
+  ];
+  for (const text of repros) {
+    const out = withFreezePromise(text, frozen, step, step);
+    assert.equal(out.split('unfreezes').length - 1, 1, out);
+    assert.equal(out, `${why} ${step}`);
+    assert.match(out, /will be bought automatically once R01GM061721 unfreezes/, 'the promise the agent reads back to keep');
+  }
+});
+
+test('a_freeze_promise_claude_left_out_or_made_for_another_grant_is_added', () => {
+  const step = 'Every other rule passes, so it will be bought automatically once R01GM061721 unfreezes.';
+  const frozen = ['R01GM061721'];
+  const exact = 'Held on R01GM061721 for its freeze. All other rules passed, so the order will be bought automatically once R01GM061721 unfreezes.';
+  assert.equal(withFreezePromise(exact, frozen, step, step), exact);
+  assert.equal(withFreezePromise('Held on R01GM061721 for its freeze.', frozen, step, step), `Held on R01GM061721 for its freeze. ${step}`);
+  const other = 'Held on R01GM061721. R21AI182745 could take it automatically once R21AI182745 unfreezes.';
+  assert.equal(withFreezePromise(other, frozen, step, step), `${other} ${step}`);
+  const asks = 'Held on R01GM061721. Once R01GM061721 unfreezes, the grant manager decides whether to buy it.';
+  assert.equal(withFreezePromise(asks, frozen, step, step), `${asks} ${step}`);
 });
 
 test('vendor_for_reuses_the_lab_s_vendor_for_the_same_item', () => {

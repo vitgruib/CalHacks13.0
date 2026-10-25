@@ -254,6 +254,29 @@ const usd = (amount: number) => `$${amount.toLocaleString('en-US', { maximumFrac
 const FREEZE_PROMISE = 'will be bought automatically once';
 const promisesBuy = (text: string) => text.toLowerCase().includes(FREEZE_PROMISE);
 
+const GRANT_ID = /\b[A-Z]\d{2}[A-Z]{2}\d{6}\b/;
+/** A sentence saying, in its own words, that it is bought once these grants unfreeze. */
+const saysBuyOnUnfreeze = (sentence: string, frozen: string[]): boolean => {
+  const lower = sentence.toLowerCase();
+  const sameGrant = frozen.every((id) => sentence.includes(id)) || !GRANT_ID.test(sentence);
+  return sameGrant && lower.includes('unfreez') && /automatic|will be (?:bought|purchased|ordered|placed|made)\b/.test(lower);
+};
+
+/**
+ * A freeze hold's text with its promise in the agent's own words, said once
+ * (T99). Claude may already say it its own way ("the purchase will be made
+ * automatically once R01GM061721 unfreezes"): that sentence becomes `step`,
+ * since the agent reads the exact promise back to keep it. Else `next` is added.
+ */
+export function withFreezePromise(text: string, frozen: string[], step: string, next: string): string {
+  if (promisesBuy(text)) return text;
+  const sentences = text.trim().split(/(?<=[.!?])\s+/);
+  const at = sentences.findIndex((sentence) => saysBuyOnUnfreeze(sentence, frozen));
+  if (at === -1) return `${text.trim()} ${next}`;
+  sentences[at] = step;
+  return sentences.join(' ');
+}
+
 interface StepFacts {
   vendor: string;
   frozen: string[];
@@ -459,6 +482,7 @@ export function startPurchasing({
   }
 
   async function explain(request: RequestRow, decision: Decision, vendor: string): Promise<string> {
+    const stepFacts: StepFacts = { vendor, frozen: [decision.grantId] };
     const facts: ExplanationFacts = {
       request: { id: request.id, item: request.item, category: request.category, price: request.price, purpose: request.purpose },
       action: decision.action,
@@ -467,7 +491,7 @@ export function startPurchasing({
       failed: decision.failed.map((v) => ({ rule: v.rule, detail: v.detail, auditCase: v.auditCase })),
       passed: decision.passed.filter((v) => v.pass).map((v) => v.rule),
       vendor: decision.action === 'buy' || decision.action === 'reroute' ? vendor : undefined,
-      next: nextStep(decision, { vendor, frozen: [decision.grantId] }),
+      next: nextStep(decision, stepFacts),
     };
     const { value } = await ask({
       task: EXPLAIN_TASK,
@@ -480,7 +504,7 @@ export function startPurchasing({
     });
     const text = explanationOr(value.explanation, facts);
     // Claude may word the next step its own way, but a freeze hold always states its promise.
-    const kept = decision.reason === 'freeze' && !promisesBuy(text) ? `${text.trim()} ${facts.next}` : text;
+    const kept = decision.reason === 'freeze' ? withFreezePromise(text, stepFacts.frozen, reasonStep(decision, stepFacts), facts.next) : text;
     return finishExplanation(kept, decision.failed);
   }
 
