@@ -199,6 +199,9 @@ a tracker check. With the government sources switched on
 (`GG_LIVE_SOURCES=1` and an Apify token), it also starts a fresh Apify run.
 The hosted worker reads only the live cancellation list (`GG_LIVE_SOURCES=list`):
 the demo's timeline is simulated, and live RePORTER says R21AI182745 has ended.
+Run the worker locally with `GG_LIVE_SOURCES=list` too, or the cut scripts
+change nothing. With no Apify Actor or scraper output, it reads the saved
+copy of the lab grants' rows in `agents/cache/cancellation-list-lab.json`.
 Demo time buttons under Check now (Before the cut 2025-07-30, After the cut
 2025-08-15, After the court 2025-09-22, Today) run the same check with the
 real cancellation list read as it stood that day. The pick stays in force
