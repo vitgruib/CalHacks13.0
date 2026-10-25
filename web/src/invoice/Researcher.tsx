@@ -6,6 +6,7 @@ import { grantHeading } from '../plain'
 import { Badge, Empty, money } from '../ui'
 import { AuditTrail, FindingList, StatusBadge } from './Findings'
 import { check, parseAmount, type Draft, type Submission } from './model'
+import { demoSubmissions } from './demo'
 import SubmitForm from './SubmitForm'
 import { newSubmissionId, saveSubmission, useSubmissions } from './store'
 
@@ -20,10 +21,23 @@ const NEXT: Record<Submission['status'], string> = {
   rejected: 'Rejected. See the reason below; submit a corrected invoice if needed.',
 }
 
+/** A held bill as a draft: the researcher corrects the amount or adds the missing proof and sends it for review. */
+function draftFromBill(db: Db, i: Db['invoices'][number]): Draft {
+  const order = db.orders.find(o => o.id === i.orderId)
+  const req = order && db.requests.find(r => r.id === order.requestId)
+  return {
+    vendor: i.vendor, invoiceNo: '', invoiceDate: i.received, amount: String(i.amount),
+    lines: [{ description: req?.item ?? 'Invoice total', amount: String(i.amount) }],
+    files: [`${i.id}.pdf`], receiptFiles: [], receipt: false,
+    grantId: req?.chargedGrantId ?? req?.grantId ?? db.grants[0]?.id ?? '', poId: '',
+    note: `Responding to the held bill ${i.id}: ${i.mismatch ?? 'please review.'}`,
+  }
+}
+
 export default function Researcher({ db, name }: { db: Db; name: string }) {
   const all = useSubmissions()
   const mine = all.filter(s => s.researcher === name)
-  const [form, setForm] = useState<{ edit?: Submission } | null>(null)
+  const [form, setForm] = useState<{ edit?: Submission; seed?: Draft; seedKey?: string } | null>(null)
   const [open, setOpen] = useState<string | null>(null)
   const [view, setView] = useState<'approved' | 'action' | 'submit' | null>(null)
 
@@ -55,8 +69,16 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const actionSubs = mine.filter(s => s.status === 'exception' || s.status === 'clarification' || s.status === 'rejected')
   const actionBills = agentBills.filter(i => i.state === 'held')
   const waitingSubs = mine.filter(s => s.status === 'ready' || s.status === 'escalated')
-  const nApproved = approvedSubs.length + approvedBills.length
-  const nAction = actionSubs.length + actionBills.length + waitingSubs.length
+  // A short list is topped up with sample invoices (up to MIN items) so each button has something to open.
+  const MIN = 2
+  const demo = demoSubmissions(db, name)
+  const have = new Set(all.map(s => s.id))
+  const fill = (real: number, samples: Submission[]) => samples.filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - real))
+  const approvedDemo = fill(approvedSubs.length + approvedBills.length, demo.approved)
+  const actionDemo = fill(actionSubs.length + actionBills.length + waitingSubs.length, demo.action)
+  const MAX = 3 // each list shows at most this many, so the demo stays easy to read
+  const nApproved = Math.min(MAX, approvedSubs.length + approvedBills.length + approvedDemo.length)
+  const nAction = Math.min(MAX, actionSubs.length + actionBills.length + actionDemo.length) + waitingSubs.length
 
   const card = (s: Submission) => {
     const g = db.grants.find(x => x.id === s.grantId)
@@ -94,6 +116,11 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
       </header>
       <p className="iv-note">Received {i.received}</p>
       {i.mismatch && <p className="iv-next"><strong>Why:</strong> {i.mismatch}</p>}
+      {i.state === 'held' && (
+        <div className="iv-actions">
+          <button type="button" className="primary" onClick={() => { setForm({ seed: draftFromBill(db, i), seedKey: i.id }); setView('submit') }}>Fix and resubmit</button>
+        </div>
+      )}
     </li>
   )
 
@@ -110,11 +137,11 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
         </button>
       </div>
 
-      {view === 'submit' && <SubmitForm key={form?.edit?.id ?? 'new'} db={db} others={all} initial={form?.edit ? draftOf(form.edit) : undefined} onSubmit={submit} onCancel={() => { setForm(null); setView(null) }} />}
-      {view === 'approved' && (nApproved === 0 ? <Empty>Nothing approved yet.</Empty> : <ul className="iv-list">{approvedSubs.map(card)}{approvedBills.map(bill)}</ul>)}
+      {view === 'submit' && <SubmitForm key={form?.edit?.id ?? form?.seedKey ?? 'new'} db={db} others={all} initial={form?.edit ? draftOf(form.edit) : form?.seed} onSubmit={submit} onCancel={() => { setForm(null); setView(null) }} />}
+      {view === 'approved' && (nApproved === 0 ? <Empty>Nothing approved yet.</Empty> : <ul className="iv-list">{[...approvedSubs.map(card), ...approvedBills.map(bill), ...approvedDemo.map(card)].slice(0, MAX)}</ul>)}
       {view === 'action' && (nAction === 0 ? <Empty>Nothing needs your action.</Empty> : (
         <>
-          <ul className="iv-list">{actionSubs.map(card)}{actionBills.map(bill)}</ul>
+          <ul className="iv-list">{[...actionSubs.map(card), ...actionBills.map(bill), ...actionDemo.map(card)].slice(0, MAX)}</ul>
           {waitingSubs.length > 0 && <><h2 className="iv-h2">With the grants office</h2><ul className="iv-list">{waitingSubs.map(card)}</ul></>}
         </>
       ))}

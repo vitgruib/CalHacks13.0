@@ -111,7 +111,7 @@
 .iv-tab:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(0 0 0 / .16); filter: brightness(1.05); }
 .iv-tab.on { box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 0%, transparent), inset 0 0 0 3px rgb(255 255 255 / .55); }
 .iv-tab-green { background: #1f8a4c; border-color: #1f8a4c; }
-.iv-tab-orange { background: #f5a800; border-color: #f5a800; color: #2b1d00; }
+.iv-tab-orange { background: #fbd51a; border-color: #fbd51a; color: #2b2300; }
 .iv-tab-orange .iv-count { background: rgb(43 29 0 / .14); }
 .iv-tab-blue { background: var(--accent, #2f5bd3); border-color: var(--accent, #2f5bd3); justify-content: center; }
 .sci .iv-tab-blue { background: var(--s-blue); border-color: var(--s-blue); }
