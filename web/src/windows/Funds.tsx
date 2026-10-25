@@ -1,12 +1,14 @@
 // Funds window (MASTER-PLAN §3.1, §4): how much money each grant really has,
-// its status timeline, and any flags. The Inbox items about a grant itself
-// (sources disagree, money on a canceled grant) are decided on its card with
+// how much of the award the funder has actually paid (T116), its status
+// timeline, and any flags. The Inbox items about a grant itself (sources
+// disagree, money on a canceled grant) are decided on its card with
 // the Inbox's own card (`HoldCard`), as Requests and Invoices do for theirs:
 // the Inbox's menu button is hidden (T110). `#funds/<grant id>` opens Funds on
 // that grant's card.
 import { useEffect, useId, useState } from 'react'
 import SourceCheck from '../SourceCheck'
 import MoneyCharts from '../charts/MoneyCharts'
+import Received from '../charts/Received'
 import { useStore } from '../data/store'
 import { type Db, type Decision, type Grant, type GrantStatus, type HoldKind, type SourceReading, type StatusEvent } from '../data/types'
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
@@ -141,6 +143,7 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
         </p>
       ))}
 
+      <Received g={g} />
       <MoneyCharts db={db} g={g} details />
     </Section>
   )

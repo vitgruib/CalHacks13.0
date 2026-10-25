@@ -12,3 +12,5 @@
 .failure-case-steps button small { font-size: 11px; color: var(--muted); }
 .failure-case-steps li.done button { opacity: 0.6; }
 .failure-case-watch { margin: 4px 0 0 2px; padding-left: 8px; border-left: 2px solid var(--line); }
+.failure-case-money { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.failure-case-money b { color: var(--text); font-weight: 600; }

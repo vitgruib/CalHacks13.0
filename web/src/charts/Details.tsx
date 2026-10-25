@@ -111,6 +111,7 @@ export default function SegmentDetails({ db, g, segment }: { db: Db; g: Grant; s
         <div><dt>− Committed</dt><dd>{money(g.promised)}</dd></div>
         <div className="sd-eq"><dt>= Available</dt><dd>{money(g.awarded - g.spent - g.promised)}</dd></div>
         <div className="sd-aside"><dt>Received from the funder so far</dt><dd>{money(g.received)}</dd></div>
+        <div className="sd-aside"><dt>Awarded, not received yet</dt><dd>{money(Math.max(0, g.awarded - g.received))}</dd></div>
         <div className="sd-aside"><dt>Grant ends</dt><dd>{longDate(g.end)}</dd></div>
       </dl>
     )
