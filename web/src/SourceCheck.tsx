@@ -1,7 +1,7 @@
 // "Sources last checked 3 min ago" + Check now (T31). Check now asks the
 // bookkeeping agent to read every outside source (and, with live sources, to
 // start a fresh scraper run first); the line updates when the agent finishes.
-// Demo times moved to the cut scripts (T65, DemoScripts.tsx), one grant each;
+// Demo times moved to the real failure cases (T65, FailureCases.tsx), one grant each;
 // Check now reads today's list for every grant.
 import { useEffect, useState } from 'react'
 import { useStore } from './data/store'

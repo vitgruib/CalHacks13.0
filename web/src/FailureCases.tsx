@@ -1,4 +1,4 @@
-// Cut scripts (T65, T74): the three in the 3-minute demo, grants cut on the real cancellation list (Grant
+// Real failure cases (T65, T74; were "cut scripts"): the three in the 3-minute demo, grants cut on the real cancellation list (Grant
 // Witness, scraped by Apify), each with its researcher. Each step changes the
 // grant directly: it drops in the cancellation, court order or payment that
 // really happened, dated the day it happened (real USAspending amounts unless
@@ -8,12 +8,12 @@
 import { useStore } from './data/store'
 import { RESEARCHERS } from './people'
 import { Badge } from './ui'
-import './DemoScripts.css'
+import './FailureCases.css'
 
 type Event = { kind: 'canceled' | 'court_order' | 'payment_received'; source: 'Cancellation list (Apify)' | 'Court notice' | 'Payment system'; summary: string; amount?: number; day?: string }
 type Step = { label: string; event: Event; watch: string }
 
-interface Script {
+interface FailureCase {
   grantId: string
   researcher: string // id in RESEARCHERS
   kind: 'headache' | 'error'
@@ -25,7 +25,7 @@ interface Script {
 const LIST = 'Cancellation list (Apify)' as const
 const cut = (grantId: string, day: string, by = 'NIH'): Event => ({ kind: 'canceled', source: LIST, summary: `${by} terminated ${grantId}; it appears on the cancellation list.`, day })
 
-export const SCRIPTS: Script[] = [
+export const CASES: FailureCase[] = [
   {
     grantId: 'R01GM155497', researcher: 'kenji', kind: 'error', title: 'Bought after the cut',
     story: 'Terminated 2025-06-04. Five days later a $1,240 card charge (rq-060) was placed on it outside GrantGuard.',
@@ -60,35 +60,35 @@ export const SCRIPTS: Script[] = [
 
 const kindBadge = { headache: { tone: 'warn', label: 'Financial headache' }, error: { tone: 'bad', label: 'Marked error' } } as const
 
-export default function DemoScripts() {
+export default function FailureCases() {
   const { db, injectStatusEvent } = useStore()
-  const scripts = SCRIPTS.filter(s => db.grants.some(g => g.id === s.grantId))
-  if (scripts.length === 0) return null
+  const cases = CASES.filter(s => db.grants.some(g => g.id === s.grantId))
+  if (cases.length === 0) return null
 
   return (
-    <div className="demo-scripts">
-      <p className="demo-scripts-intro">Each grant below was cut on the real cancellation list. A step changes the grant directly: it cancels it, restores it by court order or lands a payment, dated the day that really happened. Start over to run them again.</p>
-      <div className="demo-scripts-grid">
-        {scripts.map(s => {
+    <div className="failure-cases">
+      <p className="failure-cases-intro">Each grant below was cut on the real cancellation list. A step changes the grant directly: it cancels it, restores it by court order or lands a payment, dated the day that really happened. Start over to run them again.</p>
+      <div className="failure-cases-grid">
+        {cases.map(s => {
           const done = (step: Step) => db.statusEvents.some(e => e.grantId === s.grantId && e.kind === step.event.kind && (!step.event.day || e.day === step.event.day))
           const at = s.steps.reduce((last, step, i) => (done(step) ? i : last), -1)
           const r = RESEARCHERS.find(x => x.id === s.researcher)
           const grant = db.grants.find(g => g.id === s.grantId)!
           return (
-            <article key={s.grantId} className={`demo-script ${s.kind}`}>
-              <div className="demo-script-head">
+            <article key={s.grantId} className={`failure-case ${s.kind}`}>
+              <div className="failure-case-head">
                 <Badge tone={kindBadge[s.kind].tone}>{kindBadge[s.kind].label}</Badge>
                 <h3>{s.title}</h3>
               </div>
-              <p className="demo-script-who">{r?.title ?? ''} · {grant.pi} · <b>{s.grantId}</b></p>
+              <p className="failure-case-who">{r?.title ?? ''} · {grant.pi} · <b>{s.grantId}</b></p>
               <p>{s.story}</p>
-              <ol className="demo-script-steps">
+              <ol className="failure-case-steps">
                 {s.steps.map((step, i) => (
                   <li key={step.label} className={i <= at ? 'done' : ''}>
                     <button type="button" disabled={i <= at || i > at + 1} onClick={() => injectStatusEvent({ grantId: s.grantId, ...step.event })} title={step.event.summary}>
                       {step.label}{step.event.day && <small>{step.event.day}</small>}
                     </button>
-                    {i === at && <p className="demo-script-watch">{step.watch}</p>}
+                    {i === at && <p className="failure-case-watch">{step.watch}</p>}
                   </li>
                 ))}
               </ol>

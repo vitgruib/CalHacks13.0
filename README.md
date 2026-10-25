@@ -93,7 +93,7 @@ The app loads a smaller demo world (`sim/demo-seed.json`, 11 of the 22
 purchases and 2 of the 7 papers) so each step above is easy to find; see
 `sim/README.md`. On the live site, Demo controls → Start over → "Reset to
 the demo seed…" → "Yes, reset everything" resets the world to it. Demo controls also
-holds the six cut scripts. The live site is one shared world: anyone with
+holds the real failure cases. The live site is one shared world: anyone with
 the link acts as the grant manager, and Demo controls changes the world for
 everyone. Presenter
 checklist and known edge cases: [docs/EDGE-TESTING.md](docs/EDGE-TESTING.md).
@@ -202,7 +202,7 @@ a tracker check. With the government sources switched on
 The hosted worker reads only the live cancellation list (`GG_LIVE_SOURCES=list`):
 live RePORTER says R21AI182745 has ended. With no Apify Actor or scraper
 output, it reads the saved copy of the lab grants' rows in
-`agents/cache/cancellation-list-lab.json`. The demo's cut scripts don't move
+`agents/cache/cancellation-list-lab.json`. The demo's real failure cases don't move
 the clock or read the list as of another day: each step changes the grant
 directly (cancel it, restore it by court order, land a payment), dated the
 day that really happened, and the agents react.
@@ -223,8 +223,8 @@ nav, or the researcher header) moves between them. Each window has one job
   summary and one table of its lines, and Approve or Return with a reason), Invoices (matched or held),
   Payment requests, Reports (each paper's checks), Inbox (waiting for a
   human, with evidence; a purchase hold names the researcher who asked), Log
-  (who did what, and why), Demo controls (demo only: start over, the cut
-  scripts, inject events, scorecard).
+  (who did what, and why), Demo controls (demo only: start over, the real
+  failure cases, inject events, scorecard).
 - **Researcher portals**, one per researcher: **Dr. Priya Nair**
   (postdoctoral researcher, grant A, R01GM061721) and **Sofia Alvarez**
   (graduate researcher, grant B, R21AI182745). Each has Ask (which grant can
@@ -245,7 +245,7 @@ back on it. The grant office uses this to know which researcher to answer.
 
 | Piece | Real or simulated |
 |---|---|
-| The eight grants (IDs, titles, end dates) | Real NIH awards. The two demo-path grants were checked against NIH RePORTER on 2026-10-24: R01GM061721 "Biogenesis of the mitochondrial inner membrane" (NIGMS, ends 2027-07-31) and R21AI182745 "Investigating ploidy modulation as a strategy to improve antibiotic activity" (NIAID, ends 2026-08-31). The other six are real cuts taken from the live cancellation list for the cut scripts (T65) |
+| The eight grants (IDs, titles, end dates) | Real NIH awards. The two demo-path grants were checked against NIH RePORTER on 2026-10-24: R01GM061721 "Biogenesis of the mitochondrial inner membrane" (NIGMS, ends 2027-07-31) and R21AI182745 "Investigating ploidy modulation as a strategy to improve antibiotic activity" (NIAID, ends 2026-08-31). The other six are real cuts taken from the live cancellation list for the real failure cases (T65) |
 | The lab, its people, purchases, invoices, approvals, payroll, amounts and start dates | Simulated. None of it describes the real investigators or their work |
 | The cancel, court order and payment timeline | Simulated (ready-made status events). The real R01GM061721 was terminated in 2025 and reinstated under *Thakur v. Trump*, which is why live government lookups stay off in the scripted demo (`GG_LIVE_SOURCES`) |
 | The cancellation list | Real: the Grant Witness NIH CSV, scraped by our Apify Actor (5,776 rows into 5,635 grants on 2026-10-24) [ours] |

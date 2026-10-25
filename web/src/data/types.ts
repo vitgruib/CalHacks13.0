@@ -230,7 +230,7 @@ export interface SourceCheck {
   /** Demo time (T59): the real day the cancellation list is read as of,
    *  set by the newest "check now" for every grant; null = today. */
   asOf: string | null
-  /** Demo time for one grant (cut scripts, T65): set by the newest "check
+  /** Demo time for one grant (real failure cases, T65): set by the newest "check
    *  now" for just that grant; wins over asOf for that grant. */
   grantAsOf: Record<string, string | null>
 }

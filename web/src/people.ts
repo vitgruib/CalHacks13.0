@@ -9,13 +9,13 @@ export interface Researcher {
   name: string // as stored on each request (requesterName)
   title: string
   grantId: string // the grant their work is on; the request form starts there
-  failure?: string // edge-case users: shown in place of the name (the cut script's title)
+  failure?: string // edge-case users: shown in place of the name (the failure case's title)
 }
 
 export const RESEARCHERS: Researcher[] = [
   { id: 'priya', name: 'Dr. Priya Nair', title: 'Postdoctoral researcher', grantId: 'R01GM061721' },
   { id: 'sofia', name: 'Sofia Alvarez', title: 'Graduate researcher', grantId: 'R21AI182745' },
-  // Edge cases: one per cut script (T65, DemoScripts.tsx), each on a grant cut on
+  // Edge cases: one per real failure case (T65, FailureCases.tsx), each on a grant cut on
   // the real list. Pickers file them in an Edge cases folder, labeled by failure.
   { id: 'amara', name: 'Dr. Amara Osei', title: 'Postdoctoral researcher', grantId: 'R01AI178875', failure: 'Terminated for good' },
   { id: 'kenji', name: 'Kenji Watanabe', title: 'Graduate researcher', grantId: 'R01GM155497', failure: 'Bought after the cut' },
@@ -33,7 +33,7 @@ export const EDGE_CASES = RESEARCHERS.filter(r => r.failure)
 export const displayName = (r: Researcher) => r.failure ?? r.name
 
 const EDGE_GRANTS = new Set(EDGE_CASES.map(r => r.grantId))
-/** A grant that only backs an edge-case user (a cut script's grant), not the lab's own. */
+/** A grant that only backs an edge-case user (a failure case's grant), not the lab's own. */
 export const isEdgeGrant = (g: { id: string }) => EDGE_GRANTS.has(g.id)
 /** The edge case a grant backs ("Bought after the cut"); undefined for the lab's own. */
 export const edgeCaseOf = (g: { id: string }) => EDGE_CASES.find(r => r.grantId === g.id)?.failure

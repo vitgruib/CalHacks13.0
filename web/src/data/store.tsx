@@ -170,7 +170,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
 
   // Offline demo data has no agents, so Check now here is SIMULATED: a short
   // pause, then "finished". Nothing outside this tab is read.
-  // The seed's finished check requests set each cut script's starting day (T65).
+  // The seed's finished check requests set each failure case's starting day (T65).
   const seedCheck = (): SourceCheck => ({
     last: null, pendingSince: null, asOf: null,
     grantAsOf: Object.fromEntries(((seed as { checkRequests?: { grantId?: string; asOf?: string }[] }).checkRequests ?? []).filter(c => c.grantId && c.asOf).map(c => [c.grantId!, c.asOf!])),

@@ -18,7 +18,7 @@ export { CARD_LIMIT, trulyAvailable }
 const HEADINGS: Record<string, { title: string; short: string }> = {
   R01GM061721: { title: "Alzheimer's imaging", short: "Alzheimer's imaging" },
   R21AI182745: { title: 'RNA therapeutics', short: 'RNA therapeutics' },
-  // The edge-case grants (cut scripts): a few words for each real title.
+  // The edge-case grants (real failure cases): a few words for each real title.
   R01AI178875: { title: 'Drug-resistant bacteria', short: 'Drug-resistant bacteria' },
   R01GM155497: { title: 'Cell cycle control', short: 'Cell cycle control' },
   R01HL176691: { title: 'Heart muscle metabolism', short: 'Heart muscle metabolism' },

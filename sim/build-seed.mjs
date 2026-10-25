@@ -379,7 +379,7 @@ db.papers.push(
 for (const p of db.papers) if (p.pmcid === undefined) delete p.pmcid
 
 // ---------------------------------------------------------------------------
-// Cut scripts (T65): four more grants, each cut on the real cancellation list
+// Real failure cases (T65; were "cut scripts"): four more grants, each cut on the real cancellation list
 // (Grant Witness via Apify) on a real day. They start clean: no events or
 // readings, so the live list, read as of the script's demo times, drives them.
 // Real numbers, titles and dates from the list; the PIs and researchers are
@@ -425,7 +425,7 @@ const scriptGrants = [
 // and doesn't run the script ahead (T65).
 db.checkRequests = scriptGrants.map(g => ({ grantId: g.id, reason: 'check_now', requestedBy: 'grant_manager', day: TODAY, asOf: g.before }))
 
-// PLANTED (cut script 2): a card charge five days after R01GM155497 was cut.
+// PLANTED (failure case 2): a card charge five days after R01GM155497 was cut.
 // Raises spend_while_canceled once the list's cut (dated 2025-06-04) lands.
 db.requests.push({
   id: 'rq-060', day: '2025-06-09', requester: 'scientist', requesterName: 'Kenji Watanabe', item: 'Okadaic acid, 25 µg', category: 'reagents', price: 1_240, grantId: 'R01GM155497',
