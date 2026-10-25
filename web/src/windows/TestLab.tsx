@@ -178,7 +178,7 @@ export default function TestLab() {
       )}
 
       <Section title="Start over">
-        <p className="muted">Replace the whole world with the demo seed: grant A frozen by a court order with no payment yet, the planted mistakes, and each real failure case back at its first step. Live, this resets the shared world for everyone, and nothing done since can be brought back.</p>
+        <p className="muted">Replace the whole world with the demo seed. Its grants are real NIH awards (real grant IDs, institutes and end dates); the lab around them is simulated. It holds grant A frozen by a court order with no payment yet, the planted mistakes, and each real failure case back at its first step. Live, this resets the shared world for everyone, and nothing done since can be brought back.</p>
         {confirmReset
           ? <div className="tl-row">
               <button type="button" className="tl-danger" onClick={() => { setConfirmReset(false); run(() => { loadDemoSeed(); return 'Loaded the demo seed.' }) }}>Yes, reset everything</button>

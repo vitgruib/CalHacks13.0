@@ -48,8 +48,8 @@ export function shortName(g: Grant) {
   return short[0].toUpperCase() + short.slice(1)
 }
 
-/** Shown wherever grants are described: the IDs are real, the lab is not. */
-export const SIM_NOTE = 'Grant IDs, institutes and end dates are real NIH records (R01GM061721, UCLA; R21AI182745, Princeton); the headings shown are simplified stand-ins for their titles. The lab, people, purchases, invoices, papers, amounts and the cancel, court and payment timeline are simulated (today in the sim is June 15, 2026).'
+/** Shown wherever grants are described: the grants are real, the lab is not. */
+export const SIM_NOTE = 'Real grant data: every grant here is a real NIH award, with its real grant ID, institute and end date (R01GM061721, UCLA; R21AI182745, Princeton; the others are real cut grants from the public cancellation list). The headings shown are simplified stand-ins for their titles. Simulated: the lab, people, purchases, invoices, papers, amounts and the cancel, court and payment timeline (today in the sim is June 15, 2026).'
 
 export const firstName = (db: Db) => (db.grants[0]?.pi ?? '').replace(/^Dr\.?\s*/, '').split(' ')[0]
 

@@ -53,8 +53,11 @@ script and a "try your own scenario" playbook:
 [docs/submission/DEMO-SCRIPT.md](docs/submission/DEMO-SCRIPT.md).
 
 The demo runs on the app's demo world (`sim/demo-seed.json`, simulated
-today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
-2026-08-31, 77 days away.
+today 2026-06-15). **The demo seed uses real grant data:** all five of its
+grants are real NIH awards, with their real grant IDs, institutes and end dates
+(only the lab, people, purchases, amounts and timeline around them are
+simulated; [what's real](#whats-real-and-whats-simulated)). Grant A is
+R01GM061721. Grant B is R21AI182745, which ends 2026-08-31, 77 days away.
 
 1. **Funds.** Grant A was canceled on 2026-03-10 and restored by a court
    order on 2026-04-20. No payment has arrived since, so it is still frozen.
@@ -90,7 +93,7 @@ scope (T105): Grant Test Auto is the interface between the grant office and the
 lab's researchers. Their code is still in the repo, unused.
 
 The app loads a smaller demo world (`sim/demo-seed.json`, 11 of the 22
-purchases) so each step above is easy to find; see
+purchases, on five real NIH grants) so each step above is easy to find; see
 `sim/README.md`. On the live site, Demo controls → Start over → "Reset to
 the demo seed…" → "Yes, reset everything" resets the world to it. Demo controls also
 holds the real failure cases. The live site is one shared world: anyone with
