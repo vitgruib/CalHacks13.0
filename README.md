@@ -53,8 +53,8 @@ The judge plays the grant manager. Full script, timings, a backup video
 script and a "try your own scenario" playbook:
 [docs/submission/DEMO-SCRIPT.md](docs/submission/DEMO-SCRIPT.md).
 
-The demo runs on the sim world (`sim/seed.json`, simulated today
-2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
+The demo runs on the app's demo world (`sim/demo-seed.json`, simulated
+today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
 2026-08-31, 77 days away.
 
 1. **Funds.** Grant A was canceled on 2026-03-10 and restored by a court
@@ -67,8 +67,8 @@ The demo runs on the sim world (`sim/seed.json`, simulated today
    arrived since the court order. Click "why?" on its Log row.
 3. **The money lands.** In Demo controls, press "Payment arrives". In the
    Inbox, settle "Which source is right about R01GM061721?" (RePORTER says
-   active; USAspending and the cancellation list say canceled) with "Pick
-   this source" and a reason. Both steps are needed, in either order. Grant A
+   active, USAspending says canceled, the cancellation list says restored by
+   court) with "Pick this source" and a reason. Both steps are needed, in either order. Grant A
    unfreezes, and the waiting gloves go through on their own. Agar plates
    requested on grant B, now inside its last 90 days, are rerouted to grant
    A, citing the NSF-OIG audits of WVU and Delaware.
@@ -93,7 +93,7 @@ The app loads a smaller demo world (`sim/demo-seed.json`, 11 of the 24
 purchases and 2 of the 7 papers) so each step above is easy to find; see
 `sim/README.md`. On the live site, Demo controls → Start over → "Reset to
 the demo seed…" → "Yes, reset everything" resets the world to it. Demo controls also
-holds the four cut scripts. The live site is one shared world: anyone with
+holds the six cut scripts. The live site is one shared world: anyone with
 the link acts as the grant manager, and Demo controls changes the world for
 everyone. Presenter
 checklist and known edge cases: [docs/EDGE-TESTING.md](docs/EDGE-TESTING.md).
