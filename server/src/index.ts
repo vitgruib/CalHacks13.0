@@ -524,7 +524,7 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
         return;
       }
       if (c === 'reject') {
-        ctx.db.request.id.update({ ...r, state: 'rejected' });
+        ctx.db.request.id.update({ ...r, state: 'rejected', explanation: `The grant manager rejected it: ${reason}` });
         return;
       }
       const gid = r.chargedGrantId ?? r.grantId;
@@ -532,7 +532,8 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx));
       const blocking = verdicts.filter(v => !v.pass && !v.rule.startsWith('Under the card limit'));
       if (c === 'approve' && blocking.length) {
-        ctx.db.request.id.update({ ...r, verdicts: vrows(verdicts), state: 'blocked' });
+        const explanation = `The grant manager approved it (${reason}), but the rules were rechecked and it still fails: ${blocking.map(v => v.detail).join(' ')}`;
+        ctx.db.request.id.update({ ...r, verdicts: vrows(verdicts), state: 'blocked', explanation });
         writeLog(ctx, 'system', `Recheck failed, did not buy ${r.item}`, blocking.map(v => v.detail).join(' '), { rule: blocking[0].rule, refId: r.id });
         return;
       }
@@ -547,13 +548,16 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
     case 'invoice': {
       const inv = ctx.db.invoice.id.find(h.refId);
       if (!inv) return;
-      if (c === 'approve' || c === 'override') payInvoice(ctx, inv.id);
-      else if (c === 'reject') ctx.db.invoice.id.update({ ...inv, state: 'rejected' });
+      const decided = (what: string) => [...inv.timeline, { day: today(ctx), what: `${what}: ${reason}` }];
+      if (c === 'approve' || c === 'override') {
+        ctx.db.invoice.id.update({ ...inv, timeline: decided(c === 'override' ? 'Paid as billed, overridden by the grant manager' : 'Approved by the grant manager and paid') });
+        payInvoice(ctx, inv.id);
+      } else if (c === 'reject') ctx.db.invoice.id.update({ ...inv, state: 'rejected', timeline: decided('Rejected by the grant manager') });
       else if (c === 'ask_vendor') {
         // Not a dead end: the invoice stays held and the Inbox keeps an item
         // for the vendor's answer. A corrected invoice for the order replaces
         // this one instead (inject_invoice).
-        const timeline = [...inv.timeline, { day: today(ctx), what: ASKED_VENDOR }];
+        const timeline = decided(ASKED_VENDOR);
         ctx.db.invoice.id.update({ ...inv, timeline });
         raiseHoldRow(ctx, {
           kind: 'invoice', refId: inv.id, grantId: h.grantId, raisedBy: 'bookkeeping', // the invoice check's item, continued
@@ -899,7 +903,7 @@ export const inject_invoice = spacetimedb.reducer(
     writeLog(ctx, who, `Dropped in invoice ${id} (${usd(a.amount)}) for ${o.id}`, 'Test lab.', { refId: id });
     // The vendor's answer to "ask the vendor": this invoice replaces the held one.
     for (const old of [...ctx.db.invoice.iter()]) {
-      if (old.orderId !== o.id || old.state !== 'held' || old.timeline.at(-1)?.what !== ASKED_VENDOR) continue;
+      if (old.orderId !== o.id || old.state !== 'held' || !old.timeline.at(-1)?.what.startsWith(ASKED_VENDOR)) continue;
       ctx.db.invoice.id.update({ ...old, state: 'rejected', timeline: [...old.timeline, { day: today(ctx), what: `Replaced by the vendor's corrected invoice ${id}` }] });
       for (const hd of [...ctx.db.hold.iter()]) if (hd.open && hd.kind === 'invoice' && hd.refId === old.id) ctx.db.hold.id.update({ ...hd, open: false });
       writeLog(ctx, who, `Replaced invoice ${old.id} with ${id}`, `${o.vendor} sent a corrected invoice after the grant manager asked.`, { refId: old.id });

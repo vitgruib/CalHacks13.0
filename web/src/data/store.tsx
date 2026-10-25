@@ -130,11 +130,15 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
 
   const decide: Store['decide'] = (holdId, choice, reason) => {
     if (!reason.trim()) throw new Error('A reason is required')
-    setDb(d => ({
-      ...d,
-      holds: d.holds.map(h => (h.id === holdId ? { ...h, decision: { choice, reason, by: 'grant_manager', day: d.today } } : h)),
-      log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: `Decided ${holdId}: ${choice}`, reason, refId: holdId }],
-    }))
+    setDb(d => {
+      const held = d.holds.find(h => h.id === holdId)
+      return {
+        ...d,
+        holds: d.holds.map(h => (h.id === holdId ? { ...h, decision: { choice, reason, by: 'grant_manager', day: d.today } } : h)),
+        // Logged against the request or invoice, as the module does.
+        log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: `Decided "${held?.title ?? holdId}": ${choice}`, reason, refId: held?.refId ?? holdId }],
+      }
+    })
   }
 
   const submitRequest: Store['submitRequest'] = (r, by) => {

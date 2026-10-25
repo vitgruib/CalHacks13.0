@@ -303,7 +303,7 @@ test('a_hold_the_grant_manager_answered_with_ask_vendor_is_not_reopened_and_wait
   const waiting = openHold(conn, inv.id);
   assert.notEqual(waiting.id, hold.id);
   assert.match(waiting.title, /^Waiting on /);
-  assert.equal(invoice(conn, inv.id).timeline.at(-1)?.what, 'Grant manager asked the vendor');
+  assert.equal(invoice(conn, inv.id).timeline.at(-1)?.what, 'Grant manager asked the vendor: Asking the vendor for a corrected invoice.');
   assert.equal(heldLogs(conn, inv.id).length, 1);
   await settle();
 });

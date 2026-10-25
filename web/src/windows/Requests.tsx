@@ -6,7 +6,7 @@
 // The grant office decides a held request right on its card (the Inbox's card).
 import { useContext, useState, type FormEvent } from 'react'
 import { useStore } from '../data/store'
-import type { PurchaseRequest, RequestState } from '../data/types'
+import type { Decision, PurchaseRequest, RequestState } from '../data/types'
 import { Badge, Empty, Section, money, type Tone } from '../ui'
 import { RoleContext } from './registry'
 import { RESEARCHERS, forResearcher, requesterLabel, useResearcher } from '../people'
@@ -37,6 +37,10 @@ const stateTone: Record<RequestState, Tone> = {
   waiting_on_manager: 'warn',
   rerouted: 'warn',
   canceled: 'neutral',
+}
+
+const decisionLabel: Record<Decision['choice'], string> = {
+  approve: 'Approved', reject: 'Rejected', override: 'Overrode the rules', ask_vendor: 'Asked the vendor', pick_source: 'Picked a source',
 }
 
 /** Requests the researcher asked for in the app (seed ones have no asker), in a
@@ -104,6 +108,7 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
   const { db, plans } = useStore()
   const plan = plans.find(p => p.id === ref?.planId)
   const hold = role === 'grant_manager' ? openHolds(db, 'purchase').find(h => h.refId === r.id) : undefined
+  const decided = db.holds.filter(h => h.kind === 'purchase' && h.refId === r.id && h.decision)
   return (
     <article className="rq-card" aria-labelledby={`rq-${r.id}`}>
       <header>
@@ -116,6 +121,11 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
       <p className="rq-muted rq-meta">{r.day} · {r.category} · {ref ? ref.rest : r.purpose}</p>
       <GrantLine r={r} />
       <p className="rq-explain"><span className="rq-muted">Purchasing agent: </span>{r.explanation}</p>
+      {decided.map(h => (
+        <p key={h.id} className={h.decision!.choice === 'reject' ? 'rq-wait' : 'rq-explain'}>
+          <span className="rq-muted">Grant manager, {h.decision!.day}: </span>{decisionLabel[h.decision!.choice]}. {h.decision!.reason}
+        </p>
+      ))}
       {hold
         ? <HoldCard hold={hold} embedded />
         : r.state === 'waiting_on_manager' && role === 'scientist' && <p className="rq-wait">Waiting for the grant manager to decide. Their answer will show up here.</p>}

@@ -296,6 +296,32 @@ test('a purchase the grant manager approves is explained as approved and bought,
   expect(after.explanation).toContain('Needed for Aim 2.');
 });
 
+test("a purchase the grant manager rejects says so on the request, with the reason", () => {
+  call('sci', mod.submit_request, { item: 'Plate reader service', category: 'equipment service', price: 6_000, grantId: B, purpose: 'Aim 2', sharedWith: [] });
+  const rq = lastRequest();
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: B, vendor: 'V', explanation: `Held ${rq.item} ($6,000) on ${B} for the grant manager.` });
+  const hold = rows('hold').find(x => x.refId === rq.id && x.open);
+  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'reject', reason: 'The core facility can do this for free.' });
+  const after = db().request.id.find(rq.id);
+  expect(after.state).toBe('rejected');
+  expect(after.explanation).toMatch(/grant manager rejected/i);
+  expect(after.explanation).toContain('The core facility can do this for free.');
+});
+
+test("the grant manager's call on a held invoice goes in its trail, with the reason", () => {
+  const paid = heldInvoice();
+  call('gm', mod.decide_hold, { holdId: paid.hold.id, choice: 'approve', reason: 'Shipping fee was agreed.' });
+  expect(db().invoice.id.find(paid.inv.id).timeline.at(-1).what).toMatch(/^Approved by the grant manager.*Shipping fee was agreed\.$/);
+
+  const refused = heldInvoice();
+  call('gm', mod.decide_hold, { holdId: refused.hold.id, choice: 'reject', reason: 'We never agreed to $400.' });
+  expect(db().invoice.id.find(refused.inv.id).timeline.at(-1).what).toMatch(/^Rejected by the grant manager.*We never agreed to \$400\.$/);
+
+  const asked = heldInvoice();
+  call('gm', mod.decide_hold, { holdId: asked.hold.id, choice: 'ask_vendor', reason: 'Why $20 more?' });
+  expect(db().invoice.id.find(asked.inv.id).timeline.at(-1).what).toContain('Why $20 more?');
+});
+
 test('same-day purchases that dodge the card limit together cannot be bought by the agent, but the grant manager can approve them', () => {
   const service = (price: number) => call('sci', mod.submit_request, {
     item: 'Sequencing core run', category: 'core facility services', price, grantId: 'R21AI182745', purpose: 'Aim 1', sharedWith: [],
