@@ -166,34 +166,64 @@ function grooveGlow() {
   const pos: number[] = []
   const edge: number[] = []
   const uu: number[] = []
+  const len: number[] = []
   const idx: number[] = []
+  const hw = GROOVE_W / 2
   GROOVES.forEach((g, gi) => {
+    const P = g.pts
+    const n = P.length
+    const dir = (i: number) => {
+      const l = Math.hypot(P[i + 1][0] - P[i][0], P[i + 1][1] - P[i][1]) || 1
+      return [(P[i + 1][0] - P[i][0]) / l, (P[i + 1][1] - P[i][1]) / l] as const
+    }
     let total = 0
-    for (let i = 1; i < g.pts.length; i++) total += Math.hypot(g.pts[i][0] - g.pts[i - 1][0], g.pts[i][1] - g.pts[i - 1][1])
+    for (let i = 1; i < n; i++) total += Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1])
+    // One continuous strip per groove with mitred corners, so no two quads
+    // overlap and double the light where a groove bends.
+    const b = pos.length / 3
     let s = 0
-    for (let i = 1; i < g.pts.length; i++) {
-      const [ax, az] = g.pts[i - 1]
-      const [bx, bz] = g.pts[i]
-      const l = Math.hypot(bx - ax, bz - az)
-      const nx = (-(bz - az) / l) * (GROOVE_W / 2)
-      const nz = ((bx - ax) / l) * (GROOVE_W / 2)
-      const b = pos.length / 3
-      // Extend each segment a touch so the corners meet.
-      const ex = ((bx - ax) / l) * (GROOVE_W / 2)
-      const ez = ((bz - az) / l) * (GROOVE_W / 2)
-      const u0 = s / total
-      const u1 = (s + l) / total
-      pos.push(ax - nx - ex, 0.013, az - nz - ez, ax + nx - ex, 0.013, az + nz - ez, bx - nx + ex, 0.013, bz - nz + ez, bx + nx + ex, 0.013, bz + nz + ez)
-      edge.push(gi, gi, gi, gi)
-      uu.push(u0, u0, u1, u1)
-      idx.push(b, b + 2, b + 1, b + 1, b + 2, b + 3)
-      s += l
+    for (let i = 0; i < n; i++) {
+      if (i > 0) s += Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1])
+      let [x, z] = P[i]
+      let ox: number
+      let oz: number
+      if (i === 0 || i === n - 1) {
+        // Ends run on half a groove width so the light reaches under the node.
+        const [dx, dz] = dir(i === 0 ? 0 : n - 2)
+        const e = i === 0 ? -hw : hw
+        x += dx * e
+        z += dz * e
+        ox = -dz * hw
+        oz = dx * hw
+      } else {
+        const [ax, az] = dir(i - 1)
+        const [bx, bz] = dir(i)
+        let mx = -az - bz
+        let mz = ax + bx
+        const ml = Math.hypot(mx, mz) || 1
+        mx /= ml
+        mz /= ml
+        const k = hw / Math.max(0.35, mx * -bz + mz * bx)
+        ox = mx * k
+        oz = mz * k
+      }
+      pos.push(x - ox, 0.013, z - oz, x + ox, 0.013, z + oz)
+      edge.push(gi, gi)
+      uu.push(s / total, s / total)
+      len.push(total, total)
+      // Counter-clockwise seen from above, so the strip faces the camera
+      // (the old quads faced down and were culled: the grooves never lit).
+      if (i > 0) {
+        const r0 = b + (i - 1) * 2
+        idx.push(r0, r0 + 1, r0 + 2, r0 + 1, r0 + 3, r0 + 2)
+      }
     }
   })
   const geo = new BufferGeometry()
   geo.setAttribute('position', new BufferAttribute(new Float32Array(pos), 3))
   geo.setAttribute('aEdge', new BufferAttribute(new Float32Array(edge), 1))
   geo.setAttribute('aU', new BufferAttribute(new Float32Array(uu), 1))
+  geo.setAttribute('aLen', new BufferAttribute(new Float32Array(len), 1))
   geo.setIndex(idx)
   geo.computeBoundingSphere()
   const N = GROOVES.length
@@ -204,22 +234,30 @@ function grooveGlow() {
     uniforms: { uHead: { value: GLOW.head }, uDir: { value: GLOW.dir }, uOn: { value: GLOW.on }, uCol: { value: GLOW.col } },
     vertexShader: [
       `uniform float uHead[${N}]; uniform float uDir[${N}]; uniform float uOn[${N}]; uniform vec3 uCol[${N}];`,
-      'attribute float aEdge; attribute float aU;',
-      'varying float vU; varying float vHead; varying float vDir; varying float vOn; varying vec3 vCol;',
+      'attribute float aEdge; attribute float aU; attribute float aLen;',
+      'varying float vU; varying float vHead; varying float vDir; varying float vOn; varying vec3 vCol; varying float vLen;',
       'void main() {',
       '  int e = int(aEdge + 0.5);',
-      '  vU = aU; vHead = uHead[e]; vDir = uDir[e]; vOn = uOn[e]; vCol = uCol[e];',
+      '  vU = aU; vHead = uHead[e]; vDir = uDir[e]; vOn = uOn[e]; vCol = uCol[e]; vLen = aLen;',
       '  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
       '}',
     ].join('\n'),
+    // Distances are in world units (u × the groove's length), so a short
+    // groove and a long one carry the same light: a bright head with a soft
+    // front, a 0.9-unit tail behind it, and a faint resting level so an idle
+    // groove still reads as an inlay rather than dark on dark.
     fragmentShader: [
-      'varying float vU; varying float vHead; varying float vDir; varying float vOn; varying vec3 vCol;',
+      'varying float vU; varying float vHead; varying float vDir; varying float vOn; varying vec3 vCol; varying float vLen;',
+      'const vec3 REST = vec3(0.70, 0.77, 0.85);',
       'void main() {',
-      '  if (vOn < 0.01) discard;',
-      '  float d = (vHead - vU) * vDir;',
-      '  float trail = d >= -0.015 ? pow(clamp(1.0 - d / 0.5, 0.0, 1.0), 2.0) : 0.0;',
-      '  float a = vOn * (0.22 + 0.78 * trail);',
-      '  gl_FragColor = vec4(vCol, a);',
+      '  float d = (vHead - vU) * vDir * vLen;',
+      '  float front = smoothstep(-0.12, 0.0, d);',
+      '  float trail = pow(clamp(1.0 - d / 0.9, 0.0, 1.0), 2.0) * front;',
+      '  float head = exp(-d * d * 90.0);',
+      '  float lit = vOn * (0.22 + 0.78 * trail + 0.5 * head);',
+      '  float a = 0.06 + lit;',
+      '  vec3 c = mix(REST, vCol * (1.0 + 0.45 * head * vOn), clamp(lit / a, 0.0, 1.0));',
+      '  gl_FragColor = vec4(c, min(a, 1.0));',
       '}',
     ].join('\n'),
   })

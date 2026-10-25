@@ -219,7 +219,7 @@ function Moving() {
     return () => clearAll()
   }, [])
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     const Tg = tagM.current, Tr = trayM.current, Sl = slipM.current, Bd = beadM.current, Cn = coinM.current, Dr = dropM.current
     if (!Tg || !Tr || !Sl || !Bd || !Cn || !Dr) return
     const w = feed.getWorld()
@@ -571,8 +571,8 @@ function Moving() {
       GLOW.live[S.g] = 1
     }
 
-    // Grooves fade in and out.
-    const k = still ? 1 : 0.12
+    // Grooves fade in and out, at the same speed whatever the frame rate.
+    const k = still ? 1 : 1 - Math.exp(-Math.min(delta, 0.1) * 7)
     for (let g = 0; g < GLOW.on.length; g++) GLOW.on[g] += ((GLOW.live[g] ? 1 : 0) - GLOW.on[g]) * k
 
     // ── Ripples ──
