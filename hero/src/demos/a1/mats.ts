@@ -1,11 +1,16 @@
-// Shared materials: matte clay with a little tonal drift for the dioramas,
-// a glossy liquid with a fresnel edge for money, and glass for the freeze.
+// Shared materials: matte clay that takes its colour from the model's
+// vertices, a glossy liquid with a fresnel edge for money, and glass for the
+// freeze. Everything is made once at module level.
 
 import { Color, DoubleSide, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial } from 'three'
 import { PAL } from './layout'
 
 const clay = (color: string, roughness = 0.88) => new MeshStandardMaterial({ color, roughness, metalness: 0 })
-const glaze = (color: string) => new MeshPhysicalMaterial({ color, roughness: 0.3, metalness: 0, clearcoat: 0.8, clearcoatRoughness: 0.2 })
+
+/** The one clay: colour comes from the vertices (see kit.ts). */
+export const CLAY = new MeshStandardMaterial({ vertexColors: true, roughness: 0.86, metalness: 0 })
+/** The same, a touch of sheen for instruments, glassware and parcels. */
+export const SHEEN = new MeshPhysicalMaterial({ vertexColors: true, roughness: 0.42, metalness: 0, clearcoat: 0.45, clearcoatRoughness: 0.35 })
 
 export const M = {
   labBody: clay(PAL.labBody),
@@ -19,34 +24,9 @@ export const M = {
   slate: clay(PAL.slate, 0.78),
   slateDeep: clay(PAL.slateDeep, 0.74),
   ink: clay(PAL.ink, 0.7),
-  board: clay('#FAF8F4', 0.4),
-  dark: clay('#2A313A', 0.55),
   lens: new MeshBasicMaterial({ color: PAL.lens, toneMapped: false }),
-  glazeAccept: glaze(PAL.celadon),
-  glazeRefine: glaze(PAL.ochre),
-  glazeReject: glaze(PAL.oxblood),
-  glazeHold: glaze(PAL.cobalt),
-  bisque: clay('#EFEAE2', 0.8),
-  paper: clay('#F7F4EF', 0.7),
-  window: new MeshPhysicalMaterial({ color: '#C9D3DC', roughness: 0.15, metalness: 0, clearcoat: 1, transparent: true, opacity: 0.55 }),
-}
-
-export const glazeFor = (o?: string) =>
-  o === 'accept' ? M.glazeAccept : o === 'refine' ? M.glazeRefine : o === 'reject' ? M.glazeReject : o === 'hold' ? M.glazeHold : M.bisque
-
-/** The same clay, nudged a few percent lighter or darker, so a room of objects doesn't read as one flat colour. */
-const drift = new Map<string, MeshStandardMaterial>()
-export function vary(m: MeshStandardMaterial, seed: number): MeshStandardMaterial {
-  const k = ((seed * 7919) % 5) - 2
-  if (k === 0) return m
-  const key = `${m.uuid}:${k}`
-  let v = drift.get(key)
-  if (!v) {
-    v = m.clone()
-    v.color.offsetHSL(0, 0, k * 0.018)
-    drift.set(key, v)
-  }
-  return v
+  window: new MeshPhysicalMaterial({ color: '#D5DEE6', roughness: 0.12, metalness: 0, clearcoat: 1, transparent: true, opacity: 0.32, depthWrite: false }),
+  screen: new MeshStandardMaterial({ color: '#2A313A', roughness: 0.4, emissive: new Color('#9CC3E0'), emissiveIntensity: 0 }),
 }
 
 /** Money: glossy, with a bright fresnel rim and a pulse uniform for the moment a freeze lifts. */
@@ -85,8 +65,7 @@ export function glass() {
   m.userData.u = u
   m.onBeforeCompile = s => {
     Object.assign(s.uniforms, u)
-    s.vertexShader = s.vertexShader
-      .replace('void main() {', 'varying vec3 vAPos;\nvoid main() {\nvAPos = position;')
+    s.vertexShader = s.vertexShader.replace('void main() {', 'varying vec3 vAPos;\nvoid main() {\nvAPos = position;')
     s.fragmentShader = s.fragmentShader
       .replace('void main() {', 'uniform float uFrost; uniform float uFade; varying vec3 vAPos;\nvoid main() {')
       .replace(

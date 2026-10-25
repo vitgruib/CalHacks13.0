@@ -1,20 +1,42 @@
-import { Suspense, lazy, useEffect, useState } from 'react'
+import { Component, Suspense, lazy, useEffect, useState, type ReactNode } from 'react'
+import { APP_URL, bare, pinnedId } from './chrome'
 import { demos, earlier, type Demo } from './demos/registry'
 import { feed } from './feed'
 
 const Overview = lazy(() => import('./Overview'))
 
-const fromHash = (): Demo | undefined => [...demos, ...earlier].find(d => `#${d.id}` === location.hash)
+const all = [...demos, ...earlier]
+const pinned = pinnedId ? all.find(d => d.id === pinnedId) : undefined
+const fromHash = (): Demo | undefined => pinned ?? all.find(d => `#${d.id}` === location.hash)
 const roundOne = earlier[0] // Clay lab, the pick round 2 builds on
 const params = new URLSearchParams(location.search)
-const bare = params.has('bare')
 // ?at=<feed ms> starts the story partway in, for checking later beats (`npm run story` prints their times).
 const startAt = Math.max(0, Number(params.get('at')) || 0)
+
+/** If WebGL cannot start or a scene throws, show a still page with the way into the app, never a blank one. */
+class Fallback extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  render() {
+    if (!this.state.failed) return this.props.children
+    return (
+      <main className="hero-fallback">
+        <h1>GrantGuard</h1>
+        <p>An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
+        <p className="hero-fallback-note">This simulated lab needs 3D graphics (WebGL), and this browser could not start them.</p>
+        <a href={APP_URL}>Open the GrantGuard app</a>
+      </main>
+    )
+  }
+}
 
 export default function App() {
   const [current, setCurrent] = useState(fromHash)
 
   useEffect(() => {
+    if (pinned) return
     const onHash = () => setCurrent(fromHash())
     const onKey = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLElement && e.target.closest('input, textarea, select, [contenteditable]')) return
@@ -41,11 +63,13 @@ export default function App() {
 
   return (
     <>
-      <Suspense fallback={<div className="gallery-loading">Loading {current?.name ?? 'overview'}…</div>}>
-        {current ? <current.Component key={current.id} /> : <Overview />}
-      </Suspense>
+      <Fallback key={current?.id ?? 'overview'}>
+        <Suspense fallback={<div className="gallery-loading">Loading {current?.name ?? 'overview'}…</div>}>
+          {current ? <current.Component key={current.id} /> : <Overview />}
+        </Suspense>
+      </Fallback>
       {!bare && (
-        <nav className="gallery" aria-label="Hero mockups">
+        <nav className="gallery" aria-label="Hero mockups" data-float="gallery">
           <a href="#overview" aria-current={current ? undefined : 'page'}>
             <kbd>0</kbd>
             <span className="gallery-name">All five</span>

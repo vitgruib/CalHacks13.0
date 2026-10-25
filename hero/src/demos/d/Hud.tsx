@@ -3,7 +3,7 @@ import { PRESETS, feed, usd, useWorld, type FlowNode, type Hold, type LogRow, ty
 import { outcomeWord } from './stamps'
 import { mine, ui, useUi } from './store'
 
-const APP_URL: string = import.meta.env.VITE_APP_URL ?? 'http://localhost:5173'
+const APP_URL: string = import.meta.env.VITE_APP_URL ?? 'https://calhacks130.vercel.app'
 
 const ACTOR: Record<LogRow['actor'], string> = {
   purchasing: 'Purchasing',

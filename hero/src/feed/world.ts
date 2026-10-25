@@ -55,7 +55,7 @@ export const startResearchers = (): Researcher[] => [
   },
   {
     id: 'okafor',
-    name: 'Dr. Sam Okafor',
+    name: 'Dr. Sam Adeyemi',
     role: 'Postdoc',
     station: 'Protein purification bench',
     grantIds: [R01],

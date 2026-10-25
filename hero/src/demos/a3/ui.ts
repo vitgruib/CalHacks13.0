@@ -1,22 +1,40 @@
-// The viewer's UI state (hover, selection, open panel) and the helpers that
-// read the feed from React. The dashboard owns this file; the scene reads it.
+// The viewer's UI state (hover, selection, the sidebar's tab and sheet) and
+// the helpers that read the feed from React. The dashboard owns this file;
+// the scene reads it.
 
 import { useSyncExternalStore } from 'react'
 import { feed } from '../../feed'
 import type { World } from '../../feed'
 
+/** Kept for older imports. The sidebar never covers the stage, so `panel` stays null. */
 export type PanelKind = 'request' | 'inbox' | 'index' | 'ledger' | 'detail'
+export type Tab = 'overview' | 'requests' | 'decisions' | 'activity'
 
 export interface UiState {
-  hovered: string | null
+  hovered: string | null // a FlowNode id or a request id
+  hoverSrc: 'scene' | 'dashboard' | null // who set `hovered`; the scene's hover card shows only for 'scene' (or null)
   selected: string | null
   panel: PanelKind | null
+  tab: Tab
+  sheet: boolean // phone: the bottom sheet is expanded
+  composing: boolean // the "Send a request" form is open
   openRequest: string | null
   composeFor: string | null
   mine: string[]
 }
 
-const blank = (): UiState => ({ hovered: null, selected: null, panel: null, openRequest: null, composeFor: null, mine: [] })
+const blank = (): UiState => ({
+  hovered: null,
+  hoverSrc: null,
+  selected: null,
+  panel: null,
+  tab: 'overview',
+  sheet: false,
+  composing: false,
+  openRequest: null,
+  composeFor: null,
+  mine: [],
+})
 let state = blank()
 const listeners = new Set<() => void>()
 
@@ -42,8 +60,17 @@ export function useUi<T>(sel: (s: UiState) => T): T {
   return useSyncExternalStore(ui.subscribe, () => sel(state))
 }
 
-export const selectNode = (id: string | null) => ui.set({ selected: id, panel: id ? 'detail' : null, openRequest: null })
-export const openPanel = (panel: PanelKind | null) => ui.set({ panel, selected: panel === 'detail' ? state.selected : null })
+/** Select a node (or a request); the scene glides its camera there and the sidebar shows its detail. */
+// A clicked row unmounts without a mouseleave, so drop the hover it set.
+const unhover = () => (state.hoverSrc === 'dashboard' ? { hovered: null, hoverSrc: null } : {})
+export const selectNode = (id: string | null) => ui.set({ selected: id, panel: null, openRequest: null, ...unhover() })
+export const openTab = (tab: Tab) => ui.set({ tab, selected: null, panel: null, ...unhover() })
+
+/** Sidebar rows mark what they point at, so the scene can light it without a hover card. */
+export const hoverFromDashboard = (id: string | null) => {
+  if (id) ui.set({ hovered: id, hoverSrc: 'dashboard' })
+  else if (state.hoverSrc === 'dashboard') ui.set({ hovered: null, hoverSrc: null })
+}
 
 /** A slice of the feed's World. The selector must return a primitive or an existing reference. */
 // The feed tells subscribers about changes on its clock tick, so a decision made while the

@@ -1,0 +1,41 @@
+/* The scene's only DOM: one hover card pinned to the 3D thing under the pointer. */
+
+.demo-a5 .s5-card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+  max-width: 260px;
+  padding: 9px 12px 10px;
+  border-radius: 8px;
+  background: #1b1f27;
+  border: 1px solid #343b48;
+  color: #eef1f6;
+  font: 500 13px/1.35 inherit;
+  font-family: inherit;
+  pointer-events: none;
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.35);
+  will-change: transform;
+}
+
+.demo-a5 .s5-card .s5-name {
+  display: block;
+  font-weight: 650;
+  font-size: 13.5px;
+  color: #ffffff;
+}
+
+.demo-a5 .s5-card .s5-line {
+  display: block;
+  margin-top: 2px;
+  font-weight: 450;
+  font-size: 12.5px;
+  color: #c3cad6;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-a5 .s5-card {
+    will-change: auto;
+  }
+}

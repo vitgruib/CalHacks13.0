@@ -7,7 +7,7 @@ import { feed, PRESETS, usd, useFlow, useWorld, type Hold, type LogRow, type Out
 import { select, useSelected } from './state'
 import { vaultStatus } from './Labels'
 
-const APP_URL = import.meta.env.VITE_APP_URL ?? 'http://localhost:5173'
+const APP_URL = import.meta.env.VITE_APP_URL ?? 'https://calhacks130.vercel.app'
 
 // ── Words ────────────────────────────────────────────────────────────────
 

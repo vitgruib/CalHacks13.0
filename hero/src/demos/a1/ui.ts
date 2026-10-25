@@ -1,22 +1,43 @@
-// The viewer's UI state (hover, selection, open panel) and the helpers that
-// read the feed from React. The dashboard owns this file; the scene reads it.
+// The viewer's UI state (hover, selection, the open sidebar section) and the
+// helpers that read the feed from React. The dashboard owns this file; the
+// scene reads it.
 
 import { useSyncExternalStore } from 'react'
 import { feed } from '../../feed'
 import type { World } from '../../feed'
 
 export type PanelKind = 'request' | 'inbox' | 'index' | 'ledger' | 'detail'
+export type Section = 'grants' | 'requests' | 'agents' | 'lab' | 'activity' | 'chapters'
 
 export interface UiState {
   hovered: string | null
+  /** 'sidebar' while a sidebar row set `hovered`; the scene shows its hover card only for its own hovers. */
+  hoverFrom: 'sidebar' | null
   selected: string | null
+  /** Round 1's floating panel. The sidebar never covers the stage, so this stays null. */
   panel: PanelKind | null
+  /** The one open sidebar section. */
+  section: Section | null
+  composing: boolean
   openRequest: string | null
   composeFor: string | null
   mine: string[]
+  /** Phone: the bottom sheet is expanded. */
+  sheet: boolean
 }
 
-const blank = (): UiState => ({ hovered: null, selected: null, panel: null, openRequest: null, composeFor: null, mine: [] })
+const blank = (): UiState => ({
+  hovered: null,
+  hoverFrom: null,
+  selected: null,
+  panel: null,
+  section: 'grants',
+  composing: false,
+  openRequest: null,
+  composeFor: null,
+  mine: [],
+  sheet: false,
+})
 let state = blank()
 const listeners = new Set<() => void>()
 
@@ -42,8 +63,35 @@ export function useUi<T>(sel: (s: UiState) => T): T {
   return useSyncExternalStore(ui.subscribe, () => sel(state))
 }
 
-export const selectNode = (id: string | null) => ui.set({ selected: id, panel: id ? 'detail' : null, openRequest: null })
-export const openPanel = (panel: PanelKind | null) => ui.set({ panel, selected: panel === 'detail' ? state.selected : null })
+const isNode = (id: string) => /^[a-z]:/.test(id)
+
+/** Which sidebar section shows the detail for a node or request id. */
+export function sectionFor(id: string): Section {
+  if (id.startsWith('r:')) return 'lab'
+  if (id.startsWith('g:')) return 'grants'
+  if (isNode(id)) return 'agents'
+  return 'requests'
+}
+
+/** Select a node or request (the scene glides to it; the sidebar opens its detail). Null clears. */
+export const selectNode = (id: string | null) => {
+  if (!id) return ui.set({ selected: null })
+  ui.set({ selected: id, section: sectionFor(id), openRequest: isNode(id) ? state.openRequest : id })
+}
+
+/** Sidebar rows mark what they point at in the scene, without the scene's hover card. */
+export const hoverRow = (id: string) => {
+  if (state.hovered !== id || state.hoverFrom !== 'sidebar') ui.set({ hovered: id, hoverFrom: 'sidebar' })
+}
+export const unhoverRow = (id: string) => {
+  if (state.hovered === id) ui.set({ hovered: null, hoverFrom: null })
+}
+export const rowLink = (id: string) => ({
+  onMouseEnter: () => hoverRow(id),
+  onMouseLeave: () => unhoverRow(id),
+  onFocus: () => hoverRow(id),
+  onBlur: () => unhoverRow(id),
+})
 
 /** A slice of the feed's World. The selector must return a primitive or an existing reference. */
 // The feed tells subscribers about changes on its clock tick, so a decision made while the
@@ -66,6 +114,15 @@ export function act<T>(f: () => T): T {
 
 export function useFeed<T>(sel: (w: World) => T): T {
   return useSyncExternalStore(subscribe, () => sel(feed.getWorld()))
+}
+
+/** Restart the story and run it forward to `ms` of feed time (0 replays from the top), like `?at`. */
+export function jumpTo(ms: number) {
+  ui.set({ selected: null, hovered: null, hoverFrom: null, openRequest: null, composing: false, composeFor: null, mine: [] })
+  act(() => {
+    feed.restart()
+    if (ms > 0) feed.advance(ms)
+  })
 }
 
 export const reducedMotion = () => typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches

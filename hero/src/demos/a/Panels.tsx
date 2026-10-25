@@ -3,7 +3,7 @@
 // detail of whatever was clicked.
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { PRESETS, feed, usd } from '../../feed'
+import { PRESETS, feed, grantName, usd } from '../../feed'
 import type { Hold, Outcome, Request } from '../../feed'
 import { LedgerRows, fmtDay } from './bits'
 import { IconClose, TokenIcon, outcomeWord } from './icons'
@@ -73,7 +73,7 @@ function Composer() {
                 />
                 <span className="a-preset-name">{x.label}</span>
                 <span className="a-preset-meta">
-                  <span className="a-num">{usd(x.price)}</span> on {x.grantId} · {x.category}
+                  <span className="a-num">{usd(x.price)}</span> on the {grantName(x.grantId).toLowerCase()} · {x.category}
                 </span>
                 <span className={`a-word a-word--${likely}`}>
                   <TokenIcon outcome={likely} size={14} />
@@ -239,9 +239,9 @@ function RequestRow({ r }: { r: Request }) {
         <div className="a-req-why">
           <p>{r.explanation}</p>
           <p className="a-muted">
-            Asked {fmtDay(r.day)} on {r.grantId}
-            {r.chargedGrantId ? `, charged to ${r.chargedGrantId}` : ''}
-            {r.split.length ? `, split ${r.split.map(s => `${Math.round(s.share * 100)}% ${s.grantId}`).join(' / ')}` : ''}
+            Asked {fmtDay(r.day)} on the {grantName(r.grantId).toLowerCase()}
+            {r.chargedGrantId ? `, charged to the ${grantName(r.chargedGrantId).toLowerCase()}` : ''}
+            {r.split.length ? `, split ${r.split.map(s => `${Math.round(s.share * 100)}% ${grantName(s.grantId).toLowerCase()}`).join(' / ')}` : ''}
           </p>
           {r.verdicts.length > 0 && (
             <ul className="a-verdicts">
@@ -273,7 +273,7 @@ function ResearcherDetail({ id }: { id: string }) {
         <span className="a-field-label">Right now</span>
         {r.task}
       </p>
-      <p className="a-muted">Paid from {r.grantIds.join(' and ')}</p>
+      <p className="a-muted">Paid from {r.grantIds.map(id => `the ${grantName(id).toLowerCase()}`).join(' and ')}</p>
       <h3 className="a-sub">Requests</h3>
       {mine.length === 0 ? <p className="a-empty">No requests yet.</p> : <ul className="a-reqs">{mine.map(q => <RequestRow key={q.id} r={q} />)}</ul>}
       <button
@@ -316,7 +316,7 @@ function GrantDetail({ gid }: { gid: string }) {
   const evs = events.filter(e => e.grantId === gid).slice(0, 6)
   const status = g.frozen ? (g.status === 'restored_by_court' ? 'Restored by court, still frozen' : 'Canceled, spending frozen') : g.status === 'active' ? 'Active' : g.status
   return (
-    <Shell title={g.id} sub={`${g.title} · ${g.agency}`}>
+    <Shell title={g.name} sub={`${g.title} · ${g.agency}`}>
       <p className={`a-status${g.frozen ? ' is-frozen' : ''}`}>{status}</p>
       {g.frozenReason && g.frozen && <p className="a-muted">{g.frozenReason}</p>}
       <dl className="a-money">

@@ -1,66 +1,242 @@
-// The grant office plinth, in deep slate: three agent stations (each one
-// object with a single light), the grant manager's desk, the two grants as
-// vessels of money filled to their truly available amount, and one rack for
-// the outside sources. A glass bell jar drops over a frozen grant and lifts
-// when cash lands.
+// The grant office as it really works: a round table with the one shared
+// record at its centre. The three agents and the grant manager sit around
+// it and never talk to each other directly; every packet goes into the
+// record and back out. The two grants are vessels inside the ring, filled
+// to what is truly available, under a frosted bell jar with a padlock while
+// frozen. The outside sources are posts on the rim; vendors and the funder
+// stand outside on pedestals. Spokes in the table light under whatever is
+// travelling. Nothing here is labelled; the hover card and the sidebar
+// carry the words.
 
-import { Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { memo, useEffect, useMemo, useRef, useState } from 'react'
-import { Color, LatheGeometry, MeshStandardMaterial, Vector2, type Group, type Mesh, type PointLight } from 'three'
-import { feed, useFlow, usd } from '../../feed'
-import type { Verdict } from '../../feed'
+import { memo, useEffect, useMemo, useRef } from 'react'
 import {
-  BOOKKEEPING,
-  DESK_H,
+  AdditiveBlending,
+  Color,
+  InstancedMesh,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  Object3D,
+  TorusGeometry,
+  Vector3,
+  type Group,
+  type Mesh,
+} from 'three'
+import { feed, useFlow } from '../../feed'
+import type { Packet, Verdict } from '../../feed'
+import { Batch, cylinder, lathe, merge, placed, roundedBox } from './batch'
+import { trailColor } from './colors'
+import {
+  DESK_SPOT,
   FUNDER,
   GM_DESK,
-  OFFICE_X,
+  GRANT_HUE,
+  NODE_DEG,
   PAL,
-  PAYMENT_REPORT,
-  PLINTH_D,
-  PLINTH_W,
-  PURCHASING,
-  RACK,
+  RECORD_H,
   RESERVOIRS,
   SOURCES,
+  TABLE,
+  TABLE_R,
   VENDORS,
-  floorOf,
-  type V3,
+  polar,
+  spot,
 } from './layout'
-import { M, glass, liquid, vary } from './mats'
-import { B, Chip, Cyl, NamePlate, Pick, useFlash } from './Parts'
-import { IconCheck, IconCross } from './icons'
-import { fx, now, reducedMotion, useFeed, useUi } from './store'
+import { M, glass, liquid, tone } from './mats'
+import { Pick } from './Parts'
+import { IN_HAND, handHeld, splitOf, travel } from './routes'
+import { fx, now, reducedMotion } from './store'
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 const easeOut = (t: number) => 1 - (1 - t) ** 3
+const [TX, , TZ] = TABLE
 
-/** A lens that brightens while its station is sending or receiving. */
-function Lens({ id, p, r = 0.11, kind = 'sphere' }: { id: string; p: V3; r?: number; kind?: 'sphere' | 'disc' }) {
-  const light = useRef<PointLight>(null)
-  const mesh = useRef<Mesh>(null)
-  useFrame(() => {
+const AGENTS = ['a:purchasing', 'a:bookkeeping', 'a:payment_report'] as const
+const ROLE: Record<string, string> = { 'a:purchasing': 'purchasing', 'a:bookkeeping': 'bookkeeping', 'a:payment_report': 'payment_report' }
+
+// ── The pod every agent shares ───────────────────────────────────────────
+const POD = lathe(
+  [
+    [0.001, 0],
+    [0.4, 0],
+    [0.43, 0.05],
+    [0.44, 0.2],
+    [0.41, 0.42],
+    [0.34, 0.56],
+    [0.27, 0.62],
+    [0.001, 0.63],
+  ],
+  40,
+)
+const LENS_Y = 0.6
+
+// ── Static table, merged ─────────────────────────────────────────────────
+
+function nodeRadius(id: string) {
+  if (id.startsWith('a:')) return 2.55 - 0.46
+  if (id === 'p:grant_manager') return 2.2 - 0.3
+  if (id.startsWith('g:')) return 1.72 - 0.62
+  if (id.startsWith('s:')) return 3.62 - 0.14
+  return TABLE_R - 0.08
+}
+export const SPOKES = Object.keys(NODE_DEG)
+const SPOKE_R0 = 0.86
+
+function build() {
+  const b = new Batch()
+  const groove = tone('#222932', 0.8)
+  // A clay drum under a dark epoxy top, like the lab's own benches.
+  b.cyl([TX, -0.56, TZ], TABLE_R, 1.1, M.labBody, 96)
+  b.cyl([TX, -0.012, TZ], TABLE_R - 0.12, 0.03, M.tableTop, 96)
+  b.ring([TX, 0, TZ], TABLE_R - 0.08, 0.045, M.officeTop, [Math.PI / 2, 0, 0])
+  b.ring([TX, 0.004, TZ], 1.28, 0.012, groove, [Math.PI / 2, 0, 0], Math.PI * 2, false)
+  // A groove from every seat to the record: the spokes.
+  for (const id of SPOKES) {
+    const deg = NODE_DEG[id]
+    const r1 = nodeRadius(id)
+    const [x, , z] = polar(deg, (SPOKE_R0 + r1) / 2)
+    b.box([x, 0.004, z], [r1 - SPOKE_R0, 0.008, 0.075], groove, 0.003, [0, (-deg * Math.PI) / 180, 0], false)
+  }
+
+  // The shared record: ledger plates stacked on a base, a light at its core.
+  b.cyl([TX, 0.04, TZ], 0.8, 0.08, M.slateDeep, 48)
+  for (let i = 0; i < 5; i++) {
+    const r = 0.62 - i * 0.022
+    b.cyl([TX, 0.14 + i * 0.112, TZ], r, 0.086, i % 2 ? M.porcelain : M.chalk, 48)
+    b.cyl([TX, 0.19 + i * 0.112, TZ], r - 0.03, 0.026, M.slateDeep, 48, undefined, undefined, false)
+  }
+
+  // Agent pods, each facing the record.
+  for (const id of AGENTS) {
+    const [x, , z] = polar(NODE_DEG[id], 2.55)
+    b.cyl([x, 0.025, z], 0.5, 0.05, M.slateDeep, 40)
+    b.add(POD, M.chalk, [x, 0.04, z])
+  }
+  // The purchasing tray, where a request waits while the rules run.
+  b.cyl([DESK_SPOT[0], 0.07, DESK_SPOT[2]], 0.12, 0.14, M.slateDeep, 20)
+  b.cyl([DESK_SPOT[0], 0.16, DESK_SPOT[2]], 0.5, 0.04, M.slate, 48)
+  b.ring([DESK_SPOT[0], 0.18, DESK_SPOT[2]], 0.48, 0.02, M.officeTop, [Math.PI / 2, 0, 0])
+
+  // The grant manager's standing desk.
+  b.at(GM_DESK, 0, () => {
+    b.box([0, 0.7, 0], [1.1, 0.04, 0.5], M.slate, 0.012)
+    for (const dx of [-0.46, 0.46]) b.box([dx, 0.35, 0], [0.05, 0.7, 0.4], M.slateDeep, 0.012)
+    b.box([0, 0.12, 0], [0.92, 0.04, 0.3], M.slateDeep, 0.01)
+    b.box([0.32, 0.73, -0.12], [0.3, 0.02, 0.2], M.paper, 0.004, [0, 0.12, 0])
+  })
+
+  // Grant vessels: a base, the clay vessel, a band in the grant's own colour.
+  for (const [gid, p] of Object.entries(RESERVOIRS)) {
+    b.cyl([p[0], 0.025, p[2]], 0.7, 0.05, M.slateDeep, 56)
+    b.add(VESSEL, M.chalk, [p[0], 0.05, p[2]])
+    b.ring([p[0], 0.05 + 0.56, p[2]], 0.54, 0.035, tone(GRANT_HUE[gid] ?? PAL.clay, 0.5), [Math.PI / 2, 0, 0], Math.PI * 2, false)
+  }
+
+  // Source posts on the rim.
+  for (const p of Object.values(SOURCES)) {
+    b.cyl([p[0], 0.02, p[2]], 0.17, 0.04, M.slateDeep, 24)
+    b.cyl([p[0], 0.26, p[2]], 0.075, 0.48, M.slate, 20, undefined, 0.09)
+    b.ring([p[0], 0.5, p[2]], 0.1, 0.022, M.officeTop, [Math.PI / 2, 0, 0])
+  }
+
+  // Vendors: a pedestal with stacked cartons. The funder: a pedestal with a small hall.
+  b.at(VENDORS, (-NODE_DEG['v:vendors'] * Math.PI) / 180, () => {
+    b.cyl([0, -0.4, 0], 0.95, 0.8, M.clay, 48)
+    b.cyl([0, -0.02, 0], 0.98, 0.04, M.clayDeep, 48)
+    b.box([-0.18, 0.22, -0.12], [0.56, 0.44, 0.5], M.carton, 0.04)
+    b.box([0.36, 0.17, 0.22], [0.44, 0.34, 0.42], M.carton, 0.04, [0, 0.4, 0])
+    b.box([-0.14, 0.6, -0.1], [0.42, 0.32, 0.38], M.carton, 0.04, [0, -0.25, 0])
+    b.box([-0.18, 0.442, -0.12], [0.1, 0.008, 0.502], M.tape, 0.002, undefined, false)
+    b.box([-0.14, 0.762, -0.1], [0.08, 0.008, 0.382], M.tape, 0.002, [0, -0.25, 0], false)
+  })
+  b.at(FUNDER, (-NODE_DEG['p:funder'] * Math.PI) / 180 + Math.PI / 2, () => {
+    b.cyl([0, -0.45, 0], 0.95, 0.9, M.clay, 48)
+    b.cyl([0, -0.02, 0], 0.98, 0.04, M.clayDeep, 48)
+    b.box([0, 0.06, 0], [1.2, 0.12, 0.8], M.porcelain, 0.02)
+    for (let i = 0; i < 5; i++) b.cyl([-0.48 + i * 0.24, 0.42, 0.3], 0.055, 0.6, M.chalk, 16)
+    b.box([0, 0.42, -0.08], [1.0, 0.6, 0.42], M.porcelain, 0.02)
+    b.box([0, 0.76, 0], [1.24, 0.08, 0.84], M.porcelain, 0.02)
+    b.add(ROOF, M.chalk, [0, 0.8, 0])
+  })
+  return b.build()
+}
+
+const VESSEL = lathe(
+  [
+    [0.001, 0],
+    [0.5, 0],
+    [0.535, 0.03],
+    [0.535, 0.61],
+    [0.515, 0.645],
+    [0.477, 0.645],
+    [0.462, 0.61],
+    [0.462, 0.075],
+    [0.001, 0.075],
+  ],
+  64,
+)
+const ROOF = cylinder(0.001, 0.32, 4, 0.82).rotateY(Math.PI / 4).scale(1.05, 1, 0.68).translate(0, 0.16, 0)
+
+// ── The record: its core glows and its top plate lifts as packets pass through ──
+
+const coreGeo = cylinder(0.44, 0.6, 40)
+const topGeo = cylinder(0.5, 0.06, 48)
+const capGeo = cylinder(0.32, 0.012, 40)
+
+function passing(t: number) {
+  // How strongly something is passing through the record right now.
+  let k = 0
+  for (const p of feed.getWorld().packets) {
+    if (handHeld(p) && (t - p.sentAt) / p.ms < IN_HAND) continue
+    const u = travel(p, t)
+    const d = Math.abs(u - splitOf(p)) * p.ms * (handHeld(p) ? 0.7 : 1)
+    k = Math.max(k, Math.exp(-((d / 260) ** 2)))
+  }
+  return k
+}
+
+function Record() {
+  const top = useRef<Group>(null)
+  const coreMat = useMemo(() => new MeshStandardMaterial({ color: '#DCEBF5', roughness: 0.4, emissive: new Color('#BFE3F2'), emissiveIntensity: 0.25 }), [])
+  const capMat = useMemo(() => new MeshBasicMaterial({ color: '#F3F8FF', toneMapped: false, transparent: true, opacity: 0.5 }), [])
+  const still = useMemo(reducedMotion, [])
+  const lvl = useRef(0)
+  useFrame((_, dt) => {
     const t = now()
-    const w = feed.getWorld()
-    const busy = w.packets.some(pk => pk.from === id || pk.to === id)
-    const since = t - (fx.pulses.get(id) ?? -1e9)
-    const flare = since >= 0 && since < 900 ? 1 - since / 900 : 0
-    const level = 0.3 + (busy ? 0.4 : 0) + flare * 0.9
-    if (light.current) light.current.intensity += (level * 2.2 - light.current.intensity) * 0.15
-    if (mesh.current) mesh.current.scale.setScalar(1 + flare * 0.22)
+    const k = passing(t)
+    lvl.current += (k - lvl.current) * Math.min(1, dt * 12)
+    const breathe = still ? 0 : 0.04 * Math.sin(performance.now() / 1300)
+    coreMat.emissiveIntensity = 0.22 + breathe + lvl.current * 1.1
+    capMat.opacity = 0.35 + lvl.current * 0.65
+    if (top.current) top.current.position.y = RECORD_H - 0.05 + (still ? 0 : 0.05 * lvl.current)
   })
   return (
-    <group position={p}>
-      <mesh ref={mesh} material={M.lens}>
-        {kind === 'sphere' ? <sphereGeometry args={[r, 28, 18]} /> : <cylinderGeometry args={[r, r, 0.04, 32]} />}
-      </mesh>
-      <pointLight ref={light} color={PAL.lens} intensity={0.7} distance={3} decay={1.6} position={[0, 0.25, 0]} />
-    </group>
+    <Pick id="x:record" select={false}>
+      <mesh geometry={coreGeo} material={coreMat} position={[TX, 0.44, TZ]} />
+      <group ref={top} position={[TX, RECORD_H - 0.05, TZ]}>
+        <mesh geometry={topGeo} material={M.porcelain} castShadow />
+        <mesh geometry={capGeo} material={capMat} position={[0, 0.034, 0]} />
+      </group>
+      <mesh geometry={proxyRecord} material={M.hidden} position={[TX, 0.45, TZ]} />
+    </Pick>
   )
 }
 
-// ── Purchasing: a desk where each request is checked, rule pips along its edge ──
+// ── Agents: a lens and collar that show idle, working, or waiting on a person ──
+
+const lensGeo = merge([placed(new TorusGeometry(0.265, 0.03, 10, 40), [0, 0.02, 0], [Math.PI / 2, 0, 0]), placed(sphereTop(0.2), [0, 0, 0])])
+function sphereTop(r: number) {
+  return lathe(
+    Array.from({ length: 10 }, (_, i) => {
+      const a = (i / 9) * (Math.PI / 2)
+      return [Math.max(0.001, r * Math.cos(a)), r * Math.sin(a) * 0.8] as [number, number]
+    }),
+    32,
+  )
+}
+const IDLE = new Color('#9AA6B3')
+const WORK = new Color('#F3F8FF')
+const WAIT = new Color(PAL.cobalt).offsetHSL(0, 0, 0.12)
 
 interface RuleRun {
   requestId: string
@@ -72,150 +248,66 @@ interface RuleRun {
 }
 const run: { cur: RuleRun | null } = { cur: null }
 
-const SLOTS = 9
-const PIP_GAP = 0.19
-const pipIdle = new Color('#5F6B79')
-const pipPass = new Color(PAL.celadon)
-const pipFail = new Color('#C2403A')
-const black = new Color('#000000')
-
-export function failText(v: Verdict) {
-  const rule = v.rule
-  const limit = /card limit \((\$[\d,]+)\)/.exec(rule)
-  if (limit) return `Over the ${limit[1]} card limit`
-  if (rule.startsWith('Grant is active')) return /frozen/i.test(v.detail) ? 'The grant is frozen' : 'The grant isn’t active'
-  if (rule.startsWith('Not in the grant')) return 'In the grant’s last 90 days'
-  if (rule.startsWith('Enough truly available')) return 'Not enough truly available money'
-  if (rule.startsWith('Category allowed')) return 'Category not allowed on a federal grant'
-  if (rule.startsWith('Shared cost')) return 'Shared cost isn’t split across its grants'
-  if (rule.startsWith('Grant exists')) return 'No such grant'
-  return rule
+/** What an agent is doing right now, for its lens and for the hover card. */
+export function agentState(id: string, t = now()): 'idle' | 'working' | 'waiting' {
+  const w = feed.getWorld()
+  const role = ROLE[id]
+  if (w.packets.some(p => p.from === id || p.to === id)) return 'working'
+  if (id === 'a:purchasing' && run.cur && (run.cur.done === 0 ? t - run.cur.last < 2500 : t - run.cur.done < 400)) return 'working'
+  if (t - (fx.pulses.get(id) ?? -1e9) < 700) return 'working'
+  if (w.holds.some(h => h.open && h.raisedBy === role)) return 'waiting'
+  return 'idle'
 }
 
-/** The request now on the desk, if any: arrived, checked, no answer yet. */
+function Agent({ id }: { id: string }) {
+  const p = polar(NODE_DEG[id], 2.55)
+  const mat = useMemo(() => new MeshStandardMaterial({ color: '#C9D2DB', roughness: 0.3, emissive: new Color('#000000'), emissiveIntensity: 1 }), [])
+  const lens = useRef<Mesh>(null)
+  const still = useMemo(reducedMotion, [])
+  const cur = useMemo(() => new Color(), [])
+  useFrame((_, dt) => {
+    const t = now()
+    const s = agentState(id, t)
+    const pulse = still ? 0.5 : 0.5 + 0.5 * Math.sin(performance.now() / 260)
+    const breathe = still ? 0 : 0.05 * Math.sin(performance.now() / 1500 + p[0])
+    const target = s === 'working' ? WORK : s === 'waiting' ? WAIT : IDLE
+    const k = Math.min(1, dt * 8)
+    cur.lerp(target, k)
+    mat.color.copy(cur)
+    mat.emissive.copy(cur)
+    const e = s === 'working' ? 0.95 : s === 'waiting' ? 0.35 + 0.45 * pulse : 0.12 + breathe
+    mat.emissiveIntensity += (e - mat.emissiveIntensity) * k
+    if (lens.current) lens.current.position.y = 0.04 + LENS_Y + (s === 'working' && !still ? 0.02 * Math.sin(performance.now() / 120) : 0)
+  })
+  return (
+    <Pick id={id}>
+      <mesh ref={lens} geometry={lensGeo} material={mat} position={[p[0], 0.04 + LENS_Y, p[2]]} />
+      <mesh geometry={proxyPod} material={M.hidden} position={[p[0], 0.45, p[2]]} />
+    </Pick>
+  )
+}
+
+// ── The six rule checks, lit one by one around the purchasing tray ───────
+
+const SLOTS = 9
+const pipGeo = new TorusGeometry(0.05, 0.022, 8, 20).rotateX(Math.PI / 2)
+const pipCore = cylinder(0.04, 0.03, 16)
+const PIP_IDLE = new Color('#56626F')
+const PIP_PASS = new Color(PAL.celadon).offsetHSL(0, 0, 0.08)
+const PIP_FAIL = new Color('#D0463E')
+const o = new Object3D()
+
+/** The request on the tray, if any: arrived, checked, no answer yet. */
 function onDesk() {
   const w = feed.getWorld()
   return w.requests.find(r => r.outcome === undefined && r.verdicts.length > 0 && !w.packets.some(p => p.refId === r.id && p.kind === 'request'))
 }
 
 function Pips() {
-  const pips = useRef<(Mesh | null)[]>([])
-  const mats = useMemo(() => Array.from({ length: SLOTS }, () => new MeshStandardMaterial({ color: pipIdle, roughness: 0.4, emissive: new Color('#000000') })), [])
+  const ref = useRef<InstancedMesh>(null)
+  const mat = useMemo(() => new MeshBasicMaterial({ color: '#ffffff', toneMapped: false }), [])
   const still = useMemo(reducedMotion, [])
-  const c = useMemo(() => new Color(), [])
-  useFrame((_, dt) => {
-    const r = run.cur
-    const t = now()
-    const idle = !r || (r.done > 0 && t - r.done > 1600) || t - r.last > 9000
-    const n = idle || !r ? 6 : r.total
-    const k = Math.min(1, dt * 10)
-    for (let i = 0; i < SLOTS; i++) {
-      const m = pips.current[i]
-      if (!m) continue
-      m.visible = i < n
-      if (!m.visible) continue
-      m.position.x = (i - (n - 1) / 2) * PIP_GAP
-      const v = idle || !r ? undefined : r.verdicts[i]
-      c.copy(!v ? pipIdle : v.pass ? pipPass : pipFail)
-      mats[i].color.lerp(c, k)
-      mats[i].emissive.lerp(v ? c : black, k)
-      mats[i].emissiveIntensity = v ? 0.55 : 0
-      const lit = r && v ? t - (r.litAt[i] ?? -1e9) : 1e9
-      const pop = !still && lit >= 0 && lit < 260 ? Math.sin((lit / 260) * Math.PI) : 0
-      m.scale.set(1 + 0.45 * pop, 0.55 + 0.6 * pop, 1 + 0.45 * pop)
-    }
-  })
-  return (
-    <group position={[0, DESK_H + 0.012, 0.4]}>
-      {mats.map((m, i) => (
-        <mesh
-          key={i}
-          ref={el => {
-            pips.current[i] = el
-          }}
-          material={m}
-          visible={false}
-        >
-          <sphereGeometry args={[0.065, 18, 12]} />
-        </mesh>
-      ))}
-    </group>
-  )
-}
-
-/** One short caption near the agent when a rule fails, gone after a moment. */
-function FailCaption() {
-  const [fail, setFail] = useState<{ text: string; on: boolean }>({ text: '', on: false })
-  const timer = useRef<number | undefined>(undefined)
-  useFlow(e => {
-    if (e.type === 'reset') setFail({ text: '', on: false })
-    if (e.type === 'rule' && !e.verdict.pass) {
-      setFail({ text: failText(e.verdict), on: true })
-      window.clearTimeout(timer.current)
-      timer.current = window.setTimeout(() => setFail(f => ({ ...f, on: false })), 2500)
-    }
-  })
-  useEffect(() => () => window.clearTimeout(timer.current), [])
-  return (
-    <Html position={[PURCHASING[0] - 0.55, 1.75, PURCHASING[2] + 0.2]} zIndexRange={[22, 10]} wrapperClass="a-html" pointerEvents="none">
-      <p className={`a-fail${fail.on ? '' : ' is-hidden'}`} aria-hidden="true">
-        {fail.text && (
-          <>
-            <IconCross size={12} />
-            {fail.text}
-          </>
-        )}
-      </p>
-    </Html>
-  )
-}
-
-const RULES = [
-  'Grant is active and not frozen',
-  'Not in the grant’s last 90 days, for supplies',
-  'Enough truly available money',
-  'Category allowed',
-  'Under the $5,000 card limit',
-  'Shared costs split across the grants they serve',
-]
-
-/** The full rule list, on hover or selection of the purchasing agent. */
-function RuleList() {
-  const on = useUi(s => s.hovered === 'a:purchasing' || s.selected === 'a:purchasing')
-  const [, force] = useState(0)
-  useFlow(e => {
-    if (on && (e.type === 'rule' || e.type === 'reset')) force(n => n + 1)
-  })
-  const r = run.cur
-  const live = !!r && (r.done === 0 || now() - r.done < 1600)
-  return (
-    <Html position={[PURCHASING[0] - 0.9, 1.15, PURCHASING[2]]} zIndexRange={[23, 10]} wrapperClass="a-html" pointerEvents="none">
-      <div className={`a-rules${on ? '' : ' is-hidden'}`} aria-hidden="true">
-        <p className="a-rules-head">Spending rules</p>
-        <ol>
-          {live && r
-            ? Array.from({ length: r.total }, (_, i) => {
-                const v = r.verdicts[i]
-                return (
-                  <li key={i} className={v ? (v.pass ? 'is-pass' : 'is-fail') : 'is-wait'}>
-                    <span className="a-rules-mark">{v ? v.pass ? <IconCheck size={11} /> : <IconCross size={11} /> : null}</span>
-                    <span>{v ? v.rule : 'Checking'}</span>
-                  </li>
-                )
-              })
-            : RULES.map(x => (
-                <li key={x} className="is-wait">
-                  <span className="a-rules-mark" />
-                  <span>{x}</span>
-                </li>
-              ))}
-        </ol>
-      </div>
-    </Html>
-  )
-}
-
-function Purchasing() {
+  const cols = useMemo(() => Array.from({ length: SLOTS }, () => PIP_IDLE.clone()), [])
   useFlow(e => {
     const t = now()
     if (e.type === 'reset') run.cur = null
@@ -230,183 +322,156 @@ function Purchasing() {
       r.litAt[e.index] = t
       r.total = e.total
       r.last = t
-    } else if (e.type === 'packet' && run.cur && e.packet.refId === run.cur.requestId && (e.packet.kind === 'verdict' || e.packet.kind === 'hold')) {
-      run.cur.done = t
-    }
+    } else if (e.type === 'packet' && run.cur && e.packet.refId === run.cur.requestId && (e.packet.kind === 'verdict' || e.packet.kind === 'hold')) run.cur.done = t
   })
   useEffect(() => {
-    // Mounting mid-story: show whatever is on the desk as already checked.
+    // Mounting mid-story: whatever is on the tray shows as already checked.
     const r = onDesk()
     if (r) run.cur = { requestId: r.id, total: r.verdicts.length, verdicts: [...r.verdicts], litAt: [], last: now(), done: 0 }
   }, [])
-  return (
-    <Pick id="a:purchasing">
-      <group position={PURCHASING}>
-        <B p={[0, DESK_H / 2, 0]} s={[1.5, DESK_H, 1.02]} m={M.slate} r={0.07} />
-        <B p={[0, DESK_H - 0.02, 0.08]} s={[1.0, 0.04, 0.6]} m={M.slateDeep} r={0.015} shadow={false} />
-        <Cyl p={[0, DESK_H + 0.22, -0.36]} r={0.15} r2={0.11} h={0.44} m={M.slateDeep} />
-        <Lens id="a:purchasing" p={[0, DESK_H + 0.56, -0.36]} r={0.14} />
-        <Pips />
-      </group>
-    </Pick>
-  )
+  useFrame((_, dt) => {
+    const m = ref.current
+    if (!m) return
+    const r = run.cur
+    const t = now()
+    const idle = !r || (r.done > 0 && t - r.done > 1800) || t - r.last > 9000
+    const n = idle || !r ? 6 : Math.min(SLOTS, r.total)
+    const k = Math.min(1, dt * 10)
+    for (let i = 0; i < n; i++) {
+      // An arc on the side of the tray that faces the camera.
+      const a = ((40 + (130 * (i + 0.5)) / n) * Math.PI) / 180
+      const v = idle || !r ? undefined : r.verdicts[i]
+      cols[i].lerp(!v ? PIP_IDLE : v.pass ? PIP_PASS : PIP_FAIL, k)
+      const lit = r && v ? t - (r.litAt[i] ?? -1e9) : 1e9
+      const pop = !still && lit >= 0 && lit < 300 ? Math.sin((lit / 300) * Math.PI) : 0
+      o.position.set(DESK_SPOT[0] + Math.cos(a) * 0.66, 0.035 + 0.06 * pop, DESK_SPOT[2] + Math.sin(a) * 0.66)
+      o.rotation.set(0, 0, 0)
+      o.scale.setScalar((v ? 1.15 : 0.9) * (1 + 0.5 * pop))
+      o.updateMatrix()
+      m.setMatrixAt(i, o.matrix)
+      m.setColorAt(i, cols[i])
+    }
+    m.count = n
+    m.instanceMatrix.needsUpdate = true
+    if (m.instanceColor) m.instanceColor.needsUpdate = true
+  })
+  return <instancedMesh ref={ref} args={[pipCombo, mat, SLOTS]} frustumCulled={false} />
 }
+const pipCombo = merge([placed(pipGeo, [0, 0, 0]), placed(pipCore, [0, 0, 0])])
 
-// ── Bookkeeping drum and the payment & report arch ───────────────────────
+// ── Grants: vessels of money, a bell jar and a padlock while frozen ─────
 
-function Bookkeeping() {
-  return (
-    <Pick id="a:bookkeeping">
-      <group position={BOOKKEEPING}>
-        <Cyl p={[0, 0.06, 0]} r={0.68} h={0.12} m={M.slateDeep} seg={48} />
-        <Cyl p={[0, 0.62, 0]} r={0.52} h={1.0} m={M.slate} seg={48} />
-        <Cyl p={[0, 1.15, 0]} r={0.56} h={0.07} m={vary(M.chalk, 2)} seg={48} />
-        <Lens id="a:bookkeeping" p={[0, 1.2, 0]} r={0.16} kind="disc" />
-      </group>
-    </Pick>
-  )
-}
-
-function PaymentReport() {
-  return (
-    <Pick id="a:payment_report">
-      <group position={PAYMENT_REPORT}>
-        <B p={[0, 0.05, 0]} s={[1.5, 0.1, 0.72]} m={M.slateDeep} r={0.035} />
-        <B p={[-0.52, 0.76, 0]} s={[0.26, 1.32, 0.58]} m={M.slate} r={0.06} />
-        <B p={[0.52, 0.76, 0]} s={[0.26, 1.32, 0.58]} m={M.slate} r={0.06} />
-        <B p={[0, 1.5, 0]} s={[1.32, 0.26, 0.58]} m={M.slate} r={0.06} />
-        <B p={[0, 0.58, 0]} s={[0.62, 0.05, 0.42]} m={M.slateDeep} r={0.015} />
-        <B p={[0, 0.63, 0]} s={[0.44, 0.05, 0.32]} m={M.paper} r={0.008} />
-        <Lens id="a:payment_report" p={[0, 1.5, 0.32]} r={0.09} />
-      </group>
-    </Pick>
-  )
-}
-
-// ── The grant manager's desk (the one human in the office) ──────────────
-
-const gmBody = new MeshStandardMaterial({ color: '#7A7066', roughness: 0.84 })
-const gmHead = new MeshStandardMaterial({ color: '#ECE4D8', roughness: 0.84 })
-const gmGeo = new LatheGeometry(
-  [new Vector2(0, 0), new Vector2(0.24, 0), new Vector2(0.25, 0.04), new Vector2(0.22, 0.6), new Vector2(0.235, 1.05), new Vector2(0.24, 1.2), new Vector2(0.15, 1.32), new Vector2(0, 1.34)],
-  40,
+const FILL = 0.52
+const BASE = 0.125
+const DROP_FROM = 2.6
+const jarGeo = lathe(
+  [
+    [0.62, 0],
+    [0.62, 0.78],
+    [0.61, 0.88],
+    [0.565, 1.0],
+    [0.48, 1.12],
+    [0.335, 1.2],
+    [0.16, 1.24],
+    [0.001, 1.255],
+  ],
+  64,
 )
-
-function GrantManager() {
-  const others = useFeed(w => w.holds.reduce((n, h) => n + (h.open && h.kind !== 'purchase' ? 1 : 0), 0))
-  return (
-    <Pick id="p:grant_manager">
-      <group position={GM_DESK}>
-        <B p={[0, 0.37, 0]} s={[1.5, 0.74, 0.76]} m={vary(M.slate, 3)} r={0.06} />
-        {Array.from({ length: Math.min(others, 4) }, (_, i) => (
-          <B key={i} p={[-0.42, 0.755 + i * 0.024, 0.04]} s={[0.4, 0.016, 0.29]} m={M.glazeHold} r={0.005} />
-        ))}
-        <group position={[0, 0, -0.62]}>
-          <mesh geometry={gmGeo} material={gmBody} castShadow receiveShadow />
-          <mesh position={[0, 1.42, 0]} material={gmHead} castShadow>
-            <cylinderGeometry args={[0.06, 0.07, 0.12, 16]} />
-          </mesh>
-          <mesh position={[0, 1.6, 0]} material={gmHead} castShadow>
-            <sphereGeometry args={[0.16, 32, 22]} />
-          </mesh>
-        </group>
-      </group>
-    </Pick>
-  )
-}
-
-// ── Grants as vessels of money, and the bell jar ─────────────────────────
-
-const vesselGeo = new LatheGeometry(
-  [new Vector2(0, 0), new Vector2(0.8, 0), new Vector2(0.86, 0.05), new Vector2(0.86, 0.98), new Vector2(0.83, 1.04), new Vector2(0.77, 1.04), new Vector2(0.745, 0.98), new Vector2(0.745, 0.12), new Vector2(0, 0.12)],
-  72,
-)
-const jarGeo = new LatheGeometry(
-  [new Vector2(1.0, 0), new Vector2(1.0, 1.25), new Vector2(0.98, 1.42), new Vector2(0.91, 1.62), new Vector2(0.77, 1.8), new Vector2(0.54, 1.93), new Vector2(0.26, 2.0), new Vector2(0.001, 2.02)],
-  72,
-)
+const knobGeo = cylinder(0.06, 0.08, 16)
+const bodyGeo = cylinder(0.459, 1, 56)
+const surfGeo = cylinder(0.459, 0.02, 56)
+const lockBody = roundedBox([0.2, 0.17, 0.07], 0.03)
+const lockShackle = new TorusGeometry(0.065, 0.02, 8, 20, Math.PI)
+const tagBody = merge([placed(roundedBox([0.34, 0.24, 0.012], 0.01), [0, 0, 0]), placed(cylinder(0.05, 0.016, 20), [0.08, 0, 0.012], [Math.PI / 2, 0, 0])])
 const iceColor = new Color(PAL.ice)
 const moneyColor = new Color(PAL.money)
-const FILL = 0.84 // the vessel's inner height
-const BASE = 0.18 // the vessel floor
-const DROP_FROM = 3.6
+const lockMat = new MeshStandardMaterial({ color: '#3A4451', roughness: 0.4, metalness: 0.5 })
+const sealMat = new MeshStandardMaterial({ color: '#F4F0E9', roughness: 0.7 })
 
-function Reservoir({ gid }: { gid: string }) {
+function Vessel({ gid }: { gid: string }) {
   const p = RESERVOIRS[gid]
   const body = useRef<Mesh>(null)
   const surface = useRef<Mesh>(null)
   const jar = useRef<Group>(null)
+  const lock = useRef<Group>(null)
+  const shackle = useRef<Mesh>(null)
   const tag = useRef<Group>(null)
   const fillMat = useMemo(() => liquid(), [])
   const jarMat = useMemo(() => glass(), [])
   const still = useMemo(reducedMotion, [])
-  const st = useRef({ seen: false, frozen: false, at: -1e9, level: 0 })
+  const st = useRef({ seen: false, frozen: false, at: -1e9, level: 0, lock: 0 })
   useFlow(e => {
-    if (e.type === 'reset') st.current = { seen: false, frozen: false, at: -1e9, level: 0 }
+    if (e.type === 'reset') st.current = { seen: false, frozen: false, at: -1e9, level: 0, lock: 0 }
     if (e.type === 'packet' && e.packet.kind === 'charge' && e.packet.from === `g:${gid}`) fx.slosh.set(gid, { at: now() + 200, amp: 0.4 })
   })
-
-  useFrame((_, dt) => {
+  useFrame((_, rdt) => {
+    const dt = Math.min(rdt, 0.1)
     const g = feed.getWorld().grants.find(x => x.id === gid)
-    if (!g || !body.current || !surface.current || !jar.current || !tag.current) return
+    if (!g || !body.current || !surface.current || !jar.current || !lock.current || !tag.current || !shackle.current) return
     const t = now()
     const u = jarMat.userData.u as { uFrost: { value: number }; uFade: { value: number } }
     const lu = fillMat.userData.u as { uPulse: { value: number } }
     const target = Math.max(0.02, FILL * clamp01(g.available / g.awarded))
     const s = st.current
     if (!s.seen) {
-      // Mounting mid-story: show the current state as settled, no drop.
+      // Mounting mid-story: show the state as settled, no drop.
       s.seen = true
       s.frozen = g.frozen
       s.at = -1e9
       s.level = target
+      s.lock = g.frozen ? 1 : 0
       fillMat.color.copy(g.frozen ? iceColor : moneyColor)
     }
-    s.level += (target - s.level) * (1 - Math.exp(-Math.min(dt, 0.1) * 2.6))
-    body.current.scale.y = Math.max(0.001, s.level - 0.03)
-    body.current.position.y = BASE + (s.level - 0.03) / 2
+    s.level += (target - s.level) * (1 - Math.exp(-dt * 2.6))
+    body.current.scale.y = Math.max(0.001, s.level - 0.02)
+    body.current.position.y = BASE + (s.level - 0.02) / 2
     surface.current.position.y = BASE + s.level
-
     const sl = fx.slosh.get(gid)
     const tau = sl ? (t - sl.at) / 1000 : 99
     if (sl && tau >= 0 && tau < 1.8 && !still) {
       const a = 0.05 * sl.amp * Math.exp(-tau * 2.4)
       surface.current.rotation.set(a * Math.sin(tau * Math.PI * 4.2), 0, a * Math.sin(tau * Math.PI * 4.2 + 1.3))
-      surface.current.position.y += 0.02 * sl.amp * Math.exp(-tau * 3) * Math.sin(tau * Math.PI * 6)
+      surface.current.position.y += 0.015 * sl.amp * Math.exp(-tau * 3) * Math.sin(tau * Math.PI * 6)
     } else surface.current.rotation.set(0, 0, 0)
     fillMat.color.lerp(g.frozen ? iceColor : moneyColor, Math.min(1, dt * 2.2))
-
     if (g.frozen !== s.frozen) {
       s.frozen = g.frozen
-      // Freezing is immediate; thawing waits for the money to land first.
+      // Freezing is immediate; thawing waits for the money to land.
       s.at = t + (g.frozen ? 0 : 750)
-      if (g.frozen) fx.ripples.push({ pos: floorOf(`g:${gid}`), color: '#EEF4FA', at: t + 640, size: 2.4, ms: 1200 })
-      else fx.ripples.push({ pos: floorOf(`g:${gid}`), color: '#E9FBFF', at: t + 750, size: 1.7, ms: 1300 })
+      fx.ripples.push({ pos: new Vector3(p[0], 0.06, p[2]), color: g.frozen ? '#EEF4FA' : '#E9FBFF', at: t + (g.frozen ? 640 : 750), size: 1.4, ms: 1200 })
     }
     const k = t - s.at
     let y = 0
     let fade = 0
     let frost = 0
+    let lockGoal = 0
+    let open = 0
     if (s.frozen) {
+      lockGoal = 1
       if (s.at < -1e8 || still) {
         fade = 1
         frost = s.at < -1e8 ? 1 : clamp01(k / 300)
       } else {
-        // Falls under gravity, lands, one small settle, then the frost comes in.
+        // Falls, lands, one small settle, then the frost comes in and the lock snaps on.
         const fall = 640
-        if (k < fall) y = DROP_FROM * (1 - (clamp01(k / fall)) ** 2)
-        else if (k < fall + 260) y = 0.09 * Math.sin(((k - fall) / 260) * Math.PI)
+        if (k < fall) y = DROP_FROM * (1 - clamp01(k / fall) ** 2)
+        else if (k < fall + 260) y = 0.06 * Math.sin(((k - fall) / 260) * Math.PI)
         fade = clamp01(k / 160)
         frost = clamp01((k - fall) / 900)
+        lockGoal = k > fall + 300 ? 1 : 0
       }
     } else if (s.at > -1e8) {
       const d = clamp01(k / 1300)
       if (k < 0) {
         fade = 1
         frost = 1
+        lockGoal = 1
       } else if (still) {
         fade = 1 - clamp01(k / 300)
       } else {
+        // The shackle pops, the lock falls away, the jar lifts off.
+        open = clamp01(k / 200)
+        lockGoal = k < 420 ? 1 : 0
         y = DROP_FROM * easeOut(d)
         frost = 1 - clamp01(k / 520)
         fade = 1 - clamp01((d - 0.45) / 0.55)
@@ -417,174 +482,220 @@ function Reservoir({ gid }: { gid: string }) {
     u.uFade.value = fade
     u.uFrost.value = frost
     jar.current.visible = fade > 0.005
+    s.lock += (lockGoal - s.lock) * (still ? 1 : Math.min(1, dt * 10))
+    lock.current.visible = s.lock > 0.02
+    lock.current.scale.setScalar(Math.max(0.001, s.lock))
+    lock.current.position.y = 0.44 + y
+    shackle.current.position.y = 0.085 + 0.05 * open
     const court = g.frozen && g.status === 'restored_by_court'
     const ts = tag.current.scale.x + ((court ? 1 : 0) - tag.current.scale.x) * Math.min(1, dt * 5)
-    tag.current.scale.setScalar(ts)
+    tag.current.scale.setScalar(Math.max(0.001, ts))
     tag.current.visible = ts > 0.02
   })
-
+  // The lock and the court's slip face the camera side of the jar.
   return (
     <Pick id={`g:${gid}`}>
       <group position={p}>
-        <Cyl p={[0, 0.03, 0]} r={1.08} h={0.06} m={M.slateDeep} seg={72} />
-        <mesh geometry={vesselGeo} material={vary(M.chalk, 1)} castShadow receiveShadow position={[0, 0.06, 0]} />
-        <mesh ref={body} material={fillMat} position={[0, 0.5, 0]}>
-          <cylinderGeometry args={[0.742, 0.742, 1, 64]} />
-        </mesh>
-        <mesh ref={surface} material={fillMat} position={[0, 0.9, 0]}>
-          <cylinderGeometry args={[0.742, 0.742, 0.03, 64]} />
-        </mesh>
+        <mesh ref={body} geometry={bodyGeo} material={fillMat} position={[0, 0.4, 0]} />
+        <mesh ref={surface} geometry={surfGeo} material={fillMat} position={[0, 0.6, 0]} />
         <group ref={jar} position={[0, DROP_FROM, 0]}>
-          <mesh geometry={jarGeo} material={jarMat} position={[0, 0.06, 0]} renderOrder={2} />
-          <mesh position={[0, 2.16, 0]} material={jarMat} renderOrder={2}>
-            <sphereGeometry args={[0.1, 20, 14]} />
-          </mesh>
+          <mesh geometry={jarGeo} material={jarMat} position={[0, 0.05, 0]} renderOrder={2} />
+          <mesh geometry={knobGeo} material={jarMat} position={[0, 1.33, 0]} renderOrder={2} />
         </group>
-        <group ref={tag} position={[0.15, 0, 1.08]} scale={0}>
-          <B p={[0, 0.5, 0]} s={[0.56, 0.4, 0.016]} m={M.paper} r={0.006} rot={[-0.22, 0, 0.04]} />
-          <B p={[0, 0.6, 0.03]} s={[0.4, 0.035, 0.006]} m={M.slate} r={0.002} rot={[-0.22, 0, 0.04]} shadow={false} />
-          <B p={[-0.04, 0.5, 0.05]} s={[0.32, 0.025, 0.006]} m={M.clayDeep} r={0.002} rot={[-0.22, 0, 0.04]} shadow={false} />
+        <group ref={lock} position={[-0.12, 0.44, 0.64]} rotation={[0, -0.25, 0]} visible={false}>
+          <mesh geometry={lockBody} material={lockMat} castShadow />
+          <mesh ref={shackle} geometry={lockShackle} material={M.steel} position={[0, 0.085, 0]} />
         </group>
+        <group ref={tag} position={[0.3, 0.25, 0.66]} rotation={[-0.15, 0.3, 0.06]} scale={0.001} visible={false}>
+          <mesh geometry={tagBody} material={sealMat} castShadow />
+          <mesh geometry={sealGeo} material={M.glazeRefine} position={[0.08, 0, 0.022]} rotation={[Math.PI / 2, 0, 0]} />
+        </group>
+        <mesh geometry={proxyGrant} material={M.hidden} position={[0, 0.6, 0]} />
       </group>
-      <Gauge gid={gid} at={[p[0], 2.35, p[2]]} side={Object.keys(RESERVOIRS).indexOf(gid) === 0 ? 'l' : 'r'} />
     </Pick>
   )
 }
+const sealGeo = cylinder(0.036, 0.008, 20)
 
-/** The grant's gauge: its money large, its id small, its status only when it isn't plainly active. */
-function Gauge({ gid, at, side }: { gid: string; at: V3; side: 'l' | 'r' }) {
-  const g = useFeed(w => w.grants.find(x => x.id === gid))
-  const on = useUi(s => s.hovered === `g:${gid}` || s.selected === `g:${gid}`)
-  if (!g) return null
-  const state = g.frozen
-    ? g.status === 'restored_by_court'
-      ? 'Restored by court, still frozen'
-      : 'Frozen'
-    : g.status === 'active'
-      ? null
-      : g.status === 'restored_by_court'
-        ? 'Restored and paid'
-        : g.status === 'ended'
-          ? 'Ended'
-          : null
-  return (
-    <Html position={at} zIndexRange={[23, 21]} wrapperClass="a-html" pointerEvents="none">
-      <div className={`a-gauge${g.frozen ? ' is-frozen' : ''}${on ? ' is-on' : ''}`} data-side={side}>
-        <span className="a-gauge-id">{g.id}</span>
-        <span className="a-gauge-money">{usd(g.available)}</span>
-        {on && <span className="a-gauge-sub">truly available</span>}
-        {state && <span className="a-gauge-state">{state}</span>}
-      </div>
-    </Html>
-  )
-}
+// ── Sources: posts on the rim whose lamps light on a reading ─────────────
 
-// ── Sources, vendors, funder ─────────────────────────────────────────────
+const lampGeo = merge([placed(cylinder(0.085, 0.05, 24), [0, 0, 0]), placed(cylinder(0.05, 0.03, 20), [0, 0.035, 0])])
+const LAMP_OFF = new Color('#5A6573')
+const LAMP_ON = new Color('#F3F8FF')
+const ALARM_ON = new Color('#F2C46A')
 
-const SOURCE_LABEL: Record<string, string> = {
-  's:reporter': 'NIH RePORTER',
-  's:usaspending': 'USAspending',
-  's:cancellations': 'Cancellation list (Apify)',
-  's:court': 'Court notice',
-  's:payments': 'Payment system',
-}
-
-const lampOff = new Color('#56626F')
-const lampOn = new Color('#F3F8FF')
-
-function SourceLamp({ id, p }: { id: string; p: V3 }) {
-  const mat = useMemo(() => new MeshStandardMaterial({ color: lampOff, roughness: 0.35, emissive: new Color('#000000') }), [])
+function Lamps() {
+  const ref = useRef<InstancedMesh>(null)
+  const mat = useMemo(() => new MeshBasicMaterial({ color: '#ffffff', toneMapped: false }), [])
+  const ids = Object.keys(SOURCES)
+  const cols = useMemo(() => ids.map(() => LAMP_OFF.clone()), [ids])
+  const flash = useRef(new Map<string, { at: number; alarm: boolean }>())
+  useFlow(e => {
+    if (e.type === 'reset') flash.current.clear()
+    if (e.type === 'packet' && e.packet.from.startsWith('s:')) flash.current.set(e.packet.from, { at: now(), alarm: !/no change/.test(e.packet.label) && e.packet.kind === 'reading' })
+  })
   useFrame(() => {
-    const since = now() - (fx.pulses.get(id) ?? -1e9)
-    const k = since >= 0 && since < 1200 ? 1 - since / 1200 : 0
-    mat.color.copy(lampOff).lerp(lampOn, k)
-    mat.emissive.copy(lampOn).multiplyScalar(k * 0.6)
+    const m = ref.current
+    if (!m) return
+    const t = now()
+    ids.forEach((id, i) => {
+      const f = flash.current.get(id)
+      const since = f ? t - f.at : 1e9
+      const k = since >= 0 && since < 1400 ? 1 - since / 1400 : 0
+      cols[i].copy(LAMP_OFF).lerp(f?.alarm ? ALARM_ON : LAMP_ON, k)
+      const p = SOURCES[id]
+      o.position.set(p[0], 0.525 + 0.03 * k, p[2])
+      o.rotation.set(0, 0, 0)
+      o.scale.setScalar(1 + 0.25 * k)
+      o.updateMatrix()
+      m.setMatrixAt(i, o.matrix)
+      m.setColorAt(i, cols[i])
+    })
+    m.count = ids.length
+    m.instanceMatrix.needsUpdate = true
+    if (m.instanceColor) m.instanceColor.needsUpdate = true
   })
   return (
-    <Pick id={id}>
-      <mesh position={[p[0], 0.43, p[2]]} material={mat}>
-        <cylinderGeometry args={[0.15, 0.15, 0.04, 28]} />
-      </mesh>
-    </Pick>
-  )
-}
-
-function SourceChip({ id, p }: { id: string; p: V3 }) {
-  const flash = useFlash(id)
-  const on = useUi(s => s.hovered === id || s.selected === id)
-  return (
-    <Html position={[p[0], 1.05, p[2]]} zIndexRange={[20, 10]} wrapperClass="a-html" pointerEvents="none">
-      <div className={`a-chip a-chip--dark a-chip--source${flash || on ? '' : ' is-hidden'}${on ? ' is-on' : ''}`} aria-hidden="true">
-        <span className="a-chip-title">{SOURCE_LABEL[id] ?? id}</span>
-      </div>
-    </Html>
-  )
-}
-
-function SourceRack() {
-  return (
     <>
-      <B p={[RACK[0], 0.2, RACK[2]]} s={[4.5, 0.4, 0.52]} m={M.slate} r={0.07} />
-      {Object.entries(SOURCES).map(([id, p]) => (
-        <SourceLamp key={id} id={id} p={p} />
-      ))}
-      {Object.entries(SOURCES).map(([id, p]) => (
-        <SourceChip key={id} id={id} p={p} />
+      <instancedMesh ref={ref} args={[lampGeo, mat, ids.length]} frustumCulled={false} />
+      {ids.map(id => (
+        <Pick key={id} id={id}>
+          <mesh geometry={proxyPost} material={M.hidden} position={[SOURCES[id][0], 0.32, SOURCES[id][2]]} />
+        </Pick>
       ))}
     </>
   )
 }
 
-function Vendors() {
-  const [x, y, z] = VENDORS
+// ── Spokes: light under whatever is travelling, sender's leg then receiver's ──
+
+const spokeGeo = roundedBox([1, 0.01, 0.06], 0.004)
+const sp = new Color()
+function Spokes() {
+  const ref = useRef<InstancedMesh>(null)
+  const mat = useMemo(() => new MeshBasicMaterial({ color: '#ffffff', blending: AdditiveBlending, transparent: true, depthWrite: false, toneMapped: false }), [])
+  const lit = useMemo(() => SPOKES.map(() => ({ k: 0, c: new Color() })), [])
+  const index = useMemo(() => new Map(SPOKES.map((id, i) => [id, i])), [])
+  const goal = useMemo(() => SPOKES.map(() => ({ k: 0, c: new Color() })), [])
+  useFrame((_, dt) => {
+    const m = ref.current
+    if (!m) return
+    const t = now()
+    for (const g of goal) g.k = 0
+    for (const p of feed.getWorld().packets) {
+      if (handHeld(p) && (t - p.sentAt) / p.ms < IN_HAND) continue
+      const u = travel(p, t)
+      const s = splitOf(p)
+      const id = u < s ? p.from : p.to
+      const i = index.get(id)
+      if (i === undefined) continue
+      const strength = routine(p) ? 0.35 : 1
+      if (strength >= goal[i].k) {
+        goal[i].k = strength
+        goal[i].c.copy(trailColor(p))
+      }
+    }
+    const k = Math.min(1, dt * 7)
+    SPOKES.forEach((id, i) => {
+      const l = lit[i]
+      l.k += (goal[i].k - l.k) * k
+      if (goal[i].k > 0) l.c.lerp(goal[i].c, Math.min(1, dt * 12))
+      const deg = NODE_DEG[id]
+      const r1 = nodeRadius(id)
+      const [x, , z] = polar(deg, (SPOKE_R0 + r1) / 2)
+      o.position.set(x, 0.011, z)
+      o.rotation.set(0, (-deg * Math.PI) / 180, 0)
+      o.scale.set(Math.max(0.01, r1 - SPOKE_R0), 1, l.k > 0.01 ? 1 : 0.0001)
+      o.updateMatrix()
+      m.setMatrixAt(i, o.matrix)
+      sp.copy(l.c).multiplyScalar(0.85 * l.k)
+      m.setColorAt(i, sp)
+    })
+    m.count = SPOKES.length
+    m.instanceMatrix.needsUpdate = true
+    if (m.instanceColor) m.instanceColor.needsUpdate = true
+  })
+  return <instancedMesh ref={ref} args={[spokeGeo, mat, SPOKES.length]} frustumCulled={false} renderOrder={1} />
+}
+const routine = (p: Packet) => (p.kind === 'reading' && /no change/.test(p.label)) || p.kind === 'recheck'
+
+// ── The grant manager's pile of other decisions waiting ──────────────────
+
+const slipGeo = roundedBox([0.34, 0.016, 0.24], 0.005)
+function Slips() {
+  const refs = useRef<(Mesh | null)[]>([])
+  useFrame(() => {
+    const n = feed.getWorld().holds.reduce((a, h) => a + (h.open && h.kind !== 'purchase' ? 1 : 0), 0)
+    refs.current.forEach((m, i) => {
+      if (m) m.visible = i < Math.min(n, 4)
+    })
+  })
   return (
-    <Pick id="v:vendors">
-      <B p={[x, y - 0.3, z]} s={[2.3, 0.6, 2.1]} m={vary(M.clay, 2)} r={0.12} />
-      <B p={[x - 0.35, y + 0.22, z - 0.1]} s={[0.6, 0.44, 0.55]} m={M.porcelain} r={0.05} />
-      <B p={[x + 0.32, y + 0.17, z + 0.2]} s={[0.5, 0.34, 0.5]} m={vary(M.chalk, 3)} r={0.05} />
-      <B p={[x - 0.3, y + 0.6, z - 0.08]} s={[0.46, 0.32, 0.44]} m={vary(M.clay, 1)} r={0.05} />
-      <Chip id="v:vendors" at={[x, y + 1.25, z]} title="Vendors" sub="Orders and invoices" />
-    </Pick>
+    <>
+      {[0, 1, 2, 3].map(i => (
+        <mesh
+          key={i}
+          ref={el => {
+            refs.current[i] = el
+          }}
+          geometry={slipGeo}
+          material={M.glazeHold}
+          position={[GM_DESK[0] - 0.3 + i * 0.012, 0.73 + i * 0.02, GM_DESK[2] + 0.04]}
+          rotation={[0, 0.1 * (i % 2 ? 1 : -1), 0]}
+          visible={false}
+        />
+      ))}
+    </>
   )
 }
 
-function Funder() {
-  const [x, y, z] = FUNDER
+// ── Pick shapes for whatever isn't easy to point at ──────────────────────
+
+const proxyPod = cylinder(0.5, 0.95, 12)
+const proxyGrant = cylinder(0.7, 1.35, 12)
+const proxyPost = cylinder(0.24, 0.66, 8)
+const proxyRecord = cylinder(0.8, 0.95, 12)
+const proxyPedestal = cylinder(1.0, 1.9, 12)
+
+function Outside() {
   return (
-    <Pick id="p:funder">
-      <B p={[x, y - 0.3, z]} s={[2.3, 0.6, 2.1]} m={vary(M.clay, 4)} r={0.12} />
-      <B p={[x, y + 0.42, z]} s={[1.5, 0.84, 1.0]} m={M.porcelain} r={0.05} />
-      <mesh position={[x, y + 1.0, z]} rotation={[0, Math.PI / 4, 0]} material={vary(M.chalk, 1)} castShadow>
-        <cylinderGeometry args={[0.001, 0.9, 0.3, 4, 1]} />
-      </mesh>
-      <Chip id="p:funder" at={[x, y + 1.6, z]} title="NIH funder" sub="Pays, and asks follow-up questions" />
-    </Pick>
+    <>
+      <Pick id="v:vendors">
+        <mesh geometry={proxyPedestal} material={M.hidden} position={[VENDORS[0], VENDORS[1] + 0.2, VENDORS[2]]} />
+      </Pick>
+      <Pick id="p:funder">
+        <mesh geometry={proxyPedestal} material={M.hidden} position={[FUNDER[0], FUNDER[1] + 0.2, FUNDER[2]]} />
+      </Pick>
+    </>
   )
 }
 
 export const OfficePlinth = memo(function OfficePlinth() {
+  const parts = useMemo(build, [])
   return (
     <group>
-      <B p={[OFFICE_X, -0.56, 0]} s={[PLINTH_W, 1.1, PLINTH_D]} m={M.officeBody} r={0.16} />
-      <B p={[OFFICE_X, -0.01, 0]} s={[PLINTH_W - 0.3, 0.04, PLINTH_D - 0.3]} m={M.officeTop} r={0.015} />
-      <NamePlate text="The grant office" x={OFFICE_X} ink="#171C23" light="#3B4552" />
-      <Purchasing />
-      <Bookkeeping />
-      <PaymentReport />
-      <GrantManager />
-      {Object.keys(RESERVOIRS).map(gid => (
-        <Reservoir key={gid} gid={gid} />
+      {parts.map((p, i) => (
+        <mesh key={i} geometry={p.geo} material={p.mat} castShadow={p.shadow} receiveShadow />
       ))}
-      <SourceRack />
-      <Vendors />
-      <Funder />
-      <FailCaption />
-      <RuleList />
-      <Chip id="a:purchasing" at={[PURCHASING[0], 2.05, PURCHASING[2] - 0.36]} title="Purchasing agent" sub="Runs the spending rules" />
-      <Chip id="a:bookkeeping" at={[BOOKKEEPING[0], 2.0, BOOKKEEPING[2]]} title="Bookkeeping agent" sub="Fund tracker, invoices" />
-      <Chip id="a:payment_report" at={[PAYMENT_REPORT[0], 2.2, PAYMENT_REPORT[2]]} title="Payment & report agent" sub="Payment requests, papers" />
-      <Chip id="p:grant_manager" at={[GM_DESK[0], 2.25, GM_DESK[2] - 0.62]} title="Grant manager (you)" sub="Approves exceptions, with a reason" tone="dark" />
+      <Spokes />
+      <Record />
+      {AGENTS.map(id => (
+        <Agent key={id} id={id} />
+      ))}
+      <Pips />
+      {Object.keys(RESERVOIRS).map(gid => (
+        <Vessel key={gid} gid={gid} />
+      ))}
+      <Lamps />
+      <Slips />
+      <Outside />
     </group>
   )
 })
+
+/** Where a node's hover card sits: above its top. */
+export const cardAnchor = (id: string, out: Vector3) => {
+  const s = spot(id)
+  return out.set(s.anchor[0], s.top, s.anchor[2])
+}
 

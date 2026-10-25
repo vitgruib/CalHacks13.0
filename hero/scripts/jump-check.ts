@@ -1,4 +1,7 @@
 // Restart and fast-forward rules the gallery depends on. Runs in `npm run check`.
+import { readFileSync, readdirSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { Feed } from '../src/feed/engine'
 
 // Let start() run as it does in a browser, minus the frame loop.
@@ -60,5 +63,27 @@ for (let t = 0; t < 230_000; t += 500) {
 }
 const leaks = [...new Set(shown.filter(t => CODE.test(t)))]
 expect('no award numbers or internal ids on screen', leaks.length === 0, leaks.length ? leaks.slice(0, 4).join(' | ') : `${shown.length} texts checked`)
+
+// The mockups' own markup follows the same rule: a grant id is never rendered as text (use grantName).
+// A line that only uses an id as a key or a node name can opt out with `// id-ok`.
+const RENDERED_ID = [
+  /(?<![=\w$])\{\s*(?:g|grant|gr)\.id\s*\}/, // {g.id} as text, not key={g.id}
+  /title=\{\s*(?:g|grant|gr)\.id\s*\}/,
+  /(?<![=:\w$])\{\s*[\w.?]+\.(?:grantId|chargedGrantId)\s*\}/,
+  /(?<!:)\$\{\s*(?:[\w.?]+\.(?:grantId|chargedGrantId)|(?:g|grant|gr)\.id)\s*\}/, // in a string, unless it builds a node name like `g:${id}`
+  /grantIds\.join\(/,
+]
+const demosDir = join(dirname(fileURLToPath(import.meta.url)), '../src/demos')
+const rendered: string[] = []
+for (const dir of readdirSync(demosDir).filter(d => /^a\d?$/.test(d))) {
+  for (const file of readdirSync(join(demosDir, dir)).filter(f => /\.tsx?$/.test(f))) {
+    readFileSync(join(demosDir, dir, file), 'utf8')
+      .split('\n')
+      .forEach((line, i) => {
+        if (!line.includes('id-ok') && RENDERED_ID.some(re => re.test(line))) rendered.push(`${dir}/${file}:${i + 1}`)
+      })
+  }
+}
+expect('no grant id rendered by a mockup', rendered.length === 0, rendered.length ? rendered.slice(0, 6).join(' ') : 'a and a1 to a5 checked')
 
 if (failed) process.exit(1)

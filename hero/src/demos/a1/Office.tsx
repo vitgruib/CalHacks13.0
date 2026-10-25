@@ -1,590 +1,537 @@
-// The grant office plinth, in deep slate: three agent stations (each one
-// object with a single light), the grant manager's desk, the two grants as
-// vessels of money filled to their truly available amount, and one rack for
-// the outside sources. A glass bell jar drops over a frozen grant and lifts
-// when cash lands.
+// The finance plinth: a slate network. The three agents are clay pods on
+// short columns; the grants are clay reservoirs plugged into the grid, their
+// money a glossy liquid that freezes under a frosted bell jar with a lock.
+// Every route is a groove inlaid in the slate that lights in the colour of
+// whatever runs along it. The grant manager is a person at a desk; the
+// government sources stand along the far edge; vendors and the funder wait
+// outside on their own pedestals. Nothing carries a label at rest.
 
-import { Html } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { memo, useEffect, useMemo, useRef, useState } from 'react'
-import { Color, LatheGeometry, MeshStandardMaterial, Vector2, type Group, type Mesh, type PointLight } from 'three'
-import { feed, useFlow, usd } from '../../feed'
-import type { Verdict } from '../../feed'
+import { useMemo, useRef } from 'react'
 import {
-  BOOKKEEPING,
-  DESK_H,
-  FUNDER,
-  GM_DESK,
-  OFFICE_X,
-  PAL,
-  PAYMENT_REPORT,
-  PLINTH_D,
-  PLINTH_W,
-  PURCHASING,
-  RACK,
-  RESERVOIRS,
-  SOURCES,
-  VENDORS,
-  floorOf,
-  type V3,
-} from './layout'
-import { M, glass, liquid, vary } from './mats'
-import { B, Chip, Cyl, NamePlate, Pick, useFlash } from './Parts'
-import { IconCheck, IconCross } from './icons'
-import { fx, now, reducedMotion, useFeed, useUi } from './store'
+  BufferAttribute,
+  BufferGeometry,
+  Color,
+  CylinderGeometry,
+  InstancedMesh,
+  MeshBasicMaterial,
+  Object3D,
+  ShaderMaterial,
+  TorusGeometry,
+  type Group,
+  type Mesh,
+} from 'three'
+import { feed, useFlow } from '../../feed'
+import { kit, type Kit } from './kit'
+import { FUNDER, GLAZE, GRANT_COLOR, GROOVES, NET, NET_BOX, NET_X, PAL, R01, R21, VENDORS, type V3 } from './layout'
+import { CLAY, glass, liquid } from './mats'
+import { GrantManagerFigure } from './People'
+import { Pick } from './Parts'
+import { GLOW } from './routes'
+import { fx, now, reducedMotion, ui } from './store'
 
-const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
-const easeOut = (t: number) => 1 - (1 - t) ** 3
+const PI = Math.PI
+const POD = '#D6CDBF'
+const POD_D = '#BDB1A2'
+const COLUMN = '#56616F'
+const GROOVE_W = 0.15
+const hitMat = new MeshBasicMaterial({ visible: false })
+const noRay = () => {}
 
-/** A lens that brightens while its station is sending or receiving. */
-function Lens({ id, p, r = 0.11, kind = 'sphere' }: { id: string; p: V3; r?: number; kind?: 'sphere' | 'disc' }) {
-  const light = useRef<PointLight>(null)
-  const mesh = useRef<Mesh>(null)
-  useFrame(() => {
-    const t = now()
+// ── The static network ───────────────────────────────────────────────────
+
+function pod(k: Kit, id: string) {
+  const n = NET[id]
+  const [x, z] = n.at
+  const r = n.r
+  const colTop = n.top - 0.5
+  k.cyl([x, 0.02, z], r * 0.62, 0.04, PAL.slateDeep, 28)
+  k.cyl([x, colTop / 2, z], r * 0.4, colTop, COLUMN, 24)
+  k.lathe([x, colTop, z], [[0, 0], [r * 0.7, 0], [r * 0.95, 0.08], [r, 0.2], [r * 0.93, 0.34], [r * 0.72, 0.44], [0, 0.47]], POD, {}, 36)
+  k.torus([x, colTop + 0.2, z], r * 1.0, 0.02, POD_D, { rot: [PI / 2, 0, 0] }, PI * 2, 40)
+}
+
+function build() {
+  const k = kit()
+  const W = NET_BOX.x1 - NET_BOX.x0
+  const D = NET_BOX.z1 - NET_BOX.z0
+  k.box([NET_X, -0.56, 0], [W, 1.1, D], PAL.officeBody, 0.08)
+  k.box([NET_X, -0.008, 0], [W - 0.1, 0.03, D - 0.1], PAL.officeTop, 0.01)
+
+  // Groove inlays: a dark channel with a lighter lip.
+  for (const g of GROOVES) {
+    for (let i = 1; i < g.pts.length; i++) {
+      const [ax, az] = g.pts[i - 1]
+      const [bx, bz] = g.pts[i]
+      const l = Math.hypot(bx - ax, bz - az)
+      const yaw = Math.atan2(bx - ax, bz - az)
+      k.box([(ax + bx) / 2, 0.006, (az + bz) / 2], [GROOVE_W + 0.05, 0.004, l], '#3D4753', 0.001, { rot: [0, yaw, 0] })
+      k.box([(ax + bx) / 2, 0.009, (az + bz) / 2], [GROOVE_W, 0.004, l], PAL.groove, 0.001, { rot: [0, yaw, 0] })
+      k.cyl([bx, 0.009, bz], GROOVE_W / 2, 0.004, PAL.groove, 14)
+    }
+  }
+
+  // Agent pods, each with a small mark of its job on top.
+  pod(k, 'a:purchasing')
+  pod(k, 'a:payment_report')
+  pod(k, 'a:bookkeeping')
+  {
+    const [x, z] = NET['a:bookkeeping'].at
+    const y = NET['a:bookkeeping'].top - 0.04
+    for (let i = 0; i < 3; i++) k.cyl([x, y + i * 0.05, z], 0.2 - i * 0.03, 0.04, i % 2 ? '#E8E2D8' : '#2F9DB5', 24)
+  }
+  {
+    const [x, z] = NET['a:payment_report'].at
+    const y = NET['a:payment_report'].top - 0.05
+    k.box([x, y + 0.02, z], [0.36, 0.04, 0.12], '#3A4451', 0.01)
+    k.box([x, y + 0.12, z], [0.26, 0.2, 0.012], '#F6F3EC', 0.004, { rot: [-0.15, 0, 0] })
+  }
+  {
+    const [x, z] = NET['a:purchasing'].at
+    const y = NET['a:purchasing'].top - 0.04
+    k.cyl([x, y, z], 0.34, 0.03, '#E8E2D8', 32)
+  }
+
+  // Grant manager's desk and chair (the figure sits there).
+  {
+    const [x, z] = NET['p:grant_manager'].at
+    k.box([x, 0.74, z + 0.05], [1.3, 0.05, 0.62], POD, 0.015)
+    k.box([x - 0.6, 0.36, z + 0.05], [0.06, 0.72, 0.56], POD_D, 0.01)
+    k.box([x + 0.6, 0.36, z + 0.05], [0.06, 0.72, 0.56], POD_D, 0.01)
+    k.box([x, 0.45, z - 0.22], [1.16, 0.5, 0.03], POD_D, 0.01)
+    k.box([x + 0.42, 0.79, z + 0.12], [0.34, 0.04, 0.26], '#3A4451', 0.008)
+    k.box([x - 0.35, 0.775, z + 0.14], [0.36, 0.012, 0.13], '#D9DCDF', 0.004)
+    // Chair
+    const cz = z - 0.46
+    k.box([x, 0.47, cz], [0.46, 0.07, 0.44], '#2E333A', 0.03)
+    k.box([x, 0.78, cz - 0.24], [0.42, 0.5, 0.06], '#2E333A', 0.03, { rot: [0.08, 0, 0] })
+    k.cyl([x, 0.25, cz], 0.03, 0.4, '#8C959E', 10)
+    k.cyl([x, 0.03, cz], 0.26, 0.04, '#2E333A', 20)
+  }
+
+  // Reservoirs: a clay basin set into the slate, its collar in the grant's colour.
+  for (const gid of [R01, R21]) {
+    const n = NET[`g:${gid}`]
+    const [x, z] = n.at
+    k.lathe([x, 0, z], [[0.9, 0], [1.02, 0], [1.06, 0.06], [1.04, 0.5], [0.98, 0.56], [0.9, 0.56], [0.88, 0.1], [0.0, 0.1]], POD, {}, 48)
+    k.torus([x, 0.56, z], 0.96, 0.05, GRANT_COLOR[gid], { rot: [PI / 2, 0, 0] }, PI * 2, 48)
+    k.cyl([x, 0.105, z], 0.88, 0.01, PAL.slateDeep, 40)
+  }
+
+  // Ports: notches in the plinth edge where traffic enters and leaves.
+  for (const id of ['port:lab', 'port:vendors', 'port:invoice', 'port:funder']) {
+    const [x, z] = NET[id].at
+    k.cyl([x, 0.012, z], 0.2, 0.012, PAL.groove, 24)
+    k.torus([x, 0.018, z], 0.2, 0.025, '#5D6977', { rot: [PI / 2, 0, 0] }, PI * 2, 24)
+  }
+
+  // Government sources along the far edge: small posts with a cap that lights when they report.
+  for (const id of ['s:reporter', 's:usaspending', 's:cancellations', 's:court', 's:payments']) {
+    const [x, z] = NET[id].at
+    k.cyl([x, 0.03, z], 0.2, 0.06, PAL.slateDeep, 20)
+    k.cyl([x, 0.27, z], 0.055, 0.46, '#7B8693', 14)
+  }
+
+  // Vendors: a small warehouse on its own pedestal, cartons stacked outside.
+  {
+    const [x, y, z] = VENDORS
+    k.cyl([x, y - 0.55, z], 1.15, 1.1, PAL.clay, 40)
+    k.box([x + 0.15, y + 0.36, z - 0.05], [1.2, 0.72, 0.9], '#E3DCD0', 0.03)
+    k.box([x + 0.15, y + 0.77, z - 0.05], [1.3, 0.08, 1.0], '#9C5B3E', 0.02)
+    k.box([x - 0.47, y + 0.28, z + 0.05], [0.02, 0.5, 0.56], '#8E979F', 0.004)
+    for (let i = 0; i < 5; i++) k.box([x - 0.48, y + 0.07 + i * 0.1, z + 0.05], [0.02, 0.01, 0.54], '#6F7881', 0.001)
+    k.box([x - 0.52, y + 0.6, z + 0.05], [0.14, 0.03, 0.7], '#C98B2E', 0.01)
+    k.box([x - 0.75, y + 0.16, z + 0.62], [0.36, 0.32, 0.3], '#C9A47A', 0.02)
+    k.box([x - 0.72, y + 0.45, z + 0.6], [0.3, 0.26, 0.26], '#BE9767', 0.02)
+    k.box([x - 0.35, y + 0.13, z + 0.7], [0.3, 0.26, 0.26], '#C9A47A', 0.02)
+  }
+
+  // The funder: a small civic building with columns on its pedestal.
+  {
+    const [x, y, z] = FUNDER
+    k.cyl([x, y - 0.55, z], 1.1, 1.1, PAL.clay, 40)
+    k.box([x, y + 0.04, z], [1.3, 0.08, 0.9], '#ECE7DF', 0.01)
+    k.box([x, y + 0.11, z], [1.18, 0.06, 0.8], '#E3DCD0', 0.01)
+    for (let i = 0; i < 4; i++) k.cyl([x - 0.42 + i * 0.28, y + 0.42, z + 0.3], 0.055, 0.56, '#F2EEE7', 14)
+    k.box([x, y + 0.42, z - 0.08], [1.0, 0.56, 0.5], '#E3DCD0', 0.02)
+    k.box([x, y + 0.74, z], [1.18, 0.08, 0.82], '#ECE7DF', 0.01)
+    k.cyl([x, y + 0.86, z], 0.42, 0.82, '#ECE7DF', 3, { rot: [PI / 2, 0, PI / 2], scale: [1.45, 1, 0.34] })
+  }
+  return k.build()
+}
+
+// ── Groove light ─────────────────────────────────────────────────────────
+
+function grooveGlow() {
+  const pos: number[] = []
+  const edge: number[] = []
+  const uu: number[] = []
+  const idx: number[] = []
+  GROOVES.forEach((g, gi) => {
+    let total = 0
+    for (let i = 1; i < g.pts.length; i++) total += Math.hypot(g.pts[i][0] - g.pts[i - 1][0], g.pts[i][1] - g.pts[i - 1][1])
+    let s = 0
+    for (let i = 1; i < g.pts.length; i++) {
+      const [ax, az] = g.pts[i - 1]
+      const [bx, bz] = g.pts[i]
+      const l = Math.hypot(bx - ax, bz - az)
+      const nx = (-(bz - az) / l) * (GROOVE_W / 2)
+      const nz = ((bx - ax) / l) * (GROOVE_W / 2)
+      const b = pos.length / 3
+      // Extend each segment a touch so the corners meet.
+      const ex = ((bx - ax) / l) * (GROOVE_W / 2)
+      const ez = ((bz - az) / l) * (GROOVE_W / 2)
+      const u0 = s / total
+      const u1 = (s + l) / total
+      pos.push(ax - nx - ex, 0.013, az - nz - ez, ax + nx - ex, 0.013, az + nz - ez, bx - nx + ex, 0.013, bz - nz + ez, bx + nx + ex, 0.013, bz + nz + ez)
+      edge.push(gi, gi, gi, gi)
+      uu.push(u0, u0, u1, u1)
+      idx.push(b, b + 2, b + 1, b + 1, b + 2, b + 3)
+      s += l
+    }
+  })
+  const geo = new BufferGeometry()
+  geo.setAttribute('position', new BufferAttribute(new Float32Array(pos), 3))
+  geo.setAttribute('aEdge', new BufferAttribute(new Float32Array(edge), 1))
+  geo.setAttribute('aU', new BufferAttribute(new Float32Array(uu), 1))
+  geo.setIndex(idx)
+  geo.computeBoundingSphere()
+  const N = GROOVES.length
+  const mat = new ShaderMaterial({
+    transparent: true,
+    depthWrite: false,
+    toneMapped: false,
+    uniforms: { uHead: { value: GLOW.head }, uDir: { value: GLOW.dir }, uOn: { value: GLOW.on }, uCol: { value: GLOW.col } },
+    vertexShader: [
+      `uniform float uHead[${N}]; uniform float uDir[${N}]; uniform float uOn[${N}]; uniform vec3 uCol[${N}];`,
+      'attribute float aEdge; attribute float aU;',
+      'varying float vU; varying float vHead; varying float vDir; varying float vOn; varying vec3 vCol;',
+      'void main() {',
+      '  int e = int(aEdge + 0.5);',
+      '  vU = aU; vHead = uHead[e]; vDir = uDir[e]; vOn = uOn[e]; vCol = uCol[e];',
+      '  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
+      '}',
+    ].join('\n'),
+    fragmentShader: [
+      'varying float vU; varying float vHead; varying float vDir; varying float vOn; varying vec3 vCol;',
+      'void main() {',
+      '  if (vOn < 0.01) discard;',
+      '  float d = (vHead - vU) * vDir;',
+      '  float trail = d >= -0.015 ? pow(clamp(1.0 - d / 0.5, 0.0, 1.0), 2.0) : 0.0;',
+      '  float a = vOn * (0.22 + 0.78 * trail);',
+      '  gl_FragColor = vec4(vCol, a);',
+      '}',
+    ].join('\n'),
+  })
+  return { geo, mat }
+}
+
+// ── Pods: a ring that says idle, working or waiting ──────────────────────
+
+const ringGeo = new TorusGeometry(1, 0.045, 10, 48)
+const AGENTS = ['a:purchasing', 'a:payment_report', 'a:bookkeeping'] as const
+const IDLE = new Color('#6A7684')
+const WORK = new Color('#FFF0D2')
+const WAIT = new Color(PAL.cobalt).offsetHSL(0, 0.05, 0.12)
+const pipGeo = new CylinderGeometry(0.055, 0.055, 0.05, 16)
+const PIP_OFF = new Color('#8D96A1')
+const PIP_PASS = new Color(GLAZE.accept).offsetHSL(0, 0.05, 0.08)
+const PIP_FAIL = new Color(GLAZE.reject).offsetHSL(0, 0.05, 0.12)
+const o = new Object3D()
+const tc = new Color()
+const pipMat = new MeshBasicMaterial({ toneMapped: false })
+
+/** Rule checks at the purchasing pod: six pips around the rim, lit one by one. */
+const run = { req: '', at: -1e9, pass: new Int8Array(6).fill(-1) }
+
+function Pods() {
+  const rings = useRef<(Mesh | null)[]>([])
+  const pips = useRef<InstancedMesh>(null)
+  const mats = useMemo(() => AGENTS.map(() => new MeshBasicMaterial({ color: IDLE, toneMapped: false })), [])
+  const still = useMemo(reducedMotion, [])
+  useFlow(e => {
+    if (e.type === 'reset') {
+      run.req = ''
+      run.pass.fill(-1)
+    }
+    if (e.type === 'rule') {
+      if (e.requestId !== run.req || e.index === 0) {
+        run.req = e.requestId
+        run.pass.fill(-1)
+      }
+      if (e.index < 6) run.pass[e.index] = e.verdict.pass ? 1 : 0
+      run.at = now()
+    }
+  })
+  useFrame(({ clock }) => {
     const w = feed.getWorld()
-    const busy = w.packets.some(pk => pk.from === id || pk.to === id)
-    const since = t - (fx.pulses.get(id) ?? -1e9)
-    const flare = since >= 0 && since < 900 ? 1 - since / 900 : 0
-    const level = 0.3 + (busy ? 0.4 : 0) + flare * 0.9
-    if (light.current) light.current.intensity += (level * 2.2 - light.current.intensity) * 0.15
-    if (mesh.current) mesh.current.scale.setScalar(1 + flare * 0.22)
-  })
-  return (
-    <group position={p}>
-      <mesh ref={mesh} material={M.lens}>
-        {kind === 'sphere' ? <sphereGeometry args={[r, 28, 18]} /> : <cylinderGeometry args={[r, r, 0.04, 32]} />}
-      </mesh>
-      <pointLight ref={light} color={PAL.lens} intensity={0.7} distance={3} decay={1.6} position={[0, 0.25, 0]} />
-    </group>
-  )
-}
-
-// ── Purchasing: a desk where each request is checked, rule pips along its edge ──
-
-interface RuleRun {
-  requestId: string
-  total: number
-  verdicts: (Verdict | undefined)[]
-  litAt: number[]
-  last: number
-  done: number
-}
-const run: { cur: RuleRun | null } = { cur: null }
-
-const SLOTS = 9
-const PIP_GAP = 0.19
-const pipIdle = new Color('#5F6B79')
-const pipPass = new Color(PAL.celadon)
-const pipFail = new Color('#C2403A')
-const black = new Color('#000000')
-
-export function failText(v: Verdict) {
-  const rule = v.rule
-  const limit = /card limit \((\$[\d,]+)\)/.exec(rule)
-  if (limit) return `Over the ${limit[1]} card limit`
-  if (rule.startsWith('Grant is active')) return /frozen/i.test(v.detail) ? 'The grant is frozen' : 'The grant isn’t active'
-  if (rule.startsWith('Not in the grant')) return 'In the grant’s last 90 days'
-  if (rule.startsWith('Enough truly available')) return 'Not enough truly available money'
-  if (rule.startsWith('Category allowed')) return 'Category not allowed on a federal grant'
-  if (rule.startsWith('Shared cost')) return 'Shared cost isn’t split across its grants'
-  if (rule.startsWith('Grant exists')) return 'No such grant'
-  return rule
-}
-
-/** The request now on the desk, if any: arrived, checked, no answer yet. */
-function onDesk() {
-  const w = feed.getWorld()
-  return w.requests.find(r => r.outcome === undefined && r.verdicts.length > 0 && !w.packets.some(p => p.refId === r.id && p.kind === 'request'))
-}
-
-function Pips() {
-  const pips = useRef<(Mesh | null)[]>([])
-  const mats = useMemo(() => Array.from({ length: SLOTS }, () => new MeshStandardMaterial({ color: pipIdle, roughness: 0.4, emissive: new Color('#000000') })), [])
-  const still = useMemo(reducedMotion, [])
-  const c = useMemo(() => new Color(), [])
-  useFrame((_, dt) => {
-    const r = run.cur
     const t = now()
-    const idle = !r || (r.done > 0 && t - r.done > 1600) || t - r.last > 9000
-    const n = idle || !r ? 6 : r.total
-    const k = Math.min(1, dt * 10)
-    for (let i = 0; i < SLOTS; i++) {
-      const m = pips.current[i]
-      if (!m) continue
-      m.visible = i < n
-      if (!m.visible) continue
-      m.position.x = (i - (n - 1) / 2) * PIP_GAP
-      const v = idle || !r ? undefined : r.verdicts[i]
-      c.copy(!v ? pipIdle : v.pass ? pipPass : pipFail)
-      mats[i].color.lerp(c, k)
-      mats[i].emissive.lerp(v ? c : black, k)
-      mats[i].emissiveIntensity = v ? 0.55 : 0
-      const lit = r && v ? t - (r.litAt[i] ?? -1e9) : 1e9
-      const pop = !still && lit >= 0 && lit < 260 ? Math.sin((lit / 260) * Math.PI) : 0
-      m.scale.set(1 + 0.45 * pop, 0.55 + 0.6 * pop, 1 + 0.45 * pop)
-    }
-  })
-  return (
-    <group position={[0, DESK_H + 0.012, 0.4]}>
-      {mats.map((m, i) => (
-        <mesh
-          key={i}
-          ref={el => {
-            pips.current[i] = el
-          }}
-          material={m}
-          visible={false}
-        >
-          <sphereGeometry args={[0.065, 18, 12]} />
-        </mesh>
-      ))}
-    </group>
-  )
-}
-
-/** One short caption near the agent when a rule fails, gone after a moment. */
-function FailCaption() {
-  const [fail, setFail] = useState<{ text: string; on: boolean }>({ text: '', on: false })
-  const timer = useRef<number | undefined>(undefined)
-  useFlow(e => {
-    if (e.type === 'reset') setFail({ text: '', on: false })
-    if (e.type === 'rule' && !e.verdict.pass) {
-      setFail({ text: failText(e.verdict), on: true })
-      window.clearTimeout(timer.current)
-      timer.current = window.setTimeout(() => setFail(f => ({ ...f, on: false })), 2500)
-    }
-  })
-  useEffect(() => () => window.clearTimeout(timer.current), [])
-  return (
-    <Html position={[PURCHASING[0] - 0.55, 1.75, PURCHASING[2] + 0.2]} zIndexRange={[22, 10]} wrapperClass="a-html" pointerEvents="none">
-      <p className={`a-fail${fail.on ? '' : ' is-hidden'}`} aria-hidden="true">
-        {fail.text && (
-          <>
-            <IconCross size={12} />
-            {fail.text}
-          </>
-        )}
-      </p>
-    </Html>
-  )
-}
-
-const RULES = [
-  'Grant is active and not frozen',
-  'Not in the grant’s last 90 days, for supplies',
-  'Enough truly available money',
-  'Category allowed',
-  'Under the $5,000 card limit',
-  'Shared costs split across the grants they serve',
-]
-
-/** The full rule list, on hover or selection of the purchasing agent. */
-function RuleList() {
-  const on = useUi(s => s.hovered === 'a:purchasing' || s.selected === 'a:purchasing')
-  const [, force] = useState(0)
-  useFlow(e => {
-    if (on && (e.type === 'rule' || e.type === 'reset')) force(n => n + 1)
-  })
-  const r = run.cur
-  const live = !!r && (r.done === 0 || now() - r.done < 1600)
-  return (
-    <Html position={[PURCHASING[0] - 0.9, 1.15, PURCHASING[2]]} zIndexRange={[23, 10]} wrapperClass="a-html" pointerEvents="none">
-      <div className={`a-rules${on ? '' : ' is-hidden'}`} aria-hidden="true">
-        <p className="a-rules-head">Spending rules</p>
-        <ol>
-          {live && r
-            ? Array.from({ length: r.total }, (_, i) => {
-                const v = r.verdicts[i]
-                return (
-                  <li key={i} className={v ? (v.pass ? 'is-pass' : 'is-fail') : 'is-wait'}>
-                    <span className="a-rules-mark">{v ? v.pass ? <IconCheck size={11} /> : <IconCross size={11} /> : null}</span>
-                    <span>{v ? v.rule : 'Checking'}</span>
-                  </li>
-                )
-              })
-            : RULES.map(x => (
-                <li key={x} className="is-wait">
-                  <span className="a-rules-mark" />
-                  <span>{x}</span>
-                </li>
-              ))}
-        </ol>
-      </div>
-    </Html>
-  )
-}
-
-function Purchasing() {
-  useFlow(e => {
-    const t = now()
-    if (e.type === 'reset') run.cur = null
-    else if (e.type === 'rule') {
-      let r = run.cur
-      if (!r || r.requestId !== e.requestId || e.index === 0) {
-        const req = feed.getWorld().requests.find(q => q.id === e.requestId)
-        r = { requestId: e.requestId, total: e.total, verdicts: req ? req.verdicts.slice(0, e.index) : [], litAt: [], last: t, done: 0 }
-        run.cur = r
+    const s = ui.get()
+    AGENTS.forEach((id, i) => {
+      const role = id.slice(2)
+      let working = false
+      let waiting = false
+      for (const p of w.packets) if (p.from === id || p.to === id) working = true
+      for (const h of w.holds) if (h.open && h.raisedBy === role) waiting = true
+      if (id === 'a:purchasing') for (const r of w.requests) if (!r.outcome && r.verdicts.length) working = true
+      const lit = s.hovered === id || s.selected === id
+      const m = mats[i]
+      if (waiting) {
+        const k = still ? 0.8 : 0.55 + 0.45 * Math.sin(clock.elapsedTime * 2.6)
+        m.color.copy(IDLE).lerp(WAIT, k)
+      } else if (working) m.color.copy(WORK)
+      else m.color.copy(IDLE)
+      if (lit) m.color.lerp(WORK, 0.35)
+      const ring = rings.current[i]
+      if (ring) ring.scale.setScalar(NET[id].r * (lit ? 1.06 : 1.02))
+    })
+    const P = pips.current
+    if (P) {
+      const fade = t - run.at > 2600 ? Math.max(0, 1 - (t - run.at - 2600) / 600) : 1
+      const n = NET['a:purchasing']
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * PI * 2 + PI / 2
+        o.position.set(n.at[0] + Math.cos(a) * 0.48, n.top - 0.03, n.at[1] + Math.sin(a) * 0.48)
+        o.rotation.set(0, 0, 0)
+        o.scale.setScalar(run.pass[i] >= 0 && fade > 0 ? 1.15 : 1)
+        o.updateMatrix()
+        P.setMatrixAt(i, o.matrix)
+        const v = run.pass[i]
+        tc.copy(PIP_OFF)
+        if (v >= 0) tc.lerp(v ? PIP_PASS : PIP_FAIL, fade)
+        P.setColorAt(i, tc)
       }
-      r.verdicts[e.index] = e.verdict
-      r.litAt[e.index] = t
-      r.total = e.total
-      r.last = t
-    } else if (e.type === 'packet' && run.cur && e.packet.refId === run.cur.requestId && (e.packet.kind === 'verdict' || e.packet.kind === 'hold')) {
-      run.cur.done = t
+      P.instanceMatrix.needsUpdate = true
+      if (P.instanceColor) P.instanceColor.needsUpdate = true
     }
   })
-  useEffect(() => {
-    // Mounting mid-story: show whatever is on the desk as already checked.
-    const r = onDesk()
-    if (r) run.cur = { requestId: r.id, total: r.verdicts.length, verdicts: [...r.verdicts], litAt: [], last: now(), done: 0 }
-  }, [])
-  return (
-    <Pick id="a:purchasing">
-      <group position={PURCHASING}>
-        <B p={[0, DESK_H / 2, 0]} s={[1.5, DESK_H, 1.02]} m={M.slate} r={0.07} />
-        <B p={[0, DESK_H - 0.02, 0.08]} s={[1.0, 0.04, 0.6]} m={M.slateDeep} r={0.015} shadow={false} />
-        <Cyl p={[0, DESK_H + 0.22, -0.36]} r={0.15} r2={0.11} h={0.44} m={M.slateDeep} />
-        <Lens id="a:purchasing" p={[0, DESK_H + 0.56, -0.36]} r={0.14} />
-        <Pips />
-      </group>
-    </Pick>
-  )
-}
-
-// ── Bookkeeping drum and the payment & report arch ───────────────────────
-
-function Bookkeeping() {
-  return (
-    <Pick id="a:bookkeeping">
-      <group position={BOOKKEEPING}>
-        <Cyl p={[0, 0.06, 0]} r={0.68} h={0.12} m={M.slateDeep} seg={48} />
-        <Cyl p={[0, 0.62, 0]} r={0.52} h={1.0} m={M.slate} seg={48} />
-        <Cyl p={[0, 1.15, 0]} r={0.56} h={0.07} m={vary(M.chalk, 2)} seg={48} />
-        <Lens id="a:bookkeeping" p={[0, 1.2, 0]} r={0.16} kind="disc" />
-      </group>
-    </Pick>
-  )
-}
-
-function PaymentReport() {
-  return (
-    <Pick id="a:payment_report">
-      <group position={PAYMENT_REPORT}>
-        <B p={[0, 0.05, 0]} s={[1.5, 0.1, 0.72]} m={M.slateDeep} r={0.035} />
-        <B p={[-0.52, 0.76, 0]} s={[0.26, 1.32, 0.58]} m={M.slate} r={0.06} />
-        <B p={[0.52, 0.76, 0]} s={[0.26, 1.32, 0.58]} m={M.slate} r={0.06} />
-        <B p={[0, 1.5, 0]} s={[1.32, 0.26, 0.58]} m={M.slate} r={0.06} />
-        <B p={[0, 0.58, 0]} s={[0.62, 0.05, 0.42]} m={M.slateDeep} r={0.015} />
-        <B p={[0, 0.63, 0]} s={[0.44, 0.05, 0.32]} m={M.paper} r={0.008} />
-        <Lens id="a:payment_report" p={[0, 1.5, 0.32]} r={0.09} />
-      </group>
-    </Pick>
-  )
-}
-
-// ── The grant manager's desk (the one human in the office) ──────────────
-
-const gmBody = new MeshStandardMaterial({ color: '#7A7066', roughness: 0.84 })
-const gmHead = new MeshStandardMaterial({ color: '#ECE4D8', roughness: 0.84 })
-const gmGeo = new LatheGeometry(
-  [new Vector2(0, 0), new Vector2(0.24, 0), new Vector2(0.25, 0.04), new Vector2(0.22, 0.6), new Vector2(0.235, 1.05), new Vector2(0.24, 1.2), new Vector2(0.15, 1.32), new Vector2(0, 1.34)],
-  40,
-)
-
-function GrantManager() {
-  const others = useFeed(w => w.holds.reduce((n, h) => n + (h.open && h.kind !== 'purchase' ? 1 : 0), 0))
-  return (
-    <Pick id="p:grant_manager">
-      <group position={GM_DESK}>
-        <B p={[0, 0.37, 0]} s={[1.5, 0.74, 0.76]} m={vary(M.slate, 3)} r={0.06} />
-        {Array.from({ length: Math.min(others, 4) }, (_, i) => (
-          <B key={i} p={[-0.42, 0.755 + i * 0.024, 0.04]} s={[0.4, 0.016, 0.29]} m={M.glazeHold} r={0.005} />
-        ))}
-        <group position={[0, 0, -0.62]}>
-          <mesh geometry={gmGeo} material={gmBody} castShadow receiveShadow />
-          <mesh position={[0, 1.42, 0]} material={gmHead} castShadow>
-            <cylinderGeometry args={[0.06, 0.07, 0.12, 16]} />
-          </mesh>
-          <mesh position={[0, 1.6, 0]} material={gmHead} castShadow>
-            <sphereGeometry args={[0.16, 32, 22]} />
-          </mesh>
-        </group>
-      </group>
-    </Pick>
-  )
-}
-
-// ── Grants as vessels of money, and the bell jar ─────────────────────────
-
-const vesselGeo = new LatheGeometry(
-  [new Vector2(0, 0), new Vector2(0.8, 0), new Vector2(0.86, 0.05), new Vector2(0.86, 0.98), new Vector2(0.83, 1.04), new Vector2(0.77, 1.04), new Vector2(0.745, 0.98), new Vector2(0.745, 0.12), new Vector2(0, 0.12)],
-  72,
-)
-const jarGeo = new LatheGeometry(
-  [new Vector2(1.0, 0), new Vector2(1.0, 1.25), new Vector2(0.98, 1.42), new Vector2(0.91, 1.62), new Vector2(0.77, 1.8), new Vector2(0.54, 1.93), new Vector2(0.26, 2.0), new Vector2(0.001, 2.02)],
-  72,
-)
-const iceColor = new Color(PAL.ice)
-const moneyColor = new Color(PAL.money)
-const FILL = 0.84 // the vessel's inner height
-const BASE = 0.18 // the vessel floor
-const DROP_FROM = 3.6
-
-function Reservoir({ gid }: { gid: string }) {
-  const p = RESERVOIRS[gid]
-  const body = useRef<Mesh>(null)
-  const surface = useRef<Mesh>(null)
-  const jar = useRef<Group>(null)
-  const tag = useRef<Group>(null)
-  const fillMat = useMemo(() => liquid(), [])
-  const jarMat = useMemo(() => glass(), [])
-  const still = useMemo(reducedMotion, [])
-  const st = useRef({ seen: false, frozen: false, at: -1e9, level: 0 })
-  useFlow(e => {
-    if (e.type === 'reset') st.current = { seen: false, frozen: false, at: -1e9, level: 0 }
-    if (e.type === 'packet' && e.packet.kind === 'charge' && e.packet.from === `g:${gid}`) fx.slosh.set(gid, { at: now() + 200, amp: 0.4 })
-  })
-
-  useFrame((_, dt) => {
-    const g = feed.getWorld().grants.find(x => x.id === gid)
-    if (!g || !body.current || !surface.current || !jar.current || !tag.current) return
-    const t = now()
-    const u = jarMat.userData.u as { uFrost: { value: number }; uFade: { value: number } }
-    const lu = fillMat.userData.u as { uPulse: { value: number } }
-    const target = Math.max(0.02, FILL * clamp01(g.available / g.awarded))
-    const s = st.current
-    if (!s.seen) {
-      // Mounting mid-story: show the current state as settled, no drop.
-      s.seen = true
-      s.frozen = g.frozen
-      s.at = -1e9
-      s.level = target
-      fillMat.color.copy(g.frozen ? iceColor : moneyColor)
-    }
-    s.level += (target - s.level) * (1 - Math.exp(-Math.min(dt, 0.1) * 2.6))
-    body.current.scale.y = Math.max(0.001, s.level - 0.03)
-    body.current.position.y = BASE + (s.level - 0.03) / 2
-    surface.current.position.y = BASE + s.level
-
-    const sl = fx.slosh.get(gid)
-    const tau = sl ? (t - sl.at) / 1000 : 99
-    if (sl && tau >= 0 && tau < 1.8 && !still) {
-      const a = 0.05 * sl.amp * Math.exp(-tau * 2.4)
-      surface.current.rotation.set(a * Math.sin(tau * Math.PI * 4.2), 0, a * Math.sin(tau * Math.PI * 4.2 + 1.3))
-      surface.current.position.y += 0.02 * sl.amp * Math.exp(-tau * 3) * Math.sin(tau * Math.PI * 6)
-    } else surface.current.rotation.set(0, 0, 0)
-    fillMat.color.lerp(g.frozen ? iceColor : moneyColor, Math.min(1, dt * 2.2))
-
-    if (g.frozen !== s.frozen) {
-      s.frozen = g.frozen
-      // Freezing is immediate; thawing waits for the money to land first.
-      s.at = t + (g.frozen ? 0 : 750)
-      if (g.frozen) fx.ripples.push({ pos: floorOf(`g:${gid}`), color: '#EEF4FA', at: t + 640, size: 2.4, ms: 1200 })
-      else fx.ripples.push({ pos: floorOf(`g:${gid}`), color: '#E9FBFF', at: t + 750, size: 1.7, ms: 1300 })
-    }
-    const k = t - s.at
-    let y = 0
-    let fade = 0
-    let frost = 0
-    if (s.frozen) {
-      if (s.at < -1e8 || still) {
-        fade = 1
-        frost = s.at < -1e8 ? 1 : clamp01(k / 300)
-      } else {
-        // Falls under gravity, lands, one small settle, then the frost comes in.
-        const fall = 640
-        if (k < fall) y = DROP_FROM * (1 - (clamp01(k / fall)) ** 2)
-        else if (k < fall + 260) y = 0.09 * Math.sin(((k - fall) / 260) * Math.PI)
-        fade = clamp01(k / 160)
-        frost = clamp01((k - fall) / 900)
-      }
-    } else if (s.at > -1e8) {
-      const d = clamp01(k / 1300)
-      if (k < 0) {
-        fade = 1
-        frost = 1
-      } else if (still) {
-        fade = 1 - clamp01(k / 300)
-      } else {
-        y = DROP_FROM * easeOut(d)
-        frost = 1 - clamp01(k / 520)
-        fade = 1 - clamp01((d - 0.45) / 0.55)
-      }
-      lu.uPulse.value = k >= 0 && k < 1400 && !still ? Math.sin((k / 1400) * Math.PI) * (1 - k / 1400) * 1.6 : 0
-    }
-    jar.current.position.y = y
-    u.uFade.value = fade
-    u.uFrost.value = frost
-    jar.current.visible = fade > 0.005
-    const court = g.frozen && g.status === 'restored_by_court'
-    const ts = tag.current.scale.x + ((court ? 1 : 0) - tag.current.scale.x) * Math.min(1, dt * 5)
-    tag.current.scale.setScalar(ts)
-    tag.current.visible = ts > 0.02
-  })
-
-  return (
-    <Pick id={`g:${gid}`}>
-      <group position={p}>
-        <Cyl p={[0, 0.03, 0]} r={1.08} h={0.06} m={M.slateDeep} seg={72} />
-        <mesh geometry={vesselGeo} material={vary(M.chalk, 1)} castShadow receiveShadow position={[0, 0.06, 0]} />
-        <mesh ref={body} material={fillMat} position={[0, 0.5, 0]}>
-          <cylinderGeometry args={[0.742, 0.742, 1, 64]} />
-        </mesh>
-        <mesh ref={surface} material={fillMat} position={[0, 0.9, 0]}>
-          <cylinderGeometry args={[0.742, 0.742, 0.03, 64]} />
-        </mesh>
-        <group ref={jar} position={[0, DROP_FROM, 0]}>
-          <mesh geometry={jarGeo} material={jarMat} position={[0, 0.06, 0]} renderOrder={2} />
-          <mesh position={[0, 2.16, 0]} material={jarMat} renderOrder={2}>
-            <sphereGeometry args={[0.1, 20, 14]} />
-          </mesh>
-        </group>
-        <group ref={tag} position={[0.15, 0, 1.08]} scale={0}>
-          <B p={[0, 0.5, 0]} s={[0.56, 0.4, 0.016]} m={M.paper} r={0.006} rot={[-0.22, 0, 0.04]} />
-          <B p={[0, 0.6, 0.03]} s={[0.4, 0.035, 0.006]} m={M.slate} r={0.002} rot={[-0.22, 0, 0.04]} shadow={false} />
-          <B p={[-0.04, 0.5, 0.05]} s={[0.32, 0.025, 0.006]} m={M.clayDeep} r={0.002} rot={[-0.22, 0, 0.04]} shadow={false} />
-        </group>
-      </group>
-      <Gauge gid={gid} at={[p[0], 2.35, p[2]]} side={Object.keys(RESERVOIRS).indexOf(gid) === 0 ? 'l' : 'r'} />
-    </Pick>
-  )
-}
-
-/** The grant's gauge: its money large, its id small, its status only when it isn't plainly active. */
-function Gauge({ gid, at, side }: { gid: string; at: V3; side: 'l' | 'r' }) {
-  const g = useFeed(w => w.grants.find(x => x.id === gid))
-  const on = useUi(s => s.hovered === `g:${gid}` || s.selected === `g:${gid}`)
-  if (!g) return null
-  const state = g.frozen
-    ? g.status === 'restored_by_court'
-      ? 'Restored by court, still frozen'
-      : 'Frozen'
-    : g.status === 'active'
-      ? null
-      : g.status === 'restored_by_court'
-        ? 'Restored and paid'
-        : g.status === 'ended'
-          ? 'Ended'
-          : null
-  return (
-    <Html position={at} zIndexRange={[23, 21]} wrapperClass="a-html" pointerEvents="none">
-      <div className={`a-gauge${g.frozen ? ' is-frozen' : ''}${on ? ' is-on' : ''}`} data-side={side}>
-        <span className="a-gauge-id">{g.id}</span>
-        <span className="a-gauge-money">{usd(g.available)}</span>
-        {on && <span className="a-gauge-sub">truly available</span>}
-        {state && <span className="a-gauge-state">{state}</span>}
-      </div>
-    </Html>
-  )
-}
-
-// ── Sources, vendors, funder ─────────────────────────────────────────────
-
-const SOURCE_LABEL: Record<string, string> = {
-  's:reporter': 'NIH RePORTER',
-  's:usaspending': 'USAspending',
-  's:cancellations': 'Cancellation list (Apify)',
-  's:court': 'Court notice',
-  's:payments': 'Payment system',
-}
-
-const lampOff = new Color('#56626F')
-const lampOn = new Color('#F3F8FF')
-
-function SourceLamp({ id, p }: { id: string; p: V3 }) {
-  const mat = useMemo(() => new MeshStandardMaterial({ color: lampOff, roughness: 0.35, emissive: new Color('#000000') }), [])
-  useFrame(() => {
-    const since = now() - (fx.pulses.get(id) ?? -1e9)
-    const k = since >= 0 && since < 1200 ? 1 - since / 1200 : 0
-    mat.color.copy(lampOff).lerp(lampOn, k)
-    mat.emissive.copy(lampOn).multiplyScalar(k * 0.6)
-  })
-  return (
-    <Pick id={id}>
-      <mesh position={[p[0], 0.43, p[2]]} material={mat}>
-        <cylinderGeometry args={[0.15, 0.15, 0.04, 28]} />
-      </mesh>
-    </Pick>
-  )
-}
-
-function SourceChip({ id, p }: { id: string; p: V3 }) {
-  const flash = useFlash(id)
-  const on = useUi(s => s.hovered === id || s.selected === id)
-  return (
-    <Html position={[p[0], 1.05, p[2]]} zIndexRange={[20, 10]} wrapperClass="a-html" pointerEvents="none">
-      <div className={`a-chip a-chip--dark a-chip--source${flash || on ? '' : ' is-hidden'}${on ? ' is-on' : ''}`} aria-hidden="true">
-        <span className="a-chip-title">{SOURCE_LABEL[id] ?? id}</span>
-      </div>
-    </Html>
-  )
-}
-
-function SourceRack() {
   return (
     <>
-      <B p={[RACK[0], 0.2, RACK[2]]} s={[4.5, 0.4, 0.52]} m={M.slate} r={0.07} />
-      {Object.entries(SOURCES).map(([id, p]) => (
-        <SourceLamp key={id} id={id} p={p} />
-      ))}
-      {Object.entries(SOURCES).map(([id, p]) => (
-        <SourceChip key={id} id={id} p={p} />
+      {AGENTS.map((id, i) => {
+        const n = NET[id]
+        return (
+          <mesh
+            key={id}
+            ref={el => {
+              rings.current[i] = el
+            }}
+            geometry={ringGeo}
+            material={mats[i]}
+            position={[n.at[0], n.top - 0.36, n.at[1]]}
+            rotation={[PI / 2, 0, 0]}
+            raycast={noRay}
+          />
+        )
+      })}
+      <instancedMesh ref={pips} args={[pipGeo, pipMat, 6]} raycast={noRay} />
+    </>
+  )
+}
+
+// ── Reservoirs: money level, freeze, lock ────────────────────────────────
+
+const LOCK = (() => {
+  const k = kit()
+  k.box([0, 0, 0], [0.26, 0.22, 0.1], '#C9A23E', 0.03)
+  k.cyl([0, -0.01, 0.052], 0.025, 0.01, '#3A3020', 10, { rot: [PI / 2, 0, 0] })
+  k.box([0, -0.05, 0.052], [0.016, 0.05, 0.01], '#3A3020', 0.002)
+  return k.build()
+})()
+const SHACKLE = new TorusGeometry(0.085, 0.022, 10, 20, PI)
+const shackleMat = new MeshBasicMaterial({ color: '#AEB5BC' })
+const liquidGeo = new CylinderGeometry(0.86, 0.86, 1, 48)
+const jarGeo = (() => {
+  const k = kit()
+  k.lathe([0, 0, 0], [[1.08, 0], [1.08, 0.82], [1.0, 1.04], [0.78, 1.2], [0.4, 1.28], [0.12, 1.3], [0.09, 1.38], [0.12, 1.44], [0, 1.45]], '#FFFFFF', {}, 48)
+  return k.build()
+})()
+
+function Reservoir({ gid }: { gid: string }) {
+  const n = NET[`g:${gid}`]
+  const liq = useRef<Mesh>(null)
+  const jar = useRef<Mesh>(null)
+  const lock = useRef<Group>(null)
+  const shackle = useRef<Mesh>(null)
+  const liqMat = useMemo(() => liquid(PAL.money), [])
+  const jarMat = useMemo(() => glass(), [])
+  const still = useMemo(reducedMotion, [])
+  const st = useMemo(() => ({ fill: -1, down: -1, frost: 0, lock: 0, open: 0 }), [])
+  useFrame((_, dt) => {
+    const g = feed.getWorld().grants.find(x => x.id === gid)
+    if (!g) return
+    const t = now()
+    const d = Math.min(dt, 0.1)
+    const k = still ? 1 : Math.min(1, d * 2.2)
+    const fill = Math.max(0.06, Math.min(1, g.available / g.awarded))
+    const frozen = g.frozen ? 1 : 0
+    const restored = g.frozen && g.status === 'restored_by_court'
+    if (st.fill < 0) {
+      st.fill = fill
+      st.down = frozen
+      st.frost = frozen ? (restored ? 0.4 : 1) : 0
+      st.lock = frozen
+    }
+    st.fill += (fill - st.fill) * k
+    st.down += (frozen - st.down) * (still ? 1 : Math.min(1, d * 1.6))
+    st.frost += ((frozen ? (restored ? 0.38 : 1) : 0) - st.frost) * k
+    st.lock += (frozen - st.lock) * (still ? 1 : Math.min(1, d * 3))
+    st.open += ((restored ? 1 : 0) - st.open) * k
+    const sl = fx.slosh.get(gid)
+    const wob = sl && !still && t > sl.at && t - sl.at < 1400 ? 0.03 * Math.sin((t - sl.at) / 70) * (1 - (t - sl.at) / 1400) : 0
+    const h = 0.04 + st.fill * 0.4
+    if (liq.current) {
+      liq.current.scale.set(1, h, 1)
+      liq.current.position.y = 0.11 + h / 2 + wob
+    }
+    const u = liqMat.userData.u as { uPulse: { value: number } }
+    u.uPulse.value = sl && t > sl.at ? Math.max(0, 1 - (t - sl.at) / 900) : 0
+    if (g.status === 'ended') liqMat.color.set('#8FA9B0')
+    else liqMat.color.set(PAL.money)
+    if (jar.current) {
+      jar.current.position.y = 0.5 + (1 - st.down) * 2.4
+      jar.current.visible = st.down > 0.02
+      const ju = jarMat.userData.u as { uFrost: { value: number }; uFade: { value: number } }
+      ju.uFrost.value = st.frost
+      ju.uFade.value = Math.min(1, st.down * 1.4)
+    }
+    if (lock.current) {
+      lock.current.visible = st.lock > 0.02
+      lock.current.scale.setScalar(Math.max(0.001, st.lock))
+    }
+    if (shackle.current) shackle.current.position.y = 0.11 + st.open * 0.06
+  })
+  return (
+    <Pick id={`g:${gid}`}>
+      <group position={[n.at[0], 0, n.at[1]]}>
+        <mesh geometry={hitCyl} material={hitMat} position={[0, 0.7, 0]} />
+        <mesh ref={liq} geometry={liquidGeo} material={liqMat} position={[0, 0.3, 0]} receiveShadow raycast={noRay} />
+        <mesh ref={jar} geometry={jarGeo} material={jarMat} renderOrder={4} raycast={noRay} />
+        <group ref={lock} position={[0, 0.34, 1.1]}>
+          <mesh geometry={LOCK} material={CLAY} castShadow raycast={noRay} />
+          <mesh ref={shackle} geometry={SHACKLE} material={shackleMat} position={[0, 0.11, 0]} raycast={noRay} />
+        </group>
+      </group>
+    </Pick>
+  )
+}
+const hitCyl = new CylinderGeometry(1.1, 1.1, 1.5, 16)
+
+// ── Sources: caps light when they report ─────────────────────────────────
+
+const SOURCES = ['s:reporter', 's:usaspending', 's:cancellations', 's:court', 's:payments']
+const capGeo = (() => {
+  const k = kit()
+  k.sphere([0, 0, 0], 0.12, '#FFFFFF', {}, 18, 12)
+  return k.build()
+})()
+const CAP_IDLE = new Color('#AEB8C3')
+const CAP_ON = new Color('#FFF4DE')
+const srcHit = new CylinderGeometry(0.3, 0.3, 0.9, 10)
+
+function Sources() {
+  const caps = useRef<InstancedMesh>(null)
+  const capMat = useMemo(() => new MeshBasicMaterial({ toneMapped: false }), [])
+  useFrame(() => {
+    const C = caps.current
+    if (!C) return
+    const t = now()
+    const s = ui.get()
+    SOURCES.forEach((id, i) => {
+      const n = NET[id]
+      const at = fx.pulses.get(id) ?? -1e9
+      const k = Math.max(0, 1 - (t - at) / 1200)
+      o.position.set(n.at[0], n.top - 0.02, n.at[1])
+      o.rotation.set(0, 0, 0)
+      o.scale.setScalar(1 + 0.25 * k + (s.hovered === id ? 0.15 : 0))
+      o.updateMatrix()
+      C.setMatrixAt(i, o.matrix)
+      tc.copy(CAP_IDLE).lerp(CAP_ON, Math.max(k, s.hovered === id || s.selected === id ? 0.6 : 0))
+      C.setColorAt(i, tc)
+    })
+    C.instanceMatrix.needsUpdate = true
+    if (C.instanceColor) C.instanceColor.needsUpdate = true
+  })
+  return (
+    <>
+      <instancedMesh ref={caps} args={[capGeo, capMat, SOURCES.length]} raycast={noRay} />
+      {SOURCES.map(id => (
+        <Pick key={id} id={id}>
+          <mesh geometry={srcHit} material={hitMat} position={[NET[id].at[0], 0.45, NET[id].at[1]]} />
+        </Pick>
       ))}
     </>
   )
 }
 
-function Vendors() {
-  const [x, y, z] = VENDORS
+// ── Grant manager: open decisions stack up in the tray ───────────────────
+
+const trayGeo = (() => {
+  const k = kit()
+  k.box([0, 0, 0], [0.26, 0.014, 0.2], '#F6F3EC', 0.004)
+  k.box([0, 0.009, -0.04], [0.16, 0.003, 0.02], '#9AA3AD', 0.001)
+  return k.build()
+})()
+const SLIP_C = new Color('#D3DEF0')
+
+function GrantManager() {
+  const n = NET['p:grant_manager']
+  const slips = useRef<InstancedMesh>(null)
+  const mat = useMemo(() => new MeshBasicMaterial({ color: '#FFFFFF' }), [])
+  useFrame(() => {
+    const S = slips.current
+    if (!S) return
+    let c = 0
+    for (const h of feed.getWorld().holds) if (h.open && h.kind !== 'purchase' && c < 6) {
+      o.position.set(n.at[0] + 0.42, 0.82 + c * 0.02, n.at[1] + 0.12)
+      o.rotation.set(0, (c % 2 ? 1 : -1) * 0.12, 0)
+      o.scale.setScalar(1)
+      o.updateMatrix()
+      S.setMatrixAt(c, o.matrix)
+      S.setColorAt(c, SLIP_C)
+      c++
+    }
+    S.count = c
+    S.instanceMatrix.needsUpdate = true
+    if (S.instanceColor) S.instanceColor.needsUpdate = true
+  })
   return (
-    <Pick id="v:vendors">
-      <B p={[x, y - 0.3, z]} s={[2.3, 0.6, 2.1]} m={vary(M.clay, 2)} r={0.12} />
-      <B p={[x - 0.35, y + 0.22, z - 0.1]} s={[0.6, 0.44, 0.55]} m={M.porcelain} r={0.05} />
-      <B p={[x + 0.32, y + 0.17, z + 0.2]} s={[0.5, 0.34, 0.5]} m={vary(M.chalk, 3)} r={0.05} />
-      <B p={[x - 0.3, y + 0.6, z - 0.08]} s={[0.46, 0.32, 0.44]} m={vary(M.clay, 1)} r={0.05} />
-      <Chip id="v:vendors" at={[x, y + 1.25, z]} title="Vendors" sub="Orders and invoices" />
-    </Pick>
+    <>
+      <Pick id="p:grant_manager">
+        <mesh geometry={gmHit} material={hitMat} position={[n.at[0], 0.7, n.at[1] - 0.15]} />
+        <GrantManagerFigure at={[n.at[0], 0, n.at[1] - 0.46]} yaw={0} />
+      </Pick>
+      <instancedMesh ref={slips} args={[trayGeo, mat, 6]} raycast={noRay} />
+    </>
   )
 }
+const gmHit = new CylinderGeometry(0.75, 0.75, 1.5, 12)
 
-function Funder() {
-  const [x, y, z] = FUNDER
-  return (
-    <Pick id="p:funder">
-      <B p={[x, y - 0.3, z]} s={[2.3, 0.6, 2.1]} m={vary(M.clay, 4)} r={0.12} />
-      <B p={[x, y + 0.42, z]} s={[1.5, 0.84, 1.0]} m={M.porcelain} r={0.05} />
-      <mesh position={[x, y + 1.0, z]} rotation={[0, Math.PI / 4, 0]} material={vary(M.chalk, 1)} castShadow>
-        <cylinderGeometry args={[0.001, 0.9, 0.3, 4, 1]} />
-      </mesh>
-      <Chip id="p:funder" at={[x, y + 1.6, z]} title="NIH funder" sub="Pays, and asks follow-up questions" />
-    </Pick>
-  )
-}
+const agentHit = new CylinderGeometry(0.7, 0.7, 1.2, 14)
+const vendorHit = new CylinderGeometry(1.15, 1.15, 1.6, 14)
 
-export const OfficePlinth = memo(function OfficePlinth() {
+export function OfficePlinth() {
+  const geo = useMemo(build, [])
+  const g = useMemo(grooveGlow, [])
   return (
     <group>
-      <B p={[OFFICE_X, -0.56, 0]} s={[PLINTH_W, 1.1, PLINTH_D]} m={M.officeBody} r={0.16} />
-      <B p={[OFFICE_X, -0.01, 0]} s={[PLINTH_W - 0.3, 0.04, PLINTH_D - 0.3]} m={M.officeTop} r={0.015} />
-      <NamePlate text="The grant office" x={OFFICE_X} ink="#171C23" light="#3B4552" />
-      <Purchasing />
-      <Bookkeeping />
-      <PaymentReport />
-      <GrantManager />
-      {Object.keys(RESERVOIRS).map(gid => (
-        <Reservoir key={gid} gid={gid} />
+      <mesh geometry={geo} material={CLAY} castShadow receiveShadow raycast={noRay} />
+      <mesh geometry={g.geo} material={g.mat} renderOrder={1} raycast={noRay} />
+      <Pods />
+      {AGENTS.map(id => (
+        <Pick key={id} id={id}>
+          <mesh geometry={agentHit} material={hitMat} position={[NET[id].at[0], 0.6, NET[id].at[1]]} />
+        </Pick>
       ))}
-      <SourceRack />
-      <Vendors />
-      <Funder />
-      <FailCaption />
-      <RuleList />
-      <Chip id="a:purchasing" at={[PURCHASING[0], 2.05, PURCHASING[2] - 0.36]} title="Purchasing agent" sub="Runs the spending rules" />
-      <Chip id="a:bookkeeping" at={[BOOKKEEPING[0], 2.0, BOOKKEEPING[2]]} title="Bookkeeping agent" sub="Fund tracker, invoices" />
-      <Chip id="a:payment_report" at={[PAYMENT_REPORT[0], 2.2, PAYMENT_REPORT[2]]} title="Payment & report agent" sub="Payment requests, papers" />
-      <Chip id="p:grant_manager" at={[GM_DESK[0], 2.25, GM_DESK[2] - 0.62]} title="Grant manager (you)" sub="Approves exceptions, with a reason" tone="dark" />
+      <Reservoir gid={R01} />
+      <Reservoir gid={R21} />
+      <Sources />
+      <GrantManager />
+      <Pick id="v:vendors">
+        <mesh geometry={vendorHit} material={hitMat} position={[VENDORS[0], VENDORS[1] + 0.2, VENDORS[2]] as V3} />
+      </Pick>
+      <Pick id="p:funder">
+        <mesh geometry={vendorHit} material={hitMat} position={[FUNDER[0], FUNDER[1] + 0.2, FUNDER[2]] as V3} />
+      </Pick>
     </group>
   )
-})
-
+}

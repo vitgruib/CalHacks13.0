@@ -1,54 +1,44 @@
-// Everything in motion. A request is one clay parcel for its whole life: it
-// pops from the researcher's bench, arcs to the purchasing desk, squashes on
-// landing while the rule pips light, takes a stamp, and flies home to become
-// a delivered box (bought), a box from the other grant (rerouted), or a heap
-// that deflates (blocked). Held for money, it hovers beside the frozen grant
-// until cash lands; held for the grant manager, it waits on their desk.
-// Where each parcel is comes from the world every frame, so mounting
-// mid-story shows the right picture; feed events only add the moments.
+// Everything in motion. A request is the thing being bought, for its whole
+// life: the researcher holds it up, it flies into the shared record and on
+// to the purchasing tray, waits while the rules run, and comes back the
+// same way. Bought, it rides home in a delivery crate; rerouted, the record
+// re-tags it in the other grant's colour on the way; sent back to split, it
+// comes home with its tag unchanged and returns with a two-colour tag;
+// blocked, it falls away into the gap and deflates. Held for money it waits
+// frosted beside its frozen grant; held for the grant manager it waits on
+// their desk. Every packet goes from its sender into the record and out to
+// its receiver. Where each item is comes from the world every frame, so a
+// jump lands on the right picture; feed events only add the moments.
 
 import { useFrame, useThree } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import {
-  BoxGeometry,
   BufferAttribute,
   BufferGeometry,
   Color,
   DoubleSide,
+  Group,
   InstancedMesh,
   Mesh,
   MeshBasicMaterial,
-  MeshPhysicalMaterial,
   MeshStandardMaterial,
   Object3D,
-  PlaneGeometry,
   RingGeometry,
-  ShaderMaterial,
   SphereGeometry,
+  TorusGeometry,
   Vector3,
 } from 'three'
-import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { feed, progress, useFlow } from '../../feed'
-import type { Outcome, Packet } from '../../feed'
-import {
-  DESK_H,
-  DESK_SPOT,
-  GLAZE,
-  GM_SPOT,
-  PAL,
-  PARCEL,
-  RESERVOIRS,
-  STATIONS,
-  arcHeight,
-  arcPoint,
-  groundAt,
-  isLab,
-  landOf,
-  parkOf,
-  spot,
-} from './layout'
+import type { ItemKind, Packet, Request } from '../../feed'
+import { roundedBox } from './batch'
+import { TINT, trailColor } from './colors'
+import { body } from './crowd'
+import { ITEM_BOTTOM, crateGeo, crateMat, frostGeo, frostMat, itemMatte, itemMetal, itemModels, tagGeo, tagHalfGeo } from './Items'
+import { DESK_SPOT, GLAZE, GM_DESK, GRANT_HUE, PAL, RESERVOIRS, parkOf } from './layout'
 import { liquid } from './mats'
-import { fx, now, reducedMotion } from './store'
+import { RECEIVE_MS } from './People'
+import { IN_HAND, anchorInto, handHeld, newRoute, routePoint, travel, viaHub, type Route } from './routes'
+import { fx, now, reducedMotion, ui } from './store'
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 const inOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2)
@@ -58,59 +48,58 @@ const smooth = (a: number, b: number, x: number) => {
   const t = clamp01((x - a) / (b - a))
   return t * t * (3 - 2 * t)
 }
-/** 0 → 1.12 → 1: the parcel pops out of the bench. */
-const pop = (x: number) => (x < 0.6 ? 1.12 * (1 - (1 - x / 0.6) ** 3) : 1.12 - 0.12 * inOut((x - 0.6) / 0.4))
+/** 0 → 1.12 → 1: popping into being. */
+const pop = (x: number) => (x <= 0 ? 0 : x < 0.6 ? 1.12 * (1 - (1 - x / 0.6) ** 3) : x >= 1 ? 1 : 1.12 - 0.12 * inOut((x - 0.6) / 0.4))
 /** A short squash and spring back on landing; returns how squashed (0 = none). */
-const squash = (ms: number) => (ms < 0 || ms > 300 ? 0 : 0.3 * (1 - ms / 300) ** 2 * Math.cos((ms / 300) * Math.PI * 1.6))
+const squash = (ms: number) => (ms < 0 || ms > 320 ? 0 : 0.26 * (1 - ms / 320) ** 2 * Math.cos((ms / 320) * Math.PI * 1.6))
 
-const LAUNCH = 0.15 // of a request's flight: the dip, then the pop at the bench
-const STAMP = 0.16 // of an answer's flight: the stamp on the desk before it leaves
+const SCALE = 1.45 // an item in flight or at rest on the table
+const HAND_S = 0.55 // an item in someone's hand
+const TRAY_Y = 0.18
+const REST = ITEM_BOTTOM * SCALE
+const DESK = new Vector3(DESK_SPOT[0], TRAY_Y + REST, DESK_SPOT[2])
+const GM = new Vector3(GM_DESK[0] + 0.05, 0.73 + REST, GM_DESK[2] + 0.02)
+const STAMP = 0.14 // of an answer's flight: the moment on the tray before it leaves
+const SLOTS = 16
 const CAP = 40
+const CARRY_W = 0.22
 
-const C = (hex: string) => new Color(hex)
-const BISQUE = C(PAL.parcel)
-const GL: Record<Outcome, Color> = { accept: C(GLAZE.accept), refine: C(GLAZE.refine), reject: C(GLAZE.reject), hold: C(GLAZE.hold) }
-const MONEY = C(PAL.money)
-const AMBER = C(PAL.ochre)
-const WHITE = C('#FFFFFF')
-const SLIP = C('#F4F0E9')
-const ALARM = C('#2A313A')
-const TRAIL_LIGHT = C('#FFFFFF')
-
-const DESK = new Vector3(...DESK_SPOT)
-const GM = new Vector3(...GM_SPOT)
-
-const setAnchor = (id: string, out: Vector3) => out.set(...spot(id).anchor)
+const HUE: Record<string, Color> = Object.fromEntries(Object.entries(GRANT_HUE).map(([k, v]) => [k, new Color(v)]))
+const NO_HUE = new Color(PAL.clay)
+const hue = (gid?: string) => (gid && HUE[gid]) || NO_HUE
+const WHITE = new Color('#FFFFFF')
+const SLIP = new Color('#F4F0E9')
 
 // ── Scene-local memory (dropped on 'reset') ──────────────────────────────
 
 type PState = 'out' | 'desk' | 'return' | 'toGm' | 'gm' | 'fromGm' | 'toPark' | 'park'
 interface Life {
   state: PState | null
+  prev: PState | null
   pos: Vector3
   tween: { from: Vector3; at: number; ms: number } | null
-  restAt: number // when it last came to rest (desk or grant manager), for the squash
-  tint: Color | null // the last stamp it took
+  restAt: number
   seen: number
+  launch: Vector3
+  launched: string | null
 }
 interface Landed {
-  pos: Vector3
-  stack: Vector3
+  rid: string
+  kind: ItemKind
+  how: 'bought' | 'rerouted' | 'sentBack'
   at: number
-  kind: 'bought' | 'rerouted' | 'sentBack' | 'blocked'
+  a: Color
+  b: Color | null
 }
 interface Stream {
-  a: Vector3
-  b: Vector3
+  r: Route
   at: number
   n: number
   ms: number
   gap: number
 }
 interface Fading {
-  a: Vector3
-  b: Vector3
-  h: number
+  r: Route
   color: Color
   width: number
   at: number
@@ -130,53 +119,65 @@ function clearAll() {
   fading.length = 0
 }
 
-// ── Paths ────────────────────────────────────────────────────────────────
+// ── Tags: the grant an item is charged to, in that grant's colour ───────
 
-interface Path {
-  a: Vector3
-  b: Vector3
-  h: number
+let tagA: Color = NO_HUE
+let tagB: Color | null = null
+function tagsFor(r: Request, charged: boolean) {
+  if (r.split.length > 1) {
+    tagA = hue(r.split[0].grantId)
+    tagB = hue(r.split[1].grantId)
+    return
+  }
+  tagA = hue(charged ? (r.chargedGrantId ?? r.grantId) : r.grantId)
+  tagB = null
 }
 
-function pathOf(p: Packet, carried: boolean, out: Path) {
-  if (carried && p.kind === 'request') {
-    landOf(p.from, out.a)
-    out.b.copy(DESK)
-    out.h = arcHeight(out.a, out.b, true)
-  } else if (carried && p.kind === 'verdict') {
-    out.a.copy(DESK)
-    landOf(p.to, out.b)
-    out.h = arcHeight(out.a, out.b, true) * (p.outcome === 'reject' ? 0.7 : 1)
-  } else if (carried && p.kind === 'hold') {
-    out.a.copy(DESK)
-    out.b.copy(GM)
-    out.h = 0.9
-  } else if (carried && p.kind === 'decision') {
-    out.a.copy(GM)
-    out.b.copy(DESK)
-    out.h = 0.9
-  } else {
-    setAnchor(p.from, out.a)
-    setAnchor(p.to, out.b)
-    out.h = arcHeight(out.a, out.b, isLab(p.from) !== isLab(p.to))
-  }
+// ── Where carried things go ──────────────────────────────────────────────
+
+const ea = new Vector3()
+const eb = new Vector3()
+const handInto = (rid: string, s: number, out: Vector3) => {
+  out.copy(body(rid).hand)
+  out.y += ITEM_BOTTOM * s
   return out
 }
+/** A blocked item falls away into the gap between the table and the lab. */
+const gapInto = (rid: string, out: Vector3) => out.set(-0.2, -1.6, (DESK.z + body(rid).pos.z) * 0.5)
 
-const trailed = (p: Packet) =>
-  p.kind !== 'recheck' && p.kind !== 'charge' && p.kind !== 'payment' && !(p.kind === 'reading' && /no change/.test(p.label))
-
-function trailColor(p: Packet): Color {
-  if (p.kind === 'verdict' && p.outcome) return GL[p.outcome]
-  if (p.kind === 'hold') return GL.hold
-  if (p.kind === 'decision') return p.outcome === 'reject' ? GL.reject : GL.accept
-  if (p.kind === 'reading') return ALARM
-  return TRAIL_LIGHT
+/** The route a packet takes, drawn from sender to the record to receiver. */
+function routeOf(p: Packet, carried: boolean, out: Route, low: number) {
+  if (carried && (p.kind === 'request' || p.kind === 'pushback')) {
+    handInto(p.from.slice(2), HAND_S, ea)
+    eb.copy(DESK)
+  } else if (carried && p.kind === 'verdict') {
+    ea.copy(DESK)
+    if (p.outcome === 'hold') parkOf(feed.getWorld().requests.find(r => r.id === p.refId)?.grantId ?? '', 0, eb).setY(REST + 0.02)
+    else if (p.outcome === 'reject') gapInto(p.to.slice(2), eb)
+    else handInto(p.to.slice(2), HAND_S, eb)
+  } else if (carried && p.kind === 'hold') {
+    ea.copy(DESK)
+    eb.copy(GM)
+  } else if (carried && p.kind === 'decision') {
+    ea.copy(GM)
+    eb.copy(DESK)
+  } else {
+    anchorInto(p.from, ea)
+    anchorInto(p.to, eb)
+  }
+  return viaHub(ea, eb, out, low)
 }
+
+const trailed = (p: Packet) => p.kind !== 'recheck' && p.kind !== 'charge' && p.kind !== 'payment' && !(p.kind === 'reading' && /no change/.test(p.label))
+const isCarried = (p: Packet, w = feed.getWorld()) =>
+  !!p.refId &&
+  (p.kind === 'request' || p.kind === 'pushback' || (p.kind === 'verdict' && !(p.outcome === 'hold' && p.holdFor === 'grant_manager')) || p.kind === 'hold' || p.kind === 'decision') &&
+  w.requests.some(r => r.id === p.refId)
 
 // ── Effects kicked off by feed events ────────────────────────────────────
 
 function FlowFx() {
+  const still = useMemo(reducedMotion, [])
   useFlow(e => {
     const t = now()
     if (e.type === 'reset') {
@@ -184,41 +185,36 @@ function FlowFx() {
       return
     }
     if (e.type === 'packet') {
-      fx.pulses.set(e.packet.from, t)
-      if (e.packet.from.startsWith('r:')) fx.reactions.set(e.packet.from.slice(2), { kind: 'send', at: t })
+      const p = e.packet
+      fx.pulses.set(p.from, t)
+      if (p.kind === 'verdict' && p.outcome && p.refId && p.from === 'a:purchasing')
+        fx.ripples.push({ pos: new Vector3(DESK.x, TRAY_Y + 0.012, DESK.z), color: GLAZE[p.outcome], at: t, size: 1.0, ms: 650 })
+      if (p.kind === 'decision') fx.ripples.push({ pos: new Vector3(GM.x, 0.735, GM.z), color: p.outcome === 'reject' ? PAL.oxblood : PAL.celadon, at: t, size: 0.8, ms: 650 })
     }
     if (e.type === 'arrive') {
       const p = e.packet
       fx.pulses.set(p.to, t)
       const w = feed.getWorld()
+      const carried = isCarried(p, w)
+      if (trailed(p)) fading.push({ r: routeOf(p, carried, newRoute(), still ? 0 : 1), color: trailColor(p), width: carried ? CARRY_W : 0.06, at: t })
+      if ((p.kind === 'request' || p.kind === 'pushback') && p.to === 'a:purchasing') fx.ripples.push({ pos: new Vector3(DESK.x, TRAY_Y + 0.012, DESK.z), color: '#F3F8FF', at: t, size: 0.9, ms: 700 })
+      if (p.kind === 'hold' && p.to === 'p:grant_manager') fx.ripples.push({ pos: new Vector3(GM.x, 0.735, GM.z), color: '#9DB6E3', at: t, size: 0.8, ms: 800 })
       const req = p.refId ? w.requests.find(r => r.id === p.refId) : undefined
-      const carried = !!req && (p.kind === 'request' || (p.kind === 'verdict' && p.outcome !== 'hold') || p.kind === 'hold' || p.kind === 'decision')
-      if (trailed(p)) {
-        const path = pathOf(p, carried, { a: new Vector3(), b: new Vector3(), h: 0 })
-        fading.push({ ...path, color: trailColor(p), width: carried ? CARRY_W : 0.07, at: t })
-      }
-      if (p.kind === 'request' && p.to === 'a:purchasing') {
-        fx.ripples.push({ pos: new Vector3(DESK.x, DESK_H + 0.012, DESK.z), color: '#F3F8FF', at: t, size: 0.95, ms: 700 })
-      }
-      if (p.kind === 'verdict' && p.to.startsWith('r:') && p.outcome) {
-        fx.reactions.set(p.to.slice(2), { kind: p.outcome, at: t })
-        if (req && p.outcome !== 'hold') {
-          const s = STATIONS[p.to.slice(2)]
-          const kind = p.outcome === 'reject' ? 'blocked' : p.outcome === 'accept' ? 'bought' : req.state === 'rerouted' || req.chargedGrantId ? 'rerouted' : 'sentBack'
-          landed.push({ pos: landOf(p.to), stack: s ? new Vector3(s.stack[0], 0.5, s.stack[2]) : landOf(p.to), at: t, kind })
-          fx.ripples.push({ pos: landOf(p.to).setY(0.015), color: GLAZE[p.outcome], at: t, size: 0.7, ms: 700 })
-        }
+      if (p.kind === 'verdict' && p.to.startsWith('r:') && req && (p.outcome === 'accept' || p.outcome === 'refine')) {
+        const rerouted = !!req.chargedGrantId && req.chargedGrantId !== req.grantId
+        tagsFor(req, true)
+        landed.push({ rid: p.to.slice(2), kind: req.kind, how: p.outcome === 'accept' ? 'bought' : rerouted ? 'rerouted' : 'sentBack', at: t, a: tagA, b: tagB })
+        if (landed.length > 12) landed.shift()
       }
     }
     if (e.type === 'grant' && e.event?.kind === 'payment_received') {
-      // The money itself: a stream of drops from the funder into the grant.
-      const r = RESERVOIRS[e.grant.id]
-      if (r) {
-        const a = new Vector3(...spot('p:funder').anchor)
-        const b = new Vector3(r[0], 0.95, r[2])
-        streams.push({ a, b, at: t, n: 12, ms: 650, gap: 55 })
-        fx.slosh.set(e.grant.id, { at: t + 650, amp: 1 })
-        fx.ripples.push({ pos: new Vector3(r[0], 1.0, r[2]), color: PAL.money, at: t + 650, size: 0.8, ms: 900 })
+      // The money itself: drops from the funder, through the record, into the grant.
+      const g = RESERVOIRS[e.grant.id]
+      if (g) {
+        const r = viaHub(anchorInto('p:funder', ea), eb.set(g[0], 0.95, g[2]), newRoute(), still ? 0 : 1)
+        streams.push({ r, at: t, n: 12, ms: 1100, gap: 60 })
+        fx.slosh.set(e.grant.id, { at: t + 1100, amp: 1 })
+        fx.ripples.push({ pos: new Vector3(g[0], 0.7, g[2]), color: PAL.money, at: t + 1100, size: 0.7, ms: 900 })
       }
     }
   })
@@ -235,7 +231,7 @@ function Ripples() {
   const mats = useMemo(() => Array.from({ length: RIPPLES }, () => new MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0, depthWrite: false })), [])
   useFrame(() => {
     const t = now()
-    fx.ripples = fx.ripples.filter(r => t - r.at < r.ms)
+    for (let i = fx.ripples.length - 1; i >= 0; i--) if (t - fx.ripples[i].at >= fx.ripples[i].ms) fx.ripples.splice(i, 1)
     for (let i = 0; i < RIPPLES; i++) {
       const m = meshes.current[i]
       if (!m) continue
@@ -274,7 +270,7 @@ function Ripples() {
 // ── Trails: drawn only while something travels, gone soon after ─────────
 
 const TRAILS = 14
-const SEG = 32
+const SEG = 40
 
 interface TrailSlot {
   mesh: Mesh
@@ -295,7 +291,7 @@ function makeTrail(): TrailSlot {
   g.setAttribute('position', new BufferAttribute(pos, 3))
   g.setAttribute('color', new BufferAttribute(col, 4))
   g.setIndex(idx)
-  const mat = new MeshBasicMaterial({ color: '#ffffff', vertexColors: true, transparent: true, depthWrite: false, side: DoubleSide })
+  const mat = new MeshBasicMaterial({ color: '#ffffff', vertexColors: true, transparent: true, depthWrite: false, side: DoubleSide, toneMapped: false })
   const mesh = new Mesh(g, mat)
   mesh.frustumCulled = false
   mesh.renderOrder = 2
@@ -309,89 +305,113 @@ const tt = new Vector3()
 const ts = new Vector3()
 const tv = new Vector3()
 
-function writeTrail(s: TrailSlot, path: Path, u0: number, u1: number, width: number, cam: Vector3) {
+function writeTrail(s: TrailSlot, r: Route, u0: number, u1: number, width: number, cam: Vector3) {
+  const P = s.pos
+  const C = s.col
   for (let i = 0; i <= SEG; i++) {
     const f = i / SEG
     const u = u0 + (u1 - u0) * f
-    arcPoint(path.a, path.b, u, path.h, tp)
-    arcPoint(path.a, path.b, Math.min(1, u + 0.01), path.h, tq)
+    routePoint(r, u, tp)
+    routePoint(r, Math.min(1, u + 0.01), tq)
     tt.subVectors(tq, tp)
+    if (tt.lengthSq() < 1e-10) {
+      routePoint(r, Math.max(0, u - 0.01), tq)
+      tt.subVectors(tp, tq)
+    }
     if (tt.lengthSq() < 1e-10) tt.set(1, 0, 0)
     tv.subVectors(cam, tp)
     ts.crossVectors(tt, tv).normalize()
     const w = (width / 2) * f ** 1.3
-    s.pos.set([tp.x - ts.x * w, tp.y - ts.y * w, tp.z - ts.z * w, tp.x + ts.x * w, tp.y + ts.y * w, tp.z + ts.z * w], i * 6)
+    const j = i * 6
+    P[j] = tp.x - ts.x * w
+    P[j + 1] = tp.y - ts.y * w
+    P[j + 2] = tp.z - ts.z * w
+    P[j + 3] = tp.x + ts.x * w
+    P[j + 4] = tp.y + ts.y * w
+    P[j + 5] = tp.z + ts.z * w
     const a = f ** 0.9
-    s.col.set([1, 1, 1, a, 1, 1, 1, a], i * 8)
+    const c = i * 8
+    C[c] = C[c + 1] = C[c + 2] = C[c + 4] = C[c + 5] = C[c + 6] = 1
+    C[c + 3] = C[c + 7] = a
   }
   const g = s.mesh.geometry
   g.attributes.position.needsUpdate = true
   g.attributes.color.needsUpdate = true
 }
 
-// ── Geometry and materials ───────────────────────────────────────────────
+// ── The item pool: one slot per item on screen ──────────────────────────
 
-const parcelGeo = new RoundedBoxGeometry(PARCEL, PARCEL * 0.84, PARCEL, 4, PARCEL * 0.21)
-const BLOB = PARCEL * 1.55 // a parcel's soft shadow
-const CARRY_W = PARCEL * 0.4 // the trail behind a parcel
-const parcelMat = new MeshPhysicalMaterial({ color: '#ffffff', roughness: 0.48, clearcoat: 0.35, clearcoatRoughness: 0.4 })
-const beadGeo = new SphereGeometry(0.09, 20, 14)
-const beadMat = new MeshStandardMaterial({ color: '#ffffff', roughness: 0.5 })
-const slipGeo = new BoxGeometry(0.36, 0.026, 0.26)
-const slipMat = new MeshStandardMaterial({ color: '#ffffff', roughness: 0.62 })
+interface Slot {
+  g: Group
+  matte: Mesh
+  metal: Mesh
+  tag: Mesh
+  half: Mesh
+  crate: Mesh
+  frost: Mesh
+  ring: Mesh
+  tagMat: MeshStandardMaterial
+  halfMat: MeshStandardMaterial
+}
+
+const holdRingGeo = new TorusGeometry(0.5, 0.016, 8, 48).rotateX(Math.PI / 2)
+const holdRingMat = new MeshBasicMaterial({ color: '#7FA0DA', transparent: true, opacity: 0.85, toneMapped: false, depthWrite: false })
+
+function makeSlot(): Slot {
+  const g = new Group()
+  g.visible = false
+  const matte = new Mesh(undefined, itemMatte)
+  matte.castShadow = true
+  const metal = new Mesh(undefined, itemMetal)
+  metal.castShadow = true
+  const tagMat = new MeshStandardMaterial({ color: '#ffffff', roughness: 0.7 })
+  const halfMat = new MeshStandardMaterial({ color: '#ffffff', roughness: 0.7 })
+  const tag = new Mesh(tagGeo, tagMat)
+  tag.rotation.set(0, 0, 0.12)
+  const half = new Mesh(tagHalfGeo, halfMat)
+  tag.add(half)
+  const crate = new Mesh(crateGeo, crateMat)
+  crate.castShadow = true
+  const frost = new Mesh(frostGeo, frostMat)
+  frost.renderOrder = 2
+  const ring = new Mesh(holdRingGeo, holdRingMat)
+  ring.position.y = -ITEM_BOTTOM + 0.012
+  ring.renderOrder = 2
+  g.add(matte, metal, tag, crate, frost, ring)
+  return { g, matte, metal, tag, half, crate, frost, ring, tagMat, halfMat }
+}
+
+// ── Simple forms for everything that isn't a bought thing ───────────────
+
+const sheetGeo = roundedBox([0.3, 0.018, 0.4], 0.006)
+const sheetMat = new MeshStandardMaterial({ color: '#ffffff', roughness: 0.66 })
+const beadGeo = new SphereGeometry(0.085, 20, 14)
+const beadMat = new MeshStandardMaterial({ color: '#ffffff', roughness: 0.45 })
 const dropGeo = new SphereGeometry(0.075, 18, 12)
 const dropMat = liquid('#ffffff')
-const blobGeo = new PlaneGeometry(1, 1).rotateX(-Math.PI / 2)
-const blobMat = new ShaderMaterial({
-  transparent: true,
-  depthWrite: false,
-  uniforms: { uColor: { value: C('#1F2630') } },
-  vertexShader: [
-    'varying vec2 vUv; varying float vS;',
-    'void main() {',
-    '  vUv = uv;',
-    '  vS = 1.0;',
-    '  vec4 p = vec4(position, 1.0);',
-    '  #ifdef USE_INSTANCING_COLOR',
-    '  vS = instanceColor.r;',
-    '  #endif',
-    '  #ifdef USE_INSTANCING',
-    '  p = instanceMatrix * p;',
-    '  #endif',
-    '  gl_Position = projectionMatrix * modelViewMatrix * p;',
-    '}',
-  ].join('\n'),
-  fragmentShader: [
-    'uniform vec3 uColor; varying vec2 vUv; varying float vS;',
-    'void main() {',
-    '  float d = length(vUv - 0.5) * 2.0;',
-    '  float a = 1.0 - smoothstep(0.0, 1.0, d);',
-    '  gl_FragColor = vec4(uColor, a * a * vS);',
-    '}',
-  ].join('\n'),
-})
-
-// ── The moving parts ─────────────────────────────────────────────────────
 
 const o = new Object3D()
-const pa = new Vector3()
-const pb = new Vector3()
-const pc = new Vector3()
+const v1 = new Vector3()
+const v2 = new Vector3()
+const R = newRoute()
+const R2 = newRoute()
 const col = new Color()
-const path: Path = { a: new Vector3(), b: new Vector3(), h: 0 }
+const parkSlot = new Map<string, number>()
+const parkN = new Map<string, number>()
 
 function Moving() {
   const { camera } = useThree()
-  const parcels = useRef<InstancedMesh>(null)
+  const sheets = useRef<InstancedMesh>(null)
   const beads = useRef<InstancedMesh>(null)
-  const slips = useRef<InstancedMesh>(null)
   const drops = useRef<InstancedMesh>(null)
-  const blobs = useRef<InstancedMesh>(null)
   const trails = useMemo(() => Array.from({ length: TRAILS }, makeTrail), [])
+  const slots = useMemo(() => Array.from({ length: SLOTS }, makeSlot), [])
+  const models = useMemo(itemModels, [])
   const still = useMemo(reducedMotion, [])
+  const low = still ? 0 : 1
 
   useEffect(() => {
-    for (const m of [parcels.current, beads.current, slips.current, drops.current, blobs.current]) {
+    for (const m of [sheets.current, beads.current, drops.current]) {
       if (!m) continue
       m.setColorAt(0, WHITE)
       m.count = 0
@@ -401,93 +421,110 @@ function Moving() {
         s.mesh.geometry.dispose()
         s.mat.dispose()
       }
+      for (const s of slots) {
+        s.tagMat.dispose()
+        s.halfMat.dispose()
+      }
     }
-  }, [trails])
+  }, [trails, slots])
 
   useFrame(() => {
-    const P = parcels.current, Bd = beads.current, S = slips.current, D = drops.current, Bl = blobs.current
-    if (!P || !Bd || !S || !D || !Bl) return
+    const S = sheets.current, Bd = beads.current, D = drops.current
+    if (!S || !Bd || !D) return
     const w = feed.getWorld()
     const t = now()
     frame++
-    let np = 0, nb = 0, ns = 0, nd = 0, nbl = 0, ntr = 0
+    let ni = 0, nsh = 0, nb = 0, nd = 0, ntr = 0
+    const hovered = ui.get().hovered
+    const cam = camera.position
 
     const put = (m: InstancedMesh, i: number, c: Color) => {
       o.updateMatrix()
       m.setMatrixAt(i, o.matrix)
       m.setColorAt(i, c)
     }
-    const blob = (x: number, y: number, z: number, height: number, size = BLOB) => {
-      if (nbl >= CAP) return
-      const strength = 0.42 * clamp01(1 - height / 4.2)
-      if (strength <= 0.01) return
-      o.position.set(x, y + 0.008, z)
-      o.rotation.set(0, 0, 0)
-      o.scale.setScalar(size * (1 + height * 0.16))
-      col.setRGB(strength, strength, strength)
-      put(Bl, nbl++, col)
-    }
-    const ground = (x: number, y: number, z: number, h = 0) => {
-      const g = groundAt(x, z)
-      if (g !== null) blob(x, g, z, y - g, h || BLOB)
-    }
-    const trail = (pth: Path, u0: number, u1: number, c: Color, width: number, alpha: number) => {
+    const trail = (r: Route, u0: number, u1: number, c: Color, width: number, alpha: number) => {
       if (ntr >= TRAILS || u1 <= u0 + 0.001) return
       const s = trails[ntr++]
-      writeTrail(s, pth, u0, u1, width, camera.position)
+      writeTrail(s, r, u0, u1, width, cam)
       s.mat.color.copy(c)
       s.mat.opacity = alpha
       s.mesh.visible = true
     }
-    /** Orient along the travel direction, pitched with the arc, rolled a little: the spin. */
-    const orient = (pth: Path, u: number, roll: number) => {
-      arcPoint(pth.a, pth.b, Math.min(1, u + 0.02), pth.h, pc)
-      arcPoint(pth.a, pth.b, Math.max(0, u - 0.02), pth.h, pb)
-      pc.sub(pb)
-      const yaw = Math.atan2(pc.x, pc.z)
-      const pitch = -Math.atan2(pc.y, Math.hypot(pc.x, pc.z))
-      o.rotation.set(still ? 0 : pitch * 0.6, yaw, still ? 0 : roll, 'YXZ')
+    /** Turn an item three-quarters toward the camera, so it reads. */
+    const face = (x: number, z: number) => Math.atan2(cam.x - x, cam.z - z) + 0.45
+    /** Take a slot and dress it as `kind`, tagged with the current tag colours. */
+    const item = (kind: ItemKind, pos: Vector3, scale: number, sx = 1, sy = 1, wobble = 0): Slot | null => {
+      if (ni >= SLOTS) return null
+      const s = slots[ni++]
+      const m = models[kind]
+      s.matte.geometry = m.matte
+      s.metal.visible = !!m.metal
+      if (m.metal) s.metal.geometry = m.metal
+      s.tag.position.set(m.tag[0], m.tag[1], m.tag[2])
+      s.tagMat.color.copy(tagA)
+      s.half.visible = !!tagB
+      if (tagB) s.halfMat.color.copy(tagB)
+      s.crate.visible = false
+      s.frost.visible = false
+      s.ring.visible = false
+      s.g.visible = true
+      s.g.position.copy(pos)
+      s.g.position.y -= ITEM_BOTTOM * scale * (1 - sy)
+      s.g.rotation.set(still ? 0 : wobble * 0.18, face(pos.x, pos.z) + (still ? 0 : wobble * 0.5), still ? 0 : wobble * 0.12, 'YXZ')
+      s.g.scale.set(Math.max(1e-4, scale * sx), Math.max(1e-4, scale * sy), Math.max(1e-4, scale * sx))
+      return s
+    }
+    const crate = (s: Slot | null, k: number) => {
+      if (!s || k <= 0.001) return
+      s.crate.visible = true
+      s.crate.scale.setScalar(Math.max(1e-4, still ? 1 : pop(k)))
+    }
+    const frost = (s: Slot | null, k: number) => {
+      if (!s || k <= 0.001) return
+      s.frost.visible = true
+      s.frost.scale.setScalar(Math.max(1e-4, 0.6 + 0.4 * (still ? 1 : expoOut(k))))
+    }
+    const ring = (s: Slot | null, phase: number) => {
+      if (!s) return
+      s.ring.visible = true
+      s.ring.scale.setScalar(still ? 1 : 1 + 0.06 * Math.sin(phase))
     }
 
-    // Index what's in flight by the request it belongs to.
-    const byRef = new Map<string, Packet[]>()
-    for (const p of w.packets) {
-      if (!p.refId) continue
-      const l = byRef.get(p.refId)
-      if (l) l.push(p)
-      else byRef.set(p.refId, [p])
-    }
-    const known = new Set<string>()
-    for (const r of w.requests) known.add(r.id)
-    const openHolds = new Set<string>()
-    for (const h of w.holds) if (h.open && h.kind === 'purchase') openHolds.add(h.refId)
-
-    // Parked parcels keep a slot per grant, oldest first.
-    const parkSlot = new Map<string, number>()
-    const parkCount: Record<string, number> = {}
+    // Parked items keep a place per grant, oldest first.
+    parkSlot.clear()
+    parkN.clear()
     for (let i = w.requests.length - 1; i >= 0; i--) {
       const r = w.requests[i]
       if (r.outcome === 'hold' && r.holdFor === 'payment') {
-        const n = parkCount[r.grantId] ?? 0
+        const n = parkN.get(r.grantId) ?? 0
         parkSlot.set(r.id, n)
-        parkCount[r.grantId] = n + 1
+        parkN.set(r.grantId, n + 1)
       }
     }
 
     let atDesk = 0
-    const reqs = w.requests.slice(0, 36)
-    for (const r of reqs) {
-      const ps = byRef.get(r.id) ?? []
-      const pReq = ps.find(p => p.kind === 'request')
-      const pHold = ps.find(p => p.kind === 'hold')
-      const pDec = ps.find(p => p.kind === 'decision')
-      const pVer = ps.find(p => p.kind === 'verdict')
-      const busy = ps.some(p => p.kind === 'recheck' || p.kind === 'reading' || p.kind === 'pushback')
+    const nReq = Math.min(36, w.requests.length)
+    for (let ri = 0; ri < nReq; ri++) {
+      const r = w.requests[ri]
+      let pOut: Packet | undefined, pHold: Packet | undefined, pDec: Packet | undefined, pVer: Packet | undefined
+      let busy = false
+      for (const p of w.packets) {
+        if (p.refId !== r.id) continue
+        if (p.kind === 'request' || p.kind === 'pushback') pOut = p
+        else if (p.kind === 'hold') pHold = p
+        else if (p.kind === 'decision') pDec = p
+        else if (p.kind === 'verdict') pVer = p
+        else busy = true
+      }
+      let openHold = false
+      for (const h of w.holds) if (h.open && h.kind === 'purchase' && h.refId === r.id) openHold = true
+
       let state: PState | null = null
-      if (pReq) state = 'out'
+      if (pOut) state = 'out'
       else if (pHold) state = 'toGm'
       else if (pDec) state = 'fromGm'
-      else if (openHolds.has(r.id)) state = 'gm'
+      else if (openHold) state = 'gm'
       else if (pVer && pVer.outcome === 'hold' && pVer.holdFor === 'payment') state = 'toPark'
       else if (pVer && pVer.outcome !== 'hold') state = 'return'
       else if (busy) state = 'desk'
@@ -501,227 +538,218 @@ function Moving() {
       let life = lives.get(r.id)
       const first = !life
       if (!life) {
-        life = { state: null, pos: new Vector3(), tween: null, restAt: -1e9, tint: null, seen: frame }
+        life = { state: null, prev: null, pos: new Vector3(), tween: null, restAt: -1e9, seen: frame, launch: new Vector3(), launched: null }
         lives.set(r.id, life)
       }
       life.seen = frame
-      const prev = life.state
-      if (prev !== state) {
+      if (life.state !== state) {
         const restful = (s: PState | null) => s === 'desk' || s === 'gm' || s === 'park'
-        if (!first && restful(prev) && restful(state)) life.tween = { from: life.pos.clone(), at: t, ms: still ? 0 : 900 }
-        else life.tween = null
-        if (state === 'out') life.tint = null
-        if (!first && (state === 'desk' || state === 'gm') && !life.tween) life.restAt = t
-        if (!first && state === 'return' && pVer?.outcome) fx.ripples.push({ pos: new Vector3(DESK.x, DESK_H + 0.012, DESK.z), color: GLAZE[pVer.outcome], at: t, size: 1.1, ms: 650 })
-        if (!first && state === 'fromGm' && pDec) fx.ripples.push({ pos: new Vector3(GM.x, DESK_H + 0.012, GM.z), color: pDec.outcome === 'reject' ? PAL.oxblood : PAL.celadon, at: t, size: 0.9, ms: 650 })
+        life.tween = !first && restful(life.state) && restful(state) ? { from: life.pos.clone(), at: t, ms: still ? 0 : 1300 } : null
+        if (!first && (state === 'desk' || state === 'gm' || state === 'park') && !life.tween) life.restAt = t
+        life.prev = life.state
         life.state = state
       }
+      const lift = hovered === r.id ? 0.14 : 0
+      tagsFor(r, false)
 
-      o.rotation.set(0, 0, 0)
-      o.scale.setScalar(1)
-      col.copy(life.tint ?? BISQUE)
-      let shadowY: number | null = null // a surface the parcel rests on, if not the plinth
-
-      // Parcels resting where they were: a tween covers the hop between rests.
-      const rest = (target: Vector3) => {
+      /** Resting: a hop through the record covers a move between rests. */
+      const rest = (target: Vector3, out: Vector3) => {
         const tw = life!.tween
         if (tw) {
           const k = tw.ms <= 0 ? 1 : clamp01((t - tw.at) / tw.ms)
-          arcPoint(tw.from, target, still ? k : expoOut(k), 0.8, o.position)
+          viaHub(tw.from, target, R2, low)
+          routePoint(R2, still ? k : inOut(k), out)
           if (k >= 1) {
             life!.tween = null
             life!.restAt = t
           }
-          return false
+          return k
         }
-        o.position.copy(target)
-        return true
+        out.copy(target)
+        return 1
       }
 
-      if (state === 'out' && pReq) {
-        const k = progress(pReq, t)
-        pathOf(pReq, true, path)
-        if (k < LAUNCH && !still) {
-          o.position.copy(path.a)
-          const x = (k / LAUNCH - 0.28) / 0.72
-          o.scale.setScalar(x <= 0 ? 0.0001 : pop(x))
+      let s: Slot | null = null
+      if (state === 'out' && pOut) {
+        const k = clamp01((t - pOut.sentAt) / pOut.ms)
+        const rid = pOut.from.slice(2)
+        if (handHeld(pOut) && k < IN_HAND) {
+          // Held up in the researcher's hand before it goes.
+          handInto(rid, HAND_S, v1)
+          s = item(r.kind, v1, HAND_S * (still ? 1 : pop(k / (IN_HAND * 0.45))))
+          life.launched = null
         } else {
-          const u = still ? k : inOut((k - LAUNCH) / (1 - LAUNCH))
-          arcPoint(path.a, path.b, u, path.h, o.position)
-          orient(path, u, u * Math.PI * 0.75)
-          trail(path, Math.max(0, u - 0.5), u, TRAIL_LIGHT, CARRY_W, 0.88)
+          if (life.launched !== pOut.id) {
+            life.launched = pOut.id
+            handInto(rid, HAND_S, life.launch)
+          }
+          const raw = travel(pOut, t)
+          const u = still ? raw : inOut(raw)
+          viaHub(life.launch, DESK, R, low)
+          routePoint(R, u, v1)
+          const sc = HAND_S + (SCALE - HAND_S) * smooth(0, 0.3, u)
+          s = item(r.kind, v1, sc, 1, 1, Math.sin(u * Math.PI))
+          trail(R, Math.max(0, u - 0.4), u, TINT.sent, CARRY_W, 0.85)
         }
       } else if (state === 'desk') {
-        pa.copy(DESK)
-        pa.x += atDesk === 0 ? 0 : (atDesk % 2 ? -0.6 : 0.6)
-        atDesk++
-        if (rest(pa)) {
-          const q = still ? 0 : squash(t - life.restAt)
-          o.scale.set(1 + q * 0.6, 1 - q, 1 + q * 0.6)
-          o.position.y -= (q * PARCEL * 0.84) / 2
+        v2.copy(DESK)
+        if (atDesk > 0) {
+          v2.z += (atDesk % 2 ? -1 : 1) * 0.95 * Math.ceil(atDesk / 2)
+          v2.y = REST
         }
-        shadowY = DESK_H
-      } else if ((state === 'return' && pVer) || (state === 'toGm' && pHold) || (state === 'fromGm' && pDec) || (state === 'toPark' && pVer)) {
+        atDesk++
+        const k = rest(v2, v1)
+        const q = still || k < 1 ? 0 : squash(t - life.restAt)
+        v1.y += lift
+        s = item(r.kind, v1, SCALE, 1 + q * 0.6, 1 - q)
+        if (life.tween && life.prev === 'park') frost(s, 1 - k * 3)
+      } else if ((state === 'return' || state === 'toPark' || state === 'toGm' || state === 'fromGm') && (pVer || pHold || pDec)) {
         const p = (state === 'toGm' ? pHold : state === 'fromGm' ? pDec : pVer)!
         const k = progress(p, t)
-        const to: Outcome = state === 'fromGm' ? (p.outcome === 'reject' ? 'reject' : 'accept') : state === 'toGm' || state === 'toPark' ? 'hold' : (p.outcome ?? 'accept')
-        const stampEnd = state === 'toGm' || state === 'fromGm' ? 0.28 : STAMP
-        const from = life.tint ?? BISQUE
-        if (state === 'toPark') {
-          path.a.copy(DESK)
-          parkOf(r.grantId, parkSlot.get(r.id) ?? 0, path.b)
-          path.h = 0.7
-        } else pathOf(p, true, path)
+        const rid = p.to.slice(2)
+        const stampEnd = state === 'toGm' || state === 'fromGm' ? 0.22 : STAMP
+        const start = state === 'fromGm' ? GM : DESK
+        const boxed = state === 'return' && (p.outcome === 'accept' || (p.outcome === 'refine' && !!r.chargedGrantId && r.chargedGrantId !== r.grantId))
+        if (state === 'toPark') parkOf(r.grantId, parkSlot.get(r.id) ?? 0, v2).setY(REST + 0.02)
+        else if (state === 'toGm') v2.copy(GM)
+        else if (state === 'fromGm') v2.copy(DESK)
+        else if (p.outcome === 'reject') gapInto(rid, v2)
+        else handInto(rid, HAND_S, v2)
         if (k < stampEnd) {
-          // The stamp: a punch of scale and the outcome's colour washing over it.
-          const s = k / stampEnd
-          o.position.copy(path.a)
-          if (!still) o.scale.setScalar(1 + 0.3 * Math.sin(Math.PI * s))
-          col.copy(from).lerp(GL[to], smooth(0.15, 0.8, s))
-          shadowY = DESK_H
+          // The answer lands on it: a small punch, and the crate if it was bought.
+          const x = k / stampEnd
+          tagsFor(r, false)
+          s = item(r.kind, start, SCALE * (still ? 1 : 1 + 0.12 * Math.sin(Math.PI * x)))
+          if (boxed) crate(s, smooth(0.2, 0.9, x))
         } else {
-          const span = state === 'toPark' ? 0.4 : 1 - stampEnd
-          const raw = clamp01((k - stampEnd) / span)
+          const raw = clamp01((k - stampEnd) / (1 - stampEnd))
           const u = still ? raw : inOut(raw)
-          arcPoint(path.a, path.b, u, path.h, o.position)
-          orient(path, u, state === 'return' ? u * Math.PI * 0.75 : 0)
-          col.copy(GL[to])
-          if (state !== 'toPark') trail(path, Math.max(0, u - 0.5), u, GL[to], CARRY_W, 0.9)
-          if (state === 'toPark' && raw >= 1 && !still) o.position.y += 0.06 * Math.sin((t / 2400) * Math.PI * 2 + r.id.length)
+          viaHub(start, v2, R, low)
+          routePoint(R, u, v1)
+          if (state === 'return') tagsFor(r, u > R.s)
+          let sc = SCALE, sx = 1, sy = 1
+          if (state === 'return' && p.outcome === 'reject') {
+            // Falls away from the record and gives way as it goes.
+            const d = smooth(0.55, 1, u)
+            sy = 1 - 0.7 * d
+            sx = 1 + 0.35 * d
+            sc = SCALE * (1 - smooth(0.8, 1, u))
+          } else if (state === 'return') sc = SCALE + (HAND_S - SCALE) * smooth(0.7, 1, u)
+          s = item(r.kind, v1, sc, sx, sy, state === 'return' ? Math.sin(u * Math.PI) : 0)
+          if (boxed) crate(s, 1)
+          const c = state === 'return' ? TINT[p.outcome ?? 'accept'] : state === 'fromGm' ? (p.outcome === 'reject' ? TINT.reject : TINT.accept) : TINT.hold
+          if (state !== 'toPark') trail(R, Math.max(0, u - 0.4), u, c, CARRY_W, 0.85)
         }
-        if (k >= stampEnd) life.tint = GL[to]
       } else if (state === 'gm') {
-        if (rest(GM) && !still) {
-          const q = squash(t - life.restAt)
-          const breathe = 1 + 0.06 * Math.sin(((t - life.restAt) / 1600) * Math.PI * 2)
-          o.scale.set(breathe * (1 + q * 0.6), breathe * (1 - q), breathe * (1 + q * 0.6))
-        }
-        col.copy(GL.hold)
-        shadowY = DESK_H
+        const k = rest(GM, v1)
+        const e = t - life.restAt
+        const q = still || k < 1 ? 0 : squash(e)
+        const breathe = still ? 1 : 1 + 0.03 * Math.sin((e / 1600) * Math.PI * 2)
+        v1.y += lift
+        s = item(r.kind, v1, SCALE * breathe, 1 + q * 0.6, 1 - q)
+        ring(s, (e / 1600) * Math.PI * 2)
       } else if (state === 'park') {
-        parkOf(r.grantId, parkSlot.get(r.id) ?? 0, pa)
-        if (rest(pa) && !still) o.position.y += 0.06 * Math.sin((t / 2400) * Math.PI * 2 + r.id.length)
-        col.copy(GL.hold)
+        parkOf(r.grantId, parkSlot.get(r.id) ?? 0, v2).setY(REST + 0.02)
+        const k = rest(v2, v1)
+        const e = t - life.restAt
+        if (!still && k >= 1) v1.y += 0.04 * Math.sin((t / 2400) * Math.PI * 2 + r.id.length)
+        v1.y += lift
+        s = item(r.kind, v1, SCALE)
+        frost(s, k < 1 ? 0 : first ? 1 : clamp01(e / 700))
+        ring(s, (t / 2400) * Math.PI * 2)
       }
-
-      life.pos.copy(o.position)
-      if (np < CAP) put(P, np++, col)
-      if (shadowY !== null) blob(o.position.x, shadowY, o.position.z, 0, BLOB)
-      else ground(o.position.x, o.position.y, o.position.z)
+      if (s) life.pos.copy(s.g.position)
     }
     for (const [id, l] of lives) if (frame - l.seen > 2) lives.delete(id)
 
-    // Answers that came home: a delivered box, or a heap that gives way.
+    // Answers that came home: held up in the researcher's hands, then put away.
     for (let i = landed.length - 1; i >= 0; i--) {
       const l = landed[i]
       const e = t - l.at
-      const hold = l.kind === 'blocked' ? 1500 : l.kind === 'sentBack' ? 900 : 3400
-      if (e > hold + 500 || e < 0) {
-        if (e > hold + 500) landed.splice(i, 1)
+      const hold = l.how === 'sentBack' ? 1100 : RECEIVE_MS
+      if (e > hold + 450 || e < 0) {
+        if (e > hold + 450) landed.splice(i, 1)
         continue
       }
-      o.rotation.set(0, 0.4, 0)
-      o.position.copy(l.pos)
-      const q = still ? 0 : squash(e)
-      let sx = 1 + q * 0.6, sy = 1 - q
-      if (l.kind === 'blocked') {
-        const d = clamp01((e - 260) / 900)
-        const dd = still ? d : inOut(d)
-        sy *= 1 - 0.85 * dd
-        sx *= 1 + 0.45 * dd
-        const gone = clamp01((e - 1100) / 400)
-        sx *= 1 - gone
-        sy *= 1 - gone
-        col.copy(GL.reject)
-      } else {
-        col.copy(l.kind === 'bought' ? GL.accept : GL.refine)
-        if (e > hold) {
-          // Shrinks into the researcher's stack.
-          const g = still ? 1 : clamp01((e - hold) / 450)
-          o.position.lerp(l.stack, inOut(g))
-          sx *= 1 - g
-          sy *= 1 - g
-        }
-      }
-      o.scale.set(Math.max(1e-4, sx), Math.max(1e-4, sy), Math.max(1e-4, sx))
-      o.position.y = l.pos.y - ((1 - sy) * PARCEL * 0.84) / 2 + (o.position.y - l.pos.y)
-      if (np < CAP) put(P, np++, col)
-      if (sx > 0.05) blob(l.pos.x, 0, l.pos.z, 0, BLOB * sx)
+      handInto(l.rid, HAND_S, v1)
+      tagA = l.a
+      tagB = l.b
+      const g = e > hold ? (still ? 1 : clamp01((e - hold) / 450)) : 0
+      const s = item(l.kind, v1, HAND_S * (1 - inOut(g)))
+      if (l.how !== 'sentBack') crate(s, 1)
     }
+    for (let i = ni; i < SLOTS; i++) slots[i].g.visible = false
 
-    // Everything else that travels: beads, slips and drops.
+    // Everything else that travels: sheets, beads and drops.
     for (const p of w.packets) {
-      const req = p.refId && known.has(p.refId)
-      const carried = req && (p.kind === 'request' || (p.kind === 'verdict' && p.outcome !== 'hold') || p.kind === 'hold' || p.kind === 'decision')
-      if (carried) continue
+      if (isCarried(p, w)) continue
       const k = progress(p, t)
-      pathOf(p, false, path)
       if (p.kind === 'charge') {
-        // An order: money leaves the grant as a short stream of drops.
+        // An order: money leaves the grant as a short stream of drops, through the record to the vendor.
         const rq = p.refId ? w.requests.find(q => q.id === p.refId) : undefined
-        const c = rq && (rq.state === 'rerouted' || (rq.chargedGrantId && rq.chargedGrantId !== rq.grantId)) ? AMBER : MONEY
+        routeOf(p, false, R, low)
+        const c = rq && rq.chargedGrantId && rq.chargedGrantId !== rq.grantId ? TINT.refine : TINT.money
         for (let i = 0; i < 7; i++) {
-          const u = clamp01((k - i * 0.065) / 0.58)
+          const u = clamp01((k - i * 0.06) / 0.62)
           if (u <= 0 || u >= 1 || nd >= CAP) continue
-          arcPoint(path.a, path.b, sine(u), path.h, o.position)
-          orient(path, sine(u), 0)
-          const sz = 1.6 - i * 0.08
-          o.scale.set(sz, sz, sz * (still ? 1 : 1.5))
+          routePoint(R, sine(u), o.position)
+          o.rotation.set(0, 0, 0)
+          o.scale.setScalar(1.5 - i * 0.08)
           put(D, nd++, c)
         }
         continue
       }
-      const u = still ? k : sine(k)
-      arcPoint(path.a, path.b, u, path.h, o.position)
+      if (handHeld(p) && (t - p.sentAt) / p.ms < IN_HAND) {
+        // A paper held up before it goes.
+        handInto(p.from.slice(2), 0.1, o.position)
+        o.rotation.set(-1.1, body(p.from.slice(2)).yaw, 0, 'YXZ')
+        o.scale.setScalar(0.7)
+        if (nsh < CAP) put(S, nsh++, SLIP)
+        continue
+      }
+      const raw = travel(p, t)
+      const u = still ? raw : sine(raw)
+      routeOf(p, false, R, low)
+      routePoint(R, u, o.position)
       if (p.kind === 'payment') {
-        orient(path, u, 0)
-        o.scale.set(2, 2, still ? 2 : 2.8)
-        if (nd < CAP) put(D, nd++, MONEY)
+        o.rotation.set(0, 0, 0)
+        o.scale.setScalar(2.2)
+        if (nd < CAP) put(D, nd++, TINT.money)
         continue
       }
       if (p.kind === 'reading' || p.kind === 'recheck') {
         const alarm = p.kind === 'reading' && !/no change/.test(p.label)
-        o.scale.setScalar(alarm ? 1.35 : 0.85)
-        if (nb < CAP) put(Bd, nb++, alarm ? ALARM : SLIP)
-        if (alarm) trail(path, Math.max(0, u - 0.45), u, ALARM, 0.06, 0.5)
+        o.rotation.set(0, 0, 0)
+        o.scale.setScalar(alarm ? 1.35 : 0.75)
+        col.copy(alarm ? TINT.alarm : SLIP)
+        if (nb < CAP) put(Bd, nb++, col)
+        if (alarm) trail(R, Math.max(0, u - 0.4), u, TINT.alarm, 0.06, 0.6)
         continue
       }
-      // Messages: papers, invoices, pushback, holds and answers.
-      orient(path, u, still ? 0 : 0.25 * Math.sin(k * Math.PI * 4))
-      const c =
-        p.kind === 'verdict' && p.outcome
-          ? GL[p.outcome]
-          : p.kind === 'hold'
-            ? GL.hold
-            : p.kind === 'decision'
-              ? p.outcome === 'reject'
-                ? GL.reject
-                : GL.accept
-              : SLIP
-      if (ns < CAP) put(S, ns++, c)
-      if (trailed(p)) trail(path, Math.max(0, u - 0.45), u, c === SLIP ? TRAIL_LIGHT : c, 0.07, 0.6)
-      ground(o.position.x, o.position.y, o.position.z, 0.4)
+      // Messages: papers, invoices, payment requests, holds and answers.
+      routePoint(R, Math.min(1, u + 0.02), v1)
+      o.rotation.set(0, Math.atan2(v1.x - o.position.x, v1.z - o.position.z), still ? 0 : 0.25 * Math.sin(raw * Math.PI * 4), 'YXZ')
+      o.scale.setScalar(1)
+      const c = p.kind === 'paper' || p.kind === 'invoice' || p.kind === 'payment_request' || p.kind === 'follow_up' ? SLIP : trailColor(p)
+      if (nsh < CAP) put(S, nsh++, c)
+      if (trailed(p)) trail(R, Math.max(0, u - 0.4), u, trailColor(p), 0.06, 0.6)
     }
 
-    // Money landing in a grant: drops from the funder.
+    // Money landing in a grant: drops from the funder through the record.
     for (let i = streams.length - 1; i >= 0; i--) {
-      const s = streams[i]
-      const e = t - s.at
-      if (e > s.ms + s.n * s.gap) {
-        streams.splice(i, 1)
+      const st = streams[i]
+      const e = t - st.at
+      if (e > st.ms + st.n * st.gap || e < -1) {
+        if (e > 0) streams.splice(i, 1)
         continue
       }
-      path.a.copy(s.a)
-      path.b.copy(s.b)
-      path.h = arcHeight(s.a, s.b, true) * 0.8
-      for (let j = 0; j < s.n; j++) {
-        const u = clamp01((e - j * s.gap) / s.ms)
+      for (let j = 0; j < st.n; j++) {
+        const u = clamp01((e - j * st.gap) / st.ms)
         if (u <= 0 || u >= 1 || nd >= CAP) continue
-        const v = still ? u : u * u * (3 - 2 * u)
-        arcPoint(path.a, path.b, v, path.h, o.position)
-        orient(path, v, 0)
-        o.scale.set(1.6, 1.6, still ? 1.6 : 2.4)
-        put(D, nd++, MONEY)
+        routePoint(st.r, still ? u : u * u * (3 - 2 * u), o.position)
+        o.rotation.set(0, 0, 0)
+        o.scale.setScalar(1.6)
+        put(D, nd++, TINT.money)
       }
     }
 
@@ -733,15 +761,13 @@ function Moving() {
         if (e >= 1) fading.splice(i, 1)
         continue
       }
-      trail(f, 0.5 + 0.5 * e, 1, f.color, f.width, (f.width > 0.1 ? 0.88 : 0.6) * (1 - e))
+      trail(f.r, 0.6 + 0.4 * e, 1, f.color, f.width, (f.width > 0.1 ? 0.85 : 0.6) * (1 - e))
     }
 
     for (const [m, n] of [
-      [P, np],
+      [S, nsh],
       [Bd, nb],
-      [S, ns],
       [D, nd],
-      [Bl, nbl],
     ] as const) {
       m.count = n
       m.instanceMatrix.needsUpdate = true
@@ -752,13 +778,14 @@ function Moving() {
 
   return (
     <>
-      <instancedMesh ref={parcels} args={[parcelGeo, parcelMat, CAP]} frustumCulled={false} />
+      {slots.map((s, i) => (
+        <primitive key={i} object={s.g} />
+      ))}
+      <instancedMesh ref={sheets} args={[sheetGeo, sheetMat, CAP]} frustumCulled={false} castShadow />
       <instancedMesh ref={beads} args={[beadGeo, beadMat, CAP]} frustumCulled={false} />
-      <instancedMesh ref={slips} args={[slipGeo, slipMat, CAP]} frustumCulled={false} />
       <instancedMesh ref={drops} args={[dropGeo, dropMat, CAP]} frustumCulled={false} />
-      <instancedMesh ref={blobs} args={[blobGeo, blobMat, CAP]} frustumCulled={false} renderOrder={1} />
       {trails.map((s, i) => (
-        <primitive key={i} object={s.mesh} />
+        <primitive key={`t${i}`} object={s.mesh} />
       ))}
     </>
   )
@@ -774,4 +801,3 @@ export function Flow() {
     </>
   )
 }
-

@@ -1,11 +1,14 @@
-// The viewer's UI state (hover, selection, open panel) and the helpers that
-// read the feed from React. The dashboard owns this file; the scene reads it.
+// The viewer's UI state (hover, selection, the sidebar's tab and sheet) and
+// the helpers that read the feed from React. The dashboard owns this file;
+// the scene reads it.
 
 import { useSyncExternalStore } from 'react'
 import { feed } from '../../feed'
 import type { World } from '../../feed'
 
+/** Kept so older imports compile. The sidebar replaced the floating panels, so it stays null. */
 export type PanelKind = 'request' | 'inbox' | 'index' | 'ledger' | 'detail'
+export type Tab = 'overview' | 'requests' | 'activity'
 
 export interface UiState {
   hovered: string | null
@@ -14,9 +17,24 @@ export interface UiState {
   openRequest: string | null
   composeFor: string | null
   mine: string[]
+  tab: Tab
+  composing: boolean
+  sheet: boolean // the phone's bottom sheet is expanded
+  reveal: number // bumps when the scene picks something, so the sidebar shows it
 }
 
-const blank = (): UiState => ({ hovered: null, selected: null, panel: null, openRequest: null, composeFor: null, mine: [] })
+const blank = (): UiState => ({
+  hovered: null,
+  selected: null,
+  panel: null,
+  openRequest: null,
+  composeFor: null,
+  mine: [],
+  tab: 'overview',
+  composing: false,
+  sheet: false,
+  reveal: 0,
+})
 let state = blank()
 const listeners = new Set<() => void>()
 
@@ -42,8 +60,23 @@ export function useUi<T>(sel: (s: UiState) => T): T {
   return useSyncExternalStore(ui.subscribe, () => sel(state))
 }
 
-export const selectNode = (id: string | null) => ui.set({ selected: id, panel: id ? 'detail' : null, openRequest: null })
-export const openPanel = (panel: PanelKind | null) => ui.set({ panel, selected: panel === 'detail' ? state.selected : null })
+const isRequest = (id: string) => !/^[a-z]:/.test(id)
+
+/** Pick a node (or a request) from anywhere; the sidebar opens its row. */
+export const selectNode = (id: string | null) =>
+  ui.set({
+    selected: id,
+    panel: null,
+    openRequest: id && isRequest(id) ? id : null,
+    reveal: id ? state.reveal + 1 : state.reveal,
+  })
+/** Pick from inside the sidebar: the camera follows, the sidebar stays where it is. */
+export const pick = (id: string | null) => ui.set({ selected: id, panel: null })
+export const hover = (id: string | null) => {
+  if (id) ui.set({ hovered: id })
+  else if (state.hovered) ui.set({ hovered: null })
+}
+export const unhover = (id: string) => state.hovered === id && ui.set({ hovered: null })
 
 /** A slice of the feed's World. The selector must return a primitive or an existing reference. */
 // The feed tells subscribers about changes on its clock tick, so a decision made while the

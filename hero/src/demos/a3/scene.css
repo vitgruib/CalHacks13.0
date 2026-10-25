@@ -1,0 +1,38 @@
+/* The scene's only DOM: the hover card over the 3D stage. Scoped under .demo-a3. */
+
+.demo-a3 .a-hover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  max-width: 264px;
+  padding: 8px 12px 9px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: var(--lift-sm);
+  font-family: var(--text);
+  font-size: 13px;
+  line-height: 1.38;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  visibility: hidden;
+  will-change: transform;
+}
+.demo-a3 .a-hover-name {
+  margin: 0;
+  font-family: var(--display);
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+}
+.demo-a3 .a-hover-line {
+  margin: 2px 0 0;
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

@@ -1,58 +1,34 @@
-// Shared materials: matte clay with a little tonal drift for the dioramas,
-// a glossy liquid with a fresnel edge for money, and glass for the freeze.
+// Shared materials. The lab is one matte clay with painted vertex colours,
+// a sheen variant for steel and epoxy, and an unlit one for the practical
+// lights (screens, lamps, the cabinet's work light) that the bloom picks up.
 
-import { Color, DoubleSide, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial } from 'three'
+import { AdditiveBlending, Color, DoubleSide, MeshBasicMaterial, MeshPhysicalMaterial, MeshStandardMaterial } from 'three'
 import { PAL } from './layout'
 
-const clay = (color: string, roughness = 0.88) => new MeshStandardMaterial({ color, roughness, metalness: 0 })
-const glaze = (color: string) => new MeshPhysicalMaterial({ color, roughness: 0.3, metalness: 0, clearcoat: 0.8, clearcoatRoughness: 0.2 })
-
 export const M = {
-  labBody: clay(PAL.labBody),
-  labTop: clay(PAL.labTop, 0.94),
-  officeBody: clay(PAL.officeBody, 0.82),
-  officeTop: clay(PAL.officeTop, 0.9),
-  chalk: clay(PAL.chalk),
-  porcelain: clay(PAL.porcelain, 0.6),
-  clay: clay(PAL.clay),
-  clayDeep: clay(PAL.clayDeep),
-  slate: clay(PAL.slate, 0.78),
-  slateDeep: clay(PAL.slateDeep, 0.74),
-  ink: clay(PAL.ink, 0.7),
-  board: clay('#FAF8F4', 0.4),
-  dark: clay('#2A313A', 0.55),
-  lens: new MeshBasicMaterial({ color: PAL.lens, toneMapped: false }),
-  glazeAccept: glaze(PAL.celadon),
-  glazeRefine: glaze(PAL.ochre),
-  glazeReject: glaze(PAL.oxblood),
-  glazeHold: glaze(PAL.cobalt),
-  bisque: clay('#EFEAE2', 0.8),
-  paper: clay('#F7F4EF', 0.7),
-  window: new MeshPhysicalMaterial({ color: '#C9D3DC', roughness: 0.15, metalness: 0, clearcoat: 1, transparent: true, opacity: 0.55 }),
+  clay: new MeshStandardMaterial({ vertexColors: true, roughness: 0.86, metalness: 0 }),
+  sheen: new MeshStandardMaterial({ vertexColors: true, roughness: 0.34, metalness: 0.25 }),
+  glow: new MeshBasicMaterial({ vertexColors: true, toneMapped: false }),
+  net: new MeshStandardMaterial({ vertexColors: true, roughness: 0.62, metalness: 0.08 }),
+  item: new MeshStandardMaterial({ vertexColors: true, roughness: 0.55, metalness: 0.05 }),
+  spill: new MeshBasicMaterial({ vertexColors: true, transparent: true, blending: AdditiveBlending, depthWrite: false, toneMapped: false }),
+  plinthLab: new MeshStandardMaterial({ color: PAL.labBody, roughness: 0.9 }),
+  plinthNet: new MeshStandardMaterial({ color: PAL.netBody, roughness: 0.7, metalness: 0.1 }),
+  netTop: new MeshStandardMaterial({ color: PAL.netTop, roughness: 0.55, metalness: 0.15 }),
 }
 
-export const glazeFor = (o?: string) =>
-  o === 'accept' ? M.glazeAccept : o === 'refine' ? M.glazeRefine : o === 'reject' ? M.glazeReject : o === 'hold' ? M.glazeHold : M.bisque
-
-/** The same clay, nudged a few percent lighter or darker, so a room of objects doesn't read as one flat colour. */
-const drift = new Map<string, MeshStandardMaterial>()
-export function vary(m: MeshStandardMaterial, seed: number): MeshStandardMaterial {
-  const k = ((seed * 7919) % 5) - 2
-  if (k === 0) return m
-  const key = `${m.uuid}:${k}`
-  let v = drift.get(key)
-  if (!v) {
-    v = m.clone()
-    v.color.offsetHSL(0, 0, k * 0.018)
-    drift.set(key, v)
-  }
-  return v
+/** Each figure gets its own copy so a hovered one can brighten alone; the shader is shared. */
+export function figureMat() {
+  return new MeshStandardMaterial({ vertexColors: true, roughness: 0.8, metalness: 0, side: DoubleSide, emissive: new Color('#000000') })
 }
 
-/** Money: glossy, with a bright fresnel rim and a pulse uniform for the moment a freeze lifts. */
-export function liquid(color = PAL.money) {
-  const m = new MeshPhysicalMaterial({ color, roughness: 0.14, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.08, envMapIntensity: 1.3 })
-  const u = { uRim: { value: new Color('#E9FBFF') }, uRimK: { value: 0.55 }, uPulse: { value: 0 } }
+/** An unlit colour whose brightness the scene drives (node rings, rule lights, lamps). */
+export const lightMat = (hex = '#FFFFFF') => new MeshBasicMaterial({ color: hex, toneMapped: false })
+
+/** Money: a glowing dye in the grant's colour, with a bright rim and a pulse for the moment a freeze lifts. */
+export function liquid(hex: string) {
+  const m = new MeshPhysicalMaterial({ color: hex, roughness: 0.18, metalness: 0, clearcoat: 1, clearcoatRoughness: 0.1, emissive: new Color(hex), emissiveIntensity: 0.55 })
+  const u = { uRim: { value: new Color('#F2FBFF') }, uRimK: { value: 0.5 }, uPulse: { value: 0 } }
   m.userData.u = u
   m.onBeforeCompile = s => {
     Object.assign(s.uniforms, u)
@@ -60,47 +36,46 @@ export function liquid(color = PAL.money) {
       .replace('void main() {', 'uniform vec3 uRim; uniform float uRimK; uniform float uPulse;\nvoid main() {')
       .replace(
         '#include <opaque_fragment>',
-        'float aFr = pow(1.0 - saturate(dot(normalize(normal), normalize(vViewPosition))), 3.0);\noutgoingLight += uRim * (aFr * uRimK + uPulse * 0.45);\n#include <opaque_fragment>',
+        'float aFr = pow(1.0 - saturate(dot(normalize(normal), normalize(vViewPosition))), 3.0);\noutgoingLight += uRim * (aFr * uRimK + uPulse * 0.6);\n#include <opaque_fragment>',
       )
   }
-  m.customProgramCacheKey = () => 'a-liquid'
+  m.customProgramCacheKey = () => 'a5-liquid'
   return m
 }
 
-/** Glass for the bell jar: clear in the middle, bright at grazing angles, frosted while a grant is frozen. */
+/** Glass for a grant's vessel: clear in the middle, bright at grazing angles, frosted while the grant is frozen. */
 export function glass() {
   const m = new MeshPhysicalMaterial({
-    color: '#F2F6FA',
-    roughness: 0.06,
+    color: '#E8F0FA',
+    roughness: 0.08,
     metalness: 0,
     clearcoat: 1,
-    clearcoatRoughness: 0.04,
+    clearcoatRoughness: 0.05,
     transparent: true,
-    opacity: 0.07,
+    opacity: 0.1,
     depthWrite: false,
     side: DoubleSide,
-    envMapIntensity: 1.6,
+    envMapIntensity: 1.4,
   })
-  const u = { uFrost: { value: 0 }, uFade: { value: 0 } }
+  const u = { uFrost: { value: 0 } }
   m.userData.u = u
   m.onBeforeCompile = s => {
     Object.assign(s.uniforms, u)
-    s.vertexShader = s.vertexShader
-      .replace('void main() {', 'varying vec3 vAPos;\nvoid main() {\nvAPos = position;')
+    s.vertexShader = s.vertexShader.replace('void main() {', 'varying vec3 vAPos;\nvoid main() {\nvAPos = position;')
     s.fragmentShader = s.fragmentShader
-      .replace('void main() {', 'uniform float uFrost; uniform float uFade; varying vec3 vAPos;\nvoid main() {')
+      .replace('void main() {', 'uniform float uFrost; varying vec3 vAPos;\nvoid main() {')
       .replace(
         '#include <opaque_fragment>',
         [
           '#include <opaque_fragment>',
-          'float gFr = pow(1.0 - abs(dot(normalize(normal), normalize(vViewPosition))), 2.4);',
-          'float gN = fract(sin(dot(floor(vAPos * 38.0), vec3(12.9898, 78.233, 37.719))) * 43758.5453);',
-          'float gF = uFrost * (0.62 - 0.22 * clamp(vAPos.y / 2.0, 0.0, 1.0) + 0.12 * gN);',
-          'gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.94, 0.965, 0.985), clamp(gF * 1.1, 0.0, 1.0));',
-          'gl_FragColor.a = clamp(gl_FragColor.a + gFr * 0.42 + gF * 0.62, 0.0, 0.92) * uFade;',
+          'float gFr = pow(1.0 - abs(dot(normalize(normal), normalize(vViewPosition))), 2.2);',
+          'float gN = fract(sin(dot(floor(vAPos * 40.0), vec3(12.9898, 78.233, 37.719))) * 43758.5453);',
+          'float gF = uFrost * (0.7 - 0.25 * clamp(vAPos.y / 1.2, 0.0, 1.0) + 0.14 * gN);',
+          'gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.86, 0.93, 1.0), clamp(gF * 1.1, 0.0, 1.0));',
+          'gl_FragColor.a = clamp(gl_FragColor.a + gFr * 0.4 + gF * 0.6, 0.0, 0.9);',
         ].join('\n'),
       )
   }
-  m.customProgramCacheKey = () => 'a-glass'
+  m.customProgramCacheKey = () => 'a5-glass'
   return m
 }

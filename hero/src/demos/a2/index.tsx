@@ -1,12 +1,29 @@
-// Clay lab round 2, version 2 (copied from mockup A, Clay lab): the lab and the grant office as two matte clay
-// dioramas on floating plinths, requests crossing the gap as glazed tokens.
+// Clay lab round 2, version 2, "Mobile": the lab plinth front left, the
+// finance network hanging above it like a balanced mobile, and a warm
+// sidebar dashboard on the left (a bottom sheet on a phone).
 // The root never re-renders, so the Canvas tree only changes from inside.
 
-import { useEffect, useRef } from 'react'
+import { Component, Suspense, lazy, useEffect, useRef, type ReactNode } from 'react'
+import { bare } from '../../chrome'
 import './demo-a2.css'
 import { Hud } from './Hud'
-import Scene from './Scene'
-import { ui } from './store'
+import { ui } from './ui'
+
+// The scene loads on its own, so the dashboard still works if the 3D cannot start.
+const Scene = lazy(() => import('./Scene'))
+
+class Quiet extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  render() {
+    return this.state.failed ? null : this.props.children
+  }
+}
+
+// The gallery strip sits at the bottom of the window unless the page is bare (?bare, or a deploy build); the sidebar keeps clear of it.
+const gallery = !bare
 
 export default function Demo() {
   const root = useRef<HTMLDivElement>(null)
@@ -15,9 +32,13 @@ export default function Demo() {
     return () => ui.reset()
   }, [])
   return (
-    <div className="demo-a2" ref={root}>
+    <div className="demo-a2" ref={root} data-gallery={gallery ? '' : undefined}>
       <div className="a-stage">
-        <Scene />
+        <Quiet>
+          <Suspense fallback={null}>
+            <Scene />
+          </Suspense>
+        </Quiet>
       </div>
       <Hud root={root} />
     </div>

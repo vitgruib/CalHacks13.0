@@ -1,7 +1,9 @@
-// The studio: a seamless grey void with a soft pool of light under two
-// floating plinths, a warm key from the upper left, a cool fill and a faint
-// rim. The camera opens close on Sam's bench, cranes back to reveal both
-// sides, then drifts very slowly while nobody is steering it.
+// The studio: a seamless grey void with a soft pool of light under the lab
+// plinth and the round table, a warm key from the upper left, a cool fill
+// and a faint rim. The camera opens close on Sam's bench, cranes back to
+// hold the lab and the table together, fitted to whatever size the stage
+// is, then drifts very slowly while nobody is steering it. One hover card,
+// anchored to the hovered thing, carries a name and what it is doing.
 
 import { ContactShadows, Environment, Lightformer, OrbitControls, PerformanceMonitor } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
@@ -10,11 +12,15 @@ import { ToneMappingMode } from 'postprocessing'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { BackSide, Color, MeshBasicMaterial, RingGeometry, ShaderMaterial, Vector3, type Mesh, type PerspectiveCamera } from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
+import { EDGES, feed, usd } from '../../feed'
+import { body } from './crowd'
 import { Flow } from './Flow'
 import { LabPlinth } from './Lab'
+import { HUB, OPENING, PAL, floorOf, heroFor, isTall, spot, type Framing } from './layout'
 import { OfficePlinth } from './Office'
-import { HERO_TALL, OPENING, PAL, STATIONS, anchorOf, floorOf, heroFor, type Framing } from './layout'
-import { pinnedQuality, reducedMotion, ui } from './store'
+import { pinnedQuality, reducedMotion, ui, useUi } from './store'
+import { agentNow, grantStatus, shortItem } from './words'
+import './scene.css'
 
 function Backdrop() {
   const mat = useMemo(
@@ -31,7 +37,7 @@ function Backdrop() {
   )
   return (
     <mesh material={mat} renderOrder={-1}>
-      <sphereGeometry args={[120, 32, 16]} />
+      <sphereGeometry args={[160, 32, 16]} />
     </mesh>
   )
 }
@@ -50,8 +56,8 @@ function Ground() {
     [],
   )
   return (
-    <mesh material={mat} position={[1.2, -3.12, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={-1}>
-      <planeGeometry args={[140, 140]} />
+    <mesh material={mat} position={[0, -3.12, 0]} rotation={[-Math.PI / 2, 0, 0]} renderOrder={-1}>
+      <planeGeometry args={[160, 160]} />
     </mesh>
   )
 }
@@ -61,17 +67,17 @@ function Lights() {
     <>
       <hemisphereLight args={['#FFF8EE', '#8A93A0', 0.62]} />
       <directionalLight
-        position={[-12, 18, 9]}
+        position={[-10, 18, 10]}
         intensity={2.7}
         color="#FFF0DC"
         castShadow
         shadow-mapSize={[2048, 2048]}
         shadow-bias={-0.0003}
         shadow-normalBias={0.03}
-        shadow-camera-left={-18}
-        shadow-camera-right={18}
-        shadow-camera-top={13}
-        shadow-camera-bottom={-13}
+        shadow-camera-left={-17}
+        shadow-camera-right={17}
+        shadow-camera-top={12}
+        shadow-camera-bottom={-12}
         shadow-camera-near={1}
         shadow-camera-far={70}
       />
@@ -85,6 +91,31 @@ function Lights() {
       </Environment>
     </>
   )
+}
+
+// ── Where a node is right now ────────────────────────────────────────────
+
+let KNOWN: Set<string> | null = null
+const known = (id: string | null): id is string => {
+  if (!KNOWN) KNOWN = new Set(feed.getWorld().nodes.map(n => n.id).concat('x:record'))
+  return !!id && KNOWN.has(id)
+}
+const isPerson = (id: string) => id.startsWith('r:') || id === 'p:grant_manager'
+const bodyOf = (id: string) => body(id === 'p:grant_manager' ? 'gm' : id.slice(2))
+
+/** The ground under a node, following people as they walk. */
+function floorInto(id: string, out: Vector3) {
+  if (isPerson(id)) return out.copy(bodyOf(id).pos).setY(0.012)
+  if (id === 'x:record') return out.set(HUB.x, 0.012, HUB.z)
+  return out.copy(floorOf(id))
+}
+
+/** Just above a node's top, where its hover card points. */
+function topInto(id: string, out: Vector3) {
+  if (isPerson(id)) return out.copy(bodyOf(id).head).setY(bodyOf(id).head.y + 0.22)
+  if (id === 'x:record') return out.set(HUB.x, HUB.y + 0.25, HUB.z)
+  const s = spot(id)
+  return out.set(s.anchor[0], s.top, s.anchor[2])
 }
 
 // ── Camera: an establishing move, then the viewer's ───────────────────────
@@ -107,21 +138,23 @@ const off = new Vector3()
 
 function focusFor(id: string, hero: Framing) {
   const dir = hero.pos.clone().sub(hero.target).normalize()
-  let target: Vector3
-  let dist = 15
-  if (id.startsWith('r:')) {
-    const s = STATIONS[id.slice(2)]
-    target = s ? new Vector3(s.fig[0] + 0.5, 0.85, s.fig[2] + 0.2) : anchorOf(id)
-    dist = 11.7
-  } else if (id.startsWith('g:')) {
-    target = floorOf(id).setY(1)
-    dist = 13
-  } else if (id.startsWith('a:') || id === 'p:grant_manager') {
-    target = anchorOf(id).setY(1)
-    dist = 13
-  } else target = anchorOf(id).setY(0.8)
+  const target = floorInto(id, new Vector3())
+  let dist = 14
+  if (isPerson(id)) {
+    target.y = 0.9
+    dist = 11
+  } else if (id.startsWith('g:') || id.startsWith('a:') || id === 'x:record') {
+    target.y = 0.7
+    dist = 12.5
+  } else if (id.startsWith('s:')) {
+    target.y = 0.4
+    dist = 12
+  } else {
+    target.y = 0.4
+    dist = 14
+  }
   // A phone's narrow lens needs more distance to hold the same subject.
-  if (hero === HERO_TALL) dist *= 2.25
+  if (isTall(hero)) dist *= 1.7
   return { pos: target.clone().addScaledVector(dir, dist), target }
 }
 
@@ -129,11 +162,10 @@ function Rig() {
   const controls = useRef<OrbitControlsImpl>(null)
   const { camera, size } = useThree()
   const tween = useRef<Tween | null>(null)
-  const applied = useRef({ w: 0, h: 0, sx: 0, sy: 0, fov: 0 })
-  const shift = useRef<[number, number]>([...heroFor(size.width / size.height).shift])
   const still = useMemo(reducedMotion, [])
-  const heroRef = useRef<Framing>(heroFor(size.width / size.height))
+  const heroRef = useRef<Framing>(heroFor(size.width / Math.max(1, size.height)))
   const drift = useRef({ t: 0, a: 0, drag: false })
+  const fov = useRef(0)
 
   const glide = (toP: Vector3, toT: Vector3, ms: number, lift = 0) => {
     const c = controls.current
@@ -169,10 +201,10 @@ function Rig() {
       if (s === last) return
       last = s
       const h = heroRef.current
-      if (s) {
+      if (known(s)) {
         const f = focusFor(s, h)
         glide(f.pos, f.target, 1400, 0.6)
-      } else glide(h.pos.clone(), h.target.clone(), 1500, 0.6)
+      } else if (!s) glide(h.pos.clone(), h.target.clone(), 1500, 0.6)
     })
     return () => {
       c.removeEventListener('start', stop)
@@ -185,32 +217,16 @@ function Rig() {
     const c = controls.current
     if (!c) return
     const cam = camera as PerspectiveCamera
-    const aspect = size.width / size.height
-    const hero = heroFor(aspect)
+    const hero = heroFor(size.width / Math.max(1, size.height))
     if (hero !== heroRef.current) {
       heroRef.current = hero
       if (!ui.get().selected && !tween.current) glide(hero.pos.clone(), hero.target.clone(), 900)
     }
-
-    // Slide the picture so it clears the copy, and the open panel.
-    const s = ui.get()
-    const panelOpen = s.panel !== null
-    const wide = size.width >= 900
-    // Wide: the panel sits on the right, so slide left. Phone: the sheet covers the
-    // bottom, so centre whatever is in focus in the strip above it.
-    const tx = panelOpen ? (wide ? hero.shift[0] - 0.15 : 0) : hero.shift[0]
-    const ty = panelOpen && !wide ? -0.27 : hero.shift[1]
-    const k = 1 - Math.exp(-Math.min(dt, 0.1) * 6)
-    shift.current[0] += (tx - shift.current[0]) * k
-    shift.current[1] += (ty - shift.current[1]) * k
-    const a = applied.current
-    const sx = Math.round(shift.current[0] * size.width)
-    const sy = Math.round(shift.current[1] * size.height)
-    if (a.w !== size.width || a.h !== size.height || a.sx !== sx || a.sy !== sy || a.fov !== hero.fov) {
+    if (fov.current !== hero.fov) {
+      fov.current = hero.fov
       cam.fov = hero.fov
-      cam.setViewOffset(size.width, size.height, -sx, -sy, size.width, size.height)
+      cam.clearViewOffset()
       cam.updateProjectionMatrix()
-      Object.assign(a, { w: size.width, h: size.height, sx, sy, fov: hero.fov })
     }
 
     const tw = tween.current
@@ -231,7 +247,7 @@ function Rig() {
     c.enabled = true
     // Idle life: a very slow sway about the target while nobody is steering.
     const d = drift.current
-    if (!still && !d.drag && !s.selected && document.visibilityState === 'visible') {
+    if (!still && !d.drag && !ui.get().selected && document.visibilityState === 'visible') {
       d.t += Math.min(dt, 0.05)
       const a = DRIFT * Math.sin((d.t / DRIFT_S) * Math.PI * 2)
       const da = a - d.a
@@ -254,7 +270,7 @@ function Rig() {
       rotateSpeed={0.55}
       zoomSpeed={0.7}
       minDistance={6}
-      maxDistance={100}
+      maxDistance={120}
       minPolarAngle={0.3}
       maxPolarAngle={1.36}
       minAzimuthAngle={-1.95}
@@ -263,25 +279,29 @@ function Rig() {
   )
 }
 
-/** A ring on the floor under whatever is hovered or selected. */
+/** A ring on the floor under whatever is hovered or selected, following people as they move. */
 const haloGeo = new RingGeometry(0.62, 0.7, 64)
+const haloSize = (id: string) =>
+  id.startsWith('g:') ? 1.55 : id.startsWith('a:') ? 1.15 : id.startsWith('s:') ? 0.48 : id === 'x:record' ? 1.75 : id.startsWith('v:') || id === 'p:funder' ? 2.1 : 0.85
 function Halo() {
   const sel = useRef<Mesh>(null)
   const hov = useRef<Mesh>(null)
   const selMat = useMemo(() => new MeshBasicMaterial({ color: PAL.ink, transparent: true, opacity: 0.85, depthWrite: false }), [])
-  const hovMat = useMemo(() => new MeshBasicMaterial({ color: '#F7F9FB', transparent: true, opacity: 0.9, depthWrite: false }), [])
+  const hovMat = useMemo(() => new MeshBasicMaterial({ color: '#F7F9FB', transparent: true, opacity: 0.9, depthWrite: false, toneMapped: false }), [])
+  const still = useMemo(reducedMotion, [])
   useFrame(({ clock }) => {
     const s = ui.get()
-    for (const [m, id] of [
+    const pairs: [Mesh | null, string | null][] = [
       [sel.current, s.selected],
       [hov.current, s.hovered !== s.selected ? s.hovered : null],
-    ] as const) {
+    ]
+    for (const [m, id] of pairs) {
       if (!m) continue
-      m.visible = !!id
-      if (!id) continue
-      m.position.copy(floorOf(id)).setY(floorOf(id).y + 0.01)
-      const big = id.startsWith('g:') ? 1.75 : id.startsWith('a:') ? 1.15 : id.startsWith('s:') ? 0.5 : 0.85
-      m.scale.setScalar(big * (m === hov.current ? 1 + 0.03 * Math.sin(clock.elapsedTime * 4) : 1))
+      m.visible = known(id)
+      if (!known(id)) continue
+      floorInto(id, m.position)
+      m.position.y += 0.01
+      m.scale.setScalar(haloSize(id) * (m === hov.current && !still ? 1 + 0.03 * Math.sin(clock.elapsedTime * 4) : 1))
     }
   })
   return (
@@ -290,6 +310,139 @@ function Halo() {
       <mesh ref={hov} geometry={haloGeo} material={hovMat} rotation={[-Math.PI / 2, 0, 0]} visible={false} renderOrder={3} />
     </>
   )
+}
+
+// ── The hover card ───────────────────────────────────────────────────────
+
+const card: { el: HTMLDivElement | null; id: string | null; inside: boolean } = { el: null, id: null, inside: false }
+
+/** A name and one plain line on what it is doing now. Never an award number or an internal id. */
+function cardText(id: string): { name: string; line: string } {
+  const w = feed.getWorld()
+  if (id === 'x:record') return { name: 'The shared record', line: 'Every agent reads and writes here. None of them talk to each other directly.' }
+  if (id.startsWith('r:')) {
+    const r = w.researchers.find(x => `r:${x.id}` === id)
+    const name = r?.name ?? 'A lab member'
+    const out = w.packets.find(p => p.from === id && (p.kind === 'request' || p.kind === 'pushback' || p.kind === 'paper'))
+    const back = w.packets.find(p => p.to === id && p.kind === 'verdict')
+    const req = (out ?? back)?.refId ? w.requests.find(q => q.id === (out ?? back)!.refId) : undefined
+    const what = req ? shortItem(req.item).toLowerCase() : ''
+    if (out?.kind === 'paper') return { name, line: 'Sending a paper for the progress report' }
+    if (out?.kind === 'pushback') return { name, line: `Pushing back on the hold on ${what}` }
+    if (out && req) return { name, line: `Asking to buy ${what}, ${usd(req.price)}` }
+    if (back && req) return { name, line: `Hearing back on ${what}` }
+    return { name, line: r ? `${r.role}. ${r.task}` : '' }
+  }
+  if (id.startsWith('a:') || id === 'p:grant_manager') {
+    const n = w.nodes.find(x => x.id === id)
+    const now = agentNow(w, id)
+    return { name: n?.label ?? 'Agent', line: id === 'p:grant_manager' ? now.line : `${now.word}. ${now.line}` }
+  }
+  if (id.startsWith('g:')) {
+    const g = w.grants.find(x => `g:${x.id}` === id)
+    if (!g) return { name: 'Grant', line: '' }
+    return { name: g.name, line: `${usd(g.available)} truly available. ${grantStatus(g, w.today).word}.` }
+  }
+  const n = w.nodes.find(x => x.id === id)
+  const edge = EDGES.find(e => e.from === id || e.to === id)
+  const line = id.startsWith('s:') ? (edge?.what ?? n?.sub ?? '') : (n?.sub ?? edge?.what ?? '')
+  return { name: n?.label ?? '', line }
+}
+
+function HoverCard() {
+  const hovered = useUi(s => s.hovered)
+  const src = useUi(s => s.hoverSrc)
+  const sheet = useUi(s => s.sheet)
+  const [, tick] = useState(0)
+  const show = known(hovered) && src === 'scene' && !sheet
+  useEffect(() => {
+    if (!show) return
+    const i = setInterval(() => tick(x => x + 1), 400)
+    return () => clearInterval(i)
+  }, [show])
+  card.id = show ? hovered : null
+  const text = show ? cardText(hovered) : null
+  return (
+    <div
+      ref={el => {
+        card.el = el
+      }}
+      className="a-hover"
+      data-float="hover-card"
+      aria-hidden="true"
+      hidden={!text}
+    >
+      {text && (
+        <>
+          <p className="a-hover-name">{text.name}</p>
+          {text.line && <p className="a-hover-line">{text.line}</p>}
+        </>
+      )}
+    </div>
+  )
+}
+
+/** Puts the hover card over its node every frame: above it, flipped below near the top, kept inside the stage, clear of anything else floating. */
+const cp = new Vector3()
+function CardTracker() {
+  const { camera, size } = useThree()
+  const st = useRef({ n: 0, below: false, w: 0, h: 0, clear: true })
+  useFrame(() => {
+    const el = card.el
+    if (!el || !card.id || el.hidden || !card.inside) {
+      if (el) el.style.visibility = 'hidden'
+      return
+    }
+    const s = st.current
+    s.n++
+    if (s.n % 10 === 1 || !s.w) {
+      s.w = el.offsetWidth
+      s.h = el.offsetHeight
+    }
+    topInto(card.id, cp).project(camera)
+    if (cp.z > 1) {
+      el.style.visibility = 'hidden'
+      return
+    }
+    const W = size.width, H = size.height
+    const ax = (cp.x * 0.5 + 0.5) * W
+    const ay = (-cp.y * 0.5 + 0.5) * H
+    const place = (below: boolean) => {
+      const x = Math.min(Math.max(8, ax - s.w / 2), W - s.w - 8)
+      const y = below ? ay + 22 : ay - s.h - 12
+      return [x, Math.min(Math.max(8, y), H - s.h - 8)] as const
+    }
+    let below = ay - s.h - 12 < 8
+    let [x, y] = place(below)
+    // Every few frames: if it would cover another floating thing, try the other side, else step aside.
+    if (s.n % 8 === 1) {
+      const host = el.parentElement?.getBoundingClientRect()
+      const hit = (px: number, py: number) => {
+        if (!host) return false
+        const l = host.left + px, t = host.top + py, r = l + s.w, b = t + s.h
+        for (const o of document.querySelectorAll<HTMLElement>('[data-float]')) {
+          if (o === el || o.contains(el) || el.contains(o) || o.hidden) continue
+          const q = o.getBoundingClientRect()
+          if (q.width === 0 || getComputedStyle(o).visibility === 'hidden') continue
+          if (Math.min(r, q.right) - Math.max(l, q.left) > 0 && Math.min(b, q.bottom) - Math.max(t, q.top) > 0) return true
+        }
+        return false
+      }
+      s.clear = true
+      if (hit(x, y)) {
+        const [x2, y2] = place(!below)
+        if (!hit(x2, y2)) s.below = !below
+        else s.clear = false
+      } else s.below = below
+    }
+    if (s.below !== below) {
+      below = s.below
+      ;[x, y] = place(below)
+    }
+    el.style.transform = `translate3d(${Math.round(x)}px, ${Math.round(y)}px, 0)`
+    el.style.visibility = s.clear ? 'visible' : 'hidden'
+  })
+  return null
 }
 
 /** Full quality on a real GPU; steps down (MSAA, then AO) if the frame rate can't hold. */
@@ -324,27 +477,75 @@ function Effects() {
   )
 }
 
+const cq = new Vector3()
+/** With ?debug3d: counts every draw call in a frame (all passes) for the budget check. */
+function DrawCalls() {
+  const { gl } = useThree()
+  const on = useMemo(() => typeof location !== 'undefined' && new URLSearchParams(location.search).has('debug3d'), [])
+  useEffect(() => {
+    if (!on) return
+    gl.info.autoReset = false
+    return () => {
+      gl.info.autoReset = true
+    }
+  }, [gl, on])
+  useFrame(() => {
+    if (on) gl.info.reset()
+  }, -100)
+  const { camera } = useThree()
+  useEffect(() => {
+    if (!on) return
+    // Where a node is on the page, for scripted hovers; the feed, to stop the story at an exact time.
+    const w = window as unknown as { __a3where?: (id: string) => number[]; __a3feed?: typeof feed }
+    w.__a3feed = feed
+    w.__a3where = (id: string) => {
+      const r = gl.domElement.getBoundingClientRect()
+      if (id.startsWith('r:') || id === 'p:grant_manager') floorInto(id, cq).setY(0.9).project(camera)
+      else floorInto(id, cq).setY(0.45).project(camera)
+      return [r.left + (cq.x * 0.5 + 0.5) * r.width, r.top + (-cq.y * 0.5 + 0.5) * r.height]
+    }
+  }, [on, gl, camera])
+  useFrame(() => {
+    if (!on) return
+    ;(window as unknown as { __a3calls?: number }).__a3calls = gl.info.render.calls
+  }, 100)
+  return null
+}
+
 export default function Scene() {
   return (
-    <Canvas
-      className="a-canvas"
-      shadows="soft"
-      dpr={[1, 2]}
-      camera={{ fov: 30, near: 0.5, far: 300, position: OPENING.pos.toArray() }}
-      gl={{ antialias: false, powerPreference: 'high-performance' }}
-      role="img"
-      aria-label="A 3D clay model of the Ortiz Lab on one plinth and the grant office on the other. Each request travels as a parcel from a researcher to the purchasing agent's desk, where the spending rules light up one by one, and comes back bought, rerouted, blocked or held. Every actor is also listed under More, Everything in the scene."
-    >
-      <Backdrop />
-      <Ground />
-      <Lights />
-      <LabPlinth />
-      <OfficePlinth />
-      <Flow />
-      <Halo />
-      <ContactShadows position={[1.6, -3.1, 0]} scale={[36, 18]} blur={3} far={4.5} opacity={0.3} resolution={512} frames={1} color="#3A3530" />
-      <Rig />
-      <Effects />
-    </Canvas>
+    <>
+      <Canvas
+        className="a-canvas"
+        shadows
+        dpr={[1, 2]}
+        camera={{ fov: 24, near: 0.5, far: 400, position: OPENING.pos.toArray() }}
+        gl={{ antialias: false, powerPreference: 'high-performance' }}
+        role="img"
+        aria-label="A 3D clay model of the Ortiz Lab beside the grant office's round table. Researchers work at their benches; each thing they ask to buy flies into the shared record at the centre of the table and on to the purchasing agent, then comes back bought, rerouted, sent back, blocked or held. The agents never talk to each other directly; everything passes through the record. Every actor is also listed in the sidebar."
+        onPointerEnter={() => {
+          card.inside = true
+        }}
+        onPointerLeave={() => {
+          card.inside = false
+          const s = ui.get()
+          if (s.hoverSrc === 'scene') ui.set({ hovered: null, hoverSrc: null })
+        }}
+      >
+        <Backdrop />
+        <Ground />
+        <Lights />
+        <LabPlinth />
+        <OfficePlinth />
+        <Flow />
+        <Halo />
+        <ContactShadows position={[0, -3.1, 0]} scale={[40, 20]} blur={3} far={4.5} opacity={0.3} resolution={512} frames={1} color="#3A3530" />
+        <Rig />
+        <CardTracker />
+        <DrawCalls />
+        <Effects />
+      </Canvas>
+      <HoverCard />
+    </>
   )
 }

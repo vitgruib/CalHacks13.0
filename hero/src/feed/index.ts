@@ -9,6 +9,7 @@
 // - feed.submit / preview / pushback / decide / inject / play / pause / setSpeed
 // - feed.storyProgress()  0..1 through the scripted story (restarts with it)
 // - EDGES                 the finance network's lines; ITEM_LOOKS / kindOf what a requested thing looks like
+// - grantName(id)         what to show for a grant id; never render the id itself
 
 import { useEffect, useRef, useSyncExternalStore } from 'react'
 import { Feed } from './engine'
@@ -27,6 +28,9 @@ export function useFlow(fn: (e: FlowEvent) => void) {
 }
 
 export const progress = (p: Packet, now = feed.now()) => Math.min(1, Math.max(0, (now - p.sentAt) / p.ms))
+
+/** The plain name a scene shows for a grant id ("Mitochondria grant"); award numbers never reach the screen. */
+export const grantName = (id: string) => feed.getWorld().grants.find(g => g.id === id)?.name ?? 'Another grant'
 
 export { PACE, usd } from './engine'
 export { EDGES, PRESETS, R01, R21 } from './world'

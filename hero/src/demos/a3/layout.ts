@@ -1,7 +1,9 @@
 // Where everything sits. One world unit is roughly a metre of lab floor.
-// The lab plinth spans x -9.4..-1.4, the grant office plinth x 1.4..9.4,
-// both z -3.2..3.2 with their tops at y = 0. Vendors and the funder float
-// on two small pedestals past the office.
+// The lab plinth spans x -10.1..-1.1, z -3.4..3.4 with its top at y = 0.
+// The finance network is a round table centred at TABLE: the shared record
+// in the middle, the three agents and the grant manager around it, the two
+// grants inside the ring, the sources as posts on the rim, and vendors and
+// the funder on small pedestals outside.
 
 import { Vector3 } from 'three'
 
@@ -13,8 +15,11 @@ export const PAL = {
   ground: '#DCDFE3',
   labBody: '#D6CDBF',
   labTop: '#E8E2D8',
+  floor: '#E3DDD2',
+  wall: '#E9E4DB',
   officeBody: '#252D37',
   officeTop: '#2E3742',
+  tableTop: '#38424E',
   chalk: '#EEE9E1',
   porcelain: '#F5F1EB',
   clay: '#D3CABD',
@@ -34,123 +39,211 @@ export const PAL = {
 
 export const GLAZE = { accept: PAL.celadon, refine: PAL.ochre, reject: PAL.oxblood, hold: PAL.cobalt } as const
 
-export const LAB_X = -5.4
-export const OFFICE_X = 5.4
-export const PLINTH_W = 8
-export const PLINTH_D = 6.4
+/** Each grant's own colour: the band on its vessel and the tag on everything charged to it. */
+export const GRANT_HUE: Record<string, string> = {
+  R01GM061721: '#C66B4E',
+  R21AI182745: '#7D5BA6',
+}
+export const otherGrant = (gid: string) => (gid === 'R01GM061721' ? 'R21AI182745' : 'R01GM061721')
 
-export type Gesture = 'write' | 'pipette' | 'cabinet' | 'scope' | 'reach'
+export const LAB_X = -5.6
+export const LAB_W = 9
+export const LAB_D = 6.8
+export const LAB_X0 = LAB_X - LAB_W / 2
+export const LAB_X1 = LAB_X + LAB_W / 2
 
-export interface Station {
-  fig: V3 // figurine feet
-  rot: number // figurine yaw; 0 faces +z (toward the default camera)
-  anchor: V3 // where tokens leave from
-  stack: V3 // where the researcher's token stack sits
-  gesture: Gesture
+// ── The round table ──────────────────────────────────────────────────────
+
+export const TABLE: V3 = [4.4, 0, 0]
+export const TABLE_R = 3.9
+/** Where every packet passes: just above the shared record. */
+export const RECORD_H = 0.82
+export const HUB = new Vector3(TABLE[0], RECORD_H + 0.12, TABLE[2])
+
+/** A point on the table at angle `deg` (0 = east, 90 = toward the camera) and radius `r`. */
+export const polar = (deg: number, r: number, y = 0): V3 => {
+  const a = (deg * Math.PI) / 180
+  return [TABLE[0] + r * Math.cos(a), y, TABLE[2] + r * Math.sin(a)]
 }
 
-export const STATIONS: Record<string, Station> = {
-  ortiz: { fig: [-7.55, 0, -1.55], rot: Math.PI + 0.55, anchor: [-7.2, 1.25, -1.1], stack: [-6.85, 0, -1.3], gesture: 'write' },
-  okafor: { fig: [-7.4, 0, 0.05], rot: 0, anchor: [-7.4, 1.25, 0.95], stack: [-8.95, 0, 0.9], gesture: 'pipette' },
-  raman: { fig: [-5.05, 0, -1.45], rot: Math.PI, anchor: [-4.55, 1.25, -1.1], stack: [-4.3, 0, -1.35], gesture: 'cabinet' },
-  silva: { fig: [-4.15, 0, 0.1], rot: 0, anchor: [-4.15, 1.25, 1.0], stack: [-2.75, 0, 1.0], gesture: 'scope' },
-  park: { fig: [-2.75, 0, -1.4], rot: Math.PI - 0.5, anchor: [-2.4, 1.25, -1.0], stack: [-2.05, 0, -0.75], gesture: 'reach' },
+export const SEAT_R = 2.55
+export const NODE_DEG: Record<string, number> = {
+  'a:purchasing': 180,
+  'a:bookkeeping': 90,
+  'a:payment_report': 0,
+  'p:grant_manager': 270,
+  'g:R01GM061721': 135,
+  'g:R21AI182745': 45,
+  's:reporter': 212,
+  's:usaspending': 238,
+  's:cancellations': 264,
+  's:court': 290,
+  's:payments': 316,
+  'v:vendors': 22,
+  'p:funder': -24,
 }
+export const GRANT_R = 1.72
+export const SOURCE_R = 3.62
+export const OUTSIDE_R = 5.65
 
-export const PURCHASING: V3 = [2.95, 0, 0.25]
-export const DESK_H = 0.74
-export const PARCEL = 0.56
-/** Where a request parcel rests while the purchasing agent checks it. */
-export const DESK_SPOT: V3 = [PURCHASING[0], DESK_H + PARCEL / 2, PURCHASING[2] + 0.12]
-export const BOOKKEEPING: V3 = [5.55, 0, -1.55]
-export const PAYMENT_REPORT: V3 = [8.25, 0, -1.25]
-export const GM_DESK: V3 = [3.45, 0, -2.2]
-export const GM_SPOT: V3 = [GM_DESK[0] + 0.2, 0.74 + PARCEL / 2, GM_DESK[2] + 0.05]
+export const PURCHASING = polar(180, SEAT_R)
+export const BOOKKEEPING = polar(90, SEAT_R)
+export const PAYMENT_REPORT = polar(0, SEAT_R)
+export const GM_POS = polar(270, 2.78) // the grant manager stands here, facing the record
+export const GM_DESK = polar(270, 2.2)
 export const RESERVOIRS: Record<string, V3> = {
-  R01GM061721: [5.25, 0, 1.35],
-  R21AI182745: [7.55, 0, 1.35],
+  R01GM061721: polar(135, GRANT_R),
+  R21AI182745: polar(45, GRANT_R),
 }
-/** The five sources share one low rack at the back of the office. */
-export const RACK: V3 = [6.75, 0, -2.85]
 export const SOURCES: Record<string, V3> = {
-  's:reporter': [4.95, 0, -2.85],
-  's:usaspending': [5.85, 0, -2.85],
-  's:cancellations': [6.75, 0, -2.85],
-  's:court': [7.65, 0, -2.85],
-  's:payments': [8.55, 0, -2.85],
+  's:reporter': polar(212, SOURCE_R),
+  's:usaspending': polar(238, SOURCE_R),
+  's:cancellations': polar(264, SOURCE_R),
+  's:court': polar(290, SOURCE_R),
+  's:payments': polar(316, SOURCE_R),
 }
-export const VENDORS: V3 = [12.1, -0.7, 1.7] // pedestal top centre
-export const FUNDER: V3 = [12.1, -0.3, -1.7]
+export const VENDORS: V3 = polar(22, OUTSIDE_R, -0.55) // pedestal top centre
+export const FUNDER: V3 = polar(-24, OUTSIDE_R, -0.3)
+
+/** Requested things are shown this big while they travel (about 50 px on a 1440×900 hero). */
+export const ITEM = 0.92
+export const POD_H = 0.78
+/** Where a request rests while the purchasing agent checks it: a tray on the agent's inner side. */
+export const DESK_SPOT: V3 = polar(180, SEAT_R - 0.86, 0.18 + ITEM * 0.36)
+export const GM_SPOT: V3 = [GM_DESK[0], 0.72 + ITEM * 0.34, GM_DESK[2] + 0.08]
+
+// ── Node anchors, for packets, halos and the hover card ─────────────────
 
 interface NodeSpot {
-  anchor: V3
-  floor: V3 // ground point under the node, for halos and ripples
+  anchor: V3 // where packets leave from and arrive at
+  floor: V3 // ground point under the node, for halos
+  top: number // height of the node's top, for the hover card
 }
 
 const spots: Record<string, NodeSpot> = {}
-for (const [id, s] of Object.entries(STATIONS)) spots[`r:${id}`] = { anchor: s.anchor, floor: [s.fig[0], 0.012, s.fig[2]] }
-spots['a:purchasing'] = { anchor: [PURCHASING[0], 1.15, PURCHASING[2] - 0.2], floor: [PURCHASING[0], 0.012, PURCHASING[2]] }
-spots['a:bookkeeping'] = { anchor: [BOOKKEEPING[0], 1.45, BOOKKEEPING[2]], floor: [BOOKKEEPING[0], 0.012, BOOKKEEPING[2]] }
-spots['a:payment_report'] = { anchor: [PAYMENT_REPORT[0], 1.3, PAYMENT_REPORT[2]], floor: [PAYMENT_REPORT[0], 0.012, PAYMENT_REPORT[2]] }
-spots['p:grant_manager'] = { anchor: [GM_SPOT[0], 1.0, GM_SPOT[2]], floor: [GM_DESK[0], 0.012, GM_DESK[2] - 0.3] }
-for (const [gid, p] of Object.entries(RESERVOIRS)) spots[`g:${gid}`] = { anchor: [p[0], 1.15, p[2]], floor: [p[0], 0.012, p[2]] }
-for (const [sid, p] of Object.entries(SOURCES)) spots[sid] = { anchor: [p[0], 0.55, p[2]], floor: [p[0], 0.012, p[2]] }
-spots['v:vendors'] = { anchor: [VENDORS[0], VENDORS[1] + 0.85, VENDORS[2]], floor: [VENDORS[0], VENDORS[1] + 0.012, VENDORS[2]] }
-spots['p:funder'] = { anchor: [FUNDER[0], FUNDER[1] + 1.2, FUNDER[2]], floor: [FUNDER[0], FUNDER[1] + 0.012, FUNDER[2]] }
+const node = (id: string, p: V3, anchorY: number, top: number) => (spots[id] = { anchor: [p[0], anchorY, p[2]], floor: [p[0], p[1] + 0.012, p[2]], top })
+node('a:purchasing', PURCHASING, POD_H * 0.62, POD_H + 0.35)
+node('a:bookkeeping', BOOKKEEPING, POD_H * 0.62, POD_H + 0.35)
+node('a:payment_report', PAYMENT_REPORT, POD_H * 0.62, POD_H + 0.35)
+node('p:grant_manager', GM_POS, 1.25, 1.85)
+for (const [gid, p] of Object.entries(RESERVOIRS)) node(`g:${gid}`, p, 0.95, 1.5)
+for (const [sid, p] of Object.entries(SOURCES)) node(sid, p, 0.62, 0.75)
+node('v:vendors', VENDORS, VENDORS[1] + 0.55, VENDORS[1] + 1.1)
+node('p:funder', FUNDER, FUNDER[1] + 0.9, FUNDER[1] + 1.5)
 
-const FALLBACK: NodeSpot = { anchor: [0, 3, 0], floor: [0, 0.012, 0] }
+const FALLBACK: NodeSpot = { anchor: [0, 3, 0], floor: [0, 0.012, 0], top: 3 }
 
 export const spot = (id: string): NodeSpot => spots[id] ?? FALLBACK
 export const anchorOf = (id: string) => new Vector3(...spot(id).anchor)
 export const floorOf = (id: string) => new Vector3(...spot(id).floor)
 
-/** Where an answered request comes to rest: on the floor beside the researcher's stack. */
-export function landOf(id: string, out = new Vector3()) {
-  const s = STATIONS[id.slice(2)]
-  if (!s) return out.set(...spot(id).anchor)
-  return out.set(s.stack[0] + 0.42, PARCEL * 0.42, s.stack[2] + 0.18)
-}
-
-/**
- * Parcels held until money lands hover in front of their grant, toward the purchasing
- * desk: low and forward enough that, from the hero camera, they clear both the jar and the desk.
- */
-export function parkOf(gid: string, i: number, out = new Vector3()) {
-  const p = RESERVOIRS[gid] ?? RESERVOIRS.R01GM061721
-  return out.set(p[0] - 2.8 - i * 0.72, 1.1, p[2] + 1.45)
-}
-
 export const isLab = (id: string) => id.startsWith('r:')
 
-/** An arc whose height grows with distance; `u` is already eased. */
-export function arcPoint(a: Vector3, b: Vector3, u: number, h: number, out: Vector3) {
-  out.lerpVectors(a, b, u)
-  out.y += 4 * h * u * (1 - u)
-  return out
-}
-export function arcHeight(a: Vector3, b: Vector3, cross: boolean) {
-  const d = Math.hypot(b.x - a.x, b.z - a.z)
-  return cross ? Math.min(3.0, Math.max(0.9, 0.24 * d)) : Math.min(1.2, Math.max(0.3, 0.2 * d))
+/** Parcels held until money lands wait beside their frozen grant, on the table's outer ring. */
+export function parkOf(gid: string, i: number, out = new Vector3()) {
+  const s = gid === 'R01GM061721' ? 1 : -1
+  const deg = (NODE_DEG[`g:${gid}`] ?? 135) + s * 18 - s * i * 22
+  const [x, , z] = polar(deg, GRANT_R + 1.38) // clear of the bell jar and the next pod
+  return out.set(x, ITEM * 0.36 + 0.02, z)
 }
 
-/** Plinth top under a point, or null over the gap. */
+/** Plinth or table top under a point, or null over the gap. */
 export function groundAt(x: number, z: number): number | null {
-  if (Math.abs(z) > PLINTH_D / 2) return null
-  if (Math.abs(x - LAB_X) <= PLINTH_W / 2 || Math.abs(x - OFFICE_X) <= PLINTH_W / 2) return 0
+  if (Math.abs(z) <= LAB_D / 2 && x >= LAB_X0 && x <= LAB_X1) return 0
+  if (Math.hypot(x - TABLE[0], z - TABLE[2]) <= TABLE_R) return 0
   return null
 }
+
+// ── Framing ──────────────────────────────────────────────────────────────
 
 export interface Framing {
   pos: Vector3
   target: Vector3
   fov: number
-  shift: [number, number] // fraction of the viewport to slide the picture (x right, y down)
 }
 
-// Both framings were fitted so the two plinths fill the screen and keep clear
-// of the headline (top left) and the caption (bottom left).
-export const HERO_WIDE: Framing = { pos: new Vector3(-17.27, 35.12, 27.0), target: new Vector3(1.2, 0, 0), fov: 22, shift: [0.145, -0.043] }
-export const HERO_TALL: Framing = { pos: new Vector3(-48.85, 43.51, 22.4), target: new Vector3(1.2, 0, 0), fov: 26, shift: [0.051, 0.0] }
-export const OPENING = { pos: new Vector3(-8.6, 2.4, 5.4), target: new Vector3(-6.6, 0.9, 0.2) }
+/** Everything the hero shot must hold. */
+const BOUNDS: Vector3[] = (() => {
+  const out: Vector3[] = []
+  for (const x of [LAB_X0, LAB_X1]) for (const z of [-LAB_D / 2, LAB_D / 2]) for (const y of [-1.1, 0.4]) out.push(new Vector3(x, y, z))
+  for (const x of [LAB_X0 + 0.2, LAB_X1 - 0.2]) out.push(new Vector3(x, 2.3, -LAB_D / 2 + 0.1))
+  for (let i = 0; i < 16; i++) {
+    const a = (i / 16) * Math.PI * 2
+    for (const y of [-1.1, 0.5]) out.push(new Vector3(TABLE[0] + TABLE_R * Math.cos(a), y, TABLE[2] + TABLE_R * Math.sin(a)))
+  }
+  for (const p of [VENDORS, FUNDER]) for (const dx of [-1, 1]) for (const dz of [-1, 1]) out.push(new Vector3(p[0] + dx * 0.95, p[1] - 0.65, p[2] + dz * 0.95), new Vector3(p[0] + dx * 0.6, p[1] + 1.1, p[2] + dz * 0.6))
+  return out
+})()
 
-export const heroFor = (aspect: number) => (aspect < 0.85 ? HERO_TALL : HERO_WIDE)
+const fw = new Vector3()
+const fr = new Vector3()
+const fu = new Vector3()
+const fd = new Vector3()
+const UPV = new Vector3(0, 1, 0)
+
+/** Places the camera along `dir` so every bound fits the frustum with a margin, centred. */
+function fit(dir: Vector3, target: Vector3, fov: number, aspect: number, margin: number): Framing {
+  const ty = Math.tan(((fov / 2) * Math.PI) / 180) * (1 - margin)
+  const tx = ty * aspect
+  const t = target.clone()
+  fw.copy(dir).normalize().negate()
+  fr.crossVectors(fw, UPV).normalize()
+  fu.crossVectors(fr, fw).normalize()
+  let dist = 40
+  const pos = new Vector3()
+  for (let pass = 0; pass < 3; pass++) {
+    let lo = 4, hi = 400
+    for (let i = 0; i < 40; i++) {
+      const mid = (lo + hi) / 2
+      const cam = t.clone().addScaledVector(dir, mid)
+      let ok = true
+      for (const p of BOUNDS) {
+        fd.subVectors(p, cam)
+        const z = fd.dot(fw)
+        if (z <= 0.1 || Math.abs(fd.dot(fr)) / z > tx || Math.abs(fd.dot(fu)) / z > ty) {
+          ok = false
+          break
+        }
+      }
+      if (ok) hi = mid
+      else lo = mid
+    }
+    dist = hi
+    // Re-centre: shift the target by the bounds' mean offset on screen.
+    const cam = t.clone().addScaledVector(dir, dist)
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
+    for (const p of BOUNDS) {
+      fd.subVectors(p, cam)
+      const z = fd.dot(fw)
+      const x = fd.dot(fr) / z, y = fd.dot(fu) / z
+      minX = Math.min(minX, x)
+      maxX = Math.max(maxX, x)
+      minY = Math.min(minY, y)
+      maxY = Math.max(maxY, y)
+    }
+    const cx = (minX + maxX) / 2, cy = (minY + maxY) / 2
+    pos.copy(cam).addScaledVector(fr, cx * dist).addScaledVector(fu, cy * dist)
+    // The orbit target is where the view ray meets the floor.
+    t.copy(pos).addScaledVector(dir, -pos.y / dir.y)
+  }
+  return { pos, target: t, fov }
+}
+
+const WIDE_DIR = new Vector3(-0.36, 0.76, 0.6).normalize()
+const TALL_DIR = new Vector3(-0.74, 0.6, 0.3).normalize()
+const cache = new Map<string, Framing>()
+
+/** The hero framing for a stage of this aspect: wide holds both side by side; a phone looks down the lab toward the table. */
+export function heroFor(aspect: number): Framing {
+  const tall = aspect < 0.85
+  const key = `${tall ? 't' : 'w'}${aspect.toFixed(2)}`
+  let f = cache.get(key)
+  if (!f) {
+    f = tall ? fit(TALL_DIR, new Vector3(-1, 0, 0), 30, aspect, 0.03) : fit(WIDE_DIR, new Vector3(0, 0, 0), 24, aspect, 0.04)
+    cache.set(key, f)
+  }
+  return f
+}
+export const isTall = (f: Framing) => f.fov === 30
+
+export const OPENING = { pos: new Vector3(-9.2, 2.6, 6.2), target: new Vector3(-6.2, 0.9, 0.4) }

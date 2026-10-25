@@ -1,0 +1,57 @@
+/* The 3D stage for a4: the canvas fills .a-stage, and the one hover card
+   floats inside it, anchored to whatever the pointer is over. */
+
+.demo-a4 .s4-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #d9dcdf;
+}
+
+.demo-a4 .s4-canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.demo-a4 .s4-card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 264px;
+  padding: 9px 12px 10px;
+  background: #fbfaf7;
+  color: #1c232c;
+  border: 1px solid #d6d1c7;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(28, 35, 44, 0.16);
+  pointer-events: none;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.35;
+  font-variant-numeric: tabular-nums;
+  will-change: transform;
+}
+
+.demo-a4 .s4-card[hidden] {
+  display: none;
+}
+
+.demo-a4 .s4-card-name {
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.005em;
+}
+
+.demo-a4 .s4-card-line {
+  color: #46505c;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-a4 .s4-card {
+    will-change: auto;
+  }
+}

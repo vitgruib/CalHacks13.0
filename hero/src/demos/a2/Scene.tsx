@@ -1,7 +1,8 @@
-// The studio: a seamless grey void with a soft pool of light under two
-// floating plinths, a warm key from the upper left, a cool fill and a faint
-// rim. The camera opens close on Sam's bench, cranes back to reveal both
-// sides, then drifts very slowly while nobody is steering it.
+// The studio: a seamless grey void with a soft pool of light under the lab
+// plinth and the slate base, the finance network hanging above like a
+// mobile. A warm key from the upper left, a cool fill, a faint rim. The
+// camera opens close on Sam's bench, cranes back to show the lab and the
+// network together, then drifts very slowly while nobody is steering it.
 
 import { ContactShadows, Environment, Lightformer, OrbitControls, PerformanceMonitor } from '@react-three/drei'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
@@ -10,12 +11,15 @@ import { ToneMappingMode } from 'postprocessing'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { BackSide, Color, MeshBasicMaterial, RingGeometry, ShaderMaterial, Vector3, type Mesh, type PerspectiveCamera } from 'three'
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
-import { Flow } from './Flow'
+import { feed } from '../../feed'
+import { CardTracker, HoverCard, leaveStage } from './Card'
+import { Flow, itemAt } from './Flow'
 import { LabPlinth } from './Lab'
-import { OfficePlinth } from './Office'
-import { HERO_TALL, OPENING, PAL, STATIONS, anchorOf, floorOf, heroFor, type Framing } from './layout'
-import { pinnedQuality, reducedMotion, ui } from './store'
-
+import { OfficeMobile, Solver } from './Office'
+import { HERO_TALL, OPENING, PAL, heroFor, type Framing } from './layout'
+import { P } from './mobile'
+import { fx, pinnedQuality, reducedMotion, ui } from './store'
+import './scene.css'
 function Backdrop() {
   const mat = useMemo(
     () =>
@@ -105,23 +109,31 @@ const DRIFT = (1.5 * Math.PI) / 180 // ±1.5°
 const DRIFT_S = 20 // one slow sway every 20 s
 const off = new Vector3()
 
+/** Where to look for a node, a person or a request, from where it is right now. */
 function focusFor(id: string, hero: Framing) {
   const dir = hero.pos.clone().sub(hero.target).normalize()
-  let target: Vector3
-  let dist = 15
-  if (id.startsWith('r:')) {
-    const s = STATIONS[id.slice(2)]
-    target = s ? new Vector3(s.fig[0] + 0.5, 0.85, s.fig[2] + 0.2) : anchorOf(id)
-    dist = 11.7
-  } else if (id.startsWith('g:')) {
-    target = floorOf(id).setY(1)
-    dist = 13
-  } else if (id.startsWith('a:') || id === 'p:grant_manager') {
-    target = anchorOf(id).setY(1)
-    dist = 13
-  } else target = anchorOf(id).setY(0.8)
-  // A phone's narrow lens needs more distance to hold the same subject.
-  if (hero === HERO_TALL) dist *= 2.25
+  const target = new Vector3(-3.4, 1, 0.2)
+  let dist = 10
+  const body = (rid: string) => {
+    const b = fx.bodies.get(rid)
+    if (b) target.copy(b.pos).setY(1.0)
+    dist = 8.5
+  }
+  if (id.startsWith('r:')) body(id.slice(2))
+  else if (id === 'p:grant_manager') body('gm')
+  else if (P.has(id)) {
+    target.copy(P.get(id)!)
+    dist = id.startsWith('s:') ? 8 : 10
+  } else {
+    const at = itemAt.get(id)
+    const r = feed.getWorld().requests.find(q => q.id === id)
+    if (at) {
+      target.copy(at)
+      dist = 9
+    } else if (r) body(r.researcherId)
+  }
+  // A phone's narrow frame needs more distance to hold the same subject.
+  if (hero === HERO_TALL) dist *= 1.9
   return { pos: target.clone().addScaledVector(dir, dist), target }
 }
 
@@ -129,8 +141,7 @@ function Rig() {
   const controls = useRef<OrbitControlsImpl>(null)
   const { camera, size } = useThree()
   const tween = useRef<Tween | null>(null)
-  const applied = useRef({ w: 0, h: 0, sx: 0, sy: 0, fov: 0 })
-  const shift = useRef<[number, number]>([...heroFor(size.width / size.height).shift])
+  const applied = useRef({ fov: 0, aspect: 0 })
   const still = useMemo(reducedMotion, [])
   const heroRef = useRef<Framing>(heroFor(size.width / size.height))
   const drift = useRef({ t: 0, a: 0, drag: false })
@@ -189,28 +200,14 @@ function Rig() {
     const hero = heroFor(aspect)
     if (hero !== heroRef.current) {
       heroRef.current = hero
-      if (!ui.get().selected && !tween.current) glide(hero.pos.clone(), hero.target.clone(), 900)
+      if (!ui.get().selected) glide(hero.pos.clone(), hero.target.clone(), still ? 0 : 900)
     }
-
-    // Slide the picture so it clears the copy, and the open panel.
-    const s = ui.get()
-    const panelOpen = s.panel !== null
-    const wide = size.width >= 900
-    // Wide: the panel sits on the right, so slide left. Phone: the sheet covers the
-    // bottom, so centre whatever is in focus in the strip above it.
-    const tx = panelOpen ? (wide ? hero.shift[0] - 0.15 : 0) : hero.shift[0]
-    const ty = panelOpen && !wide ? -0.27 : hero.shift[1]
-    const k = 1 - Math.exp(-Math.min(dt, 0.1) * 6)
-    shift.current[0] += (tx - shift.current[0]) * k
-    shift.current[1] += (ty - shift.current[1]) * k
     const a = applied.current
-    const sx = Math.round(shift.current[0] * size.width)
-    const sy = Math.round(shift.current[1] * size.height)
-    if (a.w !== size.width || a.h !== size.height || a.sx !== sx || a.sy !== sy || a.fov !== hero.fov) {
+    if (a.fov !== hero.fov || a.aspect !== aspect) {
       cam.fov = hero.fov
-      cam.setViewOffset(size.width, size.height, -sx, -sy, size.width, size.height)
       cam.updateProjectionMatrix()
-      Object.assign(a, { w: size.width, h: size.height, sx, sy, fov: hero.fov })
+      a.fov = hero.fov
+      a.aspect = aspect
     }
 
     const tw = tween.current
@@ -231,11 +228,11 @@ function Rig() {
     c.enabled = true
     // Idle life: a very slow sway about the target while nobody is steering.
     const d = drift.current
-    if (!still && !d.drag && !s.selected && document.visibilityState === 'visible') {
+    if (!still && !d.drag && !ui.get().selected && document.visibilityState === 'visible') {
       d.t += Math.min(dt, 0.05)
-      const a = DRIFT * Math.sin((d.t / DRIFT_S) * Math.PI * 2)
-      const da = a - d.a
-      d.a = a
+      const ang = DRIFT * Math.sin((d.t / DRIFT_S) * Math.PI * 2)
+      const da = ang - d.a
+      d.a = ang
       if (da !== 0) {
         off.subVectors(camera.position, c.target).applyAxisAngle(UP, da)
         camera.position.copy(c.target).add(off)
@@ -253,35 +250,36 @@ function Rig() {
       dampingFactor={0.08}
       rotateSpeed={0.55}
       zoomSpeed={0.7}
-      minDistance={6}
-      maxDistance={100}
+      minDistance={5}
+      maxDistance={110}
       minPolarAngle={0.3}
       maxPolarAngle={1.36}
-      minAzimuthAngle={-1.95}
-      maxAzimuthAngle={1.3}
+      minAzimuthAngle={-1.6}
+      maxAzimuthAngle={1.6}
     />
   )
 }
 
-/** A ring on the floor under whatever is hovered or selected. */
-const haloGeo = new RingGeometry(0.62, 0.7, 64)
+/** A ring on the floor under a hovered or selected person (the mobile's nodes outline instead). */
+const haloGeo = new RingGeometry(0.42, 0.5, 48)
 function Halo() {
   const sel = useRef<Mesh>(null)
   const hov = useRef<Mesh>(null)
   const selMat = useMemo(() => new MeshBasicMaterial({ color: PAL.ink, transparent: true, opacity: 0.85, depthWrite: false }), [])
-  const hovMat = useMemo(() => new MeshBasicMaterial({ color: '#F7F9FB', transparent: true, opacity: 0.9, depthWrite: false }), [])
+  const hovMat = useMemo(() => new MeshBasicMaterial({ color: '#FFFFFF', transparent: true, opacity: 0.95, depthWrite: false }), [])
+  const still = useMemo(reducedMotion, [])
   useFrame(({ clock }) => {
     const s = ui.get()
-    for (const [m, id] of [
-      [sel.current, s.selected],
-      [hov.current, s.hovered !== s.selected ? s.hovered : null],
-    ] as const) {
+    for (let i = 0; i < 2; i++) {
+      const m = i === 0 ? sel.current : hov.current
+      const id = i === 0 ? s.selected : s.hovered !== s.selected ? s.hovered : null
       if (!m) continue
-      m.visible = !!id
-      if (!id) continue
-      m.position.copy(floorOf(id)).setY(floorOf(id).y + 0.01)
-      const big = id.startsWith('g:') ? 1.75 : id.startsWith('a:') ? 1.15 : id.startsWith('s:') ? 0.5 : 0.85
-      m.scale.setScalar(big * (m === hov.current ? 1 + 0.03 * Math.sin(clock.elapsedTime * 4) : 1))
+      const who = !id ? null : id.startsWith('r:') ? id.slice(2) : id === 'p:grant_manager' ? 'gm' : null
+      const b = who ? fx.bodies.get(who) : undefined
+      m.visible = !!b
+      if (!b) continue
+      m.position.set(b.pos.x, 0.012, b.pos.z)
+      m.scale.setScalar(i === 1 && !still ? 1 + 0.04 * Math.sin(clock.elapsedTime * 4) : 1)
     }
   })
   return (
@@ -326,25 +324,31 @@ function Effects() {
 
 export default function Scene() {
   return (
-    <Canvas
-      className="a-canvas"
-      shadows="soft"
-      dpr={[1, 2]}
-      camera={{ fov: 30, near: 0.5, far: 300, position: OPENING.pos.toArray() }}
-      gl={{ antialias: false, powerPreference: 'high-performance' }}
-      role="img"
-      aria-label="A 3D clay model of the Ortiz Lab on one plinth and the grant office on the other. Each request travels as a parcel from a researcher to the purchasing agent's desk, where the spending rules light up one by one, and comes back bought, rerouted, blocked or held. Every actor is also listed under More, Everything in the scene."
-    >
-      <Backdrop />
-      <Ground />
-      <Lights />
-      <LabPlinth />
-      <OfficePlinth />
-      <Flow />
-      <Halo />
-      <ContactShadows position={[1.6, -3.1, 0]} scale={[36, 18]} blur={3} far={4.5} opacity={0.3} resolution={512} frames={1} color="#3A3530" />
-      <Rig />
-      <Effects />
-    </Canvas>
+    <>
+      <Canvas
+        className="a-canvas"
+        shadows="soft"
+        dpr={[1, 2]}
+        camera={{ fov: 30, near: 0.5, far: 300, position: OPENING.pos.toArray() }}
+        gl={{ antialias: false, powerPreference: 'high-performance' }}
+        role="img"
+        aria-label="A 3D clay model of the Ortiz Lab, with the grant office's finance network hanging above it like a balanced mobile. Researchers work at their benches and toss what they want to buy to the intake post; it rides a thread up to the purchasing agent, where six rule checks light, and comes back boxed, re-tagged to another grant, blocked, or parked under a frozen grant or on the grant manager's desk. Everything is also listed in the sidebar."
+        onPointerLeave={leaveStage}
+      >
+        <Solver />
+        <Backdrop />
+        <Ground />
+        <Lights />
+        <LabPlinth />
+        <OfficeMobile />
+        <Flow />
+        <Halo />
+        <ContactShadows position={[1.6, -3.1, 0]} scale={[40, 20]} blur={3} far={4.5} opacity={0.3} resolution={512} frames={1} color="#3A3530" />
+        <Rig />
+        <CardTracker />
+        <Effects />
+      </Canvas>
+      <HoverCard />
+    </>
   )
 }

@@ -7,7 +7,7 @@ import { uiStore, useUi } from './kit'
 import { GATES, gateOf } from './layout'
 import { Shape, actorName, niceAction, niceDay, outcomeWord, previewWord, stateWord } from './words'
 
-const APP_URL: string = import.meta.env.VITE_APP_URL ?? 'http://localhost:5173'
+const APP_URL: string = import.meta.env.VITE_APP_URL ?? 'https://calhacks130.vercel.app'
 
 // ── Icons (drawn, not glyphs) ────────────────────────────────────────────
 

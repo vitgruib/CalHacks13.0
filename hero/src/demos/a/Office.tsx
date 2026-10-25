@@ -470,7 +470,7 @@ function Gauge({ gid, at, side }: { gid: string; at: V3; side: 'l' | 'r' }) {
   return (
     <Html position={at} zIndexRange={[23, 21]} wrapperClass="a-html" pointerEvents="none">
       <div className={`a-gauge${g.frozen ? ' is-frozen' : ''}${on ? ' is-on' : ''}`} data-side={side}>
-        <span className="a-gauge-id">{g.id}</span>
+        <span className="a-gauge-id">{g.name}</span>
         <span className="a-gauge-money">{usd(g.available)}</span>
         {on && <span className="a-gauge-sub">truly available</span>}
         {state && <span className="a-gauge-state">{state}</span>}

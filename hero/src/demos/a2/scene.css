@@ -1,0 +1,51 @@
+/* The scene's own DOM: the one hover card. Everything else in the stage is 3D. */
+
+.demo-a2 .a2-card {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 5;
+  max-width: 260px;
+  padding: 8px 11px 9px;
+  border: 1px solid #d9d1c4;
+  border-radius: 8px;
+  background: #fbf8f3;
+  box-shadow: 0 6px 16px -6px rgba(28, 35, 44, 0.28);
+  color: #1c232c;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 1.35;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 120ms ease-out,
+    visibility 0s linear 120ms;
+}
+
+.demo-a2 .a2-card.is-on {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 120ms ease-out;
+}
+
+.demo-a2 .a2-card-name {
+  margin: 0;
+  font-weight: 600;
+  font-size: 13px;
+  color: #1c232c;
+}
+
+.demo-a2 .a2-card-line {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: #4a525c;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-a2 .a2-card,
+  .demo-a2 .a2-card.is-on {
+    transition: none;
+  }
+}

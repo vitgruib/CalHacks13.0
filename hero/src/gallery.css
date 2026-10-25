@@ -81,3 +81,42 @@ body {
   color: #999;
   font: 14px ui-sans-serif, system-ui, sans-serif;
 }
+
+/* No WebGL, or a scene threw: a still page, not a blank one. */
+.hero-fallback {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  grid-template-columns: min(34rem, 100%);
+  gap: 12px;
+  padding: 24px 16px;
+  background: #f4f1ea;
+  color: #1d1f22;
+  font: 16px/1.5 ui-sans-serif, system-ui, sans-serif;
+}
+.hero-fallback h1 {
+  margin: 0;
+  font-size: 28px;
+  letter-spacing: -0.01em;
+}
+.hero-fallback p {
+  margin: 0;
+}
+.hero-fallback-note {
+  color: #4a4d52;
+}
+.hero-fallback a {
+  justify-self: start;
+  margin-top: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #1d1f22;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.hero-fallback a:focus-visible {
+  outline: 2px solid #1d1f22;
+  outline-offset: 3px;
+}

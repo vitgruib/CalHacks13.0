@@ -1,180 +1,49 @@
-// The DOM layer over the scene, kept quiet: at rest it is the headline, one
-// button, a caption and a small cluster of controls. Everything else (the
-// ledger, the scene index, speed) sits behind one menu, and the grant
-// manager's pill appears only while a decision is waiting. Everything here
-// reads the feed through hooks; nothing here re-renders the Canvas.
+// The sidebar dashboard: a dark column on the right (a bottom sheet on a
+// phone) with the headline, the story's now-playing strip and seven
+// collapsible sections, one open at a time. Nothing here sits over the stage.
+// Until the viewer opens a section themselves, the sidebar follows the story.
 
-import { useEffect, useLayoutEffect, useRef, useState, type RefObject } from 'react'
+import { useEffect, useRef, useSyncExternalStore, type ReactNode, type RefObject } from 'react'
+import { APP_URL } from '../../chrome'
 import { feed } from '../../feed'
-import { IconMore, IconPause, IconPlay, IconReplay, Mark, outcomeWord } from './icons'
-import { PanelHost } from './Panels'
-import { fmtDay } from './bits'
-import { act, openPanel, selectNode, ui, useFeed, useUi } from './store'
+import type { World } from '../../feed'
+import { IconChevron, IconPause, IconPlay, IconReplay, Mark } from './icons'
+import { ActivityLog, Agents, Grants, Lab, Requests, Scenes, Waiting, summaryOf } from './Panels'
+import { act, openSection, sectionFor, selectNode, ui, useFeed, useUi, type SectionId } from './store'
+import { BEATS, STORY_MS, agentNow, fmtDay, managerNow, nodeNow, plainDates, researcherNow } from './words'
 
-function HeroCopy() {
-  return (
-    <section className="a-hero" aria-labelledby="a-headline">
-      <h1 id="a-headline">An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
-      <p>Three AI agents check every request against the spending rules. The grant manager decides the exceptions.</p>
-      <button type="button" className="a-btn a-btn--primary" onClick={() => openPanel('request')}>
-        Send a request
-      </button>
-    </section>
+const NARROW = '(max-width: 759px)'
+const narrowNow = () => typeof matchMedia !== 'undefined' && matchMedia(NARROW).matches
+function useNarrow() {
+  return useSyncExternalStore(
+    fn => {
+      const m = matchMedia(NARROW)
+      m.addEventListener('change', fn)
+      return () => m.removeEventListener('change', fn)
+    },
+    narrowNow,
   )
 }
 
-function Replay({ className, onDone }: { className?: string; onDone?: () => void }) {
-  return (
-    <button
-      type="button"
-      className={className ?? 'a-iconbtn'}
-      aria-label="Replay the story from the start"
-      onClick={() => {
-        ui.reset()
-        feed.restart()
-        onDone?.()
-      }}
-    >
-      <IconReplay />
-      {className && <span>Replay from the start</span>}
-    </button>
-  )
-}
+const compose = () => ui.set({ section: 'requests', composing: true, sheet: true, chosen: true, selected: null })
 
-/** Speed, the ledger and the scene index: one menu, out of the way. */
-function More() {
-  const [open, setOpen] = useState(false)
-  const btn = useRef<HTMLButtonElement>(null)
-  const menu = useRef<HTMLDivElement>(null)
-  const speed = useFeed(w => w.speed)
-  useEffect(() => {
-    if (!open) return
-    menu.current?.querySelector<HTMLElement>('button')?.focus()
-    const down = (e: PointerEvent) => {
-      const t = e.target as Node
-      if (!menu.current?.contains(t) && !btn.current?.contains(t)) setOpen(false)
-    }
-    const key = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return
-      e.stopPropagation()
-      setOpen(false)
-      btn.current?.focus()
-    }
-    addEventListener('pointerdown', down)
-    addEventListener('keydown', key, true)
-    return () => {
-      removeEventListener('pointerdown', down)
-      removeEventListener('keydown', key, true)
-    }
-  }, [open])
-  const go = (p: 'ledger' | 'index') => {
-    setOpen(false)
-    openPanel(ui.get().panel === p ? null : p)
-  }
+function Head() {
   return (
-    <div className="a-more">
-      <button ref={btn} type="button" className="a-iconbtn" aria-label="More" aria-expanded={open} aria-controls="a-menu" onClick={() => setOpen(o => !o)}>
-        <IconMore />
-      </button>
-      {open && (
-        <div ref={menu} id="a-menu" className="a-menu" role="group" aria-label="More">
-          <div className="a-menu-row">
-            <span id="a-speed">Speed</span>
-            <div className="a-seg" role="group" aria-labelledby="a-speed">
-              {[1, 2, 4].map(n => (
-                <button key={n} type="button" aria-pressed={speed === n} onClick={() => act(() => feed.setSpeed(n))}>
-                  {n}x
-                </button>
-              ))}
-            </div>
-          </div>
-          <button type="button" className="a-menu-item" onClick={() => go('ledger')}>
-            Ledger
-          </button>
-          <button type="button" className="a-menu-item" onClick={() => go('index')}>
-            Everything in the scene
-          </button>
-          <Replay className="a-menu-item a-narrow-only" onDone={() => setOpen(false)} />
-        </div>
-      )}
-    </div>
-  )
-}
-
-function Controls() {
-  const playing = useFeed(w => w.playing)
-  const today = useFeed(w => w.today)
-  return (
-    <div className="a-ctl" role="toolbar" aria-label="Story playback">
-      <p className="a-date">
-        <time dateTime={today}>{fmtDay(today)}</time>
-        <span className="a-date-note"> · demo data</span>
-      </p>
-      <button type="button" className="a-iconbtn" aria-label={playing ? 'Pause the story' : 'Play the story'} onClick={() => act(() => (playing ? feed.pause() : feed.play()))}>
-        {playing ? <IconPause /> : <IconPlay />}
-      </button>
-      <Replay />
-      <More />
-    </div>
-  )
-}
-
-/** Appears only while the grant manager has something to decide. */
-function Waiting() {
-  const n = useFeed(w => w.holds.reduce((k, h) => k + (h.open ? 1 : 0), 0))
-  const panel = useUi(s => s.panel)
-  return (
-    <div className="a-waiting" aria-live="polite">
-      {n > 0 && (
-        <button type="button" className="a-pill" aria-pressed={panel === 'inbox'} onClick={() => openPanel(panel === 'inbox' ? null : 'inbox')}>
-          <span className="a-pill-dot" aria-hidden="true" />
-          {n} decision{n === 1 ? '' : 's'} waiting
+    <header className="a-head">
+      <div className="a-brand-row">
+        <p className="a-brand">
+          <Mark size={20} />
+          <span>GrantGuard</span>
+        </p>
+        <button type="button" className="a-btn a-btn--primary" onClick={compose}>
+          Send a request
         </button>
-      )}
-    </div>
+      </div>
+      <h1 id="a5-headline">An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
+      <p className="a-lede">A simulated lab running a scripted story. Three AI agents check every request against the real spending rules; you decide the exceptions.</p>
+      <a className="a-applink" href={APP_URL}>Open the GrantGuard app</a>
+    </header>
   )
-}
-
-function Tracker() {
-  const mine = useUi(s => s.mine)
-  const requests = useFeed(w => w.requests)
-  const packets = useFeed(w => w.packets)
-  const id = mine[0]
-  if (!id) return null
-  const r = requests.find(q => q.revisionOf === id) ?? requests.find(q => q.id === id)
-  if (!r) return null
-  const traveling = packets.some(p => p.refId === r.id && (p.kind === 'request' || p.kind === 'verdict'))
-  const status = !r.outcome ? (r.verdicts.length ? 'checking the spending rules' : 'on its way') : traveling ? `${outcomeWord(r).toLowerCase()}, on its way back` : outcomeWord(r).toLowerCase()
-  return (
-    <button type="button" className="a-tracker" onClick={() => ui.set({ selected: `r:${r.researcherId}`, panel: 'detail', openRequest: r.id })}>
-      <span className={`a-tracker-dot a-tracker-dot--${r.outcome ?? 'pending'}`} aria-hidden="true" />
-      Your {r.item.split(',')[0].toLowerCase()}: {status}
-    </button>
-  )
-}
-
-/**
- * Two lines at most, measured: the whole caption when it fits, otherwise its
- * longest sentence that does. The full caption stays in the screen-reader copy.
- */
-function useFit(el: RefObject<HTMLParagraphElement | null>, text: string | undefined) {
-  useLayoutEffect(() => {
-    const p = el.current
-    if (!p || !text) return
-    const parts = text.match(/[^.!?]+[.!?]+(\s|$)/g)?.map(s => s.trim()) ?? []
-    const tries = [text, ...parts.sort((a, b) => b.length - a.length)]
-    const fit = () => {
-      for (const t of tries) {
-        p.textContent = t
-        if (p.scrollHeight <= p.clientHeight + 1) return
-      }
-      p.textContent = text
-    }
-    fit()
-    document.fonts?.ready.then(fit)
-    addEventListener('resize', fit)
-    return () => removeEventListener('resize', fit)
-  }, [el, text])
 }
 
 function Progress() {
@@ -182,90 +51,265 @@ function Progress() {
   useEffect(() => {
     let raf = 0
     const tick = () => {
-      const k = feed.storyProgress()
-      if (fill.current) fill.current.style.transform = `scaleX(${k})`
+      if (fill.current) fill.current.style.transform = `scaleX(${feed.storyProgress()})`
       raf = requestAnimationFrame(tick)
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
   }, [])
   return (
-    <div className="a-progress" aria-hidden="true">
-      <span ref={fill} />
-    </div>
+    <span className="a-progress" aria-hidden="true">
+      <span ref={fill} className="a-progress-fill" />
+      {BEATS.slice(1).map(b => (
+        <i key={b.id} style={{ left: `${(b.at / STORY_MS) * 100}%` }} />
+      ))}
+    </span>
   )
 }
 
-function Caption() {
+function NowPlaying() {
   const beat = useFeed(w => w.beat)
   const today = useFeed(w => w.today)
-  const body = useRef<HTMLParagraphElement>(null)
-  useFit(body, beat?.caption)
+  const playing = useFeed(w => w.playing)
+  const speed = useFeed(w => w.speed)
+  const scenesOpen = useUi(s => s.section === 'story')
+  const cur = BEATS.findIndex(b => b.id === beat?.id)
   return (
-    <section className="a-caption" aria-label="What is happening">
-      <p className="a-date">
-        <time dateTime={today}>{fmtDay(today)}</time>
-        <span className="a-date-note"> · demo data</span>
-      </p>
-      <Tracker />
-      <div aria-live="polite">
-        {beat && (
-          <div key={beat.id} className="a-caption-body">
-            <h2>{beat.title}</h2>
-            <p ref={body} aria-hidden="true" />
-            <p className="a-sr">{beat.caption}</p>
+    <section className="a-now" aria-label="The story">
+      <div className="a-now-top">
+        <p className="a-date">
+          <time dateTime={today}>{fmtDay(today)}</time>
+          <span className="a-date-note"> · simulated</span>
+        </p>
+        <div className="a-transport" role="toolbar" aria-label="Story playback">
+          <button type="button" className="a-iconbtn" aria-label={playing ? 'Pause the story' : 'Play the story'} onClick={() => act(() => (playing ? feed.pause() : feed.play()))}>
+            {playing ? <IconPause /> : <IconPlay />}
+          </button>
+          <button
+            type="button"
+            className="a-iconbtn"
+            aria-label="Replay the story from the start"
+            onClick={() => {
+              const sheet = ui.get().sheet
+              ui.reset()
+              ui.set({ sheet })
+              act(() => feed.restart())
+            }}
+          >
+            <IconReplay />
+          </button>
+          <div className="a-seg" role="group" aria-label="Speed">
+            {[1, 2, 4].map(n => (
+              <button key={n} type="button" aria-pressed={speed === n} aria-label={`${n} times speed`} onClick={() => act(() => feed.setSpeed(n))}>
+                {n}x
+              </button>
+            ))}
           </div>
+        </div>
+      </div>
+      <div className="a-now-text" aria-live="polite">
+        {beat && (
+          <>
+            <h2 className="a-now-title">{beat.title}</h2>
+            <p className="a-now-cap">{plainDates(beat.caption)}</p>
+          </>
         )}
       </div>
-      <Progress />
+      <div className="a-now-bar">
+        <Progress />
+        <button type="button" className="a-now-scenes" aria-expanded={scenesOpen} aria-controls="a5-sec-story" onClick={() => openSection('story')}>
+          Scene <span className="a-num">{Math.max(1, cur + 1)}</span> of {BEATS.length}
+        </button>
+      </div>
     </section>
   )
 }
 
-/** Keeps the pointer and a few root attributes in sync without re-rendering the scene. */
-function RootSync({ root }: { root: RefObject<HTMLDivElement | null> }) {
+const SECTIONS: { id: SectionId; title: string; Body: () => ReactNode }[] = [
+  { id: 'grants', title: 'Grants', Body: Grants },
+  { id: 'waiting', title: 'Waiting on you', Body: Waiting },
+  { id: 'requests', title: 'Requests', Body: Requests },
+  { id: 'agents', title: 'Agents', Body: Agents },
+  { id: 'lab', title: 'Lab', Body: Lab },
+  { id: 'activity', title: 'Activity', Body: ActivityLog },
+  { id: 'story', title: 'Scenes', Body: Scenes },
+]
+
+const openHolds = (w: World) => w.holds.reduce((k, h) => k + (h.open ? 1 : 0), 0)
+
+function Section({ id, title, Body }: (typeof SECTIONS)[number]) {
+  const open = useUi(s => s.section === id)
+  // Hovering a node in the scene lights the header of the closed section that holds its row.
+  const hot = useUi(s => !!s.hovered && s.section !== id && sectionFor(s.hovered) === id)
+  const summary = useFeed(w => (id === 'story' ? `${Math.max(1, BEATS.findIndex(b => b.id === w.beat?.id) + 1)} of ${BEATS.length}` : summaryOf(id, w)))
+  const count = useFeed(w => (id === 'waiting' ? openHolds(w) : 0))
+  const hid = `a5-sec-${id}-h`
+  return (
+    <section className={`a-sec${open ? ' is-open' : ''}${count ? ' is-due' : ''}`} data-sec={id}>
+      <h2 className="a-sec-h">
+        <button type="button" id={hid} className={hot ? 'is-hot' : undefined} aria-expanded={open} aria-controls={`a5-sec-${id}`} onClick={() => openSection(id)}>
+          <span className="a-sec-title">{title}</span>
+          {count > 0 && (
+            <span className="a-badge a-num" aria-label={`${count} waiting`}>
+              {count}
+            </span>
+          )}
+          <span className="a-sec-sum">{open ? '' : summary}</span>
+          <IconChevron />
+        </button>
+      </h2>
+      {open && (
+        <div className="a-sec-body" id={`a5-sec-${id}`} role="region" aria-labelledby={hid}>
+          <Body />
+        </div>
+      )}
+    </section>
+  )
+}
+
+/** The phone's collapsed sheet: a handle and the one line that matters most. */
+function Peek() {
+  const sheet = useUi(s => s.sheet)
+  const selected = useUi(s => s.selected)
+  const n = useFeed(openHolds)
+  const line = useFeed(w => {
+    if (selected) {
+      const node = w.nodes.find(x => x.id === selected)
+      if (node) {
+        const now = selected.startsWith('r:')
+          ? researcherNow(selected.slice(2), w)
+          : selected.startsWith('a:')
+            ? agentNow(selected.slice(2) as 'purchasing', w)
+            : selected === 'p:grant_manager'
+              ? managerNow(w)
+              : nodeNow(selected, w)
+        return now.line ? `${node.label}: ${now.line}` : node.label
+      }
+    }
+    if (openHolds(w)) return `${openHolds(w)} decision${openHolds(w) === 1 ? '' : 's'} waiting on you`
+    return w.beat?.title ?? 'GrantGuard'
+  })
+  return (
+    <button type="button" className="a-peek" aria-expanded={sheet} aria-controls="a5-side-body" onClick={() => toggleSheet(!sheet)}>
+      <span className="a-handle" aria-hidden="true" />
+      <Mark size={18} />
+      <span className="a-peek-line">{line}</span>
+      {n > 0 && !line.includes('waiting on you') && (
+        <span className="a-badge a-num" aria-hidden="true">
+          {n}
+        </span>
+      )}
+      <span className="a-peek-chev" aria-hidden="true">
+        <IconChevron />
+      </span>
+      <span className="a-sr">{sheet ? 'Collapse the dashboard' : 'Open the dashboard'}</span>
+    </button>
+  )
+}
+
+/** Opening the phone sheet lands on the open section (a decision, a selected row), not the headline. */
+function toggleSheet(open: boolean) {
+  ui.set({ sheet: open })
+  if (!open) return
+  const s = ui.get()
+  if (!s.selected && !openHolds(feed.getWorld())) return
+  requestAnimationFrame(() => {
+    const body = document.getElementById('a5-side-body')
+    const sec = body?.querySelector<HTMLElement>('.a-sec.is-open')
+    if (body && sec) body.scrollTop += sec.getBoundingClientRect().top - body.getBoundingClientRect().top
+  })
+}
+
+// Which section tells the story best at each beat, until the viewer picks one.
+const FOLLOW: Record<string, SectionId> = {
+  'the-scientist-pushes-to-buy': 'requests',
+  'it-defends-the-decision': 'requests',
+  'rerouted-to-a-grant-with-time-left': 'requests',
+  'not-allowed-on-a-federal-grant': 'requests',
+  'sent-back-to-refine': 'requests',
+  'exactly-at-the-limit': 'requests',
+  'over-the-limit-your-call': 'requests',
+  'a-paper-credits-the-wrong-grant': 'agents',
+  'a-bill-for-a-canceled-order': 'agents',
+  'payment-request-drafted-and-defended': 'agents',
+  live: 'requests',
+}
+
+/** Checks on every UI or world change (not on render), so a reset or a jump never leaves it behind. */
+function FollowStory() {
+  useEffect(() => {
+    const check = () => {
+      const s = ui.get()
+      if (s.chosen || s.selected) return
+      const w = feed.getWorld()
+      const target = openHolds(w) ? 'waiting' : (FOLLOW[w.beat?.id ?? ''] ?? 'grants')
+      if (s.section === target) return
+      if (document.activeElement?.closest('.demo-a5 textarea, .demo-a5 input, .demo-a5 select')) return
+      ui.set({ section: target })
+    }
+    check()
+    const offUi = ui.subscribe(check)
+    const offFeed = feed.subscribeWorld(check)
+    return () => {
+      offUi()
+      offFeed()
+    }
+  }, [])
+  return null
+}
+
+/** Pointer, Escape, a polite count, and dropping viewer state when the story restarts. */
+function RootSync({ root, peek }: { root: RefObject<HTMLDivElement | null>; peek: RefObject<HTMLDivElement | null> }) {
   const hovered = useUi(s => s.hovered)
-  const panel = useUi(s => s.panel)
+  const n = useFeed(openHolds)
   useEffect(() => {
     root.current?.toggleAttribute('data-hover', !!hovered)
   }, [hovered, root])
   useEffect(() => {
-    root.current?.toggleAttribute('data-panel', !!panel)
-  }, [panel, root])
-  useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && (ui.get().panel || ui.get().selected)) selectNode(null)
+      if (e.key !== 'Escape') return
+      const s = ui.get()
+      if (s.sheet && narrowNow()) {
+        ui.set({ sheet: false })
+        peek.current?.querySelector<HTMLElement>('.a-peek')?.focus()
+      } else if (s.composing) ui.set({ composing: false, composeFor: null })
+      else if (s.selected) selectNode(null)
+      else if (s.openRequest) ui.set({ openRequest: null })
     }
     addEventListener('keydown', onKey)
     return () => removeEventListener('keydown', onKey)
-  }, [])
-  // Drop scene-local UI state when the story restarts.
+  }, [peek])
   const restartKey = useFeed(w => w.log.length === 0 && w.requests.length === 0)
   const was = useRef(restartKey)
   useEffect(() => {
     if (restartKey && !was.current) ui.set({ mine: [], openRequest: null })
     was.current = restartKey
   }, [restartKey])
-  return null
+  return (
+    <p className="a-sr" aria-live="polite">
+      {n ? `${n} decision${n === 1 ? '' : 's'} waiting on you` : ''}
+    </p>
+  )
 }
 
 export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
+  const narrow = useNarrow()
+  const sheet = useUi(s => s.sheet)
+  const side = useRef<HTMLDivElement>(null)
   return (
-    <div className="a-hud">
-      <div className="a-top">
-        <header className="a-brand">
-          <Mark />
-          <span>GrantGuard</span>
-        </header>
-        <HeroCopy />
+    <aside ref={side} className="a-side" data-float={narrow ? 'sheet' : 'sidebar'} data-open={narrow && sheet ? '' : undefined} aria-label="GrantGuard dashboard">
+      {narrow && <Peek />}
+      <div className="a-side-body" id="a5-side-body" inert={narrow && !sheet}>
+        <Head />
+        <NowPlaying />
+        <div className="a-secs">
+          {SECTIONS.map(s => (
+            <Section key={s.id} {...s} />
+          ))}
+        </div>
       </div>
-      <div className="a-tr">
-        <Waiting />
-        <Controls />
-      </div>
-      <Caption />
-      <PanelHost />
-      <RootSync root={root} />
-    </div>
+      <FollowStory />
+      <RootSync root={root} peek={side} />
+    </aside>
   )
 }

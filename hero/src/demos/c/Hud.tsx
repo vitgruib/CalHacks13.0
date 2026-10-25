@@ -9,7 +9,7 @@ import { ui, useUI } from './store'
 import { statusWord } from './Terrain'
 import { ACTOR, answerWord, longDay, OUTCOME_SHORT, shortDay } from './words'
 
-const APP_URL: string = import.meta.env.VITE_APP_URL ?? 'http://localhost:5173'
+const APP_URL: string = import.meta.env.VITE_APP_URL ?? 'https://calhacks130.vercel.app'
 
 export function Hud() {
   const w = useWorld()
