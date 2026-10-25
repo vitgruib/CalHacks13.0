@@ -1,14 +1,45 @@
 // Funds window (MASTER-PLAN §3.1, §4): how much money each grant really has,
-// its status timeline, and any flags. Information only; decisions live in the Inbox.
+// its status timeline, and any flags. The Inbox items about a grant itself
+// (sources disagree, money on a canceled grant) are decided on its card with
+// the Inbox's own card (`HoldCard`), as Requests and Invoices do for theirs:
+// the Inbox's menu button is hidden (T110). `#funds/<grant id>` opens Funds on
+// that grant's card.
+import { useEffect } from 'react'
 import SourceCheck from '../SourceCheck'
 import MoneyCharts from '../charts/MoneyCharts'
 import { useStore } from '../data/store'
-import { type Db, type Grant, type GrantStatus, type SourceReading, type StatusEvent } from '../data/types'
+import { type Db, type Decision, type Grant, type GrantStatus, type HoldKind, type SourceReading, type StatusEvent } from '../data/types'
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
 import { SIM_NOTE, grantHeading } from '../plain'
 import EdgeGroup from '../EdgeGroup'
 import { edgeCaseOf, isEdgeGrant } from '../people'
+import { HoldCard, openHolds } from './Inbox'
 import './Funds.css'
+
+/** Inbox items about a grant itself, not one request or invoice: decided on the grant's Funds card. */
+export const GRANT_HOLDS: HoldKind[] = ['source_disagreement', 'paid_while_canceled']
+
+/** The link that opens Funds on one grant's card. */
+export const fundsHref = (grantId: string) => `#funds/${encodeURIComponent(grantId)}`
+
+const cardId = (grantId: string) => `funds-${grantId}`
+
+/** Scroll to a grant's card, unfolding the Edge cases group when the card is in it. */
+function showGrant(grantId: string) {
+  const el = document.getElementById(cardId(grantId))
+  if (!el) return
+  const group = el.closest('details')
+  if (group) group.open = true
+  el.closest('.section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+const decidedLabel: Record<Decision['choice'], string> = {
+  approve: 'Approved.',
+  reject: 'Rejected.',
+  ask_vendor: 'Asked the vendor.',
+  pick_source: '', // its reason already starts "Source picked: …"
+}
+const personLabel: Record<string, string> = { grant_manager: 'Grant manager', scientist: 'Researcher', funder: 'Government funder' }
 
 const statusLabel: Record<GrantStatus, string> = {
   active: 'Active',
@@ -42,10 +73,31 @@ function latestReadings(readings: SourceReading[]): SourceReading[] {
 
 export default function Funds() {
   const { db } = useStore()
-  if (db.grants.length === 0) return <Empty>No grants yet.</Empty>
+  const ready = db.grants.length > 0
+  // Live, the grants arrive after the first render: scroll once they're in.
+  useEffect(() => {
+    const go = () => {
+      const id = decodeURIComponent(location.hash.split('/')[1] ?? '')
+      if (id) showGrant(id)
+    }
+    go()
+    addEventListener('hashchange', go)
+    return () => removeEventListener('hashchange', go)
+  }, [ready])
+
+  if (!ready) return <Empty>No grants yet.</Empty>
+  const waiting = openHolds(db, ...GRANT_HOLDS)
   return (
     <>
       <SourceCheck />
+      {waiting.length > 0 && (
+        <p className="funds-waiting">
+          <Badge tone="warn">{waiting.length} waiting for you</Badge>
+          {waiting.map(h => (
+            <a key={h.id} href={fundsHref(h.grantId)} onClick={() => showGrant(h.grantId)}>{h.title}</a>
+          ))}
+        </p>
+      )}
       <div className="funds-grid">{db.grants.filter(g => !isEdgeGrant(g)).map(g => <GrantCard key={g.id} g={g} db={db} />)}</div>
       <EdgeGroup count={db.grants.filter(isEdgeGrant).length}>
         <div className="funds-grid">{db.grants.filter(isEdgeGrant).map(g => <GrantCard key={g.id} g={g} db={db} />)}</div>
@@ -58,6 +110,10 @@ export default function Funds() {
 function GrantCard({ g, db }: { g: Grant; db: Db }) {
   const daysLeft = daysBetween(db.today, g.end)
   const edgeCase = edgeCaseOf(g)
+  const holds = openHolds(db, ...GRANT_HOLDS).filter(h => h.grantId === g.id)
+  const decided = db.holds
+    .filter(h => h.grantId === g.id && GRANT_HOLDS.includes(h.kind) && h.decision)
+    .sort((a, b) => b.decision!.day.localeCompare(a.decision!.day) || a.id.localeCompare(b.id))
 
   return (
     <Section
@@ -69,10 +125,18 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
         </span>
       }
     >
-      <p className="funds-meta">
+      <p className="funds-meta" id={cardId(g.id)}>
         {g.id} · {g.pi} · {g.agency} · {g.start} to {g.end}
         {daysLeft >= 0 && daysLeft <= 90 && <> <Badge tone="warn">last 90 days</Badge></>}
       </p>
+
+      {holds.map(h => <HoldCard key={h.id} hold={h} embedded />)}
+      {decided.map(h => (
+        <p key={h.id} className="funds-decided">
+          <span className="funds-muted">{personLabel[h.decision!.by] ?? h.decision!.by}, {h.decision!.day}, on “{h.title}”: </span>
+          {decidedLabel[h.decision!.choice]} {h.decision!.reason}
+        </p>
+      ))}
 
       <MoneyCharts db={db} g={g} details />
     </Section>

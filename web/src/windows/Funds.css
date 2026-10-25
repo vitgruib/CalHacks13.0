@@ -28,3 +28,9 @@
   .funds-cols { grid-template-columns: 1fr; }
 }
 .funds-sim-note { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+
+/* The grant's own Inbox items (T110): links up top, decision cards on the grant. */
+.funds-waiting { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin: 0 0 16px; font-size: 14px; }
+.funds-waiting a { color: var(--accent); overflow-wrap: anywhere; }
+.funds-decided { margin: 8px 0; font-size: 14px; overflow-wrap: anywhere; }
+.funds-muted { color: var(--muted); }

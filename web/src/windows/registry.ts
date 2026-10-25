@@ -1,6 +1,6 @@
 // One entry per window (MASTER-PLAN §4). Each window lives in its own file.
 import { createContext, type ComponentType } from 'react'
-import Funds from './Funds'
+import Funds, { GRANT_HOLDS } from './Funds'
 import Requests from './Requests'
 import Invoice from './Invoice'
 import PaymentRequests from './PaymentRequests'
@@ -26,10 +26,12 @@ export const RoleContext = createContext<Role>('grant_manager')
 
 // SOFT DELETE (Nathan, Sat 10/24): `hidden: true` ONLY hides a window's button in
 // the side menu. NOTHING IS DELETED. The window's code, CSS and data stay as
-// they are, and its URL still works (#inbox, #log, ...), so the links inside the
-// visible windows ("See it in the Inbox", "Open in Payment requests") still open
-// it. That keeps the decision buttons and the payment-request and report views
-// reachable. To bring a button back, delete its `hidden: true`.
+// they are, and its URL still works if typed (#inbox, #log, ...), but no visible
+// window links to a hidden one. So every decision sits on a visible window, with
+// the Inbox's own card: purchase requests on Requests, invoices on Invoice, and a
+// grant's own items (sources disagree, money on a canceled grant) on its Funds
+// card (T110). The payment-request and report views (cut in T105) open only by URL.
+// To bring a button back, delete its `hidden: true`.
 // A researcher's own requests sit on Ask (T100); their `#requests` links open Ask.
 // `badge` is the count on the window's menu button: what waits there for a decision.
 export interface WindowDef { id: string; label: string; job: string; Component: ComponentType; roles: Role[]; hidden?: boolean; badge?: (s: Store) => number }
@@ -37,7 +39,7 @@ export interface WindowDef { id: string; label: string; job: string; Component: 
 export const windows: WindowDef[] = [
   { id: 'ask', label: 'Requests', job: 'Type what you need; see which grant can pay, in plain words', Component: Ask, roles: ['scientist'] },
   { id: 'grants', label: 'My grants', job: 'Each grant in plain words; a paused grant shows where its money is', Component: Grants, roles: ['scientist'] },
-  { id: 'funds', label: 'Funds', job: 'How much money each grant really has, its status timeline, and any flags', Component: Funds, roles: ['grant_manager'] },
+  { id: 'funds', label: 'Funds', job: 'How much money each grant really has, its status timeline, and any flags', Component: Funds, roles: ['grant_manager'], badge: s => openHolds(s.db, ...GRANT_HOLDS).length },
   { id: 'cases', label: 'Cases', job: 'Every problem on each grant in one place: the records that disagree, what happened, and what\'s missing', Component: Cases, roles: ['grant_manager'], hidden: true },
   { id: 'requests', label: 'Requests', job: 'Every purchase request and experiment plan from the lab\'s researchers: who asked, for what, the plan\'s funding-readiness report, and what the grant office decided', Component: Requests, roles: ['grant_manager'], badge: s => openHolds(s.db, 'purchase').length + s.plans.filter(p => p.status === 'submitted').length },
   { id: 'invoices', label: 'Invoice', job: 'Submit and track invoices (researcher); verify them against the purchase order and the grant, decide exceptions and keep the audit trail (grant office)', Component: Invoice, roles: ['scientist', 'grant_manager'], badge: s => openHolds(s.db, 'invoice').length },
