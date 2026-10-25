@@ -31,8 +31,10 @@
 .landing .entry-brand { display: none; }
 .landing .entry button:active { transform: translateY(1px); }
 
-/* The bottom padding clears the fixed backend status badge (bottom right). */
-.landing-foot { width: min(640px, calc(100% - 32px)); margin: 0 auto; padding: 20px 0 96px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+.landing-foot { width: min(640px, calc(100% - 32px)); margin: 0 auto; padding: 20px 0 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+/* The backend badge (data/backend.css) is fixed bottom right in the portals; on the
+   landing it would sit on the hero's own controls, so here it follows the footer. */
+.landing ~ .backend-status { position: static; align-items: center; max-width: none; margin: 0 auto; padding: 0 16px 32px; }
 
 @media (max-width: 720px) {
   .landing-bar { padding: 0 16px; }
