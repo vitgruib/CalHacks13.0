@@ -19,10 +19,9 @@ flowchart TB
 
   subgraph VM["Azure VM grantguard-agents · systemd · Node 22 + tsx"]
     WORKER["agents/ worker · ask() wrapper"]
-    PUR["purchasing agent"]
-    BOOK["bookkeeping agent<br/>(fund tracker + invoice check)"]
+    BOOK["bookkeeping agent<br/>(fund tracker + invoice check + item check)"]
     PAY["payment_report agent<br/>(payment requests + report checker)"]
-    WORKER --- PUR & BOOK & PAY
+    WORKER --- BOOK & PAY
   end
 
   subgraph AI["Claude"]
@@ -82,7 +81,6 @@ on every reducer, so segregation of duties is enforced by the database.
 ```mermaid
 flowchart TB
   subgraph Agents["AI agents (agents/src/roles.ts) · register_agent"]
-    A1["purchasing<br/><i>seat: purchasing</i>"]
     A2["bookkeeping<br/><i>seat: grant accountant</i>"]
     A3["payment_report<br/><i>seat: payment and report preparer</i>"]
   end
@@ -91,8 +89,7 @@ flowchart TB
     P2["scientist (one per researcher)"]
   end
 
-  A1 --> R1["evaluate_request · act_on_request"]
-  A2 --> R2["post_source_reading · post_status_event · raise_flag<br/>check_invoice · complete_check"]
+  A2 --> R2["post_source_reading · post_status_event · raise_flag<br/>check_invoice · complete_check · answer_item_check"]
   A3 --> R3["draft_payment_request · draft_follow_up_answer<br/>record_paper_facts"]
   Agents --> R4["raise_hold (any agent)"]
   P1 --> R5["decide_hold · unfreeze_grant · ask_follow_up"]
@@ -103,8 +100,8 @@ flowchart TB
 
 | Agent | Code | Claude tasks (`ask()` → `agents/cache/claude/<task>-*.json`) |
 |---|---|---|
-| purchasing | `agents/src/agents/purchasing.ts` | `purchasing.read`, `purchasing.explain` |
-| bookkeeping | `agents/src/agents/bookkeeping.ts` (fund tracker), `invoices.ts` | `invoices.note` (the tracker itself is deterministic: `tracker/compare.ts`) |
+| ~~purchasing~~ | cut (T108): `agents/src/agents/purchasing.ts` stays, unused | — |
+| bookkeeping | `agents/src/agents/bookkeeping.ts` (fund tracker), `invoices.ts`, `item-check.ts` | `invoices.note`, `purchasing.item` (the item check; old task name kept so its saved answers still match) (the tracker itself is deterministic: `tracker/compare.ts`) |
 | payment_report | `agents/src/agents/payment-requests.ts`, `report-checker.ts` | `payment_request.explain`, `payment_request.follow_up`, `report-checker.explain`, `report-checker.correction` |
 
 ## 3. Where every token and secret is stored
@@ -136,7 +133,7 @@ flowchart LR
 
 | Credential | What it is | Stored | Committed? |
 |---|---|---|---|
-| Agent tokens (×3) | SpacetimeDB identity of `purchasing`, `bookkeeping`, `payment_report`; restarts reuse it, so roles stay bound | VM: `/var/lib/grantguard-agents/state/<db>/<role>.token`. Laptop: `agents/.state/<db>/<role>.token` (`GG_STATE_DIR`). `GG_DB=local`: in memory only | No (git-ignored, outside the checkout on the VM) |
+| Agent tokens (×2) | SpacetimeDB identity of `bookkeeping`, `payment_report`; restarts reuse it, so roles stay bound | VM: `/var/lib/grantguard-agents/state/<db>/<role>.token`. Laptop: `agents/.state/<db>/<role>.token` (`GG_STATE_DIR`). `GG_DB=local`: in memory only | No (git-ignored, outside the checkout on the VM) |
 | Person tokens | Identity of the grant manager and each researcher | Browser `localStorage`, key `grantguard.token.<who>.<uri>.<db>`; a stale one is dropped and re-registered | No |
 | `ANTHROPIC_API_KEY` | Claude for the agents | Laptop `.env.local`; VM `/etc/grantguard/agents.env` | No |
 | `APIFY_TOKEN` | Read/start the cancellation-list Actor | Same as above; sent as a header, never saved | No |

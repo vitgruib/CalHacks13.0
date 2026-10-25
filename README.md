@@ -33,17 +33,18 @@ disagree about which of those is true.
 
 Sources, dates and caveats: [docs/submission/IMPACT-EVIDENCE.md](docs/submission/IMPACT-EVIDENCE.md).
 
-**The seats it fills:** the purchasing agent and the grant accountant in a
-university lab's grant office, both reporting to one human grant manager.
+**The seat it fills:** the grant accountant in a university lab's grant
+office, reporting to one human grant manager, who approves every purchase
+and every invoice.
 
 ### For Hyphenate judges
 
 | Their question | Where to look |
 |---|---|
 | Is it real enough? | Real NIH grant records and a real scrape of the public cancellation list. A simulated lab with 12 planted mistakes modeled on real audit findings, plus 4 decoys. Scorecard: 12 of 12 caught, 0 false alarms ([below](#whats-real-and-whats-simulated)). |
-| Would you hire it? | Each agent logs in as its own database identity. Limits live in the database code, not in prompts: agents cannot decide Inbox items, nobody approves their own request, and an agent buys alone only at or under the $5,000 card limit with every rule passing. Every action has a Log row with a "why?". |
+| Would you hire it? | Each agent logs in as its own database identity. Limits live in the database code, not in prompts: agents cannot decide Inbox items, nobody approves their own request, and nothing is bought or paid without the grant manager's approval. Every action has a Log row with a "why?". |
 | Did we see something new? | The corner: the post-award grant office of a research lab during the 2025 to 2026 grant cancellations, where a grant's status is a timeline of dated events with sources, not one field. |
-| The moment | A court restores a canceled grant, and the agent still won't spend until the money arrives. Then it buys on its own. |
+| The moment | A court restores a canceled grant, and GrantGuard still flags spending on it until the money arrives. Then the request clears every rule and the grant manager can approve it. |
 
 ## The 3-minute demo
 
@@ -61,18 +62,22 @@ today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
    "Payment arrives" replay this sequence on either grant.
 2. **A scientist asks to buy** nitrile gloves ($640) on grant A, noting that
    the court restored it. A rule engine reading "restored" would say yes.
-   The purchasing agent holds the request and explains: no money has
+   GrantGuard sends it to the Inbox flagged, and explains: no money has
    arrived since the court order. Click "why?" on its Log row.
 3. **The money lands.** In Demo controls, press "Payment arrives". In the
    Inbox, settle "Which source is right about R01GM061721?" (RePORTER says
    active, USAspending says canceled, the cancellation list says restored by
    court) with "Pick this source" and a reason. Both steps are needed, in either order. Grant A
-   unfreezes, and the waiting gloves go through on their own. Agar plates
-   requested on grant B, now inside its last 90 days, are rerouted to grant
-   A, citing the NSF-OIG audits of WVU and Delaware.
+   unfreezes, and the gloves' Inbox item changes from "Flagged" to
+   "Approve": every rule passes now. Approve it with a reason; the researcher
+   buys the gloves and sends the invoice. Agar plates requested on grant B,
+   now inside its last 90 days, stay flagged, citing the NSF-OIG audits of
+   WVU and Delaware.
 4. **Invoices.** An invoice for an order canceled on 2026-03-02 is held, with
    the timeline of what happened. The judge decides it in the Inbox. The
-   reason field is required.
+   reason field is required. A matching invoice also waits in the Inbox;
+   approving it charges the grant (promised becomes spent) and reimburses
+   the researcher.
 5. **Demo controls: the scorecard.** Planted mistakes caught, missed, and false
    alarms on decoys. It is the run on the full seed (`sim/seed.json`), which
    has more cases than the app shows, such as a kit priced exactly at the
@@ -98,7 +103,7 @@ checklist and known edge cases: [docs/EDGE-TESTING.md](docs/EDGE-TESTING.md).
                  (lab's own grant IDs only; saved copies in agents/cache/)
                                      |
  +------------------- agent worker (agents/, Node) --------------------+
- |  bookkeeping agent     purchasing agent     payment & report agent  |
+ |  bookkeeping agent                          payment & report agent  |
  |  Claude reads, matches and explains; saved answers + code fallback  |
  +----------------------------------+----------------------------------+
                                     |  one identity per agent; changes
@@ -148,19 +153,19 @@ simulated clock ([schema.ts](server/src/schema.ts), actions in
   `evaluate_request`, `check_invoice`, `record_paper_facts` and
   `post_status_event`; the module applies the rule and raises the Inbox item.
 
-### The three agents (`agents/`, Track B)
+### The agents (`agents/`, Track B)
 
-One worker process connects the three agents, each with its own SpacetimeDB
+One worker process connects the agents, each with its own SpacetimeDB
 identity ([agents/README.md](agents/README.md)).
 
 | Agent (role) | Seat | What it does |
 |---|---|---|
 | Bookkeeping (`bookkeeping`) | Grant accountant | Fund tracker: reads the sources on "Check now" and right before money moves (never on a timer); posts only changes, each with its source and date; flags sources that disagree, spending while canceled, and a court order with no payment. Also checks every invoice against its order and approval. |
-| Purchasing (`purchasing`) | Purchasing agent | Reads each request, picks the grant, asks the module for its verdicts, then buys, reroutes, or holds or flags it for the grant manager, explaining the failed rule. It never rejects a request; only the grant manager does. A request held only by a freeze is bought once the grant unfreezes. |
+| ~~Purchasing (`purchasing`)~~ | Cut (T108) | The grant manager approves every request instead. Its code stays in `agents/`, unused; the worker doesn't start it. |
 | Payment and report (`payment_report`) | Out of scope (T105); still runs, nothing shows it | Drafts each month's payment request (up to 1,000 characters) and answers to follow-up questions, both approved by a person. Checks each progress-report paper's grant credit, PubMed Central ID and corrections. |
 
-**Claude's role.** Claude reads requests (which grant, shared use, a stated
-split), writes explanations, payment justifications and follow-up answers,
+**Claude's role.** Claude checks whether a grant could pay for an asked-for
+item at all (Ask's item check), writes explanations, payment justifications and follow-up answers,
 and judges paper corrections. It never does the math: amounts and verdicts
 come from the module. Where its text quotes records, code checks it, and an
 ID or amount that isn't in the records sends the agent back to a template.
@@ -222,8 +227,8 @@ nav, or the researcher header) moves between them. Each window has one job
   My requests: ask for one item, or plan an experiment with a line-item
   budget and get a funding-readiness report (scope, allowability, budget,
   follow-ups) before sending it. A plan that clears all three checks sends
-  each line to the purchasing agent as its own request; any other waits for
-  the grant office. Plans are stored in SpacetimeDB, so every portal on every
+  each line to the grant office as its own request; any other waits for
+  the grant office to approve the plan first. Plans are stored in SpacetimeDB, so every portal on every
   computer sees them. A researcher sees
   only their own requests and can push back only on those. They never see the grant office's windows.
 
@@ -331,7 +336,7 @@ VITE_BACKEND=local npm --prefix web run dev   # the web app on the bundled seed;
 
 ```sh
 npm --prefix server run dev                 # starts SpacetimeDB on :3000 if needed, publishes grantguard, regenerates bindings
-GG_DB=spacetime npm --prefix agents start   # the three agents against local grantguard (keep it running)
+GG_DB=spacetime npm --prefix agents start   # the agents against local grantguard (keep it running)
 npm --prefix web run dev                    # connects to ws://localhost:3000, database grantguard
 ```
 
@@ -385,7 +390,7 @@ URL above.
 | Path | What it is | Lane |
 |---|---|---|
 | [server/](server/src/schema.ts) | SpacetimeDB module: tables, actions, rules, fixtures, tests | A |
-| [agents/](agents/README.md) | Agent worker: the three agents, source clients, Claude helper, saved answers | B |
+| [agents/](agents/README.md) | Agent worker: the agents, source clients, Claude helper, saved answers | B |
 | `web/` | The web app; windows in `web/src/windows/` | C |
 | [sim/](sim/README.md) | The simulated lab: seed, answer key, generator, validator | C |
 | `eval/` | The scorecard: replay, judge, `scorecard.json` | C |

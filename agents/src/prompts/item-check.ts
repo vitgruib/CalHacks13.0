@@ -7,7 +7,7 @@ import { z } from 'zod';
 
 import { CHECK_CATEGORIES } from './purchasing.ts';
 
-export const ITEM_TASK = 'purchasing.item';
+export const ITEM_TASK = 'purchasing.item'; // name from before T108, kept so saved answers in agents/cache/claude/ still match
 export const ITEM_MODEL = 'claude-haiku-5-5';
 
 export const ItemAnswer = z.object({

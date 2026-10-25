@@ -1,6 +1,7 @@
 # What each agent does
 
-GrantGuard has three agents, each signed in as its own seat. They share one
+GrantGuard's agents each sign in as their own seat (the purchasing agent was
+cut in T108; the payment and report agent is out of scope since T105). They share one
 rule: **the database's rules decide, and the agents act on those decisions.**
 Claude reads what people wrote and writes what people read. Anything that
 moves money, or that a person has to decide, waits in the grant manager's Inbox.
@@ -17,22 +18,20 @@ before money moves. It posts only what changed, and raises a flag when:
 The database decides what a flag freezes. *No Claude.*
 
 **Invoice check.** It sends each new invoice to the database, which matches it
-against the order and approval and either pays it or holds it. For a held
+against the order and approval. A match waits for the grant manager to
+approve; approving charges the grant and reimburses the researcher. A
+mismatch is held. For a held
 invoice, the agent names the conflicting records and their amounts.
 *Claude:* writes a short note on what doesn't match (for example, "billed for
 an order canceled 2026-03-02").
 
-## Purchasing agent
+## ~~Purchasing agent~~ (cut, T108)
 
-For each purchase request, it picks the grant, has the database check the
-spending rules (frozen grant, last 90 days, card limit, shared cost), then
-buys, reroutes to another grant, holds or blocks. When a frozen grant gets its
-money, it buys what was waiting for that grant.
-*Claude:*
-- reads the free-text request: which grant, whether the cost is shared, and
-  any split the person stated (never a guessed split);
-- explains each decision and cites the rule and the audit it comes from;
-- for a shared cost, says whether each grant's use could be measured.
+Nothing is bought on an agent's say-so. Every request goes to the grant
+manager's Inbox with the database's rule verdicts ("Approve" when every rule
+passes, "Flagged" when one fails). Once approved, the researcher buys it and
+sends the invoice. The bookkeeping agent also runs Ask's item check (*Claude
+Haiku*): could a grant pay for this kind of thing at all?
 
 ## Payment and report agent
 

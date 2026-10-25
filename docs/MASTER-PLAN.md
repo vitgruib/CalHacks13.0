@@ -14,17 +14,23 @@ numbering.
 ## 1. The product
 
 GrantGuard is the interface between a university lab's researchers and its
-grant office. Researchers ask to buy things and send in invoices; agents
-check each against every grant's money, status and rules, act when they
-may, and otherwise put it in front of the human grant manager with the
-reason. Every decision is logged with its reason.
+grant office. Researchers ask to buy things and send in invoices; the
+database checks each against every grant's money, status and rules, and
+puts it in front of the human grant manager with the verdicts. Every
+decision is logged with its reason.
+
+**The lifecycle (T108, Sun 10/25):** a researcher submits a request → the
+grant office approves it (the money becomes promised on the grant) → the
+researcher buys it → the researcher sends the invoice → the bookkeeping
+agent matches it to the order → the grant office approves the invoice → it
+is charged to the grant (promised becomes spent) and the researcher is
+reimbursed. The purchasing agent is cut; its code stays, unused.
 
 **Scope (T105, Sun 10/25):** payment requests to the government (§3.4) and
 progress-report checks (§3.5) are cut. Their code stays in the repo, unused
 and out of the menu and scorecard.
 
-- **Seats:** purchasing agent and grant accountant for a university
-  research lab.
+- **Seat:** grant accountant for a university research lab.
 - **Company:** a fictional lab, seeded with real public NIH grant records.
 - **The core behavior:** a court restores a canceled grant, and GrantGuard
   still won't spend until the money actually arrives.
@@ -39,24 +45,22 @@ did what):
 
 | Agent | Seat | Job |
 |---|---|---|
-| Purchasing agent | purchasing | Turns requests into allowed purchases |
-| Bookkeeping agent | grant accountant | Keeps the fund tracker current; checks invoices |
+| ~~Purchasing agent~~ | cut (T108) | The grant manager approves every request |
+| Bookkeeping agent | grant accountant | Keeps the fund tracker current; checks invoices; checks an asked-for item |
 | ~~Payment and report agent~~ | cut (T105) | Writes payment requests; checks progress reports |
 
 **People:**
 
 | Person | Played by in the demo | Job |
 |---|---|---|
-| Grant manager | the judge | The only one who approves, rejects or overrides, always with a reason |
+| Grant manager | the judge | Approves or rejects every request and every invoice, always with a reason |
 | Researchers (Dr. Priya Nair, Sofia Alvarez) | us, each in their own researcher portal | Ask to buy things; push back on their own requests |
 | Government funder | not played (no persona) | Its follow-up questions are written into the seed data |
 
 **Hard limits, enforced in the database, not in prompts:**
 - nobody approves their own request;
 - an agent can never approve its own work;
-- the purchasing agent cannot approve payment requests;
-- agents act alone only under the card limit and when every rule passes;
-  everything else waits for the grant manager.
+- nothing is bought or paid without the grant manager's approval.
 
 ## 3. Features
 
@@ -91,20 +95,17 @@ a purchase while canceled; a court order with no payment yet.
 
 ### 3.2 Purchases (P2, P3)
 
-**Agents do (purchasing agent):**
-- reads the request and picks the right grant;
-- runs the spending rules and explains each verdict, citing the rule and a
-  real audit case;
-- buys on its own when every rule passes and it's under the card limit;
-- blocks it, or reroutes it to another grant with time and money left;
-- pauses it for the grant manager when it's over the limit or unclear;
-- checks again right before buying.
+**The database does (no purchasing agent since T108):**
+- runs the spending rules on every request and explains each verdict,
+  citing the rule and a real audit case;
+- sends every request to the Inbox: "Approve" when every rule passes,
+  "Flagged" when one fails, and refreshes it when a freeze changes.
 
 **People do:**
 - the researcher submits the request (item, price, grant, purpose) and can
   push back with new information;
-- the grant manager approves, rejects or overrides paused requests, with a
-  reason.
+- the grant manager approves or rejects every request, with a reason;
+- once approved, the researcher buys it and sends the invoice.
 
 **Rules in code:** the grant is active and not frozen; not in the grant's
 last 90 days; the category is allowed; under the card limit; enough truly
@@ -119,12 +120,13 @@ were dropped with cost splitting in T95.)
 
 **Agents do (bookkeeping agent):**
 - matches every invoice to its order and its approval;
-- marks matching invoices ready to pay;
+- sends a matching invoice to the grant manager to approve;
 - holds a mismatch, and rebuilds the timeline of what happened (order
   placed, order canceled, invoice arrived).
 
-**People do (grant manager):** decides each held invoice: pay it, reject it,
-or ask the vendor.
+**People do (grant manager):** approves each matching invoice (it is charged
+to the grant and the researcher is reimbursed) and decides each held one:
+pay it, reject it, or ask the vendor.
 
 **Rules in code:** an invoice is payable only if its order is open and its
 amount matches the approval.
@@ -213,10 +215,10 @@ where its money is) and My requests (only their own, with push back).
 ## 5. The demo path (the end-to-end test the build must pass)
 
 1. A grant is canceled, so spending freezes. A court restores it. The
-   researcher pushes to buy; the agent holds, because the money hasn't
-   arrived, and explains. The payment lands and the purchase goes through
-   by itself. One item is still blocked (supplies in the last 90 days) and
-   rerouted to another grant.
+   researcher asks to buy; GrantGuard flags it for the grant manager,
+   because the money hasn't arrived, and explains. The payment lands, every
+   rule passes, and the grant manager approves it. One item is still
+   flagged (supplies in the last 90 days).
 2. An invoice for a canceled order is held, with its timeline.
 3. The scorecard shows results on the planted mistakes.
 
@@ -234,7 +236,7 @@ shared contract.** Owners and directories: the *Lanes* table in `TASKS.md`.
 | Lane | Builds |
 |---|---|
 | A: database (@suhu) | `server/`: tables, actions, money math, the freeze, spending rules, hard limits, approval gate, log; `deploy/` |
-| B: agents (@nathan) | `agents/`: the worker, the three agents, source readers (RePORTER, USAspending, the cancellation list, Crossref/PubMed) |
+| B: agents (@nathan) | `agents/`: the worker, the agents, source readers (RePORTER, USAspending, the cancellation list, Crossref/PubMed) |
 | C: app (@ethan) | `web/` windows and portals, `sim/` planted data, `eval/` scorecard, `scrapers/` Apify Actor |
 
 Claude reads, matches and explains; the rules and math stay in the module.
