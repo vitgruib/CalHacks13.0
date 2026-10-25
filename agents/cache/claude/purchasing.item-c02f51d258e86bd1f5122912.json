@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:28.647Z",
+  "input": {
+    "item": "Lunches for a summer training program (11 lunches)",
+    "price": 123,
+    "purpose": "Summer training program; included in the grant proposal budget",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Food and meals are generally unallowable under federal grants (2 CFR 200.432 and 200.438 context); a budget listing does not override the cost principles.",
+    "category": "food"
+  }
+}

@@ -1,0 +1,1110 @@
+{
+  "about": "Real items from saved audit reports and funder letters, asked through Ask's item check (the real module and agent). Ground truth is the funder's, auditee's or auditor's decision on the item, quoted from the saved source. Saved Claude answers replay offline; an item with none is not run.",
+  "model": "claude-haiku-5-5",
+  "mode": "offline",
+  "totals": {
+    "items": 39,
+    "mistakes": 28,
+    "caught": 28,
+    "missed": 0,
+    "decoys": 11,
+    "correctPasses": 5,
+    "falseAlarms": 6,
+    "notRun": 0,
+    "categoryAgrees": 38,
+    "categoryChecked": 39
+  },
+  "byDecision": {
+    "disallowed": {
+      "items": 22,
+      "mistakes": 22,
+      "caught": 22,
+      "missed": 0,
+      "decoys": 0,
+      "correctPasses": 0,
+      "falseAlarms": 0,
+      "notRun": 0
+    },
+    "allowed": {
+      "items": 6,
+      "mistakes": 0,
+      "caught": 0,
+      "missed": 0,
+      "decoys": 6,
+      "correctPasses": 3,
+      "falseAlarms": 3,
+      "notRun": 0
+    },
+    "agreed": {
+      "items": 3,
+      "mistakes": 3,
+      "caught": 3,
+      "missed": 0,
+      "decoys": 0,
+      "correctPasses": 0,
+      "falseAlarms": 0,
+      "notRun": 0
+    },
+    "auditor": {
+      "items": 8,
+      "mistakes": 3,
+      "caught": 3,
+      "missed": 0,
+      "decoys": 5,
+      "correctPasses": 2,
+      "falseAlarms": 3,
+      "notRun": 0
+    }
+  },
+  "items": [
+    {
+      "id": "ic-01",
+      "auditee": "Univ. of Southern California",
+      "year": "2017",
+      "item": "Alcohol on a conference trip reimbursement",
+      "price": 46,
+      "purpose": "Employee attending a conference in California",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-17-1-009-usc.txt",
+        "label": "disallowed",
+        "quote": "NSF determined that all questioned costs, with the exception of alcohol, were allowable costs upon reclassification to the correct accounts. It is NSF’s management decision to disallow $46"
+      },
+      "source": {
+        "file": "nsf-oig-17-1-009-usc.txt",
+        "quote": "Of the $517 expenses in question, $46 related to unallowable alcohol expenses charged to the award."
+      },
+      "got": "flag",
+      "why": "Alcohol is unallowable on federal grants regardless of purpose (2 CFR 200.423).",
+      "category": "alcohol",
+      "outcome": "caught",
+      "categoryExpected": "alcohol",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-02",
+      "auditee": "Univ. of Minnesota",
+      "year": "2019",
+      "item": "Alcohol for a project workshop",
+      "price": 257,
+      "purpose": "Workshop under the NSF award",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-19-1-006-minnesota.txt",
+        "label": "disallowed",
+        "quote": "NSF’s management decision is to disallow all questioned costs in the amount of $73,260."
+      },
+      "source": {
+        "file": "nsf-oig-19-1-006-minnesota.txt",
+        "quote": "$257, related to a workshop under NSF Award No."
+      },
+      "got": "flag",
+      "why": "Alcohol is unallowable on federal grants regardless of purpose (2 CFR 200.423).",
+      "category": "alcohol",
+      "outcome": "caught",
+      "categoryExpected": "alcohol",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-03",
+      "auditee": "Univ. of South Carolina",
+      "year": "2021",
+      "item": "General purpose cleaning supplies",
+      "price": 180,
+      "purpose": "",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "label": "agreed",
+        "quote": "UofSC concurred with all $20,883 of the questioned costs"
+      },
+      "source": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "quote": "$180 in NSF Award No. for the purchase of general purpose cleaning supplies."
+      },
+      "got": "flag",
+      "why": "General-use cleaning supplies are overhead costs the university pays for, and no research purpose is given to tie them to the project.",
+      "category": "general office",
+      "outcome": "caught",
+      "categoryExpected": "general office",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-04",
+      "auditee": "UC Davis",
+      "year": "2017",
+      "item": "Alcoholic beverages for two workshops and an annual conference",
+      "price": 4881,
+      "purpose": "Workshops and annual conference of the Institute for Complex Adaptive Matter (ICAM)",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "label": "auditor"
+      },
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "quote": "invoices for the three events included a total of $4,881 for purchases of alcoholic beverages, which are prohibited by Federal cost principles."
+      },
+      "got": "flag",
+      "why": "Alcoholic beverages are unallowable on federal grants regardless of purpose (2 CFR 200.423).",
+      "category": "alcohol",
+      "outcome": "caught",
+      "categoryExpected": "alcohol",
+      "categoryAgrees": true,
+      "note": "UC Davis said the alcohol was paid from the non-NSF share; NSF allowed the workshop totals without ruling on the alcohol itself."
+    },
+    {
+      "id": "ic-05",
+      "auditee": "New York Univ.",
+      "year": "2013",
+      "item": "Alcohol and meal charges",
+      "price": 1125,
+      "purpose": "Meetings and conferences under the award",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-14-1-001-nyu.txt",
+        "label": "disallowed",
+        "quote": "NSF has decided to sustain and disallow the entire amount of $75,494."
+      },
+      "source": {
+        "file": "nsf-resolution-14-1-001-nyu.txt",
+        "quote": "the audit report identified $1,125 in unallowable alcohol and meal charges"
+      },
+      "got": "flag",
+      "why": "Alcohol is unallowable under federal grants (2 CFR 200.423), and meal charges for lab events are food, which grants generally can't pay for.",
+      "category": "alcohol",
+      "outcome": "caught",
+      "categoryExpected": [
+        "alcohol",
+        "food"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-06",
+      "auditee": "New York Univ.",
+      "year": "2013",
+      "item": "Conference-planning dinner",
+      "price": 252.22,
+      "purpose": "Planning a conference funded by the award",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-14-1-001-nyu.txt",
+        "label": "disallowed",
+        "quote": "NSF also disallows the $252.22."
+      },
+      "source": {
+        "file": "nsf-resolution-14-1-001-nyu.txt",
+        "quote": "costs for an additional conference-planning dinner that was not identified in the audit report and totaled $252.22."
+      },
+      "got": "flag",
+      "why": "Dinner costs are food, which federal grants generally can't pay for, even for conference planning meetings.",
+      "category": "food",
+      "outcome": "caught",
+      "categoryExpected": "food",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-07",
+      "auditee": "Univ. of Michigan",
+      "year": "2016",
+      "item": "Horseback-riding clinic for 20 eighth-grade students",
+      "price": 1000,
+      "purpose": "Students in the FUEL workshops sponsored by the award",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-16-1-023-michigan.txt",
+        "label": "disallowed",
+        "quote": "NSF has disallowed the entire $8,905 in questioned costs."
+      },
+      "source": {
+        "file": "nsf-oig-16-1-023-michigan.txt",
+        "quote": "to enable 20 eighth- grade students to attend a horseback-riding clinic."
+      },
+      "got": "flag",
+      "why": "A horseback-riding clinic reads as recreation or entertainment, which federal grants can't pay for (2 CFR 200.438), and the purpose doesn't show how it serves…",
+      "category": "entertainment",
+      "outcome": "caught",
+      "categoryExpected": "entertainment",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-08",
+      "auditee": "Univ. of Michigan",
+      "year": "2016",
+      "item": "21 amusement park tickets",
+      "price": 851,
+      "purpose": "Students in the REU summer program sponsored by the award",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-16-1-023-michigan.txt",
+        "label": "disallowed",
+        "quote": "NSF has disallowed the entire $8,905 in questioned costs."
+      },
+      "source": {
+        "file": "nsf-oig-16-1-023-michigan.txt",
+        "quote": "Amusement Park for the students participating in the Research Experiences for Undergraduates (REU) summer program."
+      },
+      "got": "flag",
+      "why": "Amusement park tickets are entertainment, which federal grants can't pay for (2 CFR 200.438), even for REU student activities.",
+      "category": "entertainment",
+      "outcome": "caught",
+      "categoryExpected": "entertainment",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-09",
+      "auditee": "Univ. of Michigan",
+      "year": "2016",
+      "item": "Football stadium tour for 108 students",
+      "price": 432,
+      "purpose": "Students in a summer program sponsored by the award (MI-LSAMP)",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-16-1-023-michigan.txt",
+        "label": "disallowed",
+        "quote": "NSF has disallowed the entire $8,905 in questioned costs."
+      },
+      "source": {
+        "file": "nsf-oig-16-1-023-michigan.txt",
+        "quote": "to participate in a tour of the UM football stadium."
+      },
+      "got": "flag",
+      "why": "A football stadium tour is recreational entertainment, which federal grants can't pay for (2 CFR 200.438), even for a student program.",
+      "category": "entertainment",
+      "outcome": "caught",
+      "categoryExpected": "entertainment",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-10",
+      "auditee": "Univ. of Wyoming",
+      "year": "2021",
+      "item": "Embroidered briefcases and engraved pens with the institute and EPSCoR logos",
+      "price": 1930,
+      "purpose": "",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-21-1-003-wyoming.txt",
+        "label": "disallowed",
+        "quote": "UW concurred with NSF’s management decision to disallow questioned costs of $7,908."
+      },
+      "source": {
+        "file": "nsf-oig-21-1-003-wyoming.txt",
+        "quote": "UW provided detailed receipts for the remaining $1,930 showing that the items were for promotional items including embroidered briefcases and engraved pens."
+      },
+      "got": "flag",
+      "why": "Branded briefcases and engraved pens are promotional items, which federal grants generally can't pay for (2 CFR 200.421), and the purpose is blank.",
+      "category": "other",
+      "outcome": "caught",
+      "categoryExpected": [
+        "other",
+        "personal"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-11",
+      "auditee": "Univ. of Wyoming",
+      "year": "2021",
+      "item": "Museum and zoo admission, yoga and gym access, theater and movie tickets",
+      "price": 15207,
+      "purpose": "Group weekend activities for students in the summer research apprentice program",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-21-1-003-wyoming.txt",
+        "label": "disallowed",
+        "quote": "It is therefore NSF’s management decision to disallow questioned costs of $15,027."
+      },
+      "source": {
+        "file": "nsf-oig-21-1-003-wyoming.txt",
+        "quote": "We consider these SRAP activities — including museum and zoo admission, yoga and gym access, and theater and movie tickets — to be entertainment"
+      },
+      "got": "flag",
+      "why": "Museum, zoo, gym, theater and movie tickets are entertainment or personal recreation, which federal grants can't pay for (2 CFR 200.438, 200.403).",
+      "category": "entertainment",
+      "outcome": "caught",
+      "categoryExpected": "entertainment",
+      "categoryAgrees": true,
+      "note": "The letter says $15,027 against the report’s $15,207."
+    },
+    {
+      "id": "ic-12",
+      "auditee": "Tennessee State Univ.",
+      "year": "2021",
+      "item": "Meals",
+      "price": 1119,
+      "purpose": "",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-oig-21-1-017-tennessee-state.txt",
+        "label": "auditor"
+      },
+      "source": {
+        "file": "nsf-oig-21-1-017-tennessee-state.txt",
+        "quote": "$1,119 in meals that were not allowable on NSF awards;"
+      },
+      "got": "flag",
+      "why": "Meals and food are not allowable grant costs, and no purpose was given to show otherwise.",
+      "category": "food",
+      "outcome": "caught",
+      "categoryExpected": "food",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-13",
+      "auditee": "Tennessee State Univ.",
+      "year": "2021",
+      "item": "Gift cards and lanyards",
+      "price": 245,
+      "purpose": "Paid from the award’s participant support funds",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-oig-21-1-017-tennessee-state.txt",
+        "label": "auditor"
+      },
+      "source": {
+        "file": "nsf-oig-21-1-017-tennessee-state.txt",
+        "quote": "to purchase gift cards and lanyards. However, TSU did not justify these gifts and promotional materials in its proposal"
+      },
+      "got": "flag",
+      "why": "Participant gift cards can be allowable, but lanyards are general-use items and the purpose doesn't explain how they serve the research.",
+      "category": "other",
+      "outcome": "caught",
+      "categoryExpected": [
+        "personal",
+        "other"
+      ],
+      "categoryAgrees": true,
+      "note": "TSU said it discussed the cost with the program director in advance."
+    },
+    {
+      "id": "ic-14",
+      "auditee": "UC Berkeley",
+      "year": "2015",
+      "item": "Alcohol-related charges",
+      "price": 10418,
+      "purpose": "",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-15-1-012-ucberkeley.txt",
+        "label": "disallowed",
+        "quote": "NSF partially sustains the finding based on University concurrence with the majority of the costs questioned and has disallowed $13,247"
+      },
+      "source": {
+        "file": "nsf-oig-15-1-012-ucberkeley.txt",
+        "quote": "$10,418 charged to two awards for various unallowable alcohol related charges."
+      },
+      "got": "flag",
+      "why": "Alcohol is unallowable on federal grants regardless of purpose (2 CFR 200.423).",
+      "category": "alcohol",
+      "outcome": "caught",
+      "categoryExpected": "alcohol",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-15",
+      "auditee": "UC Berkeley",
+      "year": "2015",
+      "item": "Meals at a conference that were not an integral part of it",
+      "price": 741,
+      "purpose": "Conference under the award",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-15-1-012-ucberkeley.txt",
+        "label": "disallowed",
+        "quote": "NSF partially sustains the finding based on University concurrence with the majority of the costs questioned and has disallowed $13,247"
+      },
+      "source": {
+        "file": "nsf-oig-15-1-012-ucberkeley.txt",
+        "quote": "$741 charged to one award for meals that were not an integral or necessary part of a conference."
+      },
+      "got": "flag",
+      "why": "Meals not integral to a conference are unallowable under federal cost rules (2 CFR 200.432, 200.438), so a grant can't pay for them.",
+      "category": "food",
+      "outcome": "caught",
+      "categoryExpected": "food",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-16",
+      "auditee": "UC Berkeley",
+      "year": "2015",
+      "item": "Holiday dinner",
+      "price": 2088,
+      "purpose": "",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-15-1-012-ucberkeley.txt",
+        "label": "disallowed",
+        "quote": "NSF partially sustains the finding based on University concurrence with the majority of the costs questioned and has disallowed $13,247"
+      },
+      "source": {
+        "file": "nsf-oig-15-1-012-ucberkeley.txt",
+        "quote": "$2,088 charged to one award to host a holiday dinner."
+      },
+      "got": "flag",
+      "why": "Holiday dinners are food and social events, which federal grants can't pay for (2 CFR 200.438 and 200.432 on entertainment and meals).",
+      "category": "food",
+      "outcome": "caught",
+      "categoryExpected": [
+        "food",
+        "entertainment"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-17",
+      "auditee": "Ohio State Univ.",
+      "year": "2019",
+      "item": "190 program-branded water bottles",
+      "price": 1782,
+      "purpose": "To hand out to students at a community development event, to help them build a connection with each other and the community",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-19-1-016-ohiostate.txt",
+        "label": "disallowed",
+        "quote": "(8) promotional items/memorabilia/gifts;"
+      },
+      "source": {
+        "file": "nsf-oig-19-1-016-ohiostate.txt",
+        "quote": "water bottles to hand out to students during a community development event."
+      },
+      "got": "flag",
+      "why": "Program-branded promotional items given away to students are unallowable under federal cost rules (2 CFR 200.421).",
+      "category": "other",
+      "outcome": "caught",
+      "categoryExpected": [
+        "other",
+        "personal"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-18",
+      "auditee": "Univ. of Texas at Austin",
+      "year": "2019",
+      "item": "Plaques for participants who completed the program",
+      "price": 1139,
+      "purpose": "Given to participants who completed the award’s program",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-19-1-012-utaustin.txt",
+        "label": "disallowed",
+        "quote": "NSF’s management decision is to disallow all questioned costs in the amount of $283,613."
+      },
+      "source": {
+        "file": "nsf-oig-19-1-012-utaustin.txt",
+        "quote": "plaques provided to participants who successfully completed the"
+      },
+      "got": "flag",
+      "why": "Commemorative plaques are recognition gifts, which federal grants generally can't pay for as memorabilia or awards (2 CFR 200.438, 200.403).",
+      "category": "other",
+      "outcome": "caught",
+      "categoryExpected": [
+        "other",
+        "personal"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-19",
+      "auditee": "Univ. of Texas at Austin",
+      "year": "2019",
+      "item": "An iMac and an iPad",
+      "price": 4860,
+      "purpose": "The iMac was used for this project and others and the iPad was used for lab management as well as this project",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-19-1-012-utaustin.txt",
+        "label": "disallowed",
+        "quote": "NSF’s management decision is to disallow all questioned costs in the amount of $283,613."
+      },
+      "source": {
+        "file": "nsf-oig-19-1-012-utaustin.txt",
+        "quote": "“the iMac was used for this project and others and the iPad was used for lab management as well as this project.”"
+      },
+      "got": "flag",
+      "why": "Computers and tablets used for general lab management and shared across projects are usually overhead, not direct grant costs (2 CFR 200.413, 200.453).",
+      "category": "equipment",
+      "outcome": "caught",
+      "categoryExpected": "equipment",
+      "categoryAgrees": true,
+      "note": "General-purpose equipment not used only for the research; the report also notes it was bought 79 days before the award ended."
+    },
+    {
+      "id": "ic-20",
+      "auditee": "Univ. of Florida",
+      "year": "2015",
+      "item": "Meal at a restaurant for students",
+      "price": 207,
+      "purpose": "",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-15-1-004-uflorida.txt",
+        "label": "disallowed",
+        "quote": "The University has agreed to repay the entire sustained amount."
+      },
+      "source": {
+        "file": "nsf-oig-15-1-004-uflorida.txt",
+        "quote": "$207 charged for a meal at a restaurant for students was not necessary for the administration and performance of the award;"
+      },
+      "got": "flag",
+      "why": "Meals and food for students or the lab are not allowable grant costs under federal cost rules, and no purpose was given.",
+      "category": "food",
+      "outcome": "caught",
+      "categoryExpected": "food",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-21",
+      "auditee": "National Academy of Sciences",
+      "year": "2018",
+      "item": "2-hour evening reception for conference guests and significant others",
+      "price": 10987,
+      "purpose": "Part of a grant-related conference",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-18-1-005-nas.txt",
+        "label": "disallowed",
+        "quote": "NSF’s management decision is to disallow all questioned costs in the amount of $90,902."
+      },
+      "source": {
+        "file": "nsf-oig-18-1-005-nas.txt",
+        "quote": "The event invitation stated that the reception was for guests and significant others, and the participant list indicated that both conference participants and their family members attended the event;"
+      },
+      "got": "flag",
+      "why": "Evening receptions for guests and significant others are entertainment or social events, which federal grants can't pay for (2 CFR 200.438).",
+      "category": "entertainment",
+      "outcome": "caught",
+      "categoryExpected": [
+        "entertainment",
+        "food"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-22",
+      "auditee": "Univ. of Kansas Center for Research",
+      "year": "2021",
+      "item": "Wine, and bar set-up and corkage fees",
+      "price": 642,
+      "purpose": "",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-21-1-001-kucr-epscor.txt",
+        "label": "disallowed",
+        "quote": "NSF sustains the questioned costs of $10,697."
+      },
+      "source": {
+        "file": "nsf-oig-21-1-001-kucr-epscor.txt",
+        "quote": "KUCR charged its EPSCoR awards a total of $642 for wine and bar set up and corkage fees"
+      },
+      "got": "flag",
+      "why": "Alcohol is unallowable on federal grants (2 CFR 200.423), and bar set-up and corkage fees are part of the same cost.",
+      "category": "alcohol",
+      "outcome": "caught",
+      "categoryExpected": "alcohol",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-23",
+      "auditee": "Univ. of Kansas Center for Research",
+      "year": "2021",
+      "item": "Drinking water for the office staff",
+      "price": 4186,
+      "purpose": "",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-21-1-001-kucr-epscor.txt",
+        "label": "disallowed",
+        "quote": "NSF sustains the questioned costs of $10,697."
+      },
+      "source": {
+        "file": "nsf-oig-21-1-001-kucr-epscor.txt",
+        "quote": "KUCR charged $4,186 to two EPSCoR awards for water for its office staff."
+      },
+      "got": "flag",
+      "why": "Drinking water for office staff is a general office or food-type cost that federal grants can't pay for; the university's overhead covers it.",
+      "category": "food",
+      "outcome": "caught",
+      "categoryExpected": [
+        "general office",
+        "food"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-24",
+      "auditee": "Haskell (KUCR subrecipient)",
+      "year": "2021",
+      "item": "Reusable tote bags imprinted with the name of the summer internship program",
+      "price": 1562,
+      "purpose": "Recruitment material at conferences",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-21-1-001-kucr-epscor.txt",
+        "label": "disallowed",
+        "quote": "NSF sustains the questioned costs of $10,697."
+      },
+      "source": {
+        "file": "nsf-oig-21-1-001-kucr-epscor.txt",
+        "quote": "purchased reusable tote bags imprinted with the name of its EPSCoR-funded summer internship program at a cost of $1,562"
+      },
+      "got": "flag",
+      "why": "Branded promotional items like tote bags are unallowable under federal grants (2 CFR 200.421(e)(3)), even for recruiting.",
+      "category": "other",
+      "outcome": "caught",
+      "categoryExpected": [
+        "other",
+        "personal"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-25",
+      "auditee": "Univ. of Pennsylvania",
+      "year": "2019",
+      "item": "Recruitment/End of Year Dinner",
+      "price": 2190,
+      "purpose": "An important contributor to creating a sociable and welcoming atmosphere",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-oig-19-1-013-upenn.txt",
+        "label": "agreed",
+        "quote": "agreed to refund NSF for all questioned costs and to enhance its procedures"
+      },
+      "source": {
+        "file": "nsf-oig-19-1-013-upenn.txt",
+        "quote": "this dinner appears to have been entertainment-related, based on the PI’s statement that the dinner was “an important contributor to creating a sociable and welcoming atmosphere.”"
+      },
+      "got": "flag",
+      "why": "Team dinners are food and social events that federal grants generally can't pay for; a dinner's benefit to the research isn't shown (2 CFR 200.438, 200.432).",
+      "category": "food",
+      "outcome": "caught",
+      "categoryExpected": [
+        "food",
+        "entertainment"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-26",
+      "auditee": "Univ. of Pennsylvania",
+      "year": "2019",
+      "item": "Alcohol for a grant-supported event",
+      "price": 90,
+      "purpose": "Grant-supported event",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-oig-19-1-013-upenn.txt",
+        "label": "agreed",
+        "quote": "agreed to refund NSF for all questioned costs and to enhance its procedures"
+      },
+      "source": {
+        "file": "nsf-oig-19-1-013-upenn.txt",
+        "quote": "for $90 in unallowable alcohol-related expenses incurred for a grant-supported event."
+      },
+      "got": "flag",
+      "why": "Alcohol is an unallowable cost that federal grants can't pay for, regardless of the event purpose (2 CFR 200.423).",
+      "category": "alcohol",
+      "outcome": "caught",
+      "categoryExpected": "alcohol",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-27",
+      "auditee": "Arizona State Univ.",
+      "year": "2019",
+      "item": "Aprons for industry members, faculty and students",
+      "price": 2107,
+      "purpose": "A teambuilding activity that revolved around cooking",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-19-1-007-asu.txt",
+        "label": "disallowed",
+        "quote": "Based upon ASU’s concurrence, it is NSF’s management decision to disallow $22,418."
+      },
+      "source": {
+        "file": "nsf-oig-19-1-007-asu.txt",
+        "quote": "incurred to purchase aprons for industry members, faculty, and students to use in a teambuilding activity that revolved around cooking."
+      },
+      "got": "flag",
+      "why": "Cooking aprons for a teambuilding activity are personal/recreational items that don't benefit the research project (2 CFR 200.403, 200.438).",
+      "category": "personal",
+      "outcome": "caught",
+      "categoryExpected": [
+        "entertainment",
+        "other"
+      ],
+      "categoryAgrees": false
+    },
+    {
+      "id": "ic-28",
+      "auditee": "Arizona State Univ.",
+      "year": "2019",
+      "item": "Bartending services for a cash bar",
+      "price": 250,
+      "purpose": "A grant-related conference",
+      "expect": "flag",
+      "decision": {
+        "file": "nsf-resolution-19-1-007-asu.txt",
+        "label": "disallowed",
+        "quote": "Based upon ASU’s concurrence, it is NSF’s management decision to disallow $22,418."
+      },
+      "source": {
+        "file": "nsf-oig-19-1-007-asu.txt",
+        "quote": "incurred to obtain bartending services for a grant-related conference. Because this cost related to a cash bar that served alcohol"
+      },
+      "got": "flag",
+      "why": "Bartending for a cash bar is alcohol service, which federal grants can't pay for (2 CFR 200.423).",
+      "category": "alcohol",
+      "outcome": "caught",
+      "categoryExpected": [
+        "alcohol",
+        "entertainment"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-d01",
+      "auditee": "UC Davis",
+      "year": "2017 (resolved 2018)",
+      "item": "Heavy Fermion Workshop costs (half the total)",
+      "price": 13026,
+      "purpose": "ICAM workshop; the proposal budget asked NSF for half the cost of each ICAM workshop",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis.txt",
+        "label": "allowed",
+        "quote": "NSF determined that $33,083 was allowable because invoices confirmed the allowability of total costs for the workshops and conferences"
+      },
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "quote": "Heavy Fermion Workshop: We questioned the $13,026 UC-Davis charged NSF."
+      },
+      "got": "fine",
+      "why": "",
+      "category": "other",
+      "outcome": "correct pass",
+      "categoryExpected": [
+        "other",
+        "travel"
+      ],
+      "categoryAgrees": true,
+      "note": "Booked under the university object code \"entertainment\"; NSF allowed it."
+    },
+    {
+      "id": "ic-d02",
+      "auditee": "UC Davis",
+      "year": "2017 (resolved 2018)",
+      "item": "ICAM Annual Conference costs",
+      "price": 23633,
+      "purpose": "Annual conference of the Institute for Complex Adaptive Matter, an ongoing program of the NSF award",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis.txt",
+        "label": "allowed",
+        "quote": "NSF determined that $33,083 was allowable because invoices confirmed the allowability of total costs for the workshops and conferences"
+      },
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "quote": "ICAM Annual Conference: Total cost for the January 2008 conference was $43,633; UC-Davis charged $23,633 to NSF and $20,000 to another university account."
+      },
+      "got": "fine",
+      "why": "",
+      "category": "other",
+      "outcome": "correct pass",
+      "categoryExpected": [
+        "other",
+        "travel"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-d03",
+      "auditee": "UC Davis",
+      "year": "2017",
+      "item": "Lunches for a summer training program (11 lunches)",
+      "price": 123,
+      "purpose": "Summer training program; included in the grant proposal budget",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "label": "auditor",
+        "quote": "After reviewing the documents, we removed these questioned costs from the final audit report."
+      },
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "quote": "OIG had questioned $123 of entertainment costs claimed for 11 lunches in July 2010. UC- Davis stated the lunches were provided in connection with a summer training program and were included in the grant proposal budget. After reviewing the documents, we removed these questioned costs from the final audit report."
+      },
+      "got": "flag",
+      "why": "Food and meals are generally unallowable under federal grants (2 CFR 200.432 and 200.438 context); a budget listing does not override the cost principles.",
+      "category": "food",
+      "outcome": "false alarm",
+      "categoryExpected": "food",
+      "categoryAgrees": true,
+      "note": "Food is allowable here because the training program budgeted it; a hard case for a rule that flags all food."
+    },
+    {
+      "id": "ic-d04",
+      "auditee": "UC Davis",
+      "year": "2017",
+      "item": "Supplies for DNA extractions",
+      "price": 3662,
+      "purpose": "DNA extractions for the project; results were published",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "label": "auditor",
+        "quote": "UC-Davis provided a listing of all DNA extractions performed as well as the publication that resulted from the research. We removed these questioned costs from the final audit report."
+      },
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "quote": "UC-Davis provided a listing of all DNA extractions performed as well as the publication that resulted from the research. We removed these questioned costs from the final audit report."
+      },
+      "got": "fine",
+      "why": "",
+      "category": "lab supplies",
+      "outcome": "correct pass",
+      "categoryExpected": [
+        "lab supplies",
+        "reagents"
+      ],
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-d05",
+      "auditee": "UC Davis",
+      "year": "2017",
+      "item": "Server",
+      "price": 3543,
+      "purpose": "The PI's justification for charging the full cost of the server to the NSF award",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "label": "auditor",
+        "quote": "We removed these questioned costs from the final report."
+      },
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "quote": "UC-Davis disagreed with $3,543 and provided the PI’s justification for charging the full cost of the server to the NSF award. We removed these questioned costs from the final report."
+      },
+      "got": "fine",
+      "why": "",
+      "category": "equipment",
+      "outcome": "correct pass",
+      "categoryExpected": "equipment",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-d06",
+      "auditee": "UC Davis",
+      "year": "2017",
+      "item": "Laptop computer",
+      "price": 3268,
+      "purpose": "Needed for the award, per the award proposal",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "label": "auditor",
+        "quote": "UC-Davis referred to the award proposal as evidence that a $3,268 laptop computer was needed for the award. We removed these questioned costs from the final report."
+      },
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "quote": "UC-Davis referred to the award proposal as evidence that a $3,268 laptop computer was needed for the award. We removed these questioned costs from the final report."
+      },
+      "got": "flag",
+      "why": "A laptop is a general-use computer, and the purpose does not say how it serves the research. Grants may pay only if it is specifically needed for the project (…",
+      "category": "equipment",
+      "outcome": "false alarm",
+      "categoryExpected": "equipment",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-d07",
+      "auditee": "UC Davis",
+      "year": "2017",
+      "item": "Nonrefundable deposit for an annual business meeting",
+      "price": 1000,
+      "purpose": "Annual business meeting held later in the year",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "label": "auditor",
+        "quote": "UC-Davis provided an invoice showing that the meeting did take place as scheduled. We removed these questioned costs from the final audit report."
+      },
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "quote": "OIG’s draft audit report had questioned $1,000 of entertainment costs claimed for a nonrefundable deposit paid in October 2010 for an annual business meeting to be held later in the year. UC-Davis provided an invoice showing that the meeting did take place as scheduled. We removed these questioned costs from the final audit report."
+      },
+      "got": "flag",
+      "why": "The purpose doesn't explain how this business meeting deposit serves the research, and grants pay for meetings only when tied to the project.",
+      "category": "other",
+      "outcome": "false alarm",
+      "categoryExpected": "other",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-d08",
+      "auditee": "Univ. of Wisconsin-Madison",
+      "year": "2015 (resolved)",
+      "item": "Relocation expenses for a new hire, including moving the employee's personal possessions, insurance, storage and delivery",
+      "price": 30107,
+      "purpose": "Employee hired to fill a position on the NSF award",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-resolution-15-1-014-uwm.txt",
+        "label": "allowed",
+        "quote": "Therefore, NSF’s management decision is to allow the entire $30,107 of questioned costs."
+      },
+      "source": {
+        "file": "nsf-oig-15-1-014-uwm.txt",
+        "quote": "The university reimbursed more than $20,000 in relocation expenses, including costs to move the employee’s personal possessions, as well as all insurance, storage, and delivery expenses associated with the move."
+      },
+      "got": "fine",
+      "why": "",
+      "category": "other",
+      "outcome": "correct pass",
+      "categoryExpected": [
+        "other",
+        "personal"
+      ],
+      "categoryAgrees": true,
+      "note": "Relocation of a new hire is an allowable cost (2 CFR 200.464) even though it moves personal possessions."
+    },
+    {
+      "id": "ic-d09",
+      "auditee": "UC Berkeley",
+      "year": "2015 (resolved)",
+      "item": "Four catered meals",
+      "price": 2204,
+      "purpose": "",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-resolution-15-1-012-ucberkeley.txt",
+        "label": "allowed",
+        "quote": "NSF does not sustain the basis for questioning meals in the amount of $2,204 that were not included in the budget."
+      },
+      "source": {
+        "file": "nsf-oig-15-1-012-ucberkeley.txt",
+        "quote": "$2,204 charged to one award for four catered meals that were not included in the budget;"
+      },
+      "got": "flag",
+      "why": "Catered meals are food for the lab, which federal grants generally can't pay for, and no purpose was given to show otherwise.",
+      "category": "food",
+      "outcome": "false alarm",
+      "categoryExpected": "food",
+      "categoryAgrees": true
+    },
+    {
+      "id": "ic-d10",
+      "auditee": "Univ. of Kansas Center for Research",
+      "year": "2018 (resolved)",
+      "item": "Polo shirts for the research team",
+      "price": 1377,
+      "purpose": "Worn by the research team while doing fieldwork on the project",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-resolution-18-1-001-kucr.txt",
+        "label": "allowed",
+        "quote": "NSF determined that the remaining $1,377 were allowable costs"
+      },
+      "source": {
+        "file": "nsf-oig-18-1-001-kucr.txt",
+        "quote": "Per KUCR, the shirts were purchased for the"
+      },
+      "got": "flag",
+      "why": "Clothing is a personal item that benefits the wearer rather than the project, which federal grants can't pay for (2 CFR 200.403).",
+      "category": "personal",
+      "outcome": "false alarm",
+      "categoryExpected": [
+        "other",
+        "personal"
+      ],
+      "categoryAgrees": true,
+      "note": "The auditor called the shirts promotional; NSF allowed them on KUCR’s documentation."
+    },
+    {
+      "id": "ic-d11",
+      "auditee": "Univ. of Michigan",
+      "year": "2016 (resolved)",
+      "item": "Purchase and transfer of a research vessel",
+      "price": 24000,
+      "purpose": "",
+      "expect": "fine",
+      "decision": {
+        "file": "nsf-resolution-16-1-023-michigan.txt",
+        "label": "allowed",
+        "quote": "evidence provided demonstrated the purchase was reasonable, necessary, allocable, and adhered to established University policies and procedures."
+      },
+      "source": {
+        "file": "nsf-resolution-16-1-023-michigan.txt",
+        "quote": "remaining $24,000 in questioned costs for purchase and transfer of a research vessel will be allowed"
+      },
+      "got": "flag",
+      "why": "A research vessel can be a grant-allowable equipment cost, but no purpose was given to show it serves the research, and vessels can also be used personally.",
+      "category": "equipment",
+      "outcome": "false alarm",
+      "categoryExpected": "equipment",
+      "categoryAgrees": true
+    }
+  ],
+  "outOfScope": [
+    {
+      "file": "nsf-oig-17-1-009-usc.txt",
+      "what": "Employee travel, a conference meal and speaker fees charged to participant support",
+      "why": "Wrong account (participant support), not an unallowable kind of cost; NSF allowed them once reclassified."
+    },
+    {
+      "file": "nsf-oig-21-1-016-southcarolina.txt",
+      "what": "Meals on travel days 3 days before a meeting ($83), a rebooked flight, rental car gas",
+      "why": "Travel timing and duplication, not the kind of item."
+    },
+    {
+      "file": "nsf-oig-21-1-016-southcarolina.txt",
+      "what": "A postdoc job advertisement billed as publication costs ($856)",
+      "why": "Mislabeled cost; recruiting ads are their own cost item, not judged by the kind of thing bought."
+    },
+    {
+      "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+      "what": "Two servers and technology items charged 100% to one award ($6,693); a laptop moved onto another award ($3,210)",
+      "why": "Allocation between awards, not the kind of item."
+    },
+    {
+      "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+      "what": "Purchase card items with no justification ($2,230, $2,031)",
+      "why": "Documentation; the report does not say what the items were."
+    },
+    {
+      "file": "nsf-oig-21-1-003-wyoming.txt",
+      "what": "A “welcome lunch” ($738) where 26 of 50 attendees were staff or family",
+      "why": "The auditor questioned only the non-participant share ($384): a split, not the kind of item."
+    },
+    {
+      "file": "nsf-oig-21-1-017-tennessee-state.txt",
+      "what": "Food and utensils for a STEM faculty luncheon ($681) and other items paid from participant support",
+      "why": "Wrong budget line (participant support); TSU said they were valid operations costs."
+    },
+    {
+      "file": "nsf-oig-15-1-004-uflorida.txt",
+      "what": "Meals for lunch receptions and field trips ($1,400)",
+      "why": "Unallowable because the proposal said the center would pay for food: depends on the budget, not the item."
+    },
+    {
+      "file": "nsf-oig-18-1-001-kucr.txt",
+      "what": "Facebook advertising fees ($473)",
+      "why": "Posted to the award by a data-entry error: allocation, not the kind of item."
+    },
+    {
+      "file": "nsf-oig-15-1-012-ucberkeley.txt",
+      "what": "Toner cartridges and gift cards (“recognition payments”)",
+      "why": "The report redacts the amounts, so there is no real price to ask with."
+    },
+    {
+      "file": "nsf-oig-13-1-004-cornell.txt",
+      "what": "A magazine subscription; laptops, monitors and toner (allowed by NSF in aggregate)",
+      "why": "The report gives no per-item amount."
+    }
+  ]
+}

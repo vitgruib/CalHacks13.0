@@ -1,0 +1,179 @@
+Title: NSF audit resolution letter, OIG Report No. 21-1-001, University of Kansas Center for Research (EPSCoR)
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep211001-kuresearch-r.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+                                                                         Request this document in an accessible
+                                                                         format by visiting nsf.gov/accessibility
+
+
+
+
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+
+
+                                                               December 8, 2022
+
+Alicia M. Reed
+Director, Research Administration
+University of Kansas Center for Research, Inc.
+2385 Irving Hill Road
+Lawrence, KS 66045
+Reference: OIG Report No. 21-1-001
+
+Dear Alicia M. Reed:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of Kansas
+Center for Research (KUCR) during the period of October 1, 2015, through September 30, 2018.
+
+The audit report identified a total of $1,550,054 in questioned costs claimed on NSF awards and
+recommended that KUCR strengthen its administrative and management controls over the areas in
+which findings and questioned costs were identified. NSF sustains $1,550,054 of the questioned costs
+identified. The total disallowed amount is $1,550,054, of which KUCR has provided evidence of $15,854
+in repayment, and removal of $625,532, and repayment/adjustment of $55,464 of at- risk cost share
+before the close of the award on August 31, 2023. Once NSF receives verification that repayment of the
+remaining $853,204 of disallowed costs has been completed and the response for findings 3 and 4 (due
+within 30 days of the date of this letter) are responsive to the compliance and internal control
+recommendation in the audit report, NSF will consider final action complete and fully close OIG Audit
+Report 20-1-001.
+
+The table below summarizes the disallowed costs by finding number:
+
+  Finding       Description                Questioned       Sustained       Allowed       Disallowed
+                Indirect Costs Claimed
+      1         from                         $625,532       $625,532              $0        $625,532
+                Subrecipients
+                Unallowable Indirect
+      2                                          $15,854     $15,854              $0          $15,854
+                Cost
+                Unsupported
+      3                                      $569,477       $569,477              $0        $569,477
+                Expenses
+                Unsupported Cost
+      4                                      $328,494       $328,494              $0        $328,494
+                Share Expenses
+      5         Unallowable Expenses          $10,697         $10,697             $0         $10,697
+      Total                                $1,550,054      $1,550,054             $0      $1,550,054
+University of Kansas Research Center, Inc.
+Audit No. 21-1-001
+Page 2
+
+
+
+To resolve the audit findings and questioned costs, NSF conducted detailed reviews of applicable
+Federal and NSF requirements, proposal and award information maintained by NSF, and documentation
+provided by KUCR. The following provides the basis for the management decisions reached by NSF:
+
+
+Finding 1: Indirect Costs Claimed from Subrecipients
+NSF sustains the finding. NSF sustains the questioned cost. NSF’s management decision is to disallow
+questioned costs of $625,532.
+Corrective action: KUCR removed $625,532 from subawards and reallocated to the award’s main KUCR
+project on each award in alignment with the federally negotiated indirect cost rates.
+Compliance and Internal Control Recommendation: NSF has determined that the corrective action
+taken by KUCR, to end the practice of retaining a portion of allowable subrecipient indirect costs
+charged to the award, is responsive to the compliance and internal control recommendation in the
+audit report.
+
+NSF considers Finding 1 resolved and closed.
+
+
+Finding 2: Unallowable Indirect Cost
+NSF sustains the finding. NSF sustains the questioned cost. NSF’s management decision is to disallow
+questioned costs of $15,854.
+Corrective Action: KUCR repaid questioned costs of $15,854. Additionally, KUCR has corrected the
+system mapping issue that caused this finding.
+Compliance and Internal Control Recommendation: None.
+
+NSF considers Finding 2 resolved and closed.
+
+
+Finding 3: Unsupported Expenses
+NSF sustains the finding. NSF sustains the questioned costs. KUCR charged $569,477 of subaward
+expenses to the NSF award but was unable to provide documentation in support of actual costs. NSF’s
+management decision is to disallow questioned costs of $569,477.
+Corrective Action: NSF requires KUCR to repay questioned costs of $569,477.
+Compliance and Internal Control Recommendation: Two compliance and internal control
+recommendations have not been adequately addressed:
+Recommendation 3: KUCR has taken action to shift reporting of subrecipient monitoring staff directly to
+the Assistant Vice Chancellor. KUCR is improving transparency around subrecipient risk status and is
+developing resources guide for non-IHE subrecipients.
+Recommendation 4: In addition to the record retention question previously added to the subrecipient
+intake form, KUCR is working on a process to alert subrecipients to award-specific record retentions
+dates and requirements. KUCR anticipates completion in early 2023.
+
+Final action for Finding 3 will be complete upon repayment of questioned costs of $569,477 and the
+determination by NSF that corrective actions taken are responsive to the report recommendations.
+University of Kansas Research Center, Inc.
+Audit No. 21-1-001
+Page 3
+
+
+
+Finding 4: Unsupported Cost Share Expenses
+NSF sustains the finding. NSF sustains the questioned costs of $328,494. NSF’s management decision is
+to disallow questioned costs of $328,494.
+Corrective Action: KUCR agreed to remove and replace $55,464 in questioned cost share related to the
+award that is currently active. The remaining questioned cost share of $273,030 is related to a closed
+award and is disallowed. NSF’s management decision is to disallow questioned costs of $328,494.
+Compliance and Internal Control Recommendation: None
+
+Final action for Finding 4 will be complete upon repayment of the disallowed questioned costs of
+$273,030. KUCR has until the close of the open award to meet its disallowed cost share of $55,464.
+
+
+Finding 5: Unallowable Expenses
+NSF sustains the finding. NSF sustains the questioned costs of $10,697. NSF’s management decision is to
+disallow $10,697.
+Corrective Action: NSF requires repayment of $10,697.
+Compliance and Internal Control Recommendation: NSF has determined that the corrective action
+taken by KUCR, to strengthen administrative and management controls and processes related to
+unallowable expenditures and use of materials and supplies under participant support costs is
+responsive to the compliance and internal control recommendation in the audit report.
+
+Final action for Finding 5 will be complete upon repayment of the disallowed questioned costs of
+$10,697.
+
+Based on the above, the total disallowed amount is $1,550,054. KUCR has provided evidence of
+repayment of disallowed questioned costs of $696,850. Repayment of the remaining $853,204 of
+disallowed questioned costs must be made via www.pay.gov. Please reference OIG Audit Report No.
+21-1-001 in the comment section. Any necessary adjustments to ACM$ as a result of the repayment will
+be made by the NSF Division of Financial Management.
+
+Please be aware that KUCR ‘s right to appeal cost disallowances by NSF is outlined in Chapter XII.B of the
+NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+An appeal must be filed within 30 days from the date of this letter, or December 8, 2022, and
+repayment of disallowed costs must be received no later than 90 days from the date of this letter.
+Failure to provide timely repayment may result in DFM initiating formal collection through the
+Department of Treasury, Debt Management Services.
+
+Recommendation 3 and 4 of the compliance and internal control recommendations under Findings 3
+were not adequately addressed. KUCR has provided NSF with a plan to resolve these
+recommendations; NSF has agreed to the resolution plan and timeline.
+University of Kansas Research Center, Inc.
+Audit No. 21-1-001
+Page 4
+
+Upon verification that repayment of the remaining $853,204 of disallowed costs has been completed
+and that corrective actions are responsive to the compliance and internal control recommendation in
+the audit report, OIG Audit Report 21-1-001 will be fully closed out by NSF.
+
+The University’s timely responses and cooperation with the NSF audit resolution process are greatly
+appreciated. Should you have any questions regarding this letter or the NSF audit resolution process,
+please feel free to contact Liz DeHart at edehart@nsf.gov or Charlotte Grant-Cobb at cgrantco@nsf.gov.
+
+                                               Sincerely,
+
+                                               Charlotte D. Grant-Cobb
+                                               Charlotte D. Grant-Cobb, Lead Analyst
+                                               Audit Resolution and Advanced Monitoring Branch
+                                               Division of Institution and Award Support
+

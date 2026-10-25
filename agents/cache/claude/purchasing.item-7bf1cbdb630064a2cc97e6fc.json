@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:22.006Z",
+  "input": {
+    "item": "Recruitment/End of Year Dinner",
+    "price": 2190,
+    "purpose": "An important contributor to creating a sociable and welcoming atmosphere",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Team dinners are food and social events that federal grants generally can't pay for; a dinner's benefit to the research isn't shown (2 CFR 200.438, 200.432).",
+    "category": "food"
+  }
+}

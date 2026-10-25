@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:04.808Z",
+  "input": {
+    "item": "Holiday dinner",
+    "price": 2088,
+    "purpose": "",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Holiday dinners are food and social events, which federal grants can't pay for (2 CFR 200.438 and 200.432 on entertainment and meals).",
+    "category": "food"
+  }
+}

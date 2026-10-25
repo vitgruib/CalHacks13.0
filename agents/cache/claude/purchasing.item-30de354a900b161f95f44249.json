@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:13.535Z",
+  "input": {
+    "item": "An iMac and an iPad",
+    "price": 4860,
+    "purpose": "The iMac was used for this project and others and the iPad was used for lab management as well as this project",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Computers and tablets used for general lab management and shared across projects are usually overhead, not direct grant costs (2 CFR 200.413, 200.453).",
+    "category": "equipment"
+  }
+}

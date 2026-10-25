@@ -1,0 +1,82 @@
+Title: NSF audit resolution letter, OIG Audit No. 19-1-012, University of Texas at Austin
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep191012-utaustin.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+                                                                   January 10, 2020
+Linda Haster
+Associate Director
+The University of Texas at Austin
+Office of Sponsored Projects
+3925 West Braker Lane
+Austin TX 78759
+
+Reference: OIG Report No. 19-1-012
+
+Dear Ms. Haster:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of Texas at
+Austin (UT Austin) during the period of December 1, 2013 through November 30, 2016.
+
+The audit report questioned a total of $283,613 in costs claimed under NSF awards and recommended
+that UT Austin strengthen its administrative and management controls for the areas in which findings
+were identified. Based on UT Austin’s agreement with the findings and questioned costs identified in
+the audit report, NSF’s management decision is to disallow all questioned costs in the amount of
+$283,613. The table below summarizes the disallowed costs by funding number:
+
+       Finding                   Description                  Questioned   Allowed         Disallowed
+          1        Unreasonable Transactions                     $63,174              $0       $63,174
+           2       Purchases Near the Award Expiration           $58,556              $0       $58,556
+           3       Unallocable Costs                             $58,209              $0      $58,209
+           4       Inadequate Documentation                      $42,947              $0      $42,947
+           5       Unallowable Indirect Costs                    $25,767              $0      $25,767
+           6       Unreasonable Travel                           $15,604              $0      $15,604
+           7       Unallowable Moving and Relocation Costs       $10,505              $0      $10,505
+           8       Unallocable Visa Costs                         $6,947              $0       $6,947
+           9       Unallowable Promotional Items                  $1,139              $0       $1,139
+          10       Underspent Participation Support                 $765              $0         $765
+                                                      Total     $283,613              $0     $283,613
+
+
+UT Austin has provided NSF evidence of $7,053 in repayment. Repayment of the remaining $276,560
+may be made via www.pay.gov or check payable to the National Science Foundation. Please
+reference OIG Audit Report No. 19-1-012. Any necessary adjustments to ACM$ because of the
+repayment will be made by the NSF Division of Financial Management.
+University of Texas at Austin (UT Austin)
+Audit No. 19-1-012
+Page 2
+
+Check repayments must be addressed as follows:
+
+                                    National Science Foundation
+                                    Attention: NSF Cashier
+                                    2415 Eisenhower Avenue, C 7000
+                                    Alexandria, VA 22314
+
+Please be aware that UT Austin’s right to appeal cost disallowances by NSF is outlined in Chapter XII.B of
+the NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+NSF accepts UT Austin’s stated corrective actions as responsive to the compliance and internal control
+recommendations related to the audit findings and considers all audit report findings and questioned
+costs resolved. Upon verification that repayment of all disallowed costs has been completed, the audit
+report will be fully closed out by NSF.
+
+UT Austin’s timely responses and full cooperation with the NSF audit resolution process have been
+greatly appreciated. Should you have any questions regarding this letter or the NSF audit resolution
+process, please contact me at 703-292-4579.
+
+                                                         Sincerely,
+
+                                                         Carrie Davison
+                                                         Carrie Davison, Team Lead – Audit Resolution
+                                                         Resolution and Advanced Monitoring Branch
+                                                         Division of Institution and Award Support
+

@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:18:54.295Z",
+  "input": {
+    "item": "21 amusement park tickets",
+    "price": 851,
+    "purpose": "Students in the REU summer program sponsored by the award",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Amusement park tickets are entertainment, which federal grants can't pay for (2 CFR 200.438), even for REU student activities.",
+    "category": "entertainment"
+  }
+}

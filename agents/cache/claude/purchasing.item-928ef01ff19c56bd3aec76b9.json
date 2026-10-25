@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:18:55.074Z",
+  "input": {
+    "item": "Football stadium tour for 108 students",
+    "price": 432,
+    "purpose": "Students in a summer program sponsored by the award (MI-LSAMP)",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "A football stadium tour is recreational entertainment, which federal grants can't pay for (2 CFR 200.438), even for a student program.",
+    "category": "entertainment"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:17.433Z",
+  "input": {
+    "item": "Wine, and bar set-up and corkage fees",
+    "price": 642,
+    "purpose": "",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Alcohol is unallowable on federal grants (2 CFR 200.423), and bar set-up and corkage fees are part of the same cost.",
+    "category": "alcohol"
+  }
+}

@@ -1,0 +1,140 @@
+Title: NSF audit resolution letter, OIG Report No. 13-1-004, Cornell University
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep131004-cornell-r.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+            NATIONAL SCIENCE FOUNDATION
+            Division of Institution and Award Support
+
+2415 Eisenhower Avenue
+Suite E 7400
+Alexandria, VA 22314
+(703) 292-8244
+
+                                                  February 9, 2018
+
+
+Jeffrey A. Silber
+Senior Director
+Sponsored Financial Services
+Cornell University
+341 Pine Tree Road
+Ithaca, NY 14850
+
+Re: Resolution of NSF OIG Audit Report No. 13-1-004
+
+Dear Mr. Silber,
+
+The National Science Foundation (NSF) has completed its review and resolution of the NSF Office of the
+Inspector General’s (OIG) report on costs incurred by Cornell University (Cornell), under NSF awards for
+the period April 1, 2008 through June 30, 2011.
+
+The audit report identified a total of $794,221 in questioned costs, including statistical projections, and
+recommended the University adhere to its policies and procedures for charging costs to NSF awards. As
+a result of its audit resolution efforts, NSF has determined to allow $755,858 and to disallow questioned
+costs in the amount of $38,363 as summarized in the table below:
+
+                                                                Projected
+ Finding                       Description                                       Allowed        Disallowed
+                                                               Questioned
+    1      Unallowable Supplies                                 $660,699         $660,126          $573
+    2      Unallowable Recharge Center Costs                     $75,312         $47,696          $27,616
+
+    3      Unallowable General Expenses                          $34,085         $30,493           $3,592
+    4      Unallowable Foreign Travel                            $17,544          $13,422         $4,122
+    5      Unallowable Clerical & Administrative Salaries        $6,581           $4,121          $2,460
+                                                  Totals:       $794,221         $755,858         $38,363
+
+To resolve the questioned costs, NSF selected judgmental samples of the transactions tested by auditors
+for each category of cost questioned and conducted careful reviews of documentation provided by
+Cornell to the auditors, applicable federal and NSF requirements, and specific proposal and award
+information maintained at NSF. The following provides the basis for the management decisions reached
+by NSF for each area of cost:
+
+    1) Supplies – NSF does not sustain the finding. The auditors identified $660,699 in estimated
+       questioned costs, stating that Cornell improperly charged supply costs that should have been
+       treated as Facilities and Administrative (F&A) costs because it did not always adhere to its
+       established policies. NSF disagrees that costs normally treated as F&A cannot qualify as direct
+       costs [OMB A-21, F.6(b)(1) and (3); A-21, Appendix D.1.]. Based on a review of documentation
+       for nine of the 21 auditor-sampled costs, NSF found each of the costs to be reasonable,
+       NATIONAL SCIENCE FOUNDATION
+       Division of Institution and Award Support
+
+
+   necessary, allocable and allowable as charges to the applicable NSF awards. Therefore, NSF’s
+   management decision is to allow $660,126 of the costs questioned and to disallow $573 in costs
+   submitted to by Cornell in their response to the draft audit report dated April 29, 2013. NSF
+   considers this finding resolved.
+
+2) Recharge Centers – NSF sustains the finding. The auditors identified $75,312 in estimated costs
+   because Cornell improperly charged recharge center costs to NSF awards that should have been
+   treated as F&A. Cornell concurred that 13 of 15 transactions tested and reviewed by the
+   auditors were unallowable, and agreed to improve training for staff in this area of compliance.
+   For the two remaining transactions, $87 for supplies were determined by NSF to be eligible as
+   direct costs, as the awards in question are considered “major projects” in accordance A-21,
+   Appendix A, F.6.b(1). It is the NSF management decision that $27,616 in recharge costs agreed
+   to by Cornell is disallowed, and the remaining $47,696 in projected questioned costs will be
+   allowed. NSF considers the finding resolved.
+
+3) General Expenses– NSF partially sustains the finding. The auditors identified $34,085 in
+   estimated general expenses and office supplies that Cornell improperly charged to NSF awards
+   and directly charged costs that should have been treated as F&A. Cornell agreed with three of
+   the 32 exceptions noted by the auditors. NSF selected four samples and reviewed alternative
+   documentation for participant support costs questioned by the auditors. Via NSF project reports
+   and publications, NSF verified participation of the trainees. However, NSF agrees that a $500
+   increase in compensation for a non-faculty administrator based on verbal agreement only is not
+   adequate documentation and will disallow the costs. In addition, review of the allocation of
+   $2,703 in compensation under two NSF awards for an undergraduate found that although not
+   documented, the allocation was reasonable with the exception of $450 which will be disallowed.
+   It is the NSF management decision that the remaining $30,493 will be allowed. NSF considers
+   the finding resolved.
+
+4) Foreign Travel – NSF sustains the finding based on Cornell’s concurrence with seven of 11 (64%)
+   sampled transactions. The auditors estimated that Cornell improperly claimed $17,544 in
+   foreign travel and associated F&A costs. NSF reviewed documentation to support $600 in per
+   diem paid to a field researcher and determined that the costs, were improperly categorized,
+   given that only employees of NSF grants in travel status are eligible to receive per diem.
+   However, based on contributions of the individual to facilitate field research in a foreign
+   country, NSF finds it was reasonable to pay $600 for services that benefitted the grant, albeit
+   not as per diem. NSF recommends that Cornell strengthen controls over payments to non-
+   employee contributors to ensure proper categorization and documentation of costs. It is the
+   NSF management decision to disallow $4,122 concurred to by Cornell, and to allow the
+   remaining $13,422 of questioned costs. This finding is considered resolved.
+
+5) Clerical and Administrative Salaries – NSF partially sustains the finding. The questioned $6,581
+   in clerical and administrative salaries charged to NSF awards, stating that the salaries “should
+   have been treated as F&A costs”. During the audit, Cornell concurred with $2,460 of the costs in
+   question. For the remaining clerical and administrative salaries questioned by the auditors NSF
+   found that the costs were approved by NSF, and were reasonable and allocable because the
+   awards in question were major projects. Further, NSF found the University’s policies and
+   procedures to be compliant with federal and NSF requirements for charging administrative
+   salaries under federal awards. Therefore it is the NSF management decision to disallow $2,460
+   and allow the remaining $4,121. This finding is considered resolved.
+            NATIONAL SCIENCE FOUNDATION
+            Division of Institution and Award Support
+
+
+Please be aware that the University’s right to appeal cost disallowances by NSF is outlined in Chapter
+XII.B of the NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online
+at: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+As of the date of this letter, the University has provided evidence that repayment of $855 (award IOS-
+0965336) of the $38,363 disallowed has been completed. Specific instructions on remittance of the
+remaining $37,508 are provided in Attachment 1.
+
+Based on the above, NSF considers all findings and questioned costs resolved. Upon verification that
+repayment of the remaining $37,508 has been completed, the audit report will be fully closed out by
+NSF.
+
+The University’s patience, timely response, and overall cooperation with the NSF audit resolution
+process have been greatly appreciated. Should you have any questions regarding this letter or the NSF
+audit resolution process, please contact me at (703) 292-4827.
+
+
+                                              Sincerely,
+
+                                               Rochelle D. Ray
+                                              Rochelle D. Ray, Team Lead
+                                              Cost Analysis and Audit Resolution Branch
+                                              Division of Institution and Award Support
+

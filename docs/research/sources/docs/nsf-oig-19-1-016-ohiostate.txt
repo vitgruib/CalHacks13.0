@@ -1,0 +1,335 @@
+Title: Performance Audit of Incurred Costs - Ohio State University, NSF OIG 19-1-016 (Aug 8, 2019; Cotton & Company)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-11/19-1-016_Ohio_State_University.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: cover/At a Glance; Finding 4 (report pp. 14-19) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs –
+Ohio State University
+REPORT PREPARED BY COTTON & COMPANY LLP
+
+
+
+
+August 8, 2019
+OIG 19-1-016
+AT A GLANCE
+Performance Audit of Incurred Costs – Ohio State University
+Report No. OIG 19-1-016
+August 8, 2019
+
+AUDIT OBJECTIVE
+The National Science Foundation Office of Inspector General engaged Cotton & Company LLP
+(C&C) to conduct a performance audit of incurred costs at Ohio State University (OSU) for the period
+February 1, 2015, to January 31, 2018. The auditors tested more than $5.6 million of the $147.3
+million of costs claimed to NSF. The objective of the audit was to determine if costs claimed by OSU
+during this period were allocable, allowable, reasonable, and in conformity with NSF award terms and
+conditions and applicable Federal financial assistance requirements.
+
+AUDIT RESULTS
+The report highlights concerns about OSU’s compliance with certain Federal, NSF, and/or OSU
+regulations and policies when allocating expenses to NSF awards. The auditors questioned $502,587
+of costs claimed by OSU during the audit period. Specifically, the auditors found $304,977 of
+inappropriately allocated expenses; $76,822 of unapproved subaward payments; $67,006 of
+unsupported expenses; $46,178 of unallowable expenses; and $7,604 of inappropriately applied
+indirect costs. The auditors also identified 5 findings related to insufficient human subject payment
+policies, incorrect application of proposed indirect cost rates, non-compliance with OSU policies,
+[...]
+Finding 4: Unallowable Expenses
+
+OSU charged $46,178 of unallowable expenses to 15 NSF awards, as follows:
+
+     •   Unallowable Salary Expenses
+
+         OSU inappropriately charged unallowable salary expenses to an NSF award. Specifically:
+
+             o In June 2017, OSU charged NSF Award No.                for $9,666 in salary
+               expenses provided to an OSU employee as supplemental compensation for
+               providing consulting services on this award. Because OSU did not include this
+               intra-university consulting payment in the budget for this award and did not
+               specifically obtain NSF’s approval for the payment, the extra compensation is not
+               allowable on this award per OSU’s policies and procedures. 22 Further, we noted
+               that OSU did not have a consulting agreement in place to support how it had
+               determined the amount of the payment to be reasonable and to identify the period
+               of performance for these services. Therefore, we are questioning all salary and
+               fringe 23 costs associated with this payment.
+
+     •   Unallowable Travel Expenses
+
+         OSU inappropriately charged unallowable travel expenses to nine NSF awards.
+         Specifically:
+
+             o In June 2015, OSU charged NSF Award No.                  for $108 in personal travel
+               costs that the PI incurred while attending a grant-related conference. 24 We are
+               questioning the costs associated with these personal expenses.
+
+
+
+22
+   OSU’s Allowable Costs policy states that any charges for work representing extra compensation above the base
+salary are only allowable when such arrangements are specifically provided for in the sponsored agreement or
+approved in writing by the sponsoring agency.
+23
+   OSU applied the questioned fringe benefits at a rate of 25.53% rather than at the appropriate rate of 23% per
+OSU’s Negotiated Indirect Cost Rate Agreement (NICRA):
+     • 7/1/2016 to 6/30/2017: 23.0% for Faculty
+24
+   OSU Policy 2.11 – Travel states that travelers incurring additional costs by taking vacation in conjunction with
+business travel must pay for the costs of travel and other expenses using personal funds and request reimbursement
+for the business travel costs after completing the trip.
+
+
+
+                                                                                                          Page | 14
+             o In July 2015, OSU charged NSF Award No.                for $881 in personal travel
+               costs that the PI incurred while attending and presenting at a symposium.23 We
+               are questioning the costs associated with these personal expenses.
+
+             o In September 2015, OSU charged NSF Award No.                  for $244 in
+               unallowable travel expenses that the PI incurred while conducting field research
+               and attending a conference. Specifically, OSU made errors when converting taxi
+               and gas expenses into U.S. dollars (USD). 25 In addition, the PI claimed per diem
+               amounts in excess of the daily maximum amounts.26 Therefore, we are
+               questioning the costs associated with these overpayments.
+
+             o In March 2017, OSU charged NSF Award No.                   for $2,483 in airfare for
+               the PI to conduct field research in    . However, the PI purchased a portion of
+               this airfare from a non-U.S. flag carrier, despite being required to comply with the
+               Fly America Act. 27 Because we were unable to determine the portion of this
+               expense that related to the non-compliant airfare, we are questioning the full cost
+               of this airfare.
+
+             o In February 2016, OSU charged NSF Award No.                  for $439 in
+               unallowable travel expenses that the PI incurred while attending a conference.
+               Specifically, the PI claimed lodging expenses in excess of the allowable quoted
+               conference rate. 28 Therefore, we are questioning the costs associated with this
+               overpayment.
+
+             o In August 2016, OSU charged NSF Award No.                    for $13,020 in airfare for
+               the PI of this award to attend a workshop in         . However, the PI booked one leg
+               of     flight as a business-class fare, rather than as standard airfare. 29 Because we
+               were unable to separate the cost of this leg of the trip from the cost of the
+               remaining airfare, we are questioning the full cost of this airfare.
+
+             o In July 2017, OSU charged NSF Award No.                for $97 in unallowable
+               travel expenses that the PI incurred while presenting results at a conference in
+                       . Specifically, the PI claimed per diem amounts that exceeded the daily
+
+25
+   OSU’s Sponsored Program Travel Policies states that travelers should use Oanda’s currency conversion website to
+identify the rate the travelers should use to convert foreign currency into USD. The traveler used the correct
+conversion rate; however, they made errors when converting two receipt amounts into USD.
+26
+   OSU Policy 2.11 – Travel states that meal allowances are based upon per diem rates that vary by city location and
+provides a link to the General Services Administration per diem rates.
+27
+   NSF PAPPG 11-1, Part II, Chapter VI, Section G.1.b.(i) states that travelers must comply with the Fly America
+Act, which requires travelers to use U.S. flag carriers if they are traveling using funds provided by the Federal
+Government.
+28
+   OSU Policy 2.11 – Travel states that lodging payments must not exceed either the conference rate at the
+conference/convention site or twice the Federal lodging rate for the business travel location.
+29
+   According to 2 CFR Part 220, Appendix A, Section J.53.c., airfare costs that exceed the cost of standard
+commercial airfare are unallowable unless the organization appropriately justifies and documents an authorized
+exception. Further, OSU Policy 2.11 – Travel states that employees may not purchase economy plus, seating
+upgrades, or pre-boarding options using university resources, and that OSU will not reimburse these purchases.
+
+
+
+                                                                                                          Page | 15
+                  maximum amounts. Therefore, we are questioning the costs associated with this
+                  overpayment.
+
+             o In October 2017, OSU charged NSF Award No.                 for $2,656 in
+               unallowable travel expenses that the PI incurred while traveling to
+                         and       . Because the PI’s travel to     was personal in nature, the
+               amount claimed for airfare included both personal and business travel. However,
+               we were unable to separate the personal portion of the airfare from the business
+               portion. Further, the PI’s return flight from    did not comply with the Fly
+                             30
+               America Act. Therefore, we are questioning the full cost of this airfare.
+
+             o In August 2017, OSU charged NSF Award No.                    for $276 in unallowable
+               travel expenses that the PI incurred while attending a conference. Specifically, the
+               PI rented a car to travel from the airport to the conference location; however, the
+               conference provided chartered buses at a lower cost. Because the rental car was
+               not the most economical type of transportation 31 and the PI appears to have
+               elected to rent the car primarily for personal travel after the conference ended, we
+               are questioning the $276 difference between the cost of a round-trip ticket on the
+               chartered bus and the cost of the rental car and gasoline.
+
+             o In June 2015, OSU charged NSF Award No.                  for $2,601 in unallowable
+               travel expenses that the PI incurred while conducting research in           and
+               presenting research results at two international conferences. Specifically, OSU
+               reimbursed the PI for two nights in a hotel at a rate that was higher than twice the
+               maximum Federal rate. 32 In addition, three of the PI’s plane tickets were premium
+               economy fares, rather than the allowable standard commercial airfare. Therefore,
+               we are questioning the costs associated with the overclaimed lodging and
+               premium economy flights.
+
+     •   Unallowable Participant Support Cost Expenses 33
+
+         OSU inappropriately charged travel expenses as participant support costs (PSCs) on two
+         NSF awards. Specifically:
+
+             o In September 2015, OSU used PSC funds awarded on NSF Award No.
+               to reimburse a post-doctoral student for $1,939 in travel expenses incurred to
+               attend a conference in      . Because the PSC budget did not include funding to
+
+30
+   NSF PAPPG 14-1, Part II, Chapter VI, Section G.1.b.(i) states that travelers must comply with the Fly America
+Act, which requires travelers to use U.S. flag carriers if they are traveling using funds provided by the Federal
+Government.
+31
+   OSU Policy 2.11 – Travel states that use of a rental vehicle as a primary mode of travel transportation is
+authorized only if renting a vehicle and driving is more economical than any other type of transportation, or if the
+destination is not otherwise accessible.
+32
+   OSU Policy 2.11 – Travel states that lodging payments must not exceed twice the Federal lodging rate for the
+business travel location.
+33
+   NSF Grant Proposal Guide 07-140, Chapter II, Section C.2.g(v), Footnote 21 and NSF PAPPG 16-1, Part II,
+Chapter V, Section A.3.b. state that written authorization from the cognizant NSF Program Officer is required prior
+to the reallocation of funds provided for PSCs.
+
+
+                                                                                                           Page | 16
+                  support post-doctoral student travel to conferences, and because NSF did not
+                  approve rebudgeting of PSCs under this award, OSU should not have charged
+                  these costs to this award. Further, the post-doctoral student who received the
+                  travel reimbursement was not listed in the budget or annual reports for this award,
+                  nor did the student allocate effort to this award. Moreover, the PI provided an
+                  annual report that identified the post-doctoral student as a participant who
+                  performed research and presented at a conference related to a different NSF
+                  award, NSF Award No.               .
+
+             o In July 2015, OSU used PSC funds awarded on NSF Award No.                      to
+               reimburse the PI for $2,410 in travel costs incurred to present the project results at
+               a conference in          . Because the PSC budget did not include funding for this
+               trip and because NSF did not approve rebudgeting of PSCs under this award,
+               OSU should not have charged these costs to this award. Further, the PI did not
+               mention this trip in the reports for this award; instead, the PI included the trip in a
+               report for a different NSF award, NSF Award No.                .
+
+             o In March 2017, OSU used PSC funds awarded on NSF Award No.                      to
+               reimburse an invited speaker for $2,055 in travel costs incurred to travel to a
+               workshop. Because the speaker began the travel well in advance of the workshop,
+               a portion of this trip was outside of the scope of the PSC funding for this award,
+               and NSF did not approve rebudgeting of PSCs under this award. In addition, the
+               traveler charged the award for an unallowable first-class airfare upgrade. 34 OSU
+               should not have charged this NSF award for the costs associated with travel days
+               that were not supported by the PSC budget, or for the fare upgrade. Because the
+               traveler split several travel expenses with a co-PI for the award, we are also
+               questioning the relevant expenses in the co-PI’s travel reimbursement, for a total
+               questioned amount of $2,859.
+
+             o In December 2016, OSU used PSC funds awarded on NSF Award No.                        to
+               reimburse a co-PI for $3,292 in travel costs incurred to travel to a workshop.
+               Because the co-PI began the travel well in advance of the workshop, a portion of
+               this trip was outside of the scope of the PSC funding for this award, and NSF did
+               not approve rebudgeting of PSCs under this award. In addition, the traveler
+               charged the award for a full conference registration fee when the award budget
+               only included registration for a one-day workshop. Because the PSC budget did
+               not support either the costs associated with the travel days or the full registration
+               fee, OSU should not have charged $2,335 to this award.
+
+
+
+
+34
+   According to 2 Part CFR §200.474 (d), airfare costs that exceed the cost of standard commercial airfare are
+unallowable with limited exceptions, which did not apply to the sampled airfare. Further, OSU Policy 2.11 – Travel
+states that employees may not purchase first-class airfare using university resources and that OSU will not reimburse
+such purchases.
+
+
+
+                                                                                                           Page | 17
+     •   Unallowable Pre-Award Expenses 35
+
+         OSU inappropriately charged unallowable pre-award expenses to an NSF award.
+         Specifically:
+
+             o On April 26, 2016, or 128 days before NSF Award No.                became
+               effective, 36 OSU charged the award for $2,015 of expenses incurred to purchase
+               PVC piping. Because the PI did not receive NSF approval to incur costs more
+               than 90 days before the award’s effective date, these costs are not allowable on
+               this award.
+
+     •   Unallowable Promotional Expenses 37
+
+         OSU inappropriately charged unallowable promotional items to an NSF award.
+         Specifically:
+
+             o In August 2017, OSU charged NSF Award No.                for $1,782 of expenses
+               incurred to purchase 190                                            -branded
+               water bottles to hand out to students during a community development event.
+               Because OSU distributed the water bottles as part of an event to help students
+               learn about the      program, “to help them build a connection with each other
+               and the community,” the water bottles appear to be promotional items.
+               Promotional items are unallowable on NSF awards.
+
+     •   Unallowable Foreign Currency Expenses
+
+         OSU inappropriately charged unallowable expenses related to an incorrect foreign
+         currency conversion to an NSF award. Specifically:
+
+             o In May 2015, OSU entered into an agreement with an international vendor to
+               purchase $13,655 in equipment related to work under NSF Award No.             .
+               OSU negotiated the $13,655 price in USD; however, OSU actually paid a total of
+               $14,022 for the equipment because the exchange rate was different when it paid
+               the 12,282.99 Euro invoice via wire transfer. Because OSU had negotiated the
+               equipment price in USD, the $367 paid in excess of the negotiated price is
+               unallowable. 38
+
+OSU does not have sufficient policies and procedures in place to ensure that it only charges
+allowable costs to NSF awards. As a result, OSU inappropriately charged unallowable salary,
+
+35
+   NSF PAPPG 16-1, Part II, Chapter V, Section A.3.b.1 states that written prior approval from the NSF Grants and
+Agreements Officer is required for pre-award costs in excess of 90 days.
+36
+   NSF Award No.             became effective on September 1, 2016.
+37
+   According to 2 CFR Part 220, Appendix A, Section J.1.f.(3), the costs of promotional items and memorabilia,
+including models, gifts, and souvenirs, are unallowable.
+38
+   OSU’s International Purchasing policy states that to avoid problems with fluctuations in currency exchange rates,
+price quotations should be requested in USD. The price quotation may be in the appropriate currency, but prices
+must be converted to USD at the current exchange rate on the date of the price quotation on the requisition.
+
+
+                                                                                                           Page | 18
+travel, participant support, pre-award, promotional, and foreign currency expenses to NSF
+awards. Therefore, we are questioning $46,178 of unallowable direct, and associated indirect,
+expenses, as follows:
+
+Table 4. Unallowable Expenses
+
+                                                      NSF Award        Fiscal      Questioned
+                 Description                             No.           Year          Costs
+June 2017 Unallowable Salary Expense                                   2017          $9,666
+June 2015 Unallowable Personal Travel Expense                          2015             108
+July 2015 Unallowable Personal Travel Expense                          2016             881
+September 2015 Unallowable Transportation and
+                                                                        2016             244
+Per Diem Expenses
+March 2017 Unallowable Foreign Flag Carrier
+                                                                        2017           2,483
+Airfare
+February 2016 Unallowable Lodging Expense                               2016             439
+August 2016 Unallowable Airfare Upgrade                                 2017          13,020
+July 2017 Unallowable Per Diem Expense                                  2018              97
+October 2017 Unallowable Personal Travel
+                                                                        2018           2,656
+Expense and Foreign Flag Carrier Airfare
+August 2017 Unallowable Rental Car Expense                              2018             276
+June 2015 Unallowable Lodging and Airfare
+                                                                        2015           2,601
+Upgrade Expenses
+September 2015 Unallowable Travel Expense
+                                                                        2016           1,939
+Charged as a PSC
+July 2015 Unallowable Travel Expense Charged
+                                                                        2016           2,410
+[...]

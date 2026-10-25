@@ -1,0 +1,248 @@
+Title: NSF OIG Audit Report 16-1-023, Audit of University of Michigan incurred costs (Sep 29, 2016; Cotton & Company)
+URL: https://www.oversight.gov/sites/default/files/oig-reports/16-1-023_Uni_Michigan.pdf
+Retrieved: 2026-10-25
+Included: OIG memo (pp. i-ii), Finding 3 (report pp. 5-7), Finding 6 (report pp. 11-12) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+                      National Science Foundation • Office oflnspector General
+                      4201 Wilson Boulevard, Suite I-1135, Arlington, Virginia 22230
+
+MEMORANDUM
+
+Date:            SEP 2 9 2016
+To:            Dale Bell
+               Director, Division oflnstitution and Award Support
+
+               Jamie French
+               Acting Director, Division of Grants and Agreements
+
+
+From:          Mark Bell
+               Assistant Inspector General, Office of Audits
+                      '
+Subject:       Audit Report No. 16-1-023,
+               University of Michigan
+
+This memo transmits the Cotton & Company LLP (C&C) report for the audit of costs totaling
+approximately $258 million charged by the University of Michigan (UM) to its sponsored
+agreements with the National Science Foundation (NSF) during the period October 1, 2011
+through September 30, 2014. The objective of the audit was to determine if costs claimed by UM
+during this period were allocable, allowable, reasonable, and in conformity with NSF award terms
+and conditions and applicable federal financial assistance requirements.
+
+The auditors found that costs UM charged to its NSF sponsored agreements did not always comply
+with applicable federal, NSF, and university-specific award requirements. The auditors questioned
+$2,710,238 of costs claimed on NSF awards. Specifically, the auditors noted: $2,242,477 in salary
+costs that exceeded NSF's allowable limits; $360,908 in unsupported ACM$ requests; $57,355 in
+equipment purchases that did not benefit NSF awards; $20,656 in unallowable travel expenses;
+$2,635 in unsupported travel expenses; $8,905 in unallowable upgraded travel and entertainment
+expenses; $7 ,203 of indirect costs improperly claimed on participant support costs; $6,603 m
+unallowable additional compensation; and $3,496 in unallowable visa expenses.
+
+The auditors included nine findings in the report with associated recommendations for NSF to
+resolve the questioned costs and to ensure UM strengthens administrative and management
+controls. UM's response, provided on September 9, 2016, is attached in its entirety to the report
+as Appendix B.
+
+In accordance with Office of Management and Budget Circular A-50, Audit Followup, please
+provide a written corrective action plan to address the report recommendations. In addressing the
+report's recommendations, this corrective action plan should detail specific actions and associated
+milestone dates. Please provide the action plan within 60 calendar days of the date of this report.
+OIG Oversight of Audit
+[...]
+Finding 3: Unallowable Equipment Purchases
+
+UM personnel charged $57,355 to NSF awards for equipment expenses that did not appear to be
+reasonable, allowable, or necessary for accomplishing award objectives and that therefore should
+not have been charged to NSF. Specifically:
+   •   On August 26, 2011, two months before NSF Award No.                expired, the Principal
+       Investigator (PI) of the award ordered equipment totaling $      , which UM invoiced
+       and charged to the award after its POP had expired. While UM provided a purchase order
+       verifying that it had ordered the equipment during the award’s POP, the invoice that UM
+       provided indicates that the equipment was not shipped to UM until November 1, 2011,
+       after the award’s POP expired.
+       The PI of this award transferred to UM and, upon realizing that UM did not have the
+       appropriate equipment to conduct the proposed research, requested permission to
+       purchase the equipment with the available grant funding. While the PI’s request was
+       approved, UM did not receive the equipment until after the award’s POP had expired, and
+       the equipment therefore did not benefit research performed under this award.
+   •   UM’s grant proposal for NSF Award No.                 stated that the researchers would
+       require access to a boat to perform the research; however, UM did not request funding to
+       purchase a boat, as the PI stated that he had access to one. Approximately three years into
+       the award’s POP, the PI charged $           to the award to purchase the boat he had been
+       using from UM’s College of                 . As UM already owned the boat and the grant
+       proposal had identified this boat as available to the PI, using NSF funds to purchase the
+       boat does not appear to have been necessary to achieve the award objectives.
+       The PI stated that he lost operational control of the boat after the retirement of the co-PI,
+       who was an                professor; however, as the PI was identified as the original
+       purchaser of the boat, it was unclear why the co-PI’s retirement would have required the
+       PI to purchase a boat to which he previously had access.
+
+
+
+                                                                                              Page | 6
+According to 2 Code of Federal Regulations (CFR) 220, Appendix A, Section C.4, Allocable
+Costs, a cost is allocable to a particular cost objective if the goods or services involved are
+chargeable or assignable to such cost objective in accordance with relative benefits received or
+other equitable relationship. In addition, NSF’s AAG, Chapter V: Allowability of Costs, Section
+A. Basic Considerations states that grantees should ensure that costs claimed under NSF grants
+are necessary, reasonable, allocable, and allowable under the applicable cost principles, NSF
+policy, and/or the program solicitation.
+
+As the equipment purchases do not appear to have been necessary to fulfill the objectives of the
+identified NSF awards, we are questioning $57,355 of equipment expenses, as follows:
+
+                                                          Questioned Costs
+       NSF Award No.      Fiscal Year         Direct       Indirect             Total
+                              2012            $                                   $33,355
+                              2013                                                 24,000
+       Total Questioned Costs                 $                                   $57,355
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UM:
+
+   1. Repay NSF the $57,355 of questioned costs.
+
+   2. Strengthen the administrative and management controls and processes over allocating
+      equipment expenses to sponsored projects. Processes could include strengthening internal
+      procedures and performing periodic reviews of individual departments for compliance
+      with and proper implementation of UM’s Procurement Policy and 2 CFR 220 regulations.
+
+   3. Strengthen the administrative and management controls and procedures over the
+      processing of expenses at the end of an award’s POP.
+
+University of Michigan Response: UM disagrees with this finding, as it believes that each of
+the equipment purchases was essential to accomplishing the objective of the related NSF award
+and was therefore an allowable expense.
+
+With regard to NSF Award No.              , UM stated that awardees are allowed to approve
+equipment purchases within the last 90 days of the award POP, and that the PI obtained approval
+before initiating the purchase of the equipment; UM therefore believes that the expense should
+be allowable. Furthermore, UM emphasized that the PI requested and received the NSF Program
+Director’s approval to redirect funding to purchase the equipment in question.
+
+With regard to NSF Award No.             , UM stated that the approved budget included funding
+for the use of a survey vessel; UM believes that the expense should be allowable because the
+vessel was essential to accomplish the objectives of the award. UM stated that the boat that the
+
+
+                                                                                          Page | 7
+PIs had previously used as the survey vessel on this award belonged to the
+                                         (          ) Department, where one of the PIs worked;
+when this individual retired, the            Department identified the boat as surplus and therefore
+scheduled it to be disposed of per UM guidelines. The other PI, who worked in the UM
+                                   Department, obtained internal approval to re-budget the funds
+and arranged for the asset to be transferred to this NSF award rather than sold to an external
+party, to ensure that the boat was still available to perform research on this award.
+
+Auditors’ Additional Comments: Our position regarding the finding does not change.
+
+With regard to NSF Award No.             , while UM may have obtained appropriate approval to
+purchase the equipment, it did not receive the equipment until after the award’s POP ended.
+Because the equipment was not available during the award’s POP, UM did not charge this
+expense to the award in accordance with the relevant benefits received, as required by 2 CFR
+220.
+
+With regard to NSF Award No.             , while access to the boat was necessary to achieve the
+objectives of the award, the use of NSF funding to purchase the boat from another department at
+UM does not appear to have been necessary or reasonable. Specifically, it does not appear
+reasonable that UM was to charge NSF $           , a cost that was only supported by internal UM
+valuation documents, for moving assets internally between departments.
+
+[...]
+Finding 6: Unallowable Airfare and Entertainment Expenses
+
+UM inappropriately charged five NSF awards a total of $8,905 in business-class airfare and
+entertainment expenses. Upgraded airfare expenses and entertainment expenses are expressly
+unallowable under 2 CFR 220, and UM therefore should not have allocated these amounts to
+NSF. Specifically:
+       •   In January 2014, an individual identified as senior personnel on NSF Award No.
+           charged the award $6,214 for business-class airfare for a round trip from Michigan to
+                      , Germany to attend a grant-related conference. An equivalent economy-class
+           ticket would have been $2,561, or approximately $3,653 less than the upgraded fare.
+
+3
+    Our original draft report included $7,968 in questioned costs claimed on NSF Award No.   .
+
+
+                                                                                                 Page | 11
+   •   In January 2012, UM charged $1,000 to NSF Award No.                 to enable 20 eighth-
+       grade students to attend a horseback-riding clinic. These students were participating in
+       Future Undergraduates in Energy Laboratories (FUEL) workshops, which were
+       sponsored by this award.
+   •   In June 2014, the PI of NSF Award No.           charged the award $3,873 for business-
+       class airfare for a round trip from Michigan to       Switzerland to attend a grant-
+       related conference. An equivalent economy-class ticket would have been $3,267, or
+       approximately $606 less than the upgraded fare.
+   •   In June 2012, UM charged $851 to NSF Award No.              to purchase 21 tickets to
+                   Amusement Park for the students participating in the Research Experiences
+       for Undergraduates (REU) summer program. The REU program was sponsored by this
+       award.
+   •   In July 2014, UM charged $432 to NSF Award No.              for 108 students
+       participating in the Michigan-Louis Stokes Alliance for Minority Participation (MI-
+       LSAMP) to participate in a tour of the UM football stadium. MI-LSAMP is a summer
+       program sponsored by this award.
+
+According to 2 CFR 220, Appendix A, Section J.53.c., Commercial Air Travel, airfare costs in
+excess of the customary standard commercial airfare (coach or equivalent), federal government
+contract airfare (where authorized and available), or the lowest commercial discount airfare are
+unallowable except when such accommodations would: (a) require circuitous routing, (b) require
+travel during unreasonable hours, (c) excessively prolong travel, (d) result in additional costs that
+would offset the transportation savings, or (e) offer accommodations not reasonably adequate for
+the traveler’s medical needs. In addition, UM’s Travel and Business Hosting Expense Policy
+states that first class/business class is only allowable when the UM traveler is accompanying a
+major donor or dignitary flying first/business class, and documentation must state the business
+reason for any altered flights.
+
+According to 2 CFR 220, Appendix A, Section J.17, Entertainment Costs, the costs of
+entertainment, including amusement, diversion, and social activities, and any costs directly
+associated with such costs (such as tickets to shows or sports events, meals, lodging, rentals,
+transportation, and gratuities) are unallowable.
+
+The sampled entertainment expenses are unallowable under 2 CFR 220, as are the upgraded
+airfare expenses, as the upgrades were not incurred as a result of any of the acceptable
+accommodation upgrade situations identified by 2 CFR 220. As a result, these expenses should
+not have been charged to NSF awards. We are therefore questioning $8,905 of unallowable
+airfare and entertainment expenses, as follows:
+
+           NSF Award                                    Questioned Costs
+              No.              FY            Direct          Indirect            Total
+                              2014               $               $                 $5,680
+                              2012                                                  1,000
+                              2014                                                     942
+                              2012                                                     851
+
+
+                                                                                             Page | 12
+           NSF Award                                   Questioned Costs
+              No.          FY               Direct          Indirect            Total
+                          2015                                                        432
+         Total Questioned Costs                  $                 $               $8,905
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UM:
+
+   1. Repay NSF the $8,905 of questioned costs.
+
+   2. Strengthen the administrative and management controls and processes over the
+      processing of expenses allocable to expense categories that accumulate costs that may be
+      expressly unallowable under 2 CFR 220, including upgraded airfare and entertainment
+      expenses.
+
+University of Michigan Response: UM agrees with the questioned costs identified for NSF
+Award No.           ,          , and          and has updated its Travel and Business Hosting
+Expense Policy to clarify the rules regarding the use of federal funds for the purchase of airfare.
+
+UM disagrees with the costs questioned on NSF Award No.              and          , as the
+entertainment activities were included in the award proposals and provided opportunities for
+award participants to engage in social interaction.
+
+Auditors’ Additional Comments: Our position regarding this finding does not change. While
+the award proposals did include references to social interaction activities, 2 CFR 220, Appendix
+A, Section J.17 specifically identifies entertainment expenses as unallowable under federal
+awards.
+
+[...]

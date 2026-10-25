@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:18:46.569Z",
+  "input": {
+    "item": "General purpose cleaning supplies",
+    "price": 180,
+    "purpose": "",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "General-use cleaning supplies are overhead costs the university pays for, and no research purpose is given to tie them to the project.",
+    "category": "general office"
+  }
+}

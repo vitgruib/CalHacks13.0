@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:21.094Z",
+  "input": {
+    "item": "Reusable tote bags imprinted with the name of the summer internship program",
+    "price": 1562,
+    "purpose": "Recruitment material at conferences",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Branded promotional items like tote bags are unallowable under federal grants (2 CFR 200.421(e)(3)), even for recruiting.",
+    "category": "other"
+  }
+}

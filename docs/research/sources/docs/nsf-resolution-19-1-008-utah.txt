@@ -1,0 +1,133 @@
+Title: NSF audit resolution letter, OIG Audit No. 19-1-008, University of Utah
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep191008-utah.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+
+
+                                                         April 7, 2022
+Craig Merritt
+Manager, Compliance Oversight & Reporting
+University of Utah
+Research Management & Compliance
+201 Presidents Circle, Rm. 416
+Salt Lake City, UT 84112
+
+Reference: OIG Report No. 19-1-008
+
+Dear Mr. Merritt:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of Utah
+(Utah) during the period of July 1, 2013, to June 30, 2016.
+
+The audit report questioned a total of $42,157 in costs claimed under NSF awards and recommended
+that Utah strengthen its administrative and management controls for the areas in which findings were
+identified. As a result of its resolution efforts, NSF has determined that questioned costs in the amount
+of $15,417 will be disallowed. The table below summarizes the allowed and disallowed costs by finding
+number:
+
+    Finding                      Description                Questioned      Disallowed        Allowed
+
+      1       Unsupported Stipend Costs                         $21,286              $24         $21,262
+              Integrative Graduate Education and
+      2                                                         $13,147         $13,147               $0
+              Research (IGERT) Award
+              Unallocable and/or Unreasonable Expenses
+      3                                                          $7,724          $2,246           $5,478
+              Near Award Expiration
+    Total                                                       $42,157         $15,417          $26,740
+
+To resolve the audit findings and questioned costs, NSF conducted detailed reviews of applicable Federal
+and NSF requirements, proposal and award information maintained by the Agency, and documentation
+provided by Utah. The following provides the basis for the management decisions reached by NSF:
+
+•    Finding 1: Unsupported Stipend Costs
+     NSF does not sustain the finding. NSF does not agree that participant support costs (PSC),
+     “budgeted as stipend payments restricts that funding to be paid as stipends only.” Rebudgeting of
+     funds awarded for participants within the participant support budget category is a longstanding,
+     allowable practice under NSF awards. However, NSF award terms and conditions were revised with
+University of Utah
+Audit No. 19-1-008
+Page 2
+
+    the implementation of 2 CFR 200 and now requires prior approval for any additional categories of
+    participant support costs, such as “incentives, gifts, souvenirs, t-shirts and/or memorabilia.” NSF
+    determined that the only unallowable rebudgeting was $24 for a rush payment fee. It is NSF’s
+    management decision to disallow $24 and to allow $21,262.
+
+•   Finding 2: Integrative Graduate Education and Research (IGERT) Award
+    NSF sustains the finding. Based upon Utah’s concurrence, it is NSF’s management decision to
+    disallow $13,147.
+
+•   Finding 3: Unallocable and/or Unreasonable Expenses Near Award Expiration
+    NSF partially sustains the finding. Based upon Utah’s concurrence, NSF disallowed $2,246. NSF
+    determined that the remaining $5,478 was reasonable and allocable to the respective awards. It is
+    NSF’s management decision to disallow $2,246 and to allow $5,478.
+
+•   Finding 4: General Misclassifications
+    NSF sustains the finding. Utah concurred with the finding and NSF accepts that the corrective
+    actions taken should improve controls over compliance with expense classifications.
+
+•   Finding 5: Payroll Charges Misclassified to Participant Support Costs Project
+    NSF sustains the finding. Utah concurred with the finding and NSF accepts that the corrective
+    actions taken should improve controls over compliance with classification of participant support
+    costs.
+
+•   Finding 6: Petty Cash Policy Violation -Internal Control
+    NSF sustains the finding. Utah concurred with the finding and NSF accepts that the corrective
+    actions taken should improve controls over compliance with petty cash payments.
+
+•   Finding 7: Incorrect Negotiated Indirect Cost Rate Agreement (NICRA) Rate Usage –Internal
+    Control
+
+    NSF does not sustain the finding. NSF’s policy requires grantees to budget indirect costs using
+    current indirect cost rates in accordance with PAPPG Chapter II, Section C.2.g(viii), Indirect Costs.
+    However, during the award performance period, grantees may provide voluntary uncommitted cost
+    sharing at any time consistent with OMB’s clarification Q-132, 2 CFR Frequently Asked Questions
+    dated 5/3/2021 and PAPPG Chapter II, Section C.2.g(xii), Cost Sharing. Also see NSF’s Cost Sharing
+    Policy at https://www.nsf.gov/bfa/dias/policy/. Accordingly, NSF does not agree with the
+    recommendation that Utah needs to strengthen administrative and management controls and
+    processes over establishing indirect cost rates for Federal awards to ensure that it applies costs at
+    the rates in effect at the time of the initial award.
+
+    However, NSF does agree that grantees must have internal controls in place to ensure that the
+    rates applied do not exceed the rates in effect at the time of the award, thereby avoiding
+    overcharges of indirect costs to NSF awards. NSF takes no exception to Utah’s policies and
+    procedures on application of indirect cost rates.
+University of Utah
+Audit No. 19-1-008
+Page 3
+
+NSF accepts Utah’s stated corrective actions as responsive to the compliance and internal control
+recommendations related to the audit findings above. Therefore, all compliance and internal control
+recommendations are considered resolved and closed.
+
+Based on the above the total disallowed amount is $15,417. Repayment of $15,417 must be made via
+www.pay.gov. Please reference OIG Audit Report No. 19-1-008. Any necessary adjustments to ACM$
+because of the repayment will be made by the NSF Division of Financial Management.
+
+Please be aware that Utah’s right to appeal cost disallowances by NSF is outlined in Chapter XII.B of the
+NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+NSF considers all audit report findings and questioned costs resolved. Upon verification that repayment
+of all disallowed costs has been completed, the audit report will be fully closed out by NSF.
+
+Utah’s cooperation and patience with the NSF audit resolution process have been greatly appreciated.
+Should you have any questions regarding this letter or the NSF audit resolution process, please contact
+me at 703-292-4827.
+
+                                                         Sincerely,
+
+                                                         Rochelle Ray
+                                                         Rochelle Ray, Branch Chief
+                                                         Resolution and Advanced Monitoring Branch
+                                                         Division of Institution and Award Support
+

@@ -1,0 +1,149 @@
+Title: NSF OIG Audit Report 15-1-004, University of Florida incurred costs (memo dated March 31, 2015)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-08/15-1-004-UFl.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: OIG memo header; Finding 3 (pp. 5-6); Finding 6 (pp. 9-11) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+                      National Science Foundation • Office of Inspector General
+                      4201 Wilson Boulevard, Suite I-1135, Arlington, Virginia 22230
+
+MEMORANDUM
+
+Date:          March 31, 2015
+
+To:            Mary F. Santonastasso, Director
+               Division of Institution and Award Support
+
+               Karen Tiplady, Director
+               Division of Grants and Agreements
+[...]
+Finding 3: Unsupportable and Unallocable Transactions
+
+We found $32,822 in unsupportable or unallocable transactions related to eleven awards which were not
+in accordance with 2 CFR 220, Appendix A, Section C.4 which states a “…cost is allocable to a
+sponsored agreement if it is incurred solely to advance the work under the sponsored agreement; it
+benefits both the sponsored agreement and other work of the institution, in proportions that can be
+approximated through use of reasonable methods…The recipient institution is responsible for ensuring
+that costs charged to a sponsored agreement are allowable, allocable, and reasonable under these cost
+principles.” Section A states that “the accounting practices of individual colleges and universities must
+support the accumulation of costs as required by the principles, and must provide for adequate
+documentation to support costs charged to sponsored agreements.”
+
+    •   $8,896 for travel expenses were charged to the wrong NSF awards. UF discovered the error when
+        providing audit documentation and has taken corrective action to move the $8,896 to the
+        appropriate NSF awards; and
+    •   $648 for the purchase of an iPAD was charged 100 percent to an NSF award when it was only
+        used 50 percent on the NSF award. UF agreed that $648 should be removed from the award for
+        the iPad that cost $1,296.
+
+The UF agreed that they could not support the following charges totaling $23,278 and agreed that they
+were questioned costs.
+
+    •   $274 for lodging and mileage; UF has taken corrective action to remove the charges;
+    •   $5,261 for a journal entry to transfer funds between a non-NSF award to an NSF award;
+    •   $598 for truck repairs. The receipt for the repair was misplaced;
+    •   $3,333 for the purchase of 91 gift cards. Twenty-one of the gift cards were not disbursed and are
+        being held by the department and the University could not locate support for seventy of the gift
+        cards disbursed;
+    •   $2,066 for travel expenses charged to one NSF award and transferred to another NSF award. UF
+        could not provide support for the expenses;
+    •   $6,820 in unsupported materials purchases being transferred from one NSF award to another; and
+    •   $4,926 in unsupported materials purchases being transferred from one NSF award to another.
+
+
+
+
+                                                                                                       6
+Recommendation 3:
+
+We recommend that the NSF’s Director of the DIAS address and resolve the following UF
+recommendations:
+
+   a. Work with NSF to resolve the $32,822 of questioned costs; and
+   b. Strengthen the administrative and management controls and processes for reviewing and
+      approving expenses and expense transfers charged to NSF awards.
+
+Awardee Response:
+
+The UF concurs with this finding. UF believes its systems of compliance controls are effective and
+efficient. Controls over cost transfers, gift cards, computing devices, and expenditure reviews have all
+been enhanced in recent years. UF believes that these errors would have been discovered in the current
+control environment. UF has removed $9,170 of these costs and will seek guidance from NSF on how to
+return the remaining funds.
+
+Auditor Comments:
+
+UF’s comments are responsive to the issue noted in this finding. Once NSF determines that the
+recommendation has been adequately addressed and the questioned costs have been returned, this finding
+should be closed.
+[...]
+Finding 6 – Unallowable Meal Expenses and Associated Services
+
+We found that meals and associated services totaling $7,160 charged to five awards were not necessary or
+reasonable in accordance with 2 CFR 220.
+
+According to 2 CFR 220, Appendix A, Section C, to be allowable for a federal grant, a cost must be
+allocable to the federal award and be necessary and reasonable for the administration and performance of
+the award. Furthermore, Sections C.2 and C.3 state that a reasonable cost is one that a “prudent person
+would have incurred under similar circumstances.”
+
+NSF Award & Administrative Guide (AAG), Chapter V, Section C.5, Meetings and Conferences states,
+“NSF funds are not to be spent for meals or coffee breaks for intramural meetings of an organization or
+any of its components, including, but not limited to, laboratories, departments and centers…. When
+certain meals are an integral and necessary part of a conference (e.g., working meals where business is
+transacted), grant funds may be used for such meals.”
+
+During our audit we noted the following unallowable meal charges:
+
+   •    $157 in unallowable meal related charges. UF agreed that these costs should be removed from
+        the award;
+    •   $821 charged to one award for various meals and associated services. UF agreed that these costs
+        should be removed from the award;
+    •   $207 charged for a meal at a restaurant for students was not necessary for the administration and
+        performance of the award;
+    •   $1,400 charged to NSF for meals related to lunch receptions and field trips. The project proposal
+        specifically stated that the center would absorb the cost of food; and therefore, it is unreasonable
+        that amounts for food were charged to NSF. UF agreed that $29 of the $1,400 should be removed
+        from the award; and
+    •   $4,575 in meals expenditures to host a two-day conference at a Miami hotel with sixteen
+        attendees. Specifically, $3,829 ($239/attendee) was spent to provide breakfast, lunch and breaks
+        during the two day conference. Additionally, we found that $746 ($47/person) was spent on
+        dinner for the attendees when the conference agenda specifically states that per diem would be
+        provided for dinner. UF per diem policy states that the State of Florida reimbursement rate for
+        dinner on UF domestic travel is $19/person. These charges are excessive and unreasonable, and
+        therefore are questioned.
+
+Recommendation 6:
+
+We recommend that the NSF’s Director of the DIAS address and resolve the following UF
+recommendations:
+
+        a. Work with NSF to resolve the $7,160 of questioned costs; and
+
+
+                                                                                                         10
+        b. Strengthen the administrative and management controls and processes for reviewing and
+           approving costs charged to NSF awards for meal and associated services expenditures.
+
+Awardee Response:
+
+The UF does not concur with finding of $4,575 in meal expenditures for a two day conference, $3,829 for
+2 breakfasts, 2 lunches, and 3 conference breaks for each of the 16 attendees. The $746 dinner cost for 16
+attendees, is in line with UF's re-budgeting authority. Re-budget authority would allow the flexibility to
+decide to offer dinner at this conference instead of providing each attendee a per diem as stated in the
+conference agenda.
+
+UF concurs with the other items of this finding. UF believes its systems of compliance controls are
+effective and efficient. Controls over meal expenses and expenditure reviews have been enhanced in
+recent years. UF believes that these errors would have been prevented or discovered in the current control
+environment. Because these awards have closed, UF will seek guidance from NSF on how to return these
+funds.
+
+Auditor Comments:
+
+We believe that spending $286 per attendee to host a two-day conference, where two breakfast, two
+lunch, one dinner and breaks were provided is excessive and unreasonable. The report finding remains as
+previously stated.
+
+UF’s comments on the remaining items are responsive to the issues noted in this finding. Once NSF
+determines that the $2,585 in questioned costs have been returned, these issues should be closed.
+[...]

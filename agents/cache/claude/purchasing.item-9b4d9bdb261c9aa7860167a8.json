@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:18:52.918Z",
+  "input": {
+    "item": "Horseback-riding clinic for 20 eighth-grade students",
+    "price": 1000,
+    "purpose": "Students in the FUEL workshops sponsored by the award",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "A horseback-riding clinic reads as recreation or entertainment, which federal grants can't pay for (2 CFR 200.438), and the purpose doesn't show how it serves the research.",
+    "category": "entertainment"
+  }
+}

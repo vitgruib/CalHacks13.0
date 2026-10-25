@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:18:51.019Z",
+  "input": {
+    "item": "Conference-planning dinner",
+    "price": 252.22,
+    "purpose": "Planning a conference funded by the award",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Dinner costs are food, which federal grants generally can't pay for, even for conference planning meetings.",
+    "category": "food"
+  }
+}

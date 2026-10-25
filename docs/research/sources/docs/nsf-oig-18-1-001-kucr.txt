@@ -1,0 +1,172 @@
+Title: Performance Audit of Incurred Costs - University of Kansas Center for Research, NSF OIG 18-1-001 (Oct 19, 2017; WithumSmith+Brown)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-11/18-1-001_KUCR.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: cover; Finding 5 (pp. 19-22) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs –
+University of Kansas Center for Research
+REPORT PREPARED BY WITHUMSMITH+BROWN, PC
+
+
+
+
+October 19, 2017
+OIG 18-1-001
+[...]
+Finding 5: Unreasonable or Unallowable Transactions
+
+We identified four transactions totaling $8,838 charged to two NSF awards that did not appear
+reasonable, necessary, or prudent for the awards charged.
+
+Unreasonable Cost Transfers
+
+We questioned two transactions totaling $6,988 charged to one NSF award. To be allowable for a
+Federal grant, a cost must be allocable to the Federal award and be necessary and reasonable for
+the administration and performance of the award. 15 We identified a cost transfer posted 1 year after
+the award expired that was not reasonable, necessary, or prudent. Therefore, we question $6,988
+for the cost of contractual services and a computer that were transferred from one NSF award to
+another NSF award, significantly after the original purchases and after the original award expired.
+
+Specifically, we question $3,721 for contractual services transferred over 20 months after the
+services were performed and 1 year after the award expired. At the time of the original recording,
+the PI certified that the work was performed for the award that expired September 30, 2012. We
+
+15
+  According to 2 CFR 220, Appendix A, Sections C.2. and C.3, costs “must be reasonable; they must be allocable to
+sponsored agreements…. Major considerations involved in the determination of the reasonableness of a cost are:
+whether or not the cost is of a type generally recognized as necessary for the operation of the institution or the
+performance of the sponsored agreement….”
+
+
+www.nsf.gov/oig                                        19                                           OIG 18-1-001
+also question $3,267 for a computer transferred 19 months after the computer was purchased and
+1 year after the award expired. The authorized receipt provided for audit noted that the computer
+was also to be recorded to the expired award, not the award it was transferred to.
+
+On September 19, 2013, 1 year after the award expired, a journal entry was made to move the
+charges from award              (expired September 30, 2012) to award              (expired June 30,
+2016). Per the description provided, the transfer was made to move the expenses to correct the
+over expenditure and to close out the project. Federal regulations prohibit the shifting of costs due
+to cost overruns or other funding considerations. 16 Additionally, per KUCR policy, an explanation
+is necessary if the transfer occurs more than 90 days after the expense was originally posted. An
+adequate explanation for the late transfer was not provided.
+
+Table 6. Description of Questioned Unreasonable Cost Transfers
+                                                                                                    Days After
+                                     Total                                                           Original
+ Description                      Questioned*  Date Purchased               Date Transferred          Entry
+ Consulting Services               $ 3,721 December 12, 2011                September 19, 2013         647
+ Apple Mac Mini Computer                3,267 February 24, 2012             September 19, 2013         573
+ Total                             $    6,988
+Source: Auditor analysis of questioned transactions
+*
+  Total questioned includes the applicable F&A
+
+Promotional Purchases and Advertising Were Not Reasonable or Necessary
+
+We questioned two transactions totaling $1,850 charged to one NSF award that were unallowable
+promotional and advertising costs. The purchase of the promotional items and memorabilia,
+including models, gifts, and souvenirs were not specific purchases necessary to meet the
+requirement of the agreement. The only allowable advertising costs are those that are solely for
+specific purposes identified in applicable regulations and for other specific purposes necessary to
+meet the requirements of the sponsored agreement. 17 These promotional items and advertising
+costs for one NSF award are therefore unallowable, and will be questioned.
+
+We question $1,377 for the purchase of polo shirts. Per KUCR, the shirts were purchased for the
+                                                          Research Team while participating in
+fieldwork on the project. KUCR stated that the purchase meets the “other specific purpose”
+criteria; however, the shirts were not necessary to meet the requirements of the sponsored
+
+
+
+16
+   2 CFR 220, Appendix A, Section C.4.b states, “Any costs allocable to a particular sponsored agreement under the
+standards provided in this Appendix may not be shifted to other sponsored agreements in order to meet deficiencies
+caused by overruns or other fund considerations, to avoid restrictions imposed by law or by terms of the sponsored
+agreement, or for other reasons of convenience.”
+17
+   According to 2 CFR 220, Appendix A, Section J.1.f(3) and J.1.c(4), “Unallowable advertising and public relations
+costs include….costs of promotional items and memorabilia, including models, gifts, and souvenirs.” The only
+allowable “advertising costs are those that are solely for[three specific purposes and for] other specific purposes
+necessary to meet the requirement of the sponsored agreement.”
+
+
+
+www.nsf.gov/oig                                         20                                           OIG 18-1-001
+agreement. As such, we contend that this charge is unallowable and was not reasonable, or
+necessary for the performance of this NSF sponsored project. 18
+
+We also question $473 for Facebook advertising fees charged to this award. Per KUCR, the entire
+cost has been subsequently removed from the project. The original charge was inadvertently posted
+to this award due to a data entry error.
+
+Table 7. Description of Questioned Promotional and Advertising Costs
+                                       Invoice                                   Total
+ Description                           Amount                 F&A              Questioned         KUCR Agreed
+ Polo Shirts                             $     940             $ 437              $ 1,377            No
+ Facebook Advertisements                       324                149                   473          Yes
+ Total                                   $ 1,264               $ 586              $ 1,850
+Source: Auditor analysis of questioned transactions
+
+KUCR personnel did not adequately review the expenditures charged to the NSF awards, which
+resulted in unreasonable and unallowable costs. Without a process in place to ensure costs are
+reasonable and allowable, there is the increased risk that funds may not be used as required to
+accomplish the necessary project objectives in accordance with Federal and NSF requirements.
+
+KUCR indicated that it has performed corrective actions to remove $473 in unreasonable and
+unallowable costs from the award in question, leaving $8,365 unresolved. NSF, during the audit
+resolution process, should ensure that the awards have been credited as appropriate.
+
+Recommendations
+
+We recommend that the NSF’s Director of the DIAS address and resolve the following KUCR
+recommendations:
+
+     1. Resolve the $8,365 of questioned costs and ensure the $473 of questioned costs has been
+        removed from the NSF awards.
+     2. Strengthen the administrative and management controls and processes for reviewing costs
+        to ensure that unallowable promotional items and advertising costs are not charged to NSF
+        awards.
+
+Summary of Awardee Response
+
+KUCR accepts some of the findings related to the “Unreasonable Cost Transfers”, and is working
+to implement stronger administrative and management controls and processes related to reviewing
+costs to ensure allowability of cost transfers on sponsored projects. In regards to the “Promotional
+Purchases and Advertising Were Not Reasonable or Necessary” finding, KUCR agrees that the
+advertising costs were not allowable and has moved this cost off the NSF award. However, KUCR
+
+18
+  2 CFR 220, Appendix A, Section C.2. and C.3 states costs “must be reasonable; they must be allocable to sponsored
+agreements…. Major considerations involved in the determination of the reasonableness of a cost are: whether or not
+the cost is of a type generally recognized as necessary for the operation of the institution or the performance of the
+sponsored agreement.”
+
+
+www.nsf.gov/oig                                          21                                            OIG 18-1-001
+believes that the shirt costs were necessary as they helped interviewers to identify themselves to
+subjects and allowed for successful completion of the fieldwork funded on the project. KUCR
+stated they provided documentation from the award proposal that described the fieldwork of the
+research team that would justify this type of purchase on the award. KUCR believes this charge is
+reasonable and allowable on this project.
+
+See Appendix A for the complete KUCR response.
+
+Auditors’ Additional Comments
+
+KUCR did not specifically address the questioned $6,988 charged to the NSF award for
+unreasonable cost transfers, therefore our conclusion remains unchanged. Although KUCR
+indicated it accepts these findings and has working to make improvements in this area, their
+response did not change our view that the cost transfers were not reasonable, necessary, or prudent
+and therefore, the report finding and recommendations remain as stated.
+
+KUCR’s comment related to the $473 in advertisements is responsive to the issue noted in the
+finding. Once NSF determines that the recommendation has been adequately addressed, and the
+$473 in questioned costs has been returned, this issue should be closed.
+
+Our conclusion remains unchanged for the $1,377 for the purchase of polo shirts that KUCR
+disagrees with. The additional information provided by KUCR did not change our view that the
+polo shirts were not necessary to meet the requirements of the sponsored agreement, and therefore,
+were not reasonable or necessary for the award. The report finding and recommendations remain
+as stated.
+[...]

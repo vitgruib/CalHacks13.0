@@ -1,0 +1,255 @@
+Title: Performance Audit of Incurred Costs on EPSCoR Awards - University of Wyoming, NSF OIG 21-1-003 (Jan 13, 2021)
+URL: https://oig.nsf.gov/sites/default/files/reports/2022-01/21-1-003_University_of_Wyoming.pdf (fetched via http://web.archive.org/web/20250207183108/ snapshot)
+Retrieved: 2026-10-25
+Included: cover, At a Glance, Findings 2, 3 (pp. 3-6) and Finding 5 (p. 8) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs on
+EPSCoR Awards – University of Wyoming
+
+
+
+
+ January 13, 2021
+ OIG 21-1-003
+NSF       NATIONAL SCIENCE FOUNDATION
+          OFFICE OF INSPECTOR GENERAL
+
+
+ AT A GLANCE
+ Performance Audit of Incurred Costs on EPSCoR Awards –
+ University of Wyoming
+ Report No. OIG 21-1-003
+ January 13, 2021
+
+  WHY WE DID THIS AUDIT
+  We conducted a performance audit of incurred costs on two Established Program to Stimulate
+  Competitive Research (EPSCoR) awards to the University of Wyoming (UW). The objective of this
+  audit was to determine if costs claimed by UW were allowable, allocable, reasonable, and in
+  conformity with NSF award terms and conditions and applicable Federal requirements.
+
+  WHAT WE FOUND
+  We identified instances of noncompliance with certain Federal regulations, NSF policies, and award
+  terms and conditions in UW’s administration of both EPSCoR awards. Specifically, we questioned
+  $256,351 in direct and indirect costs claimed by UW, including:
+
+      •   $90,000 in an unsupported cost transfer;
+      •   $7,908 in unsupported and unallowable promotional expenses;
+      •   $15,207 in unallowable activity expenses;
+      •   $24,773 in unallowable indirect cost charges;
+      •   $864 for unallowable meal expenses; and
+      •   $117,599 in unsupported subrecipient expenses.
+
+  Please see Appendix C for a breakdown of the questioned costs by finding.
+
+  WHAT WE RECOMMEND
+  We made 15 recommendations for NSF to resolve the questioned costs and to ensure UW strengthens
+[...]
+ training.
+
+ Finding 2: Unsupported and Unallowable Promotional Expenses
+
+ UW inappropriately charged $7,908 in unsupported or unallowable promotional items and associated
+ indirect costs to its closed Track-1 award. Specifically, UW charged $5,589 in unsupported or
+ unallowable direct commercial printing expenses and $2,319 in associated indirect costs for the High
+ Plains American Indian Research Institute to the award.
+ UW did not provide sufficient documentation to support allowability for transactions totaling $5,978.
+ UW told us that some of these costs were for promotional items with the High Plains American Indian
+ Research Institute and EPSCoR logos. UW provided detailed receipts for the remaining $1,930 showing
+ that the items were for promotional items including embroidered briefcases and engraved pens.
+
+ To be allowable, costs must be adequately documented. 4 Further, costs of promotional items and
+ memorabilia, including models, gifts, and souvenirs, are unallowable. 5 UW did not have an internal
+ control that required the purchaser to provide a detailed receipt or a policy ensuring that promotional
+
+ 4
+     2 CFR 200.403(g)
+ 5
+     2 CFR 200.421(e)(3)
+
+
+ 3        NSF.GOV/OIG | OIG 21-1-003
+NSF        NATIONAL SCIENCE FOUNDATION
+           OFFICE OF INSPECTOR GENERAL
+
+ items were not charged to Federal awards. Therefore, we are questioning $7,908 UW claimed for High
+ Plains American Indian Research Institute commercial printing costs.
+
+ UW concurred with the $7,908 in questioned costs, as illustrated in Table 1.
+
+ Table 1. Promotional Expenses Questioned as Unsupported or Unallowable
+                                                                       Questioned Costs                UW Agrees
+                Description                     Award         Direct     Indirect         Total            to
+                                                 No.                                                   Reimburse
+     Unsupported commercial printing                          $4,225        $1,753         $5,978          $5,978
+     Unallowable commercial printing                          $1,364          $566         $1,930          $1,930
+     Total                                                    $5,589        $2,319         $7,908          $7,908
+ Source: Auditor summary of commercial printing expenses questioned as unallowable or unsupportable.
+
+ Recommendations
+ We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+       1. Resolve the $7,908 in questioned commercial printing costs, and direct UW to repay or
+          otherwise remove the sustained questioned costs from its NSF awards.
+       2. Direct UW to develop a control to ensure the allowability and reasonableness of commercial
+          printing costs are sufficiently documented.
+
+ UW Response
+
+ UW stated it concurs with this finding and will repay NSF these costs.
+
+ Auditor Comment
+
+ We acknowledge UW’s concurrence with the finding. Our position regarding this finding remains the
+ same.
+
+ Finding 3: Unallowable Entertainment Expenses
+
+ UW charged $15,207 of unallowable direct ($11,057) and associated indirect ($4,150) expenses to its
+ EPSCoR awards for the Summer Research Apprentice Program (SRAP) that were unallowable
+ entertainment expenses.
+
+ UW included funding for SRAP in both its closed and open EPSCOR Track-1 award proposals.
+ According to UW’s proposals, SRAP is a 6-week intensive summer program that introduces first-
+ generation college students and minority background high school students to STEM. Participants are
+ assigned to a UW research scientist for an 8-hour workday, 5 days per week. According to its participant
+
+
+
+
+ 4       NSF.GOV/OIG | OIG 21-1-003
+NSF         NATIONAL SCIENCE FOUNDATION
+            OFFICE OF INSPECTOR GENERAL
+
+ solicitation, UW pays for group weekend activities for the students. Those costs are then charged to the
+ EPSCoR awards.
+
+ We consider these SRAP activities — including museum and zoo admission, yoga and gym access, and
+ theater and movie tickets — to be entertainment, rather than necessary to accomplish the objectives of
+ UW’s EPSCoR awards. UW did not disclose these activities, or their programmatic purpose, in its NSF
+ proposals or request prior written approval from NSF to pay for them through the EPSCoR awards.
+ Additionally, UW’s documentation supporting the costs did not identify who attended the activities to
+ confirm it was SRAP participants.
+
+ Federal regulations applicable to the open Track-1 EPSCoR award state that costs of entertainment are
+ unallowable, except where specific costs that might otherwise be considered entertainment have a
+ programmatic purpose and are authorized either in the approved budget for the Federal award or with
+ prior written approval of the Federal awarding agency. 6 Although UW creates an annual SRAP activity
+ calendar, it did not provide the calendar to the NSF EPSCoR Program Office. The calendar may have
+ helped NSF decide whether to approve the activities as part of the award’s scope. Further, UW did not
+ provide support — such as if attendees were SRAP participants or the programmatic purpose of each
+ activity — for the reasonableness, allocability, and allowability of these activities.
+
+ Regarding entertainment costs charged to UW’s closed Track-1 award, the terms and conditions of the
+ award stated, “Costs of entertainment, amusement, diversion and social activities, and any costs directly
+ associated with such costs (such as meals, lodging, rentals, transportation and gratuities) are
+ unallowable.” 7 Therefore, we question these SRAP activities as unallowable entertainment expenses.
+
+ UW concurred with $4,150 of the questioned costs and disagreed with $11,057, as illustrated in Table 2.
+
+
+ Table 2. Entertainment Expenses Questioned as Unallowable
+                                                                      Questioned Costs
+                                                                                                   UW Agrees
+             Description                Award No.
+                                                            Direct       Indirect       Total     to Reimburse
+     Unallowable                                           $10,537          $3,919      $14,456         $3,919
+     Entertainment Expenses
+     Unallowable                                             $520*            $231        $751           $231
+     Entertainment Expenses
+     Total                                                 $11,057          $4,150      $15,207         $4,150
+ Source: Auditor summary of entertainment expenses questioned as unallowable.
+ *
+   Rounded to enable mathematical accuracy of totals.
+
+
+ Recommendations
+ We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+ 6
+     2 CFR Part 200, Section 200.438, Entertainment costs
+ 7
+     Award Specific Financial/Administrative Terms and Conditions (FATC), paragraph 5
+
+
+ 5        NSF.GOV/OIG | OIG 21-1-003
+NSF       NATIONAL SCIENCE FOUNDATION
+          OFFICE OF INSPECTOR GENERAL
+
+
+      1. Resolve the $15,207 in questioned entertainment costs, and direct UW to repay or otherwise
+         remove the sustained questioned costs from its NSF awards.
+      2. Direct UW to provide NSF additional detail for proposed SRAP entertainment activities annually
+         so NSF can assess the allowability of the proposed activities.
+      3. Direct UW to strengthen its administrative and management controls and processes related to
+         documenting SRAP activity attendees and programmatic purposes.
+
+ UW Response
+
+ UW stated that it believes that the expenses in question may be considered entertainment for a research
+ project but are vital to the success of the residential program that includes minors living on a college
+ campus. UW agreed that additional support can be provided to the program officer in support of these
+ activities in question and prior to the start of each year’s program.
+
+ UW agreed that indirect costs should not have been assessed to these participant support expenses and
+ will repay NSF $4,150.
+
+ Auditor Comment
+
+ Our position regarding this finding remains the same. Federal regulations say that costs of entertainment
+ are unallowable, except where specific costs that might otherwise be considered entertainment have a
+ programmatic purpose and are authorized either in the approved budget for the Federal award or with
+ prior written approval of the Federal awarding agency.
+
+ We acknowledge UW’s agreement to repay $4,150 for the indirect costs assessed to these participant
+ support costs.
+
+[...]
+ Finding 5: Unallowable Meal Charges
+ UW charged $864 in unallowable meals to its closed Track-1 award. 13 Specifically:
+
+      •    UW charged $738 for a “welcome lunch,” for which only 24 of 50 attendees were SRAP
+           participants. We question $384 (52 percent) charged for meals for non-participants, which
+           included UW staff members and family members of participants. The meals were not necessary
+           and reasonable for the performance of the award, 14 and staff meals are not allowable according
+           to NSF policy. 15
+      •    UW charged $872 for a “student and mentor lunch,” for which only 22 of 49 attendees were
+           SRAP participants. We question $481 (55 percent) charged for meals for non-participants,
+           including UW students, faculty, and staff. The meals were not necessary and reasonable for the
+           performance of the award and not allowable according to NSF policy.
+
+ In addition, UW also told us it took participants to restaurants on a regular basis during the SRAP
+ program — and charged the meals of staff chaperones to the award — because UW limited the number
+ of meals SRAP participants were allowed to eat on campus. We could not identify how much UW spent
+ on staff meals as it did not separately record the participant and non-participant meal costs in its
+ accounting system.
+
+ UW confirmed it did not have a specific policy for charging meals to Federal awards, including
+ determining the reasonableness or necessity of meal costs or appropriateness of feeding non-
+ participants, to minimize costs to Federal awards. UW stated that its practice is to allow staff meals to be
+ charged to the EPSCoR award if staff are required to attend an EPSCoR-related event, such as an SRAP
+ meal. However, we think this practice is contrary to NSF guidance. Therefore, we question $864 in
+ unallowable meal charges.
+
+ UW concurred with the $864 in questioned costs, as illustrated in Table 4.
+
+ 13
+    Indirect costs associated with the questioned meal costs are part of the costs questioned in Finding 4.
+ 14
+    2 CFR 200.403(a) states to be allowable, a cost must “Be necessary and reasonable for the performance of the Federal
+ award and be allocable thereto under these principles.” Prior to the Office of Management and Budget’s (OMB) Uniform
+ Guidance, OMB Circular A-21 stated, “Major considerations involved in the determination of the reasonableness of a cost
+ are: (a) whether or not the cost is of a type generally recognized as necessary for the ... performance of the sponsored
+ agreement; ... and (d) the extent to which the actions taken with respect to the incurrence of the cost are consistent with
+ established institutional policies and practices applicable to the work of the institution generally, including sponsored
+ agreements.” (A-21, Appendix A, Section C.3)
+ 15
+    NSF’s Proposal and Award Policies and Procedures Guide 11-1, Chapter V (Section C.5.i.)
+
+
+ 8        NSF.GOV/OIG | OIG 21-1-003
+NSF         NATIONAL SCIENCE FOUNDATION
+            OFFICE OF INSPECTOR GENERAL
+
+ Table 4. Meal Expenses Questioned as Unallowable*
+                                                                        Questioned Costs                 UW Agrees to
+[...]

@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:18.450Z",
+  "input": {
+    "item": "Drinking water for the office staff",
+    "price": 4186,
+    "purpose": "",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Drinking water for office staff is a general office or food-type cost that federal grants can't pay for; the university's overhead covers it.",
+    "category": "food"
+  }
+}

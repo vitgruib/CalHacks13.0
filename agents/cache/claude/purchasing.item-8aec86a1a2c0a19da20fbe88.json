@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:01.332Z",
+  "input": {
+    "item": "Gift cards and lanyards",
+    "price": 245,
+    "purpose": "Paid from the award’s participant support funds",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Participant gift cards can be allowable, but lanyards are general-use items and the purpose doesn't explain how they serve the research.",
+    "category": "other"
+  }
+}

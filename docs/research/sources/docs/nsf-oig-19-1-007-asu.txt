@@ -1,0 +1,112 @@
+Title: Performance Audit of Incurred Costs - Arizona State University, NSF OIG 19-1-007 (Apr 15, 2019; Cotton & Company)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-11/19-1-007_Arizona_State_University.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: cover; unallowable entertainment-related expenses, Table 6 and ASU response (pp. 21-24) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs –
+Arizona State University
+REPORT PREPARED BY COTTON & COMPANY LLP
+
+
+
+
+April 15, 2019
+[...]
+
+
+
+
+                                                                                                      Page | 21
+     •   Unallowable Entertainment-Related Expenses 26
+
+         ASU inappropriately charged unallowable entertainment-related expenses to two NSF
+         awards. Specifically:
+
+             o   In February 2014, ASU charged NSF Award No.                  for $2,107 in expenses
+                 incurred to purchase aprons for industry members, faculty, and students to use in
+                 a teambuilding activity that revolved around cooking. Because ASU appears to
+                 have purchased these aprons to benefit an event that would be considered
+                 entertainment and/or a social activity, it should not have charged these costs to the
+                 NSF award.
+
+             o   In June 2016, ASU charged NSF Award No.                   for $250 in expenses
+                 incurred to obtain bartending services for a grant-related conference. Because this
+                 cost related to a cash bar that served alcohol, it represents an unallowable
+                 entertainment/alcohol expense. ASU therefore should not have charged this cost
+                 to the NSF award.
+
+[...]
+                  salary based on their salary agreement. If ASU had used the investigator’s annual
+                  salary agreement when calculating the amount of this payment, it would only
+                  have charged $16,043 to this award. We therefore determined that $117 of this
+                  expense is unallowable.
+
+ASU does not have sufficient policies and procedures in place to ensure that it only charges
+allowable costs to NSF awards. As a result, ASU inappropriately charged unallowable pre-
+award, entertainment, travel, and salary expenses to NSF awards. We are therefore questioning
+$22,418 of expenses, as follows:
+
+Table 6. Unallowable Expenses
+
+                                                               NSF Award             Fiscal        Questioned
+                  Description                                     No.                Year            Costs
+   June 2015 Unallowable Pre-Award Expense                                           2015            $1,719
+   February 2014 Unallowable Entertainment-                                          2014             2,107
+   Related Expense
+   June 2016 Unallowable Alcohol Expense                                              2016                 250
+   August 2014 Unallowable Airfare Expense                                            2015               2,413
+   June 2016 Unallowable Lodging Expense                                              2016               7,991*
+   March 2015 Unallowable Lodging Expense                                             2015               6,855
+   March 2014 Unallowable Per Diem Expense                                            2014                 316
+   November 2015 Unallowable Salary                                                   2016                 650
+   Expense
+   July 2016 Unallowable Salary Expense                                               2017                117
+   Total Questioned Costs                                                                             $22,418
+
+Source: Auditor summary of questioned transactions.
+*
+  Because we previously questioned the indirect costs related to this transaction in Finding 2, we did not include them
+here.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+    1. Resolve the $22,418 of questioned costs and direct ASU to repay or otherwise remove the
+       sustained questioned costs from its NSF awards.
+
+
+    2. Direct ASU to strengthen the administrative and management procedures over allocating
+       pre-award expenses to sponsored projects. Procedures could include requiring that ASU
+       review all pre-award transactions before charging the expenses to a federally sponsored
+       project.
+
+
+
+                                                                                                            Page | 24
+     3. Direct ASU to strengthen the administrative and management procedures over allocating
+        entertainment-related expenses to sponsored projects. Procedures could include periodic
+        reviews of transactions with high-risk descriptions to ensure that ASU does not charge
+        entertainment-related expenses to federally sponsored projects.
+
+     4. Direct ASU to strengthen the administrative and management procedures over allocating
+        travel expenses to sponsored projects. Procedures could include requiring that ASU:
+
+             a. Review all foreign airfare purchases for compliance with the Fly America Act
+                before charging the expenses to a federally sponsored project.
+
+             b. Perform periodic reviews of transactions involving per diem rates to ensure that it
+                does not overcharge sponsored projects.
+
+     5. Direct ASU to strengthen the administrative and management procedures over allocating
+        salary expenses to sponsored projects. Procedures could include updating ASU’s policies
+        and procedures to require that ASU use an employee’s salary agreement when calculating
+        all salary expenses charged to sponsored awards.
+
+Arizona State University Response: ASU accepted this finding and agreed to repay any
+questioned costs not already refunded to NSF. ASU stated that while it offers training sessions
+and extensive materials to PIs, Department Research Advancement Administrators, and Central
+Grant and Contract Officers related to fiscal compliance and best practices for sponsored
+projects, it would examine its current processes and work to strengthen the administrative and
+management procedures over allocating pre-award expenses, entertainment-related expenses,
+[...]

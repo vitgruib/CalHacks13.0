@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:25.312Z",
+  "input": {
+    "item": "Bartending services for a cash bar",
+    "price": 250,
+    "purpose": "A grant-related conference",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Bartending for a cash bar is alcohol service, which federal grants can't pay for (2 CFR 200.423).",
+    "category": "alcohol"
+  }
+}

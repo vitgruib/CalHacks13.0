@@ -1,0 +1,220 @@
+Title: Performance Audit of Incurred Costs - Tennessee State University, NSF OIG Report 21-1-017 (July 20, 2021)
+URL: https://www.oversight.gov/sites/default/files/oig-reports/NSF/21-1-017TennesseeStateUniversityFinalReportRedacted.pdf
+Retrieved: 2026-10-25
+Included: At a Glance (p.1) and Findings 2-3 (report pp. 5-8) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs –
+Tennessee State University
+
+
+
+
+ July 20, 2021
+ OIG 21-1-017
+AT A GLANCE
+Performance Audit of Incurred Costs – Tennessee State University
+Report No. OIG 21-1-017
+Date July 20, 2021
+
+AUDIT OBJECTIVE
+We conducted a performance audit of incurred costs at Tennessee State University. The objective of
+this audit was to determine if costs claimed were allowable, allocable, reasonable, and in compliance
+with NSF award terms and conditions and applicable federal requirements.
+
+
+AUDIT RESULTS
+We identified instances of noncompliance with certain federal regulations, NSF policies, and
+university policies. Specifically, we questioned $155,432 in direct and indirect costs claimed by TSU,
+including:
+
+   •   $121,797 of unsupported costs;
+   •   $16,885 of inappropriately allocated expenses;
+   •   $15,811 of inappropriately treated participant support costs; and
+   •   $939 of unsupported Award Cash Management $ervice draws.
+
+We also identified one internal control finding and made associated recommendations to improve the
+[...]
+      •    TSU allocated $1,420 of payroll costs to NSF award No.               in October 2018. However,
+           during this time period, the time and effort report supporting the student’s effort indicated that
+           the student was fully committed to NSF award No.              .
+
+      •    TSU allocated $812 in salary costs to NSF award No.              . TSU charged 32.26% of an
+           employee’s effort to the award rather than the correct allocation of 28.07% that was supported by
+           the time and effort report. This resulted in a charge of $6,250 instead of $5,438 causing an
+           inappropriate allocation of $1,377, including $812 of direct costs, $158 of associated fringe
+           benefits, and $407 of associated indirect costs.
+
+
+Unallocable General Ledger Costs
+
+Additionally, TSU charged NSF award No.                      $2,717 in costs that did not benefit the award.
+Specifically, TSU charged –
+
+
+8
+    NSF award No.         ’s period of performance was from September 1, 2015 to August 31, 2018.
+9
+    NSF award No.         ’s period of performance was from September 1, 2015 to August 31, 2018.
+
+
+5         NSF.GOV/OIG | OIG 21-1-017
+    •    $1,420 in stipend costs that did not benefit the NSF award;
+    •    $1,119 in meals that were not allowable on NSF awards; and
+    •    $178 in application costs that did not benefit the NSF award.
+
+TSU has policies and procedures in place to ensure that it properly allocates costs to the benefitting
+award. However, TSU did not follow its policies and procedures, resulting in $16,885 of questioned
+direct and indirect costs charged to NSF awards. TSU agreed to return $5,514 but disagreed with the
+remaining $11,371 in questioned costs, as illustrated in Table 2.
+
+                       Table 2. Summary of Inappropriately Allocated Expenses
+                                                Questioned Costs
+           NSF
+         Award No.                      Fringe                                    TSU Agreed to
+                          Direct                        Indirect         Total
+                                        Benefits                                   Reimburse
+                         $ 8,493               N/A     $     0      $ 8,493            $     0
+                         $ 1,536               N/A     $ 645        $ 2,181            $     0
+                         $ 418                 N/A     $     0      $ 418              $     0
+                         $ 279                 N/A     $     0      $ 279              $     0
+                         $ 1,000            $    0     $ 420        $ 1,420            $ 1,420
+                         $ 812              $ 158      $ 407        $ 1,377            $ 1,377
+                         $ 1,000               N/A     $ 420        $ 1,420            $ 1,420
+                         $ 788                 N/A     $ 331        $ 1,119            $ 1,119
+                         $ 125                 N/A     $    53      $ 178              $ 178
+               Total     $14,451            $ 158      $ 2,276      $16,885            $ 5,514
+               Source: Auditor analysis of TSU equipment and materials and supplies costs
+
+Recommendations
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+    1. Resolve the $11,371 in inappropriately allocated equipment costs, and direct TSU to repay or
+       otherwise remove the sustained questioned costs from its NSF awards.
+
+    2. Direct TSU to provide documentation supporting that it has repaid or otherwise credited the
+       $5,514 in questioned payroll and general ledger costs, for which it has agreed to reimburse NSF.
+
+    3. Direct TSU to strengthen its administrative and management controls and processes over the
+       proper allocation of costs.
+
+
+
+
+6       NSF.GOV/OIG | OIG 21-1-017
+Summary of TSU’s Response
+
+Regarding the equipment costs, TSU believes that 100% of the equipment costs were allocable to the
+award charged because the equipment was necessary to carry out the objectives of the award. Regarding
+the payroll and general ledger costs, TSU agreed to return the $5,514 to NSF.
+
+OIG Comments
+
+OIG’s position regarding the inappropriately allocated equipment costs has not changed. Although TSU
+stated that the equipment was necessary to carry out the award objectives, the equipment was only
+available for 3 percent and 2 percent of the award, respectively. As the cost of the equipment was not
+allocated based on the relative benefits received, we continue to question the 100% allocation of the
+costs to the award.
+
+Finding 3: Inappropriate Treatment of Participant Support Costs
+TSU inappropriately used $15,811 in funding provided for participant support costs from three NSF
+awards to cover non-participant expenses. 10 Specifically:
+
+     •    On June 27, 2016, TSU used $9,200 of funding budgeted for participant support costs under NSF
+          award No.            to purchase four Dell computers;
+     •    On April 5, 2016, TSU used $3,000 of funding budgeted for participant support costs under NSF
+          award No.            to purchase 2 NP-View Software Licenses and 5 hours of training for the
+          software;
+     •    On November 18, 2015, TSU used $1,720 of funding budgeted for participant support costs
+          under NSF award No.                to purchase ten USB devices with connectors;
+     •    On November 4, 2016, TSU used $681 of funding budgeted for participant support costs under
+          NSF award No.               to purchase food and utensils for a STEM faculty luncheon;
+     •    On September 15, 2016, TSU used $545 of funding budgeted for participant support costs under
+          NSF award No.               for a TSU employee’s payroll costs;
+     •    On June 29, 2016, TSU paid a high school student $1,000 for participation in summer research
+          that should have been charged to participant support. However, TSU inappropriately charged the
+          $1,000 to the operations fund of NSF award No.               and inappropriately recovering $420 in
+          associated indirect costs 11; and
+
+
+10
+   NSF PAPPGs 15-1 and 16-1, Part I, Chapter II, Section C.2.g.(v) state that participant support costs are direct costs for
+items such as stipends or subsistence allowances, travel allowances, and registration fees that the grantee paid to or on behalf
+of participants or trainees (but not employees) in connection with NSF-sponsored conferences or training projects. Funds
+provided for participant support may not be used for other categories of expense without specific prior NSF written approval.
+Additionally, 2 CFR § 200.1 states that participant support costs are direct costs for items such as stipends or subsistence
+allowances, travel allowances, and registration fees paid to or on behalf of participants or trainees (but not employees) in
+connection with conferences or training projects.
+11
+   NSF PAPPGs 15-1 and 16-1, Part I, Chapter II, Section C.2.g.(v) state any additional categories of participant support costs
+other than those described in 2 CFR § 200.75, such as incentives, gifts, souvenirs and memorabilia, must be justified in the
+budget justification, and such costs will be closely scrutinized by NSF.
+
+
+7        NSF.GOV/OIG | OIG 21-1-017
+     •    In September of 2016 TSU used $245 of participant support cost funding under NSF award No.
+                   to purchase gift cards and lanyards. However, TSU did not justify these gifts and
+          promotional materials in its proposal, as required by NSF 12.
+
+TSU does not have sufficient policies and procedures or internal controls in place to ensure that it treats
+participant support costs appropriately and to prevent assessing indirect costs to participant support
+costs, resulting in $15,811 in questioned costs. TSU agreed to return $420 but disagreed with the
+remaining $15,391 in questioned costs, as illustrated in Table 3.
+
+                Table 3. Summary of Inappropriately Treated Participant Support Costs
+                                              Questioned Costs
+                      NSF
+                    Award                                                 TSU
+                      No.      Direct       Indirect       Total        Agreed to
+                                                                       Reimburse
+                                    $ 9,200      $      0         $ 9,200      $      0
+                                    $ 3,000      $      0         $ 3,000      $      0
+                                    $ 1,720      $      0         $ 1,720      $      0
+                                    $ 681        $      0         $ 681        $      0
+                                    $ 545        $      0         $ 545        $      0
+                                    $      0     $ 420            $ 420        $ 420
+                                    $ 245        $      0         $ 245        $      0
+                       Total        $15,391      $ 420            $15,811      $ 420
+                  Source: Auditor analysis of TSU participant support and operations costs
+
+Recommendations
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+     1. Resolve the $15,391 in questioned participant support costs, and direct TSU to repay or
+        otherwise remove the sustained questioned costs from its NSF awards.
+
+     2. Direct TSU to provide documentation supporting that it has repaid or otherwise credited the $420
+        in indirect costs, for which it has agreed to reimburse NSF.
+
+     3. Direct TSU to update its administrative and management processes and internal control
+        procedures related to assigning participant support costs within its accounting system.
+
+
+
+
+12
+  NSF PAPPGs 15-1 and 16-1, Part I, Chapter II, Section C.2.g.(v) state any additional categories of participant support costs
+other than those described in 2 CFR § 200.75, such as incentives, gifts, souvenirs and memorabilia, must be justified in the
+budget justification, and such costs will be closely scrutinized by NSF.
+
+
+8        NSF.GOV/OIG | OIG 21-1-017
+Summary of TSU’s Response
+
+TSU believes that $15,146 of questioned participant support costs should be allowable, as the costs were
+inappropriately charged to the participant support fund instead of the operations fund of the NSF awards.
+TSU agreed that these were not valid participant support charges but believes they were valid operations
+charges which should have indirect costs allocated to them. Regarding the $245 spent on gift cards and
+lanyards, TSU believes this cost is allowable as it was discussed with the program director in advance.
+Regarding the $420 of questioned indirect costs on award No.             , TSU agreed to return the funds
+to NSF.
+
+OIG Comments
+
+OIG’s position regarding the inappropriate treatment of the participant support costs has not changed.
+NSF’s PAPPG defines participant support costs and that written approval is required for reallocation of
+funds provided for participant support costs. TSU did not provide any support that they sought or
+received NSF’s approval to reallocate funds from the participant support cost category to a different
+budget category. In regard to the $245 spent on lanyards and gift cards, OIG’s position has not changed.
+TSU did not provide the required budget justification for these items or documentation of the program
+director’s approval. Regarding the $420 of questioned indirect costs which TSU agreed to return, OIG’s
+[...]

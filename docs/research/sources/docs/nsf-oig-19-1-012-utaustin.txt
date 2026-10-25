@@ -1,0 +1,186 @@
+Title: Performance Audit of Incurred Costs - University of Texas at Austin, NSF OIG 19-1-012 (Apr 29, 2019; WithumSmith+Brown)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-11/19-1-012%20_University%20of%20Texas%20at%20Austin.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: cover; Finding 1 (pp. 2-4); Finding 9 (pp. 21-22) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs –
+University of Texas at Austin
+REPORT PREPARED BY WITHUMSMITH+BROWN, P.C.
+
+
+
+
+April 29, 2019
+OIG 19-1-012
+AT A GLANCE
+Performance Audit of Incurred Costs – University of Texas at Austin
+Report No. OIG 19-1-012
+[...]
+Finding 1: Unreasonable Transactions
+We identified four transactions, charged to three awards, totaling $63,174, that were unreasonable
+or unallocable 2 on the NSF awards charged as described in Table 1.
+
+Table 1. Summary of Unreasonable Transactions
+                                                    Invoice                             Total
+ Description                                        Amount                F&A         Questioned
+ 1. Computer Equipment                                 52,619                   --        52,619
+ 2. Three MacBook Air Computers                         3,747               1,948           5,695
+ 3. iMac and iPad                                       3,240               1,620           4,860
+ Total                                             $ 59,606           $     3,568      $ 63,174
+Source: Auditor analysis of questioned transactions
+
+The questioned items include:
+
+    1. Computer Equipment – $52,619 for the purchase of computer equipment. The revised NSF
+       award budget did not include equipment and contained only $6,000 for materials and
+       supplies. Per the original NSF award budget justification, “[t]he requested funds are
+       entirely for the support of personnel.” The computer purchases represented 9 percent of the
+       cumulative NSF award budget. The computer equipment was purchased in February and
+       March 2014, after a no-cost extension was submitted on May 28, 2013, revising the award
+       expiration date to August 31, 2014. The extension made no mention of the need or plan to
+
+2 2 CFR Part 220, Appendix A, C.2. and C.3, state that costs “must be reasonable; they must be allocable to sponsored
+
+agreements…. A cost may be considered reasonable if the nature of the goods or services acquired or applied, and the
+amount involved therefore, reflect the action that a prudent person would have taken under the circumstances
+prevailing at the time the decision to incur the cost was made. Major considerations involved in the determination of
+the reasonableness of a cost are: whether or not the cost is of a type generally recognized as necessary for the operation
+of the institution or the performance of the sponsored agreement….”
+
+
+www.nsf.gov/oig                                             2
+        purchase $52,619 of computer equipment. The equipment was available for 13 percent of
+        the award period (200 out of 1,460 days).
+
+    2. Three MacBook Air Computers – $5,695 for the purchase of three MacBook Air
+       computers. The invoice was dated August 30, 2013. The cost of the computers was
+       transferred from a UT Austin designated fund to the NSF award on January 28, 2014, 5
+       months after the original purchase date and 1 month after the NSF award expired on
+       December 31, 2013. UT Austin stated that the department review of Fall 2013 expenses
+       indicated that these charges were appropriate to the scope of this NSF award, so the
+       department staff processed a correction on January 28, 2014. However, no support 3 or
+       explanation was given for how it was determined that the computers should be charged to
+       the NSF award if they were used exclusively on the NSF award and how they were
+       necessary and benefitted the NSF award.
+
+    3. iMac and iPad – $4,860 for the purchase of an iMac and an iPad on February 10, 2014, on
+       a 6-year award that expired on April 30, 2014. The iMac and iPad were available for less
+       than 4 percent of the grant life (79 out of 2,175 days). Additionally, UT Austin stated that,
+       “the iMac was used for this project and others and the iPad was used for lab management
+       as well as this project.” Per the NSF Award and Administration Guide (AAG), general-
+       purpose equipment is normally unallowable unless the equipment is exclusively used in
+       the actual conduct of research. 4 UT Austin stated that the computers were not used
+       exclusively on this NSF award; therefore, the purchase is unreasonable and unallocable.
+
+UT Austin did not adequately review the expenditures, which resulted in unallowable costs.
+Enhanced oversight procedures should be adopted to strengthen existing processes and controls to
+review expenditures to minimize unreasonable and unallocable costs. Having improved oversight
+processes ensures the reallocation of expenses in accordance with Federal and NSF requirements
+to help guarantee that costs are reasonable and allocable in accordance with NSF and Federal
+requirements.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+    1. Resolve the $63,174 of questioned costs and direct UT Austin to repay or otherwise remove
+       the sustained questioned costs from its NSF awards.
+    2. Direct UT Austin to strengthen training, policies and procedures to ensure the proper
+       review of expenditures charged to Federal awards.
+
+
+
+
+3 2 CFR Part 220, Appendix A, Section A.2.e. states: “…the accounting practices of individual colleges and
+
+universities must support the accumulation of costs as required by the principles, and must provide for adequate
+documentation to support costs charged to sponsored agreements.”
+4
+  NSF Award & Administration Guide (AAG), 08-1, Chapter V, B.2.d
+
+
+www.nsf.gov/oig                                        3
+Awardee Response
+
+UT Austin does not concur with $52,619 of the finding’s questioned costs. Per UT Austin, the PI
+was acting with the understanding that the computer equipment purchased was approved by the
+NSF Program Director. Additionally, per the PI’s retroactive assessment, the equipment was
+estimated to have been used approximately 90 percent for this NSF award.
+
+UT Austin did concur with the remaining $10,555 of questioned costs for the MacBook Air
+computers, iMac, and iPad purchases. In response, UT Austin will strengthen their training and
+modify their internal controls and procedures. These modifications will include an enhanced
+review of the allocation of expenses incurred on Federal awards, while emphasizing the review of
+expenditures charged near the end of the award lifecycle.
+
+See Appendix A for the complete UT Austin response.
+
+Auditor’s Additional Comments
+
+Our position remains unchanged concerning the $52,619 of computer equipment purchased. The
+need for the equipment was not included in either the proposal budget justification or the award
+extension. Furthermore, the computer equipment, with a multiple year useful life, was purchased
+with only 200 days remaining in the award lifecycle. For the remaining $10,555, UT Austin’s
+comments are responsive to this finding. Once NSF determines that the recommendations have
+been adequately addressed and the $63,174 in questioned costs have been returned, this finding
+should be closed.
+
+[...]
+Finding 9: Unallowable Promotional Items
+We question $1,139 charged for unallowable and unnecessary promotional items that were not in
+accordance with 2 CFR Part 220.
+
+According to 2 CFR Part 220, Appendix A, Section C, to be allowable for a Federal grant, a cost
+must be reasonable and necessary for the administration and performance of the award. 19
+Therefore, we question $1,139 for the purchase of        plaques provided to participants who
+successfully completed the                                                     program. This
+purchase was unallowable and unnecessary for the performance of the NSF award.
+
+Additionally, the cost of the plaques was charged to the participant support budget line. Per the
+NSF AAG, “[p]articipant support costs are direct costs for items such as stipends or subsistence
+allowances, travel allowances and registration fees paid to or on behalf of participants…in
+connection with meetings, conferences, symposia or training projects.” 20 This purchase is also
+unallowable as a participant support cost.
+
+UT Austin personnel did not adequately review the expenditures charged to the NSF awards, which
+resulted in unallowable and unnecessary costs. Without a process to ensure costs are allowable and
+necessary, there is increased risk that funds may not be used as required to accomplish the project
+objectives in accordance with Federal and NSF requirements.
+
+UT Austin agreed to remove $1,139 in unallowable and unnecessary costs from the award in
+question. During the audit resolution process, NSF should ensure that the award has been credited
+as appropriate.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+    1. Resolve the $1,139 of questioned costs, and direct UT Austin to repay or otherwise remove
+       the sustained questioned costs from its NSF awards.
+    2. Direct UT Austin to strengthen the administrative and management controls and processes
+       for reviewing costs to ensure that unallowable advertising and participant support are not
+       charged to NSF awards.
+
+Summary of Awardee Response
+
+UT Austin concurs with this finding and agrees to return the sustained questioned costs. In
+response, UT Austin will enhance its training to include the allowability of promotional items.
+
+See Appendix A for the complete UT Austin response.
+
+19 2 CFR Part 220, Appendix A, C.3 states: “Major considerations involved in the determination of the reasonableness
+
+of a cost are: whether or not the cost is of a type generally recognized as necessary for the operation of the institution
+or the performance of the sponsored agreement….”
+20
+   AAG, 08-1, Chapter V, B.8.a.(i)
+
+
+www.nsf.gov/oig                                            21
+Auditors’ Additional Comments
+
+UT Austin’s comments are responsive to this finding. Once NSF determines that the
+recommendations have been adequately addressed and the $1,139 in questioned costs have been
+returned, this finding should be closed.
+
+[...]

@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:37.290Z",
+  "input": {
+    "item": "Relocation expenses for a new hire, including moving the employee's personal possessions, insurance, storage and delivery",
+    "price": 30107,
+    "purpose": "Employee hired to fill a position on the NSF award",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "fine",
+    "why": "",
+    "category": "other"
+  }
+}

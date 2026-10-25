@@ -1,0 +1,170 @@
+Title: NSF OIG Audit Report 15-1-012, University of California, Berkeley incurred costs (memo dated March 31, 2015)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-08/15-1-012-UCB.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: OIG memo header; Findings 3 and 4 (report pp. 7-9) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+                       National Science Foundation • Office of Inspector General
+                       4201 Wilson Boulevard, Suite I-1135, Arlington, Virginia 22230
+
+MEMORANDUM
+
+Date:          March 31, 2015
+
+To:            Mary F. Santonastasso, Director
+               Director, Division of Institution and Award Support
+
+[...]
+Finding 3 – Unreasonable or Unallowable Transactions
+
+We questioned $           in unreasonable Facilities and Administrative (F&A) costs, and $           in
+unallowable office supplies, hotel stays, and gifts related to two NSF awards in accordance with 2 CFR
+220.
+
+According to 2 CFR 200.56, indirect (F&A) cost pools must be distributed to benefitted cost objectives
+on bases that will produce an equitable result in consideration of relative benefits derived.
+
+Furthermore, according to 2 CFR 220, Appendix A,
+    • Section F.6.b(3), items such as office supplies, postage, local telephone costs, and memberships
+       shall normally be treated as F&A costs;
+    • Section J.1.f(3) the cost of gifts is unallowable.
+
+During our audit, we noted the following unallowable costs:
+
+    •   $         for F&A costs. UC Berkeley contributed $44,000 for the sponsorship of three
+        international conferences and charged NSF F&A costs; these flow-through funds did not benefit
+        from the indirect costs charged and are therefore questioned;
+    •   $       for toner cartridges. UC Berkeley agreed that these costs should be removed from the
+        award;
+    •   $     for       gift cards; and
+
+
+
+
+                                                                                                         7
+    •           charged to one award for a four night hotel stay; this amount was refunded to UC
+        Berkeley, but the charges were not removed from the NSF award. UC Berkeley agreed that these
+        costs should be removed from the award.
+
+Recommendation 3:
+
+We recommend that the NSF’s Director of the DIAS address and resolve the following UC Berkeley
+recommendations:
+
+        a. Work with NSF to resolve the $       of questioned costs; and
+        b. Strengthen the administrative and management controls and processes for reviewing and
+           approving costs charged to NSF awards for donations and gifts.
+
+Awardee Comments:
+
+UC Berkeley's systems of control are designed to be effective and efficient, providing reasonable
+assurance of compliance. UC Berkeley assigns the responsibility for identifying necessary and reasonable
+award expenditures, and for determining the appropriate allocation across activities to the PI who best
+understands the intent of the expenditure and allocation of the use across sponsored and non-sponsored
+projects. UC Berkeley's "Policy on                                             contains examples of what
+a "prudent person" test would be for determining if a cost is reasonable. This policy document also
+explains what items are normally treated as F&A costs, such as office supplies, postage, and local
+telephone calls, and that when "unlike circumstances" apply, these costs may be appropriate as direct
+charges to federal awards.
+
+In accordance with OMB Circular A-21 and the Cost Principles for Institutions of Higher Education,
+UC Berkeley has established procedures for distributing F&A costs to projects by applying federally
+negotiated indirect cost rates to the allowable direct costs charged to projects (excluding those
+expenditure types not included in the                                base). The expenditure type is not
+specifically excluded from                         Costs, per federal regulations, and therefore indirect
+costs were applied to these charges by UC Berkeley's standard procedures.
+
+We do acknowledge that isolated errors in two different areas for the total amount of $      occurred and
+were overlooked by the originator and the reviewer. These errors, identified during the course of this
+audit, have been removed from the award. The revenue has been returned through the letter of credit and
+we believe no further financial resolution is required. We also acknowledge that we should maintain
+strong processes to verify all costs charged to sponsored awards are appropriate and will ensure processes
+provide for these controls.
+
+Auditor Comments:
+
+Similar to participant support costs, the circumstances surrounding the $44,000 contribution was
+flow-through funding. UC Berkeley did not incur significant expense to administer the payment and it is
+not reasonable to charge F&A costs. The $      in the report finding remains as previously stated.
+
+For the          gift cards, these “recognition payments” were not supported in the proposal or budget
+justification. The report remains as previously stated as the cost of gifts is unallowable.
+
+
+
+
+                                                                                                        8
+UC Berkeley concurs with the other items of this finding. UC Berkeley acknowledged that they should
+maintain strong processes and controls to verify all costs are appropriate. Once NSF ensures that the
+$      has been returned, this finding should be closed.
+
+
+
+Finding 4: Unallowable or Unreasonable Meal Expenditures
+
+We found that meal and alcohol expenses totaling $15,451 charged to four NSF awards were not
+necessary or reasonable in accordance with 2 CFR 220.
+
+According to 2 CFR 220, Appendix A, Section C, to be allowable for a federal grant, a cost must be
+allocable to the federal award and be necessary and reasonable for the administration and performance of
+the award. Additionally per Section J.3, the costs of alcoholic beverages are unallowable. Furthermore,
+Sections C.2 and C.3, state that a reasonable cost is one that a “prudent person would have incurred under
+similar circumstances.”
+
+NSF AAG, Chapter V, Section C.5, Meetings and Conferences states, “NSF funds are not to be spent for
+meals or coffee breaks for intramural meetings of an organization or any of its components, including, but
+not limited to, laboratories, departments and centers…When certain meals are an integral and necessary
+part of a conference (e.g., working meals where business is transacted), grant funds may be used for such
+meals.”
+
+During our audit we noted the following unallowable or unreasonable meal charges:
+
+    •   $10,418 charged to two awards for various unallowable alcohol related charges. UC Berkeley
+        agreed that these costs should be removed from the awards;
+    •   $741 charged to one award for meals that were not an integral or necessary part of a conference.
+        UC Berkeley agreed that these costs should be removed from the awards;
+    •   $2,204 charged to one award for four catered meals that were not included in the budget; and
+    •   $2,088 charged to one award to host a holiday dinner. UC Berkeley agreed that these costs should
+        be removed from the award.
+
+Recommendation 4:
+
+We recommend that the NSF’s Director of the DIAS address and resolve the following UC Berkeley
+recommendations:
+      a. Work with NSF to resolve the $15,451 of questioned costs; and
+      b. Strengthen the administrative and management controls and processes for reviewing and
+         approving costs charged to NSF awards for meal and alcohol expenditures.
+
+Awardee Comments:
+
+UC Berkeley's systems of control are designed to be effective and efficient, providing reasonable
+assurance of compliance. UC Berkeley assigns the responsibility for identifying necessary and reasonable
+award expenditures, and for determining the appropriate allocation across activities to the PI who best
+understands the intent of the expenditure and allocation of the use across sponsored and non-sponsored
+projects. It is the PI who, based on this specific knowledge, is uniquely positioned to determine how the
+expenditure should be allocated.
+
+
+
+                                                                                                        9
+UC Berkeley concurs that there were circumstances when alcohol and meal charges were inappropriately
+charged to sponsored awards. We will continue to provide regular training for departmental
+administrators and central staff to further educate our community on the limited allowability of meal
+charges and reinforce our processes to only charge allowable meal costs on sponsored projects. The
+$2,088 has been removed from the award and returned it through the letter of credit, so, no further
+financial resolution is required. We will seek guidance from NSF on how to return the remaining $11,159.
+
+
+Auditor Comments:
+
+The documentation provided for audit relative to the $2,204 for catered meals does not support the
+explanation provided by the PI. The documentation addressed 4 days over a 7 day period, but the
+explanation stated that the charges were for a two-day conference. The $2,204 remains as previously
+stated.
+
+UC Berkeley concurs with the other items of this finding. UC Berkeley will continue to provide regular
+training to educate the community to ensure only allowable meal costs are charged to sponsored projects.
+Once NSF ensures that the $11,159 has been returned, this finding should be closed.
+
+
+
+[...]

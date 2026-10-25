@@ -1,0 +1,149 @@
+Title: NSF audit resolution letter, OIG Audit No. 15-1-012, University of California, Berkeley
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep151012-ucberkeley.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+4201 Wilson Boulevard – Suite I-485
+Arlington, VA 22230
+(703) 292-8244
+(703) 292-9171 FAX
+
+
+                                                            July 20, 2017
+
+
+Patrick Schlesinger
+Interim Associate Vice Chancellor for Research
+University of California, Berkeley
+2150 Shattuck Avenue, Suite 300
+Berkeley, CA 94704
+
+Re: Audit Report No. 15-1-012
+
+Dear Mr. Schlesinger
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of the
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of California,
+Berkeley, during the period April 1, 2010 to December 31, 2012.
+
+The audit report identified a total of $1,863,351 in questioned costs claimed on NSF awards and
+recommended that the University strengthen its administrative and management controls. As a result,
+of its resolution efforts, NSF has determined that $1,784,623 will be allowed, and that $78,728 will be
+disallowed. In addition, NSF has determined that an additional $11,868 identified by the University (but
+not questioned in the audit report) will also be disallowed. Total costs disallowed is $90,596. The table
+below summarizes the disallowed and allowed costs by finding number:
+
+ Finding                       Description                        Questioned     Disallowed        Allowed
+
+    1      Exceeded NSF Limits on Senior Salary                     $1,608,944             $0       $1,608,944
+    2      Unreasonable Equipment Charges                             $190,689        $24,518         $166,171
+    3      Unreasonable or Unallowable Transactions                    $27,475        $27,475                $0
+    4      Unallowable or Unreasonable Meal Expenditures               $15,451        $13,247           $2,204
+    5      Unreasonable Travel                                          $9,904         $4,600           $5,304
+    5      Additional disallowed costs                                                 $4,373
+    6      Unsupportable and Unallocable Immigration Fees               $6,997         $4,997           $2,000
+    6      Additional disallowed costs                                                 $5,277
+University of California, Berkeley
+Audit No. 15-1-012
+Page 2
+
+ Finding                         Description                     Questioned      Disallowed        Allowed
+     7      Purchases before Award Effective Date                     $3,891           $3,891                $0
+     7      Additional disallowed costs                                                $2,218
+
+                (Additional disallowed costs of $11,868) Total     $1,868,351         $90,596       $1,784,623
+
+To resolve the audit findings and questioned costs, NSF conducted careful reviews of applicable federal
+and NSF requirements, proposal and award information maintained by NSF, and documentation
+provided by the University. The following provides the basis for the management decisions reached by
+NSF:
+
+    •    Finding 1: Exceeded NSF Limits on Senior Salary
+         NSF does not sustain the finding. As stated in the NSF Proposal & Award Policies and
+         Procedures Guide (PAPPG) Chapters VII and X, an awardee can internally approve an increase or
+         decrease in person months devoted to the project after an award is made, even if doing so
+         results in salary support for senior personnel exceeding the two month salary policy. No prior
+         approval from NSF is necessary as long as that change would not cause the objective or scope of
+         the project to change. Therefore, it is the NSF management decision that the $1,608,944
+         questioned as excess senior salaries are allowable costs and no further action is required by the
+         University.
+
+    •    Finding 2: Unreasonable Equipment Charges
+         NSF partially sustains the finding because the University either concurred, or was unable to
+         provide adequate evidence that demonstrated the questioned equipment items were
+         reasonable and necessary for the completion of the corresponding awards. As a result, NSF has
+         disallowed $24,518 of the questioned costs. NSF allowed the remaining $166,171 based on
+         acceptance of additional documentation provided to justify that the associated equipment
+         purchases were necessary and reasonable for the completion of the corresponding awards.
+
+    •    Finding 3: Unreasonable or Unallowable Transactions
+         NSF sustains the finding based on University concurrence, and has disallowed the entire $27,475
+         in questioned costs.
+
+    •    Finding 4: Unallowable or Unreasonable Meal Expenditures
+         NSF partially sustains the finding based on University concurrence with the majority of the costs
+         questioned and has disallowed $13,247 of the total amount questioned. NSF does not sustain
+         the basis for questioning meals in the amount of $2,204 that were not included in the budget.
+         As described in the NSF Proposal & Award Policies and Procedures Guide (PAPPG) Chapters VII
+         and X, and as provided for in the Grant General Conditions for Prior Approval Requirements,
+         Grantees have broad authority to transfer funds from one budget category to another without
+         approval by NSF. As a result, NSF allowed $2,204 of the questioned costs that were not
+         budgeted based upon review and acceptance of additional documentation that the meals were
+         integral and necessary for the workshop participants.
+
+    •    Finding 5: Unreasonable Travel
+University of California, Berkeley
+Audit No. 15-1-012
+Page 3
+
+         NSF does not sustain the finding. The basis for questioning costs was because budgeted travel
+         was removed prior to making the awards. NSF disagrees that budget adjustments prior to award
+         constitutes a “change of scope” and elimination of necessary travel during performance. NSF
+         policy, as stated in the Proposal and Award Manual (PAM), Chapter VI, is to award on a “bottom
+         line” basis with recognition of the Grantee’s rebudgeting authority. Notwithstanding that NSF
+         disagrees with the basis for questioning the travel costs, the questioned travel transactions were
+         analyzed for allowability. As a result, NSF has disallowed $4,600 plus and an additional $4,373
+         that was identified by the University during resolution, but not questioned under the audit. NSF
+         allowed $5,304 based on acceptance of additional documentation reviewed and a
+         determination that the travel was necessary and reasonable under the grants.
+
+    •    Finding 6: Unsupportable and Unallocable Immigration Fees
+         NSF partially sustains the finding based on University concurrence and has disallowed $4,997
+         plus an additional $5,277 identified by the University during resolution, but not questioned
+         under the audit. NSF allowed $2,000 for visas based on subsequent PI certifications that all
+         effort contributed by the visiting scholars was devoted to an NSF award.
+
+    •    Finding 7: Purchase Before Award Effective Date
+         NSF sustains the finding because the University was unable to provide evidence of NSF approval
+         to incur costs prior to 90 days before the award start date. As a result, $3,891 is disallowed. An
+         additional $2,218 is disallowed in related indirect costs.
+
+Please be aware that the University’s right to appeal cost disallowances by NSF is outlined in Chapter
+XII.B of the NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online
+at: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+As of the date of this letter, the University has provided evidence of repayment of $67,104 of the
+$90,596 disallowed. The remaining disallowed amount of $23,492 may be repaid via www.pay.gov.
+
+In reference to compliance and internal control recommendations in the audit report, NSF accepts the
+University’s stated corrective actions as responsive to the recommendations and considers the
+recommendations to be resolved and closed.
+
+Based on the above, NSF considers all findings and questioned costs resolved. Upon verification that
+repayment of the remaining $23,492 has been completed, the audit report will be fully closed out by
+NSF.
+
+The University’s timely responses and full cooperation with the NSF audit resolution process have been
+greatly appreciated. Should you have any questions regarding this letter or the NSF audit resolution
+process, please contact me at (703) 292-4579.
+                                                  Sincerely,
+
+
+                                                  Rochelle D. Ray
+                                                  Rochelle Ray, Branch Chief
+                                                  Resolution and Advanced Monitoring Branch
+                                                  Division of Institution & Award Support
+

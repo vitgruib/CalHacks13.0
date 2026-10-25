@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:23.975Z",
+  "input": {
+    "item": "Aprons for industry members, faculty and students",
+    "price": 2107,
+    "purpose": "A teambuilding activity that revolved around cooking",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Cooking aprons for a teambuilding activity are personal/recreational items that don't benefit the research project (2 CFR 200.403, 200.438).",
+    "category": "personal"
+  }
+}

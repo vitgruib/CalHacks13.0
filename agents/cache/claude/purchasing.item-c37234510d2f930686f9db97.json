@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:26.832Z",
+  "input": {
+    "item": "Heavy Fermion Workshop costs (half the total)",
+    "price": 13026,
+    "purpose": "ICAM workshop; the proposal budget asked NSF for half the cost of each ICAM workshop",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "fine",
+    "why": "",
+    "category": "other"
+  }
+}

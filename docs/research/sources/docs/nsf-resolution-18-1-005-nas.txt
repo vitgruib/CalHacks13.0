@@ -1,0 +1,74 @@
+Title: NSF audit resolution letter, OIG report 18-1-005, National Academy of Sciences
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep181005-nas.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+
+
+                                                         October 28, 2019
+James Burke, Director
+Office of Contracts and Grants
+National Academy of Science
+2701 Sullivan Drive
+500 Fifth Street, NW, K1057
+Washington, DC 20001
+
+Reference: OIG Report No. 18-1-005
+
+Dear Mr. Burke:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by the National Academy of
+Sciences (NAS) during the period of November 1, 2013 through October 31, 2016.
+
+The audit report questioned a total of $90,902 in costs claimed under NSF awards and recommended
+that the NAS strengthen its administrative and management controls for the areas in which findings
+were identified. Based on the NAS’ agreement with the findings and questioned costs identified in the
+audit report, NSF’s management decision is to disallow all questioned costs in the amount of $90,902.
+The table below summarizes the disallowed costs by finding number:
+
+
+  Finding                        Description               Questioned       Allowed     Disallowed
+      1       ACM$ Funds Improperly Drawn Down                 $54,725           $ 0       $54,725
+              Expenses Not Appropriately Allocated to
+      2                                                        $12,447           $ 0       $12,447
+              NSF Awards
+      3       Unallowable Meal Expenses                        $12,047           $ 0       $12,047
+
+      4       Unallowable Travel Expenses                      $11,683           $ 0       $11,683
+                                                 Total         $90,902           $ 0       $90,902
+
+
+NSF accepts NAS’s stated corrective actions as responsive to the compliance and internal control
+recommendations related to the audit findings. NSF considers all compliance and internal control
+recommendations resolved and closed.
+
+Based on the above, the total disallowed amount is $90,902, of which NAS has repaid the full amount via
+check.
+National Academy of Sciences
+Audit No. 18-1-005
+Page 2
+
+Please be aware that NAS’s right to appeal cost disallowances by NSF is outlined in Chapter XII.B of the
+NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+NSF considers all audit report findings and questioned costs resolved and closed.
+
+NAS’s timely responses and full cooperation with the NSF audit resolution process have been greatly
+appreciated. Should you have any questions regarding this letter or the NSF audit resolution process,
+please contact me at 703-292-4579.
+
+                                                         Sincerely,
+
+                                                         Carrie Davison
+                                                         Carrie Davison, Team Lead – Audit Resolution
+                                                         Resolution and Advanced Monitoring Branch
+                                                         Division of Institution and Award Support
+

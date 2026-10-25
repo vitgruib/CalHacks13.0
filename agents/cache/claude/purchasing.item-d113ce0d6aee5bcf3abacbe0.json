@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:18:47.861Z",
+  "input": {
+    "item": "Alcoholic beverages for two workshops and an annual conference",
+    "price": 4881,
+    "purpose": "Workshops and annual conference of the Institute for Complex Adaptive Matter (ICAM)",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Alcoholic beverages are unallowable on federal grants regardless of purpose (2 CFR 200.423).",
+    "category": "alcohol"
+  }
+}

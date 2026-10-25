@@ -9,7 +9,8 @@
   "scripts": {
     "score": "node score.mjs",
     "test": "node --test test/*.test.mjs",
-    "check": "npm test && node score.mjs --strict && node real-findings.mjs",
+    "check": "npm test && node score.mjs --strict && node real-findings.mjs && node item-check-real.mjs",
+    "item-check-real": "node item-check-real.mjs",
     "real-findings": "node real-findings.mjs"
   },
   "devDependencies": {

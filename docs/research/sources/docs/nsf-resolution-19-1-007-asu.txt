@@ -1,0 +1,134 @@
+Title: NSF audit resolution letter, OIG Report No. 19-1-007, Arizona State University
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep191007-asu.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+
+
+                                                              June 11, 2020
+
+Heather C. Clark
+Executive Director, OKED Operations
+Arizona State University
+Office of Research and Sponsored Projects Administration
+660 S. Mill Avenue, Suite 312
+Tempe, AZ 85281-3670
+
+Reference: OIG Report No. 19-1-007
+
+Dear Ms. Clark:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by the Arizona State University
+(ASU) during the period of January 1, 2014 through December 31, 2016.
+
+The audit report questioned a total of $1,178,488 in costs claimed under NSF awards and recommended
+that ASU strengthen its administrative and management controls for the areas in which findings were
+identified. As a result of its resolution efforts, NSF has determined that questioned costs in the amount
+of $330,369 will be disallowed. The table below summarizes the allowed and disallowed costs by finding
+number:
+
+
+   Finding                         Description                      Questioned      Disallowed    Allowed
+               NSF Approval Not Obtained Before Transferring
+      1        Significant Portions of Award to Other                   $890,982        $75,000     $815,982
+               Organizations
+               Expenses Not Appropriately Allocated to NSF
+      2                                                                 $129,095       $129,095             $0
+               Awards
+      3        Inappropriate Allocation of Indirect Costs                $56,720        $55,681       $1,039
+      4        Unsupported Expenses                                      $41,553        $10,455      $31,098
+      5        Inappropriate Subaward Payment                            $32,582        $32,582             $0
+      6        Unallowable Expenses                                      $22,418        $22,418             $0
+      7        Unreasonable Travel Expenses                               $5,138         $5,138             $0
+                                                            Total      $1,178,488      $330,369    $848,119
+Arizona State University
+Audit No. 19-1-007
+Page 2
+
+To resolve the audit findings and questioned costs, NSF conducted detailed reviews of applicable Federal
+and NSF requirements, proposal and award information maintained by the Agency, and documentation
+provided by ASU. The following provides the basis for the management decisions reached by NSF:
+
+•   Finding 1: NSF Approval Not Obtained Before Transferring Significant Portions of Award to Other
+    Organizations
+    NSF sustains the finding and agrees with the questioned amount of $890,982. However, based on
+    determinations made by NSF during resolution, a negotiated settlement to repay $75,000 was
+    reached.
+
+•   Finding 2: Expenses Not Appropriately Allocated to NSF Awards
+    NSF sustains the finding. Based upon ASU’s concurrence, it is NSF’s management decision to
+    disallow $129,095.
+
+•   Finding 3: Inappropriate Allocation of Indirect Costs
+    NSF partially sustains this finding. Based upon ASU’s concurrence, NSF disallowed $55,681. NSF
+    review determined that $1,039 indirect costs applied to ASU employee expenses were allowable
+    costs. It is NSF’s management decision to disallow $55,681 and to allow $1,039.
+
+•   Finding 4: Unsupported Expenses
+    NSF sustains the finding and agrees with the costs questioned. Based upon ASU’s concurrence, NSF
+    disallowed $10,455. However, during resolution ASU provided receipts and other documentation to
+    support STEM scholarship expenses. Although NSF accepted the documentation and determined
+    questioned costs of $31,098 benefited NSF awards, NSF reminds ASU that all relevant, supporting
+    documentation must be submitted to auditors during the audit process. Failure to do so wastes
+    University and Federal resources and results in the inclusion of unnecessary audit findings in the
+    final audit report. It is NSF’s management decision to disallow $10,455 and to allow $31,098.
+
+•   Finding 5: Inappropriate Subaward Payment
+    NSF sustains the finding. Based upon ASU’s concurrence, it is NSF’s management decision to
+    disallow $32,582.
+
+•   Finding 6: Unallowable Expenses
+    NSF sustains the finding. Based upon ASU’s concurrence, it is NSF’s management decision to
+    disallow $22,418.
+
+•   Finding 7: Unreasonable Travel Expenses
+    NSF sustains the finding. Based upon ASU’s concurrence, it is NSF’s management decision to
+    disallow $5,138.
+
+•   Finding 8: Inappropriate Application of Proposed Indirect Costs Rates
+    NSF sustains the finding. ASU concurred with the finding and NSF accepts that the corrective actions
+    taken will improve controls over indirect cost rates charged to NSF awards.
+
+•   Finding 9: Non-Compliance with ASU’s Policies
+    NSF sustains the finding. ASU concurred with the finding and NSF accepts that the corrective actions
+    taken will improve controls over compliance with ASU’s policies.
+Arizona State University
+Audit No. 19-1-007
+Page 3
+
+
+
+NSF accepts ASU’s stated corrective actions as responsive to the compliance and internal control
+recommendations related to the audit findings above. Therefore, all compliance and internal control
+recommendations are considered resolved and closed.
+
+Based on the above the total disallowed amount is $330,369. ASU has provided NSF evidence of
+$48,119 in repayment. Repayment of the remaining $282,250 must be made via www.pay.gov. Please
+reference OIG Audit Report No. 19-1-007. Any necessary adjustments to ACM$ because of the
+repayment will be made by the NSF Division of Financial Management.
+
+Please be aware that ASU’s right to appeal cost disallowances by NSF is outlined in Chapter XII.B of the
+NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+NSF considers all audit report findings and questioned costs resolved. Upon verification that repayment
+of all disallowed costs has been completed, the audit report will be fully closed out by NSF.
+
+ASU’s timely responses and full cooperation with the NSF audit resolution process have been greatly
+appreciated. Should you have any questions regarding this letter or the NSF audit resolution process,
+please contact me at 703-292-4579.
+
+                                                         Sincerely,
+
+                                                         Carrie Davison
+                                                         Carrie Davison, Team Lead – Audit Resolution
+                                                         Resolution and Advanced Monitoring Branch
+                                                         Division of Institution and Award Support
+

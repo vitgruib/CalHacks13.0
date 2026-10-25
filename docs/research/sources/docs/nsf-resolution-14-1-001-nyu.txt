@@ -1,0 +1,106 @@
+Title: NSF audit resolution letter, OIG Audit Report #14-1001, New York University (Oct 28, 2014)
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep14001-nyu-r.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+            NATIONAL SCIENCE FOUNDATION
+            Division of Institution and Award Support
+
+
+4201 Wilson Boulevard – Suite I-485
+Arlington, VA 22230
+(703) 292-8244
+(703) 292-9171 FAX
+
+                                                  October 28, 2014
+
+Mr. José M. Román
+Assistant Vice President, Post-Award Financial Operations
+New York University
+Sponsored Programs Administration
+105 East 17th Street, 3rd Floor
+New York, NY 10003
+
+Re: NSF OIG Audit Report #14-1001
+
+Dear Mr. Román:
+
+The National Science Foundation (NSF) has completed the review and resolution of the NSF Office of the
+Inspector General’s (OIG) audit report of New York University’s (NYU) incurred costs under NSF awards for
+the period of July 1, 2009 through June 12, 2012.
+
+The audit report identified $75,494 in questioned costs incurred under NSF awards BCS-0721383, IIS-
+0643847, IOS-0745253 and CCF-0613893. After review and consideration of the documentation provided
+by the University, NSF has decided to sustain and disallow the entire amount of $75,494. NSF also
+disallows an additional $252.22 for meeting and conference costs that were identified during audit
+resolution, for a total of $75,746.22.
+
+    Finding #            Cost Type and Award No.            Questioned       Allowed         Sustained
+        1       Indirect Costs (BCS-0721383)                 $35,054.00           $0.00       $35,054.00
+        2       Foreign Travel (IIS-0643847)                 $29,288.00           $0.00       $29,288.00
+        3       Equipment (IOS-0745253)                      $10,027.00           $0.00       $10,027.00
+        4       Meetings and Conferences (CCF-0613893)        $1,125.00           $0.00        $1,377.22
+                                                 Total:      $75,494.00           $0.00       $75,746.22
+
+For finding number 1, the auditors found that the University had overstated indirect costs charged to
+award BCS-0721383 by $35,054. The University agreed with the finding, and provided documentation to
+NSF showing that the indirect cost calculation was corrected during award closeout. As a result, NSF
+considers this finding and the questioned costs to be fully resolved and closed.
+
+For finding number 2, the auditors identified $29,288 in foreign travel costs that were charged to NSF
+award IIS-0643847 despite the fact that the original proposal budget did not request funding for foreign
+travel. Specifically, the auditors identified five foreign trips that were charged solely to the NSF award,
+but appeared to partially benefit other research projects. NSF’s review and analysis has determined that
+documentation that the University provided to support the questioned costs does not adequately
+explain and justify the PI’s total activities during each trip. Therefore, NSF was unable to determine how
+the total activities undertaken during the trips solely benefitted the NSF award in question. Therefore,
+NSF disallows the questioned costs identified and considers this finding to be resolved. Final action in
+the form of a repayment in the amount of $29,288 is required to fully close out this finding.
+For finding number 3, the auditors questioned $10,027 incurred to support the purchase of two
+computer workstations less than 90 days prior to the expiration date of NSF award IOS-0745253. Per the
+documentation provided by the University, the purchase of the computers was necessary to support
+additional modeling and large-scale simulation computing needs that were not anticipated at the
+beginning of the project. NSF noted that the University did not request a no-cost extension in order to
+continue and complete the work supported by the purchase of the computers. Although the University
+stated that subsequent published papers acknowledged the support of the NSF award in question, NSF
+does not believe that the publications alone provide sound evidence of 100% allocability to the NSF
+project. Therefore, NSF sustains and disallows the questioned costs associated with the computers. NSF
+considers the finding resolved. However final action in the form of a repayment in the amount of
+$10,027 is required to fully close out this finding.
+
+Finally, the audit report identified $1,125 in unallowable alcohol and meal charges that were charged to
+NSF award CCF-0613893 (finding number 4). NSF review of the University’s documentation provided to
+the auditors noted costs for an additional conference-planning dinner that was not identified in the
+audit report and totaled $252.22. As the cost of this dinner also appears to be unnecessary and outside
+the scope of integral conference meals as required by NSF’s policy cited in AAG Chapter V.C.5, NSF also
+disallows the $252.22. As a result, the total amount of costs sustained and disallowed under this finding
+is $1,377.22. The University stated that it intended to repay the $1,377.22 to NSF via a check and
+provided documentation to show that the disallowed costs have been removed from the NSF grant
+account to an unrestricted departmental account. NSF considers this finding resolved and upon
+repayment of the $1,377.22, the finding will be fully closed out.
+
+Because the federal appropriations used by NSF to fund the awards where repayment is required have
+expired, the University must repay the disallowed amount of $40,692.22 via a check made out to the
+NSF Cashier and mailed to:
+
+                      Attn: NSF Cashier - National Science Foundation
+                      Division of Acquisition and Cooperative Support
+                      4201 Wilson Blvd., Rm 475
+                      Arlington, VA 22230
+
+Please be aware that the University’s right to appeal a cost disallowance by NSF is outlined in Chapter
+VII.B of the NSF Award Administration Guide (AAG), which may be found online at:
+http://www.nsf.gov/pubs/policydocs/pappguide/nsf14001/aag_7.jsp#VIIB
+
+The University’s timely responses and overall cooperation with NSF’s audit resolution process have been
+greatly appreciated. Should you have any questions regarding this letter or NSF’s audit resolution process,
+please feel free to contact Meghan Benson at (703) 292-4884.
+
+
+                                                     Sincerely,
+
+
+                                                     Rochelle D. Ray, Team Lead
+                                                     Cost Analysis and Audit Resolution Branch
+                                                     Division of Institution and Award Support
+

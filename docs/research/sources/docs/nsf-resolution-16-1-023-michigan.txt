@@ -1,0 +1,176 @@
+Title: NSF audit resolution letter, OIG Audit Report No. 16-1-023, University of Michigan (May 25, 2018)
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep161023-michigan.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue, Ste E 7400
+Alexandria, VA 22314
+(703) 292-8244
+(703) 292-9171 FAX
+
+
+                                               May 25, 2018
+
+Ms. Deborah Talley
+Sponsored Programs Consultant
+University of Michigan
+5000 Wolverine Tower
+3003 S. State Street
+Ann Arbor, MI 48109
+
+Re: Audit Report No. 16-1-023
+
+Dear Ms. Talley:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of the
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of Michigan
+during the period October 1, 2011 to September 30, 2014.
+
+The audit report identified a total of $2,710,238 in questioned costs and recommended that the
+University strengthen its administrative and management controls over the areas reviewed. Because of
+NSF’s audit resolution efforts, including the review and analysis of the applicable federal and NSF
+requirements, and documentation provided by the University, NSF has determined $2,710,238 of costs
+questioned by the auditors will be allowed, and that $218,349 will be disallowed, as summarized in the
+following table:
+
+
+  Finding                    Description                  Questioned      Disallowed       Allowed
+             Salary Costs Exceeding NSF’s Allowable
+     1                                                     $2,242,477              $0     $2,242,477
+             Limits
+
+     2       Unsupported ACM$ Requests                        $360,908       $135,884       $225,024
+
+     3       Unallowable Equipment Purchases                   $57,355        $33,355        $24,000
+
+     4       Unallowable Travel Expenses                       $20,656        $20,656              $0
+
+     5       Unsupported Travel Expenses                        $2,635         $2,635              $0
+University of Michigan
+Audit No. 16-1-023
+Page 2
+
+
+
+  Finding                  Description                      Questioned      Disallowed       Allowed
+             Unallowable Airfare and Entertainment
+     6                                                            $8,905          $8,905              $0
+             Expenses
+             Indirect Costs Improperly Claimed on
+     7                                                            $7,203          $7,203              $0
+             Participant Support Costs
+
+     8       Unallowable Additional Compensation                  $6,603          $6,603              $0
+
+     9       Unallowable Visa Expenses                            $3,496          $3,108           $388
+
+                                                    Total    $2,710,238        $218,349      $2,491,889
+
+To resolve the audit findings and questioned costs, NSF conducted careful review of applicable federal
+and NSF requirements, proposal and award information maintained by NSF, and documentation
+provided by the University. The following provides the basis for the management decisions reached by
+NSF:
+
+    •    Finding 1: Salary Costs Exceeding NSF’s Allowable Limits
+         NSF does not sustain the finding. As stated in the NSF Proposal & Award Policies and
+         Procedures Guide (PAPPG) Chapters VII and X, an awardee can internally approve an increase or
+         decrease in person months devoted to the project after an award is made, even if doing so
+         results in salary support for senior personnel exceeding the two month salary policy. No prior
+         approval from NSF is necessary as long as that change would not cause the objective or scope of
+         the project to change. Therefore, it is the NSF management decision that the $2,242,477
+         questioned as excess senior salaries are allowable costs and no further action is required by the
+         University.
+
+    •    Finding 2: Unsupported ACM$ Requests
+         NSF partially sustains the finding. For five awards where costs were questioned, the University
+         demonstrated that funds drawn down were utilized within the period of performance, and that
+         funds not used within the period of performance were promptly returned to NSF. However, for
+         one award NSF found the University expended $135,884 in funding after the expiration of the
+         appropriation. Because the expenditures were incurred after September 30, 2013, the costs are
+         unilaterally disallowed.
+
+    •    Finding 3: Unallowable Equipment Purchases
+         NSF partially sustains the finding because the University did not provide adequate
+         documentation to demonstrate that equipment purchased two months prior to the award end
+         date were reasonable, necessary, and allocable. As a result, NSF has disallowed $33,355. The
+         remaining $24,000 in questioned costs for purchase and transfer of a research vessel will be
+         allowed, as NSF determined that evidence provided demonstrated the purchase was
+         reasonable, necessary, allocable, and adhered to established University policies and procedures.
+University of Michigan
+Audit No. 16-1-023
+Page 3
+
+
+    •   Finding 4: Unallowable Travel Expenses
+        NSF sustains the finding based on University concurrence, and has disallowed the entire $20,656
+        in questioned costs.
+
+    •   Finding 5: Unsupported Travel Expenses
+        NSF sustains the finding based on University concurrence, and has disallowed the entire $2,635
+        in questioned costs.
+
+    •   Finding 6: Unallowable Airfare and Entertainment Expenses
+        NSF sustains the finding based on the University’s concurrence and inability to provide
+        documentation that demonstrated the costs charged were reasonable, necessary, and allocable.
+        As a result, NSF has disallowed the entire $8,905 in questioned costs.
+
+    •   Finding 7: Indirect Costs Improperly Claimed on Participant Support Costs
+        NSF sustains the finding based on University concurrence, and has disallowed the entire $7,203
+        in questioned costs.
+
+    •   Finding 8: Unallowable Additional Compensation
+        NSF sustains the finding based on University concurrence, and has disallowed the entire $6,603
+        in questioned costs.
+
+    •   Finding 9: Unallowable Visa Expenses
+        NSF sustains the finding based on the University’s inability to provide adequate documentation
+        that demonstrated visa expenses charged to the NSF award were reasonable, necessary, and
+        allocable. As a result, NSF has disallowed $3,108. The remaining $388 in questioned costs was
+        allowed because the University provided sufficient evidence that a portion (11.1%) of the visa
+        costs were necessary and allocable to the subject award.
+
+Please be aware that the University’s right to appeal cost disallowances by NSF is outlined in Chapter
+VII.B of the NSF Award Administration Guide (AAG), which may be found online at:
+
+                    https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+The total disallowed amount is $218,349. The University provided evidence that $12,541 was repaid via
+offset of additional expenditures not reimbursed by NSF and that $432 associated with Finding 6 has
+been credited to the award via ACM$. NSF will work with the University to determine the appropriate
+form of repayment for the remaining disallowed amount of $205,376. Please note that repayments in
+the form of a check must be sent to attention of the “NSF Cashier” at the address below. Please
+reference “OIG Audit Report No. 16-1-023” in the comment section.
+
+                               Attn: NSF Cashier - National Science Foundation
+                               Division of Acquisition and Cooperative Support
+                               2415 Eisenhower Ave.
+                               Alexandria, VA 22314
+University of Michigan
+Audit No. 16-1-023
+Page 4
+
+
+Regarding the audit recommendations to enhance compliance and internal controls over the areas
+reviewed, because eight of the nine findings identified by the audit have been sustained or partially
+sustained, NSF recommends the University consider sending reminders or providing additional training
+to staff who work on federal awards to reinforce the importance of adhering to policies and procedures
+established by the University to ensure compliance.
+
+Based on the above, NSF considers all findings and questioned costs resolved. Upon verification that
+repayment of the remaining disallowed amount of $205,376 has been completed, the audit report will
+be fully closed out by NSF.
+
+The University’s timely responses, patience, and cooperation with the NSF audit resolution process have
+been greatly appreciated. Should you have any questions regarding this letter or the NSF audit
+resolution process, please contact me at (703) 292-4827.
+
+                                               Sincerely,
+
+                                               Rochelle D. Ray
+                                               Rochelle D. Ray, Chief
+                                               Resolution and Advanced Monitoring Branch
+                                               Division of Institution & Award Support
+

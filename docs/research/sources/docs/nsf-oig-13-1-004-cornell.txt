@@ -1,0 +1,96 @@
+Title: NSF OIG 13-1-004 memo transmitting HHS OIG audit A-02-12-02004, Cornell University Sponsored Agreements with National Science Foundation (Sep 26, 2013)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-11/13-1-004.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: memo header; Unallowable Costs - Supplies, Recharge Centers, General Expenses (report pp. 3-4) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+                     National Science Foundation • Office of Inspector General
+                     4201 Wilson Boulevard, Suite I-1135, Arlington, Virginia 22230
+
+
+MEMORANDUM
+
+Date:         September 26, 2013
+
+[...]
+
+We also found that Cornell properly accounted for and segregated NSF Recovery Act funds in its
+accounting system, and submitted accurate and timely quarterly Recovery Act reports. However,
+we found that Cornell charged unallowable costs totaling $11,945 to Recovery Act awards. 6 In
+addition, NSF was not liable for pension costs associated with the NAIC sponsored agreement
+because it was Cornell’s practice to provide a defined-contribution plan, and as a result there is
+no trailing cost.
+
+UNALLOWABLE COSTS
+
+Supplies
+
+Expenditures for office supplies should normally be treated as F&A costs (2 CFR pt. 220,
+App. A § F.6.b.(3)). Expenditures for meeting and conference costs, including food, are only
+allowable if such costs are specifically and clearly identified in the proposed scope of work and
+budget, as approved by NSF (NSF Grants Policy Manual, § 625).
+
+For 22 of the 100 transactions in our sample, Cornell improperly charged supply costs to NSF
+sponsored agreements. Specifically, Cornell directly charged 21 supply costs, including claims
+
+5
+ Cornell’s Financial Management policy. section 3.18, dated April 2, 2007, states “Cornell University must comply
+with the standards set forth in OMB Circular A-21, Cost Principles for Educational Institutions.”
+6
+    This total ($11,945) is not an estimate. It is the value of the unallowable costs charged to Recovery Act awards.
+
+Cornell University Sponsored Agreements with National Science Foundation (A-02-12-02004)                                3
+for items such as laptops, monitors, and toner cartridges that should have been treated as F&A
+costs. In addition, Cornell improperly charged one cost (for food) that was not approved by
+NSF. Three of the 22 unallowable transactions, totaling $2,316, were charged to Recovery Act
+awards. On the basis of our sample results, we estimated that Cornell improperly claimed
+$660,699 for supplies, including related F&A costs.
+
+Recharge Centers
+
+Recharge centers are facilities, such as computer centers, supply stores, animal facilities, and
+motor pools, which provide specialized services, and charge the users of those services on the
+basis of actual use.
+
+For 15 of the 100 transactions in our sample, Cornell improperly charged recharge center costs to
+NSF sponsored agreements. Specifically, Cornell directly charged transactions for office
+supplies. However, these costs should have been treated as F&A costs. One of the 15
+unallowable transactions, totaling $5,540, was charged to a Recovery Act award. On the basis of
+our sample results, we estimated that Cornell improperly claimed $75,312 for recharge center
+expenditures, including related F&A costs.
+
+General Expenses
+
+Charges to sponsored agreements are unallowable if incurred outside of the funding period
+authorized by the awarding agency (2 CFR pt. 215 § 215.28). A cost is allocable to a sponsored
+agreement if the goods or services involved are charged to the sponsored agreement in
+accordance with the relative benefits received (2 CFR pt. 220, App. A § C.4). Costs charged to
+sponsored agreements must be reasonable (2 CFR pt. 220, App. A §§ C.2 and C.3).
+
+For 32 of the 100 transactions in our sample, Cornell improperly charged general expenses to
+NSF sponsored agreements. Specifically, Cornell charged unallowable costs for:
+
+    •    participant support 7 that was not properly documented,
+
+    •    a magazine subscription that did not benefit the sponsored agreement,
+
+    •    visa expenses incurred outside the period covered by the sponsored agreement, and
+
+    •    late fees associated with publishing a thesis.
+
+In addition, Cornell directly charged office supply costs that should have been treated as F&A
+costs. Seven of the 32 unallowable transactions, totaling $3,880, were charged to Recovery Act
+awards. On the basis of our sample results, we estimated that Cornell improperly claimed
+$34,085 in general expenses, including related F&A costs.
+
+7
+  Participant support costs are costs paid to (or on behalf of) participants or trainees (not employees) for participation
+in meetings, conferences, symposia, and workshops or other training activities.
+
+Cornell University Sponsored Agreements with National Science Foundation (A-02-12-02004)                                4
+Foreign Travel
+
+Maximum per diem rates allowed for foreign areas, as established by the U.S. Department of
+State, cover travel beginning on the day the traveler departs an authorized point and ending on
+the day the traveler returns to the authorized point (41 CFR § 301-11.9). Laundry expenses
+incurred in foreign areas and costs of alcoholic beverages are unallowable (41 CFR § 301-11.31
+[...]

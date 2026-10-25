@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:33.080Z",
+  "input": {
+    "item": "Laptop computer",
+    "price": 3268,
+    "purpose": "Needed for the award, per the award proposal",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "A laptop is a general-use computer, and the purpose does not say how it serves the research. Grants may pay only if it is specifically needed for the project (2 CFR 200.453).",
+    "category": "equipment"
+  }
+}

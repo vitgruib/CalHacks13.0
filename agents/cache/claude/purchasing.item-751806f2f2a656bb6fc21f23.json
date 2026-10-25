@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:07.567Z",
+  "input": {
+    "item": "190 program-branded water bottles",
+    "price": 1782,
+    "purpose": "To hand out to students at a community development event, to help them build a connection with each other and the community",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Program-branded promotional items given away to students are unallowable under federal cost rules (2 CFR 200.421).",
+    "category": "other"
+  }
+}

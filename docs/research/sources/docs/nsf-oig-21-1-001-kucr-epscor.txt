@@ -1,0 +1,167 @@
+Title: Performance Audit of Incurred Costs on EPSCoR Awards - University of Kansas Center for Research, Inc., NSF OIG 21-1-001 (Jan 7, 2021)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-11/21-1-001KUCR.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: cover; Finding 5 (pp. 13-16) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs on
+EPSCoR Awards – University of Kansas
+Center for Research, Inc.
+
+
+
+
+January 7, 2021
+OIG 21-1-001
+  OIG 21-1-001
+[...]
+Haskell provided to support the costs claimed. The payroll records did not demonstrate a reasonable
+basis for the allocation of the costs to the EPSCoR award.
+
+We acknowledge KUCR’s agreement to remove the $14,985 unsupported KSU cost share claim from
+the reported cost share.
+
+Finding 5: Unallowable Expenses
+KUCR charged $10,697 of unallowable direct ($9,140) and associated indirect ($1,557) expenses to
+three EPSCoR awards, as follows:
+
+Unnecessary and Unreasonable Expenses
+
+KUCR charged $4,186 to two EPSCoR awards for water for its office staff. According to KUCR, it had
+always charged water for the office directly to the EPSCoR Track-1 awards. To be allowable, costs must
+be necessary and reasonable for the performance of the Federal award. 25 Supplying water to the office is
+not necessary for the performance of the award. Therefore, we are questioning these charges ($4,186) as
+unallowable.
+
+Unallowable Alcohol-Related Expenses
+
+KUCR charged its EPSCoR awards a total of $642 for wine and bar set up and corkage fees that it
+incurred in 2011 and 2015. Federal guidance at the time, 26 as well as current guidance, states “costs of
+alcoholic beverages are unallowable.” NSF policy also prohibits use of NSF funds for alcoholic
+beverages. 27 KUCR explained these costs were charged to the award because staff followed a less
+
+
+25
+   Under 2 CFR 200.403(a), except where otherwise authorized by statute, to be allowable, a cost must “[b]e necessary and
+reasonable for the performance of the Federal award and be allocable thereto under these principles.” Prior to the Uniform
+Guidance, Appendix A to 2 CFR Part 220, J.22. applied, and it stated “[c]osts of goods or services for personal use of the
+institution's employees are unallowable regardless of whether the cost is reported as taxable income to the employees.”
+26
+   Appendix A to 2 CFR Part 220, J.3., states, “Costs of alcoholic beverages are unallowable.” Current guidance is at 2 CFR
+200.423.
+27
+   NSF Proposal and Award Policies and Procedures Guide (NSF 13-1 and NSF 08-1) state “No NSF funds may be spent on
+alcoholic beverages.”
+
+
+13     NSF.GOV/OIG | OIG 21-1-001
+restrictive university hospitality policy rather than Federal award requirements. We are questioning the
+wine and bar set up and corkage fees ($642) charged to the award.
+
+Unallowable Promotional Expense Charged to Subaward
+
+One of KUCR’s subrecipients, Haskell, purchased reusable tote bags imprinted with the name of its
+EPSCoR-funded summer internship program at a cost of $1,562 ($1,303 direct, plus $259 of associated
+indirect costs) to the award. According to Haskell officials, they used the bags as recruitment material at
+conferences.
+
+Federal guidance states that costs of promotional items, including gifts, are unallowable. 28 KUCR
+included these terms in its subaward agreement with Haskell. 29 KUCR stated that it did not request
+Haskell provide supporting documentation with its invoices, so it was unaware of the purchase. We are
+questioning the $1,562 charged for the imprinted bags as an unallowable promotional expense.
+
+Unallowable Indirect Costs Charged to Subaward
+
+Haskell charged KUCR $4,629 in unallowable indirect costs on the open Track-1 award because it did
+not appropriately identify certain expenses as participant support costs (PSC), for which indirect costs
+are not allowed. Specifically, Haskell did not identify and account for $23,261 in research materials and
+supplies incurred for the 2018 HERS summer internship program, such as backpacks and school
+supplies, as PSCs.30 PSCs are “direct costs for items such as stipends or subsistence allowances, travel
+allowances, and registration fees paid to or on behalf of participants or trainees (but not employees) in
+connection with conferences, or training projects.” 31 Haskell purchased the supplies on behalf of the
+students in the HERS program and charged the costs to the EPSCoR subaward, thus they fall within the
+definition of participant support costs. Per award terms and conditions, indirect costs are not allowed on
+PSCs.32
+
+In its proposal, KUCR did not identify these supplies as PSCs, and Haskell did not account for them as
+PSCs. As a result, KUCR allowed Haskell to charge indirect costs ($4,629, at a 19.9 percent rate)
+against the $23,261 in supplies costs. We have already questioned $322 of the indirect charges Haskell
+charged KUCR as part of Findings 3 and 5. Therefore, we question the remaining $4,307.
+
+KUCR concurred with $4,828 of the questioned costs and disagreed with $5,869, as shown in Table 5.
+
+
+
+
+28
+   2 CFR 200.421 (e) states unallowable advertising and public relations costs include “(3) [c]osts of promotional items and
+memorabilia, including models, gifts, and souvenirs[.]”
+29
+   KUCR subaward agreement No.
+30
+   KUCR charged these subrecipient indirect costs as a direct cost to the award.
+31
+   2 CFR §200.75.
+32
+   NSF’s Cooperative Agreement Financial & Administrative Terms and Conditions (CA-FATC), effective January 30, 2017,
+state “Indirect costs (Facilities and Administrative Costs (F&A)) are not allowed on participant support costs.” Further, 2
+CFR 200.68 states that Modified Total Direct Costs must exclude participant support costs.
+
+
+14     NSF.GOV/OIG | OIG 21-1-001
+Table 5. Expenses Questioned as Unallowable
+                                                                     Questioned Costs         KUCR
+                                                                                             Agreed to
+            Description                  Award No.          Direct      Indirect   Total
+                                                                                             Reimburse
+ Corkage and bar set up fees                                   $135          $67      $202         $202
+ Wine                                                          $300         $140      $440         $440
+ Water for office                                            $1,832         $852    $2,684       $2,684
+ Water for office                                            $1,004         $498    $1,502       $1,502
+ Subaward Material and Supplies                              $1,562           $0    $1,562           $0
+ Subaward Indirect Costs on                                  $4,307           $0    $4,307           $0
+ Materials and Supplies
+ Total                                                       $9,140       $1,557   $10,697       $4,828
+ Source: Auditor summary of expenses questioned as unallowable.
+
+
+Recommendations
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+     1. Resolve the $10,697 in questioned costs, and direct KUCR to repay or otherwise remove the
+        sustained questioned costs from its NSF awards.
+
+     2. Direct KUCR to provide training on Federal requirements prohibiting alcoholic beverages and
+        requiring expenses to be necessary and reasonable for the performance of the Federal award.
+
+     3. Direct KUCR to strengthen its administrative and management controls and processes related to
+        participant support costs to ensure that they are budgeted and accounted for appropriately.
+
+KUCR Response
+
+KUCR agreed to remove the questioned water charge ($4,186) and alcohol-related expenses ($642) from
+the EPSCoR awards and to ensure that staff is aware of the Uniform Guidance cost principles regarding
+allowability and reasonableness.
+
+KUCR did not agree that the $1,562 claimed for tote bags represent unallowable advertising and public
+relations costs. KUCR stated that the tote bags were necessary for promoting the HERS program to
+prospective participants. KUCR also referenced NSF policy stating that funding of items identified in an
+award budget constitutes NSF approval to incur those costs. The budget justification for Haskell’s
+subaward stated that the proposed budget included $5,080 per year for recruitment materials.
+
+KUCR did not agree that $4,307 allocated by Haskell to materials and supplies costs for HERS program
+participants are unallowable indirect costs allocated to participant support costs. KUCR stated that the
+definition of participant support costs included in NSF’s PAPPG does not include supplies.
+
+
+
+
+15     NSF.GOV/OIG | OIG 21-1-001
+Auditor Comment
+
+Our position that $1,562 in promotional items was an unallowable expense does not change; 2 CFR
+200.421 (e) states unallowable advertising and public relations costs include “(3) [c]osts of promotional
+items and memorabilia, including models, gifts, and souvenirs[.]”
+
+Our position regarding the $4,307 in subaward costs on behalf of participants does not change.
+Participant support costs must be specified, itemized and justified in the budget justification section of
+[...]

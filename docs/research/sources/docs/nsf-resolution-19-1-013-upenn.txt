@@ -1,0 +1,146 @@
+Title: NSF audit resolution letter, OIG Report No. 19-1-013, University of Pennsylvania
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep191013-upenn.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+                                                                       December 2, 2021
+Elizabeth Peloso
+Associate Vice President and
+  Associate Vice Provost
+University of Pennsylvania
+Office of Research Services
+5th Floor, Franklin Building
+3451 Walnut Street
+Philadelphia, PA 19104-6205
+
+Reference: OIG Report No. 19-1-013
+
+Dear Ms. Peloso:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of
+Pennsylvania (UPenn) during the period of March 1, 2014, through February 28, 2017.
+
+ The audit report identified a total of $265,957 in questioned costs claimed on NSF awards and
+ recommended that UPenn strengthen its administrative and management controls over the areas in
+ which findings and questioned costs were identified. NSF sustains $257,004 of the questioned costs
+ identified; however, based on alternative documentation reviewed and accepted during resolution, NSF
+ will require repayment of only $191,839. In addition, NSF identified unallowable costs of $238 that are
+ also disallowed. The table below summarizes the allowed and disallowed costs by finding number:
+
+Finding        Audit Report Description          Questioned        Sustained        Allowed           Disallowed
+
+  1        Unsupported Expenses              $       149,765   $      145,023   $      59,742     $         90,023
+
+           Inappropriate Application of
+  2                                          $        56,475   $       56,475   $             0   $         56,475
+           Indirect Costs
+
+  3        Unallowable Expenses              $        50,360   $       46,149   $      14,376     $         35,984
+
+           Expenses Not Appropriately
+  4                                          $         8,853   $        8,853   $             0   $          8,853
+           Allocated to NSF Awards
+           Incorrect Application of Fringe
+  5                                          $          504    $          504   $             0   $            504
+           Benefits
+               SUBTOTALS:                    $       265,957   $      257,004   $      74,118     $        191,839
+           Additional Disallowed - Award
+  1                                                                                               $            238
+           No. 1138996
+                                                                          TOTAL DISALLOWED:       $       192,077
+University of Pennsylvania
+Audit No. 19-1-013
+Page 2
+
+To resolve the audit findings and questioned costs, NSF conducted detailed reviews of applicable Federal
+and NSF requirements, proposal and award information maintained by the Agency, and documentation
+provided by UPenn. The following provides the basis for the management decisions reached by NSF:
+
+•   Finding 1: Unsupported Expenses
+    NSF sustains the finding and agrees with $145,023 of the questioned amount. However, based on
+    NSF’s review of alternative documentation and the specific circumstances involving two questioned
+    transactions, NSF determined to disallow only $90,023 of the sustained, questioned costs. NSF also
+    identified additional unallowable costs of $238 that are disallowed. NSF’s management decision is
+    to disallow $90,261 and to allow $59,742.
+
+•   Finding 2: Inappropriate Application of Indirect Costs
+    NSF sustains the finding. Based upon UPenn’s concurrence, it is NSF’s management decision to
+    disallow $56,475.
+
+•   Finding 3: Unallowable Expenses
+    NSF sustains the finding and agrees with $46,149 of the questioned amount. However, based on
+    NSF’s review of alternative documentation and the specific circumstances involving one of the
+    questioned transactions, NSF determined to disallow only $35,984 of the sustained, questioned
+    costs. NSF’s management decision is to disallow $35,984 and to allow $14,376.
+
+•   Finding 4: Expenses Not Appropriately Allocated to NSF Awards
+    NSF sustains the finding. Based upon UPenn’s concurrence, it is NSF’s management decision to
+    disallow $8,853.
+
+•   Finding 5: Incorrect Application of Fringe Benefits
+    NSF sustains the finding. Based upon UPenn’s concurrence, it is NSF’s management decision to
+    disallow $504.
+
+•   Finding 6: Improperly Approved Subaward Payments
+    NSF sustains the finding. Final action will be complete upon a determination by NSF that corrective
+    actions taken are responsive to the compliance and internal control recommendation.
+
+•   Finding 7: Incorrect Application of Proposed Indirect Cost Rates
+    NSF does not sustain the finding. NSF’s policy requires grantees to budget indirect costs using
+    current indirect cost rates in accordance with PAPPG Chapter II, Section C.2.g(viii), Indirect Costs.
+    However, during the award performance period, Grantees may provide voluntary uncommitted cost
+    sharing at any time consistent with OMB’s clarification Q-132, 2 CFR Frequently Asked Questions
+    dated 5/3/2021 and PAPPG Chapter II, Section C.2.g(xii), Cost Sharing. Also see NSF’s Cost Sharing
+    Policy at https://www.nsf.gov/bfa/dias/policy/. Accordingly, NSF does not agree with the
+    recommendation to direct UPenn to strengthen the administrative and management controls and
+    processes over establishing indirect cost rates for NSF awards to ensure that it applies costs at the
+    rates in effect at the time of the initial award.
+
+    However, NSF does agree that grantees must have internal controls in place to ensure that the
+    rates applied do not exceed the rates in effect at the time of the award, thereby avoiding
+    overcharges of indirect costs to NSF awards. Final action will be complete upon a determination by
+University of Pennsylvania
+Audit No. 19-1-013
+Page 3
+
+    NSF that UPenn has implemented adequate internal controls to ensure that awards are not
+    charged indirect costs in excess of the rate(s) in effect at the time of the award.
+
+•   Finding 8: Non-Compliance with UPenn Travel Policies
+    NSF sustains the finding. Final action will be complete upon a determination by NSF that corrective
+    actions taken are responsive to the compliance and internal control recommendation.
+
+The compliance and internal control recommendations under Findings 1 through 8 have not been
+adequately addressed. Corrective actions and updated policies in response to the recommendations
+are required within 90 days from the date of this letter. Final action will be considered complete upon
+NSF’s determination that corrective actions taken are responsive to the report recommendations.
+Based on the above, the total disallowed amount is $192,077. Repayment of $192,077 must be made
+via www.pay.gov. Please reference OIG Audit Report No. 19-1-013. Any necessary adjustments to
+ACM$ because of the repayment will be made by the NSF Division of Financial Management.
+
+Please be aware that UPenn’s right to appeal cost disallowances by NSF is outlined in Chapter XII.B of
+the NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+NSF considers all audit report findings and questioned costs resolved. Upon verification that repayment
+of all disallowed costs has been completed and that corrective actions taken are responsive to the
+compliance and internal control recommendations, the audit report will be fully closed out by NSF.
+
+UPenn’s timely responses and full cooperation with the NSF audit resolution process have been greatly
+appreciated. Should you have any questions regarding this letter or the NSF audit resolution process,
+please contact me at 703-292-4579.
+
+                                                        Sincerely,
+
+                                                        Carrie Davison
+                                                        Carrie Davison, Team Lead – Audit Resolution
+                                                        Resolution and Advanced Monitoring Branch
+                                                        Division of Institution and Award Support
+

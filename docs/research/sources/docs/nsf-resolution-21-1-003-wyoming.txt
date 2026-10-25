@@ -1,0 +1,154 @@
+Title: NSF audit resolution letter, OIG Report No. 21-1-003, University of Wyoming (Aug 26, 2022)
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep211003-wyoming-2-r.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+                                                                             Request this document in an accessible
+                                                                             format by visiting nsf.gov/accessibility
+
+
+
+
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+
+
+                                                        August 26, 2022
+
+Diana Hulme, Associate Vice President for Research
+Brent Ewers, Director of EPSCoR
+University of Wyoming
+1000 E. University Avenue, Department 3355,
+Room 305/308 Old Main
+Laramie, WY 82071
+
+Reference: OIG Report No. 21-1-003
+
+
+Dear Ms. Hulme and Mr. Ewers,
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report, dated January 13, 2021, on costs incurred for two Established
+Programs to Stimulate Competitive Research (EPSCoR) awards to the University of Wyoming (UW).
+
+The audit report identified a total of $256,351 in questioned costs claimed on NSF awards. The audit
+report identified instances of noncompliance with certain Federal regulations, NSF policies, and award
+terms and conditions in UW’s administration of both EPSCoR Awards for Open Track-1 Award No.
+1655726, and Closed Track-1 Award No. 1208909. NSF determined that questioned costs of $256,351
+will be disallowed.
+
+The table below summarizes the allowed and disallowed costs by finding number:
+
+ Finding     Audit Report Description                      Questioned       Disallowed         Allowed
+                                                                 Costs
+     1       Unsupported Cost Share Transfer                  $90,000          $90,000                $0
+     2       Unsupported and Unallowable Promotional            $7,908          $7,908                $0
+             Costs
+     3       Unallowable SRAP Activity Expenses               $15,207          $15,207                $0
+     4       Unallowable Indirect Costs Charged               $24,773          $24,773                $0
+
+     5       Unallowable Meal Expenses                           $864             $864                $0
+     6       Unsupported Sub-Award Expenses                  $117,599        $117,599                 $0
+
+             Total                                           $256,351        $256,351                 $0
+University of Wyoming
+Audit No. 21-1-003
+Page 2
+
+
+
+To resolve the audit findings and questioned costs, NSF conducted detailed reviews of applicable Federal
+and NSF requirements, proposal and award information maintained by NSF, and documentation
+provided by UW. The following provides the basis for the management decisions reached by NSF:
+
+•   FINDING 1: Unsupported Cost Share Transfer
+    NSF sustains the finding. UW concurred with NSF’s management decision to disallow the
+    questioned costs of $90,000. NSF has determined that the corrective actions taken by the University
+    are responsive to improve compliance and internal recommendation to strengthen controls over
+    approvals for awards with cost share.
+
+•   FINDING 2: Unsupported and Unallowable Promotional Expenses
+    NSF sustains the finding. UW concurred with NSF’s management decision to disallow questioned
+    costs of $7,908. NSF has determined that the corrective actions taken by the University are
+    responsive to compliance and internal recommendation(s) to strengthen procurement card policies
+    and procedures.
+
+•   FINDING 3: Unallowable Entertainment Expenses
+    NSF sustains the finding. UW agreed to repay indirect costs of $4,150, charged to participant
+    support costs. However, the University did not concur with $11,057 in questioned costs
+    charged to its EPSCoR awards for the Summer Research Apprentice Program (SRAP). Federal
+    regulations applicable to these awards states that the costs of entertainment are unallowable,
+    except where specific costs that might otherwise be considered entertainment have a programmatic
+    purpose, and are authorized, either in the approved budget for the federal award or with prior
+    written approval. NSF considered UW’s SRAP program collateral and schedule of activities, which
+    included weekend activities for students. However, UW did not provide documentation that it had
+    provided justification linking the programmatic purpose and benefit of the entertainment costs to
+    specific award objectives. Entertainment costs that have a programmatic purpose for specific
+    award objectives should be identified in the proposal budget justification; this allows NSF to review
+    and concur that the costs are necessary and allocable to the performance of the award. If a need
+    for such activities is identified after the award is funded, written justification, explaining the purpose
+    and benefit of the entertainment costs to programmatic purposes and award objectives must be
+    approved by NSF. It is therefore NSF’s management decision to disallow questioned costs of
+    $15,027.
+
+•   FINDING 4: Unallowable Indirect Costs Charged
+    NSF sustains the finding. Based on UW’s concurrence, NSF’s management decision is to disallow the
+    questioned costs of $24,773 charged in indirect costs for Participant Support Costs (PSCs) for the
+    University’s Summer Research Apprentice Program (SRAP). NSF has determined that the corrective
+    actions taken by the University are responsive to compliance and internal recommendation(s) to
+    segregate participant support costs.
+
+•   FINDING 5: Unallowable Meal Expenses
+    NSF sustains the finding. Based on UW’s concurrence, NSF’s management decision is to disallow the
+    questioned costs of $864 in unallowable meal costs charged for UW’s Summer Research Apprentice
+    Program (SRAP) participants. NSF has determined that the corrective actions taken by the
+University of Wyoming
+Audit No. 21-1-003
+Page 3
+
+    University are responsive to the compliance and internal recommendation (s) to provide updated
+    administrative and management controls and processes that describe the allowability and
+    reasonableness of meal costs.
+
+•   FINDING 6: Unsupported Subrecipient Expenses
+    NSF sustains the finding. Based on UW’s concurrence, NSF’s management decision is to disallow the
+    questioned costs of $117,599. NSF determined that UW’s action to cease funding the subrecipient
+    and repay questioned costs as responsive to compliance and internal recommendation(s) in the
+    audit report.
+
+ The total disallowed amount is $256,351, of which the University of Wyoming has provided evidence of
+ $90,000 in repayment. Repayment of the remaining $166,351 may be made via www.pay.gov or check
+ payable to the National Science Foundation. Please reference OIG Audit Report No. 21-1-003. Any
+ necessary adjustments to ACM$ because of the repayment will be made by the NSF Division of
+ Financial Management.
+
+ Check repayments must be addressed as follows:
+
+                                National Science Foundation
+                                Attention: NSF Cashier Suite C 7027
+                                2415 Eisenhower Avenue,
+                                Alexandria, VA 22314
+
+Please be aware that University of Wyoming’s right to appeal cost disallowances by NSF is outlined in
+Chapter XII.B of the NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be
+found online at: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+Based on the above, NSF considers all findings and questioned costs resolved. Upon verification that
+repayment of the remaining $166,351 in disallowed costs has been completed, the audit report will be
+fully closed out by NSF.
+
+UW’s timely responses and full cooperation with the NSF audit resolution process have been greatly
+appreciated. Should you have any questions regarding this letter or the NSF audit resolution process,
+please contact Charlotte Grant-Cobb, Lead Analyst at 703-292-7827.
+
+                                                Sincerely,
+
+                                                Rochelle Ray
+                                                Branch Chief,
+                                                Resolution and Advanced Monitoring Branch
+                                                Division of Institution and Award Support
+

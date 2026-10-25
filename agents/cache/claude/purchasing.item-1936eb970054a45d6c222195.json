@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:10.769Z",
+  "input": {
+    "item": "Plaques for participants who completed the program",
+    "price": 1139,
+    "purpose": "Given to participants who completed the award’s program",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Commemorative plaques are recognition gifts, which federal grants generally can't pay for as memorabilia or awards (2 CFR 200.438, 200.403).",
+    "category": "other"
+  }
+}

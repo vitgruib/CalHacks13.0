@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:39.500Z",
+  "input": {
+    "item": "Polo shirts for the research team",
+    "price": 1377,
+    "purpose": "Worn by the research team while doing fieldwork on the project",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Clothing is a personal item that benefits the wearer rather than the project, which federal grants can't pay for (2 CFR 200.403).",
+    "category": "personal"
+  }
+}

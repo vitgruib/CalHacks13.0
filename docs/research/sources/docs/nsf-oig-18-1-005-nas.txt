@@ -1,0 +1,148 @@
+Title: Performance Audit of Incurred Costs - National Academy of Sciences, NSF OIG 18-1-005 (Sep 6, 2018; Cotton & Company)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-11/18-1-005_National_Academy_of_Sciences.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: cover/At a Glance; Findings 3-4 (pp. 7-9) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs –
+National Academy of Sciences
+REPORT PREPARED BY COTTON & COMPANY LLP
+
+
+
+
+September 6, 2018
+OIG 18-1-005
+AT A GLANCE
+Performance Audit of Incurred Costs – National Academy of Sciences
+Report No. OIG 18-1-005
+September 6, 2018
+
+AUDIT OBJECTIVE
+The National Science Foundation Office of Inspector General engaged Cotton & Company LLP
+(C&C) to conduct a performance audit of incurred costs at the National Academy of Sciences (NAS)
+for the period November 1, 2013, to October 31, 2016. The auditors tested more than $2.9 million of
+the $43.2 million of costs claimed to NSF. The objective of the audit was to determine if costs claimed
+by NAS during this period were allocable, allowable, reasonable, and in conformity with NSF award
+terms and conditions and applicable Federal financial assistance requirements. C&C is responsible for
+the attached auditors’ report and the conclusions expressed in this report. NSF OIG does not express
+any opinion on the conclusions presented in C&C’s audit report.
+
+AUDIT RESULTS
+NAS did not always comply with all Federal, NSF, and NAS regulations and policies when allocating
+expenses to NSF awards. The auditors questioned $90,902 of costs claimed by NAS during the audit
+period. Specifically, the auditors found $54,725 in expenses inappropriately drawn down from NSF’s
+Award Cash Management $ervice; $12,447 of inappropriately allocated expenses; $12,046 of over-
+charged meal expenses; $11,684 of unallowable travel expenses; and expense reports that were not
+submitted within NAS-required time frames.
+
+RECOMMENDATIONS
+The auditors included five findings in the report with associated recommendations for NSF to resolve
+the questioned costs and to ensure NAS strengthens administrative and management controls.
+[...]
+Finding 3: Unallowable Meal Expenses
+
+NAS inappropriately charged $12,046 for meal expenses that exceeded the maximum allowable
+cost per person. Specifically, NAS’s Meal Allowance Policy states that the per-person cost of
+meals provided at meetings must be reasonable and may not exceed $15 for breakfast, $25 for
+lunch, or $50 for dinner. However, we identified eight instances across seven NSF awards in
+which NAS charged NSF for meal expenses that exceeded the allowable rates, as follows:
+
+Table 3. Meal Expenses Exceeding the Allowable Amount
+  NSF Award            Fiscal      Meal Expenses      Allowable Meal    Meal Expenses
+     No.               Year          Incurred            Expenses       Overcharged
+                       2013           $7,327               $3,353           $3,974
+                       2014             2,531               1,157            1,374
+                       2014             3,022               1,381            1,641
+                       2015             3,558               1,497            2,061
+                       2015               730                 624              106
+                       2015             5,606               4,941              665
+                       2016             2,805               1,430            1,375
+                       2016             1,960               1,110              850
+      Total                          $27,539              $15,493         $12,046
+
+Source: Auditor summary of questioned transactions.
+
+
+
+
+                                                                                           Page | 7
+NAS did not have sufficient controls and processes in place to ensure that departments do not
+exceed NAS’s established per-diem meal allowance policy. We are therefore questioning
+$12,046 in inappropriately allocated meal expenses, as identified in Table 3.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support direct
+NAS to:
+
+    1. Repay NSF the $12,046 of questioned costs.
+
+    2. Strengthen the administrative and management controls and processes over meal
+       expenses charged to sponsored projects to ensure compliance with NAS policy. Processes
+       could include requiring that NAS review all conference meal expenses for compliance
+       with its Meal Allowance Policy before charging the expenses to a sponsored project.
+
+NAS Response: NAS agreed with this finding, noting that it has already removed the questioned
+costs from the relevant awards and that it will refund NSF for these amounts. NAS also stated
+that it will enhance its administrative and management controls surrounding the proper allocation
+of meal expenses to sponsored projects.
+
+Auditors’ Additional Comments: Our position regarding this finding does not change.
+
+Finding 4: Unallowable Travel Expenses
+
+NAS charged $11,684 of unallowable travel expenses to two NSF awards, as follows:
+
+    •   August 2015 Travel Expenses: In August 2015, NAS charged $10,987 to Award No.
+                  for expenses incurred to host a 2-hour evening reception as part of a grant-
+        related conference held at the                                                   . The event
+        invitation stated that the reception was for guests and significant others, and the
+        participant list indicated that both conference participants and their family members
+        attended the event; as such, the reception appears to have been entertainment related
+        rather than grant related. With limited exception, entertainment costs are expressly
+        unallowable under 2 CFR 230 and 2 CFR 200; 9 NAS therefore should not have charged
+        these costs to NSF.
+
+        NAS stated that it incorrectly allocated these expenses to the award and agreed to remove
+        them.
+
+
+
+9
+ According to 2 CFR 230, Appendix B, Section 14, costs of entertainment, including amusement and social
+activities and any other costs directly associated with such costs, such as meals, are unallowable. Those costs are
+also unallowable under 2 CFR §200.438, “except where specific costs that might otherwise be considered
+entertainment have a programmatic purpose and are authorized either in the approved budget for the Federal award
+or with the prior written approval of the Federal awarding agency.”
+
+
+
+                                                                                                            Page | 8
+    •    April 2016 Travel Expenses: In April 2016, NAS charged $697 to Award No.
+         for lodging expenses that a                           employee incurred to stay at a
+         conference hotel in Washington, DC, which is less than 50 miles from                  .
+         NAS’s Travel at the Academies: Policies for Per Diem states that travelers may only
+         receive reimbursement for lodging if they are required to travel more than 50 miles from
+         their usual official place of business. 10 NAS therefore should not have charged these
+         lodging expenses to the award.
+
+         NAS stated that it incorrectly allocated these expenses to the award and agreed to remove
+         them.
+
+NAS does not have sufficient controls and processes in place to ensure that all travel expenses
+allocated to NSF awards are allowable in accordance with all relevant Federal and NAS policies.
+We are therefore questioning $11,684 of unallowable travel expenses, as follows:
+
+Table 4. Unallowable Travel Expenses
+                                                   NSF Award            Fiscal         Questioned
+             Description                              No.               Year             Costs
+ August 2015 Travel Expense                                             2015            $10,987
+ April 2016 Travel Expense                                              2016                697
+ Total Questioned Costs                                                                 $11,684
+
+Source: Auditor summary of questioned transactions
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support direct
+[...]

@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:18:57.429Z",
+  "input": {
+    "item": "Museum and zoo admission, yoga and gym access, theater and movie tickets",
+    "price": 15207,
+    "purpose": "Group weekend activities for students in the summer research apprentice program",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Museum, zoo, gym, theater and movie tickets are entertainment or personal recreation, which federal grants can't pay for (2 CFR 200.438, 200.403).",
+    "category": "entertainment"
+  }
+}

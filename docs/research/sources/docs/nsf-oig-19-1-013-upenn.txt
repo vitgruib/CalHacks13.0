@@ -1,0 +1,78 @@
+Title: Performance Audit of Incurred Costs - University of Pennsylvania, NSF OIG 19-1-013 (May 1, 2019; Cotton & Company)
+URL: https://oig.nsf.gov/sites/default/files/reports/2024-11/19-1-013_University_of_Pennsylvania.pdf (fetched via web.archive.org snapshot)
+Retrieved: 2026-10-25
+Included: cover; unallowable entertainment/alcohol expenses and UPenn response (pp. 17-20) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+Performance Audit of Incurred Costs –
+University of Pennsylvania
+REPORT PREPARED BY COTTON & COMPANY LLP
+
+
+
+
+May 1, 2019
+[...]
+   NSF PAPPG 13-1, Part II, Chapter V, Section C.4.a.(i) states that organizations may charge relocation costs to an
+NSF grant provided that the proposal specifically indicates that the grantee intends to hire a named individual for
+full-time work on the project.
+
+
+
+                                                                                                            Page | 17
+    •    Unallowable Entertainment and Alcohol Related Expenses 21
+
+         UPenn inappropriately charged unallowable entertainment and alcohol-related expenses
+         to two NSF awards. Specifically:
+
+              o In January 2015, UPenn charged NSF Award No.                  for $2,190 in expenses
+                related to an “         Recruitment/End of Year Dinner.” 22 The grant budget
+                included $2,990 for refreshments for            meetings; however, the budget
+                justification indicated that the funding would be used for $115 of refreshments
+                provided at approximately one meeting per week. In addition, this dinner appears
+                to have been entertainment-related, based on the PI’s statement that the dinner
+                was “an important contributor to creating a sociable and welcoming atmosphere.”
+                As a result, all costs associated with the dinner are unallowable.
+
+              o   In June 2016, UPenn charged NSF Award No.               for $90 in unallowable
+                  alcohol-related expenses incurred for a grant-supported event.
+
+UPenn does not have sufficient policies and procedures in place to ensure that it only charges
+allowable costs to NSF awards. As a result, UPenn inappropriately charged unallowable salary,
+travel, relocation, entertainment, and alcohol expenses to NSF awards. Therefore, we are
+questioning $50,360 of unallowable expenses, as follows:
+
+Table 3. Unallowable Expenses
+
+                                                                    NSF Award              Fiscal         Questioned
+                 Description                                           No.                 Year             Costs
+December 2016 Unallowable Salary Expense                                                   2017            $40,662
+September 2016 Unallowable Upgraded Airfare                                                2017                319
+December 2016 Unallowable Upgraded Airfare                                                 2017                640
+May 2014 Unallowable Foreign Flag Carrier
+                                                                                            2014                1,044
+Airfare Expense
+December 2015 Unallowable Travel Expense                                                    2016                  575
+September 2016 Unallowable Relocation
+                                                                                            2017                4,840
+Expense
+January 2015 Unallowable Entertainment
+                                                                                            2015                2,190
+Expense
+June 2016 Unallowable Alcohol Expense                                                       2016                 90
+Total Questioned Costs                                                                                      $50,360
+
+Source: Auditor summary of questioned transactions.
+
+[...]
+    did not include funding for relocation expenses and UPenn did not request approval for
+    relocation expenses before charging the expense to the award, it disagreed with our
+    recommendation that it refund NSF for all costs associated with this relocation expense.
+
+
+
+                                                                                       Page | 20
+   •   With regard to the $2,190 in questioned entertainment expenses on NSF Award No.
+                and $90 in questioned alcohol expenses on NSF Award No.               , UPenn
+       agreed to refund NSF for all questioned costs and to enhance its procedures to require a
+       review of food, beverage, and alcohol expenses before charging the expenses to
+[...]

@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:18:56.116Z",
+  "input": {
+    "item": "Embroidered briefcases and engraved pens with the institute and EPSCoR logos",
+    "price": 1930,
+    "purpose": "",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "flag",
+    "why": "Branded briefcases and engraved pens are promotional items, which federal grants generally can't pay for (2 CFR 200.421), and the purpose is blank.",
+    "category": "other"
+  }
+}

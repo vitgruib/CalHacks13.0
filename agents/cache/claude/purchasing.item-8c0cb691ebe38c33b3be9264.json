@@ -1,0 +1,33 @@
+{
+  "task": "purchasing.item",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T08:19:27.547Z",
+  "input": {
+    "item": "ICAM Annual Conference costs",
+    "price": 23633,
+    "purpose": "Annual conference of the Institute for Complex Adaptive Matter, an ongoing program of the NSF award",
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "verdict": "fine",
+    "why": "",
+    "category": "other"
+  }
+}

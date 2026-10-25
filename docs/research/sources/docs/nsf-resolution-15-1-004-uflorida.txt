@@ -1,0 +1,94 @@
+Title: NSF audit resolution letter, OIG report 15-1-004, University of Florida
+URL: https://nsf-gov-resources.nsf.gov/files/auditrep151004-uflorida.pdf
+Retrieved: 2026-10-25
+Included: full letter (all pages) (text extracted with pdftotext -layout; wording unaltered)
+----------------------------------------------------------------
+            NATIONAL SCIENCE FOUNDATION
+            Division of Institution and Award Support
+
+
+4201 Wilson Boulevard – Suite I-485
+Arlington, VA 22230
+(703) 292-8244
+(703) 292-9171 FAX
+
+
+                                                  September 8, 2015
+
+
+David P. Norton, Ph.D.
+Vice President for Research
+University of Florida
+223 Grinter Hall
+P.O. Box 115500
+Gainesville, FL 32611-5500
+
+
+Re: Resolution of NSF OIG Audit Report No. 15-1-004
+
+
+Dear Dr. Norton:
+
+The National Science Foundation (NSF) has completed its review and resolution of the NSF Office of the
+Inspector General’s (OIG) report on costs incurred under NSF awards by the University of Florida (UF)
+during the period April 1, 2010 to March 31, 2013.
+
+The audit report identified a total of $992,462 in questioned costs claimed on 90 NSF awards. As a
+result of NSF’s audit resolution efforts, including the review and analysis of the applicable federal and
+NSF requirements and documentation provided by the University, NSF has determined to allow
+$868,121 of the costs questioned by the auditors and to sustain and disallow questioned costs in the
+amount of $124,341, as summarized in the table below:
+
+Finding                       Description                     Questioned         Allowed        Sustained
+   1      Exceeded NSF Limits on Senor Salary                  $867,188         $867,188           $0
+   2      Travel and Services Performed After Award            $42,958             $0            $42,958
+          Expiration
+   3      Unsupportable and Unallocable Transactions            $32,822            $0            $32,822
+   4      Unreasonable Equipment Charges                        $27,331           $933           $26,398
+   5      Unallowable Student Advances                          $7,880             $0            $7,880
+   6      Unallowable Meal Expenses and Associated              $7,160             $0            $7,160
+          Services
+   7      Unreasonable Travel Expenses                          $5,495             $0             $5,495
+   8      Foreign Currency Conversion Error                     $1,628             $0             $1,628
+                                                Totals:        $992,462         $868,121         $124,341
+            NATIONAL SCIENCE FOUNDATION
+            Division of Institution and Award Support
+
+
+The NSF management decision for finding number one is based upon the determination that the NSF
+faculty salary compensation policy is budgeting guidance for the preparation and submission of
+proposals. As stated in the NSF “Frequently Asked Questions (FAQs) On Proposal Preparation and Award
+Administration” dated January 2013, awardees “can internally approve an increase or decrease in
+person months devoted to the project after an award is made, even if doing so results in salary support
+for senior personnel exceeding the two month salary rule. No prior approval from NSF is necessary. The
+caveat is if the change would cause the objective or scope of the project to change, then the awardee
+would have to submit an approval request via FastLane.” NSF recently clarified the policy in the latest
+version of the Proposal and Award Policies and Procedures (PAPPG; NSF 15-1).
+
+Based on the above, NSF has determined that the basis for the audit finding misinterprets the NSF
+faculty salary compensation policy, and as a result, does not sustain the finding or the $867,188 in
+questioned costs associated with finding number one.
+
+The sustained costs in the amount of $124,341 are the result of the University’s concurrence with the
+audit findings and the results of the review of information and documentation during resolution of the
+audit report. The University has agreed to repay the entire sustained amount.
+
+NSF has verified that the University has taken action to remove $124,341 in disallowed costs from the
+affected awards identified under findings two though eight. Therefore, NSF considers the OIG audit
+report 15-1-004 resolved and closed.
+
+The University’s timely responses and full cooperation with NSF’s audit resolution process have been
+greatly appreciated. Should you have any questions regarding this letter or NSF’s audit resolution
+process, please contact me at (703) 292-4827.
+
+
+
+                                              Sincerely,
+
+
+
+                                              Rochelle D. Ray
+                                              Rochelle D. Ray, Team Lead
+                                              Cost Analysis and Audit Resolution Branch
+                                              Division of Institution and Award Support
+
