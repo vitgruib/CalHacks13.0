@@ -84,7 +84,7 @@
       "got": "flag",
       "outcome": "caught",
       "notRun": false,
-      "detail": "sources_disagree flag: Sources disagree: NIH RePORTER says active; USAspending says canceled; Cancellation list (Apify) says restored_by_court. Sent to the Inbox. Grant frozen."
+      "detail": "sources_disagree flag: Sources disagree: NIH RePORTER says active; USAspending says canceled; Cancellation list (Apify) says restored by court. Sent to the Inbox. Grant frozen."
     },
     {
       "id": "ft-2",
@@ -429,7 +429,7 @@
       "ft-1": {
         "got": "flag",
         "outcome": "caught",
-        "detail": "sources_disagree flag: Sources disagree: NIH RePORTER says active; USAspending says canceled; Cancellation list (Apify) says restored_by_court. Sent to the Inbox. Grant frozen."
+        "detail": "sources_disagree flag: Sources disagree: NIH RePORTER says active; USAspending says canceled; Cancellation list (Apify) says restored by court. Sent to the Inbox. Grant frozen."
       },
       "ft-2": {
         "got": "flag",
