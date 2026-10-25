@@ -2,7 +2,7 @@
 // paused grant opens as a parcel-style tracker: where its money is and what's next.
 import { useEffect, useState } from 'react'
 import { useStore } from '../data/store'
-import type { Db, Grant, StatusEvent } from '../data/types'
+import type { Db, Grant, SourceReading, StatusEvent } from '../data/types'
 import { SIM_NOTE, daysLeft, grantHeading, inTime, longDate, monthYear, paused, shortName, spendable } from '../plain'
 import { money } from '../ui'
 import MoneyCharts from '../charts/MoneyCharts'
@@ -19,9 +19,14 @@ const useSubId = () => {
   return id
 }
 
-interface Step { title: string; note: string; state: 'done' | 'now' | 'next' }
+interface Step { title: string; note: string; state: 'done' | 'now' | 'next'; checks?: string[]; unsure?: string }
 
 const sum = (evs: StatusEvent[]) => evs.reduce((s, e) => s + (e.kind === 'payment_received' ? e.amount ?? 0 : 0), 0)
+
+/** "NIH RePORTER: RePORTER shows the project as terminated." — the check behind a step. */
+const check = (e: StatusEvent) => `${e.source}: ${e.summary}`
+
+const READING: Record<string, string> = { active: 'active', canceled: 'canceled', restored_by_court: 'restored by a court', ended: 'ended' }
 
 /** The grant's story from its status events; undefined if it was never stopped. */
 export function trackerSteps(db: Db, g: Grant): Step[] | undefined {
@@ -35,18 +40,31 @@ export function trackerSteps(db: Db, g: Grant): Step[] | undefined {
   const steps: Step[] = [{ title: 'Grant running normally', note: `${monthYear(g.start)} to ${monthYear(evs[stop].day)} · ${money(sum(evs.slice(0, stop)))} arrived`, state: 'done' }]
   let last = ''
   for (const e of evs.slice(stop)) {
-    if (e.kind === last && e.kind === 'canceled') continue // a second source reporting the same stop
+    if (e.kind === last && e.kind === 'canceled') { steps[steps.length - 1].checks!.push(check(e)); continue } // a second source confirming the same stop
     last = e.kind
     const when = longDate(e.day)
-    if (e.kind === 'canceled') steps.push({ title: 'The government stopped the grant', note: `${when} · All buying on this grant paused`, state: 'done' })
-    else if (e.kind === 'court_order') steps.push({ title: 'A court brought it back', note: `${when} · Good news, but a court order isn't money`, state: 'done' })
-    else if (e.kind === 'payment_received') steps.push({ title: `Money arrived: ${money(e.amount ?? 0)}`, note: when, state: 'done' })
-    else if (e.kind === 'unfrozen') steps.push({ title: 'You can buy on it again', note: when, state: 'done' })
+    if (e.kind === 'canceled') steps.push({ title: 'The government stopped the grant', note: `${when} · All buying on this grant paused`, state: 'done', checks: [check(e)] })
+    else if (e.kind === 'court_order') steps.push({ title: 'A court brought it back', note: when, state: 'done', checks: [check(e)] })
+    else if (e.kind === 'payment_received') steps.push({ title: `Money arrived: ${money(e.amount ?? 0)}`, note: when, state: 'done', checks: [check(e)] })
+    else if (e.kind === 'unfrozen') steps.push({ title: 'You can buy on it again', note: when, state: 'done', checks: [check(e)] })
   }
   if (paused(g)) {
-    steps.push(g.status === 'restored_by_court'
-      ? { title: 'You are here: waiting for the money', note: 'We check every source each day and will show it here the moment a payment lands.', state: 'now' }
-      : { title: 'You are here: stopped for now', note: 'Waiting for a court decision or a payment. We check every source each day.', state: 'now' })
+    // Today's check: each source's latest reading, plus any open flag on the grant.
+    const latest = new Map<string, SourceReading>()
+    for (const r of db.sourceReadings) if (r.grantId === g.id && (latest.get(r.source)?.day ?? '') <= r.day) latest.set(r.source, r)
+    const flags = db.flags.filter(f => f.grantId === g.id && f.open)
+    const disagree = flags.find(f => f.kind === 'sources_disagree')
+    const readings = new Set([...latest.values()].map(r => r.status))
+    steps.push({
+      title: g.status === 'restored_by_court' ? 'You are here: waiting for the money' : 'You are here: stopped for now',
+      note: g.frozenReason ?? '',
+      state: 'now',
+      checks: [
+        ...[...latest.values()].map(r => `${r.source}: ${READING[r.status] ?? r.status} (${longDate(r.day)})`),
+        ...flags.filter(f => f !== disagree).map(f => f.summary),
+      ],
+      unsure: disagree?.summary ?? (readings.size > 1 ? "The sources don't agree on this grant's status today." : undefined),
+    })
     steps.push({ title: 'Money arrives, you can buy again', note: 'Anything you asked for in the meantime gets bought then', state: 'next' })
   }
   return steps
@@ -65,7 +83,6 @@ function Tracker({ db, g, steps }: { db: Db; g: Grant; steps: Step[] }) {
         <div>
           <p className="gr-kicker">{grantHeading(g)}</p>
           <h1>{headline}</h1>
-          <p className="gr-lede">Like tracking a parcel: here's every step, and what happens next.</p>
         </div>
         <ol className="gr-steps">
           {steps.map((s, i) => (
@@ -76,7 +93,13 @@ function Tracker({ db, g, steps }: { db: Db; g: Grant; steps: Step[] }) {
               </span>
               <div className="gr-text">
                 <p className="gr-title">{s.title}</p>
-                <p className="gr-note">{s.note}</p>
+                {s.note && <p className="gr-note">{s.note}</p>}
+                {s.unsure && <p className="gr-unsure"><span className="gr-unsure-tag">Unsure</span> {s.unsure}</p>}
+                {s.checks && s.checks.length > 0 && (
+                  <ul className="gr-checks" aria-label="Checks">
+                    {s.checks.map((c, j) => <li key={j}>{c}</li>)}
+                  </ul>
+                )}
               </div>
             </li>
           ))}
