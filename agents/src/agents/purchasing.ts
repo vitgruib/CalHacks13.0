@@ -535,8 +535,8 @@ export function startPurchasing({
     return by === 'fallback' ? undefined : { measurable: value.measurable, how: value.how.slice(0, 200) };
   }
 
-  // A light look before the agent buys alone, or promises to (T86). A purpose
-  // that is plainly not research is held; a kind of thing that looks wrong is
+  // A light look before the agent buys alone, or promises to (T86). A request
+  // that doesn't show a research use is held; a kind of thing that looks wrong is
   // held only when the rules would answer differently for the one it looks
   // like. With no Claude answer, nothing is held.
   async function concernOf(request: RequestRow, decision: Decision, split: Split[]): Promise<{ reason: HoldReason; note: string } | undefined> {
