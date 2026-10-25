@@ -21,6 +21,7 @@ import { OfficePlinth } from './Office'
 import { NET, OPENING, PAL, haloSize, heroFor, netAnchor, netFloor, type Framing } from './layout'
 import { fx, pinnedQuality, pointer, reducedMotion, ui } from './store'
 import { grantStatus, nodeName, nodeNow } from './words'
+import { ZoneCard } from './zones'
 import './scene.css'
 
 function Backdrop() {
@@ -569,6 +570,7 @@ export default function Scene() {
         <Effects />
       </Canvas>
       <HoverCard />
+      <ZoneCard />
     </>
   )
 }

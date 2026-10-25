@@ -13,6 +13,7 @@ import { LAB_BOX, LAB_X, PAL, type V3 } from './layout'
 import { CLAY, M, SHEEN } from './mats'
 import { Researchers } from './People'
 import { fx, reducedMotion } from './store'
+import { Zone } from './zones'
 
 const PI = Math.PI
 const FLOOR = '#E3DDD2'
@@ -464,6 +465,7 @@ export function LabPlinth() {
       <mesh geometry={g.glass} material={M.window} renderOrder={2} />
       <Equipment />
       <Researchers />
+      <Zone id="lab" geo={g.clay} />
     </group>
   )
 }

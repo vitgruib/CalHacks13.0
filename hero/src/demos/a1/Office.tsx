@@ -29,6 +29,7 @@ import { GrantManagerFigure } from './People'
 import { Pick } from './Parts'
 import { GLOW } from './routes'
 import { fx, now, reducedMotion, ui } from './store'
+import { Zone } from './zones'
 
 const PI = Math.PI
 const POD = '#D6CDBF'
@@ -570,6 +571,7 @@ export function OfficePlinth() {
       <Pick id="p:funder">
         <mesh geometry={vendorHit} material={hitMat} position={[FUNDER[0], FUNDER[1] + 0.2, FUNDER[2]] as V3} />
       </Pick>
+      <Zone id="net" geo={geo} />
     </group>
   )
 }

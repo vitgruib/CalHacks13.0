@@ -4,8 +4,12 @@
 import type { ThreeEvent } from '@react-three/fiber'
 import type { ReactNode } from 'react'
 import { pointer, selectNode, ui } from './store'
+import { useZones } from './zones'
 
 export function Pick({ id, children }: { id: string; children: ReactNode }) {
+  // Zone mode (the landing): the whole plinth is the target, so single nodes neither hover nor select.
+  const zoned = useZones()
+  if (zoned) return <group>{children}</group>
   const over = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation()
     pointer.id = id
