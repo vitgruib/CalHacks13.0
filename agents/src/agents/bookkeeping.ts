@@ -76,10 +76,12 @@ export function startTracker(
     return run;
   };
 
+  // An id is mentioned as a whole word, so o1 isn't found in a flag about o12.
+  const mentions = (summary: string, id: string) => summary.split(/[^\w-]+/).includes(id);
   const openFlag = (grantId: string, kind: string, mentioning?: string) =>
     conn
       .rows('flag')
-      .some((flag) => flag.grantId === grantId && flag.kind === kind && flag.open && (!mentioning || flag.summary.includes(mentioning)));
+      .some((flag) => flag.grantId === grantId && flag.kind === kind && flag.open && (!mentioning || mentions(flag.summary, mentioning)));
 
   async function record(reading: Reading) {
     const previous = latestReadings(conn, reading.grantId).find((r) => r.source === reading.source);

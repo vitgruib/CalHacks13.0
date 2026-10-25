@@ -271,6 +271,28 @@ test('canceling_a_grant_after_the_days_purchases_flags_none_of_them', async () =
   assert.deepEqual(spent(), before, 'bought before the cancellation, so not spent while canceled');
 });
 
+// o12's flag is already open when o1 is checked (here, from the world as
+// loaded): it mentions o12, not o1.
+test('an_order_whose_id_is_part_of_another_s_is_flagged_on_its_own', async () => {
+  const placed = (id: string, day: string) => ({ id, requestId: `rq-${id}`, grantId: TEST_GRANT, vendor: 'Test Vendor', amount: 100, placed: day, state: 'open' });
+  world = await startWorld({
+    seedJson: oneGrantSeed({
+      statusEvents: [{ grantId: TEST_GRANT, day: '2026-06-01', kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Terminated.' }],
+      orders: [placed('o12', '2026-06-05'), placed('o1', '2026-06-10')],
+      flags: [{
+        id: 'f-12', grantId: TEST_GRANT, day: '2026-06-05', kind: 'spend_while_canceled', open: true,
+        summary: `rq-o12 / o12: $100 to Test Vendor on 2026-06-05, 4 days after ${TEST_GRANT} was canceled (2026-06-01), with no payment since.`,
+      }],
+    }),
+  });
+  const summaries = world.worker.sessions.bookkeeping
+    .rows('flag')
+    .filter((flag) => flag.kind === 'spend_while_canceled' && flag.open)
+    .map((flag) => flag.summary);
+  assert.ok(summaries.some((summary) => summary.startsWith('rq-o12 / o12:')), summaries.join('\n'));
+  assert.ok(summaries.some((summary) => summary.startsWith('rq-o1 / o1:')), summaries.join('\n'));
+});
+
 // ── The planted cases (sim/answer-key.json) ────────────────────────────────
 
 test('ft_1_today_s_readings_disagree_so_a_flag_and_an_inbox_item_are_raised', async () => {
