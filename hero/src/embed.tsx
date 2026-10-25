@@ -69,10 +69,11 @@ function Still({ go }: { go: (role?: Role) => void }) {
         </div>
         <div className="a-embed-copy">
           <header className="a-embed-head">
-            <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
-            <p className="a-lede">A still of the simulated lab. Three AI agents check every request against the real spending rules, and the grant manager decides the exceptions.</p>
+            <h1>GrantGuard</h1>
+            <p className="a-embed-sub">An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
+            <p className="a-lede">A still of the simulated lab; the spending rules are the real ones.</p>
             <p className="a-embed-prompt">
-              <span className="a-verb-mouse">Select</span>
+              <span className="a-verb-mouse">Choose</span>
               <span className="a-verb-touch">Tap</span> the{' '}
               <button type="button" className="a-embed-way" aria-label="Research lab: open the research portal" onClick={() => go('researcher')}>
                 research lab
@@ -80,8 +81,8 @@ function Still({ go }: { go: (role?: Role) => void }) {
               or the{' '}
               <button type="button" className="a-embed-way" aria-label="Grant manager network: open the grant manager portal" onClick={() => go('grant_office')}>
                 grant manager network
-              </button>
-              .
+              </button>{' '}
+              to enter.
             </p>
           </header>
         </div>

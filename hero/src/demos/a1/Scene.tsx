@@ -507,12 +507,13 @@ function Warm() {
 }
 
 /**
- * Embedded, the copy runs across the stage's top (Hud.tsx EmbedHud). This
- * measures the band it takes into layout's `clearing` before the Rig reads its
- * first framing, so the scene opens already fitted under the copy, then slides
- * the picture down by half the band so the scene fills the rest of the stage.
+ * Embedded, the copy sits in the sky above the scene (Hud.tsx EmbedHud). This
+ * measures how far down it reaches into layout's `clearing` before the Rig
+ * reads its first framing, so the scene opens already fitted under the copy,
+ * then slides the picture down until the scene sits on the stage's bottom edge.
  */
 const CLEAR_GAP = 24
+const BOTTOM_PAD = 0.03
 function Clearing() {
   const { gl, camera } = useThree()
   const on = useEmbed(s => s.on)
@@ -544,7 +545,13 @@ function Clearing() {
   useFrame(({ size }) => {
     const a = applied.current
     const x = Math.round(clearing.left / 2)
-    const y = Math.round(clearing.top / 2)
+    let y = 0
+    if (on) {
+      // Bottom-anchored: the scene's lowest edge a hair above the stage's, never up under the copy.
+      const H = size.height
+      const f = heroFor(size.width / Math.max(1, H)).fill
+      y = Math.round(Math.min(H / 2 - (f * H) / 2, Math.max(clearing.top - H / 2 + (f * H) / 2, H / 2 - (f * H) / 2 - BOTTOM_PAD * H)))
+    }
     if (a.w === size.width && a.h === size.height && a.x === x && a.y === y) return
     Object.assign(a, { w: size.width, h: size.height, x, y })
     const cam = camera as PerspectiveCamera

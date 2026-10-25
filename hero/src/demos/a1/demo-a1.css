@@ -1444,7 +1444,7 @@
 }
 .demo-a1 .a-embed-copy {
   position: absolute;
-  top: clamp(22px, 4.5vh, 52px);
+  top: clamp(20px, 4vh, 44px);
   right: 5%;
   left: 5%;
   z-index: 4;
@@ -1454,37 +1454,39 @@
 .demo-a1 .a-embed-copy > * {
   pointer-events: auto;
 }
-.demo-a1 .a-embed-head {
-  flex: none;
-}
 .demo-a1 .a-embed-head h1 {
   font-family: var(--display);
-  font-stretch: 110%;
-  font-weight: 660;
-  font-size: clamp(32px, min(4.1vw, 6.4vh), 64px);
-  line-height: 1.02;
+  font-stretch: 112%;
+  font-weight: 720;
+  font-size: clamp(36px, 4.5vw, 64px);
+  line-height: 1;
   letter-spacing: -0.035em;
   color: var(--ink);
+}
+.demo-a1 .a-embed-sub {
+  margin-top: 10px;
+  font-size: clamp(17px, 1.3vw, 19px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ink-2);
   text-wrap: balance;
 }
 .demo-a1 .a-embed-head .a-lede {
-  max-width: 64ch;
-  margin: 14px auto 0;
-  font-size: clamp(15px, 1.15vw, 17px);
-  line-height: 1.5;
+  margin-top: 4px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ink-3);
+}
+/* The prompt: an italic sentence with the two ways in standing upright in it. */
+.demo-a1 .a-embed-prompt {
+  margin-top: 16px;
+  font-size: clamp(18px, 1.4vw, 20px);
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--ink);
   text-wrap: balance;
 }
-.demo-a1 .a-embed-prompt {
-  margin-top: 18px;
-  font-family: var(--display);
-  font-size: clamp(22px, 2.1vw, 30px);
-  font-weight: 600;
-  line-height: 1.6;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-  text-wrap: pretty;
-}
-/* "Hover over and select" for a mouse, "Tap" for a finger. */
+/* "Hover over … then click" for a mouse, "Tap" for a finger. */
 .demo-a1 .a-verb-touch {
   display: none;
 }
@@ -1496,17 +1498,20 @@
     display: inline;
   }
 }
-/* The two phrases are buttons dressed as emphasis: ink pills that turn cobalt
-   while their side of the scene is lit, from here or from the scene. */
+/* The two phrases are buttons dressed as emphasis: compact ink pills that turn
+   cobalt while their side of the scene is lit, from here or from the scene. */
 .demo-a1 .a-embed-way {
   display: inline-block;
-  padding: 1px 11px 4px;
+  padding: 1px 8px 2px;
   border: 0;
-  border-radius: 8px;
+  border-radius: 6px;
   background: var(--ink);
   color: var(--on-slate);
   font: inherit;
-  line-height: 1.3;
+  font-size: 0.9em;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.4;
   white-space: nowrap;
   cursor: pointer;
   transition: background-color 150ms ease-out;
@@ -1533,23 +1538,20 @@
 
 @media (max-width: 759px) {
   .demo-a1 .a-embed-copy {
-    top: 16px;
+    top: 18px;
     right: 16px;
     left: 16px;
   }
-  .demo-a1 .a-embed-head h1 {
-    font-size: 24px;
-    line-height: 1.08;
-    letter-spacing: -0.025em;
+  .demo-a1 .a-embed-sub {
+    margin-top: 8px;
+    font-size: 15px;
   }
   .demo-a1 .a-embed-head .a-lede {
-    margin-top: 8px;
-    font-size: 13.5px;
-    line-height: 1.45;
+    font-size: 12.5px;
   }
   .demo-a1 .a-embed-prompt {
     margin-top: 12px;
-    font-size: 20px;
+    font-size: 16px;
     line-height: 1.55;
   }
 }

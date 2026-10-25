@@ -261,6 +261,8 @@ export interface Framing {
   pos: Vector3
   target: Vector3
   fov: number
+  /** How much of the view's height the scene spans, 0 to 1. */
+  fill: number
 }
 
 const FIT: V3[] = [
@@ -305,7 +307,13 @@ function fit(dir: Vector3, fov: number, aspect: number, margin: number, share = 
     }
     d = need
   }
-  return { pos: target.clone().addScaledVector(dir, d), target, fov }
+  let y0 = Infinity, y1 = -Infinity
+  for (const p of FIT) {
+    _q.set(p[0], p[1], p[2]).sub(target)
+    const y = _q.dot(_u) / (d + _q.dot(_f))
+    y0 = Math.min(y0, y); y1 = Math.max(y1, y)
+  }
+  return { pos: target.clone().addScaledVector(dir, d), target, fov, fill: (y1 - y0) / (2 * Math.tan(((fov / 2) * Math.PI) / 180)) }
 }
 
 const WIDE_DIR = new Vector3(-0.47, 0.72, 0.6).normalize()

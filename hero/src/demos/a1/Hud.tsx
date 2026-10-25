@@ -262,8 +262,8 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
 
 /**
  * Inside another page (embed.ts) the dashboard steps aside and the scene takes
- * the whole box: the headline, one line and a prompt run across its top
- * (Scene.tsx fits the scene under them). The way in is the scene itself;
+ * the whole box: the name, one line on the product, one on the replay and a
+ * prompt sit in the sky over it (Scene.tsx fits the scene under them). The way in is the scene itself;
  * the prompt's two phrases are the same two ways in for keys, screen readers
  * and anyone who would rather not aim, and they light their side of the scene.
  */
@@ -271,12 +271,15 @@ export function EmbedHud({ root }: { root: RefObject<HTMLDivElement | null> }) {
   return (
     <div className="a-embed-copy" data-float="embed-copy">
       <header className="a-embed-head">
-        <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
-        <p className="a-lede">A simulated lab, replaying a scripted story; the spending rules are the real ones. Three AI agents check every request, and the grant manager decides the exceptions.</p>
+        <h1>GrantGuard</h1>
+        <p className="a-embed-sub">An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
+        <p className="a-lede">A simulated lab replaying a scripted story; the spending rules are the real ones.</p>
         <p className="a-embed-prompt">
-          <span className="a-verb-mouse">Hover over and select</span>
+          <span className="a-verb-mouse">Hover over</span>
           <span className="a-verb-touch">Tap</span> the <Way id="lab" label="Research lab: open the research portal">research lab</Way> or the{' '}
-          <Way id="net" label="Grant manager network: open the grant manager portal">grant manager network</Way>.
+          <Way id="net" label="Grant manager network: open the grant manager portal">grant manager network</Way>
+          <span className="a-verb-mouse">, then click to enter</span>
+          <span className="a-verb-touch"> to enter</span>.
         </p>
       </header>
       <RootSync root={root} phone={false} />
