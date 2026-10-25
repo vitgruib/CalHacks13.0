@@ -11,6 +11,7 @@ import { demoSubmissions } from './demo'
 import { AuditTrail, BudgetCard, FindingList, OpenInvoice, StatusBadge } from './Findings'
 import { ledgerEntry, parseAmount, purchaseOrders, type Status, type Submission } from './model'
 import { useSubmissionActions, useSubmissions } from './store'
+import { openHolds } from '../windows/Inbox'
 
 type Choice = 'approve' | 'reject'
 const OFFICE = 'Grant manager'
@@ -121,11 +122,14 @@ export default function Office({ db }: { db: Db }) {
   const sentReal = stored.filter(s => s.status === 'ready' || s.status === 'exception' || s.status === 'escalated')
   const rejectedReal = stored.filter(s => s.status === 'rejected' || s.status === 'clarification')
   const approvedReal = stored.filter(s => s.status === 'approved')
-  const bills = (...states: Db['invoices'][number]['state'][]) => db.invoices.filter(i => states.includes(i.state))
+  // A module invoice with an open item from the bookkeeping agent waits for the grant office, held or matched.
+  const waiting = new Set(openHolds(db, 'invoice').map(h => h.refId))
+  const sentBills = db.invoices.filter(i => waiting.has(i.id))
+  const bills = (...states: Db['invoices'][number]['state'][]) => db.invoices.filter(i => !waiting.has(i.id) && states.includes(i.state))
   const rejectedBills = bills('held', 'rejected'), approvedBills = bills('matched', 'paid')
 
   const lists: Record<View, { subs: Submission[]; bills: Db['invoices'] }> = {
-    sent: { subs: [...sentReal, ...top(sentReal.length, demo.action.filter(s => s.status === 'exception'))], bills: [] },
+    sent: { subs: [...sentReal, ...top(sentReal.length + sentBills.length, demo.action.filter(s => s.status === 'exception'))], bills: sentBills },
     rejected: { subs: [...rejectedReal, ...top(rejectedReal.length + rejectedBills.length, demo.denied)], bills: rejectedBills },
     approved: { subs: [...approvedReal, ...top(approvedReal.length + approvedBills.length, demo.approved)], bills: approvedBills },
   }
@@ -148,7 +152,7 @@ export default function Office({ db }: { db: Db }) {
     <li key={i.id} className="iv-card" data-status={i.state === 'held' ? 'exception' : i.state === 'rejected' ? 'rejected' : 'approved'}>
       <header>
         <strong>{i.vendor}</strong><span className="iv-amt">{money(i.amount)}</span>
-        <Badge tone={i.state === 'held' || i.state === 'rejected' ? 'bad' : 'good'}>{i.state === 'held' ? 'Held for review' : i.state === 'rejected' ? 'Rejected' : i.state === 'paid' ? 'Paid' : 'Matched, ready to pay'}</Badge>
+        <Badge tone={i.state === 'held' || i.state === 'rejected' ? 'bad' : waiting.has(i.id) ? 'warn' : 'good'}>{i.state === 'held' ? 'Held for review' : i.state === 'rejected' ? 'Rejected' : i.state === 'paid' ? 'Paid' : waiting.has(i.id) ? 'Matched, waiting for approval' : 'Matched, ready to pay'}</Badge>
         <OpenInvoice id={i.id} vendor={i.vendor} />
       </header>
       <p className="iv-note">Bookkeeping agent · received {i.received}</p>

@@ -135,7 +135,7 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
         {daysLeft >= 0 && daysLeft <= 90 && <> <Badge tone="warn">last 90 days</Badge></>}
       </p>
 
-      {g.status !== 'ended' && (g.frozen || g.status !== 'active' || holds.length > 0
+      {g.status !== 'ended' && (g.frozen || settable(g) !== 'active' || holds.length > 0
         ? <GrantStatusPanel key={`${g.status}-${g.frozen}`} db={db} g={g} holds={holds} />
         : <details className="funds-status-change"><summary>Change status</summary><GrantStatusPanel key={g.status} db={db} g={g} holds={holds} /></details>)}
       {decided.map(h => (
@@ -152,6 +152,9 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
 }
 
 const SETTABLE: SettableStatus[] = ['active', 'restored_by_court', 'canceled']
+// The adapter shows an open grant that money reached after a court order as
+// 'restored_by_court' with frozen false ("Active (Restored by court)"): set Active.
+const settable = (g: Grant) => (g.status === 'restored_by_court' && !g.frozen ? 'active' : g.status)
 const statusEffect: Record<SettableStatus, string> = {
   active: 'Spending open for researchers.',
   restored_by_court: 'Spending paused until the money arrives.',
@@ -164,7 +167,7 @@ const statusEffect: Record<SettableStatus, string> = {
  *  (sources disagreeing, money arriving while canceled), shown above it. */
 function GrantStatusPanel({ db, g, holds }: { db: Db; g: Grant; holds: Hold[] }) {
   const { setGrantStatus } = useStore()
-  const current = SETTABLE.find(s => s === g.status)
+  const current = SETTABLE.find(s => s === settable(g))
   const [status, setStatus] = useState<SettableStatus | ''>(current ?? '')
   const [reason, setReason] = useState('')
   const id = useId()

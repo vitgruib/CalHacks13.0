@@ -6,6 +6,7 @@ import { useContext } from 'react'
 import type { Db } from '../data/types'
 import { ResearcherContext } from '../people'
 import { Badge, money } from '../ui'
+import { HoldCard, openHolds } from '../windows/Inbox'
 import { demoSubmissions } from './demo'
 import { AuditTrail, StatusBadge } from './Findings'
 import { parseAmount } from './model'
@@ -37,6 +38,8 @@ export default function InvoicePage({ db, id }: { db: Db; id: string }) {
   if (bill) {
     const order = db.orders.find(o => o.id === bill.orderId)
     const approval = db.approvals.find(a => a.orderId === bill.orderId)
+    // The bookkeeping agent's item for this invoice (matched or held): the grant office decides it here.
+    const hold = openHolds(db, 'invoice').find(h => h.refId === bill.id)
     return (
       <div className="iv iv-page">
         {back}
@@ -46,6 +49,7 @@ export default function InvoicePage({ db, id }: { db: Db; id: string }) {
         </header>
         <p className="iv-note">Invoice {bill.id}, received {bill.received}, checked by the bookkeeping agent</p>
         {bill.mismatch && <p className="iv-warnbox"><strong>Mismatch:</strong> {bill.mismatch}</p>}
+        {hold && (researcher ? <p className="iv-note">Waiting for the grant manager to decide.</p> : <HoldCard key={hold.id} hold={hold} embedded />)}
         <div className="iv-sbs">
           <div className="iv-panel">
             <h3 className="iv-h3">Invoice</h3>

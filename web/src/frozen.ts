@@ -15,16 +15,21 @@ export function whyFrozen(db: Db, g: Grant): FreezeCause[] {
   const out: FreezeCause[] = []
 
   // A cancellation with no payment (or manager unfreeze) after it.
-  const events = db.statusEvents
+  const history = db.statusEvents
     .map((e, i) => ({ e, i }))
     .filter(x => x.e.grantId === g.id)
     .sort((a, b) => a.e.day.localeCompare(b.e.day) || a.i - b.i)
-    .map(x => x.e.kind)
+    .map(x => x.e)
+  const events = history.map(e => e.kind)
   const canceledAt = events.lastIndexOf('canceled')
   const after = events.slice(canceledAt + 1)
   const paidUnrestored = canceledAt >= 0 && g.status === 'canceled' && after.includes('payment_received') && !after.includes('unfrozen')
+  // Set Inactive on its Funds card: money that came before doesn't matter (Reinstated logs a court order after it).
+  const setInactive = canceledAt >= 0 && history[canceledAt].source === 'Grant office' && !after.includes('court_order')
   if (paidUnrestored) {
     out.push({ kind: 'other', text: 'money arrived, but nothing has restored the grant (it may be closeout money); the grant manager decides on its Funds card' })
+  } else if (setInactive) {
+    out.push({ kind: 'other', text: 'the grant manager set it inactive' })
   } else if (canceledAt >= 0 && !after.some(k => k === 'payment_received' || k === 'unfrozen')) {
     out.push({
       kind: 'payment',
@@ -35,7 +40,7 @@ export function whyFrozen(db: Db, g: Grant): FreezeCause[] {
   }
 
   const holds = db.holds.filter(h => h.grantId === g.id && h.kind === 'source_disagreement' && !h.decision)
-  for (const h of holds) out.push({ kind: 'source', text: `pick a source on its Funds card (${h.title})` })
+  if (holds.length > 0) out.push({ kind: 'source', text: 'the sources disagree (set its status on its Funds card)' })
   if (holds.length === 0 && db.flags.some(f => f.grantId === g.id && f.open && f.kind === 'sources_disagree')) {
     out.push({ kind: 'source', text: 'the sources disagree, and the grant manager has to decide' })
   }
