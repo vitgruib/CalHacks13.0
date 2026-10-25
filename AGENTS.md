@@ -171,9 +171,9 @@ busiest lane, with that owner's OK.
 - **Keep the Rules page current.** The grant office's Rules page
   (`web/src/windows/Rules.tsx`, `#rules`) lists every check a purchase
   request goes through. When you add, remove or change one (a spending rule
-  in `server/src/rules.ts`, a limit in `vocab.ts`, or a purchasing-agent or
-  item check in `agents/`: what it checks, a threshold, or what happens when
-  it fails), update that page in the same commit, whichever lane you're in.
+  in `server/src/rules.ts`, a limit in `vocab.ts`, or an agent check such as
+  the item check in `agents/`: what it checks, a threshold, or what happens
+  when it fails), update that page in the same commit, whichever lane you're in.
 - **Talk on the whiteboard** (`whiteboard/`). Start a thread, naming who
   you need in `Asks:`, when you're about to make a choice another lane will
   live with, when you disagree with how something works, or when you're
