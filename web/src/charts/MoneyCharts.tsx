@@ -11,9 +11,9 @@ import RunwayChart from './Runway'
 import { runway } from './spending'
 
 /** Where a grant's details open: its own page, in a new tab. */
-export const detailUrl = (grantId: string, what: Segment | 'history') => `#detail/${encodeURIComponent(grantId)}/${what}`
+export const detailUrl = (grantId: string, what: Segment | 'history' | 'all') => `#detail/${encodeURIComponent(grantId)}/${what}`
 /** A new browser tab on the details page; if the browser blocks it, open it in this tab instead. */
-function openTab(hash: string) {
+export function openTab(hash: string) {
   const url = `${location.origin}${location.pathname}${location.search}${hash}`
   const tab = window.open(url, '_blank')
   if (!tab) location.hash = hash
