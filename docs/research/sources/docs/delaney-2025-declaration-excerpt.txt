@@ -1,0 +1,177 @@
+Declaration of Scott Delaney, Exhibit 27, Document 38-27, filed 04/25/25,
+APHA et al. v. NIH et al., No. 1:25-cv-10787-BEM (D. Mass.).
+Source: https://assets.aclu.org/live/uploads/2025/05/038-27-Exhibit-27-Declaration-of-Scott-Delaney.pdf
+Fetched 2026-10-24; text extracted with pdftotext -layout. Paragraphs 4-9 and 14 (excerpt), verbatim.
+Interested source: sworn declaration filed for the plaintiffs.
+
+   4.   In early March 2025, I read news articles reporting that political appointees within the
+
+Department of Health and Human Services (HHS)—either at NIH or elsewhere—were directing
+
+NIH to terminate certain research grants. These news articles reported that NIH was specifically
+
+targeting grants addressing transgender issues or “diversity, equity, and inclusion” (DEI) topics,
+
+but those terms were never defined in the press. Importantly, news articles contained little detail
+
+on specific examples of terminated grants, and it was not publicly known how many grants had
+
+been terminated, which grants had been targeted for termination, or the exact reasons that the
+
+grants were being terminated beyond the nominal excuses noted above. This lack of government
+
+transparency raised challenges for the health science research community.
+
+   5. On March 7, 2025, I created an online spreadsheet using Google Sheets to track news
+
+reports of specific terminated NIH grants. The first version of the Google Sheet included three
+
+columns of information for each terminated NIH grant, including the grant’s title and type (e.g.,
+
+R01, etc.), and the NIH institute or center (IC) that had funded the grant. Because news reports
+
+were scarce, I also sought to crowd-source information on terminated grants. To that end, I
+
+
+
+                                                 2
+     Case 1:25-cv-10787-BEM           Document 38-27         Filed 04/25/25       Page 4 of 83
+
+
+
+
+posted a message and link to the Google Sheet on Bluesky, a social media platform commonly
+
+used by academic researchers, asking the Bluesky community to add any information about
+
+terminated grants they knew about to the Google Sheet.
+
+   6. In the ensuing 1-2 weeks, I received multiple user-submitted entries of terminated grants,
+
+which I attempted to verify manually using data from NIH RePORTER, a searchable online
+
+database of NIH grants, and by emailing affected PIs. I also began tracking a larger number of
+
+characteristics about each terminated grant, and I expanded the number of internet sources I used
+
+to find evidence of terminated grants. In mid-March, the website for the HHS Tracking
+
+Accountability in Government Grants System (TAGGS), published for the first time a short PDF
+
+list of grants that NIH had terminated. The list, however, was both incomplete (i.e., it did not list
+
+all grants that had been terminated at that time) and somewhat inaccurate (i.e., it listed some
+
+grants twice and appeared to include a grant that had not yet been terminated).
+
+   7. As a result, I attempted to manually verify information in this HHS TAGGS PDF
+
+document to the greatest extent possible, and I used it to supplement information gleaned from
+
+news reports, user submissions, Doge.gov, and other internet sources. As the Google Sheet of
+
+terminated grants grew, I began to publicize it more broadly via emails to my professional
+
+network and through frequent posts about it on Bluesky. In response to these efforts, I received
+
+suggestions to meet with many other researchers who either had their grants terminated or were
+
+interested in the terminated grant tracking effort. One such researcher was Dr. Noam Ross of
+
+rOpenSci.
+
+   8. At the same time that I was building out the public-facing Google Sheet and crowd-
+
+sourcing information about terminated grants, Dr. Ross was engaged in an independent effort to
+
+scour federal databases, including NIH RePORTER, USASpending.gov, and the HHS TAGGS
+
+
+
+                                                  3
+     Case 1:25-cv-10787-BEM           Document 38-27        Filed 04/25/25      Page 5 of 83
+
+
+
+
+system, for evidence of terminated grants. These systems track government accounting actions
+
+related to grants, including changes to government financial outlays (i.e., payments) for grants.
+
+Thus, for example, if Dr. Ross observed on USASpending.gov that the budget for a specific
+
+grant was prematurely changed to $0, he used that information as one piece of evidence that the
+
+grant may have been prematurely terminated. These federal databases, while technically public,
+
+are difficult to access and interpret. Dr. Ross’ efforts to combine and organize evidence of grant
+
+terminations from these sources was highly complementary to my news- and crowd-sourced
+
+evidence. In mid-March, we met virtually and agreed to combine our efforts to form the current
+
+iteration of our terminated grant tracking platform. Thus, all counts of terminated grants set forth
+
+in this Declaration—as well as the underlying database of terminated grants that we have built
+
+together—result from our combined efforts.
+
+   9. Data in our database of terminated grants come from several sources. Among them are
+
+affected Principal Investigators (i.e., scientists), who we encourage to submit information on
+
+their terminated grants using a Google Form, which we have designed and published specifically
+
+for this purpose. We also aggregate data from news reports, social media, Doge.gov,
+
+USASpending.gov, NIH's X feed, NIH RePORTER, and the HHS TAGGS system. The HHS
+
+TAGGS system provides data in two ways. First, it details grant-based financial transactions
+
+with information that is updated at least daily. Second, TAGGS administrators periodically
+
+(~1/week) release a PDF list of terminated grants. The TAGGS PDF list is one source of
+
+information in our database among several. Because we aggregate from multiple sources, our
+
+database includes grants not yet listed on federal government websites, including the HHS
+
+TAGGS PDF of terminated grants, and we believe it is the most comprehensive, up-to-date
+
+resource currently available that quantifies and characterizes terminated grants.
+
+
+of social support, education, and school-based mental health interventions.
+
+   14. I also sought to quantify the financial impact of terminating these grants using grant-
+
+specific budgetary data from USASpending.gov, TAGGS, and NIH RePORTER. These systems
+
+report detailed information on financial budgets and outlays for all NIH grants, including the
+
+total budget allocated to each grant and the total outlay (i.e., money already transferred to
+
+recipients) for each grant. For example, grant R01ES035053 was a five-year grant to study
+
+reasons why Black women in the United States have higher rates of infertility than White
+
+women. The grant began in April 2023 and was scheduled to continue through January 2028.
+
+
+
+                                                  6
+     Case 1:25-cv-10787-BEM           Document 38-27         Filed 04/25/25      Page 8 of 83
+
+
+
+
+USASpending.gov lists the total budget allocated for the full five years of this grant as
+
+$1,447,869.00. However, on March 27, 2025, NIH prematurely terminated this grant.
+
+USASpending.gov reports that, prior to termination, the government had paid out $649,351.22
+
+on the grant, leaving $798,517.78 in unspent funds. We calculated the total financial impact of
+
+all grant terminations by aggregating these grant-specific budget numbers across all grants in our
+

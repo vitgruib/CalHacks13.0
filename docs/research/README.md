@@ -37,6 +37,7 @@ git history.
 | [09](pain-points/09-erp-outages.md) | Finance-system rollouts freeze purchasing and billing | supporting | Context only |
 | [10](pain-points/10-drawdown-justification.md) | Every federal drawdown needs a written justification | core | Payment request writer (§3.4) |
 | [15](pain-points/15-impossible-spend.md) | Payments that look fine alone but conflict with another record (dates, limits, duplicates, effort) | core | Case file (grant office) |
+| [16](pain-points/16-status-pieced-together.md) | A grant's real status (on? money drawable?) has to be pieced together by hand from RePORTER, USAspending and payment holds | core | Fund tracker: three sources, freeze until money moves (§3.1) |
 
 ## Planted mistakes and their real precedents
 

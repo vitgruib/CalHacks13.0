@@ -1,0 +1,44 @@
+r/NIH comments on telling a grant's status and whether money can be drawn.
+Scraped 2026-10-24 with Apify harshmaur/reddit-scraper. Verbatim bodies; usernames omitted (docs/research/README.md rule 3).
+
+--- r/NIH, 2025-05-28, thread: move frozen, terminated grants to other institutions?
+https://www.reddit.com/r/NIH/comments/1kwm9so/move_frozen_terminated_grants_to_other/mumycux/
+Is NIH RePORTER a reliable source for determining if the grant is terminated?
+
+--- r/NIH, 2025-05-27, thread: 
+https://www.reddit.com/r/NIH/comments/1kwm9so/comment/mulk8te/
+First determine if the grant is actually terminated in the NIH system If not, move it to the new Institution Reach out to your PO and GMS ASAP. FY25 end of year Type 7 deadlines are right around the corner
+
+--- r/NIH, 2025-04-30, thread: As Harvard battle escalates, HHS directs NIH not to tell universities about new grant freezes: reports
+https://www.reddit.com/r/NIH/comments/1k7uloc/as_harvard_battle_escalates_hhs_directs_nih_not/mprhf6a/
+We’ve been told that there are a select group of universities have a Hard Funds control placed on them by the Payment Management System (PMS). This means that that existing funds awarded that have not yet been drawn down, are not accessible. If those universities try to draw down funds, it will not be possible. Please know that DOGE has access to all systems now at the NIH and is making changes w/o even notifying NIH staff. We are completely in the dark. Those at the highest levels are getting more information from Reddit than anywhere else.
+
+--- r/NIH, 2025-05-22, thread: This is not normal. (NIH Freeze for Northwestern University)
+https://www.reddit.com/r/NIH/comments/1kqgfnt/this_is_not_normal_nih_freeze_for_northwestern/mtnr86h/
+The institutions have what’s called a “hard funds control“ at the payment management system (PMS) level Placed on them. No funds can be drawn down and no competing or non competings awards are being released.
+
+--- r/NIH, 2025-04-19, thread: Another way to keep grant funding from going out the door
+https://www.reddit.com/r/NIH/comments/1k22oqu/another_way_to_keep_grant_funding_from_going_out/mnvt20y/
+I don't think people understand how big this is.
+
+Basically NIH has stopped paying for all extramural research at every institution in the country.
+
+The way it works is that if you buy something or pay someone from an NIH grant, your institution submit that expense to the NIH payment management system. NIH sends your institution the money and they turn around and pay the person/vendor, within 3 days. That system used to be automated.
+
+Last week, that system stopped. Now, each disbursement must be justified and someone at NIH has to approve that the money is being spent in a way consistent with Trump's goals.
+
+Not sure what they are waiting for, maybe guidance on what to approve/disprove, but NIH hasn't approved any expenses in the past week. Probably NIH is also understaffed for this task.
+
+If something doesn't give in a few weeks there will be mass layoffs of everyone at research institutions that are paid by NIH grants.
+
+The only way around it is if your institution has enough cash to cover those expenses and hope to get reimbursed eventually.
+
+--- r/NIH, 2025-03-21, thread: 
+https://www.reddit.com/r/NIH/comments/1jgozbd/comment/mj1up7l/
+I'm a Research Administrator at UW Madison. Here's the grant that terminated: [https://reporter.nih.gov/project-details/10913548#description](https://reporter.nih.gov/project-details/10913548#description)
+
+We've notified her and the team and strongly suggested she reach out to our legal team. We thought Project 3 was solely terminating but the letter we got from Michelle Bulls was the full award.
+
+--- r/NIH, 2025-06-10, thread: Has Northwestern filed a lawsuit against the funding freeze? Sources here in reddit say NU has not been receiving any funding.
+https://www.reddit.com/r/NIH/comments/1l80pxy/has_northwestern_filed_a_lawsuit_against_the/mx3j57s/
+Likely frozen in Payment Management System (PMS) so cannot draw down money.
