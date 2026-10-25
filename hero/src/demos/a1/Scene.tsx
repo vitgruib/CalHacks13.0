@@ -14,6 +14,7 @@ import { BackSide, Color, MeshBasicMaterial, RingGeometry, ShaderMaterial, Vecto
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 import { feed, usd } from '../../feed'
 import type { World } from '../../feed'
+import { embed, useEmbed } from './embed'
 import { Flow } from './Flow'
 import { LabPlinth } from './Lab'
 import { OfficePlinth } from './Office'
@@ -272,6 +273,8 @@ function Rig() {
       enableDamping
       dampingFactor={0.08}
       rotateSpeed={0.55}
+      // Inside another page the wheel scrolls that page instead.
+      enableZoom={!embed.get().on}
       zoomSpeed={0.7}
       minDistance={5}
       maxDistance={110}
@@ -448,6 +451,14 @@ function Effects() {
   )
 }
 
+/** Stops drawing while an embedded demo is off screen or its tab is hidden. */
+function Sleep() {
+  const setFrameloop = useThree(s => s.setFrameloop)
+  const awake = useEmbed(s => s.awake)
+  useEffect(() => setFrameloop(awake ? 'always' : 'never'), [awake, setFrameloop])
+  return null
+}
+
 /** In development, count draw calls across every pass of a frame and say it once. */
 function DrawCalls() {
   const { gl, camera, size } = useThree()
@@ -505,6 +516,7 @@ export default function Scene() {
         <Rig />
         <CardTracker />
         <DrawCalls />
+        <Sleep />
         <Effects />
       </Canvas>
       <HoverCard />

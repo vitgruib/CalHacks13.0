@@ -127,5 +127,18 @@ export function jumpTo(ms: number) {
 
 export const reducedMotion = () => typeof matchMedia !== 'undefined' && matchMedia('(prefers-reduced-motion: reduce)').matches
 
+/** Scrolls the sidebar, never the page, to bring el into view (scrollIntoView would move a host page too). */
+export function reveal(el: HTMLElement | null | undefined, block: 'nearest' | 'start' = 'nearest') {
+  const box = el?.closest<HTMLElement>('.a-scroll')
+  if (!el || !box) return
+  const b = box.getBoundingClientRect()
+  const r = el.getBoundingClientRect()
+  const margin = parseFloat(getComputedStyle(el).scrollMarginTop) || 0
+  let dy = 0
+  if (block === 'start' || r.top - margin < b.top) dy = r.top - margin - b.top
+  else if (r.bottom > b.bottom) dy = Math.min(r.bottom - b.bottom, r.top - margin - b.top)
+  if (dy) box.scrollBy({ top: dy, behavior: reducedMotion() ? 'auto' : 'smooth' })
+}
+
 /** `?hq` pins the top quality tier (headless captures otherwise step down to the lowest). */
 export const pinnedQuality = () => typeof location !== 'undefined' && new URLSearchParams(location.search).has('hq')

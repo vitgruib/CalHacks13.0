@@ -8,6 +8,7 @@ import { useEffect, useRef, useSyncExternalStore, type RefObject } from 'react'
 import { APP_URL } from '../../chrome'
 import { feed } from '../../feed'
 import { CHAPTERS, SECTIONS, STORY_MS, Waiting, useChapter } from './Panels'
+import { embed, useEmbed } from './embed'
 import { IconChevron, IconPause, IconPlay, IconReplay, Mark, outcomeWord } from './icons'
 import { act, jumpTo, selectNode, ui, useFeed, useUi, type Section } from './ui'
 import { fmtDay, nodeName, nodeNow, requestStatus, shortItem } from './words'
@@ -23,6 +24,23 @@ const usePhone = () => useSyncExternalStore(onPhoneChange, () => matchMedia(PHON
 const focusEl = (sel: string) => requestAnimationFrame(() => document.querySelector<HTMLElement>(sel)?.focus())
 
 function Head() {
+  const compose = () => ui.set({ section: 'requests', composing: true })
+  // Inside another page its own bar carries the wordmark, and the way in is a portal, not a link away.
+  if (embed.get().on)
+    return (
+      <header className="a-head">
+        <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
+        <p className="a-lede">A simulated lab, replaying a scripted story; the spending rules are the real ones. Three AI agents check every request, and the grant manager decides the exceptions.</p>
+        <div className="a-head-acts">
+          <button type="button" className="a-btn a-btn--primary" onClick={() => embed.get().onEnter?.()}>
+            Choose a portal
+          </button>
+          <button type="button" className="a-btn" onClick={compose}>
+            Send a request
+          </button>
+        </div>
+      </header>
+    )
   return (
     <header className="a-head">
       <p className="a-brand">
@@ -32,7 +50,7 @@ function Head() {
       <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
       <p className="a-lede">A simulated lab running a scripted story. Three AI agents check every request against the real spending rules; you, the grant manager, decide the exceptions.</p>
       <a className="a-applink" href={APP_URL}>Open the GrantGuard app</a>
-      <button type="button" className="a-btn a-btn--primary" onClick={() => ui.set({ section: 'requests', composing: true })}>
+      <button type="button" className="a-btn a-btn--primary" onClick={compose}>
         Send a request
       </button>
     </header>
@@ -75,7 +93,9 @@ function Sections() {
 
 function Progress() {
   const fill = useRef<HTMLSpanElement>(null)
+  const awake = useEmbed(s => s.awake)
   useEffect(() => {
+    if (!awake) return
     let raf = 0
     const tick = () => {
       if (fill.current) fill.current.style.transform = `scaleX(${feed.storyProgress()})`
@@ -83,7 +103,7 @@ function Progress() {
     }
     raf = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(raf)
-  }, [])
+  }, [awake])
   return (
     <div className="a-progress" aria-hidden="true">
       <span className="a-progress-track">
@@ -215,9 +235,11 @@ function RootSync({ root, phone }: { root: RefObject<HTMLDivElement | null>; pho
         if (main) requestAnimationFrame(() => main.focus())
       }
     }
-    addEventListener('keydown', onKey)
-    return () => removeEventListener('keydown', onKey)
-  }, [])
+    // Inside another page, only while focus is in the demo: the page's own keys stay the page's.
+    const target: HTMLElement | Window | null = embed.get().on ? root.current : window
+    target?.addEventListener('keydown', onKey as EventListener)
+    return () => target?.removeEventListener('keydown', onKey as EventListener)
+  }, [root])
   // Drop the viewer's own requests when the story restarts.
   const restartKey = useFeed(w => w.log.length === 0 && w.requests.length === 0)
   const was = useRef(restartKey)

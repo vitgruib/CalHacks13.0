@@ -5,19 +5,22 @@
 
 import { Component, Suspense, lazy, useEffect, useRef, type ReactNode } from 'react'
 import './demo-a1.css'
+import { EmbedBar, StageStill } from './EmbedBar'
 import { Hud } from './Hud'
+import { embed } from './embed'
 import { ui } from './store'
 
 const Scene = lazy(() => import('./Scene'))
 
-/** If the 3D scene fails, the dashboard keeps working beside an empty stage. */
+/** If the 3D scene fails, the dashboard keeps working beside an empty stage (inside another page, a still of it). */
 class SceneGuard extends Component<{ children: ReactNode }, { failed: boolean }> {
   state = { failed: false }
   static getDerivedStateFromError() {
     return { failed: true }
   }
   render() {
-    return this.state.failed ? null : this.props.children
+    if (!this.state.failed) return this.props.children
+    return embed.get().on ? <StageStill /> : null
   }
 }
 
@@ -27,8 +30,9 @@ export default function Demo() {
     ui.reset()
     return () => ui.reset()
   }, [])
+  const embedded = embed.get().on
   return (
-    <div className="demo-a1" ref={root}>
+    <div className={embedded ? 'demo-a1 is-embed' : 'demo-a1'} ref={root}>
       <div className="a-stage">
         <SceneGuard>
           <Suspense fallback={null}>
@@ -37,6 +41,7 @@ export default function Demo() {
         </SceneGuard>
       </div>
       <Hud root={root} />
+      {embedded && <EmbedBar />}
     </div>
   )
 }

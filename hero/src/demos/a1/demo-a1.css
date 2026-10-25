@@ -1421,3 +1421,74 @@
   outline-offset: 2px;
   border-radius: 2px;
 }
+
+/* ── Inside another page (embed.ts, the web landing) ─────────────────────
+   Fills the host's box instead of the window; the host's bar carries the
+   wordmark; vertical swipes scroll the host page (OrbitControls sets
+   touch-action: none inline, hence !important); horizontal drags still orbit. */
+
+.demo-a1.is-embed {
+  position: absolute;
+}
+.demo-a1.is-embed .a-canvas {
+  touch-action: pan-y !important;
+}
+.demo-a1.is-embed .a-head h1 {
+  margin-top: 0;
+}
+.demo-a1 .a-head-acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.demo-a1 .a-head .a-head-acts .a-btn {
+  margin-top: 0;
+}
+.demo-a1 .a-embed-bar {
+  display: none;
+}
+.demo-a1 .a-stage-still img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 759px) {
+  .demo-a1.is-embed .a-side {
+    display: none;
+  }
+  .demo-a1.is-embed .a-stage {
+    bottom: 0;
+  }
+  .demo-a1.is-embed .a-stage-still img {
+    object-position: 50% 0%;
+  }
+  .demo-a1 .a-embed-bar {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 10px 10px 14px;
+    border: 1px solid var(--paper-line);
+    border-radius: 12px;
+    background: var(--paper);
+    box-shadow: 0 6px 20px -8px rgb(28 35 44 / 0.35);
+  }
+  .demo-a1 .a-embed-bar p {
+    flex: 1;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--ink-2);
+  }
+  .demo-a1 .a-embed-bar .a-btn {
+    flex: none;
+  }
+}

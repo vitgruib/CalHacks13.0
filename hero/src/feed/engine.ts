@@ -693,20 +693,38 @@ export class Feed {
     for (const fn of this.worldListeners) fn()
   }
 
+  /**
+   * Stop the clock's frame loop while nobody can see the story (an embed scrolled
+   * out of view, or a hidden tab); it picks up where it was. Unlike pause(), the
+   * player still reads as playing.
+   */
+  setAwake(awake: boolean) {
+    if (this.asleep === !awake) return
+    this.asleep = !awake
+    if (!this.started) return
+    cancelAnimationFrame(this.raf)
+    if (awake) {
+      this.lastReal = performance.now()
+      this.raf = requestAnimationFrame(this.loop)
+    }
+  }
+
   private started = false
+  private asleep = false
+  private raf = 0
+  private loop = (now: number) => {
+    const dt = Math.min(100, now - this.lastReal) // a hidden tab doesn't fast-forward on return
+    this.lastReal = now
+    if (this.w.playing) this.advance(dt * this.w.speed)
+    else this.flush() // decisions, requests and speed changes made while paused still reach the screen
+    this.raf = requestAnimationFrame(this.loop)
+  }
   private start() {
     if (this.started || typeof window === 'undefined') return
     this.started = true
     if (this.epoch === 0) this.restart() // the gallery may already have started (and fast-forwarded) the story
     this.lastReal = performance.now()
-    const loop = (now: number) => {
-      const dt = Math.min(100, now - this.lastReal) // a hidden tab doesn't fast-forward on return
-      this.lastReal = now
-      if (this.w.playing) this.advance(dt * this.w.speed)
-      else this.flush() // decisions, requests and speed changes made while paused still reach the screen
-      requestAnimationFrame(loop)
-    }
-    requestAnimationFrame(loop)
+    if (!this.asleep) this.raf = requestAnimationFrame(this.loop)
   }
 }
 

@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, type ComponentType, type ReactNode } from 
 import { PRESETS, feed, kindOf, usd } from '../../feed'
 import type { Grant, Hold, Outcome, Request, World } from '../../feed'
 import { IconCheck, IconChevron, IconCross, IconPlus, ItemIcon, NodeGlyph, outcomeWord } from './icons'
-import { act, jumpTo, reducedMotion, rowLink, selectNode, ui, useFeed, useUi, type Section } from './ui'
+import { act, jumpTo, reveal, rowLink, selectNode, ui, useFeed, useUi, type Section } from './ui'
 import { ACTOR, GRANT_COLOR, actionWord, daysLeft, firstName, fmtDay, fmtShort, grantStatus, nodeNow, shortItem, type Now } from './words'
 
 const LIKELY: Record<Outcome, string> = {
@@ -22,7 +22,7 @@ const grantName = (w: World, id: string | undefined) => w.grants.find(g => g.id 
 function useReveal(on: boolean) {
   const ref = useRef<HTMLLIElement>(null)
   useEffect(() => {
-    if (on) ref.current?.scrollIntoView({ block: 'nearest', behavior: reducedMotion() ? 'auto' : 'smooth' })
+    if (on) reveal(ref.current)
   }, [on])
   return ref
 }
@@ -120,7 +120,7 @@ export function Waiting() {
     if (n > seen.current) {
       setShut(false)
       const busy = document.activeElement?.closest('.demo-a1 .a-side') && document.activeElement?.matches('input, textarea, select')
-      if (!busy) requestAnimationFrame(() => body.current?.scrollIntoView({ block: 'nearest', behavior: reducedMotion() ? 'auto' : 'smooth' }))
+      if (!busy) requestAnimationFrame(() => reveal(body.current))
     }
     seen.current = n
   }, [n])
@@ -294,7 +294,7 @@ function Composer() {
   useEffect(() => {
     const first = box.current?.querySelector<HTMLInputElement>('input:checked')
     first?.focus({ preventScroll: true })
-    box.current?.scrollIntoView({ block: 'start', behavior: reducedMotion() ? 'auto' : 'smooth' })
+    reveal(box.current, 'start')
   }, [])
   const send = () => {
     const id = act(() => feed.submit({ ...p, researcherId: who }))
