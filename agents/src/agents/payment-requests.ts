@@ -6,9 +6,12 @@
 // held spending out and computes the amount; this agent only writes the
 // words. Both drafts wait in the Inbox for the grant manager.
 //
-// - A frozen grant (canceled, disputed or ended) gets no request. The module
+// - A frozen grant (canceled or disputed) gets no request. The module
 //   doesn't refuse one, but frozen spending can't be claimed (§3.4), so the
-//   agent waits until the module unfreezes the grant.
+//   agent waits until the module unfreezes the grant. An ended grant is
+//   frozen in the module too, but what it spent before its end stays
+//   claimable for the 120 days closeout allows (2 CFR 200.344), unless it
+//   would be frozen anyway.
 // - The explanation has to exist before the module picks, so the agent copies
 //   the module's selection to describe it, then reads the drafted row back. If
 //   the module picked differently, its lists win: the agent drafts again from
@@ -19,6 +22,7 @@
 import { PAYMENT_EXPLANATION_MAX } from '../../../server/src/vocab.ts';
 import { ask } from '../claude.ts';
 import type { Connection, FollowUpRow, GrantRow, InvoiceRow, PaymentRequestRow } from '../db/contract.ts';
+import { loadRules, type SpendingRules } from './purchasing.ts';
 import {
   ANSWER_MAX,
   ANSWER_SYSTEM,
@@ -31,6 +35,8 @@ import {
 import { workQueue, type AgentContext, type AgentHandle } from './types.ts';
 
 const AGENT = 'payment-requests';
+// Days after a grant's end it can still be paid for what it spent before (2 CFR 200.344).
+export const CLOSEOUT_DAYS = 120;
 // The rule the module logs when it drafts a request (server/src/index.ts).
 const HELD_RULE = 'Held spending is left out';
 
@@ -597,14 +603,29 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
   const covered = (grantId: string, period: Period) =>
     conn.rows('paymentRequest').some((pr) => pr.grantId === grantId && pr.from <= period.from && pr.to >= period.to);
 
+  // Why a grant can't be claimed now, or undefined if it can. An ended grant
+  // is frozen in the module, but within closeout it is checked as if it
+  // hadn't ended: only a cancellation with no payment since, or sources
+  // disagreeing, freeze it then.
+  function frozenNow(grant: GrantRow, rules: SpendingRules): string | undefined {
+    if (!grant.frozen) return undefined;
+    if (grant.status !== 'ended' && conn.today() <= grant.end) return grant.frozenReason ?? grant.status;
+    if (rules.daysBetween(grant.end, conn.today()) > CLOSEOUT_DAYS) return `it ended ${grant.end}, more than ${CLOSEOUT_DAYS} days ago`;
+    const events = conn.rows('statusEvent').filter((event) => event.grantId === grant.id).sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+    const disagree = conn.rows('flag').some((flag) => flag.grantId === grant.id && flag.open && flag.kind === 'sources_disagree');
+    const apart = rules.freezeState('active', events, disagree);
+    return apart.frozen ? (apart.frozenReason ?? apart.status) : undefined;
+  }
+
   // Everything that must hold to draft, read fresh from the rows each time.
-  function readyToDraft(grantId: string, period: Period): Claim | undefined {
+  function readyToDraft(grantId: string, period: Period, rules: SpendingRules): Claim | undefined {
     const span = `${grantId} for ${period.from} to ${period.to}`;
     const grant = grantRow(grantId);
     if (!grant || period.to < grant.start || period.from > grant.end) return undefined;
     if (covered(grantId, period)) return undefined;
-    if (grant.frozen) {
-      note(`${span} frozen`, `no payment request for ${span}: the grant is frozen (${grant.frozenReason ?? grant.status}).`);
+    const frozen = frozenNow(grant, rules);
+    if (frozen) {
+      note(`${span} frozen`, `no payment request for ${span}: the grant is frozen (${frozen}).`);
       return undefined;
     }
     const claim = claimFor(conn, grantId, period)!;
@@ -666,7 +687,8 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
         return false;
       },
     );
-    const frozen = grantRow(first.grantId)?.frozen ?? true;
+    const grant = grantRow(first.grantId);
+    const frozen = !grant || frozenNow(grant, await loadRules()) !== undefined;
     if (frozen) console.warn(`${AGENT}: ${first.grantId} is frozen now, so ${first.id} gets no replacement`);
     const second =
       fresh && !frozen
@@ -704,12 +726,13 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
 
   async function draftMonth(grantId: string, period: Period) {
     if (refusedDrafts.has(`${grantId} ${period.from} ${period.to}`)) return;
-    const planned = readyToDraft(grantId, period);
+    const rules = await loadRules();
+    const planned = readyToDraft(grantId, period, rules);
     if (!planned) return;
     const written = await writeExplanation(planned);
     // Right before money moves, so a stale status can't let a frozen grant ask for money.
     await tracker.refresh(grantId);
-    const now = readyToDraft(grantId, period);
+    const now = readyToDraft(grantId, period, rules);
     if (!now) return;
     // Rows changed while Claude wrote: describe what is there now instead.
     const explanation = samePicks(planned, now) ? written : joined(templateExplanation(now));

@@ -325,6 +325,49 @@ test('a_frozen_grant_gets_no_request_until_a_payment_unfreezes_it', async () => 
   assert.ok(pr.explanation.includes('$1,620'));
 });
 
+// A grant ending 2026-07-31, with payroll in June and July. The module
+// freezes an ended grant, but what it spent before its end stays claimable
+// through closeout.
+function endingJuly31(extra: Record<string, unknown[]> = {}): string {
+  const payroll = (month: string) => ({
+    id: `pay-T-2026-${month}-1`, grantId: TEST_GRANT, person: 'staff-1', role: 'Research technician',
+    period: { from: `2026-${month}-01`, to: `2026-${month}-${month === '06' ? '30' : '31'}` }, effortPct: 25, amount: 1_200,
+  });
+  const seed = JSON.parse(oneGrantSeed({ payroll: [payroll('06'), payroll('07')], ...extra }));
+  seed.grants[0].end = '2026-07-31';
+  return JSON.stringify(seed);
+}
+test('the_last_month_of_a_grant_is_claimed_after_the_grant_ends', async () => {
+  world = await startWorld({ seedJson: endingJuly31() });
+  const lab = await world.person('grant_manager');
+  await lab.call('advance_days', { days: 16 }); // 2026-07-01: June ended
+  await world.worker.idle();
+  await lab.call('advance_days', { days: 31 }); // 2026-08-01: July ended, and so did the grant
+  await world.worker.idle();
+  const conn = world.worker.sessions.payment_report;
+  assert.equal(conn.rows('grant')[0].frozen, true, 'the module freezes an ended grant');
+  assert.deepEqual(requestsFor(conn, TEST_GRANT, { from: '2026-06-01', to: '2026-06-30' }).map((pr) => pr.amount), [1_200]);
+  assert.deepEqual(requestsFor(conn, TEST_GRANT, JULY).map((pr) => pr.amount), [1_200]);
+});
+
+test('an_ended_grant_still_frozen_by_a_cancellation_gets_no_request_for_its_last_month', async () => {
+  world = await startWorld({ seedJson: endingJuly31() });
+  const lab = await world.person('grant_manager');
+  await lab.call('advance_days', { days: 25 }); // 2026-07-10
+  await lab.call('inject_status_event', { grantId: TEST_GRANT, kind: 'canceled', source: 'Cancellation list (Apify)', summary: 'Listed as terminated.' });
+  await lab.call('advance_days', { days: 22 }); // 2026-08-01
+  await world.worker.idle();
+  assert.deepEqual(requestsFor(world.worker.sessions.payment_report, TEST_GRANT, JULY), []);
+});
+
+test('an_ended_grant_s_months_are_not_claimed_once_closeout_is_over', async () => {
+  world = await startWorld({ seedJson: endingJuly31() });
+  const lab = await world.person('grant_manager');
+  await lab.call('advance_days', { days: 200 }); // 2027-01-01: 154 days after the end
+  await world.worker.idle();
+  assert.deepEqual(requestsFor(world.worker.sessions.payment_report, TEST_GRANT, JULY), []);
+});
+
 test('the_tracker_refreshes_the_grant_right_before_the_draft', async () => {
   const events: string[] = [];
   alone = await startAlone({

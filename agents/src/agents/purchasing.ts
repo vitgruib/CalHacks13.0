@@ -48,6 +48,8 @@ type GrantFacts = Pick<GrantRow, 'id' | 'status' | 'end' | 'awarded' | 'spent' |
 export interface SpendingRules {
   spendingVerdicts(req: RequestFacts, grant: GrantFacts, today: string, grantsById?: Map<string, GrantFacts>): RuleVerdict[];
   rerouteTarget(req: RequestFacts, from: GrantFacts, today: string, grants: GrantFacts[]): string | undefined;
+  freezeState(baseStatus: string, events: Array<{ day: string; kind: string }>, openDisagreement: boolean): { status: string; frozen: boolean; frozenReason?: string };
+  daysBetween(from: string, to: string): number;
 }
 const RULES_URL = new URL('../../../server/src/rules.ts', import.meta.url).href;
 let rulesModule: Promise<SpendingRules> | undefined;
