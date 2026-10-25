@@ -1,6 +1,7 @@
 // The grant office's side of Invoice: a review queue where each invoice sits
 // beside its purchase order, the grant checks and the budget effect, with
-// approve / reject / ask / escalate decisions (a reason is required) and a
+// approve / reject decisions (a reason is required; a rejection's reason is what
+// the researcher reads before they edit and resubmit) and a
 // full audit trail. The bills the bookkeeping agent already checks are below.
 import { useState } from 'react'
 import type { Db } from '../data/types'
@@ -11,28 +12,25 @@ import { AuditTrail, BudgetCard, FindingList, OpenInvoice, StatusBadge } from '.
 import { ledgerEntry, parseAmount, purchaseOrders, type Status, type Submission } from './model'
 import { useSubmissionActions, useSubmissions } from './store'
 
-type Choice = 'approve' | 'reject' | 'clarify' | 'escalate'
+type Choice = 'approve' | 'reject'
 const OFFICE = 'Grant manager'
 
 const RESULT: Record<Choice, { status: Status; what: string }> = {
   approve: { status: 'approved', what: 'approved the invoice. Payment may proceed; an accounting entry is prepared for posting.' },
   reject: { status: 'rejected', what: 'rejected the invoice.' },
-  clarify: { status: 'clarification', what: 'asked the researcher for clarification.' },
-  escalate: { status: 'escalated', what: 'escalated the invoice' },
 }
 
 function Decision({ s, blocks, today }: { s: Submission; blocks: number; today: string }) {
   const stored = useSubmissions()
   const { record, saveSubmission } = useSubmissionActions()
   const [reason, setReason] = useState('')
-  const [to, setTo] = useState('Principal investigator')
   const decided = s.status === 'approved' || s.status === 'rejected'
   if (decided) return null
   const ok = reason.trim().length >= 8
   const go = (c: Choice) => {
     if (!ok) return
     const r = RESULT[c]
-    const entry = { day: today, who: OFFICE, what: c === 'escalate' ? `${r.what} to the ${to.toLowerCase()}.` : r.what, why: reason.trim() }
+    const entry = { day: today, who: OFFICE, what: r.what, why: reason.trim() }
     if (stored.some(x => x.id === s.id)) record(s.id, entry, r.status)
     else saveSubmission({ ...s, status: r.status, audit: [...s.audit, entry] }) // a sample invoice: keep it from now on
     setReason('')
@@ -42,17 +40,10 @@ function Decision({ s, blocks, today }: { s: Submission; blocks: number; today: 
       <h3 className="iv-h3">Your decision</h3>
       <p className="iv-note">Requested by {s.researcher}; you decide as the grant manager, so the person who submitted it can never approve it. Payment stays paused until a decision is recorded.</p>
       {blocks > 0 && <p className="iv-warnbox">{blocks} open {blocks === 1 ? 'problem' : 'problems'}. Approving needs a reason that explains why it is acceptable, for example an approved revision.</p>}
-      <label className="iv-field"><span>Reason (required, goes in the audit trail)</span><textarea rows={2} value={reason} onChange={e => setReason(e.target.value)} /></label>
+      <label className="iv-field"><span>Reason (required, goes in the audit trail; on a rejection the researcher sees it and can edit and resubmit)</span><textarea rows={2} value={reason} onChange={e => setReason(e.target.value)} /></label>
       <div className="iv-actions">
         <button type="button" className="primary" disabled={!ok} onClick={() => go('approve')}>Approve</button>
-        <button type="button" disabled={!ok} onClick={() => go('clarify')}>Request clarification</button>
         <button type="button" disabled={!ok} onClick={() => go('reject')}>Reject</button>
-        <span className="iv-esc">
-          <select value={to} onChange={e => setTo(e.target.value)} aria-label="Escalate to">
-            <option>Principal investigator</option><option>Sponsor (funding agency)</option><option>Institutional finance office</option>
-          </select>
-          <button type="button" disabled={!ok} onClick={() => go('escalate')}>Escalate</button>
-        </span>
         {!ok && <span className="iv-note">Type a reason to enable the buttons.</span>}
       </div>
     </div>
@@ -134,8 +125,8 @@ export default function Office({ db }: { db: Db }) {
   const rejectedBills = bills('held', 'rejected'), approvedBills = bills('matched', 'paid')
 
   const lists: Record<View, { subs: Submission[]; bills: Db['invoices'] }> = {
-    sent: { subs: [...sentReal, ...top(sentReal.length, [...demo.action.filter(s => s.status === 'exception'), ...demo.escalated])], bills: [] },
-    rejected: { subs: [...rejectedReal, ...top(rejectedReal.length + rejectedBills.length, [...demo.denied, ...demo.action.filter(s => s.status === 'clarification')])], bills: rejectedBills },
+    sent: { subs: [...sentReal, ...top(sentReal.length, demo.action.filter(s => s.status === 'exception'))], bills: [] },
+    rejected: { subs: [...rejectedReal, ...top(rejectedReal.length + rejectedBills.length, demo.denied)], bills: rejectedBills },
     approved: { subs: [...approvedReal, ...top(approvedReal.length + approvedBills.length, demo.approved)], bills: approvedBills },
   }
   const count = (v: View) => Math.min(MAX, lists[v].subs.length + lists[v].bills.length)

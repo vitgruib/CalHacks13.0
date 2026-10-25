@@ -62,7 +62,6 @@
 
 .iv-decide { margin-top: 8px; border-top: 1px solid var(--v-line); }
 .iv-warnbox { background: var(--v-warn-bg); color: var(--v-warn); border-radius: 8px; padding: 8px 12px; font-size: 14px; margin: 6px 0; }
-.iv-esc { display: inline-flex; gap: 6px; align-items: center; }
 .iv-table { border-collapse: collapse; font-size: 14px; min-width: 320px; }
 .iv-table th, .iv-table td { text-align: left; padding: 4px 10px; border-bottom: 1px solid var(--v-line); }
 .iv-num { text-align: right !important; font-variant-numeric: tabular-nums; }

@@ -71,8 +71,8 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const mineOrders = new Set(db.orders.filter(o => db.requests.find(r => r.id === o.requestId)?.requesterName === name).map(o => o.id))
   const agentBills = db.invoices.filter(i => mineOrders.has(i.orderId))
 
-  // Sent: waiting on the invoice agent, the grant office or a higher approver. Rejected: the grant office
-  // rejected it or asked a question, or a bill was held; every one can be edited and resubmitted.
+  // Sent: waiting on the invoice agent or the grant office. Rejected: the grant office rejected it
+  // with a reason (older rows may say 'clarification'), or a bill was held; every one can be edited and resubmitted.
   // Approved: paid or ready to pay.
   const subs: Record<InvoiceMenu, Submission[]> = {
     sent: mine.filter(s => s.status === 'ready' || s.status === 'exception' || s.status === 'escalated'),
@@ -89,8 +89,8 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const demo = demoSubmissions(db, name)
   const have = new Set(all.map(s => s.id))
   const samples: Record<InvoiceMenu, Submission[]> = {
-    sent: [...demo.action.filter(s => s.status !== 'clarification'), ...demo.escalated],
-    rejected: [...demo.denied, ...demo.action.filter(s => s.status === 'clarification')],
+    sent: demo.action,
+    rejected: demo.denied,
     approved: demo.approved,
   }
   const fill = (m: InvoiceMenu) => samples[m].filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - subs[m].length - bills[m].length))
