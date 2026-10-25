@@ -32,7 +32,8 @@
 .gr-muted { color: var(--s-muted); font-size: 16px; }
 .gr-button { display: inline-block; align-self: flex-start; text-decoration: none; font-weight: 700; background: var(--s-ink); color: var(--s-on-ink) !important; padding: 12px 20px; border-radius: 12px; }
 .gr-list { display: flex; flex-direction: column; gap: 24px; }
-.gr-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.gr-cards { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 720px) { .gr-cards { grid-template-columns: minmax(0, 1fr); } }
 .gr-card { border: 1px solid var(--s-line); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 8px; }
 .gr-card header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 8px; }
 .gr-card h2 { font-size: 20px; }

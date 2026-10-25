@@ -36,7 +36,6 @@
 /* Two panels side by side when the card is wide enough, stacked when narrow. */
 .mc { container-type: inline-size; margin: 16px 0 4px; }
 .money-charts { display: grid; grid-template-columns: 1fr; gap: 24px; }
-@container (min-width: 640px) { .money-charts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; } }
 .mc-panel { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
 .mc-title { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--c-muted); }
 .mc-panel > .chart-open, .mc-panel > .dn { flex: 1; }

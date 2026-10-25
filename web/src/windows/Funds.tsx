@@ -46,9 +46,9 @@ export default function Funds() {
   return (
     <>
       <SourceCheck />
-      {db.grants.filter(g => !isEdgeGrant(g)).map(g => <GrantCard key={g.id} g={g} db={db} />)}
+      <div className="funds-grid">{db.grants.filter(g => !isEdgeGrant(g)).map(g => <GrantCard key={g.id} g={g} db={db} />)}</div>
       <EdgeGroup count={db.grants.filter(isEdgeGrant).length}>
-        {db.grants.filter(isEdgeGrant).map(g => <GrantCard key={g.id} g={g} db={db} />)}
+        <div className="funds-grid">{db.grants.filter(isEdgeGrant).map(g => <GrantCard key={g.id} g={g} db={db} />)}</div>
       </EdgeGroup>
       <p className="funds-sim-note">{SIM_NOTE}</p>
     </>

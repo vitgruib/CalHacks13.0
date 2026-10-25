@@ -1,4 +1,4 @@
-// The grant tracker (donut) and the grant forecast for one grant, side by side
+// The grant tracker (donut) with the grant forecast under it, for one grant,
 // with a heading above each and its text below. With `details`, double-clicking
 // a color of the donut opens that color's list on its own page in a new tab
 // (DetailPage); with `forecastDetails`, double-clicking the forecast opens the
