@@ -1,0 +1,70 @@
+Excerpts from university process pages, fetched 2026-10-25 (@ethan/claude) with curl (HTML tags stripped) or pdftotext. Verbatim lines; see docs/research/approval-loop.md.
+
+=== CU Boulder OCG, Marketplace Purchasing: https://www.colorado.edu/ocg/manage-awards/property-and-equipment/marketplace-purchasing
+Purchases made through Marketplace using sponsored project funds require three sequential approvals after the Principal Investigator (PI) and their department initiate a requisition:Department Financial ApprovalSponsored Projects Approval (OCG)Purchasing Approval (PSC)Some capital equipment and government titled property purchases may also need specific sponsor pre-approval before processing. After all Marketplace approvals are complete, a purchase order is created and sent to the vendor.Steps in the Purchasing Process1. PI and Department Create RequisitionConfirm the purchase is necessary, essential, allowable, and allocable to the award.Verify the item is not already available in the department or on campus.Attach supporting documentation or sponsor approval, if required.2. Department Financial ApprovalConfirm sufficient funding is available and check the award’s period of performance. Sponsor approval will be necessary if within 90 days of the end of the project.Ensure the requisition is complete and accurate.Attach supporting documentation or sponsor approval, if required.3. OCG Review and ApprovalReview the award terms and federal regulations to confirm the purchase is allowable.Determine title vesting and whether sponsor pre-approval is requiredEnsure the requisition is complete and accurate.Attach supporting documentation or sponsor approval, if required.4. PSC ApprovalConfirm the purchase meets procurement requirements.Ensure the requisition for is complete and accurate.Create and send the purchase order to the vendor.Incoming Award Review & AcceptanceTypes of AgreementsOutgoing SubagreementsProperty and EquipmentComputers and SuppliesFabricated Equipment OverviewGovernment PropertyMarketplace PurchasingTestCloseout and DispositionProperty Account Code GuidanceProperty FAQsSponsored Projects Property Control ManualReporting and DeliverablesSponsored Project TravelManage Awards FAQsService ActivitiesAccounting for Sponsored ProjectsProgram and Project Management in Sponsored ProjectsProgram Management Office (PMO)Need help?Email the OCG Compliance Team at OCGProperty@colorado.eduPrepare ProposalsDetailed Proposal ProcessProposal Essentials by SponsorFellowships and Student Research GrantsTech Company Academic Research AwardsProposal Policies & ProceduresProposals and Cost ShareProposal Development FAQsAI Usage in ProposalsOnline PSR FormManage AwardsIncoming Award Review & AcceptanceTypes of AgreementsOutgoing SubagreementsProperty and EquipmentReporting and DeliverablesSponsored Project TravelManage Awards FAQsService ActivitiesAccounting for Sponsored ProjectsProgram and Project Management in Sponsored ProjectsProgram Management Office (PMO)Award ComplianceAward Closeout90 Days Prior to Award End Date60 Days Prior to Award End Date30 Days Prior to Award End DateAutomated Award End-Date NoticesCloseout FAQsAnnual ReportSources of Research Awards10 Year SummaryOffice of Contracts and GrantsAdministrative and Research Center3100 Marine Street572 UCBBoulder, CO 80309-0001Website questions or problems?Website Feedback Form University of Colorado Boulder© Regents of the University of ColoradoPrivacy • Legal & Trademarks • Campus MapUniversity of Colorado Boulder© Regents of the University of Colorado
+
+=== Ohio State IT news 2026-08-21, Spend Authorization workflow: https://it.osu.edu/news/2026/08/21/spend-authorization-workflow-updates-effective-aug-28
+Effective August 28, Spend Authorization approval routing in Workday will be updated to further streamline the approval process. There were some instances where these transactions were routing to both the Cost Center Managers and the Grant Managers. This fix will now result in:Spend Authorizations containing an OSP grant will route to the Grant Managers for every line if one is assigned to the Cost Center.When no Grant Manager is assigned, they will route to the Cost Center Manager.Requests will route to one approval role only, not both.The threshold requiring Cost Center Director approval is increasing from $5,000 to $10,000.The Cost Center Director approval will now be in addition to the Grant Manager or Cost Center Manger approval.These changes are intended to streamline approvals while maintaining appropriate financial oversight.
+
+=== UC Riverside Accounting, Vendor Invoice Process: https://accounting.ucr.edu/accounts-payable/vendor-invoice-process
+Vendor/Supplier invoices should be emailed to apinvoice@ucr.edu (note: this does not apply to Transcepta vendors).&nbsp; A unique PDF is required per invoice, however, multiple pdfs can be included in the same email.
+The PO number presented on the vendor invoice should be Received/OK to Pay in the eBuy system
+Vendor invoice payments will be delayed when:
+POs not matching vendor invoice
+POs not Received/OK to Pay
+POs not having enough encumbered funds
+Vendor invoices sent directly to departments tend to get lost and prevent timely vendor payment. Vendors/Suppliers should be instructed to email invoice to apinvoice@ucr.edu (note: this does not apply to Transcepta vendors).&nbsp; A unique PDF is required per invoice, however, multiple pdfs can be included in the same email.
+
+=== UCF Office of Research SOP, Pre-Expenditure Reviews of Requisitions (2025-04): https://www.research.ucf.edu/wp-content/uploads/sites/56/2025/04/SOP_OR-Procedure_Pre-Expenditure-Reviews_Requisitions.pdf
+        benefit of a sponsored project’s scope of work. Travel exceeding thirty (30) business days to a single location
+        requires approval by the Provost’s Office.
+
+Background: The Office of Research and Research Foundation- Post Award Management Team reviews all online
+requisitions submitted via the financial system involving equipment purchase requests, (including asset build
+fabrications), domestic or international travel and services to be charged to sponsored projects. The purpose of the OR
+                                                                                                                 Page 2 of 3
+
+Pre-Expenditure Review process is to determine if requests are allowable and allocable to charge under the sponsored
+project. Review criteria has been defined by the Office of Research under the OR Pre-Expenditure Review-Requisition
+and Cost Transfers Checklist, which has been distributed to UCF Departmental/ College/ Institute/Center's
+
+=== Northern Illinois University SPA, Request to Add Grant to Commercial Card form: https://www.niu.edu/spa/_pdf/request-add-grant-commercial-card-form.pdf
+
+1. Follow all Commercial Card policies and procedures.
+2. To ensure purchases are allowable under all applicable policies and procedures, the PI must obtain
+    approval from the Administrator prior to making each purchase using grant funds.* For
+    documentation purposes, the request should be made via email.
+3. After the purchase is made, the Cardholder or PI will provide a copy of the receipt at the request of
+    the Administrator.
+4. Failure to follow this procedure may result in a transfer of Commercial Card charges from the 44-
+
+=== University of Kentucky BAE, Purchase Flow Chart 2021: https://www.engr.uky.edu/sites/default/files/BAE/PurchaseFlowChart2021.pdf
+       Starts with (grad student email to PI), PI forwards email and approval to:
+
+=== UC Berkeley Civil & Environmental Engineering, Purchase request / reimbursements: https://ce.berkeley.edu/resources/forms/reimbursements
+(Verbatim fragments; staff names replaced with [staff] per research README rule 3.)
+Attach the PDF of the Purchase Request Form and quotes or emails, then Submit.
+Authorized carts will be submitted to the workflow by the Cart Authorizer and processed by ERSOOption 2:  ERSO IntranetStaff &amp; StudentsComplete the CEE Purchase Request Form.
+For research funds: Assign the cart to the PI or the Research Administrator.
+Have authorizes signatory approve the form.
+If applicable, scan the form and relevant documents (such as a quote) then save to PDF.
+Option 1:  BearBuyIndicate the purpose of the purchase and funding source, if known, in the comments.
+Purchase order requests over $9,999 must be processed by Procurement and Business Contracts (PBC).
+
+=== UC Berkeley Supply Chain, BearBuy Req/Org Node Approver training (2021-05-19): https://supplychain.berkeley.edu/sites/default/files/bbreqorgnodeapprovertraining-05192021_-_rc.pdf
+     •   Req/Org Node Approvers are named delegated authority for:
+           • All requisitions that are $1,000 or more, regardless of
+              any authorization activities previously performed in the
+              Additional Authorizer 1 & 2 or Chartfield Authorizer 1 & 2
+              steps.
+           • All Service Type forms, After the Fact, Sub-awards, and
+              Payment Requests.
+
+•   What do they do?
+     •   Can only view, approve, and return/reject requisitions.
+     •   Cannot edit any requisitions fields.
+     •   Verify:
+
+=== SRAI News, 'What We Do in the Shadow Systems in Research Administration' (2022-01-12): https://www.srainternational.org/blogs/srai-news/2022/01/12/what-we-do-in-the-shadow-systems-in-research-admin
+Shadow systems are working, functional, custom-made systems or tools research administrators build to combine, manage, and share data in a timely and easy-to-understand format. Common shadow systems may include the use of user-developed Excel and Google worksheets, webforms, databases, and custom reports, among others.
+Have you ever tried to share an “unaltered” printout of a report or screen from your institutional system with a researcher or faculty person?  How did that go for you?
