@@ -5,6 +5,10 @@ import { edgeCases, office, people } from './Entry'
 import './UserSwitch.css'
 
 const groups = [{ title: 'Grant office', list: [office] }, { title: 'Researchers', list: people }]
+<<<<<<< Updated upstream
+=======
+// An edge-case user (reached from the demo scripts) still shows as the current user, but isn't listed in the menu.
+>>>>>>> Stashed changes
 const everyone = [...groups.flatMap(g => g.list), ...edgeCases]
 const initials = (label: string) => label.replace(/^Dr\.?\s*/, '').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
 
