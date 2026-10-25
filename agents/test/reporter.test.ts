@@ -68,6 +68,11 @@ test('active_grant_reads_as_active_from_its_latest_year', async () => {
     paid: null,
     endDate: '2029-06-30',
     url: 'https://reporter.nih.gov/project-details/11395670',
+    awards: [
+      { date: '2026-06-16', amount: 1_480_679, label: '5R01AI181732-03', competing: false },
+      { date: '2025-08-18', amount: 1_493_206, label: '5R01AI181732-02', competing: false },
+      { date: '2024-07-18', amount: 1_628_180, label: '1R01AI181732-01A1', competing: true },
+    ],
   });
   assert.deepEqual(fake.projectInfoRequests(), [`${PROJECT_INFO_URL}?projectId=11395670`]);
   assert.deepEqual(warnings(), []);

@@ -3,9 +3,10 @@ import { afterEach, test } from 'node:test';
 
 import { canceledWhenPlaced } from '../src/agents/bookkeeping.ts';
 import { ActionError, type FlagRow, type OrderRow, type Source, type StatusEventRow } from '../src/db/contract.ts';
+import { awardGap } from '../src/tracker/compare.ts';
 import { createLocalDb } from '../src/db/local.ts';
 import { memoryTokens } from '../src/identity.ts';
-import type { Reading, SourceClient } from '../src/sources/types.ts';
+import type { AwardAction, Reading, SourceClient } from '../src/sources/types.ts';
 import { startWorker } from '../src/worker.ts';
 import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
 
@@ -347,3 +348,58 @@ for (const order of [['pick', 'pay'], ['pay', 'pick']] as const) {
     assert.equal(state('rq-102'), 'rerouted');
   });
 }
+
+// Award cross-check (T54), on the real public records read 2026-10-24
+// (docs/research/sources/docs/money-cycle-api-reads-2026-10-24.txt).
+const act = (date: string, amount: number, competing = false): AwardAction => ({ date, amount, label: date, competing });
+const readingWith = (source: Source, awards: AwardAction[]): Reading => ({
+  grantId: TEST_GRANT, source, status: null, awarded: null, paid: null, endDate: null, url: 'https://example.test', awards,
+});
+// R01GM061721: FY2007 and FY2008 awards, then the current project period
+// from the 2022 competing renewal. USAspending lacks the FY2008 award and has
+// a deobligation, both before the current period.
+const R01_NIH = [
+  act('2007-05-18', 328409), act('2008-04-25', 328450),
+  act('2022-07-27', 429221, true), act('2023-02-23', 37763), act('2023-07-18', 429221), act('2023-07-19', 332594),
+  act('2023-07-24', 10789), act('2024-09-10', 429221), act('2025-08-07', 429221),
+];
+const R01_SPENDING = [
+  act('2007-05-18', 328409), act('2022-03-01', -75911.54),
+  act('2022-07-27', 429221), act('2023-02-23', 37763), act('2023-07-18', 429221), act('2023-07-19', 332594),
+  act('2023-07-24', 10789), act('2024-09-10', 429221), act('2025-08-07', 429221),
+];
+
+test('awards_that_match_year_by_year_in_the_current_period_are_no_gap', () => {
+  const gap = awardGap([readingWith('NIH RePORTER', R01_NIH), readingWith('USAspending', R01_SPENDING)], '2026-10-24');
+  assert.equal(gap, null);
+});
+
+test('one_award_posted_as_two_obligations_in_the_same_year_is_no_gap', () => {
+  // R21AI182745: NIH's $204,375 is $183,938 + $20,437 in USAspending.
+  const nih = [act('2024-03-25', 204375, true), act('2025-01-22', 246000)];
+  const spending = [act('2024-03-25', 183938), act('2024-05-29', 20437), act('2025-01-22', 246000)];
+  assert.equal(awardGap([readingWith('NIH RePORTER', nih), readingWith('USAspending', spending)], '2026-10-24'), null);
+});
+
+test('an_award_with_no_obligation_is_a_gap_for_its_fiscal_year', () => {
+  const spending = R01_SPENDING.filter((a) => a.date !== '2024-09-10');
+  const gap = awardGap([readingWith('NIH RePORTER', R01_NIH), readingWith('USAspending', spending)], '2026-10-24');
+  assert.equal(gap, 'FY2024 NIH RePORTER lists $429,221 awarded, USAspending shows $0 obligated');
+});
+
+test('an_award_from_the_last_45_days_is_not_a_gap_yet', () => {
+  const spending = R01_SPENDING.filter((a) => a.date !== '2025-08-07');
+  assert.equal(awardGap([readingWith('NIH RePORTER', R01_NIH), readingWith('USAspending', spending)], '2025-09-01'), null);
+});
+
+test('an_award_missing_from_usaspending_raises_a_disagreement_flag', async () => {
+  const conn = await startWith([
+    fakeSource('NIH RePORTER', [{ status: 'active', awards: R01_NIH }]),
+    fakeSource('USAspending', [{ awards: R01_SPENDING.filter((a) => a.date !== '2024-09-10') }]),
+  ]);
+  await refresh();
+  const flags = disagreements(conn);
+  assert.equal(flags.length, 1);
+  assert.match(flags[0].summary, /FY2024 NIH RePORTER lists \$429,221 awarded, USAspending shows \$0 obligated/);
+  assert.equal(grant().frozen, true);
+});

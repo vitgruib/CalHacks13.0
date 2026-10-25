@@ -7,7 +7,7 @@
 // months behind the payments themselves.
 
 import { fetchJson } from './http.ts';
-import type { Reading, SourceClient } from './types.ts';
+import type { AwardAction, Reading, SourceClient } from './types.ts';
 
 const API = 'https://api.usaspending.gov/api/v2/awards';
 const SITE = 'https://www.usaspending.gov/award';
@@ -55,6 +55,26 @@ const dollars = (value: unknown): number | null =>
 const isoDate = (value: unknown): string | null =>
   typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value) ? value.slice(0, 10) : null;
 
+const TRANSACTIONS_URL = 'https://api.usaspending.gov/api/v2/transactions/';
+const TRANSACTION_FIELDS = ['action_date', 'federal_action_obligation', 'modification_number'];
+
+interface TransactionsAnswer {
+  results: Array<{ action_date?: string; federal_action_obligation?: number; modification_number?: string }>;
+  hasNext: boolean;
+}
+
+// Keeps only the dates and amounts (the full rows carry descriptions).
+function trimTransactions(raw: unknown): TransactionsAnswer {
+  const answer = (raw ?? {}) as { results?: unknown; page_metadata?: { hasNext?: unknown } };
+  if (!Array.isArray(answer.results)) throw new Error('USAspending transactions answered without a results list');
+  return {
+    results: answer.results.map((row) =>
+      Object.fromEntries(TRANSACTION_FIELDS.filter((field) => field in row).map((field) => [field, row[field]])),
+    ),
+    hasNext: answer.page_metadata?.hasNext === true,
+  };
+}
+
 export function createUsaspendingSource(
   options: { fetchImpl?: typeof fetch; cacheDir?: string; mode?: 'live' | 'offline' } = {},
 ): SourceClient {
@@ -80,6 +100,32 @@ export function createUsaspendingSource(
       }
       if (award.notFound) return null;
 
+      // Each obligation, for comparing with RePORTER year by year. Without
+      // them the totals are still worth reporting, so a failure is only logged.
+      let awards: AwardAction[] | undefined = [];
+      try {
+        for (let page = 1; ; page++) {
+          const body = { award_id: awardId, limit: 100, page, sort: 'action_date', order: 'asc' };
+          const answer = (await fetchJson(TRANSACTIONS_URL, {
+            body,
+            fetchImpl,
+            cacheDir: options.cacheDir,
+            mode: options.mode,
+            select: trimTransactions,
+          })) as TransactionsAnswer;
+          for (const row of answer.results) {
+            const date = isoDate(row.action_date);
+            const amount = dollars(row.federal_action_obligation);
+            // $0 rows are paperwork (no-cost extensions, notices), not money.
+            if (date && amount) awards.push({ date, amount, label: row.modification_number ?? '' });
+          }
+          if (!answer.hasNext || page >= 20) break;
+        }
+      } catch (error) {
+        console.warn(`USAspending: no obligation list for ${grantId} (POST ${TRANSACTIONS_URL})`, error);
+        awards = undefined;
+      }
+
       return {
         grantId,
         source: 'USAspending',
@@ -88,6 +134,7 @@ export function createUsaspendingSource(
         paid: dollars(award.total_outlay),
         endDate: isoDate(award.period_of_performance?.end_date),
         url: `${SITE}/${awardId}`,
+        ...(awards ? { awards } : {}),
       } satisfies Reading;
     },
   };

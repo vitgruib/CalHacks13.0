@@ -10,6 +10,19 @@ export interface Reading {
   paid: number | null;
   endDate: string | null;
   url: string;
+  // Optional: each dated money action behind `awarded` (RePORTER's award
+  // notices, USAspending's obligations), for comparing the sources year by
+  // year. Kept in memory only; the database stores the totals.
+  awards?: AwardAction[];
+}
+
+export interface AwardAction {
+  date: string; // YYYY-MM-DD
+  amount: number; // negative when money is taken back
+  label: string; // project number or modification number
+  // RePORTER only: a new or competing-renewal award, which starts a new
+  // project period.
+  competing?: boolean;
 }
 
 export interface SourceClient {

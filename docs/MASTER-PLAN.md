@@ -24,6 +24,9 @@ whenever it should, and logs every decision with its reason.
 - **Company:** a fictional lab, seeded with real public NIH grant records.
 - **The core behavior:** a court restores a canceled grant, and GrantGuard
   still won't spend until the money actually arrives.
+- **Proposed thesis (not yet adopted; `DECISIONS.md`):** the funder, the
+  grant office and the researcher each keep their own record of the same
+  money, and GrantGuard keeps those three in sync.
 
 ## 2. Who does what
 

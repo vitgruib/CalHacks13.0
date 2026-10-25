@@ -6,7 +6,7 @@
 
 import type { GrantStatus } from '../db/contract.ts';
 import { fetchJson } from './http.ts';
-import type { SourceClient } from './types.ts';
+import type { AwardAction, SourceClient } from './types.ts';
 
 const SEARCH_URL = 'https://api.reporter.nih.gov/v2/projects/search';
 const PROJECT_INFO_URL = 'https://reporter.nih.gov/services/Projects/ProjectInfo';
@@ -138,6 +138,18 @@ function totalAwarded(records: SearchRecord[]): number | null {
   return amounts.length === 0 ? null : amounts.reduce((sum, amount) => sum + amount, 0);
 }
 
+// Each award notice, for comparing with USAspending year by year. The first
+// digit of the project number is NIH's application type: 1 (new) and 2
+// (competing renewal) start a new project period.
+function awardsOf(records: SearchRecord[]): AwardAction[] {
+  return records.flatMap((record) => {
+    const date = toDate(record.award_notice_date);
+    if (typeof record.award_amount !== 'number' || date === null) return [];
+    const label = record.project_num ?? String(record.appl_id);
+    return [{ date, amount: record.award_amount, label, competing: /^[12]/.test(label) }];
+  });
+}
+
 function toDate(value: string | null | undefined): string | null {
   return typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value) ? value.slice(0, 10) : null;
 }
@@ -234,6 +246,7 @@ export function createReporterSource(options: ReporterOptions = {}): SourceClien
         paid: null,
         endDate,
         url: `${DETAILS_URL}/${latest.appl_id}`,
+        awards: awardsOf(records),
       };
     },
   };

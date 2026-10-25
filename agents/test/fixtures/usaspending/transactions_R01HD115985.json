@@ -1,0 +1,47 @@
+{
+  "results": [
+    {
+      "action_date": "2024-09-05",
+      "federal_action_obligation": 697555.0,
+      "modification_number": "000",
+      "action_type_description": "New Award"
+    },
+    {
+      "action_date": "2025-05-22",
+      "federal_action_obligation": 0.0,
+      "modification_number": "000",
+      "action_type_description": "Other Action, Non-Financial"
+    },
+    {
+      "action_date": "2025-07-04",
+      "federal_action_obligation": 0.0,
+      "modification_number": "001",
+      "action_type_description": "Other Action, Non-Financial"
+    },
+    {
+      "action_date": "2025-07-20",
+      "federal_action_obligation": 705616.0,
+      "modification_number": "002",
+      "action_type_description": "Continuation"
+    },
+    {
+      "action_date": "2026-06-23",
+      "federal_action_obligation": 647937.0,
+      "modification_number": "000",
+      "action_type_description": "Continuation"
+    },
+    {
+      "action_date": "2026-08-11",
+      "federal_action_obligation": 100000.0,
+      "modification_number": "001",
+      "action_type_description": "Other Action, Non-Financial"
+    }
+  ],
+  "page_metadata": {
+    "page": 1,
+    "next": null,
+    "previous": null,
+    "hasNext": false,
+    "hasPrevious": false
+  }
+}

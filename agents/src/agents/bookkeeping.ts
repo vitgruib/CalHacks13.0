@@ -7,7 +7,7 @@
 
 import type { CheckRequestRow, Connection, OrderRow, StatusEventRow } from '../db/contract.ts';
 import type { Reading, SourceClient } from '../sources/types.ts';
-import { changedFields, disagreement, eventsFor, merge, readingOf } from '../tracker/compare.ts';
+import { awardGap, changedFields, disagreement, eventsFor, merge, readingOf } from '../tracker/compare.ts';
 
 export const DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -26,6 +26,10 @@ function latestReadings(conn: Connection, grantId: string): Reading[] {
   for (const row of rows) latest.set(row.source, readingOf(row));
   return [...latest.values()];
 }
+
+// The real-world date: the awards being compared are real public records,
+// so the sim's clock doesn't apply.
+const localToday = () => new Date().toISOString().slice(0, 10);
 
 const byDay = (a: StatusEventRow, b: StatusEventRow) => a.day.localeCompare(b.day) || (a.id < b.id ? -1 : 1);
 const dollars = (amount: number) => `$${amount.toLocaleString('en-US')}`;
@@ -83,7 +87,12 @@ export function startTracker(
       .rows('flag')
       .some((flag) => flag.grantId === grantId && flag.kind === kind && flag.open && (!mentioning || mentions(flag.summary, mentioning)));
 
+  // The latest reading from each source, with its year-by-year awards,
+  // which the database rows don't keep. Filled again by each refresh.
+  const freshReadings = new Map<string, Reading>();
+
   async function record(reading: Reading) {
+    freshReadings.set(`${reading.grantId}\n${reading.source}`, reading);
     const previous = latestReadings(conn, reading.grantId).find((r) => r.source === reading.source);
     const merged = merge(previous, reading);
     if (changedFields(previous, merged).length === 0) return;
@@ -115,7 +124,10 @@ export function startTracker(
   }
 
   async function checkAgreement(grantId: string) {
-    const found = disagreement(latestReadings(conn, grantId));
+    const fresh = [...freshReadings.values()].filter((reading) => reading.grantId === grantId);
+    const found = [disagreement(latestReadings(conn, grantId)), awardGap(fresh, localToday())]
+      .filter((part) => part !== null)
+      .join('; ');
     if (!found) return;
     const summary = `Sources disagree: ${found}.`;
     if (alreadyRaised(grantId, summary)) return;

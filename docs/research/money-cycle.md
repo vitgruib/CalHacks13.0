@@ -34,10 +34,19 @@ record status, and they don't always agree.
   fiscal year it holds; USAspending's award covers fewer years and subtracts
   money taken back.
   Real example: for R01GM061721, RePORTER lists $8,130,073 over FY2000–2025,
-  and USAspending lists $5,912,827.46. The $2.2M gap is RePORTER's FY2000–2007
-  records plus a −$75,911.54 deobligation on 2022-03-01 that RePORTER doesn't
-  show. Once those are accounted for, the two agree within $41.
+  and USAspending lists $5,912,827.46. USAspending's transactions start with
+  the FY2007 award (2007-05-18), so RePORTER's FY2000–2006 records
+  ($1,812,884) are outside its window. From FY2007 on, RePORTER lists
+  $6,317,189 and USAspending's positive obligations add up to $5,988,739.
+  The difference is exactly $328,450, the FY2008 award (notice 2008-04-25),
+  which USAspending doesn't have at all. On top of that, USAspending has a
+  −$75,911.54 deobligation on 2022-03-01 that RePORTER doesn't show.
   `[verified, our read]`
+- **One NIH award can post as several obligations.** R21AI182745's first-year
+  award is one $204,375 notice in RePORTER, but two USAspending entries:
+  $183,938 on 2024-03-25 and $20,437 on 2024-05-29. Matching award to
+  obligation one by one would call that a mismatch; summing by fiscal year
+  doesn't. `[verified, our read]`
 - **Neither total is what a lab can spend now.** The lab can only spend the
   current project period (for this grant, FY2022 onward). A tool that copies
   a source's "awarded" figure overstates the budget.
@@ -154,6 +163,19 @@ rules in `agents/src/tracker/compare.ts`; the freeze itself is in
    raises a `sources_disagree` flag. That freezes the grant and asks the
    grant manager which source is right. "Active" and "restored by a court"
    both count as funded, so they don't conflict.
+6. **Award amounts are compared year by year (T54).** RePORTER's award
+   notices and USAspending's obligations are summed by federal fiscal year
+   for the **current project period** only: from the latest new or
+   competing-renewal award (project number starting 1 or 2). A year where
+   the sums differ by $1 or more raises the same `sources_disagree` flag,
+   e.g. "FY2024 NIH RePORTER lists $429,221 awarded, USAspending shows $0
+   obligated". Older years are skipped because USAspending often lacks them
+   (above) and the lab can't spend them anyway, and actions from the last 45
+   days are skipped while the slower source catches up. Checked on
+   2026-10-24 against five real grants (R01GM061721, R21AI182745,
+   R01HD115985, R01AI181732, R01EY028739): no gap in any current period.
+   Comparing every year instead would have flagged eight years on
+   R01GM061721.
 
 In short:
 - Grant Witness says what happened to the status.
@@ -162,9 +184,9 @@ In short:
 - Status decides when to freeze, and only money decides when to unfreeze.
 
 ### What it doesn't do yet (found while writing this)
-- **"Awarded" is never compared across sources.** A naive comparison would
-  raise a false alarm on R01GM061721 every time, because of the window gap
-  above.
+- ~~**"Awarded" is never compared across sources.**~~ Fixed in T54 (step 6
+  above). The totals themselves still aren't compared, only the current
+  period year by year, since the totals cover different windows.
 - **RePORTER's "awarded" is a lifetime total** ($8.1M for R01GM061721), not
   the current project period. The app's balances come from the seed, not
   from RePORTER, so the demo isn't affected. But it would matter once live
@@ -202,6 +224,15 @@ scripted state, where R01GM061721 is frozen until a simulated payment arrives.
   them by hand. We didn't confirm which line belongs to which budget year
   beyond matching the $429,221 amounts.
 - We didn't confirm how many years USAspending's paid-out total covers, only
-  that its obligations start at FY2008 for this grant.
+  that its obligations for R01GM061721 start at FY2007 and skip FY2008.
 - The scoring rubric is ours, untested on other grants, and not yet built
   into the app.
+
+## Corrections
+- 2026-10-24 (@ethan/claude, T54): the first version said USAspending's
+  window for R01GM061721 starts at FY2008 and that the totals then "agree
+  within $41". Wrong. USAspending starts at FY2007 and is missing FY2008's
+  $328,450. The $41 was a coincidence: FY2008's award ($328,450) is $41
+  larger than FY2007's ($328,409), so swapping one for the other nearly
+  balanced. Found by listing every USAspending transaction while building
+  the year-by-year check.

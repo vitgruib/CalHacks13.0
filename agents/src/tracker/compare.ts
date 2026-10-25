@@ -4,7 +4,7 @@
 // Track A's rule, not decided here.
 
 import type { GrantStatus, SourceReadingRow, StatusEventKind } from '../db/contract.ts';
-import type { Reading } from '../sources/types.ts';
+import type { AwardAction, Reading } from '../sources/types.ts';
 
 // A stored reading in the same shape as a fresh one (unset columns → null).
 export function readingOf(row: SourceReadingRow): Reading {
@@ -106,4 +106,47 @@ export function disagreement(latest: Reading[]): string | null {
   const meanings = new Set(claims.map((reading) => MEANING[reading.status!]));
   if (meanings.size < 2) return null;
   return claims.map((reading) => `${reading.source} says ${reading.status}`).join('; ');
+}
+
+// The federal fiscal year a date falls in (FY2024 runs Oct 2023 to Sep 2024).
+const fiscalYear = (date: string) => Number(date.slice(0, 4)) + (Number(date.slice(5, 7)) >= 10 ? 1 : 0);
+const daysBefore = (date: string, days: number) => new Date(Date.parse(date) - days * 86_400_000).toISOString().slice(0, 10);
+
+// RePORTER's award notices against USAspending's obligations, summed by
+// fiscal year. One NIH award can post as several obligations (R21AI182745's
+// $204,375 is $183,938 plus $20,437 two months later), so single entries
+// aren't matched one to one. Only the current project period counts: from
+// the latest new or competing award (USAspending may record it up to a
+// month earlier), since older years are often missing from USAspending and
+// can't be spent anyway. Actions from the last 45 days are skipped while
+// the slower source catches up.
+export function awardGap(latest: Reading[], today: string): string | null {
+  const nih = latest.find((reading) => reading.source === 'NIH RePORTER')?.awards;
+  const spending = latest.find((reading) => reading.source === 'USAspending')?.awards;
+  if (!nih?.length || !spending) return null;
+
+  const competing = nih.filter((award) => award.competing).map((award) => award.date);
+  const start = competing.length ? competing.reduce((a, b) => (a > b ? a : b)) : nih.map((a) => a.date).reduce((a, b) => (a < b ? a : b));
+  const settled = daysBefore(today, 45);
+  const byYear = (actions: AwardAction[], from: string) => {
+    const totals = new Map<number, number>();
+    for (const action of actions) {
+      if (action.date < from || action.date > settled) continue;
+      const year = fiscalYear(action.date);
+      totals.set(year, (totals.get(year) ?? 0) + action.amount);
+    }
+    return totals;
+  };
+  const nihYears = byYear(nih, start);
+  const spendingYears = byYear(spending, daysBefore(start, 31));
+
+  const gaps: string[] = [];
+  for (const year of [...new Set([...nihYears.keys(), ...spendingYears.keys()])].sort()) {
+    const listed = nihYears.get(year) ?? 0;
+    const obligated = spendingYears.get(year) ?? 0;
+    if (Math.abs(listed - obligated) >= 1) {
+      gaps.push(`FY${year} NIH RePORTER lists ${dollars(listed)} awarded, USAspending shows ${dollars(obligated)} obligated`);
+    }
+  }
+  return gaps.length ? gaps.join('; ') : null;
 }

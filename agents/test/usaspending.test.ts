@@ -23,12 +23,19 @@ const AWARD_URL = (grantId: string) => `https://api.usaspending.gov/api/v2/award
 
 // Serves trimmed real answers by award URL; anything else is the real 404.
 // Records every URL asked for, so tests can see what was requested.
-function fakeUsaspending(awards: Record<string, unknown>, status = 200) {
+const TRANSACTIONS_URL = 'https://api.usaspending.gov/api/v2/transactions/';
+
+function fakeUsaspending(awards: Record<string, unknown>, status = 200, transactions: Record<string, unknown> = {}) {
   const asked: string[] = [];
-  const fetchImpl: typeof fetch = async (input) => {
+  const fetchImpl: typeof fetch = async (input, init) => {
     const url = String(input);
     asked.push(url);
     if (status !== 200) return new Response('upstream error', { status });
+    if (url === TRANSACTIONS_URL) {
+      const awardId: string = JSON.parse(String(init?.body)).award_id;
+      const found = Object.entries(transactions).find(([grantId]) => awardId === `ASST_NON_${grantId}_075`)?.[1];
+      return Response.json(found ?? { results: [], page_metadata: { hasNext: false } });
+    }
     const award = Object.entries(awards).find(([grantId]) => AWARD_URL(grantId) === url)?.[1];
     if (award === undefined) return Response.json(fixture('not_found_5R01HD115985-03.json'), { status: 404 });
     return Response.json(award);
@@ -41,7 +48,9 @@ const failing: typeof fetch = async () => {
 };
 
 test('award_with_obligation_and_outlay_reads_awarded_and_paid', async () => {
-  const { fetchImpl, asked } = fakeUsaspending({ R01HD115985: fixture('award_R01HD115985.json') });
+  const { fetchImpl, asked } = fakeUsaspending({ R01HD115985: fixture('award_R01HD115985.json') }, 200, {
+    R01HD115985: fixture('transactions_R01HD115985.json'),
+  });
   const reading = await createUsaspendingSource({ fetchImpl, cacheDir }).read('R01HD115985');
 
   assert.deepEqual(reading, {
@@ -52,8 +61,15 @@ test('award_with_obligation_and_outlay_reads_awarded_and_paid', async () => {
     paid: 1217475.21,
     endDate: '2029-05-31',
     url: 'https://www.usaspending.gov/award/ASST_NON_R01HD115985_075',
+    // The four obligations add up to the $2,151,108 above; $0 rows are left out.
+    awards: [
+      { date: '2024-09-05', amount: 697555, label: '000' },
+      { date: '2025-07-20', amount: 705616, label: '002' },
+      { date: '2026-06-23', amount: 647937, label: '000' },
+      { date: '2026-08-11', amount: 100000, label: '001' },
+    ],
   });
-  assert.deepEqual(asked, [AWARD_URL('R01HD115985')]);
+  assert.deepEqual(asked, [AWARD_URL('R01HD115985'), TRANSACTIONS_URL]);
 });
 
 test('missing_outlay_reads_as_paid_unknown', async () => {
@@ -128,14 +144,21 @@ test('offline_with_no_saved_copy_throws_naming_the_grant', async () => {
 });
 
 test('the_saved_copy_keeps_only_the_fields_the_reading_uses', async () => {
-  const { fetchImpl } = fakeUsaspending({ R01HD115985: fixture('award_R01HD115985.json') });
+  const { fetchImpl } = fakeUsaspending({ R01HD115985: fixture('award_R01HD115985.json') }, 200, {
+    R01HD115985: fixture('transactions_R01HD115985.json'),
+  });
   await createUsaspendingSource({ fetchImpl, cacheDir }).read('R01HD115985');
 
-  const [file] = readdirSync(cacheDir);
-  const saved = JSON.parse(readFileSync(join(cacheDir, file), 'utf8')).response;
-  assert.deepEqual(saved, {
+  const saved = readdirSync(cacheDir).map((file) => JSON.parse(readFileSync(join(cacheDir, file), 'utf8')));
+  const savedFor = (url: string) => saved.find((copy) => copy.request.url === url).response;
+  assert.deepEqual(savedFor(AWARD_URL('R01HD115985')), {
     total_obligation: 2151108,
     total_outlay: 1217475.21,
     period_of_performance: { end_date: '2029-05-31' },
+  });
+  assert.deepEqual(savedFor(TRANSACTIONS_URL).results[0], {
+    action_date: '2024-09-05',
+    federal_action_obligation: 697555,
+    modification_number: '000',
   });
 });

@@ -16,10 +16,24 @@ R21AI182745: FY2024 204,375 (notice 2024-03-25) + FY2025 246,000 (notice 2025-01
 R01GM061721: total_obligation 5,912,827.46; total_outlay 1,595,913.46; end 2027-07-31
 R21AI182745: total_obligation 450,375; total_outlay 369,060.38; end 2026-08-31
 
-Reconciling R01GM061721: RePORTER FY2008-FY2025 = 5,988,780; minus the USAspending
-deobligation of -75,911.54 on 2022-03-01 = 5,912,868.46; USAspending says
-5,912,827.46 (off by $41). The remaining 2,141,293 is RePORTER's FY2000-FY2007
-records, which USAspending's award does not include.
+Reconciling R01GM061721 (CORRECTED 2026-10-24, T54; the first version said
+USAspending starts at FY2008 and agreed "within $41", which was wrong):
+USAspending's transactions start 2007-05-18 (FY2007, $328,409). RePORTER
+FY2007-FY2025 = 6,317,189. USAspending positive obligations = 5,988,739
+(= 5,912,827.46 total + 75,911.54 deobligation). Difference = 328,450 exactly:
+RePORTER's FY2008 award (notice 2008-04-25) has no USAspending transaction.
+RePORTER FY2000-FY2006 (1,812,884) is before USAspending's window.
+
+== USAspending transactions, full list (read 2026-10-24, sort action_date asc)
+R01GM061721 (21 rows): 2007-05-18 328,409 | 2009-04-16 338,303 (RePORTER notice
+2009-04-17) | 2010-08-31 401,486 | 2011-09-01 377,720 | 2012-09-06 377,716 |
+2013-08-29 364,493 | 2015-08-28 459,727 | 2016-08-09 414,285 | 2017-07-24 414,285 |
+2018-07-27 414,285 | 2020-08-24 0 | 2022-03-01 -75,911.54 | 2022-07-27 429,221 |
+2023-02-23 37,763 | 2023-07-18 429,221 | 2023-07-19 332,594 | 2023-07-24 10,789 |
+2024-09-10 429,221 | 2025-08-07 429,221 | 2025-12-02 0 | 2026-05-04 0
+R21AI182745 (4 rows): 2024-03-25 183,938 (New Award) | 2024-05-29 20,437 |
+2025-01-22 246,000 | 2026-02-24 0. RePORTER lists FY2024 as one 204,375 notice
+(2024-03-25) = 183,938 + 20,437.
 
 == USAspending transactions  POST https://api.usaspending.gov/api/v2/transactions/ {"award_id":"ASST_NON_R01GM061721_075"}
 2026-05-04  $0  Other Action, Non-Financial (mod 001)
