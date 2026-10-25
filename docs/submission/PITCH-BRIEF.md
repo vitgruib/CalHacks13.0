@@ -367,6 +367,88 @@ items left out in code), answering Defend the Spend follow-ups by quoting
 the exact purchases, and checking progress-report papers for grant credit.
 Pitch these only as "what's next".
 
+## 2D. How often grants are cut and reversed
+
+Sources: Grant Witness full-dataset CSVs downloaded 2026-10-24
+(`docs/research/sources/docs/grantwitness-csv-summary-2026-10-24.txt`,
+prime awards only) and our own count of the NIH list as our Apify Actor
+scraped it the same day (`scrapers/out/cancellations.json`: 5,635 NIH grant
+numbers, which includes subawards and supplements, so it runs a little
+higher than the prime-award count). Tag: [ours, from Grant Witness data].
+Grant Witness is volunteer and advocacy-adjacent; it's the best public
+count, not an official one.
+
+**Scale, across seven agencies (prime awards):**
+
+| Agency | Awards disrupted | Now restored | Still disrupted | Restorations not yet confirmed by money |
+|---|---|---|---|---|
+| NIH | 5,098 | 4,352 (85%) | 746 | 192 |
+| SAMHSA | 2,934 | 2,797 (95%) | 137 | 78 |
+| NSF | 2,031 | 631 (31%) | 1,400 | 65 |
+| EPA | 671 | 64 (10%) | 607 | 6 |
+| CDC | 580 | 301 (52%) | 237 (+42 at risk) | 14 |
+| AHRQ | 207 | 13 | 194 | — |
+| NOAA | 26 | 4 | 22 | 2 |
+| **Total** | **11,547** | **8,162 (71%)** | **3,385** | **357** |
+
+- NIH alone: **$14.56B** obligated before disruption, **$7.54B** still
+  unspent at disruption; 430 grantee organizations.
+- So **about 7 in 10 disrupted awards have been reversed**, but how often
+  depends heavily on the agency (95% at SAMHSA, 31% at NSF, 10% at EPA). A
+  tracker can't assume either outcome.
+
+**NIH cuts and restorations by month** (our count of the scraped list, by
+the termination and restoration dates Grant Witness records):
+
+| Month | Cut | Restored |
+|---|---|---|
+| 2025-01 to 02 | 27 | 0 |
+| 2025-03 | 761 | 1 |
+| **2025-04** | **3,407** | 44 |
+| 2025-05 | 508 | 20 |
+| 2025-06 | 339 | 507 |
+| 2025-07 | 506 | 892 |
+| 2025-08 | 20 | 518 |
+| **2025-09** | 16 | **1,184** |
+| 2025-10 | 1 | 0 |
+| 2025-11 | 4 | 862 |
+| 2025-12 to 2026-10 | 46 (18 in July 2026) | 602 (about 55 a month) |
+
+What this shows:
+- **Cuts came in a burst, then never fully stopped.** 3,407 NIH cuts in
+  April 2025 alone (about 110 a day); a few new cuts are still recorded in
+  2026, including 18 in July 2026.
+- **Reversals came in waves tied to court rulings and freezes being
+  lifted,** then kept trickling at about 55 a month through 2026. In
+  September 2025 alone, 1,184 NIH grants were restored (about 40 a day).
+- **A reversal takes months:** median **150 days** from cut to restoration
+  (middle half 83–236 days; longest 551 days) across 4,630 restored NIH
+  grants. A lab spends that whole time not knowing whether it can spend.
+- **Reversals come by many routes, each with its own timing:** freezes
+  lifted (about 2,200 grants), court cases (1,706 grants name one: *Harvard
+  v. HHS* 551, *Thakur v. Trump* 490, *Massachusetts v. Kennedy* 410, *APHA
+  v. NIH* 291, *Colorado v. HHS* 33, *Washington v. Trump* 11, a Columbia
+  case 6), and quiet changes in RePORTER or removal from the TAGGS list.
+- **Some reversals reverse again.** The Supreme Court let **$783M** of NIH
+  terminations stand (5-4, 2025-08-21) [verified, SCOTUSblog]; the lead UC
+  case (*Thakur*) is at the Supreme Court now (No. 26-210) [verified]; our
+  module also handles a grant restored and then cut again (T74). Grant
+  Witness removed 362 grants that came only from reinstatement orders and
+  were never detected as cut [verified].
+- **"Restored" often isn't "paid" yet:** 357 restorations across agencies
+  (192 at NIH) are still "unconfirmed", meaning no money has been seen
+  since the restoration.
+- **It's concentrated, so one grant office can face hundreds:** the top
+  NIH institutions on the list are Columbia (926 grant numbers),
+  Northwestern (765), UCLA (497), Harvard Medical School (351) and Brown
+  (260); University of California campuses together have 703.
+
+**What this means for the pitch:** for a busy grant office, status changes
+aren't a one-time event to fix by hand. They arrived at up to ~110 a day,
+keep arriving weekly, each takes months to resolve, and each can be
+undone. That's why Grant Test Auto treats status as a dated timeline it
+re-reads before money moves, rather than a field someone updates.
+
 ## 3. What it does (current build)
 
 - **Fund tracker** (bookkeeping agent). Per grant: awarded, received,
@@ -451,7 +533,7 @@ through every component:
 | # | What happens | Component doing it | What it guarantees |
 |---|---|---|---|
 | 1 | Priya types "nitrile gloves, $640, for the cell culture work" into **Ask** on her researcher portal | **Web app** (React on Vercel), signed in as her own SpacetimeDB identity | The request is tied to a real person; she sees only her own requests |
-| 2 | Before matching a grant, Claude Haiku reads the item: could any grant pay for this? (fine/flag, one-line reason, kind of thing) | **Agent worker** on the **Azure VM** answers the `itemCheck` row via **Claude Haiku** | Unallowable categories (alcohol, food, furniture, personal items, vague purposes) are flagged with the regulation; if Claude doesn't answer in 20 s, the request goes on unchecked to a human, never auto-approved |
+| 2 | Before matching a grant, Claude Haiku reads the item: could any grant pay for this? (fine/flag, one-line reason, kind of thing) | **Agent worker** on the **Azure VM** answers the `itemCheck` row via **Claude Haiku** | Unallowable categories (alcohol, food, furniture, personal items, vague purposes) are flagged with the regulation; if Claude doesn't answer in 10 s, the request goes on unchecked to a human, never auto-approved |
 | 3 | Ask shows, in plain words, which of her grants can pay; she submits | Web app reading live **SpacetimeDB** tables | She knows before asking whether money is really there |
 | 4 | `submit_request` runs: the module records who asked, then applies the spending rules (active and not frozen, last 90 days, category, card limit, split purchases, truly available money) | **SpacetimeDB module** (`server/`, TypeScript reducers on maincloud) | Rules and money math run in one place, server-side, the same way every time; no model is involved in the verdict |
 | 5 | Grant A is frozen (canceled, court-restored, no payment), so the module opens an Inbox item: "Flagged: approve …" with each failing rule, its audit case, and Priya's name | SpacetimeDB module writes the hold + a **Log** row | Nothing is bought without a person; the reason is on the record |
@@ -561,7 +643,7 @@ Azure VM, one SpacetimeDB identity:**
 | 1 | Reads RePORTER, USAspending and the cancellation list for every lab grant | "Check now", or right before money moves | No (code) | Read any grant that isn't the lab's |
 | 2 | Compares the sources year by year and posts only what changed, as dated, sourced readings | After each read | No (code) | Write a status directly; it reports facts, the module applies the freeze rule |
 | 3 | Raises flags: sources disagree; money spent while a grant was canceled; a court restored a grant but no money has come; a grant restored then cut again | When a reading changes | No (code) | Clear a flag or unfreeze a grant |
-| 4 | Answers Ask's **item check**: before any grant is matched, is this item something a federal research grant could pay for at all? Returns fine/flag, a one-line reason and the kind of thing it is; flags alcohol, entertainment, personal items, food and drinks, furniture, office supplies and vague purposes, citing 2 CFR 200.403/.423/.438 | A researcher types a request in Ask | **Yes, Claude Haiku** (`claude-haiku-5-5`) | Block the request: a flag just tells the researcher why; they can still send it, and if Haiku doesn't answer in ~20 s the check comes back "unchecked" and Ask goes on |
+| 4 | Answers Ask's **item check**: before any grant is matched, is this item something a federal research grant could pay for at all? Returns fine/flag, a one-line reason and the kind of thing it is; flags alcohol, entertainment, personal items, food and drinks, furniture, office supplies and vague purposes, citing 2 CFR 200.403/.423/.438 | A researcher types a request in Ask | **Yes, Claude Haiku** (`claude-haiku-5-5`) | Block the request: a flag just tells the researcher why; they can still send it, and if Haiku doesn't answer in 10 s the check comes back "unchecked" and Ask goes on |
 | 5 | Checks every new invoice by sending it to the module's `check_invoice`, which matches it to its order and approval and pays it or holds it (duplicate, canceled order, bill dated before the order) with a timeline | A new invoice; re-checks a held one once when its order is canceled, changes amount, or gets a new approval | No (code + module) | Decide the match or pay anything itself |
 | 6 | Enriches a held invoice's Inbox item with the conflicting records by id and exact amount, the rule the module cited, kept word for word | Right after the module holds an invoice | No (code) | Change the module's wording or verdict |
 | 7 | Adds a short **note on a held invoice**: which records conflict and what evidence is missing before the grant manager decides | Same moment, when Claude is on | **Yes, Claude** (Sonnet by default, Haiku on the hosted worker) | Change the verdict or numbers. A note naming any dollar amount, record id or date not in the records is dropped, and the Inbox keeps the module's text |
