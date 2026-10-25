@@ -37,5 +37,5 @@ export const windows: WindowDef[] = [
   { id: 'reports', label: 'Reports', job: 'Each paper in the progress report, with its check results', Component: Reports, roles: ['grant_manager'] },
   { id: 'inbox', label: 'Inbox', job: 'Everything waiting for a human decision, with its evidence', Component: Inbox, roles: ['grant_manager'] },
   { id: 'log', label: 'Log', job: 'Who did what, and why', Component: Log, roles: ['grant_manager'] },
-  { id: 'test-lab', label: 'Test lab', job: 'Demo only: drop in events, fast-forward the clock, see the scorecard', Component: TestLab, roles: ['grant_manager'] },
+  { id: 'demo', label: 'Demo controls', job: 'Demo only: start over, play the cut scripts, drop in events, fast-forward the clock, see the scorecard', Component: TestLab, roles: ['grant_manager'] },
 ]

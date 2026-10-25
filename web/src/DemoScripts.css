@@ -1,6 +1,4 @@
-.demo-scripts { margin-bottom: 16px; }
-.demo-scripts > header h2 { margin: 0 0 4px; font-size: 17px; }
-.demo-scripts > header p { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
+.demo-scripts-intro { margin: 0 0 10px; color: var(--muted); font-size: 14px; }
 .demo-scripts-error { color: var(--bad); }
 .demo-scripts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
 .demo-script { padding: 12px 14px; border: 1px solid var(--line); border-left-width: 4px; border-radius: 10px; background: var(--panel); font-size: 14px; }

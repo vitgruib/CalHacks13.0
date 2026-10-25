@@ -18,7 +18,6 @@ export interface LiveInfo {
   status: 'live' | 'disconnected'
   notices: { id: number; text: string }[]
   dismiss: (id: number) => void
-  loadDemoSeed: () => void
 }
 
 // Each person is their own identity (the module binds one role per identity,
@@ -197,13 +196,13 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
       if (!manager.current || status !== 'live') throw new Error('not connected to the server; reload to reconnect')
       await conn().reducers.requestCheck({ grantId, reason: 'check_now', asOf })
     },
+    loadDemoSeed: () => call('Loading the demo seed', () => conn().reducers.loadSeed({ json: JSON.stringify(seed) })),
   }
 
   const info: LiveInfo = {
     status,
     notices,
     dismiss: id => setNotices(n => n.filter(x => x.id !== id)),
-    loadDemoSeed: () => call('Loading the demo seed', () => conn().reducers.loadSeed({ json: JSON.stringify(seed) })),
   }
 
   return (

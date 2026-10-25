@@ -4,7 +4,7 @@
 // a real day (a "check now" for just that grant), so judges watch the agent
 // meet the cut as it happened. Two are financial headaches the agent
 // manages; two are mistakes it marks. Steps only go forward: a check can't
-// take back what the agent posted. Load the demo seed to run them again.
+// take back what the agent posted. Start over (Demo controls) runs them again.
 import { useState } from 'react'
 import { useStore } from './data/store'
 import { RESEARCHERS } from './people'
@@ -69,11 +69,8 @@ export default function DemoScripts() {
   const checking = sourceCheck.pendingSince !== null
 
   return (
-    <section className="demo-scripts" aria-label="Cut scripts">
-      <header>
-        <h2>Cut scripts</h2>
-        <p>Each grant below was cut on the real cancellation list. A step checks that one grant with the list as it stood on that day. Load the demo seed to run them again.</p>
-      </header>
+    <div className="demo-scripts">
+      <p className="demo-scripts-intro">Each grant below was cut on the real cancellation list. A step checks that one grant with the list as it stood on that day. Start over to run them again.</p>
       {error && <p className="demo-scripts-error">{error}</p>}
       <div className="demo-scripts-grid">
         {scripts.map(s => {
@@ -113,6 +110,6 @@ export default function DemoScripts() {
           )
         })}
       </div>
-    </section>
+    </div>
   )
 }

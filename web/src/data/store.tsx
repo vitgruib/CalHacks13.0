@@ -29,6 +29,8 @@ export interface Store {
    *  YYYY-MM-DD; none = today), for one grant or every grant. Rejects if the
    *  request couldn't be sent. */
   checkNow: (asOf?: string, grantId?: string) => Promise<void>
+  /** Demo controls: replace the whole world with the demo seed (sim/seed.json). Live, every open window sees it. */
+  loadDemoSeed: () => void
 }
 
 export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number }
@@ -154,7 +156,12 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
 
   // Offline demo data has no agents, so Check now here is SIMULATED: a short
   // pause, then "finished". Nothing outside this tab is read.
-  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null, asOf: null, grantAsOf: {} })
+  // The seed's finished check requests set each cut script's starting day (T65).
+  const seedCheck = (): SourceCheck => ({
+    last: null, pendingSince: null, asOf: null,
+    grantAsOf: Object.fromEntries(((seed as { checkRequests?: { grantId?: string; asOf?: string }[] }).checkRequests ?? []).filter(c => c.grantId && c.asOf).map(c => [c.grantId!, c.asOf!])),
+  })
+  const [sourceCheck, setSourceCheck] = useState<SourceCheck>(seedCheck)
   const checkNow: Store['checkNow'] = async (asOf, grantId) => {
     const id = nextId('check')
     const days = (c: SourceCheck) => (grantId ? { asOf: c.asOf, grantAsOf: { ...c.grantAsOf, [grantId]: asOf ?? null } } : { asOf: asOf ?? null, grantAsOf: c.grantAsOf })
@@ -167,7 +174,12 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     }, SIMULATED_CHECK_MS)
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow }}>{children}</Ctx.Provider>
+  const loadDemoSeed: Store['loadDemoSeed'] = () => {
+    setDb(structuredClone(seed) as unknown as Db)
+    setSourceCheck(seedCheck())
+  }
+
+  return <Ctx.Provider value={{ db, decide, submitRequest, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, loadDemoSeed }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

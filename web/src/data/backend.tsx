@@ -25,9 +25,6 @@ export function StoreProvider({ children }: { children: ReactNode }) {
 }
 
 function LiveStatus({ info }: { info: LiveInfo }) {
-  const load = () => {
-    if (confirm('Replace the shared world with the demo seed (sim/seed.json)? Every open window sees the change.')) info.loadDemoSeed()
-  }
   return (
     <div className="backend-status" role="status">
       {info.notices.map(n => (
@@ -40,7 +37,6 @@ function LiveStatus({ info }: { info: LiveInfo }) {
         {info.status === 'live'
           ? <span className="badge good">Live · {STDB_DB}</span>
           : <span className="badge bad">Disconnected: reload to reconnect</span>}
-        <button type="button" className="backend-seed" onClick={load}>Load demo seed</button>
       </div>
     </div>
   )
