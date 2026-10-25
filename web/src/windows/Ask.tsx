@@ -96,8 +96,10 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
   // A chosen grant that can't take it, when another one could.
   const auto = ask.grantId && out.kind !== 'yes' && out.kind !== 'manager' ? checkAsk(db, ask) : undefined
   const better = auto && (auto.kind === 'yes' || auto.kind === 'manager') ? auto.grant : undefined
-  // Sent anyway, a request not allowed goes on the grant with the most money; the grant manager decides.
-  const g = 'grant' in out ? out.grant : checks[0]?.g
+  // Sent anyway, a flagged item goes where it would go if it were fine; failing that, on the
+  // grant with the most money that isn't paused. The grant manager decides.
+  const fit = ask.flag ? checkAsk(pool(db, ask.grantId), ask) : out
+  const g = 'grant' in fit ? fit.grant : (checks.find(c => !paused(c.g)) ?? checks[0])?.g
   const after = g ? spendable(g) - ask.price : 0
 
   let body: ReactNode

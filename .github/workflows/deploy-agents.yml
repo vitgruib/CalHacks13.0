@@ -23,6 +23,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
     env:
       HOST: ${{ secrets.AZURE_VM_HOST }}
       KEY: ${{ secrets.AZURE_VM_SSH_KEY }}
@@ -31,6 +33,26 @@ jobs:
       - name: Skip until the VM secrets exist
         if: env.HOST == '' || env.KEY == ''
         run: echo "::notice::AZURE_VM_HOST / AZURE_VM_SSH_KEY not set; nothing to deploy"
+      # A push that changes server/ also publishes the module. A worker started
+      # before that publish finishes subscribes to tables maincloud doesn't have
+      # yet and crashes, so wait for it. No publish run for this commit: go on.
+      - name: Wait for this commit's module publish
+        if: env.HOST != '' && env.KEY != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          state() { gh run list -R "$GITHUB_REPOSITORY" --workflow publish-module.yml --commit "$GITHUB_SHA" \
+            --json status,conclusion -q '.[0] // empty | "\(.status) \(.conclusion)"'; }
+          for i in $(seq 90); do
+            s=$(state)
+            if [ -z "$s" ] && [ "$i" -gt 3 ]; then echo "No module publish for this commit"; exit 0; fi
+            case "$s" in
+              "completed success") echo "Module published"; exit 0 ;;
+              completed*) echo "::error::The module publish for this commit ended '$s'; not starting a worker against the old module"; exit 1 ;;
+            esac
+            sleep 10
+          done
+          echo "::error::Gave up waiting for the module publish"; exit 1
       - name: Update the VM
         if: env.HOST != '' && env.KEY != ''
         run: |
