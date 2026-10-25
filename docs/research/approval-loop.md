@@ -139,8 +139,9 @@ That's Grant Test Auto's core idea: answer them once, from one record of the gra
 
 - **Pitch line:** a purchase is checked for the same three things up to six
   times, by different people in different tools, starting in an email thread.
-  Grant Test Auto checks once, against the live state of the grant, and shows
-  everyone the same answer.
+  Grant Test Auto runs the checks once, against the live state of the grant,
+  and shows the researcher and the grant manager the same answer. The grant
+  manager still approves every request and invoice (T108).
 - **Where we sit:** next to the marketplace and the AP inbox, not instead of
   them. Don't claim to replace Workday, Oracle or BearBuy. The ERP rollout
   failures in [pain point 09](pain-points/09-erp-outages.md) are a reason

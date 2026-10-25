@@ -61,6 +61,27 @@ best public count, not an official one.
 | **Every drawdown needs a written defense.** | NIH GPS 6.1; COGR members get "dozens" of follow-ups [verified] | Payment request writer drafts the ≤1,000-character justification from purchase records and answers follow-ups with exact purchases | Draft with held invoice left out; human approves |
 | **Labs can't see real balances.** | UC Senate letter; FDP "almost 60%" [verified] | Awarded / received / spent / promised / truly available per grant | Funds window |
 | **ERP outages leave the books wrong.** | UW Workday $90M backlog [verified] | Lab-side ledger that reconciles invoices to orders | Invoice for a canceled order held with its timeline |
+| **The same checks happen over and over, starting in email.** | Purchase approval starts in email (Kentucky, Northern Illinois, Berkeley CEE); CU Boulder needs "three sequential approvals"; UC Riverside holds invoices that don't match their order [verified] | One request record: the rules run once and the grant manager approves; invoices are matched to their order | A request flagged with its reason; the invoice for a canceled order held |
+
+**Where this work happens today.** No single system handles the loop of
+request, approval, invoice and grant check. A purchase starts in email: a
+Kentucky lab's flowchart "Starts with (grad student email to PI), PI
+forwards email and approval to:" the purchaser, and Northern Illinois says
+a PI's request to the grant administrator "should be made via email"
+[verified]. At Berkeley's Civil & Environmental Engineering department, a
+grant-funded cart goes to "the PI or the Research Administrator" in
+BearBuy, or a paper form is scanned and sent with "quotes or emails"
+attached [verified]. Then the same questions are asked again as approval steps in the
+purchasing system. At CU Boulder the department confirms "sufficient funding
+is available and check[s] the award's period of performance", and the grant
+office confirms "the purchase is allowable" [verified]. Invoices go to a
+central accounts-payable inbox; UC Riverside delays payment for "POs not
+matching vendor invoice" and "POs not having enough encumbered funds"
+[verified]. Grant administrators fill the gaps with "user-developed Excel
+and Google worksheets" (SRAI, the research administrators' society)
+[verified]. Each source is one school's own procedure, and we found no count
+of how many grant purchases start in email. Full step-by-step:
+`docs/research/approval-loop.md`.
 
 ## 3. What already exists, and what's new
 
@@ -158,4 +179,5 @@ purchases), and central research administration (payment requests).
 - Ithaka S+R, AI Adoption in Research Administration at Emerging Research Institutions (2026-03-30): https://sr.ithaka.org/publications/ai-adoption-in-research-administration-at-emerging-research-institutions/ · ai@cam: https://www.ai.cam.ac.uk/projects/exploring-ai-in-research-grants-administration/
 - NCURA Magazine, "The Administrative Burden of Defend the Spend" (Hope & Toups, COGR, 2025): https://www.cogr.edu/sites/default/files/2025-12/The%20Administrative%20Burden%20of%20Defend%20the%20Spend_NCURA%20Mag%202025.pdf (text: `docs/research/sources/docs/ncura-2025-defend-the-spend-burden.txt`)
 - Devpost: https://devpost.com/software/grantloop · https://devpost.com/software/wateraid-x75h92 (GrantProof) · scans: `docs/research/sources/devpost-scan.txt`, `docs/research/sources/devpost-scan-2026-10-24.txt`
+- Where the approval loop happens (2026-10-25): Kentucky BAE https://www.engr.uky.edu/sites/default/files/BAE/PurchaseFlowChart2021.pdf · NIU https://www.niu.edu/spa/_pdf/request-add-grant-commercial-card-form.pdf · Berkeley CEE https://ce.berkeley.edu/resources/forms/reimbursements · CU Boulder https://www.colorado.edu/ocg/manage-awards/property-and-equipment/marketplace-purchasing · UC Riverside https://accounting.ucr.edu/accounts-payable/vendor-invoice-process · SRAI https://www.srainternational.org/blogs/srai-news/2022/01/12/what-we-do-in-the-shadow-systems-in-research-admin (excerpts: `docs/research/sources/docs/approval-loop-university-pages-2026-10-25.txt`)
 - Pain-point files with more detail: `docs/research/pain-points/01`, `02`, `06`–`10`
