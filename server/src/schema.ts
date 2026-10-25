@@ -163,6 +163,7 @@ const request = table(
     verdicts: t.array(Verdict), // written by the module's rules (T6)
     explanation: t.string(), // purchasing agent's plain-language reason
     requesterName: t.string().default(''), // the person who asked, e.g. Dr. Priya Nair ('' if unknown); added T39
+    oneGrantBasis: t.string().default(''), // a shared cost charged in full to one grant: why each grant's use can't be measured ('' = none stated); added T63
   }
 );
 

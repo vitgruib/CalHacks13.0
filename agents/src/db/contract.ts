@@ -172,6 +172,8 @@ export interface RequestRow {
   explanation: string;
   /** The person who asked, e.g. "Dr. Priya Nair" ('' if unknown). */
   requesterName: string;
+  /** A shared cost to charge in full to one grant: why each grant's use can't be measured ('' = none stated). */
+  oneGrantBasis: string;
 }
 export interface OrderRow {
   id: string;
@@ -348,7 +350,7 @@ export interface Actions {
   register_person: { role: PersonRole; name: string };
 
   // Purchases. People submit; the purchasing agent evaluates, then acts.
-  submit_request: { item: string; category: string; price: number; grantId?: string; purpose: string; sharedWith: string[] };
+  submit_request: { item: string; category: string; price: number; grantId?: string; purpose: string; sharedWith: string[]; oneGrantBasis?: string };
   push_back: { requestId: string; message: string };
   /** Runs every spending rule against a grant (default: the one asked for) and stores the verdicts on the request. No money moves. */
   evaluate_request: { requestId: string; grantId?: string; split: Split[] };

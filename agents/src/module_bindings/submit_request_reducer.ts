@@ -17,4 +17,5 @@ export default {
   grantId: __t.option(__t.string()),
   purpose: __t.string(),
   sharedWith: __t.array(__t.string()),
+  oneGrantBasis: __t.option(__t.string()),
 };

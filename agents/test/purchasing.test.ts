@@ -11,6 +11,7 @@ import {
   planFor,
   readFallback,
   sanitizeRead,
+  sharedCostStep,
   splitFor,
   startPurchasing,
   vendorFor,
@@ -521,6 +522,41 @@ test('a_declared_shared_cost_without_a_split_is_held_and_looked_at_again_after_a
   assert.equal(purchaseHolds(row.id).length, 2);
 });
 
+test('a_shared_cost_the_requester_asks_to_charge_to_one_grant_waits_for_the_grant_manager_who_can_approve_it_there', async () => {
+  world = await startWorld({ seedJson: twoGrantSeed() });
+  const scientist = await world.person('scientist');
+  const grantManager = await world.person('grant_manager');
+  await scientist.call('submit_request', {
+    item: 'Freezer service visit', category: 'equipment service', price: 1_200, grantId: TEST_GRANT,
+    purpose: 'The -80 freezer both projects use', sharedWith: [TEST_GRANT, SECOND_GRANT],
+    oneGrantBasis: 'Both projects store the same shared samples in it.',
+  });
+  await world.worker.idle();
+  const row = newestRequest();
+  assert.equal(row.state, 'waiting_on_manager', 'never bought on the reason alone');
+  assert.match(row.explanation, /Both projects store the same shared samples in it\./);
+  assert.match(row.explanation, /grant manager can approve it on R01TEST000001/);
+
+  await grantManager.call('decide_hold', { holdId: openPurchaseHolds(row.id)[0].id, choice: 'approve', reason: 'Agreed, one pool of samples.' });
+  await world.worker.idle();
+  assert.equal(request(row.id).state, 'bought');
+  assert.deepEqual(ordersFor(row.id).map((o) => [o.grantId, o.amount]), [[TEST_GRANT, 1_200]]);
+});
+
+test('the_shared_cost_hold_says_a_split_looks_needed_when_claude_thinks_each_grants_use_is_measurable', () => {
+  const serves = ['G-A', 'G-B'];
+  const measurable = { measurable: 'yes' as const, how: 'The microscope booking log records hours per project.' };
+  const step = sharedCostStep(serves, 'G-A', 'Both projects use it.', measurable);
+  assert.match(step, /asked to charge it all to G-A/);
+  assert.match(step, /booking log records hours per project\)/);
+  assert.match(step, /split by use looks needed/);
+  assert.doesNotMatch(step, /can approve it on G-A/, 'no offer to approve the claim it doubts');
+
+  const inseparable = sharedCostStep(serves, 'G-A', '', { measurable: 'no', how: 'One experiment answers both aims at once.' });
+  assert.match(inseparable, /hard to separate \(One experiment answers both aims at once\)/);
+  assert.equal(sharedCostStep(serves, 'G-A'), sharedCostStep(serves, 'G-A', '', { measurable: 'unclear', how: '' }), 'no view: the plain ask for a split');
+});
+
 test('a_push_back_on_a_rerouted_request_never_buys_it_twice', async () => {
   // The asked-for grant is in its last 90 days, so supplies are rerouted to the second.
   const seed = JSON.parse(twoGrantSeed());
@@ -918,7 +954,7 @@ const grantRow = (id: string, extra: Partial<GrantRow> = {}): GrantRow => ({
 });
 const requestRow = (extra: Partial<RequestRow> = {}): RequestRow => ({
   id: 'rq-1', day: '2026-06-15', requester: 'scientist', item: 'Pipette tips, 20 racks', category: 'lab supplies', price: 380,
-  sharedWith: [], split: [], purpose: 'Bench use', state: 'submitted', verdicts: [], explanation: '', requesterName: '', ...extra,
+  sharedWith: [], split: [], purpose: 'Bench use', state: 'submitted', verdicts: [], explanation: '', requesterName: '', oneGrantBasis: '', ...extra,
 });
 
 test('the_fallback_reading_takes_the_only_grant_that_can_pay_and_calls_two_unclear', async () => {

@@ -271,6 +271,7 @@ export const Request = __t.object("Request", {
   },
   explanation: __t.string(),
   requesterName: __t.string(),
+  oneGrantBasis: __t.string(),
 });
 export type Request = __Infer<typeof Request>;
 

@@ -133,6 +133,12 @@ export interface RequestFacts {
   price: number;
   sharedWith: string[];
   split: { grantId: string; share: number }[];
+  /**
+   * Why a shared cost is charged in full to one grant: each grant's use can't
+   * be measured (2 CFR 200.405(d)). Never passes the rule alone; the grant
+   * manager confirms it.
+   */
+  oneGrantBasis?: string;
   /** The same person's other live requests that day: a split purchase adds up across them. */
   sameDay?: { id: string; category: string; price: number }[];
 }
@@ -222,15 +228,22 @@ export function spendingVerdicts(
     const charged = new Set(req.split.filter(c => c.share > 0).map(c => c.grantId));
     const missing = req.sharedWith.filter(id => !charged.has(id));
     const ok = req.split.length >= 2 && Math.abs(sum - 1) < 1e-9 && missing.length === 0;
+    const oneGrant = !ok && (missing.length > 0 || req.split.length < 2);
+    const basis = oneGrant ? req.oneGrantBasis?.trim() : undefined;
+    const onOne = `Serves ${req.sharedWith.join(' and ')} but is charged to ${req.split.length ? req.split.map(c => c.grantId).join(', ') : 'one grant'} only.`;
     out.push({
       rule: 'Shared cost split across the grants it serves',
       pass: ok,
       detail: ok
         ? `Split ${req.split.map(c => `${Math.round(c.share * 100)}% ${c.grantId}`).join(', ')}.`
-        : missing.length > 0 || req.split.length < 2
-          ? `Serves ${req.sharedWith.join(' and ')} but is charged to ${req.split.length ? req.split.map(c => c.grantId).join(', ') : 'one grant'} only.`
-          : `Shares add up to ${Math.round(sum * 100)}%, not 100%.`,
-      auditCase: ok ? undefined : 'NSF OIG audit summary: shared costs charged 100% to one award',
+        : basis
+          ? `${onOne} The requester says each grant's use can't be measured: "${basis}" The grant manager confirms that basis or asks for a split.`
+          : oneGrant
+            ? onOne
+            : `Shares add up to ${Math.round(sum * 100)}%, not 100%.`,
+      auditCase: ok ? undefined : basis
+        ? "2 CFR 200.405(d): when each project's share can't be determined, a cost may be charged on any reasonable documented basis"
+        : 'NSF OIG audit summary: shared costs charged 100% to one award',
     });
   }
   return out;

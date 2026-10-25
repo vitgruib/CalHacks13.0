@@ -11,7 +11,7 @@ export interface Store {
   /** Grant manager decides a hold. Reason is required (MASTER-PLAN §2). */
   decide: (holdId: string, choice: Decision['choice'], reason: string) => void
   /** A researcher submits a purchase request as themselves; the purchasing agent picks it up. */
-  submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose' | 'sharedWith'>, by: Researcher) => void
+  submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose' | 'sharedWith' | 'oneGrantBasis'>, by: Researcher) => void
   /** The researcher who asked pushes back with new information; the agent looks again (push_back). */
   pushBack: (requestId: string, message: string, by: Researcher) => void
   // Test lab only (T18). Same argument shapes as Track A's reducers

@@ -129,6 +129,7 @@ export function loadSeed(ctx: Ctx, seed: Seed): void {
       sharedWith: r.sharedWith ?? [], split: r.split ?? [], purpose: r.purpose,
       state: r.state, verdicts: (r.verdicts ?? []).map(v => ({ ...v, auditCase: v.auditCase })), explanation: r.explanation ?? '',
       requesterName: r.requesterName ?? '',
+      oneGrantBasis: '',
     });
   }
   for (const o of seed.orders) {

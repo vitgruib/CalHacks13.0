@@ -238,6 +238,8 @@ export const submit_request = spacetimedb.reducer(
   {
     item: t.string(), category: t.string(), price: t.f64(), grantId: t.string().optional(),
     purpose: t.string(), sharedWith: t.array(t.string()),
+    // A shared cost to charge in full to one grant: why each grant's use can't be measured.
+    oneGrantBasis: t.string().optional(),
   },
   (ctx, a) => guard(() => {
     const who = requirePerson(ctx, 'scientist', 'grant_manager');
@@ -250,6 +252,7 @@ export const submit_request = spacetimedb.reducer(
       id, day: today(ctx), requester: who, requestedBy: ctx.sender, item: a.item, category: a.category,
       price: a.price, grantId: a.grantId, chargedGrantId: undefined, sharedWith: a.sharedWith, split: [],
       purpose: a.purpose, state: 'submitted', verdicts: [], explanation: '', requesterName: name,
+      oneGrantBasis: a.sharedWith.length >= 2 ? (a.oneGrantBasis ?? '').trim() : '',
     });
     writeLog(ctx, who, `${name} asked to buy ${a.item} (${usd(a.price)})`, a.purpose || 'No purpose given.', { refId: id });
   }),
@@ -417,7 +420,10 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       const gid = r.chargedGrantId ?? r.grantId;
       if (!gid) return;
       const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx), new Map(grantsForRules(ctx).map(x => [x.id, x])));
-      const blocking = verdicts.filter(v => !v.pass && !v.rule.startsWith('Under the card limit'));
+      // Approving a shared cost the requester asked to charge to one grant, with
+      // a reason, confirms that documented basis (2 CFR 200.405(d)).
+      const blocking = verdicts.filter(v => !v.pass && !v.rule.startsWith('Under the card limit')
+        && !(r.oneGrantBasis && v.rule.startsWith('Shared cost split')));
       if (c === 'approve' && blocking.length) {
         ctx.db.request.id.update({ ...r, verdicts: vrows(verdicts), state: 'blocked' });
         writeLog(ctx, 'system', `Recheck failed, did not buy ${r.item}`, blocking.map(v => v.detail).join(' '), { rule: blocking[0].rule, refId: r.id });
@@ -426,7 +432,8 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       placeOrder(ctx, { ...r, chargedGrantId: gid }, 'Vendor', who);
       const explanation = c === 'override'
         ? `The grant manager overrode the rules and bought it on ${gid}: ${reason}`
-        : `The grant manager approved it (${reason}); the rules were rechecked and it was bought on ${gid}.`;
+        : `The grant manager approved it (${reason}); the rules were rechecked and it was bought on ${gid}.${
+          r.oneGrantBasis && r.sharedWith.length >= 2 ? ` It serves ${r.sharedWith.join(' and ')}; charged in full to ${gid} on the documented basis: ${r.oneGrantBasis}` : ''}`;
       ctx.db.request.id.update({ ...ctx.db.request.id.find(r.id)!, verdicts: vrows(verdicts), state: 'bought', chargedGrantId: gid, explanation });
       writeLog(ctx, 'system', `Bought ${r.item} (${usd(r.price)}) on ${gid}`, c === 'override' ? `Overridden by the grant manager: ${reason}` : 'Approved; rules rechecked.', { refId: r.id });
       return;

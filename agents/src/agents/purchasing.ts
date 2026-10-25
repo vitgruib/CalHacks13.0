@@ -24,7 +24,9 @@ import {
   type RuleVerdict,
   type Split,
 } from '../db/contract.ts';
-import { EXPLAIN_SYSTEM, EXPLAIN_TASK, ExplainAnswer, READ_SYSTEM, READ_TASK, ReadAnswer } from '../prompts/purchasing.ts';
+import {
+  EXPLAIN_SYSTEM, EXPLAIN_TASK, ExplainAnswer, READ_SYSTEM, READ_TASK, ReadAnswer, SHARED_USE_SYSTEM, SHARED_USE_TASK, SharedUseAnswer,
+} from '../prompts/purchasing.ts';
 import { workQueue, type AgentContext, type AgentHandle } from './types.ts';
 
 const AGENT = 'purchasing';
@@ -302,21 +304,54 @@ const usd = (amount: number) => `$${amount.toLocaleString('en-US', { maximumFrac
 const FREEZE_PROMISE = 'will be bought automatically once';
 const promisesBuy = (text: string) => text.toLowerCase().includes(FREEZE_PROMISE);
 
-function nextStep(decision: Decision, facts: { serves: string[]; vendor: string; frozen: string[] }): string {
+interface StepFacts {
+  serves: string[];
+  vendor: string;
+  frozen: string[];
+  // A shared-cost hold: the requester's reason to charge it all to one grant, and Claude's view.
+  basis?: string;
+  use?: SharedUseAnswer;
+}
+
+/**
+ * What a shared-cost hold asks for. Each grant's measurable use must be split
+ * by use (2 CFR 200.405(d)); charging it all to one grant needs a documented
+ * reason the grant manager confirms. Claude's view (`use`) shapes the ask; with
+ * no view and no reason, it is the plain ask for a split.
+ */
+export function sharedCostStep(serves: string[], chargedTo: string, basis = '', use?: SharedUseAnswer): string {
+  const both = serves.length >= 2 ? serves.join(' and ') : '';
+  const how = use?.how.trim() ? ` (${use.how.trim().replace(/[.\s]+$/, '')})` : '';
+  if (basis) {
+    const claim = `The requester asked to charge it all to ${chargedTo} because each grant's use can't be measured: "${basis}"`;
+    if (use?.measurable === 'yes') return `${claim} The agent thinks each grant's use can be measured${how}, so a split by use looks needed; the grant manager decides.`;
+    if (use?.measurable === 'no') return `${claim} The agent agrees the shares look inseparable${how}. The grant manager can approve it on ${chargedTo} on that documented basis, or ask for a split.`;
+    return `${claim} The grant manager can approve it on ${chargedTo} on that documented basis, or ask for a split.`;
+  }
+  if (use?.measurable === 'no') {
+    return `It serves ${both || 'more than one grant'}, and each grant's share looks hard to separate${how}. Charging it all to ${chargedTo} needs that reason documented: the grant manager can override with it, or ask for a split.`;
+  }
+  if (use?.measurable === 'yes' && both) {
+    return `It serves ${both}, and each grant's use can be measured${how}, so its cost has to be split between them by use before it can be bought; send the split and it will be checked again.`;
+  }
+  return both
+    ? `It serves ${both}, so its cost has to be split between them by use before it can be bought; send the split and it will be checked again.`
+    : 'It is a shared cost, so it has to be split by use across the grants it serves before it can be bought.';
+}
+
+function nextStep(decision: Decision, facts: StepFacts): string {
   const step = reasonStep(decision, facts);
   return decision.refusal ? `The database refused to buy it at its last check ("${decision.refusal}"). ${step}` : step;
 }
 
-function reasonStep(decision: Decision, facts: { serves: string[]; vendor: string; frozen: string[] }): string {
+function reasonStep(decision: Decision, facts: StepFacts): string {
   switch (decision.reason) {
     case 'freeze':
       return `Every other rule passes, so it ${FREEZE_PROMISE} ${facts.frozen.join(' and ')} unfreezes.`;
     case 'card_limit':
       return 'Only the grant manager can approve a purchase over the card limit.';
     case 'shared_cost':
-      return facts.serves.length >= 2
-        ? `It serves ${facts.serves.join(' and ')}, so its cost has to be split between them by use before it can be bought; send the split and it will be checked again.`
-        : 'It is a shared cost, so it has to be split by use across the grants it serves before it can be bought.';
+      return sharedCostStep(facts.serves, decision.grantId, facts.basis, facts.use);
     case 'unclear_grant':
       return `The request doesn't make clear which grant it is for${decision.note ? ` (${decision.note})` : ''}, so the grant manager decides instead of the agent guessing.`;
     case 'decided_before':
@@ -443,7 +478,29 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     return sanitizeRead(value, request, grants, fallback);
   }
 
+  // Claude's view on a shared-cost hold: can each grant's use be measured? None when Claude is off.
+  async function sharedUse(request: RequestRow, decision: Decision, serves: string[]): Promise<SharedUseAnswer | undefined> {
+    const grants = conn.rows('grant');
+    const { value, by } = await ask({
+      task: SHARED_USE_TASK,
+      system: SHARED_USE_SYSTEM,
+      input: {
+        request: { item: request.item, category: request.category, price: request.price, purpose: request.purpose },
+        pushBacks: pushBacks(request.id),
+        serves: serves.map((id) => ({ id, title: grants.find((grant) => grant.id === id)?.title ?? '' })),
+        chargedTo: decision.grantId,
+        requesterReason: request.oneGrantBasis,
+      },
+      schema: SharedUseAnswer,
+      fallback: () => ({ measurable: 'unclear' as const, how: '' }),
+      effort: 'low',
+      maxTokens: 600,
+    });
+    return by === 'fallback' ? undefined : { measurable: value.measurable, how: value.how.slice(0, 200) };
+  }
+
   async function explain(request: RequestRow, decision: Decision, serves: string[], vendor: string): Promise<string> {
+    const use = decision.reason === 'shared_cost' ? await sharedUse(request, decision, serves) : undefined;
     const frozen = unique(
       decision.failed.filter((v) => ruleKind(v.rule) === 'freeze').map((v) => frozenGrantOf(v, decision.grantId) ?? decision.grantId),
     );
@@ -456,7 +513,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       failed: decision.failed.map((v) => ({ rule: v.rule, detail: readableDetail(v, serves), auditCase: v.auditCase })),
       passed: decision.passed.filter((v) => v.pass).map((v) => v.rule),
       vendor: decision.action === 'buy' || decision.action === 'reroute' ? vendor : undefined,
-      next: nextStep(decision, { serves, vendor, frozen: frozen.length ? frozen : [decision.grantId] }),
+      next: nextStep(decision, { serves, vendor, frozen: frozen.length ? frozen : [decision.grantId], basis: request.oneGrantBasis, use }),
     };
     const { value } = await ask({
       task: EXPLAIN_TASK,

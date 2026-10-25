@@ -313,3 +313,22 @@ test('a second bill for an order already paid is held, not paid twice', () => {
   expect(db().invoice.id.find(again.id).mismatch).toContain(first.id);
   expect(db().grant.id.find('R21AI182745').spent).toBe(spent);
 });
+
+test('the grant manager can approve a shared cost charged in full to one grant only when the requester stated why', () => {
+  const ask = (oneGrantBasis?: string) => {
+    call('sci', mod.submit_request, {
+      item: 'Confocal time', category: 'core facility services', price: 900, grantId: B, purpose: 'Both aims', sharedWith: [B, A], oneGrantBasis,
+    });
+    const rq = lastRequest();
+    call('pa', mod.evaluate_request, { requestId: rq.id, split: [] });
+    call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', vendor: 'V', explanation: 'Held: shared cost.' });
+    const hold = rows('hold').find(x => x.refId === rq.id && x.open);
+    call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'OK.' });
+    return db().request.id.find(rq.id);
+  };
+  expect(ask().state).toBe('blocked');
+  const flagged = ask('Both aims image the same slides in one session.');
+  expect(flagged.state).toBe('bought');
+  expect(flagged.oneGrantBasis).toBe('Both aims image the same slides in one session.');
+  expect(ordersFor(flagged.id).map((o: any) => o.grantId)).toEqual([B]);
+});

@@ -28,7 +28,7 @@ const stateTone: Record<RequestState, Tone> = {
 
 const CATEGORIES = ['lab supplies', 'equipment', 'equipment service', 'reagents', 'software', 'travel', 'general office', 'other']
 
-const empty = { item: '', category: CATEGORIES[0], price: '', grantId: '', purpose: '', sharedWith: '', share: '50' }
+const empty = { item: '', category: CATEGORIES[0], price: '', grantId: '', purpose: '', sharedWith: '', splitBy: 'use', share: '50', basis: '' }
 
 /** Requests the researcher asked for in the app (seed ones have no asker), in a
  *  state worth pushing back on (the module refuses bought and rerouted). */
@@ -56,13 +56,18 @@ function RequestForm({ grants }: { grants: Grant[] }) {
     if (!Number.isFinite(price) || price <= 0) return setError('The price must be more than $0.')
     const other = form.sharedWith && form.sharedWith !== form.grantId ? form.sharedWith : ''
     const share = Number(form.share)
-    if (other && !(Number.isInteger(share) && share > 0 && share < 100)) return setError('The share on the grant to charge must be a whole percent between 1 and 99.')
+    const oneGrant = other && form.splitBy === 'one'
+    const basis = form.basis.trim()
+    if (other && !oneGrant && !(Number.isInteger(share) && share > 0 && share < 100)) return setError('The share on the grant to charge must be a whole percent between 1 and 99.')
+    if (oneGrant && !basis) return setError(`Say why each grant's use can't be measured.`)
     // submit_request takes the grants a shared cost serves but not the split,
     // so the split the scientist states goes in the purpose for the agent to read.
+    // Charging it all to one grant instead needs a reason the grant manager confirms.
     submitRequest({
       item, category: form.category, price: Math.round(price), grantId: form.grantId,
-      purpose: other ? `${purpose} Shared cost: ${share}% ${form.grantId}, ${100 - share}% ${other}.` : purpose,
+      purpose: other && !oneGrant ? `${purpose} Shared cost: ${share}% ${form.grantId}, ${100 - share}% ${other}.` : purpose,
       sharedWith: other ? [form.grantId, other] : [],
+      ...(oneGrant ? { oneGrantBasis: basis } : {}),
     }, me)
     setForm({ ...empty, grantId: form.grantId })
     setSent(`Sent "${item}" to the purchasing agent as ${me.name}.`)
@@ -101,8 +106,23 @@ function RequestForm({ grants }: { grants: Grant[] }) {
       )}
       {form.sharedWith && form.sharedWith !== form.grantId && (
         <label>
+          How should it be charged?
+          <select value={form.splitBy} onChange={set('splitBy')}>
+            <option value="use">Split by how much each grant uses it</option>
+            <option value="one">All to {form.grantId}: each grant's use can't be measured</option>
+          </select>
+        </label>
+      )}
+      {form.sharedWith && form.sharedWith !== form.grantId && form.splitBy === 'use' && (
+        <label>
           Share on {form.grantId} (%)
           <input type="number" inputMode="numeric" min={1} max={99} step={1} value={form.share} onChange={set('share')} />
+        </label>
+      )}
+      {form.sharedWith && form.sharedWith !== form.grantId && form.splitBy === 'one' && (
+        <label className="wide">
+          Why can't each grant's use be measured? (the grant manager confirms it)
+          <textarea value={form.basis} onChange={set('basis')} required rows={2} placeholder="e.g. Both aims image the same slides in one session" />
         </label>
       )}
       <label className="wide">
@@ -132,6 +152,7 @@ function GrantLine({ r }: { r: PurchaseRequest }) {
             : r.state === 'bought' ? r.grantId : <span className="rq-muted">not charged yet</span>}
       </dd>
       {r.sharedWith && r.sharedWith.length > 1 && <><dt>Shared by</dt><dd>{r.sharedWith.join(', ')}</dd></>}
+      {r.oneGrantBasis && <><dt>All to one grant</dt><dd>{r.oneGrantBasis}</dd></>}
     </dl>
   )
 }

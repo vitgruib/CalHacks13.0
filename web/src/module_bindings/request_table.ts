@@ -36,4 +36,5 @@ export default __t.row({
   },
   explanation: __t.string(),
   requesterName: __t.string().name("requester_name"),
+  oneGrantBasis: __t.string().name("one_grant_basis"),
 });

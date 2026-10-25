@@ -91,6 +91,14 @@ describe('spending rules', () => {
     expect(failed(spendingVerdicts(req, grant(), TODAY))).toEqual(['Shared cost split across the grants it serves']);
   });
 
+  test('a shared cost charged in full to one grant on a stated basis still waits for the grant manager, and says why', () => {
+    const req = { category: 'equipment', price: 3_000, sharedWith: ['G1', 'G2'], split: [], oneGrantBasis: 'Both aims run on the same samples.' };
+    const [v] = spendingVerdicts(req, grant(), TODAY).filter(x => !x.pass);
+    expect(v.rule).toBe('Shared cost split across the grants it serves');
+    expect(v.detail).toContain('Both aims run on the same samples.');
+    expect(v.auditCase).toMatch(/200\.405\(d\)/);
+  });
+
   test('decoy: a correct shared-cost split passes', () => {
     const g1 = grant();
     const g2 = grant({ id: 'G2' });
