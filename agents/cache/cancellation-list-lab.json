@@ -1,0 +1,75 @@
+{
+  "about": "The lab grants' rows of the public cancellation list (Grant Witness NIH CSV via the team Apify Actor nathanqiu~nih-grant-cancellation-list), read from run jPoYo1E6eYZENluSW finished 2026-10-25T03:23:10.486Z. Read when no Actor, dataset or scraper file is set, so the cut scripts work on a fresh checkout. Refresh: scratch read of the latest run, filtered to sim/seed.json grants.",
+  "rows": [
+    {
+      "grantId": "K01DK133670",
+      "status": "canceled",
+      "url": "https://grantwitness.org/nih",
+      "listedOn": "2025-06-30",
+      "terminatedOn": "2025-06-30",
+      "restoredOn": "2026-04-07",
+      "supplement": null,
+      "fullAwardNumber": "5K01DK133670-05"
+    },
+    {
+      "grantId": "R01HL176691",
+      "status": "restored_by_court",
+      "url": "https://grantwitness.org/nih",
+      "listedOn": "2026-02-23",
+      "terminatedOn": "2025-07-31",
+      "restoredOn": "2026-02-23",
+      "supplement": null,
+      "fullAwardNumber": "5R01HL176691-02"
+    },
+    {
+      "grantId": "F31DC022138",
+      "status": "canceled",
+      "url": "https://grantwitness.org/nih",
+      "listedOn": "2025-05-06",
+      "terminatedOn": "2025-05-06",
+      "restoredOn": "2025-09-18",
+      "supplement": null,
+      "fullAwardNumber": "1F31DC022138-01A1"
+    },
+    {
+      "grantId": "R01GM105672",
+      "status": "canceled",
+      "url": "https://grantwitness.org/nih",
+      "listedOn": "2025-06-17",
+      "terminatedOn": "2025-06-17",
+      "restoredOn": null,
+      "supplement": "S1",
+      "fullAwardNumber": "3R01GM105672-12S1"
+    },
+    {
+      "grantId": "R01AI178875",
+      "status": "canceled",
+      "url": "https://grantwitness.org/nih",
+      "listedOn": "2025-04-17",
+      "terminatedOn": "2025-04-17",
+      "restoredOn": null,
+      "supplement": null,
+      "fullAwardNumber": "5R01AI178875-02"
+    },
+    {
+      "grantId": "R01GM061721",
+      "status": "restored_by_court",
+      "url": "https://grantwitness.org/nih",
+      "listedOn": "2025-09-22",
+      "terminatedOn": "2025-07-31",
+      "restoredOn": "2025-09-22",
+      "supplement": null,
+      "fullAwardNumber": "5R01GM061721-21"
+    },
+    {
+      "grantId": "R01GM155497",
+      "status": "canceled",
+      "url": "https://grantwitness.org/nih",
+      "listedOn": "2025-06-04",
+      "terminatedOn": "2025-06-04",
+      "restoredOn": null,
+      "supplement": null,
+      "fullAwardNumber": "1R01GM155497-01"
+    }
+  ]
+}

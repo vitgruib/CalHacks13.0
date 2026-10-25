@@ -31,7 +31,10 @@
 // GG_LAB_GRANTS (comma-separated): the saved copy keeps only these grants, so
 //   agents/cache/ doesn't hold the whole list.
 // GG_CANCELLATIONS_FILE: read a local file instead (default
-//   scrapers/out/cancellations.json; no file means no readings).
+//   scrapers/out/cancellations.json, which is git-ignored). With neither set
+//   and no scraper file, the saved copy of the lab grants' rows
+//   (agents/cache/cancellation-list-lab.json) is read, so the cut scripts
+//   work on a fresh checkout; a file that is set but missing means no readings.
 
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -42,6 +45,7 @@ import { normalizeGrantNumber } from './papers.ts';
 import type { Reading, SourceClient } from './types.ts';
 
 const DEFAULT_FILE = fileURLToPath(new URL('../../../scrapers/out/cancellations.json', import.meta.url));
+const SAVED_LAB_ROWS = fileURLToPath(new URL('../../cache/cancellation-list-lab.json', import.meta.url));
 
 export interface ListedGrant {
   grantId: string;
@@ -122,6 +126,7 @@ export function createCancellationListSource(options: CancellationListOptions = 
   const actor = options.actor ?? process.env.GG_APIFY_ACTOR;
   const token = options.token ?? process.env.APIFY_TOKEN;
   const file = options.file ?? process.env.GG_CANCELLATIONS_FILE ?? DEFAULT_FILE;
+  const saved = file === DEFAULT_FILE ? SAVED_LAB_ROWS : null;
   const grantList = options.grants ?? process.env.GG_LAB_GRANTS?.split(',');
   const lab = grantList ? new Set(grantList.map((id) => grantIdOf(id.trim())).filter((id) => id !== null)) : null;
 
@@ -184,13 +189,17 @@ export function createCancellationListSource(options: CancellationListOptions = 
       }
       return loaded.rows;
     }
-    let text: string;
-    try {
-      text = readFileSync(file, 'utf8');
-    } catch {
-      return []; // the scraper hasn't run yet
+    for (const path of saved ? [file, saved] : [file]) {
+      let text: string;
+      try {
+        text = readFileSync(path, 'utf8');
+      } catch {
+        continue; // the scraper hasn't run yet
+      }
+      const json = JSON.parse(text) as unknown;
+      return parseList(path === saved ? (json as { rows: unknown }).rows : json);
     }
-    return parseList(JSON.parse(text));
+    return [];
   }
 
   return {

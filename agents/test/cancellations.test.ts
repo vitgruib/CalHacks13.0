@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterEach, test } from 'node:test';
@@ -42,6 +42,39 @@ test('a_grant_missing_from_the_list_gets_no_reading', async () => {
 test('no_scraper_output_yet_means_no_readings', async () => {
   const source = createCancellationListSource({ file: join(scratch(), 'missing.json') });
   assert.equal(await source.read(TEST_GRANT), null);
+});
+
+// A fresh checkout has no scraper output (scrapers/out/ is git-ignored); the
+// saved copy of the lab grants' rows stands in, so the cut scripts work.
+const scraperOutput = new URL('../../scrapers/out/cancellations.json', import.meta.url);
+test('with_no_list_configured_the_saved_lab_rows_are_read', { skip: existsSync(scraperOutput) && 'scraper output present' }, async () => {
+  const saved = JSON.parse(readFileSync(new URL('../cache/cancellation-list-lab.json', import.meta.url), 'utf8'));
+  assert.deepEqual(parseList(saved.rows), saved.rows, 'saved as parsed');
+  const was = process.env.GG_CANCELLATIONS_FILE;
+  delete process.env.GG_CANCELLATIONS_FILE;
+  try {
+    const source = createCancellationListSource();
+    assert.equal((await source.read('R01AI178875'))?.status, 'canceled');
+    assert.equal((await source.read('R01GM061721'))?.status, 'restored_by_court');
+    assert.equal(await source.read('R21AI182745'), null, 'not on the list');
+    source.viewAsOf?.('2025-04-01');
+    assert.equal(await source.read('R01AI178875'), null, 'not listed yet before its cut');
+  } finally {
+    if (was !== undefined) process.env.GG_CANCELLATIONS_FILE = was;
+  }
+});
+
+test('on_a_fresh_checkout_the_cut_script_step_freezes_the_grant_from_the_saved_rows', { skip: existsSync(scraperOutput) && 'scraper output present' }, async () => {
+  world = await startWorld({ sources: [createCancellationListSource()] });
+  const grant = () => world!.worker.sessions.bookkeeping.rows('grant').find((g) => g.id === 'R01AI178875')!;
+  const grantManager = await world.person('grant_manager');
+  await grantManager.call('request_check', { grantId: 'R01AI178875', reason: 'check_now', asOf: '2025-04-16' });
+  await world.worker.idle();
+  assert.equal(grant().frozen, false, 'before the cut, not listed');
+  await grantManager.call('request_check', { grantId: 'R01AI178875', reason: 'check_now', asOf: '2025-04-17' });
+  await world.worker.idle();
+  assert.equal(grant().status, 'canceled');
+  assert.equal(grant().frozen, true);
 });
 
 test('the_newest_listing_wins', async () => {
