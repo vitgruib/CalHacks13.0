@@ -1,0 +1,28 @@
+Source: https://resources.acceleratorapp.co/hubfs/Grant%20Management%20Software%20Buyers%20Guide%202026%20%E2%80%94%20AcceleratorApp.pdf (vendor; pdftotext -layout, p.2 excerpt), fetched 2026-10-24
+
+
+                   Why most platforms
+                   only cover half of it.
+                   The grant lifecycle has three distinct phases. Most GMS platforms were built to cover one of
+                   them well.
+
+                        PHASE 01                           PHASE 02                           PHASE 03
+                        Pre-Award                          Award                              Post-Award
+                        Application intake, eligibility    Deciding who gets funded,          Recipient onboarding,
+                        screening, document                communicating decisions,           milestone tracking,
+                        collection, peer review,           allocating amounts, setting        compliance enforcement,
+                        scoring, committee                 up recipient profiles, and         disbursement approval
+                        decisions, and applicant           moving accepted                    workflows, amendments,
+                        communication. This is             applicants into post-award         audit trails, and reporting.
+                        where most platforms start.        management. This phase is          Where most GMS platforms
+                        Application portals are            often handled manually             are weakest. Post-award is
+                        relatively straightforward to      even by organizations              where the most
+                        build and sell.                    using a GMS platform.              organizational risk sits.
+
+
+                        "The most common frustration we hear from grant administrators is that their
+                        platform handles intake well and stops there. The moment someone is
+                        accepted, the program migrates back to spreadsheets and email."
+                        ACCELERATORAPP COVERS ALL THREE PHASES
+                        An application that moves from intake to award to post-award does not require a tool change or a
+                        manual data transfer. One connected data model, from first submission to final report.

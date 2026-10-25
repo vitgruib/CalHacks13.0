@@ -1,0 +1,341 @@
+Source: https://www.cogr.edu/sites/default/files/2025-12/The%20Administrative%20Burden%20of%20Defend%20the%20Spend_NCURA%20Mag%202025.pdf (NCURA Magazine, Hope & Toups, COGR; pdftotext), fetched 2026-10-24
+
+The Administrative
+Burden of
+“Defend the Spend”
+By Cindy Hope and Krystal Toups
+
+Defend the Spend
+esearch Administrators have once again
+risen to the occasion, navigating new and
+burdensome requirements introduced by
+the Administration’s “Defend the Spend”
+initiative. To date, these requirements have
+offered no clear added value while significantly
+increasing administrative workload for recipients
+and agencies.
+Introduced through a series of Executive
+Orders (EO) and subsequent agency implementation, Defend the Spend mandates extensive
+new reporting obligations requiring justification
+of each payment under covered contracts and
+grants.
+Executive Order 14222 — Implementing
+the President’s “Department of Government
+Efficiency” Cost Efficiency Initiative (February
+26, 2025) — directs each agency to “record
+every payment…along with a brief, written
+justification for each payment submitted by the
+agency employee who approved the payment.”
+Creating the line-by-line justification requests
+that recipients are now encountering.
+Institutions have developed creative solutions
+to streamline compliance with the new requirements, yet the burden remains substantial and
+may grow. Executive Order 14332 — Improving
+Oversight of Federal Grantmaking (August 7,
+2025) — may further burden the federal
+payment process with its requirement for
+agencies to:
+(i) prohibit recipients from directly
+drawing down general grant funds for
+specific projects without the affirmative
+authorization of the agency; and
+(ii) require grantees to provide written
+explanations or support, with specificity, for requests for each drawdown.
+
+R
+
+38
+
+NCURA Magazine
+
+| December 2025
+
+Perhaps even more concerning is the fact that
+these EOs and their implementation disregard
+longstanding, effective mechanisms already in
+place to ensure stewardship of federal funds.
+In particular, Uniform Guidance (2 CFR 200)
+section 303, Internal Controls, and Subpart F,
+Audit Requirements, provide a robust framework,
+implementing the Single Audit Act and setting
+“forth standards for obtaining consistency and
+uniformity among Federal agencies for the
+audit of non-Federal entities expending Federal
+awards.” The federal government, of course,
+has a responsibility to impose additional
+requirements if needed, and the Uniform
+Guidance already provides for that, but only for
+the specific conditions necessary to address
+the risks of a particular awardee. Under 2 CFR
+200.206, the federal agency has an obligation
+to conduct a risk assessment, and section 208
+provides a list of risk factors to consider, along
+with the specific conditions an agency may
+include in an award to address any identified
+risk.
+EO 14222 and 14332 ignore requirements in
+Uniform Guidance to use risk management and
+consider internal controls. In fact, the Uniform
+Guidance uses the term “risk”108 times and
+“internal control” 44 times, and only imposes
+“specific conditions”, like more detailed
+financial reporting, on a particular entity when
+that entity has risk factors, like “inadequate
+financial capability to perform the Federal
+award,” underscoring the critical role of
+risk-based oversight (2 CFR 200.208). By
+disregarding these principles, the new EOs have
+overridden those practical, efficient requirements
+with inefficient, risk-blind paperwork.
+
+While institutions have managed to comply
+with the unnecessary new requirements
+resulting from EO 14222 and 14332 without
+significantly slowing down research, the
+administration’s disregard for the time-tested
+system of risk assessment, internal controls,
+and audits is a reason for concern. We can’t
+predict what might be next or whether institutions
+will have the capacity to efficiently respond to
+expanding, inefficient new requirements.
+Fact Sheet: Waste and Inefficiencies Due
+to New Grant Requirements
+To illustrate the significant waste and redundancy
+resulting from DOGE’s implementation of the
+Defend the Spend initiative, COGR developed
+an infographic, Defend the Spend, Waste and
+Inefficiencies Due to the New Grant Requirements. The analysis estimates that Defend the
+Spend results in approximately 53,749 hours1
+of redundant work for recipients and federal
+agencies, simply to process payments to low-risk
+institutions for projects and costs previously
+approved by the agency (COGR, n.d.). This
+redundancy offers no reduction in improper
+payments, no cost savings, and no efficiency
+gains.
+Figure 1 demonstrates the redundancy and
+inefficiencies of Defend the Spend. The new
+requirement disregards the extensive cost and
+process audits that recipients undergo to ensure
+systems safeguard government assets and
+comply with federal regulations. The additional,
+ad hoc requests for supporting details, none of
+which have undergone a federal rule-making
+process, add no value for the taxpayer.
+
+Figure 1: Details of Federal Award Spending and Reimbursement Requirements
+
+Appendix: Defend the Spend
+Details of Federal Award Spending and Reimbursement Requirements
+Federal granting agencies approve project spending plans and review expenditures at seven
+points in the process (below), before the Defend the Spend initiative was introduced.
+Additionally, institutions undergo audits and other regulatory checks. Defend the Spend
+adds another 5 checkpoints of redundant work to the process.
+
+Agency issues NOFO
+with budget info
+
+Applicant submits
+detailed budget
+
+Agency reviews
+proposed budget
+
+Recipient
+enters a line-by
+-line item
+justification
+of the
+requested
+info
+
+New DOGE
+
+Agency
+request DOGE
+“Defend the
+Spend” info
+
+Agency IGs audit of
+recipients for
+costs/internal
+controls
+
+Recipient
+awaits
+agency review/
+approval
+
+Defend the
+Spend
+
+Aency has access to
+recipient’s external
+audit reports
+Agency
+may
+request
+additional
+
+System
+Agency
+permit or
+deny draw
+
+Agency issues award
+with detailed lineitem budget
+
+Recipient undergoes
+annual external audit of its
+costs/internal controls
+
+“The analysis estimates that Defend
+the Spend results in approximately
+53,749 hours of redundant work for
+recipients and federal agencies...
+This redundancy offers no reduction
+in improper payments, no cost
+savings, and no efficiency gains.”
+COGR hopes for an opportunity to work with
+OMB and federal agencies, perhaps through
+the administration’s deregulation and Single
+Audit Act improvement initiative, to reestablish
+a more practical and efficient federal oversight
+and recipient documentation of financial
+compliance. N
+End Note
+1
+
+Recipient files FFATA
+reporting for subawards
+under federal primes
+
+Based on DOGE counts, and the estimated average
+response/review time of at least 30 minutes per transaction. Over a 35-day period, 107,497 transactions
+were reported, with agencies required to review the
+additional justifications (DOGE, n.d.).
+
+References
+Recipient establishes
+systems and internal
+controls for compliance
+to award terms
+
+Recipient’s internal
+controls govern
+changes to sponsored
+awards
+
+Recipient certifies
+costs / bills
+agency/signs federal
+certifications
+
+Recipient receives
+payment for invoices
+
+Recipient monitors
+subrecipient
+performances and
+expenses
+
+Sponsor must preapprove significant
+revisions
+
+Recipient submits
+quarterly/annual financial
+reports to agencies
+
+Recipient submits
+technical annual
+report
+
+Points in the grant administration process where agencies review and approve projects,
+project costs, and review ongoing expenditures during the period of performance.
+Duplicative new steps introduced by Defend the Spend (green)
+Points in the grant internal to the recipient organization
+
+WWW.COGR.EDU
+
+Lastly, the fact sheet highlights tangible
+solutions the government can take to reduce
+the burden, lower barriers, and engage with the
+community.
+Figure 2
+The solutions are easy:
+
+1
+
+Available Information and
+Processes Provide Efficiency
+
+The government should evaluate what’s
+already available, e.g., NOFOs, grant
+award budgets, annual financial (SF 425)
+and programmatic progress reports,
+single audit reports, and individual
+payment request certifications to focus
+resources where they’re most needed.
+
+2
+
+Implement Risk-Based Oversight /
+Lower Barriers
+
+The government should follow the risk assessment
+framework outlined in 2 CFR 200.206 to determine
+when additional review is warranted.
+
+3
+
+Engage with Stakeholders
+
+The government should conduct a cost-benefit
+analysis and collaborate with recipients to identify
+the most efficient way to provide any needed
+additional information where genuine risks have
+been identified.
+WWW.COGR.EDU
+
+Council on Governmental Relations. (n.d.). COGR
+Fact Sheet: Defend the Spend. Retrieved from
+https://www.cogr.edu/fact-sheet-1-defend-spend
+Department of Government Efficiency. (n.d.). Payments.
+U.S. Government. Retrieved November 7, 2025, from
+https://doge.gov/payments
+The White House. (2025, February 26). Executive Order
+14222 — Implementing the President’s “Department of
+Government Efficiency” cost efficiency initiative.
+https://www.whitehouse.gov/presidential-actions/
+2025/02/implementing-the-presidents-department-ofgovernment-efficiency-cost-efficiency-initiative/
+The White House. (2025, August 7). Executive Order
+14332 — Improving oversight of federal grantmaking.
+https://www.whitehouse.gov/presidential-actions/
+2025/08/improving-oversight-of-federal-grantmaking/
+Cindy Hope is the Director for Costing
+& Financial Compliance at COGR,
+where she leads efforts addressing federal policies impacting research financial management. With more than
+25 years of research administration
+experience, she has held leadership
+roles at Georgia Tech, The University
+of Alabama, and UAB. She can be
+reached at CHope@COGR.edu.
+Krystal Toups, MBA, CRA, is the
+Director for Contracts & Grants
+Administration at COGR, where she
+oversees research policy efforts related
+to the administration of sponsored
+research. She has more than 20 years
+of experience with leadership roles in
+sponsored projects administration and
+research compliance at Rice University
+and UT Health Science Center. She can
+be reached at KToups@COGR.edu.
+
+NCURA Magazine
+
+| December 2025
+
+39
+
+

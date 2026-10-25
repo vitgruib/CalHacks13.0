@@ -1,0 +1,115 @@
+Devpost prior-art scan, 2026-10-24, via https://devpost.com/software/search.json?query=<q>&page=1 (first page of results per query; taglines verbatim)
+
+=== post-award
+total 56261
+- Envoy | Envoy turns guest lists into smart matchmaking. AI finds and connects attendees with the right people, helps hosts prioritize key guests, and makes in | https://devpost.com/software/envoy-phrey9
+- Shadow Plan | The CPUC’s 2026-27 busbar mapping counts on 34,722 MW of solar and 9,300 MW of batteries online by 2036. Shadow Plan checks each substation’s land, gr | https://devpost.com/software/shadow-plan
+- Red Ledger | A crash-test lab for finance AI: a live fraud agent attacks a synthetic company while an AP agent pays its bills and a controller agent decides every  | https://devpost.com/software/red-ledger
+- brick | build any robot you can imagine
+ | https://devpost.com/software/brick-1qt896
+- Nori | Nori is a job agent that cannot lie about you. It finds roles, tailors your resume from facts it can prove, fills the application, and waits for your  | https://devpost.com/software/nori-6y4bu2
+- Gripe | Find what’s broken in any market, synthesizing real X posts with Grok. | https://devpost.com/software/gripe-qpx6v9
+=== grant compliance
+total 310
+- Executive LLM_AGENT_SUITE - Unified AI Console  | Executive LLM_AGENT_SUITE - Unified AI Console  | https://devpost.com/software/executive-llm_agent_suite-unified-ai-console
+- GrantProof | GrantProof checks grant proposals, agreements and reports against the funder's rules, cites the exact page behind every finding, and leaves every deci | https://devpost.com/software/wateraid-x75h92
+- MediBridge | Bridging patient consent and sub-second clinical AI for modern healthcare. | https://devpost.com/software/medibridge-pr5hwm
+- MediBridge | Zero-trust health data meets ambient clinical intelligence | https://devpost.com/software/medibridge-95htva
+- Haledy | Say it once. Haledy finds in-network care for you, starting with physical therapy, and the AI never sees your name or member ID. | https://devpost.com/software/haledy-36m9vz
+- Fanmoot | Bring back the match-day pub argument: ask Alexa+ about any football match, hear the fans' mood, and post your take by text or voice, via a real MCP s | https://devpost.com/software/fanmmot
+=== research administration
+total 415
+- Appointment Connect | Digitise the Process. Not the Patient. | https://devpost.com/software/appointment-connect
+- WildGuard Ai | WildGuard AI turns scattered wildlife news into real-time intelligence using AI, multilingual NLP, risk scoring, and geospatial analysis to detect thr | https://devpost.com/software/wildguard-ai-0l9cdz
+- LiveGreen: the all-in-one sustainability tracker | Around 70% of people want to live sustainably, but they don't know where to start. LiveGreen lets a  user scan anything they own or eat and shows more | https://devpost.com/software/livegreen-8ht3ia
+- Project Nemo | Detection, tracking, and classification of an unknown object within an enclosed maritime space. | https://devpost.com/software/project-nemo
+- Brake It Easy | Brake It Easy uses acceleration and braking data from phone sensors to estimate fuel use and CO₂ emissions, helping drivers understand the impact of t | https://devpost.com/software/brake-it-easy
+- Recall Radar | Recall Radar turns public NHTSA complaints, investigations, and recalls into clear, searchable insights so drivers can understand vehicle issues and t | https://devpost.com/software/recall-radar-9jw3tn
+=== grant management
+total 789
+- Ask First: Let AI Act. Keep the Final Say. | Give AI agents room to act, not unlimited authority. Ask First lets them handle routine tasks autonomously, then brings a human back when a real-world | https://devpost.com/software/ask-first-let-ai-act-keep-the-final-say
+- RelayCase | RelayCase turns everyday requests into accountable handoffs with MCP-powered assistance, human approval, explicit acceptance, and traceable completion | https://devpost.com/software/relaycase
+- emergency bridge | Emergency Bridge - Real-time emergency information and digital handover PWA | https://devpost.com/software/emergency-bridge
+- Project Nemo | Detection, tracking, and classification of an unknown object within an enclosed maritime space. | https://devpost.com/software/project-nemo
+- Thaw  | A real-world quest game that helps people beat the Seattle Freeze by bringing strangers together through shared adventures around the city. | https://devpost.com/software/thaw-kmsxiu
+- RuhJac | An AI-powered student planner that turns coursework into clear tasks and personalised study plans, helping students manage deadlines and organise thei | https://devpost.com/software/ruhjac
+=== drawdown
+total 236
+- Practice-First Trading Agent | An always-on AI that reads crypto news, rehearses every idea with pretend money, and asks you before anything risky. Every step is traced, and we test | https://devpost.com/software/practice-first-trading-agent
+- AlphaNexus: Autonomous On-Chain Alpha &amp; Anti-Rug Agent | Bridging 4-layer macro-industrial research (AlphaRadar) with wick-stripped on-chain washout timing, Fail-Closed anti-rug security, and 2.5x principal- | https://devpost.com/software/alphanexus-autonomous-on-chain-alpha-anti-rug-agent
+- Glean on Alexa+ | Family Paperwork Assistant | Glean is a proactive voice assistant that protects multigenerational families by tracking vital documents, unlocking welfare schemes, and simplifying  | https://devpost.com/software/glean-on-alexa-family-paperwork-assistant
+- TradeMind | Most traders lose money on untested ideas and get blindsided by news. TradeMind's AI turns any idea into a strategy, proves it on decades of data, and | https://devpost.com/software/trademind-uxsmpy
+- Macrospective | Our app predicts financial effects of rumors by emulating how they spread on social media using unique AI agents. Then it tests company responses to f | https://devpost.com/software/macrospective
+- Honest Alpha | Claude hunts for trading strategies that beat SPY; a gate counts every try. It refused Claude's best of 60, which then turned $1M into $1.26M on unsee | https://devpost.com/software/honest-alpha
+=== allowable cost
+total 16
+- GrantLoop | Most grant software remembers the documents. GrantLoop remembers the promises. Agents carry every budget commitment from application through award and | https://devpost.com/software/grantloop
+- Smart Farm  | Regenerative farming needs water it can't waste. Our sensor mesh and data aggregation system reads the soil patch by patch and decides where to water, | https://devpost.com/software/smart-farm-60txjl
+- DHRISTI-GRID | Building tomorrow’s resilient smart cities by turning today's E-waste into an autonomous AI grid that predicts road failures and eliminates infrastruc | https://devpost.com/software/dhristi-grid
+- Circuit Stitcher | The Execution Co-Pilot: Closing the loop on network resilience through agentic UI navigation and policy-bounded circuit remediation. | https://devpost.com/software/circuit-stitcher
+- Situation Intelligence Brief (SIB) | The Strategic Translator: Bridging the gap between raw network telemetry and executive boardrooms through interleaved multimodal storytelling. | https://devpost.com/software/situation-intelligence-brief
+- DendriticBERT | Parameter-Efficient BERT with Dendritic Optimization. Applying dendritic optimization to create a smarter, more parameter-efficient BERT for benchmark | https://devpost.com/software/dendritic-bert
+=== sponsored research
+total 219
+- Alexa voyager | Alexa Voyager: Deep live web research and source-verified truth for Alexa+. | https://devpost.com/software/alexa-voyager
+- Tabletop | Figma for Shopping | https://devpost.com/software/starship-rwindow
+- Reel Plans | Plans that leave the groupchat. | https://devpost.com/software/reel-plans
+- GrinderResume | Tavily-grounded role exploration and Nebius-powered career coaching with fact-locked resume matching, screening quizzes, and automatic 50GB-ready JSON | https://devpost.com/software/grinderresume
+- Gateway | AI agents obey instructions hidden in documents. Plain agents failed 14 of 30 attack runs. Gateway inspects files in isolation and holds risky ones, s | https://devpost.com/software/gateway-m6hcbf
+- Tandem | Real-time multiplayer for Premiere Pro. Share one timeline, seeing edits and cursors live within a second. | https://devpost.com/software/tandem-0i1qe4
+=== GrantLoop
+total 1
+- GrantLoop | Most grant software remembers the documents. GrantLoop remembers the promises. Agents carry every budget commitment from application through award and spending to an audit-ready SF-425. | https://devpost.com/software/grantloop
+=== GrantProof
+total 2
+- GrantProof | GrantProof checks grant proposals, agreements and reports against the funder's rules, cites the exact page behind every finding, and leaves every decision to your staff. | https://devpost.com/software/wateraid-x75h92
+- GrantProof  | Finds proof of your nonprofit's impact across Slack, Sheets, and Drive catches math errors and conflicting numbers, redacts PII, and drafts funder reports where every claim links to a source. | https://devpost.com/software/grantproof
+=== grant tracker
+total 98
+- Executive LLM_AGENT_SUITE - Unified AI Console  | Executive LLM_AGENT_SUITE - Unified AI Console  | https://devpost.com/software/executive-llm_agent_suite-unified-ai-console
+- RelayCase | RelayCase turns everyday requests into accountable handoffs with MCP-powered assistance, human approval, explicit acceptance, and traceable completion reports in a simulated Alexa+ experience. | https://devpost.com/software/relaycase
+- Near-miss intersection safety analyzer | Finds the traffic conflicts that never became crashes in overhead junction video, in metres on the road surface, so a city can fix a junction before someone is hurt. | https://devpost.com/software/near-miss-intersection-safety-analyzer
+- PALM PILOT XR - The Hands-First Spatial AI Command | PALM PILOT XR - The Hands-First Spatial AI Command | https://devpost.com/software/palm-pilot-xr-the-hands-first-spatial-ai-command
+- Cactus | Your intelligent personal finance copilot: track expenses, manage debt, and grow savings. | https://devpost.com/software/cactus-qkeh81
+- Delulu - Your Personalized Dream Coach | Delulu turns your scariest dreams into a game you can actually win. We bridge the gap between inspiration and action for ambitious women through micro-actions and visual data. | https://devpost.com/software/delulu-your-personalized-dream-coach-q7h5oe
+=== grant budget
+total 329
+- Aloha Relief | Supervised disaster micro-grants: PayPal takes donations and sends payouts, Claude explains every request and red flag, and a human volunteer approves every dollar. | https://devpost.com/software/aloha-relief
+- Executive LLM_AGENT_SUITE - Unified AI Console  | Executive LLM_AGENT_SUITE - Unified AI Console  | https://devpost.com/software/executive-llm_agent_suite-unified-ai-console
+- GrantProof | GrantProof checks grant proposals, agreements and reports against the funder's rules, cites the exact page behind every finding, and leaves every decision to your staff. | https://devpost.com/software/wateraid-x75h92
+- GrantHarbor | Apply for a grant by voice, the day it drops. Say “Alexa, apply”—GrantHarbor drafts it from your profile, emails you the draft, and submits only when you approve. A human always approves. | https://devpost.com/software/grantharbor
+- Seen Off | Carrier-pickup proof for people who ship from home, built on the Ring Partner API. | https://devpost.com/software/seen-off
+- MISE — an Alexa+ cooking coach that won't guess |  An Alexa+ cooking assistant that can say no. A self-hosted MCP server watches your pan and answers wait, can't tell, or off the heat. Never a guess. | https://devpost.com/software/mise-v7gz38
+=== grant spending
+total 176
+- MediBridge | Bridging patient consent and sub-second clinical AI for modern healthcare. | https://devpost.com/software/medibridge-pr5hwm
+- MediBridge | Zero-trust health data meets ambient clinical intelligence | https://devpost.com/software/medibridge-95htva
+- Vouch: a household trust layer for Alexa+ shopping | Vouch lets a household hand over its everyday buying to an AI agent one item at a time, and take it back with one sentence. | https://devpost.com/software/vouch-a-household-trust-layer-for-alexa-shopping-7o92lk
+- Corral for Alexa+ | Your family's whole day and the ranch inside Alexa+: ask, tap, order, automate. Every voice is a person, so kids ask and parents decide. | https://devpost.com/software/corral-for-alexa
+- Rent-A-Bot | AI agents can buy things but can't safely hire each other. Rent-A-Bot holds the buyer's money as a PayPal authorization, lets tests decide what was delivered, and captures only that. | https://devpost.com/software/rent-a-bot
+- BidBy | Where AI agents compete for your attention, so you never miss a deadline that costs you money. | https://devpost.com/software/bidby
+=== grant reporting
+total 223
+- GitBack | GitBack turns your phone into a GitLab control room: explore projects, monitor CI pipelines, investigate failures, and manage development workflows through secure, permission-gated actions. | https://devpost.com/software/gitback
+- GrantProof | GrantProof checks grant proposals, agreements and reports against the funder's rules, cites the exact page behind every finding, and leaves every decision to your staff. | https://devpost.com/software/wateraid-x75h92
+- Fanmoot | Bring back the match-day pub argument: ask Alexa+ about any football match, hear the fans' mood, and post your take by text or voice, via a real MCP server. | https://devpost.com/software/fanmmot
+- Rent-A-Bot | AI agents can buy things but can't safely hire each other. Rent-A-Bot holds the buyer's money as a PayPal authorization, lets tests decide what was delivered, and captures only that. | https://devpost.com/software/rent-a-bot
+- Access Guard | Revoked access stays revoked. GitLab Duo carries a recovery-security repair from one issue to an independently verified release. | https://devpost.com/software/access-guard
+- RelayCase | RelayCase turns everyday requests into accountable handoffs with MCP-powered assistance, human approval, explicit acceptance, and traceable completion reports in a simulated Alexa+ experience. | https://devpost.com/software/relaycase
+=== research grant
+total 657
+- Labscout  | Finds deep-tech founders before they incorporate by tracking grants, papers, patents, and GitHub activity, then flagging researchers likely to spin out. | https://devpost.com/software/labscout-jn975b
+- Executive LLM_AGENT_SUITE - Unified AI Console  | Executive LLM_AGENT_SUITE - Unified AI Console  | https://devpost.com/software/executive-llm_agent_suite-unified-ai-console
+- Volley | Hears the back-and-forth with your child on the Bee you already wear, counts it, throws the words away, and sends a nudge to your Bee when your best hour goes quiet.
+ | https://devpost.com/software/volley-t1xpw4
+- Solar Schools USA | Across the U.S., 100,000 public schools sit on unshaded blacktop asphalt, surrendering classroom funds to utility companies while millions in federal clean energy grants sit unclaimed. | https://devpost.com/software/solar-schools-usa
+- pointmaxx | The right card at every checkout. | https://devpost.com/software/pointmaxx
+- hushworks | An AI agent that helps first-time founders find a storefront, check it against city records, and contact the landlord, without ever seeing their private financial details. | https://devpost.com/software/hushworks
+=== NIH
+total 383
+- Delta | Delta identifies breakout life-science investment areas before they're obvious, using data from research papers, clinical trials. | https://devpost.com/software/delta-gz4fca
+- Labscout  | Finds deep-tech founders before they incorporate by tracking grants, papers, patents, and GitHub activity, then flagging researchers likely to spin out. | https://devpost.com/software/labscout-jn975b
+- PillCheck | Snap your medicine bags, boxes, or bottles — PillCheck flags duplicate ingredients and risky combinations using Korea's official drug safety data. | https://devpost.com/software/pillcheck-hov58k
+- SehatPlate | Sehat Plate -friendly guide for desi food and health.Whether you love biryani, nihari, or a simple daal roti, Sehat Plate helps you enjoy them wisely. | https://devpost.com/software/sehatplate-zglu3k
+- Cheminformatics Explorer: Agentic Release Guard | A keyless chemistry web app, now released by GitLab Duo agents: they review changes, test against PubChem reference data, scan for risks, deploy to Pages and watch for API drift. | https://devpost.com/software/cheminformatics-explorer-agentic-release-guard
+- Nudge | For people with aphasia, a stuck word can stop a conversation. Nudge on Even G2 glasses hears the conversation, predicts the word from context and their word bank, and shows the least revealing cue. | https://devpost.com/software/nudge-8l0t2a

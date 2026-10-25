@@ -62,7 +62,42 @@ best public count, not an official one.
 | **Labs can't see real balances.** | UC Senate letter; FDP "almost 60%" [verified] | Awarded / received / spent / promised / truly available per grant | Funds window |
 | **ERP outages leave the books wrong.** | UW Workday $90M backlog [verified] | Lab-side ledger that reconciles invoices to orders | Invoice for a canceled order held with its timeline |
 
-## 3. Who benefits and how big the market is
+## 3. What already exists, and what's new
+
+Checked 2026-10-24. "Not found" means we searched and found nothing, not
+proof that nothing exists.
+
+| What labs have today | What it does | What it doesn't do | Source |
+|---|---|---|---|
+| **University finance system** (e.g. Workday Grants Management) | A budget check can "limit spending on the award for specific worktags and in specific ledger accounts or summaries", and either block or warn on an overrun | Nothing in its budget-check documentation about allowable costs, timing rules, or the grant's status in outside sources. It checks the budget line, not whether the grant is canceled or whether its money has arrived | [verified] Workday admin guide (updated 2026-03-13) |
+| **Grant Witness** | "An independent, up-to-date, grant-level record of federal science funding disruptions in the United States": a public list, dashboards, CSV | It's a record, not a control. No link to a lab's spending | [verified] grantwitness.org/nih |
+| **Grant management platforms** | A vendor's own 2026 buyer's guide says post-award is "Where most GMS platforms are weakest. Post-award is where the most organizational risk sits." | (Most of these platforms serve funders handing out grants, not labs receiving them) | [verified, vendor source] AcceleratorApp buyer's guide 2026, p. 2 |
+| **AI in research offices** | "A few compliance officers have used it to flag expenses that might violate a funder's regulations." | "In most cases, staff use of AI is left to individual discretion and occurs without a broader strategic framework"; "formal implementation and/or strategic planning about AI remain in the early stages of development." | [verified] Ithaka S+R issue brief, 2026-03-30 |
+| | Cambridge's ai@cam is piloting "Copilot, ChatGPT, and Google NotebookLM" for "summarising funder guidance to checking eligibility and interpreting terms and conditions" | General-purpose chat tools, used before the award, on documents. They don't watch status or check spending | [verified] ai@cam project page (© 2026) |
+| **NIH "Defend the Spend" justifications** | Written today by grant staff for every drawdown; COGR estimates "approximately 53,749 hours of redundant work for recipients and federal agencies" | **No tool found** that drafts NIH drawdown justifications. The only product hit was GoEngage, for Head Start agencies, not NIH | [verified, interested source] NCURA Magazine 2025 (COGR authors); search 2026-10-24 |
+| **Other hackathon projects** | Most grant projects on Devpost help find or write grants (Grant Scout, Granted, GrantHarbor). Closest to us: **GrantLoop**, "Agents carry every budget commitment from application through award and spending to an audit-ready SF-425", and **GrantProof**, which "checks grant proposals, agreements and reports against the funder's rules" | Neither tracks cancellations and reinstatements across sources, holds spending until a payment actually arrives, or checks purchases against past audit findings. Only one "grant termination" hit (ConractIQ, aimed at hospitals) | [verified] Devpost search, 2026-10-24 (`docs/research/sources/devpost-scan*.txt`) |
+
+**What only GrantGuard does, as far as we found:**
+
+1. **Status from several sources, kept as a dated history.** It reads
+   RePORTER, USAspending and Grant Witness, freezes the grant when they
+   disagree, and **unfreezes only when a payment is recorded**, not when a
+   court rules. Finance systems check the budget line; Grant Witness keeps
+   a public record; neither changes what a lab can buy.
+2. **Purchase checks based on real audit findings, before the money is
+   spent.** The timing, category and cost-split rules each cite the
+   NSF-OIG audit they come from. Today that
+   kind of checking is "a few compliance officers" trying AI on their own.
+3. **One agent team from status to payment request to progress report.**
+   It drafts the NIH payment justification from purchase records; we
+   found no tool that does this.
+
+**Honest overlap:** finance systems already block overspending on a budget
+line, and GrantLoop also tracks spending commitments through to reporting.
+GrantGuard is not a finance system. It sits beside one and adds the
+grant's real status and the audit rules.
+
+## 4. Who benefits and how big the market is
 
 | | Number | Source |
 |---|---|---|
@@ -77,14 +112,14 @@ The buyer is a university's sponsored-programs or department grant office.
 The users are the grant manager (approves), the PI and lab staff (request
 purchases), and central research administration (payment requests).
 
-## 4. Our measured results (honestly scoped)
+## 5. Our measured results (honestly scoped)
 
 | Measurement | Result | What it measures, and what it doesn't |
 |---|---|---|
 | Scorecard (`eval/scorecard.json`, run by `./check.sh`) | **14 of 14 planted mistakes caught, 0 missed, 0 false alarms, 5 of 5 decoys passed.** Fund tracker 3/3, purchases 5/5, invoices 2/2, payment requests 1/1, progress reports 3/3 | A simulated lab (`sim/seed.json`) with mistakes we planted, modeled on real audit findings, scored against our own answer key. Claude answers come from saved responses or code fallbacks in this run, so it tests the rules and pipeline end to end, not live model judgment. **Not field results.** |
 | Live cancellation-list scrape (our Apify Actor, `scrapers/`) | Grant Witness's NIH CSV, **5,776 rows → 5,635 grants**: 1,100 canceled (terminated or frozen), 2,301 reinstated, 2,234 unfrozen | Shows the tracker reads the real public list in seconds. Counts are per grant after we merge subawards, so they differ slightly from the prime-award counts in §1. As of 2026-10-24. |
 
-## 5. Real voices
+## 6. Real voices
 
 - "I won't believe it until ALL the funding has been disbursed" — r/AskAcademia, NEH grantee, 2026-07-17 [scrape] https://www.reddit.com/r/AskAcademia/comments/1t6xkif/comment/oy4plgs/
 - "Even if it's not appealed, it's not obvious this ruling requires they pay funds." — r/AskAcademia, 2026-05-08 [scrape] https://www.reddit.com/r/AskAcademia/comments/1t6xkif/comment/oklkmg8/
@@ -94,7 +129,7 @@ purchases), and central research administration (payment requests).
 - "...the intolerably high degree of uncertainty and the inability to accurately track balances in a timely fashion." — UC Academic Senate, 2022-07-19 [verified; older than 2 years]
 - "Award recipients charged NSF for materials and supplies and equipment purchased near an award’s expiration date..." — NSF-OIG capstone, 2022-01-21 [verified]
 
-## 6. Caveats
+## 7. Caveats
 
 - FDP (2018), NSF-OIG (2022), UC Senate (2022) and UW Workday (2024) are
   older than two years; no newer equivalents found.
@@ -103,7 +138,7 @@ purchases), and central research administration (payment requests).
   before judging.
 - No figure found for how many drawdowns were delayed by "Defend the Spend".
 
-## 7. Sources
+## 8. Sources
 
 - Grant Witness CSVs: https://data.grantwitness.org/nih/dl-table.csv (and `/nsf/`, `/epa/`, `/cdc/`, `/samhsa/`, `/ahrq/`, `/noaa/`), downloaded 2026-10-24 · methodology: https://grantwitness.org/nih/updates/methodology · RePORTER vs TAGGS: https://grantwitness.org/nih/updates/2025-05-20-700-new-terminations · NSF list stale: https://grantwitness.org/nsf/updates/2026-05-27-new-nsf-terminations
 - Supreme Court docket 26-210 (*Trump v. Thakur*): https://www.supremecourt.gov/docket/docketfiles/html/public/26-210.html
@@ -118,4 +153,9 @@ purchases), and central research administration (payment requests).
 - The Register, 2024-03-28: https://theregister.com/2024/03/28/washington_uni_workday/
 - Carnegie 2025: https://carnegieclassifications.acenet.edu/news/carnegie-classifications-release-2025-research-activity-designations-debut-updated-methodology/
 - NSF NCSES 26-305 (HERD FY2024): https://ncses.nsf.gov/pubs/nsf26305
+- Workday budget checks: https://doc.workday.com/admin-guide/en-us/education-and-government/grants-management/award-setup-and-management/award-budgets/hve1561071566150.html · Grant Witness: https://grantwitness.org/nih
+- AcceleratorApp buyer's guide 2026 (vendor): https://resources.acceleratorapp.co/hubfs/Grant%20Management%20Software%20Buyers%20Guide%202026%20%E2%80%94%20AcceleratorApp.pdf (excerpt: `docs/research/sources/docs/acceleratorapp-2026-buyers-guide-excerpt.txt`)
+- Ithaka S+R, AI Adoption in Research Administration at Emerging Research Institutions (2026-03-30): https://sr.ithaka.org/publications/ai-adoption-in-research-administration-at-emerging-research-institutions/ · ai@cam: https://www.ai.cam.ac.uk/projects/exploring-ai-in-research-grants-administration/
+- NCURA Magazine, "The Administrative Burden of Defend the Spend" (Hope & Toups, COGR, 2025): https://www.cogr.edu/sites/default/files/2025-12/The%20Administrative%20Burden%20of%20Defend%20the%20Spend_NCURA%20Mag%202025.pdf (text: `docs/research/sources/docs/ncura-2025-defend-the-spend-burden.txt`)
+- Devpost: https://devpost.com/software/grantloop · https://devpost.com/software/wateraid-x75h92 (GrantProof) · scans: `docs/research/sources/devpost-scan.txt`, `docs/research/sources/devpost-scan-2026-10-24.txt`
 - Pain-point files with more detail: `docs/research/pain-points/01`, `02`, `06`–`10`
