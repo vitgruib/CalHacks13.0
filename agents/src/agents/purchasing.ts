@@ -569,6 +569,15 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
   // something changed since the verdicts were read: then look again and hold
   // or block on what it says now, never retry the buy.
   async function moveMoney(requestId: string, decision: Decision, split: Split[], serves: string[]): Promise<void> {
+    // Bought by the agent alone (new, after its freeze, or rerouted): one last
+    // look at the price. A grant manager's approval already settled it.
+    const request = findRequest(requestId);
+    const price = request && !decision.approval ? await checkPrice(request) : undefined;
+    if (request && price?.tooHigh) {
+      const held: Decision = { ...decision, action: 'hold', reason: 'price_high', to: undefined, pendingTo: undefined, note: priceStep(request.price, price.entry) };
+      await act(requestId, held, serves);
+      return;
+    }
     try {
       await act(requestId, decision, serves);
     } catch (error) {
@@ -706,11 +715,6 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       decision = asHold('decided_before', elsewhere || undefined);
     }
     else if (movesMoney && !fresh) decision = asHold('unchecked');
-    // Every rule passes and it would be bought alone: one last look at the price.
-    if (decision.action === 'buy') {
-      const price = await checkPrice(request);
-      if (price?.tooHigh) decision = asHold('price_high', priceStep(request.price, price.entry));
-    }
 
     if (decision.action === 'reroute') await reroute(requestId, decision, reading.serves, 'block');
     else if (decision.action === 'buy') await moveMoney(requestId, decision, split, reading.serves);

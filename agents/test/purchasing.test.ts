@@ -1,4 +1,7 @@
 import assert from 'node:assert/strict';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { afterEach, test } from 'node:test';
 
 import { startTracker } from '../src/agents/bookkeeping.ts';
@@ -1060,4 +1063,37 @@ test('vendor_for_reuses_the_lab_s_vendor_for_the_same_item', () => {
   assert.equal(vendorFor(requestRow({ item: 'Nitrile gloves, 4 cases' }), past, orders), 'LabSource');
   assert.equal(vendorFor(requestRow({ item: 'Membrane protein detergent screening kit, 4 plates', category: 'reagents' }), past, orders), 'MembraneChem');
   assert.equal(vendorFor(requestRow({ item: 'Peristaltic pump', category: 'equipment' }), past, orders), DEFAULT_VENDOR);
+});
+
+// A saved list pricing rq-101's gloves and rq-102's agar plates far below what
+// was asked: both are bought by the agent alone once grant A is paid (one
+// after its freeze, one rerouted), so both get the price check.
+function overpricedList(): string {
+  const dir = mkdtempSync(join(tmpdir(), 'gg-prices-'));
+  const path = join(dir, 'prices.json');
+  const entry = (item: string, listPrice: number) => ({
+    item, category: 'lab supplies', found: true, vendor: 'Example Lab Supply', product: item, listPrice, sameQuantity: true,
+    url: 'https://example.test/item', checkedOn: '2026-10-24', by: 'claude-haiku-5-5',
+  });
+  writeFileSync(path, JSON.stringify([entry('Nitrile gloves, 10 cases', 200), entry('Agar plates, 40 packs', 300)]));
+  const before = process.env.GG_PRICE_CATALOG;
+  process.env.GG_PRICE_CATALOG = path;
+  cleanup = () => {
+    if (before === undefined) delete process.env.GG_PRICE_CATALOG;
+    else process.env.GG_PRICE_CATALOG = before;
+    rmSync(dir, { recursive: true, force: true });
+  };
+  return path;
+}
+
+test('an_overpriced_request_held_for_the_freeze_or_rerouted_is_held_for_its_price_instead_of_bought', async () => {
+  overpricedList();
+  const catchUp = await startSim();
+  await payGrantA(catchUp);
+  for (const id of ['rq-101', 'rq-102']) {
+    assert.equal(request(id).state, 'waiting_on_manager', id);
+    assert.equal(ordersFor(id).length, 0, id);
+    assert.match(openPurchaseHolds(id)[0]?.why ?? '', /more than twice the list price/, id);
+  }
+  assert.equal(request('rq-106').state, 'bought');
 });
