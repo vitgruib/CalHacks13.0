@@ -1,0 +1,140 @@
+===== SOURCE: https://nsf-gov-resources.nsf.gov/files/auditrep171009-usc.pdf (fetched 2026-10-24, direct; NSF's resolution letter for OIG audit 17-1-009, text via pdftotext -layout)
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+
+
+                                                              October 26, 2018
+
+Daniel Shapiro
+Director, Research Compliance
+University of Southern California
+3500 South Figueroa Street, #105
+Los Angeles, CA 90089-8007
+
+Reference: OIG Report No. 17-1-009
+
+Dear Mr. Shapiro:
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of Southern
+California (USC) during the period of October 1, 2011 through September 30, 2014.
+
+The audit report identified a total of $639,479 in questioned costs claimed on NSF awards and
+recommended that USC strengthen its administrative and management controls for the areas in which
+findings were identified. As a result of its resolution efforts, NSF has determined that $574,663 will be
+allowed and that $64,816 will be disallowed. The table below summarizes the allowed and disallowed
+costs by finding number:
+
+   Finding                       Description                          Questioned   Allowed    Disallowed
+       1      Unreasonable Expenses Near Award Expiration               $304,290   $291,006      $13,284
+       2      Misapplication of Indirect Costs on Subawards             $217,387   $187,674      $29,713
+              Unsupported or Incorrect Charges to Participant
+       3                                                                 $55,182    $55,136          $46
+              Support
+              Unreasonable, Unallowable, or Unsupported Travel
+       4                                                                 $40,199    $23,799      $16,400
+              Costs
+              Unreasonable or Unallocable General Expense
+       5                                                                  $9,364     $8,408        $956
+              Charges
+       6      Untimely Posting of Travel Charges                          $8,640     $8,640           $0
+       7      Unreasonable Payroll Charges                                $4,417         $0       $4,417
+                                                              Total     $639,479   $574,663      $64,816
+
+
+
+To resolve the audit findings and questioned costs, NSF conducted detailed reviews of applicable Federal
+and NSF requirements, proposal and award information maintained by NSF, and documentation
+provided by USC. The following provides the basis for the management decisions reached by NSF:
+University of Southern California
+Audit No. 17-1-009
+Page 2
+
+
+
+•   Finding 1: Unreasonable Expenses Near Award Expiration
+    NSF partially sustains the finding. USC concurred that $13,284 was not allocable to the respective
+    awards and agreed to repayment. NSF determined that the remaining $291,006 were allowable
+    costs based upon the review and acceptance of additional documentation to justify that the
+    equipment and supply purchases were necessary and reasonable for the completion of the
+    corresponding awards. It is NSF’s management decision to disallow $13,284 and to allow $291,006.
+
+•   Finding 2: Misapplication of Indirect Costs on Subawards
+    NSF does not sustain the finding. NSF determined that it was reasonable for USC to award multiple,
+    competitive subawards to accomplish the objectives of the NSF award and that indirect costs should
+    be allowed on the first $25,000 of each subaward, rather than limited to the first $25,000 for each
+    subawardee. However, NSF found instances where the $25,000 threshold per subaward was
+    exceeded resulting in over-recovered indirect costs of $29,713. It is NSF’s management decision to
+    disallow $29,713 and to allow $187,674.
+
+•   Finding 3: Unsupported or Incorrect Charges to Participant Support
+    NSF sustains the finding related to the misclassification of participant support costs. However, NSF
+    determined that all questioned costs, with the exception of alcohol, were allowable costs upon
+    reclassification to the correct accounts. It is NSF’s management decision to disallow $46 and to
+    allow $55,136.
+
+•   Finding 4: Unreasonable, Unallowable, or Unsupported Travel Costs
+    NSF partially sustains the finding. USC concurred that $16,400 was not allocable to the respective
+    awards and agreed to repayment. NSF determined that the remaining $23,799 were allowable costs
+    based upon the review and acceptance of additional documentation to justify that the questioned
+    travel costs were necessary and reasonable for the completion of the corresponding awards. It is
+    NSF’s management decision to disallow $16,400 and to allow $23,799.
+
+•   Finding 5: Unreasonable or Unallocable General Expense Charges
+    NSF partially sustains the finding. USC concurred that $956 was not allocable to the respective
+    awards and agreed to repayment. NSF determined that the remaining $8,408 were allowable costs
+    based upon the review and acceptance of additional documentation to justify that the questioned
+    costs were necessary and reasonable for the completion of the corresponding awards. It is NSF’s
+    management decision to disallow $956 and to allow $8,408.
+
+•   Finding 6: Untimely Posting of Travel Charges
+    NSF does not sustain the finding. NSF determined that the posting of the travel expenses did not
+    violate USC’s travel policy. It is NSF’s management decision to allow the questioned costs of $8,640.
+
+•   Finding 7: Unreasonable Payroll Charges
+    NSF sustains the finding. Based on USC’s concurrence, NSF’s management decision is to disallow the
+    questioned costs of $4,417.
+
+ NSF accepts USC’s stated corrective actions as responsive to the compliance and internal control
+ recommendations related to the audit findings and NSF considers the recommendations resolved and
+ closed.
+University of Southern California
+Audit No. 17-1-009
+Page 3
+
+
+
+ The total disallowed amount is $64,816, of which USC has provided evidence of $8,323 in repayment.
+ Repayment of the remaining $56,493 will be accomplished by a reversing journal entry for $29,713
+ under open award 0939564, and $26,780 under closed awards will be repaid via www.pay.gov or check
+ payable to the National Science Foundation. Please reference OIG Audit Report No. 17-1-009. Any
+ necessary adjustments to ACM$ as a result of the check or pay.gov repayment will be made by the NSF
+ Division of Financial Management. Mail checks to:
+                                National Science Foundation
+                                Attention: NSF Cashier
+                                2415 Eisenhower Avenue
+                                Alexandria, VA 22314
+
+ Please be aware that USC’ right to appeal cost disallowances by NSF is outlined in Chapter XII.B of the
+ NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+ https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+Based on the above, NSF considers all findings and questioned costs resolved. Upon verification that
+repayment of the remaining $56,493 in disallowed costs has been completed, the audit report will be
+fully closed out by NSF.
+
+USC’s timely responses and full cooperation with the NSF audit resolution process have been greatly
+appreciated. Should you have any questions regarding this letter or the NSF audit resolution process,
+please contact Chris Andall at 703-292-4565.
+
+                                                 Sincerely,
+
+                                                 Carrie Davison
+                                                 Carrie Davison, Lead Analyst
+                                                 Resolution and Advanced Monitoring Branch
+                                                 Division of Institution and Award Support
+

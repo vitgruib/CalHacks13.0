@@ -6,6 +6,12 @@
 // scorecard's judge. Findings GrantGuard has no rule for are listed as out of
 // scope rather than left out.
 //
+// T88: the grade comes from what was finally decided about each cost, not
+// from the audit alone. The headline counts only costs the funder decided in
+// a saved resolution letter: disallowed ones should be stopped, allowed ones
+// should pass. The rest (auditee agreed, auditor only, partly allowed) are
+// reported in their own rows.
+//
 //   node eval/real-findings.mjs [--out path | --no-write] [--json]
 //
 // Exit codes: 0 = scored (misses are reported, not fatal); 2 = a case is
@@ -24,6 +30,8 @@ const load = p => JSON.parse(readFileSync(here(p), 'utf8'));
 /** Whitespace-insensitive: the saved sources wrap lines where the PDFs did. */
 const squash = s => s.replace(/\s+/g, ' ').trim();
 
+export const LABELS = ['disallowed', 'allowed', 'partly', 'agreed', 'auditor'];
+
 /** Throws unless every case cites a saved source that contains its quote. */
 export function checkSources(findings = FINDINGS) {
   const problems = [];
@@ -41,6 +49,25 @@ export function checkSources(findings = FINDINGS) {
       continue;
     }
     if (f.quote && !squash(text).includes(squash(f.quote))) problems.push(`${f.id}: quote not found in ${f.file}`);
+    const d = f.decision;
+    if (!LABELS.includes(d?.label)) {
+      problems.push(`${f.id}: decision label must be one of ${LABELS.join(', ')}`);
+      continue;
+    }
+    if (d.label === 'auditor') continue;
+    if (!d.quote) {
+      problems.push(`${f.id}: a ${d.label} decision needs a quote`);
+      continue;
+    }
+    const file = d.file ?? f.file;
+    let letter;
+    try {
+      letter = file === f.file ? text : readFileSync(here(`${SOURCES_DIR}/${file}`), 'utf8');
+    } catch {
+      problems.push(`${f.id}: no decision source ${file}`);
+      continue;
+    }
+    if (!squash(letter).includes(squash(d.quote))) problems.push(`${f.id}: decision quote not found in ${file}`);
   }
   if (problems.length) throw new Error(`real findings are malformed:\n  ${problems.join('\n  ')}`);
 }
@@ -69,8 +96,9 @@ export async function scoreFindings(findings = FINDINGS) {
   const results = [];
   for (const f of findings) {
     const source = { file: f.file, auditee: f.auditee, year: f.year, amount: f.amount ?? null, quote: f.quote };
+    const decision = { file: f.file, ...f.decision };
     if (f.outOfScope) {
-      results.push({ id: f.id, what: f.what, source, outcome: 'out of scope', why: f.outOfScope });
+      results.push({ id: f.id, what: f.what, source, decision, outcome: 'out of scope', why: f.outOfScope });
       continue;
     }
     const seed = load('../sim/seed.json');
@@ -84,8 +112,9 @@ export async function scoreFindings(findings = FINDINGS) {
     // A hold or flag on a record this finding planted that no case explains.
     const extras = card.unlistedFalseAlarms.filter(x => planted.has(x.refId) || String(x.refId).startsWith('rf-'));
     results.push({
-      id: f.id, what: f.what, source, rule: cases[0].rule, auditee: f.auditee,
-      outcome: scored.find(c => c.kind === 'mistake')?.outcome ?? 'no mistake case',
+      id: f.id, what: f.what, source, decision, rule: cases[0].rule, auditee: f.auditee,
+      // A cost the funder allowed is planted as a decoy only.
+      outcome: (scored.find(c => c.kind === 'mistake') ?? scored.find(c => c.kind === 'decoy'))?.outcome ?? 'no case',
       cases: scored.map(({ id, kind, refId, expected, got, outcome, detail }) => ({ id, kind, refId, expected, got, outcome, detail })),
       falseAlarms: scored.filter(c => c.outcome === 'false alarm').length + extras.length,
       extras, errors,
@@ -96,6 +125,7 @@ export async function scoreFindings(findings = FINDINGS) {
   return {
     about: 'Questioned costs from real audit reports, each rebuilt in a fresh copy of sim/seed.json and run through the real module and agents. Agents run on their deterministic fallbacks unless GG_CLAUDE says otherwise.',
     claude: process.env.GG_CLAUDE,
+    byDecision: Object.fromEntries(LABELS.map(label => [label, tally(results.filter(r => r.decision.label === label))])),
     totals: {
       findings: results.length,
       inScope: inScope.length,
@@ -110,20 +140,49 @@ export async function scoreFindings(findings = FINDINGS) {
   };
 }
 
+/** Counts for one decision label; decoy cases inside a finding count as passes or false alarms. */
+function tally(rs) {
+  const inScope = rs.filter(r => r.outcome !== 'out of scope');
+  const mistakes = inScope.filter(r => r.cases.some(c => c.kind === 'mistake'));
+  const decoys = inScope.flatMap(r => r.cases.filter(c => c.kind === 'decoy'));
+  return {
+    findings: rs.length,
+    outOfScope: rs.length - inScope.length,
+    mistakes: mistakes.length,
+    caught: mistakes.filter(r => r.outcome === 'caught').length,
+    decoys: decoys.length,
+    passed: decoys.filter(c => c.outcome === 'correct pass').length,
+  };
+}
+
 const pad = (s, n) => String(s).padEnd(n);
 const money = n => (n == null ? '' : `$${n.toLocaleString('en-US')}`);
 
 export function formatFindings(card) {
   const lines = ['Real audit findings, replayed through GrantGuard', ''];
-  lines.push(`${pad('case', 7)}${pad('auditee', 30)}${pad('amount', 12)}${pad('outcome', 14)}what`);
+  lines.push(`${pad('case', 7)}${pad('auditee', 30)}${pad('amount', 12)}${pad('decided', 12)}${pad('outcome', 14)}what`);
   for (const r of card.findings) {
-    lines.push(`${pad(r.id, 7)}${pad(`${r.auditee ?? r.source.auditee} ${r.source.year ?? ''}`.slice(0, 29), 30)}${pad(money(r.source.amount), 12)}${pad(r.outcome, 14)}${r.what}`);
-    for (const c of r.cases ?? []) if (c.kind === 'decoy') lines.push(`${pad('', 7)}${pad('  decoy', 42)}${pad(c.outcome, 14)}${c.refId}`);
-    if (r.outcome === 'out of scope') lines.push(`${pad('', 63)}(${r.why})`);
-    for (const x of r.extras ?? []) lines.push(`${pad('', 63)}false alarm: ${x.refId} ${x.what}`);
+    lines.push(`${pad(r.id, 7)}${pad(`${r.auditee ?? r.source.auditee} ${r.source.year ?? ''}`.slice(0, 29), 30)}${pad(money(r.source.amount), 12)}${pad(r.decision.label, 12)}${pad(r.outcome, 14)}${r.what}`);
+    const mistake = r.cases?.some(c => c.kind === 'mistake');
+    for (const c of r.cases ?? []) if (c.kind === 'decoy' && mistake) lines.push(`${pad('', 7)}${pad('  decoy', 54)}${pad(c.outcome, 14)}${c.refId}`);
+    if (r.outcome === 'out of scope') lines.push(`${pad('', 75)}(${r.why})`);
+    if (r.decision.note) lines.push(`${pad('', 75)}decided: ${r.decision.note}`);
+    for (const x of r.extras ?? []) lines.push(`${pad('', 75)}false alarm: ${x.refId} ${x.what}`);
   }
   const t = card.totals;
-  lines.push('', `In scope: caught ${t.caught}/${t.inScope}, decoys passed ${t.correctPasses}/${t.decoys}, false alarms ${t.falseAlarms}. Out of scope: ${t.outOfScope} of ${t.findings} findings.`);
+  const b = card.byDecision;
+  const scope = x => (x.outOfScope ? `, ${x.outOfScope} out of scope` : '');
+  lines.push(
+    '',
+    'Graded by what the funder finally decided (NSF resolution letters):',
+    `  disallowed costs stopped ${b.disallowed.caught}/${b.disallowed.mistakes}${scope(b.disallowed)}`,
+    `  allowed costs passed ${b.allowed.passed}/${b.allowed.decoys}${scope(b.allowed)}`,
+    'No funder decision saved:',
+    `  auditee agreed: stopped ${b.agreed.caught}/${b.agreed.mistakes}${scope(b.agreed)}`,
+    `  auditor only: stopped ${b.auditor.caught}/${b.auditor.mistakes}, our decoys passed ${b.auditor.passed}/${b.auditor.decoys}${scope(b.auditor)}`,
+    `Partly allowed, not graded: stopped ${b.partly.caught}/${b.partly.mistakes}${scope(b.partly)}`,
+    `All: false alarms ${t.falseAlarms}; out of scope ${t.outOfScope} of ${t.findings} findings.`,
+  );
   return lines.join('\n');
 }
 

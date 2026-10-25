@@ -1,0 +1,145 @@
+===== SOURCE: https://nsf-gov-resources.nsf.gov/files/auditrep151014-uwmadison.pdf (fetched 2026-10-24, direct; NSF's resolution letter for OIG audit 15-1-014, text via pdftotext -layout)
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue - Suite E 7400
+Alexandria, VA 22314
+(703) 292-8244
+
+
+
+                                                         September 25, 2017
+
+Robert Andresen
+Vice Chancellor for Finance and Administration
+University of Wisconsin - Madison
+Room 6310
+21 N Park Street
+Madison, WI 53715
+
+Re: Audit Report No. 15-1-014
+
+Dear Mr. Andresen,
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of the
+Inspector General (OIG) audit report on costs incurred under NSF awards by the University of Wisconsin at
+Madison, during the period April 1, 2010 to March 31, 2013.
+
+The audit report identified a total of $1,669,588 in questioned costs claimed on NSF awards and
+recommended that the University strengthen its administrative and management controls for the areas in
+which findings were identified. As a result of its resolution efforts, NSF has determined that $1,535,074 will
+be allowed, and that $134,514 will be disallowed. The table below summarizes the disallowed and allowed
+costs by finding number:
+
+ Finding                       Description                     Questioned        Disallowed         Allowed
+           Senior Personnel Exceeded NSF’s Two-Month
+    1                                                             $1,276,668               $0        $1,276,668
+           Maximum for Salary Allocation
+           Leave Accrual Payouts Unreasonably Allocated to
+    2                                                               $192,707               $0         $192,707
+           NSF Awards
+           Methodology Used to Allocate Equipment Expenses
+    3                                                                $70,189          $70,189                 $0
+           Not Proportional to the Benefits Received
+           Expenses Incurred After the Grant’s Period of
+    4                                                                $56,965          $56,965                 $0
+           Performance has Expired
+    5      Unreasonable Consulting Expenses                          $35,592               $0          $35,592
+    6      Unreasonable Relocation Expenses                          $30,107               $0          $30,107
+    7      Unreasonable Travel Expenses                               $7,360           $7,360                 $0
+
+                                                      Total       $1,669,588         $134,514        $1,535,074
+University of Wisconsin at Madison
+Audit No. 15-1-014
+Page 2
+
+To resolve the audit findings and questioned costs, NSF conducted careful reviews of applicable federal and
+NSF requirements, proposal and award information maintained by NSF, and documentation provided by the
+University. The following provides the basis for the management decisions reached by NSF:
+
+    •   Finding 1: Senior Personnel Exceeded NSF’s Two-Month Maximum for Salary Allocation
+        NSF does not sustain the finding. As stated in the NSF Proposal & Award Policies and Procedures
+        Guide (PAPPG) Chapters VII and X, an awardee can internally approve an increase or decrease in
+        person months devoted to the project after an award is made, even if doing so results in salary
+        support for senior personnel exceeding the two month salary policy. No prior approval from NSF is
+        necessary as long as that change would not cause the objective or scope of the project to change.
+        Therefore, it is the NSF management decision that the $1,276,668 questioned as excess senior
+        salaries are allowable costs and no further action is required by the University.
+
+    •   Finding 2: Leave Accrual Payouts Unreasonably Allocated to NSF Awards
+        NSF does not sustain the finding. The basis of the audit finding was that leave accrual payouts should
+        have been charged to NSF awards using the accrual method for charging annual leave, rather than
+        the cash basis. It is inappropriate for NSF to impose a cost accounting methodology on an
+        organization that differs from the approved cost methodology by its cognizant federal agency. The
+        University consistently applied a cash basis to account for leave payouts, as acknowledged in the
+        audit report. Therefore, NSF accepts that the cash basis for expensing leave payouts resulted in an
+        equitable allocation of costs as a cumulative process across all awards and cost objectives, rather
+        than isolated instances as presented in the audit report. As a result, it is the NSF management
+        decision that associated questioned costs of $192,707 are allowable, based on the University’s
+        approved cost methodology that was consistently applied.
+
+    •   Finding 3: Methodology Used to Allocate Equipment Expenses Not Proportional to the Benefits
+        Received
+        NSF sustains the finding. The University did not provide documentation to support a reasonable and
+        rational allocation methodology for equipment expenses. Therefore, NSF has disallowed the entire
+        $70,189 in questioned costs.
+
+    •   Finding 4: Expenses Incurred After the Grant’s Period of Performance has Expired
+        NSF sustains the finding. NSF determined that expenses for purchase orders placed after the award
+        expiration date are unallowable and disallowed the entire $56,965.
+
+    •   Finding 5: Unreasonable Consulting Expenses
+        NSF does not sustain the finding. The basis for questioning costs was a determination that two
+        consultant payments were made as a matter of convenience, which is prohibited under 2 CFR 220,
+        Appendix A, Section C.4.b. However, NSF determined that the services were award related, provided
+        within the performance period, and that the obligations were liquidated within the 90 day close out.
+        Therefore, NSF’s management decision is to allow the entire $35,592 in questioned costs.
+
+    •   Finding 6: Unreasonable Relocation Expenses
+        NSF does not sustain the finding. NSF determined that under normal rebudgeting authority,
+        awardees may internally approve relocation expenses after an award is made. As of PAPPG 15-1, NSF
+        has clarified the PAPPG language to align NSF guidance with the OMB cost principles. During
+        resolution, NSF determined that: (1) the University followed its own policies and procedures for
+University of Wisconsin at Madison
+Audit No. 15-1-014
+Page 3
+
+        charging relocation costs directly to the NSF award in question; (2) the University’s policies and
+        procedures aligned with the Federal Cost Principles; and (3) the documentation provided by the
+        University that supports the allocability and allowability for directly charging the relocation costs was
+        reasonable and adequate. Therefore, NSF’s management decision is to allow the entire $30,107 of
+        questioned costs.
+
+    •   Finding 7: Unreasonable Travel Expenses
+        NSF sustains the finding based on University concurrence, and has disallowed the entire $7,360 of
+        questioned costs.
+
+Please be aware that the University’s right to appeal cost disallowances by NSF is outlined in Chapter XII.B of
+the NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online at:
+https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg.
+
+As of the date of this letter, the University has provided evidence for the repayment of $7,360 of the
+$134,514 disallowed. The remaining disallowed amount of $127,154 may be repaid via www.pay.gov. Any
+necessary adjustments to ACM$ as a result of the pay.gov payment will be made by the NSF Division of
+Financial Management.
+
+In reference to compliance and internal control recommendations in the audit report, NSF accepts the
+University’s stated corrective actions as responsive and considers the recommendations to be resolved and
+closed.
+
+Based on the above, NSF considers all findings and questioned costs resolved. Upon verification that
+repayment of the remaining $127,154 has been completed, the audit report will be fully closed out by NSF.
+
+The University’s timely responses and full cooperation with the NSF audit resolution process have been
+greatly appreciated. Should you have any questions regarding this letter or the NSF audit resolution process,
+please contact Carrie Davison at (703) 292-4579.
+
+
+                                                 Sincerely,
+
+
+                                                 Rochelle D. Ray
+                                                 Rochelle D. Ray, Branch Chief
+                                                 Resolution and Advanced Monitoring Branch
+                                                 Division of Institution & Award Support
+

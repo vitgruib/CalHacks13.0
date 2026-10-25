@@ -1,14 +1,56 @@
 {
   "about": "Questioned costs from real audit reports, each rebuilt in a fresh copy of sim/seed.json and run through the real module and agents. Agents run on their deterministic fallbacks unless GG_CLAUDE says otherwise.",
   "claude": "offline",
+  "byDecision": {
+    "disallowed": {
+      "findings": 10,
+      "outOfScope": 2,
+      "mistakes": 8,
+      "caught": 8,
+      "decoys": 0,
+      "passed": 0
+    },
+    "allowed": {
+      "findings": 4,
+      "outOfScope": 2,
+      "mistakes": 0,
+      "caught": 0,
+      "decoys": 2,
+      "passed": 2
+    },
+    "partly": {
+      "findings": 4,
+      "outOfScope": 0,
+      "mistakes": 4,
+      "caught": 2,
+      "decoys": 0,
+      "passed": 0
+    },
+    "agreed": {
+      "findings": 7,
+      "outOfScope": 2,
+      "mistakes": 5,
+      "caught": 2,
+      "decoys": 0,
+      "passed": 0
+    },
+    "auditor": {
+      "findings": 17,
+      "outOfScope": 7,
+      "mistakes": 10,
+      "caught": 10,
+      "decoys": 3,
+      "passed": 3
+    }
+  },
   "totals": {
-    "findings": 40,
-    "inScope": 27,
+    "findings": 42,
+    "inScope": 29,
     "caught": 22,
-    "missed": 5,
+    "missed": 7,
     "outOfScope": 13,
-    "decoys": 3,
-    "correctPasses": 3,
+    "decoys": 5,
+    "correctPasses": 5,
     "falseAlarms": 0
   },
   "findings": [
@@ -21,6 +63,11 @@
         "year": "2015",
         "amount": 70189,
         "quote": "The total cost of this equipment was $71,015. Of this amount, $48,301 (68 percent) was"
+      },
+      "decision": {
+        "file": "nsf-resolution-15-1-014-uwm.txt",
+        "label": "disallowed",
+        "quote": "Therefore, NSF has disallowed the entire $70,189 in questioned costs."
       },
       "rule": "Shared cost split across the grants it serves",
       "auditee": "Univ. of Wisconsin-Madison",
@@ -50,6 +97,11 @@
         "amount": 28719,
         "quote": "NSF sustains the finding. The auditor questioned $28,719 on eight (8) NSF awards in Recommendations"
       },
+      "decision": {
+        "file": "nsf-oig-20-1-008-duke.txt",
+        "label": "disallowed",
+        "quote": "Corrective Action: NSF requires Duke to repay disallowed questioned costs of $28,719."
+      },
       "rule": "Shared cost split across the grants it serves",
       "auditee": "Duke University",
       "outcome": "caught",
@@ -77,6 +129,10 @@
         "year": "2022",
         "amount": null,
         "quote": "Common Findings: Award recipients charged a single NSF award for 100"
+      },
+      "decision": {
+        "file": "nsf-oig-22-6-002-promising-practices.txt",
+        "label": "auditor"
       },
       "rule": "Shared cost split across the grants it serves",
       "auditee": "NSF OIG compendium (6 audits)",
@@ -115,6 +171,12 @@
         "amount": 4271,
         "quote": "1,460 days). UofSC could not provide support for the allocation methodology, and given"
       },
+      "decision": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "label": "agreed",
+        "quote": "UofSC agreed with the findings in the report.",
+        "note": "No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24)."
+      },
       "rule": "Shared cost split across the grants it serves",
       "auditee": "Univ. of South Carolina",
       "outcome": "missed",
@@ -142,6 +204,12 @@
         "year": "2017",
         "amount": 6434,
         "quote": "Lab supplies, totaling $6,434, were ordered in August 2013, and"
+      },
+      "decision": {
+        "file": "nsf-resolution-17-1-009-usc.txt",
+        "label": "partly",
+        "quote": "It is NSF’s management decision to disallow $13,284 and to allow $291,006.",
+        "note": "NSF allowed 96% of this finding as necessary and reasonable; whether these $6,434 of supplies were in the $13,284 it disallowed is not stated."
       },
       "rule": "Not in the grant's last 90 days",
       "auditee": "Univ. of Southern California",
@@ -171,6 +239,12 @@
         "amount": 4620,
         "quote": "The tablet and phone were available for 3 percent of the award period (43 out of 1,245"
       },
+      "decision": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "label": "agreed",
+        "quote": "UofSC agreed with the findings in the report.",
+        "note": "No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24)."
+      },
       "rule": "Not in the grant's last 90 days",
       "auditee": "Univ. of South Carolina",
       "outcome": "missed",
@@ -198,6 +272,12 @@
         "year": "2017",
         "amount": 2466,
         "quote": "Cell phones from Amazon were purchased for $2,466 in the last"
+      },
+      "decision": {
+        "file": "nsf-resolution-17-1-009-usc.txt",
+        "label": "partly",
+        "quote": "It is NSF’s management decision to disallow $13,284 and to allow $291,006.",
+        "note": "NSF allowed 96% of this finding as necessary and reasonable; whether these $2,466 of phones were in the $13,284 it disallowed is not stated."
       },
       "rule": "Not in the grant's last 90 days",
       "auditee": "Univ. of Southern California",
@@ -227,6 +307,12 @@
         "amount": 31375,
         "quote": "A computer, totaling $31,375, was installed 15 days prior to the"
       },
+      "decision": {
+        "file": "nsf-resolution-17-1-009-usc.txt",
+        "label": "partly",
+        "quote": "It is NSF’s management decision to disallow $13,284 and to allow $291,006.",
+        "note": "NSF disallowed $13,284 of the finding in all, so at least $18,091 of this $31,375 computer was allowed."
+      },
       "rule": "Not in the grant's last 90 days",
       "auditee": "Univ. of Southern California",
       "outcome": "missed",
@@ -254,6 +340,11 @@
         "year": "2015",
         "amount": 20816,
         "quote": "$20,816 of expenses incurred to purchase equipment that would provide measurements in"
+      },
+      "decision": {
+        "file": "nsf-resolution-15-1-014-uwm.txt",
+        "label": "disallowed",
+        "quote": "NSF determined that expenses for purchase orders placed after the award expiration date are unallowable and disallowed the entire $56,965."
       },
       "rule": "Grant is active and not frozen",
       "auditee": "Univ. of Wisconsin-Madison",
@@ -283,6 +374,11 @@
         "amount": 17017,
         "quote": "$17,017 of expenses incurred to purchase computer equipment. The invoice supporting this"
       },
+      "decision": {
+        "file": "nsf-resolution-15-1-014-uwm.txt",
+        "label": "disallowed",
+        "quote": "NSF determined that expenses for purchase orders placed after the award expiration date are unallowable and disallowed the entire $56,965."
+      },
       "rule": "Grant is active and not frozen",
       "auditee": "Univ. of Wisconsin-Madison",
       "outcome": "caught",
@@ -310,6 +406,11 @@
         "year": "2019",
         "amount": 56397,
         "quote": "we questioned $56,397 of costs associated with the capital equipment purchase."
+      },
+      "decision": {
+        "file": "nsf-resolution-19-1-006-minnesota.txt",
+        "label": "disallowed",
+        "quote": "NSF’s management decision is to disallow all questioned costs in the amount of $73,260."
       },
       "rule": "Grant is active and not frozen",
       "auditee": "Univ. of Minnesota",
@@ -339,6 +440,12 @@
         "amount": 13680,
         "quote": "The equipment was purchased and received 1.5 months after the award expiration"
       },
+      "decision": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "label": "agreed",
+        "quote": "UofSC agreed with the findings in the report.",
+        "note": "No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24)."
+      },
       "rule": "Grant is active and not frozen",
       "auditee": "Univ. of South Carolina",
       "outcome": "caught",
@@ -366,6 +473,12 @@
         "year": "2017",
         "amount": 106069,
         "quote": "Equipment, totaling $106,069, was unreasonably charged to the"
+      },
+      "decision": {
+        "file": "nsf-resolution-17-1-009-usc.txt",
+        "label": "partly",
+        "quote": "It is NSF’s management decision to disallow $13,284 and to allow $291,006.",
+        "note": "NSF disallowed $13,284 of the finding in all, so at least $92,785 of this $106,069 of equipment was allowed."
       },
       "rule": "Grant is active and not frozen",
       "auditee": "Univ. of Southern California",
@@ -395,6 +508,11 @@
         "amount": 29892,
         "quote": "NSF sustains the finding. The auditors questioned costs of $29,892 on two (2) awards related to"
       },
+      "decision": {
+        "file": "nsf-oig-20-1-008-duke.txt",
+        "label": "disallowed",
+        "quote": "NSF’s management decision is to sustain and disallow $29,892."
+      },
       "rule": "Grant is active and not frozen",
       "auditee": "Duke University",
       "outcome": "caught",
@@ -422,6 +540,11 @@
         "year": "2017",
         "amount": 46,
         "quote": "Of the $517 expenses in question, $46 related to unallowable alcohol expenses charged to"
+      },
+      "decision": {
+        "file": "nsf-resolution-17-1-009-usc.txt",
+        "label": "disallowed",
+        "quote": "NSF determined that all questioned costs, with the exception of alcohol, were allowable costs upon reclassification to the correct accounts. It is NSF’s management decision to disallow $46"
       },
       "rule": "Category allowed",
       "auditee": "Univ. of Southern California",
@@ -451,6 +574,11 @@
         "amount": 257,
         "quote": "$257, related to a workshop under NSF Award No."
       },
+      "decision": {
+        "file": "nsf-resolution-19-1-006-minnesota.txt",
+        "label": "disallowed",
+        "quote": "NSF’s management decision is to disallow all questioned costs in the amount of $73,260."
+      },
       "rule": "Category allowed",
       "auditee": "Univ. of Minnesota",
       "outcome": "caught",
@@ -478,6 +606,10 @@
         "year": "2013",
         "amount": 118146,
         "quote": "found UW spent $118,146 for purchases that included alcohol or liquor licenses."
+      },
+      "decision": {
+        "file": "wa-auditor-2013-pcard.txt",
+        "label": "auditor"
       },
       "rule": "Category allowed",
       "auditee": "Univ. of Washington",
@@ -507,6 +639,12 @@
         "amount": 180,
         "quote": "for the purchase of general purpose cleaning supplies."
       },
+      "decision": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "label": "agreed",
+        "quote": "UofSC agreed with the findings in the report.",
+        "note": "No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24)."
+      },
       "rule": "Category allowed",
       "auditee": "Univ. of South Carolina",
       "outcome": "caught",
@@ -534,6 +672,10 @@
         "year": "2025 (FY21-22)",
         "amount": 3792,
         "quote": "orders for $1,038, $910, $1,377, and $467 (totaling $3,792)"
+      },
+      "decision": {
+        "file": "ct-apa-2025-scsu-fy2021-2022.txt",
+        "label": "auditor"
       },
       "rule": "Under the card limit, counting same-day purchases",
       "auditee": "Southern Connecticut State Univ.",
@@ -572,6 +714,10 @@
         "amount": 6204,
         "quote": "These transactions totaled $19,204, $6,204 of which was over the cardholders’"
       },
+      "decision": {
+        "file": "ma-osa-2018-umass-amherst-procard-dovetail.txt",
+        "label": "auditor"
+      },
       "rule": "Under the card limit, counting same-day purchases",
       "auditee": "UMass Amherst",
       "outcome": "caught",
@@ -599,6 +745,10 @@
         "year": "2025",
         "amount": 30000,
         "quote": "high-risk transactions we tested were improper split purchases totaling $30,000."
+      },
+      "decision": {
+        "file": "nsf-oig-25-06-001-pcard-risk.txt",
+        "label": "auditor"
       },
       "rule": "Under the card limit, counting same-day purchases",
       "auditee": "NSF (agency card program)",
@@ -628,6 +778,10 @@
         "amount": 56542.24,
         "quote": "purchase and travel payments totaling $56,542.24. See Table 3."
       },
+      "decision": {
+        "file": "tx-cpa-2021-multi-agency-duplicate-payments.txt",
+        "label": "auditor"
+      },
       "rule": "An invoice is payable only if its order hasn't been billed already",
       "auditee": "Texas agencies incl. UNT",
       "outcome": "caught",
@@ -656,6 +810,10 @@
         "amount": 1045,
         "quote": "Workday. Additionally, this subrecipient invoice was erroneously paid twice and indirect costs in"
       },
+      "decision": {
+        "file": "fac-single-audit-findings.txt",
+        "label": "auditor"
+      },
       "rule": "An invoice is payable only if its order hasn't been billed already",
       "auditee": "Saint Louis University",
       "outcome": "caught",
@@ -683,6 +841,10 @@
         "year": "2023",
         "amount": 46600,
         "quote": "established contract; however, the existing contract’s value of $14,000 did not support"
+      },
+      "decision": {
+        "file": "tx-cpa-2023-uhv-post-payment-audit.txt",
+        "label": "auditor"
       },
       "rule": "An invoice is payable only if its amount matches the approval",
       "auditee": "Univ. of Houston-Victoria",
@@ -721,6 +883,10 @@
         "amount": 7400,
         "quote": "The university approved one $7,400 purchase requisition and order 31 days after the invoice."
       },
+      "decision": {
+        "file": "ct-apa-2025-scsu-fy2021-2022.txt",
+        "label": "auditor"
+      },
       "rule": "An invoice is payable only if its order was placed before it",
       "auditee": "Southern Connecticut State Univ.",
       "outcome": "caught",
@@ -748,6 +914,12 @@
         "year": "2021",
         "amount": 1222,
         "quote": "another ticket. Both flights were inappropriately charged to the NSF award."
+      },
+      "decision": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "label": "agreed",
+        "quote": "UofSC agreed with the findings in the report.",
+        "note": "No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24)."
       },
       "rule": "An invoice is payable only if its order hasn't been billed already",
       "auditee": "Univ. of South Carolina",
@@ -777,6 +949,10 @@
         "amount": null,
         "quote": "Common Findings: Award recipients charged NSF for costs incurred to publish"
       },
+      "decision": {
+        "file": "nsf-oig-22-6-002-promising-practices.txt",
+        "label": "auditor"
+      },
       "rule": "A listed paper must credit the grant whose report lists it",
       "auditee": "NSF OIG compendium",
       "outcome": "caught",
@@ -805,6 +981,11 @@
         "amount": 1863,
         "quote": "were posted 15 months after the travel end date and eight months after award expiration,"
       },
+      "decision": {
+        "file": "nsf-resolution-17-1-009-usc.txt",
+        "label": "allowed",
+        "quote": "NSF does not sustain the finding. NSF determined that the posting of the travel expenses did not violate USC’s travel policy."
+      },
       "outcome": "out of scope",
       "why": "Travel reimbursements and their posting dates are not modeled."
     },
@@ -817,6 +998,11 @@
         "year": "2019",
         "amount": 5675,
         "quote": "the grant was charged based on an estimate and not based on"
+      },
+      "decision": {
+        "file": "nsf-resolution-19-1-006-minnesota.txt",
+        "label": "disallowed",
+        "quote": "NSF’s management decision is to disallow all questioned costs in the amount of $73,260."
       },
       "outcome": "out of scope",
       "why": "GrantGuard charges a grant only through request, order and invoice; it has no journal entries to test."
@@ -831,6 +1017,12 @@
         "amount": 3685,
         "quote": "until 165 days after expiration."
       },
+      "decision": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "label": "agreed",
+        "quote": "UofSC agreed with the findings in the report.",
+        "note": "No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24)."
+      },
       "outcome": "out of scope",
       "why": "Cost transfers between accounts are not modeled (the report checker only proposes moves)."
     },
@@ -843,6 +1035,11 @@
         "year": "2018 (resolved)",
         "amount": 69545,
         "quote": "The University concurred that $69,545 was not allocable to the"
+      },
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis.txt",
+        "label": "disallowed",
+        "quote": "It is NSF’s management decision to disallow $69,545"
       },
       "outcome": "out of scope",
       "why": "Cost transfers between accounts are not modeled."
@@ -857,6 +1054,10 @@
         "amount": 246869,
         "quote": "transactions sampled cost transfers (totaling $246,869 positive and $66,004 negative) where the"
       },
+      "decision": {
+        "file": "fac-single-audit-findings.txt",
+        "label": "auditor"
+      },
       "outcome": "out of scope",
       "why": "Cost transfers are not modeled; the report checker counts the 90 days only for the moves it proposes."
     },
@@ -869,6 +1070,10 @@
         "year": "2008",
         "amount": 7600000,
         "quote": "wrongful transfers when the federal grant was near its expiration date and they needed to spend"
+      },
+      "decision": {
+        "file": "usao-ct-2008-yale-grants-settlement.txt",
+        "label": "auditor"
       },
       "outcome": "out of scope",
       "why": "Cost transfers are not modeled. New supply purchases in a grant's last 90 days are (rf-05)."
@@ -883,6 +1088,12 @@
         "amount": 7276,
         "quote": "award, 803 days after the final reimbursement was requested through ACM$."
       },
+      "decision": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "label": "agreed",
+        "quote": "UofSC agreed with the findings in the report.",
+        "note": "No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24)."
+      },
       "outcome": "out of scope",
       "why": "Nothing in the records says which award the materials served; only a person could tell."
     },
@@ -895,6 +1106,10 @@
         "year": "FY2022",
         "amount": 16588,
         "quote": "Management charged nonpayroll expenses that had not been incurred as of year-end"
+      },
+      "decision": {
+        "file": "fac-single-audit-findings.txt",
+        "label": "auditor"
       },
       "outcome": "out of scope",
       "why": "Untested: payment requests claim only bought purchases and past payroll, but no case here plants future stipends."
@@ -909,6 +1124,10 @@
         "amount": 13650,
         "quote": "17 purchases totaling $13,650 were for various items which were unallowable per"
       },
+      "decision": {
+        "file": "nc-auditor-2024-fayetteville-state-pcard.txt",
+        "label": "auditor"
+      },
       "outcome": "out of scope",
       "why": "The report does not say which items, so there is nothing specific to rebuild."
     },
@@ -921,6 +1140,10 @@
         "year": "2021-2022",
         "amount": 40504200,
         "quote": "broke up the fraudulent purchases into orders below the $10,000 threshold that would require"
+      },
+      "decision": {
+        "file": "doj-university-grant-settlements.txt",
+        "label": "auditor"
       },
       "outcome": "out of scope",
       "why": "Insider fraud by the person who approves. The same-day split rule only sees one person's orders on one day (rf-19)."
@@ -935,6 +1158,10 @@
         "amount": 200000,
         "quote": "payment to the sham companies for equipment, goods and services that were never received or"
       },
+      "decision": {
+        "file": "doj-university-grant-settlements.txt",
+        "label": "auditor"
+      },
       "outcome": "out of scope",
       "why": "GrantGuard does not check receipt of goods or who owns a vendor."
     },
@@ -947,6 +1174,11 @@
         "year": "2015",
         "amount": 1276668,
         "quote": "the auditors questioned $1,276,668 in senior personnel salary that exceeded NSF’s two-month"
+      },
+      "decision": {
+        "file": "nsf-resolution-15-1-014-uwm.txt",
+        "label": "allowed",
+        "quote": "it is the NSF management decision that the $1,276,668 questioned as excess senior salaries are allowable costs"
       },
       "outcome": "out of scope",
       "why": "NSF's two-month salary rule is not modeled; GrantGuard checks only effort above 100%."
@@ -961,8 +1193,80 @@
         "amount": 7469306,
         "quote": "instead of actual activity to claim $7.5 million in salaries, fringe benefits, and indirect costs."
       },
+      "decision": {
+        "file": "hhs-oig-2024-a-04-20-03583-nymc-summary.txt",
+        "label": "auditor"
+      },
       "outcome": "out of scope",
       "why": "Payroll rows are taken as given; nothing compares claimed effort with actual work."
+    },
+    {
+      "id": "rf-41",
+      "what": "Equipment bought two to four months before the award ended, questioned by the auditors and allowed by NSF.",
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "auditee": "UC Davis",
+        "year": "2017 (resolved 2018)",
+        "amount": 53719,
+        "quote": "We also questioned $53,719 for three equipment purchases in March and May 2008."
+      },
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis.txt",
+        "label": "allowed",
+        "quote": "equipment purchases were necessary and reasonable for the completion of the corresponding awards. It is NSF’s management decision to disallow $4,393 and to allow $378,253.",
+        "note": "NSF disallowed $4,393 of the finding in all, less than either purchase; the letter ties it to an item whose cost could not be documented, which matches the report's $8,786 valve."
+      },
+      "rule": "Not in the grant's last 90 days",
+      "auditee": "UC Davis",
+      "outcome": "correct pass",
+      "cases": [
+        {
+          "id": "rf-41-dc",
+          "kind": "decoy",
+          "refId": "rf-41",
+          "expected": "pass",
+          "got": "pass",
+          "outcome": "correct pass",
+          "detail": "buy."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-42",
+      "what": "Equipment ordered during the award and accepted after it expired, questioned by the auditors and allowed by NSF.",
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis-report.txt",
+        "auditee": "UC Davis",
+        "year": "2017 (resolved 2018)",
+        "amount": 131789,
+        "quote": "We found that the university charged $131,789 for equipment that had final acceptance on May 1,"
+      },
+      "decision": {
+        "file": "nsf-oig-17-1-002-ucdavis.txt",
+        "label": "allowed",
+        "quote": "equipment purchases were necessary and reasonable for the completion of the corresponding awards. It is NSF’s management decision to disallow $4,393 and to allow $378,253.",
+        "note": "NSF disallowed $4,393 of the finding in all, less than either purchase; the letter ties it to an item whose cost could not be documented, which matches the report's $8,786 valve."
+      },
+      "rule": "An invoice is payable only if its amount matches the approval",
+      "auditee": "UC Davis",
+      "outcome": "correct pass",
+      "cases": [
+        {
+          "id": "rf-42-dc",
+          "kind": "decoy",
+          "refId": "rf-42",
+          "expected": "pass",
+          "got": "pass",
+          "outcome": "correct pass",
+          "detail": "Invoice paid."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
     }
   ]
 }

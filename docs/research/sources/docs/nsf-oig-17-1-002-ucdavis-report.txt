@@ -1,0 +1,1297 @@
+===== SOURCE: https://www.oversight.gov/sites/default/files/oig-reports/17-1-002_UC_Davis.pdf (fetched 2026-10-24, direct; NSF OIG audit report 17-1-002, text via pdftotext -layout; NSF's resolution letter is nsf-oig-17-1-002-ucdavis.txt)
+                      National Science Foundation • Office oflnspector General
+                      4201 Wilson Boulevard, Suite I-1135, Arlington, Virginia 22230
+
+MEMORANDUM
+
+Date:
+
+To:           Dale Bell
+              Director, Division oflnstitution and Award Support
+
+              Jamie French
+              Director, Division of Grants and Agreements
+
+
+From:         Mark Bell
+              Assistant Inspector General, Office of Audits
+
+Subject:       Audit Report No. 17-1-002
+               University of California-Davis
+
+This memo transmits our report for the audit of costs totaling approximately $142 million
+charged by University of California-Davis (UC-Davis) to its sponsored agreements with the
+National Science Foundation (NSF) during the period January 1, 2008, to December 31, 2010.
+The objectives of this audit were to determine whether (1) UC-Davis has adequate systems in
+place to account for and safeguard NSF funds, and (2) costs claimed by UC-Davis under a
+number of NSF awards were reasonable, allowable, and allocable and in conformity with NSF
+award terms and conditions and applicable Federal financial assistance award requirements.
+
+We found that costs UC-Davis charged to its NSF sponsored agreements did not always comply
+with applicable Federal, NSF, and university-specific award requirements. Our audit questioned
+$382,646 of equipment charges for which UC-Davis could not document allowability on NSF
+awards; $83 ,488 of improper cost transfers; $39,578 ofunallowable and unallocable
+entertainment costs; $14, 164 of improper purchase card transactions; and $1 ,810,627 of salary,
+benefits, and associated indirect costs for faculty and other senior personnel that were
+unreasonable and exceeded NSF limitations. The report includes recommendations for NSF to
+resolve the questioned costs and to ensure UC-Davis strengthens administrative and management
+controls. UC-Davis's response, provided on May 31, 2016, is attached in its entirety to the report
+as Appendix A.
+
+In accordance with Office of Management and Budget Circular A-50, Audit Followup, please
+provide a written corrective action plan to address the report recommendations. In addressing the
+report' s recommendations, this corrective action plan should detail specific actions and
+associated milestone dates. Please provide the action plan within 60 calendar days of the date of
+this report.
+We thank your staff for the assistance that was extended to the auditors during this audit. If you
+have any questions regarding this report, please contact Dan Buchtel at 303-844-5645.
+
+Attachment
+
+cc:   Alex Wynnyk, Staff Associate for Oversight, DIAS
+      Rochelle Ray, Branch Chief, Resolution and Advanced Monitoring Branch, DIAS
+      John Anderson, Chair, Oversight Committee, NSB
+      Christina Sarris, Assistant General Counsel, OD
+      Ken Chason, Counsel to the Inspector General, OIG
+
+
+
+
+                                                 2
+             University of California-Davis
+
+           Audit of Incurred Costs Claimed on
+           National Science Foundation Awards
+For the Period January 1, 2008 through December 31, 2010
+
+              National Science Foundation
+              Office of Inspector General
+
+                    February 27, 2017
+                      OIG 17-1-002
+Table of Contents
+
+Introduction ........................................................................................................................................ 2
+
+Audit Results ...................................................................................................................................... 2
+     Finding 1: More than $382,000 of Questioned Equipment Charges ............................................ 3
+         Equipment Charges Not Included in Award’s Approved Budget ............................................. 3
+         Equipment Charges in Final 60 Days of Award Periods or After Expiration .......................... 3
+     Finding 2: $83,488 Questioned for Cost Transfers ...................................................................... 6
+     Finding 3: $39,578 of Questioned Entertainment Costs ............................................................ 12
+     Finding 4: $14,164 of Questioned Purchase Card Transactions ................................................ 14
+     Finding 5: Over $1.8 Million of Salary and Benefits Were Unreasonable and Exceeded NSF
+     Limits .......................................................................................................................................... 16
+
+Recommendations ............................................................................................................................ 20
+
+Appendix A: UC-Davis Response to Draft Audit Report ................................................................. 21
+
+Appendix B: Summary of Questioned Salaries, Benefits, and Indirect Costs ................................. 42
+
+Appendix C: Objectives, Scope, and Methodology ......................................................................... 46
+Introduction
+
+The National Science Foundation (NSF) is an independent Federal agency whose mission is “to
+promote the progress of science; to advance the national health, prosperity, and welfare; and to
+secure the national defense.” NSF funds research and education in most fields of science and
+engineering. NSF does this through grants and cooperative agreements to more than 2,000 colleges,
+universities, K-12 school systems, businesses, informal science organizations, and other research
+organizations throughout the U.S.
+
+NSF OIG conducted a performance audit of incurred costs for the University of California-Davis
+(UC-Davis). The audit covered the period from January 1, 2008, through December 31, 2010, and
+examined $142,277,798 in costs claimed by UC-Davis under 783 NSF awards.
+
+We conducted this performance audit in accordance with generally accepted government auditing
+standards, issued by the Government Accountability Office. We provided a preliminary notification
+of our findings and recommendations to UC-Davis and discussed the findings with UC-Davis
+officials. UC-Davis provided comments and additional documentation which resolved some of the
+questioned items. This report contains the findings that were not resolved by UC-Davis’s
+submissions.
+
+Audit Results
+
+Our audit questioned $2,330,503 of costs claimed by UC-Davis during the audit period of January 1,
+2008, through December 31, 2010. Specifically, we questioned:
+
+      $382,646 of equipment charges for which UC-Davis could not document allowability on
+       NSF awards;
+      $83,488 of improper cost transfers;
+      $39,578 of unallowable and unallocable entertainment costs;
+      $14,164 of improper purchase card transactions; and
+      $1,810,627 of salary, benefits, and associated indirect costs for faculty and other senior
+       personnel that were unreasonable and exceeded NSF limitations.
+
+Generally accepted government auditing standards require us to perform and report on our work
+independent of outside influences that might compromise our professional judgment, including
+NSF’s past actions on audit findings and recommendations. With respect to the $1.8 million of
+questioned salary, benefits, and indirect costs, similar charges have been questioned in several prior
+audits. NSF did not agree with the auditors and did not sustain the questioned costs, even when the
+auditee university agreed to repay the disputed amounts. In line with auditing standards that require
+us to maintain independence of mind and appearance, we continue to question these charges for the
+reasons detailed in Finding 5 of this report.
+
+Our draft audit report questioned $2,497,087. UC-Davis agreed with $20,156 of the questioned
+costs and disagreed with $2,476,931 and provided documentation to support its assertions. We
+examined UC-Davis’s submissions and removed $166,684 questioned in our draft report. We
+continue to question $2,330,503, as detailed in this report.
+
+                                                                                                     2
+Finding 1: More than $382,000 of Questioned Equipment Charges
+
+We flagged two types of equipment costs for additional analysis. Based on this analysis, we
+questioned a total of $382,646 of equipment charges on NSF awards — $188,352 for which no
+equipment costs were included in the approved budgets, and $194,294 for equipment charged
+within 60 days of the awards’ expiration dates or after awards expired. Following are the details of
+the questioned equipment charges.
+
+Equipment Charges Not Included in Award’s Approved Budget
+
+We questioned $188,352 for equipment and an associated maintenance agreement charged to an
+award for equipment that was not included in the NSF approved budget.1 These charges amounted
+to 36 percent of total award funding. We found that the budget justification the university submitted
+stated that the co-principal investigators’ laboratories were “excellently equipped” to perform all of
+the tasks on the project, therefore “no additional equipment is requested.” The fact that more than
+one-third of the total award funds were allocated to an equipment purchase that was deemed
+unnecessary in the approved budget raised concerns about whether UC-Davis significantly changed
+the scope from the project approved by NSF. NSF General Grant Conditions require prior approval
+by the Grants Officer for significant changes in project scope or objective.2
+
+Documents provided by UC-Davis show that about $175,000 of the funding used for the
+unbudgeted equipment purchase was transferred from funds that NSF had approved to pay salaries,
+benefits, and associated indirect costs for post-doctoral associates and graduate and undergraduate
+researchers. UC-Davis provided a copy of an e-mail from the NSF Program Officer indicating
+approval to “move funds from some budget lines” to purchase the equipment. We asked UC-Davis
+officials whether the Principal Investigator discussed with the NSF Program Officer the magnitude
+of the rebudgeting and whether such a significant change might be a change in scope requiring NSF
+review and approval. UC-Davis provided a statement from the PI that he discussed the rebudgeting
+with the Program Officer by telephone, but did not have any written record of the discussion. The
+PI’s statement noted that the Program Officer advised the PI that a rebudgeting of this magnitude
+should only be allowed in an exceptional case. However, the PI’s statement did not indicate he
+discussed with the Program Officer whether the particular circumstances caused a change in scope
+requiring NSF approval. The only indication that the question of a possible scope change was
+considered is in an internal UC-Davis communication in which the PI informed the Sponsored
+Programs Office “there will be no change in project scope at all.” We continue to question this
+equipment purchase because UC-Davis did not provide evidence that the NSF Grants Officer
+approved this change in project scope or that NSF advised UC-Davis that no such approval was
+necessary.
+
+Equipment Charges in Final 60 Days of Award Periods or After Expiration
+
+Our audit questioned $194,294 for equipment purchased within 60 days of the end of the award or
+after the award expired. Although Federal cost principles generally permit recipients to incur
+project-related costs until the award expiration date, such costs must meet allowability
+requirements, including proper allocation of costs to sponsored projects. NSF reinforced this
+
+1
+    NSF Award No.
+2
+    NSF General Grant Conditions, Article 2.a.1.(b)
+                                                                                                       3
+requirement in the Award and Administration Guide, which states equipment purchases must be
+necessary for the research or activity supported by the grant.3
+
+We found that the university charged $131,789 for equipment that had final acceptance on May 1,
+2009, several months after the award expired on July 31, 2008.4 Since the NSF award had already
+expired before the equipment was delivered and accepted, it does not appear that this equipment
+benefitted the NSF award. Further, this purchase is noteworthy because NSF amended the award in
+June 2007, at UC-Davis’s request, to extend it to July 31, 2008. According to the amendment, the
+equipment purchased was necessary to accomplish the primary objective of the award — testing of
+new imaging devices. We did not find any evidence that UC-Davis requested another extension
+when it became apparent the equipment would not arrive before the award expiration.
+
+We also questioned $53,719 for three equipment purchases in March and May 2008. UC-Davis
+charged these purchases to the same NSF award discussed in the previous paragraph. The PI stated
+that the purchases were for components for a device that would not be assembled and tested until
+after the award expired. Therefore, it does not appear that these purchases benefitted the NSF
+award.
+
+Finally, we identified $8,786 in equipment costs charged in July 2008 to an award that expired at
+the end of August 2008.5 We examined the documents UC-Davis provided and found that the
+claimed costs constituted an advance payment to the vendor and that the equipment was not
+delivered to UC-Davis until after the NSF award had expired. According to UC-Davis, the PI
+borrowed an identical item from another professor and this purchase was to replace the borrowed
+item. While there may have been benefit to the award from the use of the borrowed item, UC-Davis
+did not provide evidence of the allowable cost in accordance with OMB requirements. If the
+borrowed item was owned by UC-Davis, then the allowable cost would be limited to the actual
+costs of the use of the item, reported in UC-Davis’s accounting records.6 If the borrowed item was
+not owned by the university, the allowable cost would be limited to the fair market value on the date
+of the transfer, as reflected in UC-Davis’s accounting records.7
+
+UC-Davis Response
+
+OIG’s draft audit report questioned $399,201 of equipment charges for which there were no
+equipment costs in the approved award budget ($204,907) or when equipment was purchased in the
+final 60 days of the award period or after the award had expired ($194,294). UC-Davis disagreed
+with all $399,201 of equipment costs questioned in the draft audit report. The following summarizes
+UC-Davis’s responses to the questioned equipment costs.
+
+       UC-Davis did not agree that $188,352 claimed for purchases of equipment and a
+        maintenance agreement that were not included in the proposal budget is questionable. OIG
+        had questioned the costs on the basis that they appeared to be an unapproved change in the
+        project scope. UC-Davis reiterated the PI’s statement that the project scope did not change
+
+3
+  NSF Award and Administration Guide, Chapter IV, Section E.2.a.(i)
+4                          expired July 31, 2008. Final equipment acceptance was May 1, 2009.
+  NSF Award No.
+5
+  NSF Award No.
+6
+  2 CFR Part 215, Sections 215.23(a)(1), 215.23(c), and 215.23(g)(2)
+7
+  2 CFR Part 215, Sections 215.23(a)(1) and 215.23(h)(2)
+                                                                                                      4
+        and that the equipment was needed to overcome a “technological bottleneck.” The university
+        also reiterated that its Sponsored Programs Office contacted the NSF Program Officer about
+        a change in scope and required a written response from the Program Officer before
+        proceeding with the reprogramming of funds.
+
+        UC-Davis also commented on OIG’s concern stated in the draft audit report that the funds
+        used to purchase the equipment were taken from amounts budgeted to fund non-faculty
+        researchers. UC-Davis stated that researchers and students working on the project were paid
+        with university funds. We accepted UC-Davis’s explanation and removed the paragraph
+        from the final audit report.
+       UC-Davis provided clarification of the PI’s statement supporting allowability of a
+        questioned $16,556 equipment purchase. We removed the questioned costs from the final
+        report.
+       UC-Davis disagreed that two equipment purchases of $131,789 and $53,719 should be
+        questioned. According to UC-Davis, the purpose of the grant was to build a test facility for
+        future use and its final assembly was impacted by vendor delays and “(t)he fact that these
+        components arrived after the grant expired in no way negates the usefulness or benefit to the
+        project.” UC-Davis also provided a statement from the NSF Program Officer,
+
+                 We have always felt that equipment purchased late in an award was
+                 acceptable as long as it was used for a continuation of the project and
+                 connected research ... I can state that to the best of my knowledge as NSF
+                 program officer ... since the time of this award, all equipment continues to be
+                 used on continuations of the work for which that award was made, in the
+                 context of the larger ... project.
+
+        UC-Davis also included text from NSF’s Award and Administration Guide, stating,
+        “commitment of project funds is valid when specialized (research) equipment is ordered
+        well in advance of the expiration date but where, due to unusual or unforeseen
+        circumstances, delivery of such equipment is delayed beyond the expiration date.”8 Finally,
+        the university stated it has internal procedures in place to review large equipment purchases
+        late in awards to ensure appropriateness.
+       UC-Davis disagreed with OIG’s questioning of an $8,786 transaction for which the
+        equipment was delivered more than year after the award expired. The university stated the
+        equipment in question, a valve ordered in 2007, would not be delivered in time to complete
+        the award. The PI arranged to “borrow” an identical valve from a colleague with the
+        understanding the new valve would be given to the colleague as a replacement.
+
+OIG Comments
+
+We accepted UC-Davis’s responses for $16,556 of costs that were questioned in the draft audit
+report and removed those questioned items from the final report. We continue to question $382,646
+of equipment costs, as explained below.9
+
+8
+  UC-Davis’s response cites this as NSF Award and Administration Guide 602.3. The correct citation for the provision
+is NSF Award and Administration Guide, Chapter V, Section A.2.c.
+9
+  Due to rounding in multiple equipment transactions, the sum of costs questioned ($382,646) and costs accepted
+($16,556) differs by $1 from equipment costs questioned in the draft report ($399,201). Amounts reported above are
+                                                                                                                       5
+        UC-Davis provided no new information to support the allowability of $188,352 claimed for
+        unbudgeted equipment. We recognize that UC-Davis contacted the Program Officer
+        concerning the purchase; however, there is no indication in the written record that the
+        Program Officer was aware of the magnitude of this purchase — 36 percent of the total
+        grant budget — or advised UC-Davis this was not a change in scope. Although NSF’s
+        Award and Administration Guide does not provide guidelines to consider in assessing
+        changes in scope, we found that the National Institutes of Health (NIH) has published such
+        guidance.10 While other agency guidelines are not binding on NSF grants, the fact that this
+        transaction substantially exceeded those thresholds supports our concerns with this purchase.
+       UC-Davis did not provide new information to support the allowability of $131,789 and
+        $53,719 of equipment purchases questioned in the draft audit report. The amendment
+        extending the award in question clearly states that the award’s purpose was to test imaging
+        devices using the equipment purchased with NSF funds. Since the equipment was not
+        delivered before the award’s expiration, the testing could not have been completed during
+        the award period; thus, the equipment did not benefit accomplishment of award objectives.
+        The Program Officer’s statement that the equipment remains in use on the overall larger
+        project further supports our contention that it did not benefit the award charged, which
+        expired July 31, 2008, but rather should have been charged to another award.
+
+        UC-Davis cited the Award and Administration Guide, specifically language stating that
+        specialized research equipment ordered well in advance of the expiration date but delivered
+        after an award expires could be allowable. However, the overarching principle for
+        allowability requires direct benefit to accomplishing the objectives of the award. As
+        explained above, the equipment did not benefit the award to which it was charged.
+       We continue to question $8,786 claimed for equipment that was delivered well after the
+        award expired. UC-Davis explained that the equipment was replacement for an identical
+        item borrowed from another professor. UC-Davis did not provide support that the amount
+        claimed is the correct allowable cost in accordance with OMB requirements.
+
+Finding 2: $83,488 Questioned for Cost Transfers
+
+Cost transfers are defined as the charging of an expenditure initially posted to one project or award
+over to another project or award. We flagged two types of cost transfers for additional analysis —
+transfers within the final 60 days of award periods and transfers made after awards expired. Federal
+regulations prohibit awardees from incurring costs on Federal awards after the award’s expiration
+date.11 In addition, Federal cost principles state that costs must be charged on the award they
+benefit12 and that overruns on an award cannot be charged to another award that has available
+funding.13 We flagged transfers made within the final 60 days of award periods because such
+transactions indicate a risk of costs being transferred simply to liquidate available funds with costs
+that do not benefit the award, and/or to recover losses on other awards.
+
+correct.
+10
+   NIH published a list of 11 actions “that are likely to be considered a change in scope,” including (1) significant
+rebudgeting, which NIH defines as deviations within a single direct cost budget category of more than 25 percent, and
+(2) purchasing a unit of equipment exceeding $25,000.
+11
+   2 CFR, Part 215, Section 215.28
+12
+   OMB Circular A-21, Appendix A, Section C.4.a
+13
+   OMB Circular A-21, Appendix A, Section J.29
+                                                                                                                        6
+Based on our analysis of the support for these transfers, we questioned 30 cost transfer transactions,
+totaling $83,488, that were made within the final 60 days of the award periods. The questioned costs
+include $76,935 of direct costs and $6,553 of associated indirect costs.
+
+Nineteen of the questioned transactions ($45,323) were for costs transferred from an award in the
+two days before the expiration date to another award, which began immediately after the first award
+expired. On July 30 and 31, 2009, UC-Davis transferred $45,323, in a series of three financial
+journal entries, from an award expiring July 31, 2009, to an award starting August 1, 2009.14 UC-
+Davis’s justification for the transfers was that it incurred the costs within 90 days prior to the starting
+date of the new award. NSF permits awardees to incur allowable costs within 90 days of the start of
+an award, provided the advanced funding is necessary for the effective and economical performance
+of the project.15 We questioned the $45,323 transfer because the original award was in place to fund
+the costs, thus UC-Davis did not have a need for advanced funding from the new award. Further,
+cost summaries provided by UC-Davis showed some of the transferred costs were incurred as early
+as November 2008, well over 90 days before the new award started, on August 1, 2009.
+
+We also found that the award from which the $45,323 was transferred had been financially closed as
+of March 31, 2010, with all Federal funds disbursed. Thus, had UC-Davis not transferred the costs
+out of this award in the final two days of the award period onto an award with available funds, the
+expiring award would have been in a loss position. Federal cost principles state that losses on one
+award cannot be absorbed by another award with available funds.
+
+In another example of an apparent transfer of a loss, we questioned $5,924 of direct costs and
+$3,080 of associated indirect costs that were transferred in three transactions from one NSF award to
+another award within a month of the first award’s expiration.16 UC-Davis’s financial report to NSF
+for the quarter prior to the transfers shows all NSF funds had been expended. Additionally, the
+report submitted after the transfers showed that all NSF funds had been spent. Thus, the award
+would have been in a loss position if the transfers had not been made.
+
+We also questioned $15,000 of workshop costs transferred to an NSF award less than two months
+before the award expired.17 The transfer represented one-half of the $30,000 contributed by a UC-
+Davis center to support a workshop conducted at another University of California campus. UC-
+Davis did not demonstrate sufficiently how it determined that one-half of the total commitment
+benefitted the NSF award. Further, UC-Davis stated that the NSF contribution was used to fund
+speakers’ transportation, lodging, and other travel costs for workshop participants. UC-Davis did not
+provide details of the travel costs paid with the NSF funds and as a result, we could not assess
+whether these costs were allowable.
+
+We questioned $1,518 of travel costs that were transferred onto on NSF award two weeks before its
+expiration date.18 This transfer was one of a series of 22 transfers onto an NSF award in March 2009
+for costs related to a workshop held six months earlier, in September 2008. Although the workshop
+
+14
+   Costs transferred from NSF Award No.        onto NSF Award No.         .
+15
+   NSF Award and Administration Guide, Chapter V, Section A.2.b.
+16
+   Costs transferred from NSF Award No.        to NSF Award No.       .
+17
+   NSF Award No.
+18
+   NSF Award No.
+                                                                                                         7
+to which the transfers were related took place in September 2008, support for the $1,518 transaction
+shows that it was for an international airfare with travel dates of October 20–25, 2008, more than a
+month after the workshop. UC-Davis did not explain its rationale for claiming this cost incurred a
+month after the related workshop.
+
+In another example, we questioned a $1,120 transfer made on May 15, 2008, for travel costs related
+to a conference in September 2007, nearly eight months prior to the date of the cost transfer.19 This
+transfer did not comply with the university’s policy on timeliness of transfers, which states, “If the
+expense is being transferred to a Federal or Federal flow-through account, it must be recorded in the
+general ledger within 120 days from the close of the month in which the original charge posts to the
+ledger.” UC-Davis’s policy allows transfers beyond the 120-day deadline in “very rare occasions” if
+the requester explains and documents the unavoidable circumstances that led to the late transfer. The
+documents UC-Davis provided did not demonstrate that transferring the cost after the 120-day
+transfer period was “unavoidable,” as UC-Davis policy required. We also found that UC-Davis’s
+annual report to NSF listed students who attended the conference, but the list did not include the
+name associated with the late cost transfer.
+
+We identified $4,391 of direct costs and $2,261 of indirect costs transferred in three transactions
+onto an NSF award one month before it expired.20 UC-Davis provided documents that showed the
+transfers were a portion of monthly chemistry stores purchases totaling more than $19,000 over a
+four-month period. The documents UC-Davis provided lacked sufficient detail to determine which
+items among the numerous purchases comprised the $4,391 of direct cost transfers; thus, we were
+not able to assess whether they were allowable, and we questioned these costs.
+
+Finally, we questioned two cost transfers for which UC-Davis’s documentation did not support that
+the costs benefitted the NSF award. In the first example, UC-Davis transferred $2,354 for direct
+travel costs and $1,212 for associated indirect costs onto an NSF award for a trip that did not appear
+to benefit the award.21 The university’s expense report stated that this travel was for
+“Reconnaissance field work ... for future research,” not for the award to which the costs were
+charged.
+
+In the second example, the university transferred $1,305 for graduate student fees and health
+insurance costs.22 UC-Davis’s final report for this award did not include this graduate student among
+the students listed as having worked on the project.
+
+UC-Davis Response
+
+OIG’s draft audit report questioned $101,988 of cost transfers that occurred within the final 60 days
+of the respective award periods and an additional $80,830 of cost transfers that were made after the
+awards expired. UC-Davis agreed with $15,656 and disagreed with $86,332 of questioned costs
+transfers that occurred within the final 60 days of the award periods. UC-Davis also disagreed with
+$80,830 of questioned cost transfers that occurred after awards expired.
+
+
+19
+   NSF Award No.
+20
+   NSF Award No.
+21
+   NSF Award No.
+22
+   NSF Award No.
+                                                                                                      8
+The transfers UC-Davis agreed were questionable and committed to remove costs from the
+respective awards include:
+
+      Transfer of an apparent loss from one NSF award onto another NSF award, totaling $9,004
+       of direct ($5,924) and associated indirect costs ($3,080).
+      Transfer of supplies purchases totaling $6,652 of direct ($4,391) and associated indirect
+       costs ($2,261) that lacked sufficient detail to assess allowability to the NSF award.
+
+The university disagreed with the following transfers made within 60 days of award expiration and
+questioned in the draft audit report.
+
+      UC-Davis disagreed that 19 transfers, totaling $45,323, between two NSF awards should be
+       questioned. UC-Davis stated that the second award was a continuation award and pointed to
+       NSF’s policy that allows preaward costs incurred within 90 days prior to the effective date
+       of an award.
+      UC-Davis believes a $15,000 transfer onto an NSF award related to a workshop held at
+       another University of California campus is allowable. The transfer is in line with the award
+       proposal in which UC-Davis requested NSF funding for half the cost of sponsored
+       workshops. UC-Davis noted that at the time the costs were incurred it did not require
+       detailed cost records from its sister campuses but is developing procedures to “require more
+       accountability.”
+      UC-Davis provided additional support for its calculation of $5,774 of direct costs and
+       $3,002 of associated indirect costs that were questioned in the draft audit report. OIG
+       removed these questioned costs from the final report.
+      UC-Davis disagreed with OIG’s questioning of $10,563 in a series of 22 cost transfers onto
+       an NSF award within two weeks of its expiration date. The response stated, “The questioned
+       costs represent six individual travel expense claims for workshop participants originally
+       posting into the ledgers in November/December 2008. The subsequent cost transfers
+       occurred in March 2009 which is a reasonable time period in which to make corrections.”
+       Based on initial recording dates in November and December 2008, the associated transfers
+       in March 2009 were within the 120-day limit established by UC-Davis policy. OIG removed
+       $9,045 of questioned costs from the final audit report, but continues to question $1,518, as
+       discussed above.
+      UC-Davis disagreed with $1,120 questioned for a May 2008 transfer of costs related to a
+       September 2007 conference. The response stated, “During award closeout it was discovered
+       this travel had been posted to another account in error and the cost transfer was made to
+       correct this error. UC Davis maintains its position that this was an allowable and allocable
+       expense.” The response did not address OIG’s concerns about the timeliness of the cost
+       transfer.
+      UC-Davis did not agree with the draft report questioning $2,354 of direct travel costs and
+       $1,212 of associated indirect costs transferred onto an NSF award less than a month before it
+       expired. UC-Davis’s response stated, “The idea (of the NSF-funded project) was to foster
+       mentorship through a camp-style field experience and this trip was taken to check out
+       potential sites of geologic interest, assess camping facilities, possible routes, and estimate
+       costs.” UC-Davis asserted that the costs were allowable as claimed on the NSF award.
+      UC-Davis disagreed with $1,305 of graduate student fees and health insurance costs, plus
+       $679 of indirect costs. First, UC-Davis stated that no indirect costs were charged in this cost
+                                                                                                    9
+       transfer. The response then stated the transfer was to correct an error when fees and benefits
+       were omitted from the student’s salary and restated UC-Davis’s position that the costs are
+       allowable.
+
+The university disagreed with the following transfers made after awards had expired and questioned
+in the draft audit report.
+
+      UC-Davis explained that $15,194 of direct supplies costs and $7,901 of associated indirect
+       costs were not charged to an NSF award when incurred due to concerns about the award
+       budget. UC-Davis provided documentation showing the costs were in line with other regular
+       supply charges on the award. We removed these questioned costs from the final audit report.
+      UC-Davis provided documents showing that even after removing $9,657 of direct costs and
+       $5,021 of associated indirect costs from an NSF award account after expiration, total
+       expenditures exceeded approved NSF funding and thus no credit was due NSF after the cost
+       transfers. We removed these questioned costs from the final audit report.
+      UC-Davis disagreed with $14,072 of direct ($9,197) and indirect ($4,875) costs questioned
+       in a series of 24 transactions from an expired NSF award onto an active award. The response
+       highlighted the PI’s justification that the costs were directly related to the scope of the active
+       award and therefore allowable. UC-Davis also provided weekly cash draw analyses for the
+       transfer period. We removed the questioned costs from the final report.
+      UC-Davis provided a transaction listing for an NSF award from which $7,559 of direct costs
+       and $3,930 of associated indirect costs were transferred after expiration, but no credit was
+       given to NSF. The transaction listing shows there were sufficient expenditures in excess of
+       total NSF funding to absorb the credit. We removed the questioned costs from the final
+       report.
+      UC-Davis provided a transaction listing and cash reconciliation showing that NSF received
+       appropriate credits for $4,141 of direct costs and $2,153 of associated indirect costs
+       transferred from an NSF award after it expired. We removed the questioned costs from the
+       final report.
+      UC-Davis explained that two transfers totaling $3,518 corrected an error in posting of costs
+       to an NSF doctoral dissertation improvement grant. OIG reviewed the university’s
+       explanation and supporting documentation and removed the questioned costs from the final
+       report.
+      UC-Davis provided documentation to support its claim that a $3,124 indirect cost transfer
+       was credited to NSF. We removed the questioned costs from the draft audit report.
+      UC-Davis explained that $3,000 of direct benefits costs questioned in the draft audit report
+       related to correction of a system error that caused the amount of a prior transfer of benefits
+       costs to be incorrectly posted. OIG examined UC-Davis’s supporting documentation and
+       removed the $3,000 of questioned direct costs from the final report, along with $1,560 of
+       OIG-computed indirect costs that also were questioned in the draft report.
+
+OIG Comments
+
+We accepted UC-Davis’s responses for $99,330 of costs that were questioned in the draft audit
+report and removed those questioned items from the final report. We continue to question $83,488,
+including the $15,656 with which UC-Davis agreed. The following items summarize our
+disagreements with UC-Davis’s response.
+                                                                                                      10
+          UC-Davis did not provide new documentation to support allowability of $45,323 transferred
+           between two NSF awards as one was expiring and another beginning. NSF policy related to
+           renewed support — when an ongoing project receives renewed funding under a new award
+           number — states, “Costs incurred under the old award cannot be transferred to the new
+           grant.”23 The costs in question were incurred prior to the July 31, 2009, expiration of the old
+           award and before the new award’s effective date of August 1, 2009; thus, NSF policy
+           prohibits transfer to the new award.
+
+           We do not agree that the costs should be allowable based on NSF’s pre-award cost policy.
+           NSF allows pre-award costs when “the advanced funding is necessary for the effective and
+           economical conduct of the project.”24 Advanced funding from the new award was not
+           necessary because there was an ongoing NSF award in effect when the costs were incurred.
+           Furthermore, although the cost transfers took place within two days of the effective date of
+           the new award, the transferred costs were incurred as early as November 2008, well over 90
+           days before the award start date. UC-Davis did not address this issue in its response.
+          UC-Davis did not provide new documentation for a questioned $15,000 cost transfer related
+           to a workshop held at another University of California campus. As noted in UC-Davis’s
+           response, the proposal requested NSF funding to support half the cost of sponsored
+           workshops. UC-Davis acknowledged that it did not require cost records from its sister
+           campuses and thus cannot provide cost records in support of the claim. We continue to
+           question this $15,000 transfer.
+          OIG continues to question $1,518 that is one of 22 transfers, totaling $10,563, questioned in
+           the draft audit report. UC-Davis provided no additional information to support allowability
+           of travel costs incurred in October 2008 for a workshop that took place a month earlier.
+          UC-Davis did not provide new information supporting allowability of $1,120 of travel costs
+           transferred onto an NSF award nearly eight months after they were incurred. In particular,
+           UC-Davis did not provide justification for the untimely transfer or explanation of the
+           unavoidable circumstances that prevented a timely cost transfer, as required by UC-Davis
+           policy. We continue to question these costs.
+          OIG continues to question $3,566 of direct ($2,354) and associated indirect ($1,212) costs
+           related to travel costs charged for “reconnaissance field work ... for future research.” While
+           the purpose of the NSF award may have included funding field research projects, UC-Davis
+           did not provide evidence that this reconnaissance trip, in September 2008, resulted in “future
+           research” prior to the end of the award on December 31, 2008.
+          OIG continues to question $1,305 for graduate student fees and health insurance costs
+           transferred onto an NSF award. UC-Davis did not provide support for its contention that this
+           student worked on the award. As stated above, the final report submitted to NSF did not list
+           this student among the graduate students who worked on the award. OIG did remove the
+           $679 of indirect costs questioned in the draft audit report based on UC-Davis’s assertion that
+           no indirect costs were allocated to this transaction.
+
+
+
+
+23
+     NSF Award and Administration Guide, Chapter I, Section E.2.
+24
+     NSF Award and Administration Guide, Chapter V, Section A.2.b.(i)(b)
+                                                                                                       11
+Finding 3: $39,578 of Questioned Entertainment Costs
+
+We examined a selection of 26 transactions that were flagged for additional review by three or
+more of our analytical tests. Our use of data analytics enabled us to test transactions that exhibit
+certain risk factors. Total direct costs claimed in these 26 transactions were $113,831. We
+identified a total of $39,578 in questioned entertainment costs.25
+
+UC-Davis claimed $39,578 of questioned entertainment costs in a series of three transactions. The
+first two transactions were for workshops held in August and November 2007. Costs for these
+events were not charged to an NSF award until February 2008.26 The third transaction was for the
+January 2008 annual conference of the Institute for Complex Adaptive Matter (ICAM).27 For each
+of these events, UC-Davis allocated some costs to an NSF award and some costs to another
+university account. While UC-Davis provided invoices showing the total costs charged to the
+university for each event, it did not identify which costs were allocable to the NSF awards.
+Additionally, in two of the three cases, UC-Davis appears to have simply split the total costs equally
+between NSF and UC-Davis accounts. Federal cost principles state that a cost is allocable, and thus
+allowable, to a particular project or award based on the relative benefits received. UC-Davis did not
+provide sufficient evidence of its calculations to demonstrate how it determined exactly one-half
+the costs of these two workshops were directly related to the NSF award. We questioned costs for
+three workshops because UC-Davis did not identify which costs on invoices submitted were
+allocable to the NSF award and did not provide evidence to support how it determined these
+allocations.
+
+The following summarizes the $39,578 of questioned entertainment costs:
+
+         Superfluid Universe Workshop: Total charges for this August 2007 workshop were
+          $15,334, of which $5,838 was paid during our audit period and split equally between the
+          NSF award and another account. We questioned the $2,919 portion that was charged to
+          NSF during the audit period.
+
+         Heavy Fermion Workshop: We questioned the $13,026 UC-Davis charged NSF.
+          This represents exactly one-half the total cost for the November 2007 workshop.
+
+         ICAM Annual Conference: Total cost for the January 2008 conference was $43,633;
+          UC-Davis charged $23,633 to NSF and $20,000 to another university account. We
+          questioned the $23,633.
+
+Further, invoices for the three events included a total of $4,881 for purchases of alcoholic
+beverages, which are prohibited by Federal cost principles. Although UC-Davis claims no Federal
+funds were used to purchase alcohol, we could not verify UC-Davis’s claim because the university
+could not provide evidence for how it split costs between the NSF awards and other accounts. UC-
+Davis should improve its accounting procedures in cases where Federal and nonfederal funds are
+applied to a pool of transactions to clearly demonstrate which costs are paid with Federal money
+
+25
+   The term “entertainment costs” is based on UC-Davis’s accounting object code title.
+26
+   NSF Award No.
+27
+   NSF Award No.
+                                                                                                       12
+and reduce concerns that Federal funds were used for unallowable purposes.
+
+UC-Davis Response
+
+OIG’s draft audit report had questioned $68,162 of entertainment and supplies costs. UC-Davis
+disagreed with all costs questioned in the draft audit report. The following summarizes the bases for
+UC-Davis’s disagreement:
+
+      UC-Davis stated that the $39,578 of questioned entertainment costs charged to two NSF
+       awards supported ongoing programs of the Institute for Complex Adaptive Matter (ICAM)
+       and pointed out that the proposal budget justification for one of the awards stated that UC-
+       Davis was seeking NSF support for half of the cost of each ICAM workshop.
+
+       The draft audit report also questioned the reasonableness of $320 charged for a conference
+       attendee who arrived two days before the conference began and was charged a higher
+       lodging rate by the hotel. UC-Davis explained that this individual was an IT support person
+       for the conference and needed to arrive early to set up. UC-Davis stated that the hotel would
+       not honor the conference lodging rate for the early arrival.
+
+       UC-Davis reasserted its claim that charges for alcohol were paid from the portion of costs
+       not allocated to NSF.
+      OIG’s draft audit report had questioned $23,799 of direct entertainment and associated
+       indirect costs. UC-Davis provided a detail of the individual charges that made up the
+       $20,438 of direct costs claimed on the NSF award. We removed these questioned costs from
+       the final report.
+      The draft audit report had questioned $3,662 of direct supplies and associated indirect costs
+       claimed on the award expiration date. UC-Davis provided a listing of all DNA extractions
+       performed as well as the publication that resulted from the research. We removed these
+       questioned costs from the final audit report.
+      OIG’s draft audit report had questioned $1,000 of entertainment costs claimed for a
+       nonrefundable deposit paid in October 2010 for an annual business meeting to be held later
+       in the year. UC-Davis provided an invoice showing that the meeting did take place as
+       scheduled. We removed these questioned costs from the final audit report.
+      OIG had questioned $123 of entertainment costs claimed for 11 lunches in July 2010. UC-
+       Davis stated the lunches were provided in connection with a summer training program and
+       were included in the grant proposal budget. After reviewing the documents, we removed
+       these questioned costs from the final audit report.
+
+OIG Comments
+
+We removed $28,584 that had been questioned in our draft audit report and continue to question
+$39,578 for the reasons stated in the finding section above. UC-Davis did not provide a detailed
+accounting of which costs among the many included on the various invoices made up the $39,578
+of entertainment costs charged to NSF, as it did with other entertainment costs questioned in the
+draft audit report.
+
+UC-Davis did not provide evidence to support its claim that charges for alcohol provided at the
+                                                                                                    13
+workshops and conference were not paid by NSF funds. UC-Davis’s practice of simply splitting the
+total cost, which included the alcohol, between NSF and non-NSF funds raises questions about UC-
+Davis’s controls to prevent expenditure of Federal funds on unallowable purchases of alcoholic
+beverages.
+
+Finding 4: $14,164 of Questioned Purchase Card Transactions
+
+We selected 39 purchase card transactions, totaling $108,807, for examination. The selected
+transactions were claimed on 27 different NSF awards and represented all reported purchase card
+transactions in excess of $2,000 each. We questioned five of the selected transactions, totaling
+$14,164, claimed on five NSF awards.
+
+Two of the questioned transactions, totaling $6,693, were to buy computers or technology-related
+items for which UC-Davis charged the entire purchase cost to the respective NSF award, while its
+explanations for the purchases indicate the items would benefit the NSF award and other work. UC-
+Davis did not provide documentation to support what portions of the costs were allocable to the
+NSF awards to which they were charged. The two questioned transactions involve purchases of
+$4,47028 and $2,223.29
+
+UC-Davis did not provide documentation supporting the allowability of two purchase card
+transactions of $2,23030 and $2,031.31 In the case of the $2,230 charge, UC-Davis staff explained
+that both the principal investigator and purchaser of this item were no longer employed by UC-
+Davis so they were unable to obtain justification for the purchase. UC-Davis staff informed us that
+they were awaiting justification from the principal investigator for the $2,031 purchase. We
+discussed this finding with UC-Davis officials during our exit conference, but UC-Davis has not
+provided additional justification.
+
+We also questioned a $3,210 purchase card transaction. The costs associated with this purchase of a
+laptop computer were transferred from one NSF award onto another in May 2008, after the
+principal investigator was notified that the original award was in an overdraft position.32 We noted
+that the proposal for the grant onto which the costs were moved stated that computer equipment
+required for the project would be provided by funding from the university. Given that Federal cost
+principles state that losses on another sponsored agreement cannot be absorbed by an award with
+available funds, and that UC-Davis’s proposal stated that computer equipment required for the
+project would be provided by internal sources, we questioned this $3,210 purchase card transaction.
+
+UC-Davis Response
+
+OIG’s draft audit report had questioned $26,113 of purchase card transactions. UC-Davis agreed
+with $3,210 and disagreed with $22,903. UC-Davis disagreed with the following transactions
+questioned in the draft audit report:
+
+
+28
+   NSF Award No.
+29
+   NSF Award No.
+30
+   NSF Award No.
+31
+   NSF Award No.
+32
+   Costs transferred from NSF Award No.   onto NSF Award No.        .
+                                                                                                   14
+      UC-Davis disagreed with $4,470 questioned in OIG’s draft report. The university’s response
+       stated that the PI split the cost of two servers between two awards based on her “best
+       estimate” of the workload between the awards.
+      UC-Davis disagreed with $3,543 and provided the PI’s justification for charging the full cost
+       of the server to the NSF award. We removed these questioned costs from the final report.
+      UC-Davis referred to the award proposal as evidence that a $3,268 laptop computer was
+       needed for the award. We removed these questioned costs from the final report.
+      UC-Davis referred to documentation that supported the use of a $2,382 computer for the
+       award. We removed these questioned costs from the final report.
+      The university disagreed with $2,223 questioned in OIG’s draft report and responded that it
+       relies on the PI to allocate costs properly to sponsored and non-sponsored projects.
+      UC-Davis disagreed with $2,230 questioned in OIG’s draft report. UC-Davis stated that the
+       computer was needed for extensive calculations and it relies on the PI to allocate costs
+       properly to sponsored and non-sponsored projects.
+      UC-Davis disagreed with $2,031 questioned in OIG’s draft report. UC-Davis stated that the
+       computer was needed for extensive calculations.
+      UC-Davis disagreed with $2,756 and reiterated its position that the total purchase price of
+       the computer in question was allocated between the NSF award and another account based
+       on anticipated benefits. We removed these questioned costs from the final report.
+
+OIG Comments
+
+We removed $11,949 questioned in our draft audit report and continue to question $14,164,
+including the $3,210, with which UC-Davis agreed. The following items summarize our
+disagreements with UC-Davis’s response.
+
+      UC-Davis responded that the $4,470 questioned was allocated between two NSF awards
+       based on the PI’s workload computation. However, documents provided by UC-Davis show
+       that the amount claimed was the total invoice cost of the two servers in question.
+       Furthermore, UC-Davis’s final report for NSF Award No. 0238348 stated that the servers
+       were also used by another researcher, yet there was no allocation of the costs to his research.
+       We continue to question $4,470.
+      UC-Davis responded that the $2,223 questioned computer purchase is allowable because the
+       PI used it “to work on this particular NSF project and no other projects.” While prior
+       statements from the PI indicate the computer was used for the NSF award, the statements
+       also mention continued use after the end of the award. We continue to question $2,223
+       because UC-Davis did not provide adequate support for its contention that the computer was
+       only used in support of the award to which it was fully charged.
+      Although UC-Davis responded that the PI stated the computer associated with the $2,230
+       questioned purchased was needed for the award, UC-Davis did not provide support for its
+       assertion. UC-Davis’s response contradicts earlier statements from UC-Davis that both the
+       PI and computer purchaser had left the institution and could not be reached for further
+       comment on the purchase. Since UC-Davis did not provide new information, we continue to
+       question $2,230.
+      UC-Davis responded that the workstation associated with the $2,031 questioned purchase
+       was needed for the award, but did not provide support for its assertion. Prior to our draft
+       report, UC-Davis was awaiting the PI’s justification. Since UC-Davis did not provide
+                                                                                                    15
+        support for its claim, we continue to question $2,031.
+
+Finding 5: Over $1.8 Million of Salary and Benefits Were Unreasonable and Exceeded NSF
+Limits
+We found that UC-Davis claimed $1,810,62733 of questioned salary ($897,803), benefits
+($289,371), and associated indirect costs ($623,453). The questioned costs involve salaries of faculty
+members and other senior project personnel that exceeded limits in NSF policy.
+
+At the time of our audit, NSF’s long-standing position was that research is a normal function of
+faculty members and “[c]ompensation for time normally spent on research within the term of
+appointment is deemed to be included within the faculty member’s regular organizational salary.”34
+Given NSF’s position that faculty are paid by their institutions to conduct research during academic
+appointment terms, it would be unreasonable for awardees to transfer this obligation to NSF by
+requesting reimbursement for such research without NSF’s approval. NSF reinforced its position and
+established compensation limits in the Award and Administration Guide, which sets forth NSF
+policies and is applicable to all NSF grants unless otherwise noted in the award. During the period
+we audited the Guide stated:
+
+          NSF normally limits salary compensation for senior project personnel on awards
+          made by the Foundation, to no more than two months of their regular salary in
+          any one year. This limit includes salary received from all NSF funded grants. …
+          As such, proposal budgets submitted should not request, and NSF-approved
+          budgets will not include, funding for an individual investigator or co-principal
+          investigator which exceeds two months of their regular year salary. If anticipated,
+          any compensation for such personnel in excess of two months must be disclosed
+          in the proposal budget, justified in the budget justification, and must be
+          specifically approved by NSF in the award notice.35 [Emphasis added.]
+
+While NSF generally considers inclusion of items in an approved budget as authorization to incur
+those costs,36 this is not the case with senior personnel salaries that exceed two months in any one
+year. The Award and Administration Guide stated, during the time of our audit, that NSF-approved
+budgets will not include senior personnel salaries that exceed two months and that such salaries are
+only allowable if they meet the three requirements described above, including specific approval by
+NSF in the award notice. Furthermore, the Award and Administration Guide listed the components
+of an NSF award instrument and distinguished the award notice as being separate from the award
+budget and the proposal.37 Since the allowability requirement in effect during the time period of our
+audit stated that NSF approval for salaries exceeding two months per year must be specifically
+provided “in the award notice,” simply mentioning such salaries in a proposal and/or including them
+in an award budget is not sufficient to establish allowability.
+
+In addition, NSF policy allows awardees significant latitude to rebudget funds between budget
+
+33
+   UC-Davis claimed $22,945 of the questioned salaries in 2008, and $1,787,682 of the questioned salaries in 2009 and
+2010, after a revision to NSF’s policy became effective in January 2009.
+34
+   NSF Grant Proposal Guide, Chapter II, Section C.2.g.(i)(a).
+35
+   NSF Award and Administration Guide, effective January 2009, Chapter V, Section B.1.a.(ii)(a).
+36
+   NSF Award and Administration Guide, Chapter V, Section A.3.b.(i).
+37
+   NSF Award and Administration Guide, Chapter I, Section B.1.
+                                                                                                                    16
+categories,38 but during the period of our audit, this authority did not allow awardees to rebudget
+funds to pay senior personnel salaries that exceed two months in any one year. During the audit
+period, salaries exceeding two months were allowable only if specifically approved by NSF in the
+award notice. Awardees could not transform unallowable costs — in this case, senior personnel
+salaries that exceeded two months per year and were not approved by NSF in the award notice —
+into allowable costs simply by moving funds from other budget categories to pay them. NSF
+recognized this in the Award and Administration Guide, which states, “... the grantee is authorized
+to transfer funds from one budget category to another for allowable expenditures.”39
+
+Using employee classification and salary information provided by UC-Davis, we examined senior
+personnel salaries charged to NSF awards during calendar years 2009 and 2010. We identified 31
+UC-Davis employees for whom salaries exceeding two months were charged on 35 different NSF
+awards. We examined each of those awards to determine whether (1) UC-Davis had disclosed the
+excess salaries in the respective proposal budgets, (2) UC-Davis justified the excess salaries in the
+proposal budget justifications, and (3) NSF had specifically approved the excess salaries in the
+award notices. We found $884,344 of salaries, $287,735 of benefits, and $615,603 of associated
+indirect costs claimed for 31 employees on 35 NSF awards did not comply with the three
+requirements in NSF policy. (See Appendix B for details of the questioned costs.)
+
+The following table summarizes the questioned salaries claimed in 2009 and 2010 by number of
+months in excess of two.
+
+        Months                              Salary              Benefits      Indirect          Total
+          Over       Instances          Questioned           Questioned    Questioned      Questioned
+        0 to 0.99           26             $69,628              $19,960        $47,033       $136,621
+        1 to 1.99           15            $141,964              $40,977        $96,108       $279,049
+        2 to 2.99            9            $137,146              $46,586        $96,503       $280,235
+        3 to 3.99            6            $126,233              $43,526        $89,565       $259,324
+        4 to 4.99            4            $177,829              $59,190      $124,729        $361,748
+        5 to 5.99            1             $32,916               $8,558        $21,981        $63,455
+        6 to 6.99            1             $41,025              $13,949        $29,136        $84,110
+        7 to 7.99            2            $107,624              $38,996        $76,243       $222,863
+        8 to 8.99            1             $49,979              $15,993        $34,305       $100,277
+                            65            $884,344             $287,735      $615,603      $1,787,682
+
+While NSF’s Award and Administration Guide requires NSF approval for all senior personnel
+salaries in excess of two months per year, we are particularly concerned about unapproved salaries
+that exceed three months in a year. Since faculty academic appointments are generally nine months,
+unapproved charges to NSF that exceed three months in a year could indicate an awardee
+unreasonably transferring part of its research compensation obligation to NSF without NSF’s
+approval. These unreasonable charges are shown in the preceding table in “Months Over” rows
+greater than one and represent 39 of the 65 instances of questioned salaries, accounting for
+$1,651,061 of questioned costs.
+
+
+38
+     NSF Award and Administration Guide, Chapter II, Section C.
+39
+     Ibid. (Emphasis added.)
+                                                                                                    17
+NSF’s salary limitation policy differed in 2008 from the policy in effect for 2009 and 2010. In
+2008, NSF’s Award and Administration Guide limited salary compensation paid to faculty
+members during the summer months to two-ninths of their regular annual salaries. The 2008
+limitation applied to compensation received from all NSF awards. Although the 2008 guidance did
+not include a provision for awardees to request NSF approval for summer salaries in excess of the
+limit, we did not question such salaries if they were disclosed and justified in the proposal budget
+and specifically approved by NSF in the award notice.
+
+We identified six UC-Davis faculty members for whom 2008 summer salaries exceeding two-ninths
+of their annual salary rates were charged on 12 different NSF awards. We examined each of the
+awards to determine whether UC-Davis had disclosed and justified the excess salaries in the
+respective proposal budgets and NSF had specifically approved the excess salaries in the award
+notices. We found that $22,945 — $13,459 of salaries, $1,636 of benefits, and $7,850 of associated
+indirect costs — claimed for five UC-Davis faculty members on 10 NSF awards exceeded the limit
+and were not properly justified by UC-Davis and approved by NSF. (See Appendix B for details of
+the questioned costs.)
+
+UC-Davis Response
+
+UC-Davis disagreed with all of the questioned salary, benefits, and associated indirect costs and
+cited four main points.
+
+      UC-Davis disagreed with OIG’s application of the two-month salary limitation to a number
+       of NSF awards for which proposals were submitted prior to the January 5, 2009 effective
+       date of the Award and Administration Guide. The university’s response states, “UC Davis
+       believes that NSF-OIG audited the senior personnel salaries against a policy that was not in
+       place at the issuance of the awards and was therefore not applicable and should not have
+       been applied to these salaries.” According to UC-Davis, awards based on proposals
+       submitted prior to January 5, 2009, should be evaluated against the prior criteria, which
+       limited summer salaries for faculty to two-ninths of the annual rate.
+      UC-Davis’s second point of contention involved the types of employees whose salaries were
+       questioned. UC-Davis identified 30 employees who were serving in positions that did not
+       qualify to receive summer compensation. Although the questioned costs were claimed
+       during 2009 and 2010, they related to awards with proposals submitted prior to January
+       2009 and UC-Davis asserts they should have been examined under the prior salary limitation
+       that applied only to faculty salaries during the summer. These 30 employees accounted for
+       $1,558,066 of the questioned costs.
+      UC-Davis identified four employees who worked on awards with proposals submitted after
+       January 5, 2009. UC-Davis claimed these salaries met the three allowability requirements
+       included in NSF’s Award and Administration Guide and should not have been questioned.
+       These four employees accounted for $169,548 of the questioned costs.
+      UC-Davis believes the remaining $60,068 questioned for 2009 and 2010, and all of the 2008
+       questioned salaries should be allowable under rebudgeting authority granted by NSF. The
+       university’s response highlighted language in the Award and Administration Guide that
+       requires action if there is a substantial decrease in time a PI or co-PI will spend on a project,
+       but stated there is no similar language in this particular section addressing minor increases in
+       time after an award is made.
+                                                                                                     18
+Finally, UC-Davis commented on OIG’s draft report finding of a possible change in the scope of an
+award that did not appear to receive the proposed level of commitment from senior university
+personnel. UC-Davis stated there was extensive NSF involvement and communication throughout
+the award and that annual reports to NSF further demonstrated the awardee’s senior personnel
+commitments to the project. We accept UC-Davis’s response and have removed this finding and the
+associated recommendation from the final audit report.
+
+OIG Comments
+
+We continue to question $1,787,682 of salaries, benefits, and associated indirect costs claimed
+during 2009 and 2010. Our draft audit report had questioned $23,191 of salaries and associated
+costs claimed during 2008; however, we identified $246 questioned for two employees that were the
+result of regular salary increases and not unapproved summer salaries. We removed the $246 and
+continue to question the remaining $22,945 claimed in 2008. Our responses to UC-Davis’s
+contentions follow.
+
+      Regarding UC-Davis’s contention that the January 5, 2009 revision to the Award and
+       Administration Guide only applies to awards based on proposals submitted after that date,
+       we point to the language of the document itself. In the section, Summary of Significant
+       Changes, the Guide states, “[The section establishing requirements for allowable salaries]
+       has undergone a major revision of NSF’s salary reimbursement policy. In general, the
+       Foundation will now limit salary compensation for senior project personnel to no more than
+       two months of their regular salary in any one year.” The Guide further states, “This Guide is
+       applicable to NSF grants and cooperative agreements, unless noted otherwise in the award
+       instrument.” Given NSF’s statements that the guide is applicable to awards and that NSF
+       will now limit salary compensation in accordance with policy, we concluded that the
+       January 2009 revision is applicable to awards in effect on January 5, 2009, regardless of
+       their proposal submission dates.
+      UC-Davis’s second point of disagreement is based on application of the pre-January 2009
+       limitation to certain types of employees’ salaries during 2009 and 2010. As stated above, the
+       language contained in the January 2009 revision of the Award and Administration indicates
+       it was applicable to awards in effect at that time. UC-Davis’s assertion that the 30
+       questioned salaries should be allowable does not have a basis in NSF policy.
+      We reviewed the award documents for four questioned salaries UC-Davis claimed were
+       approved in accordance with the Award and Administration Guide. We found none of the
+       four met the requirement for specific approval in the award notice. As stated above, NSF
+       defines three distinct components of an award instrument, two of which are the award notice
+       and the award budget. While the four salaries in question were included in the award
+       budgets, there was no specific approval in the respective award notices. The Award and
+       Administration Guide states that approval for senior personnel salaries exceeding two
+       months must be specifically given in the award notice.
+      We disagree with UC-Davis’s assertion that $60,068 of the questioned salaries in 2009 and
+       2010, and all of the 2008 questioned salaries, should be allowable under rebudgeting
+       authority. As stated above, an awardee cannot transform costs from unallowable to
+       allowable simply by moving funds from other budget categories to pay them. UC-Davis did
+       not provide documentation of NSF’s approval, in the respective award notices, of the
+                                                                                                 19
+      questioned salaries.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support (DIAS)
+request UC-Davis to:
+
+      1.   Repay to NSF the $2,330,503 of questioned costs claimed by UC-Davis during the
+           audit period. Specifically:
+              a. $382,646 of equipment charges for which UC-Davis could not
+                   document allowability on NSF awards;
+              b. $83,488 of questionable cost transfers;
+              c. $39,578 of questioned entertainment costs;
+              d. $14,164 of questioned purchase card transactions; and
+              e. $1,810,627 of salary, benefits, and associated indirect costs for faculty and
+                   other senior personnel that were unreasonable and exceeded NSF limitations.
+
+      2.   Strengthen the administrative and management controls and processes over
+           equipment costs charged to NSF awards to ensure costs are reasonable and necessary
+           to accomplish the scope and objectives of the NSF award(s) to which they were
+           charged.
+
+      3.   Strengthen the administrative and management controls and processes over cost
+           transfers to ensure costs charged to NSF awards reflect reasonable and necessary
+           costs of the award and that the transfers complied with UC-Davis policies and
+           procedures.
+
+      4.   Strengthen accounting procedures in cases where Federal and nonfederal funds
+           are applied to a pool of transactions to clearly demonstrate which costs are paid
+           with Federal money and reduce concerns that Federal funds were used for
+           unallowable purposes.
+
+      5.   Strengthen the administrative and management controls and processes over
+           allocation of senior personnel salaries to NSF awards to ensure compliance with
+           NSF’s published limitations.
+
+
+
+
+                                                                                                 20
+Appendix A: UC-Davis Response to Draft Audit Report
+
+
+
+
+                                                      21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+Appendix B: Summary of Questioned Salaries, Benefits, and Indirect Costs
+
+2009–2010 Senior Personnel Salaries Questioned
+We found $884,344 of salaries, $287,735 of fringe benefits, and $615,603 of associated indirect
+costs claimed for 31 employees on 35 NSF awards did not comply with all three allowability
+criteria in NSF’s Award and Administration Guide. On one of the 35 questioned awards — NSF
+Award No. 0120999 — the award notice specifically approved UC-Davis to charge salaries in
+excess of two months per year for four senior positions. Our initial test found that UC-Davis had
+charged salaries in excess of two months per year for seven employees during 2009 and 2010. One
+of the seven was among those specifically approved by NSF. UC-Davis did not claim salaries in
+excess of two months per year for employees occupying the other three approved positions. We
+accepted salaries as claimed for the approved employee and questioned the salaries in excess of
+two months per year for the remaining six employees for which NSF did not give specific approval.
+
+Of the remaining 34 questioned awards, none received specific NSF approval for senior personnel
+salaries in excess of two months per employee, per year and we question all such salaries, benefits,
+and associated indirect costs.40 The following table summarizes questioned salaries by NSF award
+number and UC-Davis employee ID number.
+
+            Award/Employee       Sum of Salary      Sum of Benefits     Sum of Indirect
+            Number               Questioned         Questioned          Questioned           Total Questioned
+                                    $364,867.00         $127,145.00          $258,433.00           $750,445.00
+                                     $10,632.00           $3,934.00            $7,574.00            $22,140.00
+                                     $61,345.00          $23,901.00           $44,740.00           $129,986.00
+                                     $83,557.00          $27,559.00           $58,330.00           $169,446.00
+                                     $95,760.00          $28,045.00           $65,445.00           $189,250.00
+                                     $13,688.00           $4,403.00             $9,479.00           $27,570.00
+                                     $99,885.00          $39,303.00           $72,865.00           $212,053.00
+                                       $6,167.00          $1,665.00            $4,073.00            $11,905.00
+                                      $6,167.00           $1,665.00            $4,073.00            $11,905.00
+                                     $21,373.00           $5,771.00           $14,270.00            $41,414.00
+                                     $21,373.00           $5,771.00           $14,270.00            $41,414.00
+                                       $717.00             $179.00              $466.00              $1,362.00
+                                        $717.00             $179.00              $466.00             $1,362.00
+                                     $29,398.00          $10,734.00           $20,926.00            $61,058.00
+                                        $760.00              $76.00              $443.00             $1,279.00
+                                     $13,839.00           $5,536.00           $10,075.00            $29,450.00
+                                     $14,799.00           $5,122.00           $10,408.00            $30,329.00
+                                       $1,194.00            $119.00              $696.00              $2,009.00
+
+
+
+
+40
+  Nine of the 34 questioned proposals met two of the three allowability criteria by including the additional senior
+personnel salaries in the proposal budget and justifying the excess in the proposal justification. An additional seven
+proposals met the first allowability criterion of including salaries in excess of two months in the proposal budget.
+                                                                                                                         42
+ $1,194.00     $119.00       $696.00     $2,009.00
+ $4,538.00     $545.00     $2,643.00     $7,726.00
+ $4,538.00      $545.00    $2,643.00     $7,726.00
+$36,692.00   $11,885.00   $25,335.00    $73,912.00
+ $4,800.00      $48.00     $2,521.00     $7,369.00
+   $706.00      $71.00       $412.00     $1,189.00
+$15,105.00    $6,042.00   $10,996.00    $32,143.00
+$16,081.00    $5,724.00   $11,406.00    $33,211.00
+  $517.00      $165.00      $361.00      $1,043.00
+   $517.00      $165.00      $361.00     $1,043.00
+$12,350.00    $5,745.00    $9,504.00    $27,599.00
+$12,350.00    $5,745.00    $9,504.00    $27,599.00
+ $9,270.00    $3,810.00    $6,921.00    $20,001.00
+ $1,057.00       $32.00      $566.00     $1,655.00
+ $8,213.00    $3,778.00    $6,355.00    $18,346.00
+$45,090.00    $9,391.00   $28,557.00    $83,038.00
+$45,090.00    $9,391.00   $28,557.00    $83,038.00
+$27,018.00    $5,267.00   $16,925.00    $49,210.00
+$27,018.00    $5,267.00   $16,925.00    $49,210.00
+$59,349.00   $22,393.00   $42,873.00   $124,615.00
+$59,349.00   $22,393.00   $42,873.00   $124,615.00
+$14,403.00    $3,719.00    $9,573.00    $27,695.00
+$14,403.00    $3,719.00    $9,573.00    $27,695.00
+ $3,980.00       $40.00    $2,090.00     $6,110.00
+ $3,980.00       $40.00    $2,090.00     $6,110.00
+$17,020.00    $7,148.00   $12,809.00    $36,977.00
+$17,020.00    $7,148.00   $12,809.00    $36,977.00
+ $2,420.00     $290.00     $1,409.00     $4,119.00
+ $2,420.00      $290.00    $1,409.00     $4,119.00
+ $3,072.00    $1,290.00    $2,312.00     $6,674.00
+ $3,072.00    $1,290.00    $2,312.00     $6,674.00
+$21,883.00    $5,908.00   $14,606.00    $42,397.00
+$21,883.00    $5,908.00   $14,606.00    $42,397.00
+$50,402.00   $16,128.00   $34,601.00   $101,131.00
+$50,402.00   $16,128.00   $34,601.00   $101,131.00
+$31,243.00   $12,497.00   $23,182.00    $66,922.00
+$31,243.00   $12,497.00   $23,182.00    $66,922.00
+ $9,424.00    $1,131.00    $5,594.00    $16,149.00
+ $9,424.00    $1,131.00    $5,594.00    $16,149.00
+ $6,369.00    $2,971.00    $4,917.00    $14,257.00
+ $6,369.00    $2,971.00    $4,917.00    $14,257.00
+$11,729.00    $4,497.00    $8,448.00    $24,674.00
+
+
+                                                     43
+                              $1,265.00         $416.00         $885.00          $2,566.00
+                             $10,464.00       $4,081.00        $7,563.00        $22,108.00
+                              $2,370.00         $166.00        $1,344.00         $3,880.00
+                              $2,370.00         $166.00        $1,344.00         $3,880.00
+                              $1,179.00         $236.00         $750.00          $2,165.00
+                              $1,179.00         $236.00          $750.00        $2,165.00
+                             $43,952.00      $11,096.00       $29,039.00       $84,087.00
+                             $43,952.00      $11,096.00       $29,039.00        $84,087.00
+                              $3,625.00        $652.00         $2,267.00         $6,544.00
+                              $3,625.00         $652.00        $2,267.00         $6,544.00
+                              $5,450.00         $927.00        $3,380.00         $9,757.00
+                              $5,450.00         $927.00        $3,380.00        $9,757.00
+                             $17,327.00       $8,837.00       $13,867.00       $40,031.00
+                             $17,327.00       $8,837.00       $13,867.00       $40,031.00
+                             $18,359.00       $4,957.00       $12,357.00       $35,673.00
+                             $18,359.00       $4,957.00       $12,357.00        $35,673.00
+                               $838.00         $218.00          $560.00          $1,616.00
+                                $838.00         $218.00         $560.00          $1,616.00
+                                $484.00         $164.00         $343.00           $991.00
+                                $484.00         $164.00         $343.00           $991.00
+                                $275.00          $49.00         $172.00           $496.00
+                                $275.00          $49.00         $172.00           $496.00
+         Grand Total        $884,344.00     $287,735.00      $615,603.00     $1,787,682.00
+
+2008 Faculty Summer Salaries Questioned
+We found $13,459 of salaries, $1,636 of fringe benefits, and $7,850 of associated indirect costs
+claimed for five UC-Davis faculty members on 10 NSF awards did not comply with allowability
+criteria in NSF’s Award and Administration Guide. In none of the proposal budget justifications for
+the 10 questioned awards did UC-Davis disclose that the faculty members identified in our testing
+would be charging summer salaries in excess of two-ninths of the annual salary rates. Furthermore,
+none of the 10 award notices specifically approved UC-Davis to charge excess summer salaries.
+The following table summarizes questioned salaries by NSF award number and UC-Davis
+employee ID number.
+
+
+
+
+                                                                                                44
+Award/Employee   Sum of Salary   Sum of Benefits   Sum of Indirect   Total
+Number           Questioned      Questioned        Questioned        Questioned
+                    $9,156.00       $1,126.00        $5,347.00       $15,629.00
+                     $9,156.00      $1,126.00        $5,347.00       $15,629.00
+                       $98.00          $12.00           $57.00          $167.00
+                       $98.00          $12.00           $57.00          $167.00
+                       $96.00          $12.00           $56.00          $164.00
+                       $96.00          $12.00           $56.00          $164.00
+                      $109.00          $12.00           $63.00          $184.00
+                      $109.00          $12.00           $63.00          $184.00
+                      $429.00          $46.00          $247.00          $722.00
+                      $429.00          $46.00          $247.00          $722.00
+                      $323.00          $35.00          $186.00          $544.00
+                      $323.00          $35.00          $186.00          $544.00
+                    $2,160.00         $263.00        $1,260.00        $3,683.00
+                     $2,160.00        $263.00        $1,260.00        $3,683.00
+                      $296.00          $34.00          $172.00          $502.00
+                      $296.00          $34.00          $172.00          $502.00
+                      $628.00          $76.00          $366.00        $1,070.00
+                      $628.00          $76.00          $366.00        $1,070.00
+                      $164.00          $20.00           $96.00          $280.00
+                      $164.00          $20.00           $96.00          $280.00
+Grand Total        $13,459.00       $1,636.00        $7,850.00       $22,945.00
+
+
+
+
+                                                                                  45
+Appendix C: Objectives, Scope, and Methodology
+
+The objectives of this performance audit were to determine whether (1) UC-Davis has adequate
+systems in place to account for and safeguard NSF funds, and (2) costs claimed by UC-Davis under
+a number of NSF awards were reasonable, allowable, and allocable and in conformity with NSF
+award terms and conditions and applicable Federal financial assistance award requirements. To
+accomplish the first objective, we reviewed UC-Davis policies, procedures, and systems, as well as
+relevant policies and procedures imposed on UC-Davis by the University of California, Office of
+the President (UCOP). We also interviewed appropriate UC-Davis personnel responsible for
+establishing and implementing control policies, procedures, and systems and performed tests of
+UC-Davis systems to assess their effectiveness in providing reliable management information and
+safeguarding NSF funds. Weaknesses identified are discussed in relevant sections of this report. To
+the extent weaknesses affected our ability to rely on UC-Davis data, we limited reliance on those
+data and expanded substantive tests of transactions.
+
+To accomplish the second objective of determining reasonableness, allowability, and allocability
+of costs, we examined all awards for which costs were reported to NSF during the period of
+January 1, 2008, through December 31, 2010. This provided an audit universe of $142,277,798 in
+costs claimed by UC-Davis under 783 NSF awards. Our work required reliance on computer-
+processed data obtained from UC-Davis and NSF. At our request, UC-Davis provided detailed
+transaction data for all costs charged to NSF awards during the audit period. We obtained NSF data
+by directly accessing NSF’s various data systems. To select transactions for further review, we
+designed and performed automated tests of UC-Davis and NSF data to identify areas of risk and
+conducted detailed reviews of transactions in those areas.
+
+We assessed the reliability of the data provided by UC-Davis by (1) comparing costs charged to
+NSF award accounts within UC-Davis’s accounting records to reported net expenditures, as
+reflected in UC-Davis’s quarterly financial reports submitted to NSF for the corresponding periods,
+performing General Ledger to Sub-Ledger reconciliations of UC-Davis accounting data, and
+reviewing and testing the parameters UC-Davis used to extract transaction data from its accounting
+records and systems. Based on our testing, we found UC-Davis’s computer-processed data
+sufficiently reliable for the purposes of this audit. We did not review or test whether the data
+contained in, or controls over, NSF’s databases were accurate or reliable; however the independent
+auditor’s report on NSF’s financial statements for fiscal years 2010 and 2011 found no reportable
+instances in which NSF’s financial management systems did not substantially comply with
+applicable requirements.41 As this office monitored the work of the auditor, we believe a
+reasonable basis exists for relying on the accuracy and completeness of NSF’s data.
+
+In assessing the allowability of costs reported to NSF by UC-Davis, we also gained an
+understanding of the internal control structure applicable to the scope of this audit through
+interviews with UC-Davis staff, review of policies and procedures, conducting walkthroughs as
+applicable and reviews of general ledger transactions and accounting system and database
+documentation. We determined UC-Davis’s compliance with UC-Davis and UCOP policies and
+procedures, as well as the following:
+
+41
+  The financial statements were audited by an independent public accounting firm operating under a contract monitored
+by the NSF Office of Inspector General.
+                                                                                                                    46
+       Office of Management and Budget Circular A-21, Cost Principles for Educational
+        Institutions (2 CFR, Part 220)
+       Office of Management and Budget Circular A-110, Uniform Administrative
+        Requirements for Grants and Agreements with Institutions of Higher Education,
+        Hospitals, and Other Non-profit Organizations (2 CFR, Part 215)
+       National Science Foundation Award and Administration Guide
+       National Science Foundation Federal Demonstration Partnership Terms and Conditions
+       Award-specific terms and conditions
+
+We identified instances of noncompliance resulting in questioned costs that are discussed in the
+relevant sections of this report.
+
+We conducted this performance audit in accordance with generally accepted government auditing
+standards. Those standards require that we plan and perform the audit to obtain sufficient,
+appropriate evidence to provide a reasonable basis for our findings and conclusions, based on our
+audit objectives. We believe that the evidence obtained provides a reasonable basis for our findings
+and conclusions.
+
+
+
+
+                                                                                                   47
+

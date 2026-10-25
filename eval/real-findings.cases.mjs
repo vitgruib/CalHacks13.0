@@ -10,6 +10,17 @@
 // split under another school's limit is scaled to it), and dates (an award
 // "ending in 16 days" ends 16 days after the sim's today). Findings with no
 // GrantGuard rule to test are listed with `outOfScope` instead of left out.
+//
+// Every finding also carries `decision`: what was finally decided about the
+// cost, which is the ground truth the eval grades against (T88). An audit
+// only questions a cost; the funder then decides in a resolution letter, and
+// often allows much of what was questioned. Labels:
+//   disallowed  the funder's letter disallowed it: GrantGuard should stop it
+//   allowed     the funder's letter allowed it: a decoy GrantGuard should pass
+//   partly      the funder allowed part of the finding without naming items
+//   agreed      no funder decision saved, but the auditee agreed in the report
+//   auditor     the auditor's finding only
+// Each label but `auditor` quotes its saved source, checked like `quote`.
 
 export const SOURCES_DIR = '../docs/research/sources/docs';
 
@@ -455,4 +466,77 @@ export const FINDINGS = [
     quote: 'instead of actual activity to claim $7.5 million in salaries, fringe benefits, and indirect costs.',
     outOfScope: 'Payroll rows are taken as given; nothing compares claimed effort with actual work.',
   },
+
+  // ---- Costs the funder allowed: decoys GrantGuard should pass ----
+  {
+    id: 'rf-41', file: 'nsf-oig-17-1-002-ucdavis-report.txt', auditee: 'UC Davis', year: '2017 (resolved 2018)', amount: 53719,
+    what: 'Equipment bought two to four months before the award ended, questioned by the auditors and allowed by NSF.',
+    quote: 'We also questioned $53,719 for three equipment purchases in March and May 2008.',
+    plant(seed) {
+      request(seed, { id: 'rf-41', item: 'Imaging test facility components', category: 'equipment', price: 4800, grantId: ENDING, purpose: 'Assemble the imaging test facility' });
+      return [purchaseDecoy('rf-41-dc', 'rf-41', ENDING, END, 'Equipment 77 days before the grant ends, which NSF allowed. Scaled: one $4,800 purchase stands in for three totaling $53,719, under the sim\'s $5,000 card limit.')];
+    },
+  },
+  {
+    id: 'rf-42', file: 'nsf-oig-17-1-002-ucdavis-report.txt', auditee: 'UC Davis', year: '2017 (resolved 2018)', amount: 131789,
+    what: 'Equipment ordered during the award and accepted after it expired, questioned by the auditors and allowed by NSF.',
+    quote: 'We found that the university charged $131,789 for equipment that had final acceptance on May 1,',
+    plant(seed) {
+      endedGrant(seed, 'R21AI000906', '2026-04-30');
+      order(seed, { id: 'rf-42-o', vendor: 'Imaging Systems Vendor', amount: 131789, placed: '2026-03-20', item: 'Imaging test equipment', grantId: 'R21AI000906', category: 'equipment' });
+      seed.approvals.push({ id: 'rf-42-ap', orderId: 'rf-42-o', amount: 131789, by: 'grant_manager', day: '2026-03-20' });
+      invoice(seed, { id: 'rf-42', orderId: 'rf-42-o', vendor: 'Imaging Systems Vendor', amount: 131789, received: '2026-06-10' });
+      return [invoiceCase('rf-42-dc', 'rf-42', 'decoy', AMOUNT, 'Ordered and approved before the grant ended, billed after; NSF allowed it.', { grantId: 'R21AI000906' })];
+    },
+  },
 ];
+
+const LETTER = {
+  uwm: 'nsf-resolution-15-1-014-uwm.txt',
+  usc: 'nsf-resolution-17-1-009-usc.txt',
+  umn: 'nsf-resolution-19-1-006-minnesota.txt',
+  ucd: 'nsf-oig-17-1-002-ucdavis.txt',
+  duke: 'nsf-oig-20-1-008-duke.txt',
+};
+const USC_1 = { label: 'partly', file: LETTER.usc, quote: 'It is NSF’s management decision to disallow $13,284 and to allow $291,006.' };
+const UMN = { label: 'disallowed', file: LETTER.umn, quote: 'NSF’s management decision is to disallow all questioned costs in the amount of $73,260.' };
+const UWM_4 = { label: 'disallowed', file: LETTER.uwm, quote: 'NSF determined that expenses for purchase orders placed after the award expiration date are unallowable and disallowed the entire $56,965.' };
+const UCD_1 = {
+  label: 'allowed', file: LETTER.ucd,
+  quote: 'equipment purchases were necessary and reasonable for the completion of the corresponding awards. It is NSF’s management decision to disallow $4,393 and to allow $378,253.',
+  note: 'NSF disallowed $4,393 of the finding in all, less than either purchase; the letter ties it to an item whose cost could not be documented, which matches the report\'s $8,786 valve.',
+};
+const SC = {
+  label: 'agreed', quote: 'UofSC agreed with the findings in the report.',
+  note: 'No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24).',
+};
+
+/** What was finally decided about each finding; anything not listed is `auditor`. */
+const DECISIONS = {
+  'rf-01': { label: 'disallowed', file: LETTER.uwm, quote: 'Therefore, NSF has disallowed the entire $70,189 in questioned costs.' },
+  'rf-02': { label: 'disallowed', file: LETTER.duke, quote: 'Corrective Action: NSF requires Duke to repay disallowed questioned costs of $28,719.' },
+  'rf-04': SC,
+  'rf-05': { ...USC_1, note: 'NSF allowed 96% of this finding as necessary and reasonable; whether these $6,434 of supplies were in the $13,284 it disallowed is not stated.' },
+  'rf-06': SC,
+  'rf-07': { ...USC_1, note: 'NSF allowed 96% of this finding as necessary and reasonable; whether these $2,466 of phones were in the $13,284 it disallowed is not stated.' },
+  'rf-08': { ...USC_1, note: 'NSF disallowed $13,284 of the finding in all, so at least $18,091 of this $31,375 computer was allowed.' },
+  'rf-09': UWM_4,
+  'rf-10': UWM_4,
+  'rf-11': UMN,
+  'rf-12': SC,
+  'rf-13': { ...USC_1, note: 'NSF disallowed $13,284 of the finding in all, so at least $92,785 of this $106,069 of equipment was allowed.' },
+  'rf-14': { label: 'disallowed', file: LETTER.duke, quote: 'NSF’s management decision is to sustain and disallow $29,892.' },
+  'rf-15': { label: 'disallowed', file: LETTER.usc, quote: 'NSF determined that all questioned costs, with the exception of alcohol, were allowable costs upon reclassification to the correct accounts. It is NSF’s management decision to disallow $46' },
+  'rf-16': UMN,
+  'rf-18': SC,
+  'rf-26': SC,
+  'rf-28': { label: 'allowed', file: LETTER.usc, quote: 'NSF does not sustain the finding. NSF determined that the posting of the travel expenses did not violate USC’s travel policy.' },
+  'rf-29': UMN,
+  'rf-30': SC,
+  'rf-31': { label: 'disallowed', file: LETTER.ucd, quote: 'It is NSF’s management decision to disallow $69,545' },
+  'rf-34': SC,
+  'rf-39': { label: 'allowed', file: LETTER.uwm, quote: 'it is the NSF management decision that the $1,276,668 questioned as excess senior salaries are allowable costs' },
+  'rf-41': UCD_1,
+  'rf-42': UCD_1,
+};
+for (const f of FINDINGS) f.decision = DECISIONS[f.id] ?? { label: 'auditor' };
