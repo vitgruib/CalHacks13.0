@@ -34,22 +34,23 @@ html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavio
    the answer in grey under it; the still fills the stage behind. */
 .hero-stub-copy { position: absolute; top: clamp(16px, 3.5vh, 36px); left: clamp(16px, 2.4vw, 40px); right: clamp(16px, 2.4vw, 40px); text-align: center; }
 .hero-stub h1 { margin: 0 0 8px; font-size: clamp(32px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
-.hero-stub-copy p { margin: 0 0 2px; color: #3c4753; font-size: clamp(13px, 0.95vw, 15px); text-wrap: balance; }
-.hero-stub-copy .hero-stub-problem { color: #1c232c; font-size: clamp(15px, 1.2vw, 18px); font-weight: 600; }
+/* Sizes are the embed's (.a-embed-sub, .a-embed-sol in hero/src/demos/a1/demo-a1.css). */
+.hero-stub-copy p { max-width: 60ch; margin: 4px auto 0; color: #555f6b; font-size: clamp(13px, 0.98vw, 14.5px); line-height: 1.45; text-wrap: balance; }
+.hero-stub-copy .hero-stub-problem { max-width: none; margin-top: 0; color: #1c232c; font-size: clamp(14px, 1.1vw, 16px); font-weight: 500; line-height: 1.4; }
 /* The two ways in, on one line over their plinths: each pill's top centre as a
    percent of the stage, over its plinth on the embed's stills. */
 .hero-stub-way { position: absolute; transform: translate(-50%, 0); padding: 7px 14px 8px; border: 0; border-radius: 999px; background: #1c232c; color: #f3f5f7; font: inherit; font-size: 15px; font-weight: 600; white-space: nowrap; cursor: pointer; }
 .hero-stub-way:hover { background: #2e5ba6; }
 .hero-stub-way:active { transform: translate(-50%, 1px); }
-.hero-stub-way.lab { left: 23%; top: 24.8%; }
-.hero-stub-way.net { left: 68.8%; top: 24.8%; }
+.hero-stub-way.lab { left: 23%; top: 28.2%; }
+.hero-stub-way.net { left: 69.3%; top: 28.2%; }
 @media (max-width: 759px) {
   .landing-bar { padding: 0 16px; }
   .hero-stub-copy { top: 16px; }
   .hero-stub h1 { font-size: 32px; margin-bottom: 6px; }
-  .hero-stub-copy p { font-size: 13px; }
-  .hero-stub-copy .hero-stub-problem { font-size: 15px; }
+  .hero-stub-copy p { font-size: 12.5px; }
+  .hero-stub-copy .hero-stub-problem { font-size: 14px; }
   .hero-stub-way { font-size: 13.5px; }
-  .hero-stub-way.lab { left: 55.4%; top: 48.4%; }
-  .hero-stub-way.net { left: 71.3%; top: 19.4%; }
+  .hero-stub-way.lab { left: 55.1%; top: 50.4%; }
+  .hero-stub-way.net { left: 70.4%; top: 22.2%; }
 }
