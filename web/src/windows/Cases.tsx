@@ -22,7 +22,7 @@ const groups: { status: CaseStatus; heading: string }[] = [
   { status: 'noted', heading: 'Notes' },
   { status: 'decided', heading: 'Decided' },
 ]
-const choiceLabel: Record<string, string> = { approve: 'Approved', reject: 'Rejected', override: 'Overrode', ask_vendor: 'Asked the vendor', pick_source: 'Picked a source' }
+const choiceLabel: Record<string, string> = { approve: 'Approved', reject: 'Rejected', ask_vendor: 'Asked the vendor', pick_source: 'Picked a source' }
 
 function CaseCard({ c }: { c: Case }) {
   return (

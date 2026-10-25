@@ -32,7 +32,7 @@ export const HOLD_KINDS = [
   'source_disagreement',
   'paid_while_canceled',
 ] as const;
-export const CHOICES = ['approve', 'reject', 'override', 'ask_vendor', 'pick_source'] as const;
+export const CHOICES = ['approve', 'reject', 'ask_vendor', 'pick_source'] as const;
 export type Choice = (typeof CHOICES)[number];
 
 /** Purchases at or under this go through without the grant manager. */

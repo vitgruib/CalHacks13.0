@@ -7,7 +7,7 @@ import { money, type Tone } from '../ui'
 import { requesterLabel } from '../people'
 
 export type CaseKind = 'funding' | 'spend' | 'invoice' | 'purchase' | 'report' | 'payment_request' | 'other'
-/** needs_you: waiting for the grant manager; stopped: an agent refused or held it under a rule
+/** needs_you: waiting for the grant manager; stopped: an agent held it under a rule
  *  with nothing to decide; noted: worth knowing, not held; decided: closed, with the decision. */
 export type CaseStatus = 'needs_you' | 'stopped' | 'noted' | 'decided'
 
@@ -186,9 +186,9 @@ function purchaseCase(db: Db, r: PurchaseRequest, hold: Hold | undefined): Case 
   for (const e of hold?.evidence ?? []) records.push({ label: e.label, value: e.value })
   return {
     id: `purchase-${r.id}`, grantId: r.grantId, kind: 'purchase',
-    status: r.state === 'blocked' ? 'stopped' : statusOfHold(hold, r.state === 'waiting_on_manager' ? 'needs_you' : 'stopped'),
+    status: statusOfHold(hold, r.state === 'waiting_on_manager' ? 'needs_you' : 'stopped'),
     day: r.day,
-    title: hold?.title ?? `${r.item} (${money(r.price)}) ${r.state === 'blocked' ? 'was refused' : 'is on hold'}`,
+    title: hold?.title ?? `${r.item} (${money(r.price)}) ${r.state === 'blocked' ? 'was flagged' : 'is on hold'}`,
     conflict: hold?.why ?? r.explanation,
     records,
     timeline: db.log.filter(l => l.refId === r.id).sort(byDay).map(l => ({ day: l.day, what: `${l.action}${l.reason ? `: ${l.reason}` : ''}` })),

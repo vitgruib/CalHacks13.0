@@ -323,7 +323,7 @@ const hold = table(
     title: t.string(),
     why: t.string(),
     evidence: t.array(Evidence),
-    options: t.array(t.string()), // approve | reject | override | ask_vendor | pick_source
+    options: t.array(t.string()), // approve | reject | ask_vendor | pick_source
     open: t.bool(),
   }
 );

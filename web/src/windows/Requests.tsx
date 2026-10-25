@@ -22,7 +22,7 @@ import './Requests.css'
 const stateLabel: Record<RequestState, string> = {
   submitted: 'Submitted',
   bought: 'Bought',
-  blocked: 'Blocked',
+  blocked: 'Flagged',
   rerouted: 'Rerouted',
   waiting_on_manager: 'Waiting for the grant manager',
   rejected: 'Rejected',
@@ -32,7 +32,7 @@ const stateLabel: Record<RequestState, string> = {
 const stateTone: Record<RequestState, Tone> = {
   submitted: 'neutral',
   bought: 'good',
-  blocked: 'bad',
+  blocked: 'warn',
   rejected: 'bad',
   waiting_on_manager: 'warn',
   rerouted: 'warn',
@@ -40,7 +40,7 @@ const stateTone: Record<RequestState, Tone> = {
 }
 
 const decisionLabel: Record<Decision['choice'], string> = {
-  approve: 'Approved', reject: 'Rejected', override: 'Overrode the rules', ask_vendor: 'Asked the vendor', pick_source: 'Picked a source',
+  approve: 'Approved', reject: 'Rejected', ask_vendor: 'Asked the vendor', pick_source: 'Picked a source',
 }
 
 /** Requests the researcher asked for in the app (seed ones have no asker), in a

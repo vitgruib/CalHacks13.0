@@ -11,7 +11,6 @@ import './Inbox.css'
 const choiceLabel: Record<Decision['choice'], string> = {
   approve: 'Approve',
   reject: 'Reject',
-  override: 'Override',
   ask_vendor: 'Ask vendor',
   pick_source: 'Pick this source',
 }
@@ -19,7 +18,6 @@ const choiceLabel: Record<Decision['choice'], string> = {
 const decidedLabel: Record<Decision['choice'], string> = {
   approve: 'Approved',
   reject: 'Rejected',
-  override: 'Overrode',
   ask_vendor: 'Asked vendor',
   pick_source: 'Picked a source',
 }

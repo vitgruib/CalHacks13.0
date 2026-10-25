@@ -336,7 +336,7 @@ export function fallbackExplanation(facts: ExplanationFacts): string {
     buy: `Bought ${item} (${usd(price)}) on ${charged}.`,
     reroute: `Rerouted ${item} (${usd(price)}) from ${facts.grantId} to ${facts.to} and bought it.`,
     hold: `Held ${item} (${usd(price)}) on ${charged} for the grant manager.`,
-    block: `Blocked ${item} (${usd(price)}) on ${charged}.`,
+    block: `Flagged ${item} (${usd(price)}) on ${charged} for the grant manager; not bought.`,
   }[facts.action];
   const cites = facts.failed.map((v) => `${v.rule}: ${v.detail}${v.auditCase ? ` Audit case: ${v.auditCase}.` : ''}`);
   const passes = facts.action === 'buy' && facts.passed.length ? [`Every rule passes: ${facts.passed.join('; ')}.`] : [];

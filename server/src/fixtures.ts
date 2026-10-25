@@ -203,7 +203,7 @@ export const fixtures: Seed = {
         { label: 'Payments since', value: 'none' },
         { label: 'Truly available', value: '$236,250 on paper' },
       ],
-      options: ['approve', 'reject', 'override'],
+      options: ['approve', 'reject'],
     },
     {
       id: 'h2', kind: 'invoice', refId: 'inv1', grantId: B, raisedBy: 'bookkeeping', day: '2026-06-11',
@@ -234,7 +234,7 @@ export const fixtures: Seed = {
         { label: 'USAspending', value: 'canceled (2026-06-15)' },
         { label: 'Cancellation list', value: 'canceled (2026-06-15)' },
       ],
-      options: ['pick_source', 'override'],
+      options: ['pick_source'],
     },
     {
       id: 'h5', kind: 'report', refId: 'p2', grantId: A, raisedBy: 'payment_report', day: '2026-06-15',

@@ -296,6 +296,31 @@ test('a purchase the grant manager approves is explained as approved and bought,
   expect(after.explanation).toContain('Needed for Aim 2.');
 });
 
+test('the purchasing agent never rejects a request: a block flags it to the Inbox for the grant manager', () => {
+  call('sci', mod.submit_request, { item: 'Espresso machine', category: 'general office', price: 890, grantId: B, purpose: 'Lab morale', sharedWith: [] });
+  const rq = lastRequest();
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'block', grantId: B, vendor: 'V', explanation: 'General office items are not allowable.' });
+  expect(db().request.id.find(rq.id).state).toBe('blocked');
+  expect(rows('order').filter(o => o.requestId === rq.id)).toEqual([]);
+  const hold = rows('hold').find(x => x.kind === 'purchase' && x.refId === rq.id && x.open);
+  expect(hold.options).toEqual(['approve', 'reject']);
+  expect(hold.why).toBe('General office items are not allowable.');
+});
+
+test("the grant manager's approval buys a flagged request even when rules fail; there is no override", () => {
+  call('sci', mod.submit_request, { item: 'Espresso machine', category: 'general office', price: 890, grantId: B, purpose: 'Lab morale', sharedWith: [] });
+  const rq = lastRequest();
+  call('pa', mod.act_on_request, { requestId: rq.id, action: 'block', grantId: B, vendor: 'V', explanation: 'General office items are not allowable.' });
+  const hold = rows('hold').find(x => x.refId === rq.id && x.open);
+  expect(() => call('gm', mod.decide_hold, { holdId: hold.id, choice: 'override', reason: 'Buy it.' })).toThrow(/choice/);
+  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'Used in the shared core facility.' });
+  const after = db().request.id.find(rq.id);
+  expect(after.state).toBe('bought');
+  expect(rows('order').filter(o => o.requestId === rq.id).map(o => [o.grantId, o.amount])).toEqual([[B, 890]]);
+  expect(after.explanation).toContain('Used in the shared core facility.');
+  expect(after.explanation).toMatch(/Category allowed/);
+});
+
 test("a purchase the grant manager rejects says so on the request, with the reason", () => {
   call('sci', mod.submit_request, { item: 'Plate reader service', category: 'equipment service', price: 6_000, grantId: B, purpose: 'Aim 2', sharedWith: [] });
   const rq = lastRequest();

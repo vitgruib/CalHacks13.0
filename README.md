@@ -163,7 +163,7 @@ identity ([agents/README.md](agents/README.md)).
 | Agent (role) | Seat | What it does |
 |---|---|---|
 | Bookkeeping (`bookkeeping`) | Grant accountant | Fund tracker: reads the sources on "Check now" and right before money moves (never on a timer); posts only changes, each with its source and date; flags sources that disagree, spending while canceled, and a court order with no payment. Also checks every invoice against its order and approval. |
-| Purchasing (`purchasing`) | Purchasing agent | Reads each request, picks the grant, asks the module for its verdicts, then buys, blocks, reroutes or holds for the grant manager, explaining the failed rule. A request held only by a freeze is bought once the grant unfreezes. |
+| Purchasing (`purchasing`) | Purchasing agent | Reads each request, picks the grant, asks the module for its verdicts, then buys, reroutes, or holds or flags it for the grant manager, explaining the failed rule. It never rejects a request; only the grant manager does. A request held only by a freeze is bought once the grant unfreezes. |
 | Payment and report (`payment_report`) | Payment and report preparer | Drafts each month's payment request (up to 1,000 characters) and answers to follow-up questions, both approved by a person. Checks each progress-report paper's grant credit, PubMed Central ID and corrections. |
 
 **Claude's role.** Claude reads requests (which grant, shared use, a stated

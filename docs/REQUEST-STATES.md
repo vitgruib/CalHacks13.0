@@ -34,8 +34,8 @@ stateDiagram-v2
 | State | Means | Money | Who acts next |
 | --- | --- | --- | --- |
 | `submitted` | New, or pushed back with new information. | Nothing spent. | The purchasing agent, right away. |
-| `waiting_on_manager` | **Held**: an open purchase hold in the grant manager's Inbox says why (freeze, card limit, shared cost without a split, unclear grant, price far above list, ...). | Nothing spent. | The grant manager: approve, reject or override. The agent may still buy it alone if the hold only waited for a freeze. |
-| `blocked` | Refused; the explanation cites the failing rule. | Nothing spent. | The agent, if another grant can take it or the grant unfreezes; else the scientist (push back). |
+| `waiting_on_manager` | **Held**: an open purchase hold in the grant manager's Inbox says why (freeze, card limit, shared cost without a split, unclear grant, price far above list, ...). | Nothing spent. | The grant manager: approve (buys it, whatever fails) or reject. The agent may still buy it alone if the hold only waited for a freeze. |
+| `blocked` | **Flagged**: a rule fails that only a person can wave through; the explanation cites it and an open purchase hold puts it in the grant manager's Inbox. The agent never rejects. | Nothing spent. | The grant manager: approve or reject. Meanwhile the agent reroutes it if another grant can take it once a freeze lifts. |
 | `bought` | Ordered on the grant asked for. | Orders placed; money promised. | Nobody (an order can still be canceled). |
 | `rerouted` | Ordered on a different grant than the one asked for. | Orders placed on that grant. | Nobody (as above). |
 | `rejected` | The grant manager said no. | Nothing spent. | The scientist may push back. |
@@ -52,8 +52,8 @@ Notes:
 - The agent's buy is rechecked by the module at that moment; if the module
   refuses (something changed), the agent holds or blocks on what fails now
   instead of retrying.
-- A person's decision stands: once the grant manager has decided, the agent
-  never buys that request alone again, except to carry out an approval the
-  freeze held up.
+- A person's decision stands and is final: approve buys at once (even on a
+  frozen grant or over the card limit, with what fails logged), reject
+  refuses. The agent never buys a decided request alone again.
 - The price check (T69) only applies to the agent buying alone; an approval
-  or override is never price-checked.
+  is never price-checked.

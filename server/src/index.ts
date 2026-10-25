@@ -409,7 +409,9 @@ export const evaluate_request = spacetimedb.reducer(
  * - buy: rules are rechecked now; refused unless every rule passes (incl. card limit);
  * - reroute: buy on `grantId` instead; same recheck there;
  * - hold: send to the grant manager's Inbox;
- * - block: refuse (the explanation says why).
+ * - block: flag it: nothing is bought, and it goes to the grant manager's
+ *   Inbox (the explanation says why). The agent never rejects a request;
+ *   only the grant manager does.
  */
 export const act_on_request = spacetimedb.reducer(
   { requestId: t.string(), action: t.string(), grantId: t.string().optional(), vendor: t.string(), explanation: t.string() },
@@ -445,12 +447,19 @@ export const act_on_request = spacetimedb.reducer(
         kind: 'purchase', refId: r.id, grantId: gid, raisedBy: role,
         title: `Buy ${r.item} (${usd(r.price)}) on ${gid}?`, why: a.explanation,
         evidence: (failed.length ? failed : verdicts).map(v => ({ label: v.rule, value: v.detail })),
-        options: ['approve', 'reject', 'override'],
+        options: ['approve', 'reject'],
       });
       return;
     }
     ctx.db.request.id.update({ ...r, state: 'blocked', chargedGrantId: gid, verdicts: vrows(verdicts), explanation: a.explanation });
-    writeLog(ctx, role, `Blocked ${r.item}`, a.explanation, { rule: verdicts.find(v => !v.pass)?.rule, refId: r.id });
+    const failed = verdicts.filter(v => !v.pass);
+    writeLog(ctx, role, `Flagged ${r.item}`, a.explanation, { rule: failed[0]?.rule, refId: r.id });
+    raiseHoldRow(ctx, {
+      kind: 'purchase', refId: r.id, grantId: gid, raisedBy: role,
+      title: `Flagged: buy ${r.item} (${usd(r.price)}) on ${gid} anyway?`, why: a.explanation,
+      evidence: (failed.length ? failed : verdicts).map(v => ({ label: v.rule, value: v.detail })),
+      options: ['approve', 'reject'],
+    });
   }),
 );
 
@@ -489,8 +498,8 @@ export const raise_hold = spacetimedb.reducer(
 
 /**
  * Grant manager only, reason required: decide an Inbox item. The module then
- * rechecks and acts (approve buys only if the rules still pass apart from the
- * card limit; override buys anyway, with the reason logged).
+ * acts on it. On a purchase the grant manager's call is final: approve buys
+ * (any rules that fail are logged with the reason), reject refuses.
  */
 export const decide_hold = spacetimedb.reducer(
   { holdId: t.u64(), choice: t.string(), reason: t.string() },
@@ -530,27 +539,21 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       const gid = r.chargedGrantId ?? r.grantId;
       if (!gid) return;
       const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx));
-      const blocking = verdicts.filter(v => !v.pass && !v.rule.startsWith('Under the card limit'));
-      if (c === 'approve' && blocking.length) {
-        const explanation = `The grant manager approved it (${reason}), but the rules were rechecked and it still fails: ${blocking.map(v => v.detail).join(' ')}`;
-        ctx.db.request.id.update({ ...r, verdicts: vrows(verdicts), state: 'blocked', explanation });
-        writeLog(ctx, 'system', `Recheck failed, did not buy ${r.item}`, blocking.map(v => v.detail).join(' '), { rule: blocking[0].rule, refId: r.id });
-        return;
-      }
+      const failing = verdicts.filter(v => !v.pass);
       placeOrder(ctx, { ...r, chargedGrantId: gid }, 'Vendor', who);
-      const explanation = c === 'override'
-        ? `The grant manager overrode the rules and bought it on ${gid}: ${reason}`
-        : `The grant manager approved it (${reason}); the rules were rechecked and it was bought on ${gid}.`;
+      const explanation = failing.length
+        ? `The grant manager approved it (${reason}) and it was bought on ${gid}, although it fails: ${failing.map(v => v.rule).join('; ')}.`
+        : `The grant manager approved it (${reason}); every rule passes and it was bought on ${gid}.`;
       ctx.db.request.id.update({ ...ctx.db.request.id.find(r.id)!, verdicts: vrows(verdicts), state: 'bought', chargedGrantId: gid, explanation });
-      writeLog(ctx, 'system', `Bought ${r.item} (${usd(r.price)}) on ${gid}`, c === 'override' ? `Overridden by the grant manager: ${reason}` : 'Approved; rules rechecked.', { refId: r.id });
+      writeLog(ctx, 'system', `Bought ${r.item} (${usd(r.price)}) on ${gid}`, failing.length ? `Approved by the grant manager despite: ${failing.map(v => v.rule).join('; ')}.` : 'Approved; every rule passes.', { rule: failing[0]?.rule, refId: r.id });
       return;
     }
     case 'invoice': {
       const inv = ctx.db.invoice.id.find(h.refId);
       if (!inv) return;
       const decided = (what: string) => [...inv.timeline, { day: today(ctx), what: `${what}: ${reason}` }];
-      if (c === 'approve' || c === 'override') {
-        ctx.db.invoice.id.update({ ...inv, timeline: decided(c === 'override' ? 'Paid as billed, overridden by the grant manager' : 'Approved by the grant manager and paid') });
+      if (c === 'approve') {
+        ctx.db.invoice.id.update({ ...inv, timeline: decided('Approved by the grant manager and paid') });
         payInvoice(ctx, inv.id);
       } else if (c === 'reject') ctx.db.invoice.id.update({ ...inv, state: 'rejected', timeline: decided('Rejected by the grant manager') });
       else if (c === 'ask_vendor') {
@@ -676,7 +679,7 @@ export const raise_flag = spacetimedb.reducer(
         kind: 'source_disagreement', refId: f.id.toString(), grantId, raisedBy: role,
         title: `Which source is right about ${grantId}?`, why: `${summary} Spending stays frozen until you decide.`,
         evidence: latestReadings(ctx, grantId).map(r => ({ label: r.source, value: `${r.status ?? 'no status'} (${r.day})` })),
-        options: ['pick_source', 'override'],
+        options: ['pick_source'],
       });
     }
     recomputeGrant(ctx, grantId, role);

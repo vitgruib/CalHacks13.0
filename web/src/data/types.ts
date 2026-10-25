@@ -176,7 +176,7 @@ export interface Hold {
 }
 
 export interface Decision {
-  choice: 'approve' | 'reject' | 'override' | 'ask_vendor' | 'pick_source'
+  choice: 'approve' | 'reject' | 'ask_vendor' | 'pick_source'
   reason: string // required, never empty
   by: PersonId
   day: Day
