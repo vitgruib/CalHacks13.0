@@ -36,7 +36,9 @@ import {
 // Import all reducer arg schemas
 import ActOnRequestReducer from "./act_on_request_reducer";
 import AdvanceDaysReducer from "./advance_days_reducer";
+import AnswerItemCheckReducer from "./answer_item_check_reducer";
 import AskFollowUpReducer from "./ask_follow_up_reducer";
+import AskItemCheckReducer from "./ask_item_check_reducer";
 import CancelOrderReducer from "./cancel_order_reducer";
 import CheckInvoiceReducer from "./check_invoice_reducer";
 import ClearWorldReducer from "./clear_world_reducer";
@@ -78,6 +80,7 @@ import FollowUpRow from "./follow_up_table";
 import GrantRow from "./grant_table";
 import HoldRow from "./hold_table";
 import InvoiceRow from "./invoice_table";
+import ItemCheckRow from "./item_check_table";
 import LogRow from "./log_table";
 import OrderRow from "./order_table";
 import PaymentRequestRow from "./payment_request_table";
@@ -219,6 +222,17 @@ const tablesSchema = __schema({
       { name: 'invoice_id_key', constraint: 'unique', columns: ['id'] },
     ],
   }, InvoiceRow),
+  itemCheck: __table({
+    name: 'item_check',
+    indexes: [
+      { accessor: 'id', name: 'item_check_id_idx_btree', algorithm: 'btree', columns: [
+        'id',
+      ] },
+    ],
+    constraints: [
+      { name: 'item_check_id_key', constraint: 'unique', columns: ['id'] },
+    ],
+  }, ItemCheckRow),
   log: __table({
     name: 'log',
     indexes: [
@@ -347,7 +361,9 @@ const tablesSchema = __schema({
 const reducersSchema = __reducers(
   __reducerSchema("act_on_request", ActOnRequestReducer),
   __reducerSchema("advance_days", AdvanceDaysReducer),
+  __reducerSchema("answer_item_check", AnswerItemCheckReducer),
   __reducerSchema("ask_follow_up", AskFollowUpReducer),
+  __reducerSchema("ask_item_check", AskItemCheckReducer),
   __reducerSchema("cancel_order", CancelOrderReducer),
   __reducerSchema("check_invoice", CheckInvoiceReducer),
   __reducerSchema("clear_world", ClearWorldReducer),

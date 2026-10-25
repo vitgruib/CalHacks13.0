@@ -142,6 +142,26 @@ const checkRequest = table(
   }
 );
 
+/**
+ * Ask's look at an item before any grant (T103): a researcher asks, the
+ * purchasing agent answers with Claude. A preview only: nothing is bought or
+ * held, and the request itself is checked again when it is sent.
+ */
+const itemCheck = table(
+  { public: true },
+  {
+    id: t.u64().primaryKey().autoInc(),
+    item: t.string(),
+    purpose: t.string(),
+    price: t.f64(),
+    requestedBy: t.string(), // person role
+    answered: t.bool(),
+    verdict: t.string(), // '' until answered | fine | flag | unchecked (no Claude answer)
+    why: t.string(), // one line when flagged
+    category: t.string(), // the kind of thing it is, from Claude ('' = not read)
+  }
+);
+
 // ── Purchases, orders, invoices ───────────────────────────────────────────
 
 const request = table(
@@ -369,6 +389,7 @@ const spacetimedb = schema({
   sourceReading,
   flag,
   checkRequest,
+  itemCheck,
   request,
   plan,
   order,

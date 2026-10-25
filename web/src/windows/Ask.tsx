@@ -2,7 +2,7 @@
 // something (a plain answer from the module's spending rules, sent to the
 // purchasing agent in one click), or one of four questions about the grants.
 // Their requests and plans are tracked underneath (My requests, merged in T100).
-import { useState, type FormEvent, type ReactNode } from 'react'
+import { useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { useStore } from '../data/store'
 import type { Db, PurchaseRequest } from '../data/types'
 import {
@@ -80,7 +80,8 @@ const headline: Record<Outcome['kind'], string> = {
 }
 
 // grantId: the grant the researcher chose to pay from; '' lets us pick.
-type BuyAsk = { item: string; price: number; purpose: string; category: string; grantId: string }
+// flag: why the purchasing agent's item check (Haiku, T103) thinks no grant can pay for it.
+type BuyAsk = { item: string; price: number; purpose: string; category: string; grantId: string; flag?: string }
 
 /** The grants a request is checked on: the chosen one, or all of them. */
 const pool = (db: Db, grantId: string): Db => grantId ? { ...db, grants: db.grants.filter(g => g.id === grantId) } : db
@@ -89,12 +90,14 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
   const { submitRequest } = useStore()
   const me = useResearcher()
   const [why, setWhy] = useState(false)
-  const out = checkAsk(pool(db, ask.grantId), ask)
+  // An item the item check flagged isn't matched to a grant at all.
+  const out: Outcome = ask.flag ? { kind: 'not_allowed' } : checkAsk(pool(db, ask.grantId), ask)
   const checks = allChecks(pool(db, ask.grantId), ask)
   // A chosen grant that can't take it, when another one could.
   const auto = ask.grantId && out.kind !== 'yes' && out.kind !== 'manager' ? checkAsk(db, ask) : undefined
   const better = auto && (auto.kind === 'yes' || auto.kind === 'manager') ? auto.grant : undefined
-  const g = 'grant' in out ? out.grant : undefined
+  // Sent anyway, a request not allowed goes on the grant with the most money; the grant manager decides.
+  const g = 'grant' in out ? out.grant : checks[0]?.g
   const after = g ? spendable(g) - ask.price : 0
 
   let body: ReactNode
@@ -118,9 +121,10 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
   } else if (out.kind === 'not_allowed') {
     const no = NOT_ALLOWED[ask.category]
     body = <>
-      <p className="ask-big">Federal grants can't pay for {no?.what ?? `${ask.category} things`}. {no?.why}</p>
-      <p className="ask-sub">So we didn't check your grants. If it's really for your research, change the kind of thing below and check again.</p>
+      <p className="ask-big">{ask.flag || `Federal grants can't pay for ${no?.what ?? `${ask.category} things`}. ${no?.why ?? ''}`}</p>
+      <p className="ask-sub">So we didn't check your grants. If it's really for your research, you can still send it: your grant manager will see it and decide.</p>
     </>
+    send = 'Send it anyway'
   } else {
     body = <>
       <ul className="ask-lines">{[...new Set(checks.flatMap(c => plainReasons(db, c.g, c.verdicts)))].map(r => <li key={r}>{r}</li>)}</ul>
@@ -151,6 +155,7 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
         <div className="ask-checks">
           <h3>The thing itself</h3>
           <ul>
+            {ask.flag && <li><Check ok={false} /><span><strong>Item check by the purchasing agent.</strong> {ask.flag}</span></li>}
             {checks[0]?.verdicts.filter(v => v.rule === 'Category allowed').map(v => <li key={v.rule}><Check ok={v.pass} /><span><strong>{v.rule}.</strong> {v.detail}</span></li>)}
           </ul>
         </div>
@@ -169,7 +174,8 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
 
 export default function Ask() {
   const me = useResearcher()
-  const db = forResearcher(useStore().db, me)
+  const { db: all, checkItem } = useStore()
+  const db = forResearcher(all, me)
   const [item, setItem] = useState('')
   const [price, setPrice] = useState('')
   const [purpose, setPurpose] = useState('')
@@ -177,15 +183,26 @@ export default function Ask() {
   const [ask, setAsk] = useState<BuyAsk | null>(null)
   const [topic, setTopic] = useState<Topic | null>(null)
   const [sent, setSent] = useState('')
+  const [checking, setChecking] = useState(false)
+  const latest = useRef(0)
 
-  const onCheck = (e: FormEvent) => {
+  // The item is checked first (Haiku, on the worker), and only then matched to a grant.
+  const onCheck = async (e: FormEvent) => {
     e.preventDefault()
     const n = Math.round(Number(price))
     if (!item.trim() || !purpose.trim() || !(n > 0)) return
     const what = item.trim()
-    setAsk({ item: what.charAt(0).toUpperCase() + what.slice(1), price: n, purpose: purpose.trim(), category: guessCategory(`${what} ${purpose}`), grantId })
+    const asked = { item: what.charAt(0).toUpperCase() + what.slice(1), price: n, purpose: purpose.trim() }
+    const turn = ++latest.current
+    setAsk(null)
     setTopic(null)
     setSent('')
+    setChecking(true)
+    const check = await checkItem(asked, me)
+    if (turn !== latest.current) return
+    setChecking(false)
+    const category = CATEGORIES.includes(check.category) ? check.category : guessCategory(`${what} ${purpose}`)
+    setAsk({ ...asked, category, grantId, flag: check.verdict === 'flag' ? check.why || 'This doesn\'t look like a cost of the research.' : undefined })
   }
   const pausedGrants = db.grants.filter(paused)
   const autoOut = ask && checkAsk(db, ask)
@@ -226,11 +243,13 @@ export default function Ask() {
               </select>
             </label>
           )}
-          <button type="submit" className="ask-primary">Check</button>
+          <button type="submit" className="ask-primary" disabled={checking}>{checking ? 'Checking…' : 'Check'}</button>
         </form>
       </section>
 
       {sent && <p role="status" className="ask-sent">{sent} <a href="#ask" onClick={toMine}>See my requests</a></p>}
+
+      {checking && <p role="status" className="ask-sub">The purchasing agent is checking whether a grant can pay for this kind of thing at all…</p>}
 
       {ask && !sent && (
         <>
@@ -249,7 +268,7 @@ export default function Ask() {
         <h2 id="ask-questions" className="ask-also">Check on your grants</h2>
         <div className="ask-chips">
           {TOPICS.map(t => (
-            <button key={t.id} type="button" aria-pressed={topic === t.id && !ask} onClick={() => { setTopic(t.id); setAsk(null); setSent('') }}>{t.label}</button>
+            <button key={t.id} type="button" aria-pressed={topic === t.id && !ask} onClick={() => { latest.current++; setChecking(false); setTopic(t.id); setAsk(null); setSent('') }}>{t.label}</button>
           ))}
         </div>
       </section>

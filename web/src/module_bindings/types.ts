@@ -163,6 +163,19 @@ export const Invoice = __t.object("Invoice", {
 });
 export type Invoice = __Infer<typeof Invoice>;
 
+export const ItemCheck = __t.object("ItemCheck", {
+  id: __t.u64(),
+  item: __t.string(),
+  purpose: __t.string(),
+  price: __t.f64(),
+  requestedBy: __t.string(),
+  answered: __t.bool(),
+  verdict: __t.string(),
+  why: __t.string(),
+  category: __t.string(),
+});
+export type ItemCheck = __Infer<typeof ItemCheck>;
+
 export const Log = __t.object("Log", {
   id: __t.u64(),
   day: __t.string(),

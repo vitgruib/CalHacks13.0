@@ -18,6 +18,7 @@ const COLUMNS: Record<TableName, string[]> = {
   sourceReading: ['id', 'grantId', 'source', 'status', 'awarded', 'paid', 'endDate', 'url', 'day', 'at'],
   flag: ['id', 'grantId', 'day', 'kind', 'summary', 'open', 'raisedBy'],
   checkRequest: ['id', 'grantId', 'reason', 'requestedBy', 'day', 'done', 'asOf'],
+  itemCheck: ['id', 'item', 'purpose', 'price', 'requestedBy', 'answered', 'verdict', 'why', 'category'],
   request: ['id', 'day', 'requester', 'requestedBy', 'item', 'category', 'price', 'grantId', 'chargedGrantId', 'sharedWith', 'split', 'purpose', 'state', 'verdicts', 'explanation', 'requesterName', 'oneGrantBasis'],
   order: ['id', 'requestId', 'grantId', 'vendor', 'amount', 'placed', 'state', 'canceledOn', 'changedAmount'],
   approval: ['id', 'orderId', 'amount', 'by', 'day'],
@@ -44,6 +45,7 @@ test('every_table_has_exactly_the_columns_contract_ts_describes', async () => {
   // Put a row in the tables the sim world leaves empty.
   await manager.call('request_check', { reason: 'check_now' });
   const scientist = await world.person('scientist');
+  await scientist.call('ask_item_check', { item: 'Gloves', purpose: '', price: 40 });
   await scientist.call('save_plan', {
     id: 'pl-contract', status: 'draft', grantId: manager.rows('grant')[0].id, experiment: 'Contract shape', total: 0, overall: '', lines: [], body: '{}', report: '',
   });

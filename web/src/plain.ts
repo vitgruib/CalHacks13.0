@@ -88,15 +88,10 @@ export const NOT_ALLOWED: Record<string, { what: string; why: string }> = {
   furniture: { what: 'furniture or decor', why: "Furniture and decor are the university's overhead, not a cost of the research." },
 }
 
-// The item is read before any grant is: the not-allowed kinds come first, so
-// "pizza for the lab meeting" is food, not lab supplies on a paused grant.
+// A fallback only, for when the item check (Haiku, T103) has no answer: the
+// kind of research cost an item most looks like. Whether a grant can pay for
+// it at all is the item check's call, never these words.
 const GUESSES: [string, RegExp][] = [
-  ['alcohol', /\b(?:beer|wine|champagne|prosecco|liquor|vodka|whiske?y|tequila|rum|gin|cocktails?|booze)\b/i],
-  ['food', /coffee|espresso|snack|\bfood|pizza|lunch|dinner|breakfast|catering|donut|doughnut|bagel|candy|\bcake\b|groceries/i],
-  ['entertainment', /\bparty\b|concert|movie|netflix|spotify|hulu|video ?games?|playstation|\bps[45]\b|xbox|nintendo|game console|\btv\b|television|tickets? to|sports? tickets|theme park|disney|karaoke|bowling|golf/i],
-  ['personal', /birthday|wedding|vacation|holiday|gym|clothes|clothing|shoes|sneakers|jewel|perfume|makeup|haircut|massage|\bpets?\b|puppy|for my (?:home|house|apartment|kid|son|daughter|wife|husband|partner|family)|personal(?! protective)/i],
-  ['furniture', /chair|desk|sofa|couch|decor|\brugs?\b|artwork|painting/i],
-  ['general office', /stationery/i],
   ['equipment service', /service contract|repair|maintenance|calibrat/i],
   ['core facility services', /\bcore\b|hours of|sequencing run|mass spec/i],
   ['publication costs', /publication|open access|page charge|article fee/i],

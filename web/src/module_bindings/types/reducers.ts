@@ -8,7 +8,9 @@ import { type Infer as __Infer } from "spacetimedb";
 // Import all reducer arg schemas
 import ActOnRequestReducer from "../act_on_request_reducer";
 import AdvanceDaysReducer from "../advance_days_reducer";
+import AnswerItemCheckReducer from "../answer_item_check_reducer";
 import AskFollowUpReducer from "../ask_follow_up_reducer";
+import AskItemCheckReducer from "../ask_item_check_reducer";
 import CancelOrderReducer from "../cancel_order_reducer";
 import CheckInvoiceReducer from "../check_invoice_reducer";
 import ClearWorldReducer from "../clear_world_reducer";
@@ -39,7 +41,9 @@ import UnfreezeGrantReducer from "../unfreeze_grant_reducer";
 
 export type ActOnRequestParams = __Infer<typeof ActOnRequestReducer>;
 export type AdvanceDaysParams = __Infer<typeof AdvanceDaysReducer>;
+export type AnswerItemCheckParams = __Infer<typeof AnswerItemCheckReducer>;
 export type AskFollowUpParams = __Infer<typeof AskFollowUpReducer>;
+export type AskItemCheckParams = __Infer<typeof AskItemCheckReducer>;
 export type CancelOrderParams = __Infer<typeof CancelOrderReducer>;
 export type CheckInvoiceParams = __Infer<typeof CheckInvoiceReducer>;
 export type ClearWorldParams = __Infer<typeof ClearWorldReducer>;

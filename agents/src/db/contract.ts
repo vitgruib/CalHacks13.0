@@ -148,6 +148,19 @@ export interface CheckRequestRow {
   asOf: string; // demo time (T59): the real day the cancellation list is read as of; '' = today
 }
 
+/** Ask's look at an item before any grant (T103); the purchasing agent answers it. */
+export interface ItemCheckRow {
+  id: bigint;
+  item: string;
+  purpose: string;
+  price: number;
+  requestedBy: string;
+  answered: boolean;
+  verdict: string; // '' until answered | fine | flag | unchecked
+  why: string;
+  category: string;
+}
+
 // ── Purchases, orders, invoices ────────────────────────────────────────────
 
 export interface RequestRow {
@@ -332,6 +345,7 @@ export interface Tables {
   sourceReading: SourceReadingRow;
   flag: FlagRow;
   checkRequest: CheckRequestRow;
+  itemCheck: ItemCheckRow;
   request: RequestRow;
   plan: PlanRow;
   order: OrderRow;
@@ -357,6 +371,7 @@ export const PRIMARY_KEYS = {
   sourceReading: 'id',
   flag: 'id',
   checkRequest: 'id',
+  itemCheck: 'id',
   request: 'id',
   plan: 'id',
   order: 'id',
@@ -405,6 +420,10 @@ export interface Actions {
   raise_flag: { grantId: string; kind: FlagKind; summary: string };
   request_check: { grantId?: string; reason: CheckReason; asOf?: string };
   complete_check: { id: bigint };
+
+  // Ask's item check (T103): a person asks, the purchasing agent answers. Nothing is bought or held.
+  ask_item_check: { item: string; purpose: string; price: number };
+  answer_item_check: { id: bigint; verdict: 'fine' | 'flag' | 'unchecked'; why: string; category: string };
 
   // Invoices (bookkeeping agent). The module applies the match rule: paid, or held with a timeline and an Inbox item.
   check_invoice: { invoiceId: string };

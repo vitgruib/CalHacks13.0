@@ -706,6 +706,26 @@ export const complete_check = spacetimedb.reducer({ id: t.u64() }, (ctx, { id })
   writeLog(ctx, role, 'Finished a source check', c.grantId ?? 'all grants', { refId: id.toString() });
 }));
 
+// ── Item check (T103) ─────────────────────────────────────────────────────
+
+const ITEM_VERDICTS = ['fine', 'flag', 'unchecked'];
+
+/** A person: ask the purchasing agent whether an item is a research cost at all, before any grant. */
+export const ask_item_check = spacetimedb.reducer({ item: t.string(), purpose: t.string(), price: t.f64() }, (ctx, { item, purpose, price }) => guard(() => {
+  const who = requirePerson(ctx);
+  if (!item.trim()) fail('Say what you want to buy.');
+  if (!(price > 0)) fail('The price must be more than $0.');
+  ctx.db.itemCheck.insert({ id: 0n, item: item.trim(), purpose: purpose.trim(), price, requestedBy: who, answered: false, verdict: '', why: '', category: '' });
+}));
+
+/** Purchasing agent: answer an item check. */
+export const answer_item_check = spacetimedb.reducer({ id: t.u64(), verdict: t.string(), why: t.string(), category: t.string() }, (ctx, { id, verdict, why, category }) => guard(() => {
+  requireAgent(ctx, 'purchasing');
+  oneOf('verdict', ITEM_VERDICTS, verdict);
+  const c = ctx.db.itemCheck.id.find(id) ?? fail(`No item check ${id}.`);
+  ctx.db.itemCheck.id.update({ ...c, answered: true, verdict, why, category });
+}));
+
 // ── Invoice check (P4) ────────────────────────────────────────────────────
 
 function payInvoice(ctx: Ctx, invoiceId: string): void {

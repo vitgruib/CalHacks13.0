@@ -7,12 +7,19 @@ import type { Researcher } from '../people'
 import { planLines, type SavedPlan } from '../spendguard/store'
 import type { Db, Decision, Invoice, PurchaseRequest, SourceCheck, StatusEvent } from './types'
 
+/** The purchasing agent's look at an item, before any grant (T103). category: the kind of thing it is ('' = not read). */
+export interface ItemCheck { verdict: 'fine' | 'flag' | 'unchecked'; why: string; category: string }
+
 export interface Store {
   db: Db
   /** Grant manager decides a hold. Reason is required (MASTER-PLAN §2). */
   decide: (holdId: string, choice: Decision['choice'], reason: string) => void
   /** A researcher submits a purchase request as themselves; the purchasing agent picks it up. */
   submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose'>, by: Researcher) => void
+  /** Ask's item check (T103): is it a research cost at all, before any grant?
+   *  Resolves with the purchasing agent's answer (Haiku), or 'unchecked' when
+   *  none comes in time (offline: no agents, always). */
+  checkItem: (a: { item: string; purpose: string; price: number }, by: Researcher) => Promise<ItemCheck>
   /** The researcher who asked pushes back with new information; the agent looks again (push_back). */
   pushBack: (requestId: string, message: string, by: Researcher) => void
   // Test lab only (T18). Same argument shapes as Track A's reducers
@@ -180,6 +187,8 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     grantAsOf: Object.fromEntries(((seed as { checkRequests?: { grantId?: string; asOf?: string }[] }).checkRequests ?? []).filter(c => c.grantId && c.asOf).map(c => [c.grantId!, c.asOf!])),
   })
   const [sourceCheck, setSourceCheck] = useState<SourceCheck>(seedCheck)
+  // No agents offline: the item goes straight on to the grants.
+  const checkItem: Store['checkItem'] = async () => ({ verdict: 'unchecked', why: '', category: '' })
   const checkNow: Store['checkNow'] = async (asOf, grantId) => {
     const id = nextId('check')
     const days = (c: SourceCheck) => (grantId ? { asOf: c.asOf, grantAsOf: { ...c.grantAsOf, [grantId]: asOf ?? null } } : { asOf: asOf ?? null, grantAsOf: c.grantAsOf })
@@ -237,7 +246,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     setSourceCheck(seedCheck())
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, loadDemoSeed }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, loadDemoSeed }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

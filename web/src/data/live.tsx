@@ -6,7 +6,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react'
 import seed from '../../../sim/demo-seed.json'
 import { DbConnection } from '../module_bindings'
 import { toDb, toSourceCheck, WORLD_TABLES } from './adapter'
-import { applyAdvanceDays, applyInvoice, applyStatusEvent, Ctx, type Store } from './store'
+import { applyAdvanceDays, applyInvoice, applyStatusEvent, Ctx, type ItemCheck, type Store } from './store'
 import type { Researcher } from '../people'
 import { planTotal, type Plan, type Report } from '../spendguard/assess'
 import { planLines, type PlanStatus, type SavedPlan } from '../spendguard/store'
@@ -15,6 +15,8 @@ import type { Db, PersonId, SourceCheck } from './types'
 export const STDB_URI: string = import.meta.env.VITE_STDB_URI || 'ws://localhost:3000'
 export const STDB_DB: string = import.meta.env.VITE_STDB_DB || 'grantguard'
 const CONNECT_TIMEOUT_MS = 5000
+// Haiku usually answers in a few seconds; past this Ask goes on to the grants unchecked.
+const ITEM_CHECK_TIMEOUT_MS = 20_000
 
 export interface LiveInfo {
   status: 'live' | 'disconnected'
@@ -183,6 +185,28 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
         const c = await asResearcher(by)
         await c.reducers.submitRequest({ item: r.item, category: r.category, price: r.price, grantId: r.grantId || undefined, purpose: r.purpose, sharedWith: [] })
       })
+    },
+    // The worker's purchasing agent answers with Haiku (answer_item_check);
+    // the answer is read from the grant manager's subscription.
+    checkItem: async (a, by) => {
+      const unchecked: ItemCheck = { verdict: 'unchecked', why: '', category: '' }
+      if (!manager.current || status !== 'live') return unchecked
+      const checks = () => [...conn().db.itemCheck.iter()]
+      const before = checks().reduce((max, c) => (c.id > max ? c.id : max), 0n)
+      try {
+        const c = await asResearcher(by)
+        await c.reducers.askItemCheck({ item: a.item, purpose: a.purpose, price: a.price })
+      } catch (e) {
+        notify(`Item check failed: ${msg(e)}`)
+        return unchecked
+      }
+      const deadline = Date.now() + ITEM_CHECK_TIMEOUT_MS
+      while (Date.now() < deadline) {
+        const mine = checks().find(c => c.id > before && c.answered && c.item === a.item.trim() && c.price === a.price)
+        if (mine) return { verdict: mine.verdict as ItemCheck['verdict'], why: mine.why, category: mine.category }
+        await new Promise(r => setTimeout(r, 250))
+      }
+      return unchecked
     },
     pushBack: (requestId, message, by) => {
       if (!message.trim()) throw new Error('Say what changed.')

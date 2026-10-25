@@ -4,6 +4,7 @@
 
 import { startTracker, type Tracker } from './agents/bookkeeping.ts';
 import { startInvoices } from './agents/invoices.ts';
+import { startItemChecks } from './agents/item-check.ts';
 import { startPaymentRequests } from './agents/payment-requests.ts';
 import { startPurchasing } from './agents/purchasing.ts';
 import { startReportChecker } from './agents/report-checker.ts';
@@ -50,6 +51,7 @@ export async function startWorker(
   const lookup = papers ?? createPaperLookup();
   const agents: AgentHandle[] = [
     startPurchasing({ conn: sessions.purchasing, tracker, papers: lookup }),
+    startItemChecks({ conn: sessions.purchasing }),
     startInvoices({ conn: sessions.bookkeeping, tracker, papers: lookup }),
     startPaymentRequests({ conn: sessions.payment_report, tracker, papers: lookup, lastDay }),
     startReportChecker({ conn: sessions.payment_report, tracker, papers: lookup }),
