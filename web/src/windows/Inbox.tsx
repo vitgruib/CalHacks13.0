@@ -196,7 +196,8 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
       </div>
 
       <div className="actions">
-        {hold.options.map(choice => {
+        {/* "Ask vendor" only logged that someone asked; it contacted nobody, so it's not offered. */}
+        {hold.options.filter(choice => choice !== 'ask_vendor').map(choice => {
           const disabled = !hasReason || (choice === 'pick_source' && !source)
           return (
             <button
