@@ -14,6 +14,7 @@ import { Badge, Section, grantStatus, money } from '../ui'
 import type { Tone } from '../ui'
 import realFindingsJson from '../../../eval/real-findings.json'
 import itemCheckJson from '../../../eval/item-check-real.json'
+import fundTrackerJson from '../../../eval/fund-tracker-real.json'
 import { edgeCaseOf, isEdgeGrant } from '../people'
 import { openHolds } from './Inbox'
 import { GRANT_HOLDS, fundsHref } from './Funds'
@@ -56,6 +57,13 @@ interface ItemCheck {
   items: ItemCase[]
 }
 const itemCheck = itemCheckJson as ItemCheck
+
+interface TrackerRow { case: string; grantId: string; kind: string; org: string; day: string; facts: string; expected: string; got: string; trackerSaid: string; outcome: string }
+interface FundTracker {
+  totals: { checks: number; grants: number; caught: number; missed: number; falseAlarms: number; correctPasses: number }
+  rows: TrackerRow[]
+}
+const fundTracker = fundTrackerJson as FundTracker
 
 const outcomeTone: Record<string, Tone> = { caught: 'good', 'correct pass': 'good', missed: 'bad', 'false alarm': 'bad', 'no case': 'bad', 'out of scope': 'neutral', 'not run': 'neutral' }
 
@@ -249,6 +257,9 @@ export default function TestLab() {
         </div>
       </Section>
 
+      <Section title="Fund tracker on real grants" aside={<Badge>{fundTracker.totals.grants} real grants</Badge>}>
+        <FundTrackerBoard />
+      </Section>
       <Section title="Real audit findings" aside={<Badge>{realFindings.totals.findings} real costs</Badge>}>
         <RealFindingsBoard />
       </Section>
@@ -390,6 +401,51 @@ function ItemCheckBoard() {
       <p className="muted">
         From <code>./check.sh</code> (<code>node eval/item-check-real.mjs</code>). Each item quotes a saved audit report and the
         decision on it in docs/research/sources/docs/. Claude was asked once per item; its answers are saved and replayed.
+      </p>
+    </>
+  )
+}
+
+/**
+ * eval/fund-tracker-real.json: real NIH grants from Grant Witness, replayed
+ * month by month through the real tracker against saved readings of the
+ * cancellation list, USAspending and RePORTER as they stood on each day.
+ */
+function FundTrackerBoard() {
+  const { totals: t, rows } = fundTracker
+  return (
+    <>
+      <p>
+        <strong>{t.caught} of {t.caught + t.missed}</strong> checks where spending should be stopped or flagged were caught, {t.missed} missed;
+        {' '}<strong>{t.correctPasses} of {t.correctPasses + t.falseAlarms}</strong> where it should be open passed, {t.falseAlarms} false alarms,
+        {' '}over {t.checks} checks on {t.grants} grants. All {t.falseAlarms} false alarms are grants whose freeze was lifted: the tracker
+        keeps them frozen after the lift.
+      </p>
+      <details className="tl-cases">
+        <summary>Every check ({rows.length})</summary>
+        <div className="tl-scroll">
+        <table>
+          <thead>
+            <tr><th>Grant</th><th>Day</th><th>What the records show</th><th>Expected</th><th>Outcome</th></tr>
+          </thead>
+          <tbody>
+            {rows.map(r => (
+              <tr key={`${r.case}-${r.grantId}-${r.day}`} title={r.trackerSaid}>
+                <td>{r.grantId}<span className="muted"> {r.org}</span></td>
+                <td>{r.day}</td>
+                <td>{r.facts}</td>
+                <td>{r.expected}</td>
+                <td><Badge tone={outcomeTone[r.outcome] ?? 'neutral'}>{r.outcome}</Badge></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div>
+      </details>
+      <p className="muted">
+        From <code>./check.sh</code> (<code>node eval/fund-tracker-real.mjs</code>). Each fact is checked against its saved
+        source; what should happen on each day follows the grant office's rule: frozen from cancellation until a payment
+        lands after a restoration.
       </p>
     </>
   )

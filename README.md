@@ -281,6 +281,30 @@ The 18 out-of-scope findings have no Grant Test Auto rule to test (or need
 progress reports, out of scope since T105) and are listed with the reason.
 Demo controls shows every finding.
 
+### Fund tracker on real grants
+
+`eval/fund-tracker-real.mjs` (T114) replays 37 real NIH grants from
+[Grant Witness](https://grantwitness.org/nih) through the real tracker, month by
+month from January 2025, reading saved copies of the cancellation list,
+USAspending monthly outlays and RePORTER as they stood on each day. Cases:
+still terminated, paid while terminated, Duke's funds freeze, the Thakur and
+Harvard court restorations, restored then paid, restored then cut again,
+supplement-only cuts, a RePORTER/USAspending disagreement, freezes lifted,
+and never-cut grants as decoys. Every fact is checked against its saved
+source; what should happen follows the grant office's rule (frozen from
+cancellation until a payment lands after a restoration).
+
+| | Result |
+|---|---|
+| Should be frozen or flagged | 38 of 38 caught, 0 missed |
+| Should be open | 30 of 35 passed, 5 false alarms |
+
+All 5 false alarms have one cause: when Grant Witness marks a frozen grant
+"Unfrozen", the tracker doesn't treat it as a restoration, so it keeps those
+grants (Columbia, Cornell, Northwestern) frozen after they were paid
+normally. Limits: each month's outlays are treated as known at month end
+(USAspending really lags about 2 months), and RePORTER is read only today.
+
 ### Item check on real audited items
 
 `eval/item-check-real.mjs` (T115) runs Claude's item check (Haiku, through
