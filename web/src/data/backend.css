@@ -4,4 +4,3 @@
 .backend-notice { display: flex; gap: 8px; align-items: flex-start; background: var(--bad-bg); color: var(--bad); border: 1px solid var(--bad); border-radius: 8px; padding: 8px 10px; }
 .backend-notice span { flex: 1; overflow-wrap: anywhere; }
 .backend-notice button { padding: 0 6px; border: none; background: transparent; color: inherit; font-size: 16px; line-height: 1; }
-.backend-connecting { padding: 48px; color: var(--muted); font-family: system-ui, sans-serif; }

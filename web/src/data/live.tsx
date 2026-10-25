@@ -18,6 +18,19 @@ const CONNECT_TIMEOUT_MS = 5000
 // Haiku usually answers in a few seconds; past this Ask goes on to the grants unchecked.
 const ITEM_CHECK_TIMEOUT_MS = 20_000
 
+/** The loading screen (styles in index.html, which shows the same markup before the bundle loads). */
+function Connecting() {
+  const [slow, setSlow] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setSlow(true), 1500); return () => clearTimeout(t) }, [])
+  return (
+    <div className="boot" role="status" title={`${STDB_URI} (${STDB_DB})`}>
+      <div className="boot-mark">Grant Test Auto</div>
+      <div className="boot-bar" aria-hidden="true" />
+      <p className="boot-note">{slow ? 'Still connecting. If the server doesn\'t answer, it opens on offline demo data.' : 'Loading the grant office…'}</p>
+    </div>
+  )
+}
+
 export interface LiveInfo {
   status: 'live' | 'disconnected'
   notices: { id: number; text: string }[]
@@ -151,7 +164,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
     }
   }, [])
 
-  if (!db) return <div className="backend-connecting">Connecting to SpacetimeDB at {STDB_URI} ({STDB_DB})…</div>
+  if (!db) return <Connecting />
 
   /** Run a reducer call; its failure (e.g. a rule the module enforces) becomes a notice. */
   const call = (what: string, p: () => Promise<void>) => {
