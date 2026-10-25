@@ -1,0 +1,793 @@
+                        An Audit of the
+University of Texas
+           at Tyler
+
+                      Audit Report #750-22-01
+                           January 30, 2024
+
+
+
+                      Glenn Hegar
+   Texas Comptroller of Public Accounts
+Table of Contents
+Executive Summary
+ Purpose and Scope. ........................................................................................................................... 1
+ Background. ........................................................................................................................................ 1
+ Audit Results........................................................................................................................................ 1
+ Key Recommendations..................................................................................................................... 3
+Detailed Findings
+ Payroll Transactions.......................................................................................................................... 4
+      Missing Statutory Authority for Reimbursement................................................................................. 4
+      Incorrect State Effective Service Date/Incorrect Longevity/Hazardous Duty Payment Amounts.......... 5
+ Purchase/Payment Card Transactions......................................................................................... 6
+      Missing Vendor Compliance Verifications............................................................................................ 6
+          Warrant Hold Check............................................................................................................................. 7
+          Iran, Sudan and Foreign Terrorist Organization Check................................................................................. 7
+      Freight Charges Not on Purchase Order.............................................................................................. 8
+      Purchase Order Created After Invoice................................................................................................. 9
+      Missing Purchase Documentation....................................................................................................... 9
+ Travel Transactions.......................................................................................................................... 10
+      Incorrect Lodging Reimbursement Amount...................................................................................... 11
+ Grants.................................................................................................................................................. 11
+ Fixed Assets........................................................................................................................................ 11
+ Targeted Analysis............................................................................................................................. 12
+      Confidential Treatment of Information Acknowledgement (CTIA) Forms........................................... 12
+      Incorrect Billing Account Number and Mail Code.............................................................................. 12
+ Security............................................................................................................................................... 13
+ Internal Control Structure ............................................................................................................ 13
+      Control Weakness Over Expenditure Processing............................................................................... 13
+
+Appendices
+ Appendix 1 — Objectives, Scope, Methodology, Authority and Team............................. 15
+ Appendix 2 — Definition of Ratings........................................................................................... 17
+                     Executive Summary
+Purpose and Scope
+  The objectives of this audit were to determine whether the University of Texas at Tyler
+  (University):
+
+    • Processed payments according to applicable state laws, Comptroller requirements
+      and statewide automated system guidelines.
+    • Maintained documentation to support those payments.
+    • Properly recorded capital and high-risk assets.
+    • Implemented appropriate security over payments.
+  This audit was conducted by the Texas Comptroller of Public Accounts (Comptroller’s
+  office), and covers the period from Dec. 1, 2020, through Nov. 31, 2021.
+
+
+Background
+  The University of Texas at Tyler was founded in 1971.
+  It consists of five academic colleges and three schools.                University of Texas at Tyler website
+  The University offers more than 80 bachelor’s,                          https://www.uttyler.edu/
+  master’s and doctoral degree programs. The campus is
+  located in nearly 259 acres in the pine and oak forest of
+  East Texas.
+
+
+Audit Results
+  The University generally complied with the General Appropriations Act (GAA),
+  relevant statutes and Comptroller requirements. Auditors found no issues with grant
+  transactions, security and property management. However, the University should
+  consider making improvements to its payroll, purchase/procurement, payment card and
+  travel processes as well as its internal control structure.
+
+  The auditors reissued four findings from the previous audit conducted at the University
+  related to:
+    • Purchase orders created after invoice.
+    • Freight charges not on purchase order.
+    • Incorrect travel reimbursement amount.
+    • Controls over expenditure processing.
+  Auditors originally issued these findings in August 2013. An overview of audit results is
+  presented in the following table.
+
+
+                           University of Texas at Tyler (01-30-24) – Page 1
+Table Summary
+
+        Area               Audit Question                          Results                     Rating
+
+Payroll Transactions   Did payroll transactions           • Missing statutory           Compliant,
+                       comply with the GAA,                 authority for               Findings Issued
+                       pertinent statutes and               reimbursement.
+                       Comptroller requirements?
+                                                          • Incorrect state effective
+                                                            service date/incorrect
+                                                            longevity/hazardous
+                                                            duty payment amounts.
+
+Purchase and           Did purchase and payment           • Missing vendor              Compliant,
+Payment Card           card transactions comply             compliance                  Findings Issued
+Transactions           with the GAA, pertinent              verifications.
+                       statutes and Comptroller
+                                                          • Freight charges not on
+                       requirements?
+                                                            purchase order.
+                                                          • Purchase order created
+                                                            after invoice.
+                                                          • Missing purchase
+                                                            documentation.
+
+Travel Transactions    Did travel transactions comply     • Incorrect lodging           Compliant,
+                       with the GAA, pertinent              reimbursement               Findings Issued
+                       statutes and Comptroller             amount.
+                       requirements?
+
+Grant Transactions     Did grant transactions comply      No issues                     Fully Compliant
+                       with the GAA, pertinent
+                       statutes and Comptroller
+                       requirements?
+
+Fixed Assets           Were tested assets in their        No issues                     Fully Compliant
+                       intended location and
+                       properly reported in the State
+                       Property Accounting system?
+
+Targeted Analysis      Did transactions from the          • CTIA form signed            Compliant,
+                       targeted analysis comply             after access to system      Findings Issued
+                       with the GAA, pertinent              granted.
+                       statutes and Comptroller
+                                                          • Incorrect billing
+                       requirements?
+                                                            account number and
+                                                            mail code.
+
+ Repeat Finding
+
+
+
+
+                               University of Texas at Tyler (01-30-24) – Page 2
+        Area               Audit Question                         Results                   Rating
+
+Security              Are University employees who       No issues                   Fully Compliant
+                      are no longer employed or
+                      whose security was revoked
+                      properly communicated to
+                      the Comptroller’s office?
+
+Internal Control      Are duties segregated to           • Control weakness over     Control Weakness
+Structure             the extent possible to help          expenditure processing.   Issues Exist
+                      prevent errors or detect them
+                      in a timely manner and help
+                      prevent fraud?
+
+ Repeat Finding
+
+
+
+
+Key Recommendations
+  Auditors made several recommendations to help mitigate risk arising from control
+  weaknesses. Key recommendations for the University include:
+
+     • Ensure all payroll transactions submitted for reimbursement through the Uniform
+        Statewide Accounting System (USAS) are allowable and in compliance with state laws
+        and rules.
+     • Confirm any prior state service is verified and properly recorded to ensure longevity
+        and hazardous duty pay increases occur at the correct times.
+     • Conduct all vendor compliance verifications (VCV) before any purchase/procurement,
+        contract award, extension or renewal, and retain results from the specified website in
+        the procurement file.
+     • Ensure it reviews invoices for accuracy, completeness and agreement with the
+        purchase order.
+     • Ensure staff creates the purchase order at the time the goods or services are ordered
+        from the vendor.
+     • Ensure staff retains all supporting documents for purchase/procurement transactions.
+     • Conserve state funds by ensuring each travel arrangement is the most cost effective
+        considering all relevant circumstances.
+     • Ensure that Confidential Treatment of Information Acknowledgement forms are
+        completed, signed and dated by employees who need access to state systems.
+     • Ensure payments for third-party transactions are processed in accordance with state
+        policies and procedures.
+     • Have controls over expenditure processing that segregate each accounting task to the
+        greatest extent possible.
+
+
+                              University of Texas at Tyler (01-30-24) – Page 3
+                        Detailed Findings
+Payroll Transactions
+  Auditors developed a sample totaling $198,100.78 from a group of 25 employees
+  and 233 payroll transactions to ensure the University complied with the GAA,
+  Texas Payroll/Personnel Resource (FPP F.027) and pertinent statutes. Audit tests
+  revealed the following exceptions in this group of transactions. Additionally, a
+  limited sample of 10 voluntary contributions transactions were audited with no
+  exceptions identified.
+
+Missing Statutory Authority for Reimbursement
+  In the review of payroll transactions, auditors identified 33 reimbursements totaling
+  $1,649.40 within the sample and $11,087.29 outside of the sample where the University
+  did not have statutory authority to process the expenses using state funds.
+
+  The requests for reimbursement from state funds were to fund a reserve account used
+  to pay out lump sum vacation and sick leave to terminating employees. Staff selected
+  comptroller object 7023 – Lump Sum Termination Payment since it was deemed to be
+  closely associated with the fee. According to the University’s policy, the amounts used
+  to fund the account are calculated as a percentage rate of eligible employee’s gross
+  payroll each month. According to the University, prior to the fiscal 2022-23 biennium
+  the state did not permit institutions of higher education to submit for reimbursement
+  expenditures used for or allocated to a self-insurance fund authorized by Texas
+  Government Code, Chapter 2259, for a risk otherwise insurable by the institution,
+  including a reserve account for lump sum payments of vacation and sick leave. The
+  fiscal 2022-23 GAA included a provision that these payments shall be treated by the
+  Comptroller’s office as an expenditure of the respective funds. Also, the resulting self-
+  insurance funds shall be considered designated funds as that term is used in Texas
+  Education Code, Section 51.008(b).
+
+  According to Article IX Section 6.04 of the General Appropriations Act, 86th
+  Legislature (2019), funds appropriated by the GAA shall be expended, as nearly as
+  practicable, for the purpose for which appropriated. In the event an agency cannot
+  determine legislative purpose from the pattern of appropriations, the agency shall
+  seek to determine that purpose from the proceedings of the legislative committees
+  responsible for proposing appropriations for this state. Although Section 19 of the
+  Special Provisions Relating Only to State Agencies of Higher Education under Article
+  III, General Appropriations Act, 87th Legislature (2021) added language to include
+  reserve accounts for lump sum payments of vacation and sick leave to be treated
+  by the Comptroller as an expenditure of the respective funds, the addition, effective
+  Sept. 1, 2021, would not apply to the reimbursements processed prior to that date.
+
+
+                           University of Texas at Tyler (01-30-24) – Page 4
+  It is the University’s responsibility to:
+
+    • Ensure its payroll expenditures comply with state and federal laws and rules.
+    • Determine its legal authority for making each payment resulting from a payroll
+      document before that document is submitted to the Comptroller’s office.
+    • Ensure it maintains necessary documentation for proving each payment resulting
+      from a payroll document is legal, proper and fiscally responsible.
+
+  Auditors provided the University with the schedule for the reimbursements not payable.
+  It is not included in this report due to confidentiality issues.
+
+Recommendation/Requirement
+  The University must enhance its review process of all payroll transactions submitted for
+  reimbursement in USAS to ensure that only expenditures that comply with state laws
+  and rules are included in the entries. The University should reimburse the state treasury
+  the total unallowable payroll reimbursement amount for the transactions dated prior to
+  Sept. 1, 2021.
+
+University Response
+  Prior to the FY 2022-2023 biennium the state did not permit institutions of higher education
+  to submit for reimbursement expenditures used for or allocated to a self-insurance fund
+  authorized by Texas Government Code, Chapter 2259, for a risk otherwise insurable by the
+  institution, including a reserve account for lump sum payments of vacation and sick leave.
+  The FY 2022-2023 GAA included a provision that these payments shall be treated by the
+  Comptroller of Public Accounts as an expenditure of the respective funds. The self-insurance
+  funds so created shall be considered designated funds as that term is used in section
+  51.008(b) of the Texas Education Code.
+
+  Any unallowable payroll reimbursement amounts for the transactions dated prior to Sept. 1,
+  2021 will be returned by April 12, 2024 through coordination between University staff and our
+  designated ACO.
+
+
+Incorrect State Effective Service Date/Incorrect Longevity/Hazardous Duty
+Payment Amounts
+  Auditors identified two employees with incorrect months of state/lifetime service
+  credit in the University’s internal payroll system resulting in incorrect longevity and
+  hazardous duty payments. The incorrect months of service credit resulted in a $600
+  longevity underpayment and a $20 hazardous duty overpayment for the first employee
+  and a $6,360 longevity overpayment and a $1,030 hazardous duty underpayment for
+  the second employee. Additionally, auditors also identified a third employee who was
+  overpaid $260 in longevity and underpaid $380 in hazardous duty pay.
+
+
+                             University of Texas at Tyler (01-30-24) – Page 5
+  Auditors identified additional prior state service for the first employee that did not
+  reflect in the University’s system. According to the University, the service periods were
+  manually recorded incorrectly in its system. During the audit, the University conducted
+  the prior state service verification for the employee and provided the auditors with the
+  required documentation to validate the correct hazardous pay amounts. The University
+  corrected the prior state services dates in its internal system during fieldwork for the
+  first two employees. The third employee was in a hazardous duty position and was paid
+  longevity instead of hazardous duty pay.
+
+  When an agency hires an employee, the agency must research whether the employee
+  has prior state service. If prior state service exists, the agency must confirm the amount
+  of lifetime service credit and properly record it or risk incorrectly paying longevity/
+  hazardous duty pay. See Texas Payroll/Personnel Resource – Non-Salary Payments –
+  Longevity Pay.
+
+Recommendation/Requirement
+  The University must continue to review the payroll/personnel records for current and
+  new employees to ensure any prior state service is properly verified and documented
+  to prevent incorrect longevity and hazardous duty payments. The University should
+  consider using the State of Texas Employment History Application to check
+  for additional prior state service and when applicable, request prior state service
+  verifications directly from the listed agency.
+
+  The University should consider recovering the overpayment in accordance with Texas
+  Government Code, Chapter 666 and compensate the employees for the underpaid
+  amounts under 34 Texas Administrative Code Section 5.40(c).
+
+University Response
+  Initial recording of some personnel records was incorrect due to human error, going forward
+  additional steps and reviews specific to state service recording have been put in place.
+
+
+Purchase/Payment Card Transactions
+  Auditors developed a sample of 25 purchase transactions totaling $86,964.32 and 11
+  payment card transactions totaling $36,450.64 to ensure the University complied with
+  the GAA, eXpendit (FPP I.005) and pertinent statutes. Audit tests revealed the following
+  exceptions in these transactions.
+
+Missing Vendor Compliance Verifications
+  Auditors identified the following instances where the University was unable to provide
+  evidence of performing the VCVs for 14 purchase transactions and seven payment
+  card transactions. The University must provide evidence, such as a dated screen print,
+  showing that each verification was performed.
+
+
+                           University of Texas at Tyler (01-30-24) – Page 6
+Warrant Hold Check
+  The University did not document the vendor’s warrant hold status verification before
+  making 19 purchase transactions and seven payment card transactions. The University
+  must check warrant hold status if payment is made with local funds or if a payment
+  card purchase is over $500. See TexPayment Resource – Warrant hold – Hold Special
+  Circumstances, Local Funds and Payment Card Purchases. The University cannot
+  proceed with a purchase made with local funds or a payment card purchase over $500
+  until the warrant hold is released. For transactions involving a written contract, the
+  warrant hold check must be performed no earlier than the seventh day before, and no
+  later than the date of contract execution if payments under the contract will be issued
+  with local funds. If the vendor is on warrant hold, the University may not enter into a
+  written contract with the person unless the contract requires the University’s payments
+  under the contract to be applied directly toward eliminating the person’s debt or
+  delinquency. The requirement specifically applies to any debt or delinquency, regardless
+  of when it arises. See Texas Government Code, Section 2252.903(a) and eXpendit –
+  Restricted Expenditures – Persons Indebted to the State.
+
+  According to the University, during the audit period sampled, the PeopleSoft accounting
+  system it uses only programmatically restricted payments to vendors on hold by the
+  Comptroller’s office. The University added that it now inactivates all vendors on hold by
+  the Comptroller’s office preventing both purchase and payment.
+
+  Regarding the payment card transactions, the University stated that the issue was a
+  result of inadvertent oversight by payment card end users in ensuring they performed
+  warrant hold checks prior to making purchases over $500 with the payment card. The
+  University added that its management has since updated the payment card policies
+  and procedures. Procurement card holders have received re-training on checking and
+  retaining the dated results of the warrant hold status verification.
+
+Iran, Sudan and Foreign Terrorist Organization Check
+  The University was unable to provide documentation showing it performed the Iran,
+  Sudan and foreign terrorist organization check before making 14 purchase transactions.
+  Agencies may not contract with a company doing business with Iran, Sudan or a foreign
+  terrorist organization. See Texas Government Code, Section 2252.152. Each agency
+  must check the divestment lists before award to determine if the potential awardee
+  is in violation of this requirement. The Texas Safekeeping Trust Company maintains
+  the divestment lists and posts them to the Comptroller’s Divestment Statute Lists
+  website. Agencies cannot award a contract to a vendor that is in violation. According to
+  the University, its previous process resulted in inadvertent oversights in this area, but it
+  is now using the PaymentWorks vendor software system that continually monitors the
+  various foreign terrorist organization lists electronically.
+
+
+
+
+                            University of Texas at Tyler (01-30-24) – Page 7
+Recommendation/Requirement
+  The University must conduct all VCVs before any purchase, contract award, extension
+  or renewal, and must retain results from the specified website in the procurement file
+  as evidence.
+
+University Response
+  During the audit period sampled, the PeopleSoft accounting system UT Tyler used only
+  programmed restricted payments to vendors on hold by the State Comptroller. Subsequently,
+  UT Tyler now inactivates all vendors on hold by the State Comptroller preventing both
+  purchase and payment. UT Tyler is now using the PaymentWorks vendor software system
+  which continually electronically monitors the various foreign terrorist organization lists.
+
+Freight Charges Not on Purchase Order
+  Auditors identified one purchase transaction with a purchase order that did not include
+  freight charges; however, the vendor’s invoice added freight costs, which the University
+  paid. Freight was not included on the original quote nor on the original purchase order.
+  The University created a purchase order change notice to add the freight charges
+  after receiving the invoice. The University stated this was an oversight and that the
+  department buyer has received re-training on this topic. See 34 Texas Administrative
+  Code Section 20.487.
+
+  All freight charges should be included on each purchase order. In situations where
+  the final amount of freight cannot be determined, estimates may be used. In those
+  instances, the University should document the limit that may not be exceeded for
+  any freight charge. If it is determined that the upper limit for a freight charge will be
+  exceeded, the vendor should obtain approval for the higher amount. Any approvals for
+  higher amounts should be documented before receiving the invoice.
+
+Recommendation/Requirement
+  The University must review invoices for accuracy, completeness and agreement with
+  the purchase order. The University must pay only the contracted amount as shown on
+  the purchase order. If a charge is inadvertently left off the purchase, a purchase order
+  change notice must be used to correct the discrepancy before receiving the invoice.
+
+University Response
+  Initial purchase order did not include any freight charges which were later paid due to
+  an oversight by the department buyer. Additional training of purchasing staff has been
+  completed.
+
+
+
+
+                            University of Texas at Tyler (01-30-24) – Page 8
+Purchase Order Created After Invoice
+  Auditors identified two purchase transactions in which the purchase orders were
+  dated after services were rendered and after the final invoices were received. The
+  first transaction was for a staff veterinarian’s attendance at three monthly meetings.
+  The second transaction was to purchase sign-on capabilities for a training program.
+  However, the purchase orders were not created at the time the services were requested.
+  The University stated this was an oversight and the department buyer has received re-
+  training on this topic.
+
+  According to 34 Texas Administrative Code Section 5.51(c)(1)(D), it is the responsibility
+  of the state agency and its officers to ensure that for each purchase document, the
+  agency maintains necessary records to prove that each payment resulting from the
+  document is legal, proper and fiscally responsible. Without a purchase order issued to
+  the vendor at the time services are requested, it is difficult for the University to ensure it
+  is not overcharged or billed for goods or services beyond those agreed.
+
+Recommendation/Requirement
+  The University must ensure the purchase order is created at the time the goods or
+  services are requested from the vendor to verify payments are valid and to ensure a
+  proper audit trail.
+
+University Response
+  Department buyer inadvertently failed to ensure purchase orders were created timely due to
+  an oversight. Additional training of purchasing staff has been completed.
+
+Missing Purchase Documentation
+  Auditors identified one purchase transaction that lacked documentation confirming the
+  receipt of goods or services. The University did not retain a copy of the packing slip/
+  delivery receipt. The University stated this was an oversight, and the department buyer
+  has received re-training on this topic. Also, the University has added additional guidance
+  about receiving documentation requirements to its policies and procedures.
+
+  If an agency does not confirm receipt of goods or services, it risks receiving incomplete
+  orders or items purchased for personal or non-agency use. Without complete
+  documentation, auditors could not determine whether all goods and services purchased
+  were received as expected/billed.
+
+  Auditors also identified two payment card transactions that were missing an invoice.
+  The University’s procedures require the retention of invoices for payment card
+  purchases. The University stated the payment card holders did not print and file a
+  copy of the invoice due to oversight and that the department buyers have received
+
+
+
+                            University of Texas at Tyler (01-30-24) – Page 9
+  re-training on this topic. Without proper documentation, auditors could not determine
+  whether the information entered in USAS was an accurate reflection of the purchases.
+  Proper documentation must be maintained to verify payments are valid and to ensure
+  a proper audit trail. According to the University the missing documentation was an
+  oversight and the campus department buyer has received re-training.
+
+  According to 34 Texas Administrative Code Section 5.51(c)(1)(D), agencies must
+  maintain necessary documentation for each purchase document to prove each payment
+  is legal, proper and fiscally responsible. The Comptroller’s office eXpendit page (General
+  Provisions – Responsibilities of State Agencies – Retention Requirements Concerning
+  Supporting Documentation) explains that the type of documentation needed to support
+  the legality and fiscal responsibility of a payment depends on the type of claim paid.
+  Examples of required documentation include purchase orders, requisitions, contracts,
+  invoices, receipts and receiving reports.
+
+  In addition, standard business practices and internal controls for ensuring payments are
+  valid require adequate separation of duties in the purchasing process and a comparison
+  (three-way match) of:
+
+    • The ordering information (purchase order).
+    • Billed amounts (vendor invoice).
+    • Confirmation that all goods or services were received as expected (receiving report).
+Recommendation/Requirement
+  The University must ensure it does not make payments for goods or services without
+  adequate supporting documentation to justify and validate each purchase per the three-
+  way match. An employee independent from the purchasing process should confirm
+  that goods and services were received as expected and should retain the confirmation
+  in agency records. The University must also ensure its policies and training materials
+  include instructions on performing and documenting the confirmation of goods and
+  services received, maintaining necessary supporting documentation, and meeting the
+  minimum requirements and expectations for the purchasing and payment review/
+  approval process.
+
+University Response
+  Inadvertent lapse in existing processes led to required documentation not being retained.
+  Additional training of purchasing staff has been completed.
+
+Travel Transactions
+  Auditors developed a sample of 20 travel transactions totaling $4,340.70 and 10
+  travel card transactions totaling $5,212.95 to ensure the University complied with the
+  GAA, Textravel (FPP G.005) and pertinent statutes. Audit tests revealed the following
+  exceptions for this group of transactions.
+
+
+                           University of Texas at Tyler (01-30-24) – Page 10
+Incorrect Lodging Reimbursement Amount
+  Auditors identified one travel transaction where the University reimbursed an
+  employee for lodging in excess of the allowable reimbursement rate for the location
+  based on the U.S. General Services Administration (GSA) rates. The University stated
+  this error occurred due to inadvertent oversight in application of state lodging rate cap
+  of the GSA amount.
+
+  Texas Government Code, Section 660.007(a) requires a state agency to minimize
+  the amount of travel expenses paid or reimbursed by the agency. The agency must
+  ensure each travel arrangement is the most cost effective considering all relevant
+  circumstances.
+
+Recommendation/Requirement
+  The University must exercise caution in its use of state funds and ensure those
+  expenditures are fiscally responsible. The University must obtain a reimbursement
+  from the traveling employee unless it determines it is not cost effective to do so. If
+  reimbursement is obtained from the employee, the University must reimburse the
+  state treasury for the excess amount.
+
+University Response
+  Inadvertent oversight by department staff while processing reimbursements caused this
+  singular error of reimbursing in excess of allowable reimbursement rate. Additional training
+  and review of current policies has been completed.
+
+
+Grants
+  Auditors developed a sample of six grant transactions totaling $1,165,020.00, then
+  conducted a limited review of the University’s transactions relating to grant payments.
+  This review consisted of verifying the payments did not exceed the authorized
+  amounts. The review of these payments did not include an investigation of the
+  University’s procedures for awarding the grants or monitoring payments made to
+  grantees; therefore, auditors are not offering an opinion of those procedures. Audit
+  tests revealed no exceptions for this group of transactions.
+
+Fixed Assets
+  The audit included a review of a limited number of fixed assets acquired by
+  expenditures during the audit period to test for accurate reporting and to verify
+  the existence of assets. All assets tested were in their intended location. Audit tests
+  revealed no exceptions in these transactions.
+
+
+
+
+                            University of Texas at Tyler (01-30-24) – Page 11
+Targeted Analysis
+  The audit included targeted analyses outside the main samples of payroll, purchase
+  and travel transactions. Using USAS, Citibank or other systems accessible by the
+  Comptroller’s office, auditors generated several special reports to analyze additional
+  processes relevant to the audited entity. Such processes may include interagency
+  transfers, refunds to payroll, proper coding of payment card transactions, and others.
+  Audit tests revealed the following exceptions in the University’s targeted analysis reports.
+
+Confidential Treatment of Information Acknowledgement (CTIA) Forms
+  As a routine part of the security review, auditors evaluated the University’s compliance
+  with the requirement that all users of the Comptroller’s statewide accounting systems
+  complete a CTIA form. When a new user requires access to the Comptroller’s systems,
+  the University’s security coordinator has the user read and sign the CTIA form. The
+  agency’s security coordinator must keep it on file for as long as the user has access to
+  the systems plus five years. Auditors reviewed this requirement for eight employees.
+  One form was signed after the employee accessed the system.
+
+  According to the University, this employee started in 1998 when this exception occurred
+  and was not informed that he needed to sign a CTIA form. The University added that the
+  security coordinator has established a process whereby security requests for access are
+  submitted only after a signed CTIA form is received.
+
+Recommendation/Requirement
+  The University must continue to enhance its procedures to ensure no user gains access
+  to any of the statewide financial systems before completing a CTIA form and ensure
+  the original CTIA form is kept on file as long as the user has access to the statewide
+  accounting systems, plus the five-year retention period.
+
+University Response
+  Inadvertent lapse in process. Reminded responsible party of the importance of ensuring CTIA
+  forms are signed in advance of the first connection to CPA systems.
+
+Incorrect Billing Account Number and Mail Code
+  In a report generated outside the sample, auditors identified ten procurement card
+  transactions that were processed incorrectly to the state’s payment card vendor.
+  The University failed to provide the correct billing account number and mail code as
+  prescribed by Processing Third-Party Transactions in USAS for Payment/Travel Cards,
+  Direct Bill Payments and Reimbursements (FPP A.043) and USAS and CAPPS Financials
+  Invoice Number Field Requirements (FPP E.023). The invoice field also included the full
+  16-digit credit card number, which violates the confidentiality and security requirements.
+
+
+                           University of Texas at Tyler (01-30-24) – Page 12
+  According to the University, payments were processed using an incorrect format and
+  internal processing procedures have been changed to only use the last ten digits of
+  the billing account number for credit card payments. The University also stated that
+  payments were processed using outdated billing information in the mail code field;
+  however, the mail code has since been corrected on the programmatic vendor record
+  data used for credit card payments.
+
+  When charge card transactions are incorrectly coded, the vendor may not be able to
+  post payments to its payment and travel card accounts.
+
+Recommendation/Requirement
+  The University must ensure payments for third-party transactions are processed
+  in accordance with FPP A.043 and FPP E.023. To avoid account delinquency or
+  reconciliation issues, auditors recommend the University continue to review payment
+  card statements to ensure payments are posted correctly and to ensure confidential
+  information is excluded.
+
+University Response
+  Payments were processed using an incorrect format and internal processing procedures have
+  been changed to only use the last ten digits of the billing account number for credit card
+  payments. These payments were processed using outdated billing information in the mail
+  code field, which has since been corrected on the programmatic vendor record data.
+
+
+Security
+  The audit included a security review to identify University employees with security in
+  USAS or on the voucher signature cards who were no longer employed or whose security
+  had been revoked. Upon termination or revocation, certain deadlines must be met so
+  that security can be revoked in a timely manner. Audit tests revealed no exceptions.
+
+
+Internal Control Structure
+  The review of the University’s internal control structure was limited to obtaining reports
+  identifying current user access. The review did not include tests of existing mitigating
+  controls. The audit tests revealed the following exception in user access.
+
+Control Weakness Over Expenditure Processing
+  The University had two employees with multiple conflicting security capabilities. The
+  employees could:
+
+    • Enter/edit and release/approve payment vouchers in USAS.
+    • Process/edit and release payroll in USAS.
+
+                           University of Texas at Tyler (01-30-24) – Page 13
+    • Enter/edit and approve payment vouchers in USAS and create/edit a vendor profile
+      and direct deposit information in the Texas Identification Number System (TINS).
+    • Edit/update vendor or employee profile and direct deposit information in TINS and
+      on the University’s signature card (could approve a paper voucher for expedite)
+    • Enter/edit payment vouchers in USAS, approve a paper voucher (on the signature
+      card), and change the warrant hold status of a vendor in TINS.
+    • Edit direct deposit information for employees in TINS and process/edit payroll
+      in USAS.
+
+  According to the University, due to its limited staff, it has no other option than to have
+  two people have this type of access. Currently the process is for the senior financial
+  accountant to enter all batches, and for the accounting & financial reporting manager
+  to release the batches. The assistant accounting & financial reporting manager is set
+  up with access to enter batches as a backup for when the senior financial accountant is
+  unavailable. The assistant accounting & financial reporting manager is also set up with
+  access to release batches for the senior financial accountant, when the accounting &
+  financial reporting manager is unavailable. The University added that it has a written
+  procedure and as a result of the audit recommendation has set the fatal warning control
+  in place as a mitigating control to prevent transactions entered and approved/released
+  by the same person from processing.
+
+Recommendation/Requirement
+  The University should review the controls over expenditure processing and segregate
+  each task to the maximum extent possible to ensure no individual is able to process
+  payments without oversight.
+
+University Response
+  The University has reviewed the controls over expenditure processing and segregated
+  each task to the maximum extent possible to ensure no individual is able to process
+  payments without oversight.
+
+
+
+
+                           University of Texas at Tyler (01-30-24) – Page 14
+                                Appendices
+Appendix 1 — Objectives, Scope, Methodology, Authority and Team
+Audit Objectives
+  The objectives of this audit were to:
+    • Ensure payments are documented so a proper audit can be conducted.
+    • Ensure payment vouchers are processed according to the requirements of any
+      of the following:
+          ⸰ Uniform Statewide Accounting System (USAS),
+          ⸰ Uniform Statewide Payroll/Personnel System (USPS),
+          ⸰ Standardized Payroll/Personnel Reporting System (SPRS),
+          ⸰ Human Resource Information System (HRIS) or
+          ⸰ The Centralized Accounting and Payroll/Personnel System (CAPPS).
+
+    • Verify payments are made in accordance with certain applicable state laws.
+    • Verify assets are in their intended locations.
+    • Verify assets are properly recorded for agencies and institutions of higher education
+      that use the State Property Accounting (SPA) system.
+    • Verify voucher signature cards and systems security during the audit period are
+      consistent with applicable laws, rules and other requirements.
+
+Audit Scope
+  Auditors reviewed a sample of the University of Texas
+  at Tyler (University) payroll, purchase, payment card                    Texas law requires the Texas
+                                                                           Comptroller of Public Accounts
+  and travel transactions that processed through USAS
+                                                                           (Comptroller’s office) to audit
+  from Dec. 1, 2020, through Nov. 31, 2021, to determine                   claims submitted for payment
+  compliance with applicable state laws.                                   through the Comptroller’s
+                                                                           office. All payment transactions
+  The University received appendices with the full                         are subject to audit regardless
+  report, including a list of the identified errors.Copies                 of amount or materiality.
+  of the appendices may be requested through a Public
+  Information Act inquiry.
+
+  The audit provides a reasonable basis for the findings set forth in this report. The
+  University should implement the recommendations listed in the Detailed Findings of this
+  report. It is the University’s responsibility to seek refunds for all overpayments unless
+  it determines it is not cost effective to do so. If necessary, the Comptroller’s office may
+  take the actions set forth in Texas Government Code, Section 403.071(h), to ensure the
+  University’s documents comply in the future. The University must ensure the findings
+  discussed in this report are resolved.
+
+
+                           University of Texas at Tyler (01-30-24) – Page 15
+Audit Methodology
+  The Expenditure Audit section uses limited sampling to conduct a post-payment audit,
+  and relies on professional judgment to select areas the auditor considers high risk.
+
+Fieldwork
+  Each auditor in the Expenditure Audit section approaches each audit with an
+  appropriate level of professional skepticism based on the results of the initial planning
+  procedures.
+
+  If an auditor suspects during an audit that fraud, defalcation or intentional
+  misstatement of the facts has occurred, the auditor will meet with his or her supervisor,
+  the Statewide Fiscal Oversight manager, or both, to decide what action or additional
+  procedures would be appropriate.
+
+Audit Authority
+  State law prohibits the Comptroller’s office from paying a claim against a state agency
+  unless the Comptroller’s office audits the corresponding voucher.
+    • Texas Government Code, Sections 403.071(a), 403.078, 2103.004(a)(3).
+
+  State law allows the Comptroller’s office to audit a payment voucher before or after the
+  Comptroller’s office makes a payment in response to that voucher.
+    • Texas Government Code, Section 403.071(g)-(h).
+
+  In addition, state law authorizes the Comptroller’s office to conduct pre-payment or
+  post-payment audits on a sample basis.
+    • Texas Government Code, Sections 403.011(a)(13), 403.079, 2155.324.
+
+Audit Team
+    Mayra V. Castillo, CTCD, CTCM, Lead Auditor
+    Eunice Miranda, CTCD, CTCM
+    Angelica Villareal, CGAP. CTCD
+
+
+
+
+                           University of Texas at Tyler (01-30-24) – Page 16
+Appendix 2 — Definition of Ratings
+Compliance Areas
+
+                             Definition                                                     Rating
+
+ Agency complied with applicable state requirements and no
+                                                                             Fully Compliant
+ significant control issues existed.
+
+ Agency generally complied with applicable state requirements;
+ however, control issues existed that impact the agency’s                    Compliant, Findings Issued
+ compliance, or minor compliance issues existed.
+
+ Agency failed to comply with applicable state requirements.                 Noncompliant
+
+ Restrictions on auditor’s ability to obtain sufficient evidence to
+ complete all aspects of the audit process. Causes of restriction
+ include but are not limited to:
+                                                                             Scope Limitation
+   • Lack of appropriate and sufficient evidentiary matter.
+   • Restrictions on information provided to auditor.
+   • Destruction of records.
+
+
+Internal Control Structure/Security Areas
+
+                             Definition                                                     Rating
+
+ Agency maintained effective controls over payments.                         Fully Compliant
+
+ Agency generally maintained effective controls over payments;
+ however, some controls were ineffective or not implemented.
+                                                                             Control Weakness Issues Exist
+ These issues are unlikely to interfere with preventing, detecting,
+ or correcting errors or mitigating fraudulent transactions.
+
+ Agency failed to effectively create or implement controls
+                                                                             Noncompliant
+ over payments.
+
+
+Repeat Finding Icon Definition
+    This issue was identified during the previous post-payment audit of the agency.
+
+
+
+
+                                 University of Texas at Tyler (01-30-24) – Page 17
+

@@ -1,0 +1,514 @@
+                                                                              Request this document in an accessible
+                                                                              format by visiting nsf.gov/accessibility
+
+
+
+
+NATIONAL SCIENCE FOUNDATION
+Division of Institution & Award Support
+
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+(703) 292-8244
+
+
+                                                                January 19, 2023
+
+Nate Martinez-Wayman
+Senior Director
+Office of Post Award Administration
+Duke University
+2200 W Main Street, Suite 800
+Durham, NC 27705
+
+Reference: OIG Report No. 20-1-008
+
+Dear Nate Martinez-Wayman,
+
+The National Science Foundation (NSF) has completed the review and resolution of the Office of
+Inspector General (OIG) audit report on costs incurred under NSF awards by Duke University (Duke)
+during the period of October 1, 2015, through September 30, 2018.
+
+The audit report identified a total of $708,906 in questioned costs claimed on NSF awards and
+recommended that Duke strengthen its administrative and management controls for the areas in which
+findings and questioned costs were identified. As a result of its resolution efforts, NSF has determined
+that $45,622 will be allowed and that $663,284 will be sustained and disallowed. The table below
+summarizes the sustained, disallowed, and allowed costs by finding number:
+
+    Finding            Description        Questioned     Sustained      Allowed       Disallowed
+
+       1          Unallowable
+                  Expenses                    $270,408     $258,631       $11,777         $258,631
+       2          Inadequately
+                  Supported Expenses          $246,635     $246,635            $0         $246,635
+       3          Inappropriately
+                  Established
+                  Supplemental Salary
+                  Appointments                 $77,923      $45,750       $32,173          $45,750
+       4          Inappropriate
+                  Drawdown of
+                  Expiring
+                  Appropriations               $29,892      $29,892            $0          $29,892
+       5          Expenses Not
+                  Appropriately
+                  Allocated to NSF
+                  Awards                       $28,719      $28,719            $0          $28,719
+Duke University
+Audit No. 20-1-008
+Page 2
+
+    Finding          Description         Questioned       Sustained       Allowed        Disallowed
+
+       6         Goods and Services
+                 Not Appropriately
+                 Procured                     $23,406         $23,406             $0          $23,406
+       7         Insufficient Review
+                 of Payments to
+                 Consortium                   $12,526         $10,854         $1,672          $10,854
+       8         Non-compliance
+                 with NSF Award
+                 Terms and
+                 Conditions                   $10,000         $10,000             $0          $10,000
+       9         Indirect Costs Not
+                 Appropriately
+                 Applied                       $9,397          $9,397             $0           $9,397
+      10         Indirect Costs
+                 Inappropriately
+                 Applied at the
+                 Provisional Rate                  $0              $0             $0               $0
+      11         Non-compliance
+                 with Duke policies                $0              $0             $0               $0
+
+                               Totals:       $708,906        $663,284        $45,622         $663,284
+
+
+To resolve the audit findings and questioned costs, NSF conducted detailed reviews of applicable
+Federal and NSF requirements, proposal and award information maintained by NSF, and documentation
+provided by Duke. The summary below provides the bases for the management decisions reached by
+NSF:
+
+
+    • Finding 1: Unallowable Expenses
+NSF sustains the finding. The auditor questioned a total of $270,408 on 16 NSF awards in
+Recommendations 1 and 2. Based on documentation reviewed, NSF determined that $11,777 of the
+questioned costs were supportable as allowable expenses. Based on Duke’s agreement to reimburse
+$106,386, and NSF’s review of documentation provided for the remaining $152,245, NSF’s
+management decision is to sustain and disallow costs of $258,631 and to allow $11,777.
+Corrective action: NSF requires that Duke repay the disallowed questioned costs of $258,631.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendations 3-12. NSF requires that Duke strengthen its administrative and management
+controls and policies and procedures related to unallowable expenses charged to awards including
+salaries, airfare, conferences, visiting scholars, as well as ensuring there are no charges with extension
+denials and/or duplicative charges. Recommendations 3-12 will remain open until Duke completes its
+proposed actions.
+
+Final action for Finding 1 will be complete upon repayment of $258,631 and the determination by NSF
+that corrective actions taken are responsive to the report recommendations.
+Duke University
+Audit No. 20-1-008
+Page 3
+
+▪ Finding 2: Inadequately Supported Expenses
+NSF sustains the finding. The auditors questioned a total of $246,635 on nine (9) NSF awards in
+Recommendations 1 and 2 related to inadequate documentation to support the allocability, allowability
+and reasonableness of costs, as required under Federal regulations and NSF PAPPGs. Based on a review
+of documentation, NSF determined to sustain and disallow the questioned costs of $237,141, related to
+unsupported charges made by Duke’s Office of Information Technology, as well as inadequately
+supported participant support costs. Duke agreed to reimburse NSF $9,464. NSF’s management
+decision is to sustain and disallow $246,635.
+Corrective Action: NSF requires Duke to repay the disallowed questioned costs of $246,635.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendations 3-8. NSF requires that Duke strengthen its policies and procedures related to
+document retention, internal service centers, participant payment policies and incentive payments,
+medical expense reimbursements, and travel expense approvals. Recommendations 3-8 will remain
+open until Duke completes its proposed actions.
+
+Final action for Finding 2 will be complete upon repayment of $246,635 and the determination by NSF
+that corrective actions taken are responsive to the report recommendations.
+
+▪ Finding 3: Inappropriately Established Supplemental Salary Appointments
+NSF does not sustain the finding. The auditors questioned $77,923 on six (6) NSF awards in
+Recommendation 1 for salary expenses related to establishing a supplemental salary appointment
+appropriately. NSF does not agree with the basis for disallowance based on zero-dollar ($0)
+Institutional Base Salary rates or supplemental salary appointments for non-faculty appointments. It is
+not unusual for universities to set up $0 IBS rates and to require employees in those positions to seek
+grant and other funding for their positions. The Uniform Guidance 2 CFR 200.430(h)(8) requires that
+salaries are supported, not that they are based on IBS rates or supplemental salary appointments for
+non-faculty appointments. However, NSF determined to disallow $45,750 because the position in
+question was not included in the award proposal(s) or budget(s) and sufficient documentation was not
+provided to support the charges. NSF’s management decision is to allow $32,173 and to disallow
+$45,750.
+Corrective Action: NSF requires Duke to repay disallowed questioned costs of $45,750.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendations 2-3. NSF requires that Duke strengthen its administrative and management
+processes and procedures to ensure that documentation is sufficient to support salaries for non-faculty
+appointments and for rehiring former employees as adjunct faculty. Recommendations 2 and 3 will
+remain open until Duke completes its proposed actions.
+
+Final action for Finding 3 will be complete upon repayment of questioned costs of $45,750 and the
+determination by NSF that corrective actions taken are responsive to the report recommendations.
+
+▪ Finding 4: Inappropriate Drawdown of Expiring Appropriations
+NSF sustains the finding. The auditors questioned costs of $29,892 on two (2) awards related to
+inappropriate drawdowns from NSF Award Cash Management $ervice (ACM$) to cover expenses that
+appear to have been incurred after funding appropriations expired. NSF’s Division of Financial
+Management sends awardees an e-mail each year identifying all NSF awards with unliquidated balances
+that are funded by NSF appropriations that will be canceled at the end of the fiscal year. This
+Duke University
+Audit No. 20-1-008
+Page 4
+
+notification informs grantees that "NSF will not accept additional costs on the canceling funds after
+September 23 even if the project end date extends past this date". This language leaves no room for
+any other consideration. Spending in the absence of appropriations is prohibited and questioned costs
+will be disallowed. Duke University, as a recipient of Federal funds is expected to adhere to all
+requirements of the federal award, including compliance with Public Law 101-510, without exception.
+NSF’s management decision is to sustain and disallow $29,892.
+Corrective Action: NSF requires Duke to repay disallowed questioned costs of $29,892.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendations 2 and 3. NSF requires that Duke strengthen its processes and procedures related to
+the drawing-down of funding from ACM$ and awards with Federal appropriations that have expired, as
+well as to strengthen its award set-up procedures to ensure that charges are not applied to active
+awards if the Federal appropriation has expired. Recommendations 2 and 3 will remain open until Duke
+completes its proposed actions.
+
+Final action for Finding 4 will be complete upon repayment of $29,892 and the determination by NSF
+that corrective actions taken are responsive to the report recommendations.
+
+▪ Finding 5: Expenses Not Appropriately Allocated to NSF Awards
+NSF sustains the finding. The auditor questioned $28,719 on eight (8) NSF awards in Recommendations
+1 and 2 related to allocations that were not based on the awards received. Duke is aware that costs
+must be assignable to a particular cost objective in accordance with the relative benefits received or
+other equitable relationship, as prescribed in 2 CFR §200.405(a). Duke agreed to reimburse NSF for
+expenses not appropriately allocated. NSF’s management decision is to sustain and disallow
+questioned costs of $28,719.
+Corrective Action: NSF requires Duke to repay disallowed questioned costs of $28,719.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendations 3 and 4. NSF requires that Duke strengthen its administrative and management
+controls and processes related to allocating expenses to sponsored projects, including ensuring that
+appropriate personnel review allocation methodologies for all expenses charged to NSF awards less
+than 90 days before the award’s period of performance expires. Recommendations 3 and 4 will remain
+open until Duke completes its proposed actions.
+
+Final action for Finding 5 will be complete upon repayment of $28,719 and the determination by NSF
+that corrective actions taken are responsive to the report recommendations.
+
+▪ Finding 6: Goods and Services Not Appropriately Procured
+NSF sustains the finding. The auditors questioned $23,406 on two (2) NSF awards in Recommendation 1
+related to questioned costs for supplies and services, including consultant and internal service provider
+services, that were not appropriately procured as required by Duke policies and procedures. Based on
+the documentation reviewed, NSF’s management decision is to sustain and disallow questioned costs
+of $23,406.
+Corrective Action: NSF requires Duke to repay disallowed questioned costs of $23,406.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendations 2 and 3. NSF requires that Duke strengthen its administration and management
+procedures related to competitive bidding as well as ensuring that documentation is sufficient for the
+appropriate procurement of consultant services in accordance with Duke policies. Recommendations 2
+and 3 will remain open until Duke completes its proposed actions.
+Duke University
+Audit No. 20-1-008
+Page 5
+
+
+
+Final action for Finding 6 will be complete upon repayment of $23,406 and a determination by NSF
+that corrective actions taken are responsive to the report recommendations.
+
+
+▪ Finding 7: Insufficient Review of Payments to the cited consortium.
+NSF sustains the finding. The auditor questioned costs of $12,526 on one (1) NSF award in
+Recommendations 1 and 2. Duke agreed to reimburse NSF $10,854 related to its administrative and
+management processes related to monitoring payments and reimbursement to cited consortium.
+Based on documentation reviewed, NSF determined to allow the remaining questions costs of $1,672.
+NSF’s management decision is to sustain and disallow costs of $10,854 and to allow $1,672.
+Corrective Action: NSF requires Duke to repay disallowed questioned costs of $10,854.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendation 3. NSF requires that Duke strengthen its administrative and management processes
+and procedures related to the review of payments presented by vendors as well as the cited consortium
+and other organizations where Duke may have a legal or fiscal agent agreement. Recommendation 3
+will remain open until Duke completes its proposed actions.
+
+Final action for Finding 7 will be complete upon repayment of $10,854 and a determination by NSF
+that corrective actions taken are responsive to the report recommendations.
+
+
+▪ Finding 8: Non-compliance with NSF Award Terms and Conditions
+NSF sustains the finding. The auditor questioned costs of $10,000 on one (1) NSF award in
+Recommendation 1. Duke provided $10,000 in Graduate Research Internship Program (GRIP) allowance
+payments, not stipends, to two Fellows but did not provide documentation to support expenses, though
+a GRFP Program Expense Report was required for each Fellow. NSF notes that the Dear Colleague
+Letter (DCL: NSF 16-015) states that the funding is an allowance. NSF’s management decision is to
+sustain and disallow questioned costs of $10,000.
+Corrective Action: NSF requires Duke to repay disallowed questioned costs of $10,000.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendation 2. NSF requires that Duke strengthen its controls to ensure personnel working on the
+award maintain compliance with NSF award terms and conditions, particularly when special costing
+and/or special terms and conditions exist. Recommendation 2 will remain open until Duke completes
+its proposed actions.
+
+Final action for Finding 8 will be complete upon repayment of $10,000 and the determination by NSF
+that corrective actions taken are responsive to the report recommendations.
+
+
+▪ Finding 9: Indirect Costs Not Appropriately Applied
+NSF sustains the finding. The auditor questioned a total of $9,397 on two (2) NSF awards in
+Recommendation 1. Duke agreed to reimburse the questioned costs. NSF’s management decision is to
+sustain and disallow costs totaling $9,397 under two NSF awards.
+Corrective Action: NSF requires that Duke repay disallowed questioned costs of $9,397.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendation 2. NSF requires Duke to strengthen its procedures related to accounting for
+Duke University
+Audit No. 20-1-008
+Page 6
+
+participant support costs and exclusion of indirect costs in conjunction with planned revisions in Finding
+1, Recommendation 7. Recommendation 2 will remain open until Duke completes its proposed
+actions.
+
+Final action for Finding 9 will be complete upon repayment of questioned costs of $9,397 and the
+determination by NSF that corrective actions taken are responsive to the report recommendations.
+
+▪ Finding 10: Indirect Costs Inappropriately Applied at the Provisional Rate
+NSF does not sustain the finding. No costs were questioned under this finding. NSF agrees that in the
+event that at the time of award only provisional rates are established for an award period of
+performance, the grantee must wait until the next NICRA is issued that establishes rates during the
+awarded period and apply that NICRA as if it were in effect at the time of award. However, NSF requires
+that grantees must have internal controls to ensure that awards are not charged indirect costs in excess
+of the rate(s) in effect at the time of the award, not at the time budgeted.
+Compliance and Internal Control Recommendation: Duke has proposed a corrective action plan for
+Recommendation 1. NSF requires that Duke provide evidence of its updated internal control and
+policies and procedures to ensure that awards are not charged indirect costs in excess of the rate(s) in
+effect at the time of the award. Recommendation 1 will remain open until Duke completes its proposed
+actions.
+
+Final action for Finding 10 will be complete upon the determination by NSF that corrective actions
+taken are responsive to NSF guidance.
+
+
+▪ Finding 11: Non-compliance with Duke policies
+ NSF sustains the finding. No costs were questioned under this finding and seven (7) Recommendations
+ were made to Duke to strengthen its administrative and management processes and policies and
+ procedures for 1) procuring consultant services; 2) subaward payment approval process; 3) cost transfer
+ that involve equipment purchases; 4) ensuring personnel certify effort timely; 5) competitive bidding
+ process; 6) corporate purchase cards; 7) internal service provider billings.
+ Corrective Action: NSF requires that Duke must provide evidence of updated policies and procedures in
+ response to the recommendations.
+Compliance and Internal Control Recommendation: Duke has taken and/or proposed corrective actions
+for Recommendations 1-7. NSF has determined that the corrective actions taken for recommendations
+2, 3, 4, 6, and 7 by Duke are responsive to the compliance and internal control recommendations.
+Recommendations 1 and 5 will remain open until Duke completes its proposed actions.
+
+Final action for Finding 11 will be complete upon the determination by NSF that remaining corrective
+actions taken are responsive to the report recommendations.
+
+Based on the above, the total disallowed amount is $663,284. Repayment of $663,284 must be made
+via www.pay.gov. Please reference OIG Audit Report No. 20-1-008 in the comments section as well as
+on all documentation. Any necessary adjustments to ACM$ as a result of the repayment will be made
+by the NSF Division of Financial Management (DFM). Repayment of disallowed costs must be received
+no later than 90 days from the date of this letter. Failure to provide timely repayment may result in
+DFM initiating formal collection through the Department of Treasury, Debt Management Services.
+Duke University
+Audit No. 20-1-008
+Page 7
+
+Compliance and Internal Control Recommendations for Finding 7 -Recommendation 3 and Finding 11-
+Recommendations 2, 3, 4, 6, and 7 were resolved. The remaining compliance and internal control
+recommendations (1: 3-12; 2: 3-8; 3: 2-3; 4: 2-3; 5: 3-4; 6: 2-3; 8: 2; 9: 2; 10: 1; 11: 1 and 5) are
+addressed in the resolution plan proposed by Duke. NSF has agreed to the resolution plan and
+timeline.
+
+Attached is a Summary Schedule of Allowed and Disallowed Costs, which includes the Compliance and
+Internal Control Recommendations requiring final action. Upon verification that repayment of the
+remaining $663,284 of disallowed costs has been completed and that corrective actions are responsive
+to the compliance and internal control recommendations in the audit report, OIG Audit Report 20-1-008
+will be fully closed out by NSF.
+
+Please be aware that Duke University’s right to appeal cost disallowances by NSF is outlined in Chapter
+XII.B of the NSF Proposal and Award Policies and Procedures Guide (PAPPG), which may be found online
+at: https://www.nsf.gov/publications/pub_summ.jsp?ods_key=pappg. An appeal must be filed within
+30 days from the date of this letter, or February 18, 2023.
+
+The University’s timely responses and cooperation with the NSF audit resolution process are greatly
+appreciated. Should you have any questions regarding this letter or the NSF audit resolution process,
+please feel free to contact Liz DeHart at edehart@nsf.gov or Charlotte Grant-Cobb at cgrantco@nsf.gov.
+
+                                               Sincerely,
+
+                                               Charlotte D. Grant-Cobb
+                                               Charlotte D. Grant-Cobb, Lead Analyst
+                                               Resolution and Advanced Monitoring Branch
+                                               Division of Institution and Award Support
+
+
+    Attachment: Schedule of Allowed and Disallowed Costs
+Duke University
+Audit No. 20-1-008
+Page 8
+
+ OIG 20-1-008         Duke University (Duke)
+                     ATTACHMENT 1: Summary Schedule of Allowed and Disallowed Costs
+                                                                                      To Repay via
+ Finding              Audit Report Description   Questioned Allowed Disallowed            Pay.gov
+
+       1              Unallowable Expenses
+ Sustained            Award No. 1326646             $94,817        $0    $94,817          $94,817
+                      Award No. 1457690              $2,293        $0     $2,293           $2,293
+                      Award No. 0635449              $2,463        $0     $2,463           $2,463
+                      Award No. 0951690              $6,775        $0     $6,775           $6,775
+                      Award No. 1453343              $4,853        $0     $4,853           $4,853
+                      Award No. 1456832              $1,871        $0     $1,871           $1,871
+                      Award No. 1534412             $13,923        $0    $13,923          $13,923
+                      Award No. 1534412              $7,417    $7,417         $0               $0
+                      Award No. 1534412              $2,021    $2,021         $0               $0
+                      Award No. 1534412                  $0    $2,339         $0               $0
+                      Award No. 0905606             $43,505        $0    $43,505          $43,505
+                      Award No. 1326646              $5,034        $0     $5,034           $5,034
+                      Award No. 1705963             $22,717        $0    $22,717          $22,717
+                      Award No. 1705963             $22,931        $0    $22,931          $22,931
+                      Award No. 1146383             $19,680        $0    $19,680          $19,680
+                      Award No. 1338694                $942        $0       $942             $942
+                      Award No. 1423963              $2,616        $0     $2,616           $2,616
+                      Award No. 0635449                $488        $0       $488             $488
+                      Award No. 0951690                $280        $0       $280             $280
+                      Award No. 1119715              $5,417        $0     $5,417           $5,417
+                      Award No. 1534412                $935        $0       $935             $935
+                      Award No. 1534412              $1,110        $0     $1,110           $1,110
+                      Award No. 1460180              $1,231        $0     $1,231           $1,231
+                      Award No. 1614593              $1,700        $0     $1,700           $1,700
+                      Award No. 1808108              $3,050        $0     $3,050           $3,050
+                      Subtotal Finding 1           $270,408   $11,777   $258,631         $258,631
+
+                     Inadequately Supported
+       2             Expenses
+ Sustained            Award No. 1443014            $228,141       $0    $228,141         $228,141
+                      Award No. 1503177              $3,000       $0      $3,000           $3,000
+                      Award No. 1614593                $600       $0        $600             $600
+                      Award No. 1417750              $6,000       $0      $6,000           $6,000
+                      Award No. 1461565              $4,700       $0      $4,700           $4,700
+                      Award No. 1460180                $945       $0        $945             $945
+                      Award No. 1456832              $2,296       $0      $2,296           $2,296
+                      Award No. 1208809                $317       $0        $317             $317
+                      Award No. 1644868                $636       $0        $636             $636
+                      Subtotal Finding 2           $246,635       $0    $246,635         $246,635
+Duke University
+Audit No. 20-1-008
+Page 9
+
+ OIG 20-1-008         Duke University (Duke)
+                     ATTACHMENT 1: Summary Schedule of Allowed and Disallowed Costs
+
+                                                                                      To Repay via
+     Finding          Audit Report Description   Questioned   Allowed Disallowed        Pay.gov
+
+               Inappropriately
+               Established Supplemental
+       3       Salary Appointments
+ Not Sustained Award No. 1146383                      $773                 $773             $773
+                Award No. 1352672                   $11,102              $11,102          $11,102
+                Award No. 1418333                   $13,008              $13,008          $13,008
+                Award No. 1558113                   $20,867              $20,867          $20,867
+                Award No. 1257882                   $23,107   $23,107         $0               $0
+                Award No. 1745595                    $9,066    $9,066         $0               $0
+                Subtotal Finding 3                  $77,923   $32,173    $45,750          $45,750
+
+
+                     Inappropriate
+                     Drawdown of Expiring
+       4             Appropriations
+ Sustained            Award No. 0846437             $28,593       $0     $28,593          $28,593
+                      Award No. 1046065              $1,299       $0      $1,299           $1,299
+                      Subtotal Finding 4            $29,892       $0     $29,892          $29,892
+
+
+                      Expenses Not
+                     Appropriately Allocated
+       5             to NSF Awards
+ Sustained            Award No. 1441497              $9,137       $0      $9,137           $9,137
+                      Award No. 1121107              $1,089       $0      $1,089           $1,089
+                      Award No. 1146383              $2,019       $0      $2,019           $2,019
+                      Award No. 1554181              $1,789       $0      $1,789           $1,789
+                      Award No. 1534412              $9,939       $0      $9,939           $9,939
+                      Award No. 1501954              $1,687       $0      $1,687           $1,687
+                      Award No. 1550911              $2,592       $0      $2,592           $2,592
+                      Award No. 1644757               $467        $0       $467             $467
+                      Subtotal Finding 5            $28,719       $0     $28,719          $28,719
+
+
+
+                     Goods and Services Not
+       6             Appropriately Procured
+ Sustained            Award No. 1044191              $6,280       $0      $6,280           $6,280
+                      Award No. 1624645             $17,126       $0     $17,126          $17,126
+                      Subtotal Finding 6            $23,406       $0     $23,406          $23,406
+Duke University
+Audit No. 20-1-008
+Page 10
+
+ OIG 20-1-008         Duke University (Duke)
+                     ATTACHMENT 1: Summary Schedule of Allowed and Disallowed Costs
+                                                                                      To Repay via
+         Finding Audit Report Description      Questioned    Allowed Disallowed           Pay.gov
+
+                     Insufficient Review of
+       7             Payments to Consortium
+ Sustained            Award No. 1249135            $10,144    $1,672      $8,472           $8,472
+                      Award No. 1249135             $1,984        $0      $1,984           $1,984
+                      Award No. 1249135              $360         $0       $360             $360
+                      Award No. 1249135                $38        $0         $38              $38
+                      Subtotal Finding 7           $12,526    $1,672     $10,854          $10,854
+
+
+                     Non-Compliance with
+                     NSF Award Terms and
+       8             Conditions
+ Sustained           Award No. 1644868             $10,000        $0     $10,000          $10,000
+                     Subtotal Finding 8            $10,000        $0     $10,000          $10,000
+
+
+
+                     Indirect Costs Not
+       9             Appropriately Applied
+ Sustained            Award No. 1045153             $8,183        $0      $8,183           $8,183
+                      Award No. 1708741             $1,214        $0      $1,214           $1,214
+                      Subtotal Finding 9            $9,397        $0      $9,397           $9,397
+
+
+                Indirect Costs
+               Inappropriately
+               Applied at the Provisional
+      10       Rate
+ Not Sustained Multiple awards                          $0        $0          $0               $0
+
+
+                      Non-compliance with
+       11             Duke Policies
+ Sustained            Multiple awards                   $0        $0          $0               $0
+
+ TOTALS                                           $708,906   $45,622    $663,284         $663,284
+Duke University
+Audit No. 20-1-008
+Page 11
+
+ OIG 20-1-008        Duke University (Duke)   ATTACHMENT 1 (continued)
+       COMPLIANCE AND INTERNAL CONTROL RECOMMENDATIONS
+
+                                                           Final Action
+      Finding                Recommendation(s)              Required
+         1                         3-12                        yes
+         2                          3-8                        yes
+         3                          2-3                        yes
+         4                         2-3                         yes
+         5                          3-4                        yes
+         6                          2-3                        yes
+         7                           3                          no
+         8                           2                         yes
+         9                           2                         yes
+         10                          1                         yes
+         11                          1                         yes
+                                     2                          no
+                                     3                          no
+                                     4                          no
+                                     5                         yes
+                                     6                          no
+                                     7                          no
+

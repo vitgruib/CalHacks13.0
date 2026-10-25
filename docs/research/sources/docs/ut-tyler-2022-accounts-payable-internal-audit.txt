@@ -1,0 +1,268 @@
+                           .UTTyler              THE UNIVERSITY OF TEXAS AT TYLER
+
+
+                                                   Internal Audit Department
+
+July 13, 2022
+
+Dr. Kirk Calhoun
+President
+The University of Texas at Tyler
+3900 University Blvd.
+Tyler, TX 75799
+
+Dr. Calhoun,
+
+We have completed the Accounts Payable Audit as part of the University of Texas at Tyler’s (UTT) Fiscal
+Year (FY) 2022 Audit Plan. The objective of this audit was to review the Institution’s processes and
+controls within Accounts Payable to ensure there are no duplicate payments submitted or duplicate
+vendors set up in the vendor master file. This audit consisted of testing for the UTT Main campus only.
+The scope of the audit is from September 1, 2019, through March 3, 2022.
+
+This audit was conducted in accordance with guidelines set forth in The Institute of Internal Auditors’
+International Standards for the Professional Practice of Internal Auditing and Generally Accepted
+Government Auditing Standards. We appreciate the assistance provided by management and other
+personnel and hope the information presented in our report is helpful.
+
+Sincerely,
+
+
+
+Stephen Ford
+Vice President, Chief Audit Executive
+
+Enclosure
+cc:
+Dr. Amir Mirmiran, Executive Vice President, Academic Affairs, Provost
+Ms. Kris Kavasch, Senior Vice President, Finance, Chief Financial Officer / Interim Chief Business Officer
+Dr. Kimberly Laird, Senior Vice President, Business Affairs, Chief Operating Officer
+Ms. Cindy Troyer, Director Financial Services
+Dr. Archie Holmes, UT System Executive Vice Chancellor for Academic Affairs
+Dr. John Zerwas, UT System Executive Vice Chancellor for Health Affairs
+Mr. Patrick Francis, UT System Associate Vice Chancellor for Health Affairs
+Mr. J. Michael Peppers, UT System Chief Audit Executive
+Legislative Budget Board audit@lbb.texas.gov
+Governor budgetandpolicyreports@gov.texas.gov
+State Auditor’s Office iacoordinator@sao.state.tx.us
+The University of Texas at Tyler
+Accounts Payable Audit
+Fiscal Year 2022
+
+
+
+
+                                   Accounts Payable Audit
+
+
+
+
+                  • UTTyler        THE UNIVERSITY OF TEXAS AT TYL ER
+
+
+
+
+                                        July 13, 2022
+
+
+
+                                   INTERNAL AUDIT DEPARTMENT
+                                    3900 UNIVERSITY BOULEVARD
+                                        TYLER, TEXAS 75799
+The University of Texas at Tyler
+Accounts Payable Audit
+Fiscal Year 2022
+
+
+AUDIT OBJECTIVE
+The objective of the audit was to assess the current processes and controls within Accounts Payable on
+the UT Tyler Main campus to ensure there were no duplicate payments or active duplicate vendors in
+the Vendor Master File.
+
+
+CONCLUSION
+The audit revealed opportunities to strengthen policies and procedures as well as monitoring for
+duplicate payments and accurate vendor data in the Vendor Master File.
+
+
+OBSERVATIONS
+ This audit identified opportunities for improvement related to the following:
+ 1   Medium      Policy Review and Updates
+ 2   Medium      Duplicate Payments
+ 3   Medium      Possible Duplicates in Vendor Master File
+ 4   Medium      Vendors with Active Status with No Recent Payments
+
+
+#1: Policy Review and Updates
+                                            HOP Policy 4.6.3, "Payments - Accounts Payable" states the
+  Medium: Outdated policies increases       policy should be reviewed every five (5) years. The last
+  the risk of incorrect payment             review date noted is April 15, 2016.
+  processing.
+                                              Opportunity for Improvement: As part of the Institution’s
+        policy integration efforts, leadership should perform a detailed review of the Main Campus and
+        HSC campus policies currently in place related to vendor files and accounts payable.
+
+        Management Response –Title of Responsible Person: Director of Financial Services.
+
+        HOP Policy 4.6.3, “Payments – Accounts Payable” has been revised and approved by the HOP
+        committee as recommended and is in the queue to be posted to the HOP.
+
+        Anticipated Implementation Date: November 30, 2022
+
+
+#2: Duplicate Payments
+                                           A review of the 26,758 vouchers totaling over $119 million
+ Medium: Duplicate payments can            paid during the scope of the audit utilizing data analytics
+ occur and be unresolved without           identified 12 potential duplicate payments. Further review
+ monitoring.                               of these 12 identified items revealed that 9 were not
+                                           duplicate payments, 2 were duplicate payments identified
+and resolved by the department prior to the audit, and 1 was an unresolved duplicate payment. The
+unresolved duplicate payment was in the amount of $250 originating from 1 UT Tyler Main Campus
+department to another UT Tyler Main Campus department. This represented less than 0.004% of the
+transactions and 0.0002% of the payment amount during the period under review. This was caused by
+The University of Texas at Tyler
+Accounts Payable Audit
+Fiscal Year 2022
+
+
+the paying department erroneously paying an invoice twice and not noting the error during the account
+reconciliation process.
+
+        Opportunity for Improvement: Departments should carefully monitor payments and account
+        reconciliations to assure duplicate payments are not made or are corrected if made in
+        error. Financial Services should consider using data analytics to review for duplicate payments
+        in the future on a continuing basis.
+
+        Management Response –Title of Responsible Person: Director of Financial Services.
+
+        Financial Services agrees that using a data analytics tool in the future will allow for current
+        corrections if needed. Financial Services is committed to implementing consistent monitoring
+        and reviewing processes and will coordinate running such reports with the Internal Audit team.
+
+        Anticipated Implementation Date: All identified possible duplicate payments were researched
+        and resolved by May 31, 2022.
+
+
+#3: Possible Duplicates in Vendor Master File
+                                          Data analytics tested for possible duplicates including
+ Medium: Vendors with multiple files      vendor name, address, bank account number, and
+ in the Vendor Master File increases      identification number. These duplicates can occur when a
+ the risk of duplicate payments and       new vendor is created instead of updating the record for an
+ the risk of using outdated vendor        existing vendor. Data analytics identified 308 possible
+ information for a payment.               duplicated active vendors in the Master File. This represents
+                                          3% of the total vendors in the Master File.
+
+        Opportunity for Improvement #1: Financial Services should review the Vendor Master File and
+        update the vendor status so that only one (1) vendor record is "Active", where appropriate.
+
+        Opportunity for Improvement #2: Financial Services should develop and implement policies
+        and procedures to monitor the Vendor Master file for duplicate vendors.
+
+        Management Response –Title of Responsible Person: Director of Financial Services.
+
+        #1 Financial Services is reviewing the data file provided by Internal Audit in order to verify all
+        records identified which must remain in Approved status and available for active use. All
+        records not needed for active use will be updated to an Unapproved status which prevents
+        further use.
+
+        #2 Financial Services agrees that the Vendor database must be monitored for duplicates and will
+        update internal department procedures to incorporate this activity. Financial Services is
+        committed to implementing consistent monitoring and reviewing processes and will coordinate
+        running such reports with the Internal Audit team.
+
+        Anticipated Implementation Date: December 31, 2022
+The University of Texas at Tyler
+Accounts Payable Audit
+Fiscal Year 2022
+
+
+
+
+#4: Active Vendors with No Recent Payments
+                                       Vendors should only have an "Active" status if there are
+ Medium: Active vendors without        recent payments or future payments are
+ recent payments increase the risk of  expected. Currently, the Vendor Master File contains over
+ inaccurate vendor information and of  2,000 "Active" vendors who have not received a payment
+ payments made to an incorrect         during the past 4 years. Maintaining these as "Active"
+ vendor.                               vendors increases the risk that vendor data is not current,
+                                       and payments may be made to an incorrect vendor.
+
+        Opportunity for Improvement: Financial Services Policies should be updated to include
+        deactivating vendors that have not had a payment within a determined time frame. The
+        vendors who have not received a payment during this time frame should be changed to
+        "Unapproved" status, so the vendor is no longer active.
+
+        Management Response –Title of Responsible Person: Director of Financial Services.
+
+        Financial Services agrees and will update internal department procedures to incorporate this
+        activity and is also collaborating with UT System IT Support (SIS) to Inactivate any unused vendor
+        records and change to an Unapproved status those used records where no Purchase Order or
+        payment Voucher activity exists during the last two years. As discussed, we have elected to
+        keep two years of used records in Approved status and available for active use in order to more
+        fully make use of updating records via the PaymentWorks supplier/payee electronic system.
+
+        Anticipated Implementation Date: December 31, 2022
+
+
+Other Comments
+A review of the data identified 28 active employees with an active vendor file. Twenty of these received
+payment prior to their hire date and 8 received payment after hire date. UT System Policy #159 requires
+approval by the President for purchases from an employee. Financial Services should review these 28
+files to determine if approval is on file as required and change the status to “Unapproved”, so the
+vendor is no longer active, where appropriate.
+
+We sincerely appreciate the assistance of the Financial Services Department during this project.
+The University of Texas at Tyler
+Accounts Payable Audit
+Fiscal Year 2022
+
+
+BACKGROUND
+This audit was part of the UTT Fiscal Year (FY) 2022 Annual Audit Plan as a risk-based audit. The
+Accounts Payable function at UTT is decentralized. This audit consisted of testing for the UTT Main
+campus only. UTT Main campus departments originate a vendor request when a new vendor is
+identified, and then process payments based on invoices received. Upon departmental approval, the
+electronic documents automatically route to the Financial Services Department for review and approval.
+The PeopleSoft Financial System has automated controls related to Accounts Payable.
+
+
+STANDARDS
+The audit was conducted in accordance with guidelines set forth in The Institute of Internal Auditors’
+Standards for the Professional Practice of Internal Auditing and Generally Accepted Government Auditing
+Standards.
+
+
+SCOPE AND PROCEDURES
+The scope of this audit was vouchers paid from September 1, 2019, through March 3, 2022, and the
+Vendor Master File as of March 2, 2022. Procedures conducted included, but were not limited to:
+
+    •   Reviewing applicable policies and procedures for key departments involved in the accounts
+        payable and vendor management process;
+    •   Utilizing data analytics software, in collaboration with a data analytics software expert at the UT
+        System Audit Office, to identify potential duplicate payments and duplicate vendors; and
+    •   Reviewing supporting documentation for all identified possible duplicate payments.
+
+IAD will work with Management to verify the implementation status of management responses and
+target implementation dates to each recommendation noted above. The goal of this process is to help
+ensure that timely action is taken to address each observation.
+
+
+OBSERVATION RANKINGS
+Internal audit across the UT System uses a consistent process to evaluate audit results based on risk
+factors and the probability of a negative outcome.
+
+ Legend
+             A finding is defined as an issue that if not addressed immediately, has a high probability to
+ Priority
+             directly impact achievement of a strategic or important operational objective of UT Tyler.
+
+             A finding that is considered to have a medium to high probability of adverse effects to UT
+ High
+             Tyler as a whole or to a significant college or department.
+
+             A finding that is considered to have a low to medium probability of adverse effects to UT
+ Medium
+             Tyler as a whole or to a college or department.
+             A finding that is considered to have a minimal probability of adverse effects to UT Tyler as
+ Low         a whole or to a college or department. These findings are communicated separately to
+             management.
+

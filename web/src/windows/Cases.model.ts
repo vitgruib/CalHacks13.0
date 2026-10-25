@@ -95,7 +95,7 @@ function fundingCases(db: Db, g: Grant, holds: Hold[]): Case[] {
       timeline: events.filter(e => !lastCancel || e.day >= lastCancel.day).map(e => ({ day: e.day, what: `${e.summary} (${e.source})` })),
       missing: disagree && !restoredNoCash ? 'Sources that agree, or your pick of which one is right.'
         : `A payment from the funder dated after ${lastCancel?.day ?? 'the cancellation'}. A court order is not cash.`,
-      rules: [{ rule: 'Grant is active and not frozen', detail: g.frozenReason ?? 'Frozen.' }],
+      rules: [{ rule: 'Grant is active and not frozen', detail: g.frozenReason ?? 'Frozen.', auditCase: AFTER_END }],
       next: sourceHold && !sourceHold.decision ? INBOX : { text: 'See the grant in Funds', href: '#funds' },
       decision: sourceHold?.decision,
     })
@@ -122,7 +122,7 @@ function fundingCases(db: Db, g: Grant, holds: Hold[]): Case[] {
       timeline: [...events.filter(e => e.kind === 'canceled' || e.kind === 'court_order' || e.kind === 'payment_received').map(e => ({ day: e.day, what: `${e.summary} (${e.source})` })),
         ...orders.map(o => ({ day: o.placed, what: `Order ${o.id} placed with ${o.vendor} for ${money(o.amount)}` }))].sort(byDay),
       missing: f.kind === 'spend_while_canceled' ? 'A reason the cost belongs on this grant even though it was canceled, or a move of the cost to another grant.' : undefined,
-      rules: [], next: { text: 'See the flag in Funds', href: '#funds' },
+      rules: f.kind === 'spend_while_canceled' ? [{ rule: 'No new costs while a grant is canceled', detail: '', auditCase: AFTER_END }] : [], next: { text: 'See the flag in Funds', href: '#funds' },
     })
   }
   return out
@@ -157,7 +157,8 @@ function invoiceCase(db: Db, inv: Invoice, hold: Hold | undefined): Case | undef
     title: `${inv.vendor} bill for ${money(inv.amount)} doesn't match its order`,
     conflict: inv.mismatch ?? hold?.why ?? 'The invoice does not match its order and approval.',
     records, timeline: inv.timeline, missing,
-    rules: [{ rule: 'Invoice needs an open order and the approved amount', detail: '' }],
+    rules: [{ rule: 'Invoice needs an open order and the approved amount', detail: '',
+      auditCase: order?.state !== 'canceled' && approved !== undefined ? ABOVE_APPROVAL : undefined }],
     next: hold && !hold.decision ? INBOX : { text: 'See it in Invoices', href: '#invoices' },
     decision: hold?.decision,
   }
@@ -229,6 +230,13 @@ const statusOrder: Record<CaseStatus, number> = { needs_you: 0, stopped: 1, note
 const kindOrder: Record<CaseKind, number> = { funding: 0, spend: 1, invoice: 2, purchase: 3, payment_request: 4, report: 5, other: 6 }
 
 /** Every case on every grant: needs-you first, then by kind, newest first. */
+// Closest real audit for each failure mode, from
+// docs/research/pain-points/15-impossible-spend.md (all [verified]). No audit
+// covers spending during a 2025 suspension, so the frozen-grant cases cite
+// charges after an award ended. Nothing found for billing a canceled order.
+const AFTER_END = 'NSF OIG 15-1-014 (UW-Madison, 2015): $56,965 questioned for expenses incurred after the award period expired; one order was placed 8 days after the end date.'
+const ABOVE_APPROVAL = 'Texas Comptroller post-payment audit of UT Tyler (2024): the vendor\'s invoice added freight the purchase order didn\'t include, and the order was changed to add it only after the invoice arrived.'
+
 export function buildCases(db: Db): Case[] {
   const holds = db.holds
   const used = new Set<string>()

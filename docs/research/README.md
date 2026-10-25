@@ -36,6 +36,7 @@ git history.
 | [08](pain-points/08-unallowable-purchases-audits.md) | The same purchase mistakes keep failing audits | core | Spending rules (§3.2) |
 | [09](pain-points/09-erp-outages.md) | Finance-system rollouts freeze purchasing and billing | supporting | Context only |
 | [10](pain-points/10-drawdown-justification.md) | Every federal drawdown needs a written justification | core | Payment request writer (§3.4) |
+| [15](pain-points/15-impossible-spend.md) | Payments that look fine alone but conflict with another record (dates, limits, duplicates, effort) | core | Case file (grant office) |
 
 ## Planted mistakes and their real precedents
 

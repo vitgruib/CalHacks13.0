@@ -1,0 +1,435 @@
+N
+
+
+
+
+    Risk Assessment of NSF’s Purchase
+    Card Program for Fiscal Years 2022
+    and 2023
+
+
+
+
+U.S. NATIONAL SCIENCE FOUNDATION   September 9, 2025
+Office of Inspector General        OIG 25-06-001
+922989.
+
+
+
+
+                 U.S. NATIONAL SCIENCE FOUNDATION
+                 Office of Inspector General
+
+MEMORANDUM
+
+DATE:               September 9, 2025
+
+TO:                 Patrick Breen
+                    Division Director
+                    Division of Acquisition and Cooperative Support
+
+
+
+FROM:               Theresa S. Hull
+                    Assistant Inspector General
+                    Office of Audits, Inspections, and Evaluations
+
+SUBJECT:            Final Report No. 25-06-001, Risk Assessment of NSF’s Purchase Card Program
+                    for Fiscal Years 2022 and 2023
+
+Attached is the final report on the subject assessment. We have included NSF’s response to the
+draft report as an appendix. NSF concurred with all our recommendations. In accordance with
+Office of Management and Budget Circular A-50, please provide a written corrective action plan
+to address the report recommendations. The plan should detail specific actions and associated
+milestone dates. Please provide the plan within 60 calendar days.
+
+We appreciate the courtesies and assistance NSF staff provided during the assessment. If you
+have any questions, please contact Jeremy Hall, Audit Manager, at 703-292-7100 or
+OIGPublicAffairs@nsf.gov.
+
+
+
+
+CC: Christina Sarris, Micah Cheatham, Angel Williams, Aaron Dominguez, Victor McCrary,
+Wanda Ward, Scott Stanley, John Veysey, Ann Bushmiller, Shannon Hayes, Raymond McCollum
+`
+
+
+Executive Summary
+We conducted a risk assessment of NSF’s purchase card program to determine whether an
+audit is necessary. The risk assessment results show that the risk of illegal, improper, or
+erroneous use in NSF’s purchase card program is low. 1 Therefore, we did not expand our work
+to conduct an audit. However, we found that purchase cardholders and approving officials did
+not always follow NSF’s guidance for split purchases and purchases made with donated funds.
+We made three recommendations to help prevent improper split purchases and ensure
+donated funds are used properly.
+
+
+Background
+The Government Charge Card Abuse Prevention Act of 2012 (Public Law 112–194) implemented by
+Office of Management and Budget (OMB) Circular A-123, Appendix B, requires the Office of
+Inspector General (OIG) to conduct periodic risk assessments of agency purchase card
+programs. The assessments are conducted to identify and analyze the risk of illegal, improper,
+or erroneous purchases and payments and to determine the appropriate scope, frequency,
+and number of periodic audits of these programs. The Division of Acquisition and Cooperative
+Support within NSF’s Office of Budget, Finance & Award Management is primarily responsible
+for administering the purchase card program. At NSF, the program participants include: (1)
+NSF’s agency program coordinators (APC), who are responsible for the issuance of cards, serve
+as the liaison between cardholders and the issuing bank, and provide general oversight of the
+program; (2) approving officials (AO), who are responsible for ensuring that cardholders
+properly use purchase cards; and (3) purchase cardholders, who use purchase cards to buy
+supplies and services in support of official government business.
+
+The objective of this risk assessment was to identify and analyze the risk of illegal, improper, or
+erroneous purchases and payments with NSF’s purchase card program to determine an overall
+risk level for the program. The scope of our risk assessment covered October 1, 2021, to
+September 30, 2023, and included 10,743 transactions totaling $10.8 million. Please see
+Appendix A for a description of our methodology.
+
+
+Results of Risk Assessment
+Based on our analysis of NSF’s internal controls, purchase card spending, and a sample of
+purchase card transactions, we determined that the overall risk of illegal, improper, or
+erroneous use in NSF’s purchase card program is low. 2 Therefore, we did not expand our work
+
+1
+ A risk level of low means that the impact will not significantly affect the organization’s ability to achieve one or more
+of its objectives or performance goals.
+2
+ Although we determined the purchase card program's risk is low, the risk assessment should not be interpreted to
+mean that the program is free from illegal, improper, or erroneous purchases and payments or that the risk
+assessment will remain unchanged.
+
+OIG 25-06-001                                               1                                            OIG.NSF.GOV
+`
+
+to conduct an audit. Our determination of the overall risk score was based on strategic,
+operational, reporting, and compliance risk. The definitions of each risk category and scoring
+rationale are contained in Appendix B. NSF has developed and maintained adequate controls
+over the purchase card program, which help reduce the risk of illegal, improper, or erroneous
+payments.3
+
+
+Results of Transaction Testing
+To ensure that NSF’s internal controls were properly designed to prevent illegal, improper, or
+erroneous purchases and payments, we judgmentally selected a sample of 50 high-risk
+transactions in various risk categories for review. Because we targeted riskier transactions, our
+judgmental sample had a higher probability of identifying improper, illegal, or erroneous
+payments than a random sample. See Figure 1 for details on dollar amount and transaction
+selection count by category.
+
+Figure 1. Transaction Selection Summary
+
+                                Transaction Selections
+      12                                                                                     $120,000.00
+      10                                                                                     $100,000.00
+       8                                                                                     $80,000.00
+       6                                                                                     $60,000.00
+       4                                                                                     $40,000.00
+       2                                                                                     $20,000.00
+       0                                                                                     $-
+
+
+
+
+                                 Count Selected:         Dollar Amount Selected:
+
+Source: OIG analysis of transaction selection from the Purchase Card General Ledger.
+
+We reviewed supporting documentation to assess internal controls, compliance with federal
+regulations, and applicable NSF policies and procedures. Our testing showed that most of the
+purchases were legal and followed the proper approval process.
+
+However, NSF management did not always enforce its policies and procedures to ensure
+purchases complied with purchase card requirements. We found five exceptions related to split
+transactions and improper purchases made with donated funds. Specifically, 3 out of the 50
+high-risk transactions we tested were improper split purchases totaling $30,000. A split
+purchase is the intentional division of a purchase to stay within a cardholder’s single purchase
+
+3
+ Internal controls cannot provide absolute assurance that purchase card transactions are proper and legal due to
+human error and other limitations.
+
+OIG 25-06-001                                           2                                          OIG.NSF.GOV
+`
+
+limit or the maximum purchase threshold to avoid other procurement methods or competition
+requirements.
+
+In addition, 2 transactions out of the 50 high-risk transactions we tested were improper gift
+cards for staff that were purchased with donated funds totaling $1,850. According to 42 U.S.C. §
+1870, NSF has authority to receive and use funds donated by others if the funds are used in the
+furtherance of one or more of the general purposes of the Foundation. NSF’s APC agreed the
+gift card purchases were improper because NSF Purchase Card Policy Manual states
+appropriated funds may not be used for the purchase of personal gifts unless there is specific
+statutory authority.
+
+We found purchase cardholders and AOs did not follow NSF guidance when making and
+approving these transactions. For example, in one case involving a split purchase, the purchase
+card holder did not obtain their AO’s approval as required before completing the purchase. In
+the case of the gift cards, the purchase card holder did not obtain the NSF Director’s (or his
+designee’s) certification that using donated funds to purchase gift cards would be in
+furtherance of NSF’s mission.
+
+The overall risk score remains low because both the impact and likelihood of these improper
+transactions is low. Additionally, the total dollar amount of the five transactions in question was
+low and did not change the overall impact on the risk categories.
+
+
+Recommendations
+We recommend that the Director of NSF's Division of Acquisitions and Cooperative Support:
+
+    1. Strengthen oversight to prevent and identify split purchases.
+
+    2. Develop stronger purchase card controls over donated funds to prevent improper
+       purchases.
+
+    3. NSF review the details of the split purchases to determine whether the violations were a
+       result of a lack of knowledge/misunderstanding or intentional misconduct; and that NSF
+       address the root cause appropriately.
+
+
+
+OIG Evaluation of Agency Response
+NSF agreed with the recommendations associated with the findings. The NSF response is
+attached to the report as Appendix C.
+
+
+
+
+OIG 25-06-001                                    3                                   OIG.NSF.GOV
+`
+
+
+Appendix A: Objective, Scope, and Methodology
+The objective of this risk assessment was to identify and analyze the risk of illegal, improper, or
+erroneous purchases and payments with NSF’s purchase card program to determine an overall
+risk level for the program. The scope of our risk assessment covered October 1, 2021, to
+September 30, 2023, which included 10,743 transactions totaling $10.8 million.
+
+To answer the objectives, we reviewed the following:
+    Appendix B to Office of Management and Budget Circular No. A-123, A Risk Management
+      Framework for Government Charge Card Program;
+    Government Charge Card Abuse Prevention Act of 2012;
+    NSF's policies, directives, and procedures;
+    Data files related to the number of cardholders, limits, amounts, and number of
+      transactions;
+    Prior OIG audits and recommendations; and
+    NSF’s response to Federal Managers’ Financial Integrity Act Requirements.
+
+For our risk assessment, we considered NSF’s internal controls, analyzed NSF’s purchase card
+spending, and performed sample testing on 50 transactions totaling $249,476 to determine the
+level of risk. We judgmentally selected the 50 transactions from the purchase card issuer’s data
+file from October 1, 2021, through September 30, 2023. Our selection criteria included risk
+factors such as:
+      Transactions near the $10,000 purchase card limit;
+      Potential split transactions;
+      Restricted and infrequent merchant category codes;
+      Transactions that potentially violate appropriations law, such as entertainment
+        expenses and personal expenses;
+      Purchases that could require a contract based on Federal Acquisition Regulations; and
+      Holiday transactions.
+
+
+Table 1 describes the controls we tested and provides examples of NSF’s efforts related to each
+control.
+
+Table 1. OIG Summary of NSF’s Purchase Card Controls
+           Control                                      Examples
+                           NSF’s Purchase Card Handbook and Policy Manual provides NSF
+                           program participants with a reference guide that outlines NSF
+ Communicated roles and
+                           policies and procedures, roles and responsibilities, and tips for
+ responsibilities and
+                           using the government purchase card.
+ developed policies
+                           NSF holds initial and biennial refresher training for its APCs, AOs,
+                           and purchase cardholders.
+    Developed authorization     NSF’s policy requires AOs to approve purchases before the
+    controls                    cardholder makes a purchase.
+
+OIG 25-06-001                                    4                                   OIG.NSF.GOV
+`
+
+                                       NSF summarized its overall risk assessment results in its annual
+                                       Purchase Card Management Plan.
+    Assessed risks to the              NSF appropriately submitted its 2022 and 2023 Federal Managers
+    purchase card program              Financial Integrity Act Statement of Assurance, which establishes
+                                       internal accounting and administrative controls and did not
+                                       identify any risks with the purchase card program.
+                                       NSF conducts transaction reviews to ensure APCs, AOs, and
+                                       purchase cardholders reconcile and approve iTRAK transactions
+    Implemented oversight              within 30 days of the monthly bank statement.
+    procedures                         APCs conduct process reviews of each purchase cardholder’s
+                                       iTRAK files at least once every 3 years to ensure the cardholder is
+                                       following NSF’s policies and procedures.
+                                       NSF addressed previous audit recommendations related to the
+    Addressed past OIG
+                                       purchase card program, including updating its annual training.
+    findings
+
+Source: OIG Analysis
+
+We conducted this risk assessment between August 2024 and February 2025 with integrity,
+objectivity, and independence, as required by the Council of the Inspectors General on Integrity
+and Efficiency’s Quality Standards for Federal Offices of Inspector General. 4 Those standards set
+forth the overall quality framework for managing, operating, and conducting the work of
+Offices of Inspector General. The review adhered to applicable professional standards and was
+conducted with objectivity, independence, due professional care, quality assurance and
+followed procedures to ensure accuracy of the information presented.
+
+
+
+
+4
+ Council of the Inspectors General on Integrity and Efficiency, Quality Standards for Federal Offices of Inspector
+General, August 2012
+
+OIG 25-06-001                                               5                                            OIG.NSF.GOV
+`
+
+
+Appendix B: Risk Assessment and Scoring
+We used four risk categories to perform our risk assessment as defined in the Enterprise Risk
+Management (ERM) for the U.S. Federal Government (Playbook). The Playbook created by the
+Committee of Sponsoring Organizations of the Treadway Commission is a result of an
+interagency effort to gather, define, and illustrate practices in applying ERM in the federal
+context.
+
+The Playbook defines impact, likelihood, and risk likelihood. Likelihood is the level of possibility
+that a risk will occur, and Impact is the magnitude of deficiency that could result from the risk.
+We assigned a level of risk using the criteria in Table 2 and the risk impact using the criteria in
+Table 3 below.
+
+Table 2. Risk Likelihood Rating Scale
+    Rating                               Definition
+ High           The risk is very likely or reasonably expected to occur
+ Medium         The risk is more likely to occur than unlikely
+ Low            The risk is unlikely to occur
+Source: Enterprise Risk Management Playbook (Fall 2022 Update)
+
+Table 3. Risk Impact Rating Scale
+    Rating                                          Definition
+ High           The impact could preclude or highly impair the organization’s ability to achieve
+                one or more of its objectives or performance goals.
+ Medium         The impact could significantly affect the organization’s ability to achieve one or
+                more of its objectives or performance goals.
+ Low            The impact will not significantly affect the organization’s ability to achieve one
+                or more of its objectives or performance goals.
+Source: Enterprise Risk Management Playbook (Fall 2022 Update)
+
+We assessed the impact and likelihood of risk category, considering the effect of internal
+controls and other relevant documentation. We then combined the impact and likelihood of
+individual risk category levels to arrive at an average overall risk level which is documented in
+Table 4.
+
+
+
+
+OIG 25-06-001                                      6                                   OIG.NSF.GOV
+`
+
+Table 4. OIG Analysis of Impact, Likelihood, and Overall Risk Level, by Risk Category
+          Risk Category                   Likelihood                Impact           Overall
+ Strategic Risk: The risk of      Low: NSF has clearly      Low: The overall size of Low
+ failing to achieve strategic or  defined the use and       the purchase card
+ tactical objectives because the purpose of the program     program was less than
+ strategic and tactical planning in its Purchase Card       one-tenth of a percent
+ process, leadership, or          Program Handbook and      of NSF’s total budget.5
+ implementation of the            has provided training to
+ strategic plan is not fully      purchase card users.
+ effective.
+ Operational Risk: The risk of Low: Due to NSF’s pre-       Low: The overall size of Low
+ direct or indirect loss or other approval, reconciliation, the purchase card
+ negative effects on an agency and process reviews.         program was less than
+ due to inadequate or failed                                one-tenth of a percent
+ internal processes, or from                                of NSF’s total budget.
+ external events that impair
+ internal processes, people, or
+ systems.
+ Reporting Risk: The risk         Low: NSF has met          Low: NSF completed       Low
+ associated with the accuracy     standards and             reporting and planning
+ and timeliness of information requirements related to      documentation as
+ needed within the                reporting.                required. For example,
+ organization to support                                    NSF properly
+ decision making and                                        maintained a Purchase
+ performance evaluation, as                                 Card Management
+ well as outside the                                        Plan for risk
+ organization to meet                                       assessments.
+ standards, regulations, and
+ stakeholder expectations.
+ Compliance risk: Failure to      Low: NSF has adequate     Low: NSF has             Low
+ comply with applicable laws      internal controls related adequate internal
+ and regulations and failure to to compliance training,     controls related to
+ detect and report activities     handbooks, reviews of     compliance training,
+ that are not compliant with      each cardholder every 3   handbooks, reviews of
+ statutory, regulatory, or        years, and reviews of     each cardholder every
+ organizational requirements.     delinquent purchase card 3 years, and reviews of
+                                  accounts.                 delinquent purchase
+                                                            card accounts.
+
+Source: Enterprise Risk Management Playbook (Fall 2022 Update) and auditor analysis
+
+
+
+5
+ In FY 2022, the purchase card program was $4.67 million, and NSF’s total budget was $8.8 billion. In FY 2023, the
+purchase card program was $6.16 million, and NSF’s total budget was $9.9 billion.
+
+OIG 25-06-001                                             7                                          OIG.NSF.GOV
+Appendix C: Agency Response
+National Defense Authorization Act
+General Notification
+Pursuant to Pub. L. No. 117-263 § 5274, business entities and non-governmental organizations
+specifically identified in this report have 30 days from the date of report publication to review
+this report and submit a written response to NSF OIG that clarifies or provides additional
+context for each instance within the report in which the business entity or non-governmental
+organizations is specifically identified. Responses that conform to the requirements set forth in
+the statute will be attached to the final, published report.
+
+If you find your business entity or non-governmental organization was specifically identified in
+this report and wish to submit comments under the above-referenced statute, please send
+your response within 30 days of the publication date of this report to OIGPL117-263@nsf.gov,
+no later than October 12, 2025. We request that comments be in .pdf format, be free from any
+proprietary or otherwise sensitive information, and not exceed two pages. Please note, a
+response that does not satisfy the purpose set forth by the statute will not be attached to the
+final report.
+About Us
+NSF OIG was established in 1989, in compliance with the Inspector General Act of 1978
+(5 USC 401-24). Our mission is to provide independent oversight of NSF to improve the
+effectiveness, efficiency, and economy of its programs and operations and to prevent and
+detect fraud, waste, and abuse.
+
+
+Contact Us
+Address:
+U.S. National Science Foundation Office of Inspector General
+2415 Eisenhower Avenue
+Alexandria, VA 22314
+
+Phone: 703-292-7100
+
+Website: oig.nsf.gov
+Follow us on X (formerly Twitter): twitter.com/nsfoig
+
+Congressional, media, and general inquiries: OIGPublicAffairs@nsf.gov
+Freedom of Information Act inquiries: FOIAOIG@nsf.gov
+
+
+Report Fraud, Waste, or Abuse
+Report violations of laws, rules, or regulations; mismanagement; and research misconduct
+involving NSF operations or programs via our Hotline:
+
+      File online report: oig.nsf.gov/contact/hotline
+      Anonymous Hotline: 1-800-428-2189
+      Mail: 2415 Eisenhower Avenue, Alexandria, VA 22314 ATTN: OIG HOTLINE
+
+Have a question about reporting fraud, waste, or abuse? Email OIG@nsf.gov.
+
+
+Whistleblower Retaliation Information
+All NSF employees, contractors, subcontractors, awardees, and subawardees are protected
+from retaliation for making a protected disclosure. If you believe you have been subject to
+retaliation for protected whistleblowing, or for additional information on whistleblower
+protections, please visit oig.nsf.gov/whistleblower.
+

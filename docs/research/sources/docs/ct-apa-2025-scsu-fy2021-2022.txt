@@ -1,0 +1,1578 @@
+AUDITORS’ REPORT
+
+
+Southern Connecticut
+  State University
+    FISCAL YEARS ENDED JUNE 30, 2021 AND 2022
+
+
+
+
+                     STATE OF CONNECTICUT
+                      Auditors of Public Accounts
+
+JOHN C. GERAGOSIAN                          CRAIG A. MINER
+     State Auditor                             State Auditor
+                                     CONTENTS
+INTRODUCTION........................................................................................................................................................ 3
+
+S T A T E A U D I T O R S ’ F I N D I N G S A N D R E C O M M E N D A T I O N S ................................................... 4
+   Purchasing Cards (P-Card) Control Weaknesses ............................................................................................. 4
+   Purchasing of Professional Services Control Weaknesses ............................................................................. 6
+   Noncompliance with Procurement Policy ......................................................................................................... 7
+   Trustee Account Procurement Control Weakness .......................................................................................... 9
+   Unrecorded Assets ............................................................................................................................................. 11
+   Facilities Usage Revenue Agreements Control Weakness .......................................................................... 13
+   Information System Access – Untimely Terminations .................................................................................... 14
+   Lack of Salary Analysis - Management Salaries .............................................................................................. 15
+   Student Account Management Control Weakness ....................................................................................... 16
+   Part-Time Faculty/Lecturer Control Weakness – Appointment Contracts ................................................. 18
+   Overpayment of Sick Leave Balance at Separation ....................................................................................... 19
+   Untimely Cancellation of Unwanted Checks .................................................................................................. 20
+   Undocumented Compensating Controls ....................................................................................................... 21
+   Inadequate Controls over Rehired Retiree ..................................................................................................... 22
+S T A T U S O F P R I O R A U D I T R E C O M M E N D A T I O N S ..................................................................... 24
+
+O B J E C T I V E S , S C O P E , A N D M E T H O D O L O G Y .............................................................................. 26
+
+A B O U T T H E A G E N C Y ................................................................................................................................... 28
+                                            STATE OF CONNECTICUT
+
+
+
+
+                                      AUDITORS OF PUBLIC ACCOUNTS
+                                                     STATE CAPITOL
+JOHN C. GERAGOSIAN                                210 CAPITOL AVENUE                       CRAIG A. MINER
+                                            HARTFORD, CONNECTICUT 06106-1559
+
+
+
+
+November 5, 2025
+
+
+                                                  INTRODUCTION
+
+We are pleased to submit this audit of Southern Connecticut State University (SCSU) for the fiscal years
+ended June 30, 2021 and 2022 in accordance with the provisions of Section 2-90 of the Connecticut
+General Statutes. Our audit identified internal control deficiencies and instances of noncompliance with
+laws, regulations, or policies.
+
+The Auditors of Public Accounts wish to express our appreciation for the courtesies and cooperation
+extended to our representatives by the personnel of Southern Connecticut State University during the
+course of our examination.
+
+The Auditors of Public Accounts also would like to acknowledge the auditors who contributed to this
+report:
+
+    Andrew Collins
+    Mark Fortin
+    Marva Robinson
+    Linnette Stark
+
+
+
+
+                                                            Marva Robinson
+                                                            Principal Auditor
+
+Approved:
+
+
+
+
+John C. Geragosian                                          Craig A Miner
+State Auditor                                               State Auditor
+
+
+
+
+ Southern Connecticut State University 2021 and 2022                                                        3
+      STATE AUDITORS’ FINDINGS
+       AND RECOMMENDATIONS
+Our examination of the records of Southern Connecticut State University disclosed the following 14
+recommendations, of which seven were repeated from the previous audit.
+
+
+ Finding 1
+
+ Purchasing Cards (P-Card) Control Weaknesses
+
+ Background                          Southern Connecticut State University uses the state’s purchasing
+                                     card (P-Card) program to make certain inexpensive purchases not to
+                                     exceed $2,500. The program is sponsored by the Department of
+                                     Administrative Services Procurement Services and the Office of the
+                                     State Comptroller.
+
+
+ Criteria                            Southern Connecticut State University’s Purchasing Card (P-Card)
+                                     Policies and Procedures Manual states that every transaction
+                                     charged to a purchasing card must be supported by a receipt. The
+                                     manual also restricts use to the assigned cardholder and requires
+                                     the cardholder to reconcile transactions by the tenth day of the
+                                     following month.
+
+                                     The SCSU P-Card Policies and Procedures Manual also requires that
+                                     all goods purchased on P-Cards be delivered to the university
+                                     campus. It also prohibits the splitting of a single purchase into
+                                     multiple purchases to circumvent the single transaction dollar limit.
+
+                                     The SCSU Resident Advisor Manual states that individuals wishing to
+                                     use an organization or department P-Card must complete an online
+                                     P-Card Authorization Form prior to use.
+
+
+ Condition                           We reviewed five months of P-Card purchases for 15 cardholders
+                                     totaling $77,342 and noted:
+
+                                         1. Nine P-Card purchases by four cardholders, totaling $2,117,
+                                            lacked documentation supporting the purchases.
+
+                                         2. Someone other than the cardholder made three purchases,
+                                            totaling $1,321, on two P-Cards.
+
+                                         3. Thirty-four transactions, totaling $14,451, in which the
+                                            university did not provide a P-Card Authorization Form
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                          4
+                                             approving the use of three department or organization P-
+                                             Cards.
+
+                                         4. Four instances in which the university lacked adequate
+                                            support to verify that the cardholder completed timely
+                                            monthly P-Card reconciliations.
+
+                                         5. Ten instances in which purchases by three cardholders,
+                                            totaling $2,965, were not delivered to an address on the
+                                            university’s campus.
+
+                                         6. Four purchases that appear to have been split to circumvent
+                                            the $2,500 single purchase dollar limit. The university placed
+                                            orders for $1,038, $910, $1,377, and $467 (totaling $3,792)
+                                            with one vendor, on the same day.
+
+
+ Context                             P-Card purchases totaled $2,324,077 and $3,992,495 in fiscal years
+                                     2021 and 2022, respectively. We judgmentally selected three cards
+                                     from each of the five months reviewed; two months from fiscal year
+                                     2021 and three from fiscal year 2022.
+
+
+ Effect                              Noncompliance with purchasing card policies and procedures
+                                     decreases assurance that purchases were appropriate and properly
+                                     supported.
+
+
+ Cause                               Cardholders did not date monthly P-Card reconciliations, maintain
+                                     receipts for purchase or document approval to use department P-
+                                     Cards. Employees ignored P-Card requirements prohibiting the
+                                     splitting of purchases and use of P-Cards by someone other than the
+                                     assigned cardholder. Deliveries of goods to addresses other than
+                                     the university’s campus were a result of disruptions to operations
+                                     caused by the COVID-19 pandemic.
+
+
+ Prior Audit Finding                 This finding has previously been reported in the last five audit
+                                     reports covering the fiscal years 2010 through 2020.
+
+
+ Recommendation                      Southern Connecticut State University should strengthen internal
+                                     controls over purchasing card transactions by complying with the
+                                     SCSU P-Card Policies and Procedures Manual.
+
+
+ Agency Response                         1. “We agree with this finding. However, we would like to point
+                                            out Southern’s internal control process is able to detect the
+                                            errors and take corrective action.
+
+                                         2. We agree with this finding. Even though with permission,
+                                            purchases are allowed to be made by someone in the
+                                            department other than the P-Card holder. Going forward,
+                                            documentation will be obtained allowing the authorization.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                          5
+                                         3. We disagree with this finding. P-card authorization forms are
+                                            not part of the P-Card policy, but an internal control within
+                                            Residence Life and Student Life. This is not part of the
+                                            university’s P-Card policy and therefore should not be
+                                            considered an audit finding.
+
+                                         4. We agree with this finding. All P-Cards are reconciled online
+                                            monthly, but there is no time/date stamp collected to show
+                                            when the cards are reconciled online.
+
+                                         5. We agree with this finding. Since many university employees
+                                            work remotely since COVID 19, items are sometimes
+                                            shipped to an employee’s home since it is their primary
+                                            workplace. Going forward, the university will be amending
+                                            the P-card guidelines regarding home deliveries to account
+                                            for the change in working conditions.
+
+                                     In review, Southern's P-Card program processes over 20,000 P-Card
+                                     transactions annually. Many of these transactions are made
+                                     procedurally correct. Audits are completed on P-Cards, and
+                                     violations are noted on the P-Card holders audit sheet. We work
+                                     directly with the P-Card holders to be sure that they are informed
+                                     with P-Card procedures.”
+
+
+ Auditors’ Concluding                The university’s P-Card Authorization Form explicitly states that the
+ Comments                            form will be completed when a user is seeking permission to use the
+                                     P-card to purchase goods and/or services listed on the form. Since
+                                     the completed form documents authorization to use the P-Card, the
+                                     absence of such form would indicate a weakness in the university’s
+                                     internal controls over the use of P-cards.
+
+
+
+ Finding 2
+
+ Purchasing of                         Professional                 Services              Control
+ Weaknesses
+
+ Criteria                            The university’s internal controls require appropriate personnel to
+                                     approve purchases before the university places an order. This
+                                     includes approving personal service agreements (PSA) prior to the
+                                     start of the outlined work.
+
+
+ Condition                           We reviewed ten professional services expenditures and
+                                     accompanying purchase orders totaling $348,776, and noted the
+                                     following:
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                          6
+                                         1. The university approved two personal service agreements,
+                                            totaling $10,875, after work began. The university approved
+                                            one agreement 16 days after start of the contract period and
+                                            the other 21 days after the end of the contract period.
+
+                                         2. The university approved one $7,400 purchase requisition
+                                            and order 31 days after the invoice.
+
+
+ Context                             The university expended $4,465,383 and $5,058,205 for
+                                     professional services in fiscal years 2021 and 2022, respectively. We
+                                     judgmentally selected ten expenditures, five from each fiscal year,
+                                     totaling $205,314.
+
+
+ Effect                              There is decreased assurance that funding will be available for
+                                     purchases when orders are placed without prompt and proper
+                                     approvals of personal service agreements.
+
+
+ Cause                               The university cited understaffing issues that delayed the approvals.
+
+
+ Prior Audit Finding                 This finding has not been previously reported.
+
+
+ Recommendation                      Southern Connecticut State University should ensure that
+                                     expenditures are reviewed and approved in accordance with
+                                     applicable purchasing policies and procedures.
+
+
+ Agency Response                    “We agree with this finding. The manager of Procurement Services
+                                    continues to educate the university constituency on the proper
+                                    timeline for approvals of both personal service agreements and
+                                    purchase requisitions. However, there are times when Procurement
+                                    Services receive these documents after the service has occurred or
+                                    the goods have been received. In these cases, Procurement Services
+                                    required a Late Justification Form be submitted by the requesting
+                                    department to document the reason purchasing policies were not
+                                    followed. Procurement Services will continue to educate and
+                                    provide guidance on the proper timeline for submittal of these
+                                    documents.”
+
+
+
+ Finding 3
+ Noncompliance with Procurement Policy
+
+ Criteria                           The Connecticut State Colleges and Universities (CSCU)
+                                    Procurement Manual requires the university, when possible, to
+                                    obtain more than one quote or compare pricing to ensure that the
+                                    university receives the best value on purchases. The manual
+                                    recommends that, when possible, the university compare prices of
+
+
+
+Southern Connecticut State University 2021 and 2022                                                          7
+                                    vendors on available state contracts such as Department of
+                                    Administrative Services (DAS) multi-vendor awards.
+
+                                    The manual also requires that purchases of more than $50,000 in
+                                    value be based on competitive bids or proposals obtained via a
+                                    sealed bidding process, when possible. University personnel should
+                                    also justify, review, and approve sole source and emergency
+                                    purchases made without a competitive procurement process.
+
+                                    The university’s internal controls require a university official with
+                                    appropriate authority to approve purchase orders prior to making
+                                    an expenditure.
+
+
+ Condition                          We reviewed 20 non-personal expenditure transactions totaling
+                                    $1,874,639 and noted the following:
+
+                                         1. The university did not provide documentation to support
+                                            the selection of one vendor for a $19,680 expenditure.
+
+                                         2. The university did not utilize a competitive sealed bidding
+                                            process when procuring a $93,925 purchase for services
+                                            related to the graduation commencement ceremony.
+
+                                         3. The appropriate university personnel did not approve two
+                                            sole source purchases, totaling $37,049.
+
+                                         4. The appropriate university personnel did not approve a
+                                            $104,217 purchase order prior to purchase.
+
+
+ Context                            Expenditures totaled $36,941,933 and $14,295,894 in fiscal years
+                                    2021 and 2022, respectively. We judgmentally selected 20
+                                    transactions, totaling $1,874,639, for testing.
+
+
+ Effect                             Lack of price comparisons and proper approvals decreases
+                                    assurance that the university obtained goods and services at the best
+                                    value and increases risk of improper purchases.
+
+
+ Cause                              The university attributed the lack of a formal request for proposal
+                                    process for graduation commencement to time constraints due to
+                                    COVID-19.
+
+                                    The sole source justification form does not include a field for an
+                                    approval signature.
+
+
+ Prior Audit Finding                This finding has previously been reported, in part, in the last two
+                                    audit reports covering the fiscal years 2017 through 2020.
+
+
+ Recommendation                     Southern Connecticut State University should strengthen internal
+                                    controls to ensure compliance with established purchasing policies.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                         8
+ Agency Response                         1. “We agree with this finding. However, this decision was
+                                            made due to an extremely tight timeline to have an outside
+                                            undergraduate commencement ceremony during COVID
+                                            19. Given the short timeline it would not have been possible
+                                            to conduct a formal RFP process. Therefore, the decision
+                                            was made to obtain three (3) quotes to ensure that the
+                                            university was obtaining competitive pricing.
+
+                                         2. We agree with this finding. In the case of sole source
+                                            purchases without appropriate approvals, the manager of
+                                            Procurement Services has educated staff to ensure that the
+                                            appropriate approvals are on the form prior to processing
+                                            the purchase order.
+
+                                         3. We agree with this finding. The manager of Procurement
+                                            Services signed the purchase order in question as part of a
+                                            larger batch of purchase orders in error. Safeguards have
+                                            been put into place to ensure that the manager of
+                                            Procurement Services only signs purchase orders under
+                                            $100,000.00. Purchase orders will be reviewed by
+                                            Procurement personnel prior to sending out for signature to
+                                            ensure that the correct signatories receive the purchase
+                                            orders that are under their signing authority.”
+
+
+
+ Finding 4
+ Trustee Account Procurement Control Weakness
+
+ Background                         Southern Connecticut State University collects a student activity fee
+                                    from full-time undergraduate students and uses these funds to
+                                    support extracurricular activities including student clubs.
+
+
+ Criteria                           The university’s internal controls require that appropriate personnel
+                                    approve purchases before placing an order and that the university
+                                    makes payments only after the vendor provides its services.
+
+
+ Condition                          We reviewed ten student activity fund expenditures, totaling
+                                    $49,614, and found two instances, totaling $12,727, in which the
+                                    university approved the purchase requisitions and orders after the
+                                    invoice date. In one of these instances, the university paid the vendor
+                                    in full, totaling $5,500, prior to receiving the service.
+
+
+ Context                            The university’s non purchasing card transactions from the student
+                                    activity fund totaled $174,363 and $329,361 during fiscal year 2021
+                                    and 2022. We judgmentally selected ten for testing.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                           9
+ Effect                             There is decreased assurance that funding will be available for
+                                    purchases when orders are placed without timely approval. There is
+                                    no guarantee that the university receives services when it pays the
+                                    vendor in advance.
+
+
+ Cause                              Personnel made approved purchases without going through the
+                                    appropriate requisition process.
+
+
+ Prior Audit Finding                This finding has not been previously reported.
+
+
+ Recommendation                     Southern Connecticut State University should strengthen internal
+                                    controls to ensure compliance with applicable purchasing policies
+                                    and procedures.
+
+
+ Agency Response                    “We agree with this finding. We recognize the importance of
+                                    adhering to established internal controls, particularly those
+                                    requiring proper approvals prior to making commitments and
+                                    ensuring payments are made only after goods or services have been
+                                    received. Our corrective action plans are:
+
+                                         1. Training and Communication: The University’s Business
+                                            Services and Student Affairs divisions will jointly conduct
+                                            targeted training for all faculty, staff, and student leaders
+                                            involved in managing student activity funds. This training will
+                                            emphasize procurement requirements, including the need
+                                            for pre-approval and proper documentation before
+                                            initiating purchases or services.
+
+                                         2. Process Review: We are reviewing our internal procedures
+                                            related to student activity fund expenditures to identify and
+                                            address process gaps. This includes strengthening checks
+                                            within our procurement system (Banner) to flag and prevent
+                                            approvals after the fact.
+
+                                         3. Payment Controls: The Accounts Payable team will reinforce
+                                            payment timing protocols with departments to ensure
+                                            payments are not released prior to confirmation of goods
+                                            received or services rendered, except where contracts
+                                            explicitly permit otherwise (e.g., deposits for events).
+
+                                    Corrective actions will begin immediately, with training scheduled
+                                    for the start of the fall academic semester. Full implementation of
+                                    updated procedures is expected by the end of the calendar year.
+
+                                    Southern Connecticut State University is committed to continuous
+                                    improvement in financial stewardship and will ensure corrective
+                                    steps are implemented to prevent recurrence.”
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                      10
+ Finding 5
+
+ Unrecorded Assets
+
+ Criteria                           The State of Connecticut Property Control Manual and the
+                                    Connecticut State Colleges and Universities (CSCU) Capital &
+                                    Controllable Asset Manual require that capital equipment must be
+                                    tagged with a unique identification number immediately upon
+                                    receipt and recorded into the inventory record. The inventory record
+                                    should include the equipment’s description, tag number, value, and
+                                    other information. The value should consist of the purchase price,
+                                    ancillary costs, (such as freight charges), and may include accessory
+                                    or component costs.
+
+
+ Condition                          We reviewed 20 equipment purchases made during fiscal years
+                                    2021 and 2022, totaling $508,405. The university did not promptly
+                                    tag 12 items, totaling $474,794, and enter them in its inventory
+                                    records. The university recorded 11 items in inventory between one
+                                    and 95 days late. It recorded another item 383 days after receipt.
+
+                                    The university also undervalued the inventory records for three items
+                                    by $6,308, totaling $28,882. The three items’ costs did not include
+                                    $162 for freight charges, $2,050 for component costs, and $4,096
+                                    for accessory costs.
+
+
+ Context                            The university expended $480,907 and $2,300,403 for equipment
+                                    purchases during fiscal years 2021 and 2022, respectively. We
+                                    randomly selected 20 capital expenditure transactions, seven from
+                                    fiscal year 2021 and 13 from fiscal year 2022.
+
+
+ Effect                             Assets that are not promptly tagged and inventoried are more
+                                    susceptible to theft and loss.
+
+                                    Improper valuation of assets in the inventory record results in
+                                    inaccurate inventory amounts that impacts depreciation and
+                                    insurance valuation.
+
+
+ Cause                              The university cited understaffing, budget cuts, hiring freezes, and
+                                    the COVID-19 pandemic for the late tagging and recording of
+                                    equipment. A lack of managerial oversight and judgment
+                                    contributed to the inaccurate asset valuation in the inventory record.
+
+
+ Prior Audit Finding                This finding has not been previously reported.
+
+
+ Recommendation                     Southern Connecticut State University should strengthen its internal
+                                    controls to ensure assets are promptly tagged, entered into the
+                                    inventory system, and recorded at the proper value in compliance
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                      11
+                                    with the State of Connecticut Property Control Manual and CSCU
+                                    Capital and Controllable Asset Manual.
+
+
+ Agency Response                    “We agree with this finding. As an agency, SCSU makes every effort
+                                    to tag equipment that meets our criteria for capital or controllable
+                                    asset tracking upon receipt of the items. Equipment that arrives at
+                                    our university through the proper receiving channels is tagged
+                                    expeditiously. However, in cases where deliveries are directly
+                                    delivered to departments on campus incorrectly by package/freight
+                                    carriers, it becomes the responsibility of the department
+                                    representatives to timely report equipment received to the
+                                    Receiving Department so that the property control team can tag the
+                                    equipment. If no receipt notification has occurred, then finance
+                                    departments on campus reach out to the department representative
+                                    and Property Control when an invoice that potentially meets criteria
+                                    for inventory appears to be received and arrangements are then
+                                    made by Property Control to create an inventory record and tag the
+                                    asset.
+
+                                    In the case of equipment purchased that requires installation by a
+                                    vendor, the property control team will wait to tag equipment until
+                                    installation is finalized to ensure that equipment are physically
+                                    tagged appropriately. Each of these scenarios can delay the time
+                                    between receipt of an asset on campus and its entry into the
+                                    inventory database by Property Control, but controls do remain in
+                                    place for tagging and data entry to still occur.
+
+                                    This audit (FY21 and FY22) took place during the COVID-19
+                                    pandemic which dramatically impacted the timing of tagging assets
+                                    due to the reduction of the Property Control Department’s staffing
+                                    by attrition, which occurred in concert with remote university
+                                    operations for campus staff outside of Property Control. These two
+                                    factors slowed the reporting time in tagging assets that were
+                                    received outside of the Receiving Department and have since been
+                                    corrected through the hiring of a new assistant property control
+                                    coordinator and the return to campus of most staff with a vast
+                                    reduction in hours for those still working remote.
+
+                                    In the case of assets being undervalued in the inventory record, our
+                                    finance departments strive to reconcile our inventory database,
+                                    eQuip, to our financial system, Banner. However, Banner always
+                                    remains the system of record for financial information whereas
+                                    eQuip is the system of record for inventory / physical locations.
+                                    eQuip is designed to overlap these criteria to provide information to
+                                    the Property Control office and its stakeholders, but Banner remains
+                                    the financial system and any financial records in Banner supersede
+                                    financial documentation in eQuip.”
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                     12
+ Finding 6
+
+ Facilities Usage Revenue Agreements Control
+ Weakness
+
+ Criteria                            In March 2019, the Office of the Attorney General (OAG) provided a
+                                     facilities usage agreement template for the university to follow. This
+                                     template contains required payment terms including a 25% deposit
+                                     due upon signing the agreement. The deposit is non-refundable
+                                     unless the user cancels the agreement within 60 days of the event.
+
+
+ Condition                           We reviewed six facilities use agreements in place during the
+                                     audited period, totaling $108,395. Our review disclosed that none
+                                     of the six agreements required a deposit, and final payments for four
+                                     were six to 30 days late.
+
+                                     Our review also disclosed that the university modified the approved
+                                     facilities use agreement by removing the deposit requirement
+                                     without Office of the Attorney General approval.
+
+
+ Context                             The university entered into 34 facilities use agreements totaling
+                                     $234,781 during fiscal years 2021 and 2022. We judgmentally
+                                     selected six facilities use agreements for testing.
+
+
+ Effect                              Failing to collect a deposit or promptly pursue the collection of late
+                                     facility usage payments decreases assurance that the university will
+                                     receive all amounts due.
+
+
+ Cause                               Facilities use agreements were signed close to the date of the event
+                                     making it difficult to promptly collect a deposit and final payment.
+
+
+ Prior Audit Finding                 This finding has previously been reported in the last six audit reports
+                                     covering the fiscal years 2008 through 2020.
+
+
+ Recommendation                      Southern Connecticut State University should use the current
+                                     contract template for facilities use agreements, clearly define
+                                     deposit charges and due dates, and promptly collect late facility
+                                     usage payments.
+
+
+ Agency Response                     “We agree with this finding. The university has been cited in past
+                                     audits due to the requirement in the Facilities Use Agreement
+                                     Template to insert deposit and final payment dates. While the
+                                     university does its best to collect all funds due in accordance with
+                                     agreement terms, the reality is that the university is reliant on the
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                       13
+                                     contractor who is renting the facility to follow the payment due dates
+                                     as outlined in the agreement. The university should not be held
+                                     responsible when a payment is delayed, or a contractor decides they
+                                     are going to pay the entire amount rather than a deposit. Although
+                                     payments may not have been received on the due dates outlined in
+                                     the agreement, all payments were received. Procurement Services
+                                     continues to educate facilities managers on the Facilities Use
+                                     Agreement process and have advised payments should be made in
+                                     accordance with the agreement and changes should not be made
+                                     to the OAG template.
+
+                                     This is going to continue to come up since SCSU is dependent on
+                                     the contractors to follow the dates in the agreement. Purchasing has
+                                     requested facilities managers to obtain payments in accordance
+                                     with the agreement. Despite effort, the payments are not received
+                                     on the exact dates. Purchasing will ask the CSCU System Office if
+                                     SCSU can modify the template allowing the language to be less
+                                     restrictive.”
+
+
+ Auditors’ Concluding                The contract template includes a stipulation imposing a deposit of
+ Comments                            25% of the fee amount which is to be submitted with the signed
+                                     agreement if the contractor is not a state agency. The template also
+                                     includes a breakdown of the costs with applicable due dates. In the
+                                     exceptions noted, the deposit amount was either deleted from the
+                                     payment terms or reported as $0. Therefore, rather than contractors
+                                     not promptly submitting payments, the university did not enforce
+                                     the deposit requirement or seek Office of the Attorney General
+                                     approval to change the contract terms. The university can also
+                                     impose a penalty for unpaid deposits.
+
+
+
+ Finding 7
+
+ Information System Access – Untimely Terminations
+
+ Background                          The Connecticut State University System (CSUS), primarily uses an
+                                     automated information system, Banner, to maintain its accounting
+                                     and student academic records.
+
+
+ Criteria                            Access to information systems should be limited to employees who
+                                     need such access to perform their duties. The university should
+                                     promptly terminate Banner access upon their separation from
+                                     employment.
+
+
+ Condition                           We examined the status of Banner information system privileges for
+                                     15 employees who separated from university employment during
+                                     the audited period. In seven instances, the university did not
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                      14
+                                     promptly terminate the employee’s Banner user account upon their
+                                     separation from the university for 11 to 165 days.
+
+
+ Context                             There were 158 employees with Banner account access who
+                                     separated from the university during fiscal year 2020 to April 27,
+                                     2023. We judgmentally selected fifteen Banner user accounts for
+                                     testing.
+
+
+ Effect                              Untimely termination of former employees’ Banner user access
+                                     exposes the university’s information system to unnecessary or
+                                     inappropriate access which increases the risk of data system errors
+                                     and fraud.
+
+
+ Cause                               The university was delayed in terminating Banner account access
+                                     because human resource personnel did not promptly enter
+                                     termination dates in Banner to initiate the automated account
+                                     lockout process.
+
+
+ Prior Audit Finding                 This finding has been previously reported in the last audit report
+                                     covering the fiscal years 2019 through 2020.
+
+
+ Recommendation                      Southern Connecticut State University should promptly terminate
+                                     Banner access upon an employee’s separation from the university.
+
+
+ Agency Response                      “We agree with this finding. The university is currently drafting a
+                                      procedure to ensure employee Banner accounts are terminated
+                                      upon separation.”
+
+
+
+ Finding 8
+ Lack of Salary Analysis - Management Salaries
+
+ Criteria                            The Connecticut State Colleges and Universities (CSCU) Human
+                                     Resources Policies for Management & Confidential Professional
+                                     Personnel provides that individual salaries for incoming
+                                     management personnel will be collaboratively set within the range
+                                     for the level by the human resources officer and the appropriate
+                                     department head, based on the incumbent’s skills and
+                                     qualifications. The university’s human resources officer must
+                                     conduct a review of relevant salaries to ensure internal equity. The
+                                     university president, or designee, and human resources officer must
+                                     approve the final hiring salary before an offer is made to the
+                                     candidate.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                    15
+ Condition                           Southern Connecticut State University could not provide any
+                                     evidence that it performed a salary analysis on three newly hired
+                                     managers. Although the salaries for all three managers were within
+                                     the salary ranges for their positions, there was no documentation in
+                                     their personnel files to indicate how supervisors determined their
+                                     salaries.
+
+
+ Context                             We examined all three managers at or above the Executive 1 level
+                                     that the university hired during the audited period. Their starting
+                                     salaries averaged $186,896.
+
+
+ Effect                              Salaries at the higher end of the salary range could be awarded to
+                                     newly hired individuals who do not possess the experience or
+                                     capability of an existing manager at that pay rate. In addition, there
+                                     is no assurance that the university performed an internal equity
+                                     review to ensure that it is not awarding disproportionate salaries to
+                                     new hires.
+
+
+ Cause                               The university was unable to provide an explanation for the lack of
+                                     documentation outlining its salary determination for the reviewed
+                                     managers.
+
+
+ Prior Audit Finding                 This finding has been previously reported in the last audit report
+                                     covering the fiscal years 2019 through 2020.
+
+
+ Recommendation                      Southern Connecticut State University should ensure that it performs
+                                     a full salary analysis for prospective management-level employees
+                                     before extending an offer. The analysis should consider the
+                                     applicant’s skills and experience and include a review of relevant
+                                     salaries to ensure internal equity. The university should retain a
+                                     record of the analysis in the employee’s personnel file.
+
+
+ Agency Response                     “We agree with this finding. The university will ensure that it
+                                     documents      an     appropriate      salary    analysis   for
+                                     management/confidential hires and includes the documentation in
+                                     the employee’s personnel file.”
+
+
+
+ Finding 9
+
+ Student Account Management Control Weakness
+
+ Background                          Southern Connecticut State University uses the Connecticut State
+                                     Colleges and University (CSCU) Equipment on Loan Form (CSCU-
+                                     1079) to record and manage loaned equipment. The university
+                                     completes an Adjustment to State-Owned Assets Form (CO-853) to
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                      16
+                                     report, as missing, equipment that students did not renew or return
+                                     at the end of the loan.
+
+
+ Criteria                            Southern Connecticut State University’s equipment loan form holds
+                                     borrowers responsible for loss due to theft or damage of loaned
+                                     equipment. A student who fails to return equipment at the end of
+                                     the loan term violates the student code of conduct subjecting them
+                                     to disciplinary action. The university policy requires the placing of a
+                                     hold on the student’s account pending the return or resolution of
+                                     issues with the loaned equipment.
+
+
+ Condition                           One of 14 CO-853 loss reports reviewed included 18 laptops,
+                                     totaling $19,489, that were loaned to students and not returned. The
+                                     university did not place holds on the students’ accounts prior to our
+                                     inquiry, 492 days after the loss was reported. After our inquiries, the
+                                     university recovered one laptop from one of two students who had
+                                     since returned to the university.
+
+
+ Context                             The university filed 14 CO-853 loss reports during fiscal years 2021
+                                     and 2022 to report 42 lost assets valued at $39,983. The entire
+                                     universe was selected for testing.
+
+
+ Effect                              When the university does not promptly hold borrowers accountable,
+                                     there are diminished opportunities to recover state property.
+
+
+ Cause                               The university failed to enforce its equipment on loan policies.
+
+
+ Prior Audit Finding                 This finding has not been previously reported.
+
+
+ Recommendation                      Southern Connecticut State University should ensure that a hold is
+                                     placed on a student’s account when equipment loaned to the
+                                     student is not returned. The hold should remain in place pending
+                                     the return or resolution of issues with the loaned equipment.
+
+
+ Agency Response                     “We agree with this finding. Going forward, SCSU Information
+                                     Technology will alert the Student Accounts Office when students fail
+                                     to return equipment allowing holds to be placed on their accounts.”
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                       17
+ Finding 10
+
+ Part-Time Faculty/Lecturer Control Weakness –
+ Appointment Contracts
+
+ Background                         Southern Connecticut State University sends an agreement letter to
+                                    prospective part-time lecturers and adjunct professors. This letter
+                                    contains the details of the appointment including the duration,
+                                    assigned class, and credit hours. Once the lecturer signs the
+                                    agreement letter thereby agreeing to the terms of the appointment,
+                                    the university completes an appointment form. The appropriate
+                                    supervising officers, including the dean, department head, and chief
+                                    human resources officer, must sign the form to approve the hire.
+                                    Together, the agreement letter and the appointment form constitute
+                                    an employment contract and should both be fully executed prior to
+                                    the lecturer’s starting date.
+
+
+ Criteria                           The Collective Bargaining Agreement between the Connecticut
+                                    State University American Association of University Professors and
+                                    the Connecticut State University System requires the part-time
+                                    lecturer and the appropriate university officer to sign an
+                                    employment form, incorporating the assignment of part-time
+                                    lecturer at the earliest reasonable opportunity but no later than the
+                                    second week of assigned duties.
+
+                                    It is a good business practice to require that all parties fully execute
+                                    contracts to confirm their agreement to all the terms and conditions.
+
+
+ Condition                          We reviewed ten part-time lecturer appointments during the
+                                    audited period and noted the following:
+
+                                         •   One instance in which the lecturer taught courses that were
+                                             not documented on the part-time lecturer appointment
+                                             form or approved by the appropriate university personnel.
+
+                                         •   Four instances in which the part-time lecturer did not sign
+                                             the agreement letter to confirm and agree to the details of
+                                             their appointment.
+
+                                         •   Two instances in which the agreement letter did not include
+                                             all the courses the part-time lecturer was going to teach.
+
+
+ Context                            The university employed 182 and 148 part-time lecturers during
+                                    fiscal years 2021 and 2022, respectively. We judgmentally selected
+                                    ten part-time lecturers for testing.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                       18
+ Effect                             Without a fully executed employment contract, there is decreased
+                                    assurance that the employees agree to the terms and conditions. It
+                                    also increases the risk that employees will not fulfill their contractual
+                                    obligations.
+
+
+ Cause                              The university did not promptly perform the necessary steps to
+                                    ensure that employees fully executed their contracts.
+
+
+ Prior Audit Finding                This finding has previously been reported in the last three audit
+                                    reports covering the fiscal years 2014 through 2020.
+
+
+ Recommendation                     Southern Connecticut State University part-time lecturer
+                                    employment contracts should contain all pertinent information, be
+                                    approved by the appropriate university personnel, and signed by
+                                    the employee and university.
+
+
+ Agency Response                    “We agree with this finding. During the spring 2024 semester, the
+                                    University transitioned to an electronic process (OnBase) for part-
+                                    time lecturer appointment forms (LAFs). This new format will ensure
+                                    appropriate content and approval process for LAFs.”
+
+
+
+ Finding 11
+
+ Overpayment of Sick Leave Balance at Separation
+
+ Criteria                            Section 5-247 of the General Statutes requires state agencies to
+                                     compensate employees who retire from state service at the rate of
+                                     one-fourth of the employee’s salary for accrued sick leave up to sixty
+                                     days.
+
+                                     The State University Organization of Administrative Faculty (SUOAF)
+                                     collective bargaining agreement requires that the university deduct
+                                     unearned sick leave days from the final salary of any members who
+                                     received a full year of sick leave accrual at a rate of one and a quarter
+                                     days per month but leaves state service before their contract year
+                                     ends.
+
+
+ Condition                           We reviewed ten employees who received separation payments for
+                                     accrued sick leave upon retiring from the university during the
+                                     audited period and noted one $137 overpayment. The university
+                                     paid an employee for sick leave they did not earn, because they left
+                                     prior to the end of their contract year.
+
+
+ Context                             Payments for accrued sick leave upon separation totaled $487,218
+                                     and $1,390,943 during fiscal year 2021 and 2022. We judgmentally
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                         19
+                                     selected ten employees with separation payments, four from fiscal
+                                     year 2021 and six from fiscal year 2022 totaling $258,977.
+
+
+ Effect                              When the university overpays accrued sick leave, it potentially
+                                     jeopardizes the state's resources.
+
+
+ Cause                               The university misinterpreted provisions relating to the accrual of
+                                     sick leave time outlined in the bargaining unit agreement by failing
+                                     to deduct the employee’s unearned sick leave balance at the accrual
+                                     rate of one and a quarter days per month.
+
+
+ Prior Audit Finding                 This finding has not been previously reported.
+
+
+ Recommendation                      Southern Connecticut State University should improve internal
+                                     controls over separation payments to ensure they are accurate and
+                                     in accordance with requirements outlined in the State University
+                                     Organization of Administrative Faculty Collective Bargaining
+                                     Agreement.
+
+
+ Agency Response                     “We agree with this finding that SCSU’s interpretation differs but
+                                     disagree that SCSU’s interpretation of the SUOAF agreement is not
+                                     correct. Southern will reach out to other CSU’s within the system to
+                                     find out their interpretation of the agreement and how leave
+                                     balances are calculated at their institutions upon employee
+                                     separation.”
+
+
+ Auditors’ Concluding                The SUOAF agreement clearly states that unearned sick leave credit
+ Comments                            should be deducted from the full year’s sick leave days if that
+                                     employee separated from state service prior to the full year.
+
+
+
+ Finding 12
+ Late Cancellation of Outstanding Checks
+
+ Criteria                            Good business practice suggests that escheated or unwarranted
+                                     checks be canceled immediately to maintain accurate state
+                                     accounting records and avoid duplicate payments.
+
+
+ Condition                           We tested five outstanding checks, totaling $3,540, and found that
+                                     the university did not cancel three checks, totaling $1,750. The
+                                     university took 101, 201, and 516 days to cancel the checks after it
+                                     concluded they escheated and were no longer payable.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                    20
+ Context                             At the time of our review, the university had 39 checks that had been
+                                     outstanding for over three years, totaling $5,013. We randomly
+                                     selected five checks for review.
+
+
+ Effect                              When escheated or duplicate checks are not immediately cancelled,
+                                     state account records are understated.
+
+
+ Cause                               The delay was due to a lack of management oversight.
+
+
+ Prior Audit Finding                 This finding has not been previously reported.
+
+
+ Recommendation                      Southern Connecticut State University management should
+                                     strengthen their internal controls to ensure that they promptly cancel
+                                     outstanding checks.
+
+
+ Agency Response                     “We agree with the finding. The criteria for escheating checks differ
+                                     state by state and internal control processes will be reviewed to
+                                     ensure checks are cancelled in a timely manner.”
+
+
+
+ Finding 13
+
+ Undocumented Compensating Controls
+
+ Criteria                           The Human Resource Management System’s segregation of duties
+                                    procedures for the Core-CT accounting system dictates that
+                                    inadequate segregation of duties between payroll and human
+                                    resources roles requires compensating controls to mitigate the risk
+                                    of error or fraud.
+
+                                    Southern Connecticut State University established control
+                                    procedures to mitigate the risk resulting from individuals in roles that
+                                    lack adequate segregation of duties. Specifically, the university
+                                    generates and reviews certain Core-CT reports that identify
+                                    transactions or activities performed by individuals with conflicting
+                                    roles in the payroll and human resources functions.
+
+
+ Condition                          We requested evidence of the university’s compensating control
+                                    procedures performed for employees with conflicting roles in Core-
+                                    CT. The university could not provide documentation to support that
+                                    the appropriate personnel promptly reviewed and approved the
+                                    payroll review reports.
+
+
+ Context                            The university was required to review all 52 pay periods issued
+                                    during the audited period for employees with inadequate
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                       21
+                                    segregation of duties. We judgmentally selected three pay periods
+                                    for testing.
+
+
+ Effect                             When an employee has access to both payroll and human resources
+                                    functions, there is an increased risk that they can process fraudulent
+                                    transactions. Without sufficient compensating controls, it is more
+                                    difficult to detect and correct these transactions.
+
+
+ Cause                              The Payroll Department reviews online reports each pay period but
+                                    does not maintain sufficient documentation to support that it fully
+                                    implemented the established compensating controls to mitigate the
+                                    risk of error or fraud.
+
+
+ Prior Audit Finding                This finding has not been previously reported.
+
+
+ Recommendation                     Southern Connecticut State University should ensure that it
+                                    documents its prompt payroll review of employees with conflicting
+                                    roles in Core-CT. The university should maintain evidence of its
+                                    review, including the date it was performed.
+
+
+ Agency Response                    “We agree with this finding. Going forward, an email will be sent
+                                    documenting reports were created and reviewed.”
+
+
+
+ Finding 14
+ Inadequate Controls over Rehired Retiree
+
+ Criteria                           Board of Trustees Resolution #09-44 requires that the university
+                                    submits a detailed justification for approval to the Council on
+                                    Employee Relations when it wants to continue to employ a rehired
+                                    retiree for longer than two years.
+
+
+ Condition                          We reviewed five rehired retirees employed during the audited
+                                    period and noted two employees were allowed to work beyond the
+                                    two-year limit. The university could not provide documentation
+                                    showing that it submitted detailed justifications to the Council on
+                                    Employee Relations to approve continuing their employment.
+
+
+ Context                            The university rehired 14 retirees during the audited period. We
+                                    judgmentally selected five for testing.
+
+
+ Effect                             The university did not comply with the provisions of Board of
+                                    Trustees Resolution #09-44 and allowed rehired retirees to continue
+                                    to work beyond the two-year limit without proper approval and
+                                    justification.
+
+
+
+Southern Connecticut State University 2021 and 2022                                                     22
+ Cause                              The university did not submit detailed justifications to the Council on
+                                    Employee Relations to allow rehired retirees to work beyond the
+                                    two-year limit.
+
+
+ Prior Audit Finding                This finding has not been previously reported.
+
+
+ Recommendation                     Southern Connecticut State University should provide justification to
+                                    the Council on Employee Relations when it wants to employ rehired
+                                    retirees beyond the two-year limit and receive and document the
+                                    council’s approval in accordance with Board of Trustees Resolution
+                                    #09-44.
+
+
+ Agency Response                    “We agree with this finding. During fall of 2023, the University
+                                    submitted all requests and justifications to continue rehired retirees
+                                    beyond two years in CER. The University will ensure that it continues
+                                    to comply with this requirement.”
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                      23
+            STATUS OF PRIOR AUDIT
+             RECOMMENDATIONS
+Our prior audit report on Southern Connecticut State University contained 11 recommendations. Four
+have been implemented or otherwise resolved and seven have been repeated or restated with
+modifications during the current audit.
+
+
+
+                                Prior                                              Current
+                           Recommendation                                          Status
+
+   Southern Connecticut State University should improve compliance with
+   purchasing policies by obtaining multiple price quotes and comparing
+   prices prior to entering into a contract with vendors on Department of
+   Administrative Services multi-vendor awarded contracts. The university
+   should enter into a contractual agreement when procuring certain goods        Recommendation 3
+   and services when required.
+
+
+   Southern Connecticut State University should improve internal controls
+   over the purchase of professional services by obtaining the Office of the
+   Attorney General’s approval when required.
+
+
+   Southern Connecticut State University should comply with the purchasing
+   card policies by ensuring that it conducts biannual audits and that users
+   obtain and retain proper supporting documentation for purchases. Also,
+   the university should improve its internal controls to ensure that all
+   purchasing card documents, including those from former employees, are         Recommendation 1
+   secured and available for review.
+
+
+   Southern Connecticut State University should fully execute employment
+   contacts for part-time lecturers and obtain signed agreement letters prior
+   to the lecturer’s starting date. The university should retain a copy of
+   employment contracts in accordance with the state’s record retention
+                                                                                 Recommendation 10
+   policies.
+
+
+   Southern Connecticut State University should require documentation to
+   support the date when departments and student clubs/organizations
+   receive funds and to ensure that they are promptly deposited as required
+   by Section 4-32 of the General Statutes.
+
+
+   Southern Connecticut State University should use the current contract
+   template for facilities usage agreements to avoid conflicting language. The
+   agreement should clearly define deposit charges and due dates.
+                                                                                 Recommendation 6
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                  24
+                                Prior                                                 Current
+                           Recommendation                                             Status
+
+   Southern Connecticut State University should ensure that it performs a full
+   salary analysis for prospective management-level employees before
+   extending an offer. The analysis should consider the applicant’s skills and
+   experience and include a review of relevant salaries to ensure internal
+   equity. The university should retain a record of the analysis in the             Recommendation 8
+   employee’s personnel file.
+
+
+
+   Southern Connecticut State University should promptly terminate Banner
+   access upon an employee’s separation from the university.
+                                                                                    Recommendation 7
+
+
+   Southern Connecticut State University should design and implement
+   control procedures to ensure that all abandoned property in the university’s
+   possession is escheated and promptly delivered to the Office of the State
+   Treasurer or to the applicable state of the property owner’s last known
+   address. The university should comply with the interest penalty for failing to
+   report or deliver abandoned property on time.
+
+
+   Southern Connecticut State University should verify that it conducted its
+   annual internal control review by completing the confirmation of
+   completion section of the internal control questionnaire and maintain a
+   copy in accordance with the Office of the State Comptroller’s Accountability
+   Directive Number 1.
+
+
+   Southern Connecticut State University should design and implement
+   control procedures to monitor and prevent rehired retirees from working
+   more than 960-hour calendar year limit. The university should pursue
+   retroactive reimbursement of all pension payments to rehired retirees who
+                                                                                    Recommendation 14
+   exceeded the 120-day limit and recover any improper benefit payment.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                     25
+          OBJECTIVES, SCOPE, AND
+              METHODOLOGY
+We have audited certain operations of Southern Connecticut State University in fulfillment of our duties
+under Section 2-90 of the Connecticut General Statutes. The scope of our audit included, but was not
+necessarily limited to, the fiscal years ended June 30, 2021 and 2022. The objectives of our audit were to
+evaluate the:
+
+    1. University‘s internal controls over significant management and financial functions;
+
+    2. University’s compliance with policies and procedures internal to the university or promulgated by
+       other state agencies, as well as certain legal provisions; and
+
+    3. Effectiveness, economy, and efficiency of certain management practices and operations,
+       including certain financial transactions.
+
+In planning and conducting our audit, we focused on areas of operations based on assessments of risk
+and significance. We considered the significant internal controls, compliance requirements, or
+management practices that in our professional judgment would be important to report to users. The areas
+addressed by the audit included payroll and personnel, revenue and cash receipts, trustee accounts,
+purchasing and expenditures, asset management, and information technology. We also determined the
+status of the findings and recommendations in our prior audit report.
+
+Our methodology included reviewing written policies and procedures, financial records, meeting
+minutes, and other pertinent documents. We interviewed various personnel of the university and certain
+external parties. We also tested selected transactions. This testing was not designed to project to a
+population unless specifically stated. We obtained an understanding of internal controls that we deemed
+significant within the context of the audit objectives and assessed whether such controls have been
+properly designed and placed in operation. We tested certain of those controls to obtain evidence
+regarding the effectiveness of their design and operation. We also obtained an understanding of legal
+provisions that are significant within the context of the audit objectives, and we assessed the risk that
+illegal acts, including fraud, and violations of contracts, grant agreements, or other legal provisions could
+occur. Based on that risk assessment, we designed and performed procedures to provide reasonable
+assurance of detecting instances of noncompliance significant to those provisions.
+
+We conducted this performance audit in accordance with generally accepted government auditing
+standards. Those standards require that we plan and perform the audit to obtain sufficient, appropriate
+evidence to provide a reasonable basis for our findings and conclusions based on our audit objectives.
+We believe that the evidence obtained provides a reasonable basis for our findings and conclusions
+based on our audit objectives.
+The accompanying financial information is presented for informational purposes. We obtained this
+information from various available sources including the university’s management and state information
+systems. It was not subject to our audit procedures. For the areas audited, we:
+
+    1. Identified deficiencies in internal controls;
+
+    2. Identified apparent noncompliance with laws, regulations, contracts and grant agreements,
+       policies, or procedures; and
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                       26
+    3. Did not identify a need for improvement in management practices and procedures that we
+       deemed to be reportable.
+
+The State Auditors’ Findings and Recommendations section of this report presents findings arising from
+our audit of Southern Connecticut State University.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                 27
+                   ABOUT THE AGENCY
+Overview
+Southern Connecticut State University in New Haven is one of the four higher education institutions that
+collectively make up the Connecticut State Colleges & Universities (CSCU) system. The other three are
+Central Connecticut State University in New Britain, Eastern Connecticut State University in Willimantic,
+and Western Connecticut State University in Danbury. The Board of Regents for Higher Education, which
+serves as the administrative office for CSCU, oversees the university. The State of Connecticut’s system of
+public higher education operates principally under the provisions contained in Sections 10a-87 through
+10a-101 of the General Statutes. Dr. Joe Bertolino served as president of the university throughout the
+audited period.
+
+
+Significant Legislative Changes
+Notable legislative changes that took effect during the audited period are presented below:
+
+    •   Public Act 21-81, effective July 1, 2021, made various changes to laws addressing sexual
+        misconduct at higher education institutions. It established a 20-member Council on Sexual
+        Misconduct Climate Assessments and required higher education institutions to conduct biennial
+        sexual misconduct climate assessments and report the results to the Higher Education and
+        Employment Advancement Committee of the General Assembly.
+
+    •   Public Act 21-132, effective July 1, 2021, made numerous changes to higher education laws. It
+        required each higher education institution to review and update its policies on awarding college
+        credit for a student’s military training. It also required each higher education institution to (1)
+        establish a mental health coalition to assess the institution’s mental health services and programs;
+        (2) maintain a memorandum of understanding with at least one community-based mental health
+        care provider for institutions that lack campus resources; and (3) adopt a student mental health
+        policy. Additionally, it prohibited the board of regents from assessing or charging a graduation
+        fee to students enrolled at public higher education institutions and allowed students to earn
+        compensation through an endorsement contract or employment in an activity unrelated to an
+        intercollegiate athletic program.
+
+    •   Public Act 21-184, effective July 1, 2021, required the reporting of accidents that resulted in
+        serious physical injuries or death at institution of higher education.
+
+
+Financial Information
+Operating Receipts
+
+During the audited period, the university’s operations were primarily supported by appropriations from
+the state’s General Fund and tuition and fees credited to the university’s operating fund. The university
+also received COVID-19 federal emergency grant funds and capital projects funds from state bond issues.
+
+The university did not directly receive General Fund appropriations. Rather, General Fund appropriations
+for the entire CSCU system were distributed to the CSCU System Office, which periodically calculated
+and transferred funds to the university’s operating fund, primarily for personal services and related fringe
+benefits.
+
+
+Southern Connecticut State University 2021 and 2022                                                      28
+Operating fund receipts primarily consisted of student tuition payments. Under the provisions of Section
+10a-99(a) of the General Statutes, tuition charges are set by the Board of Regents for Higher Education.
+The following presents annual tuition charges for full-time students during the audited fiscal years:
+
+                                       2020-2021                                     2021-2022
+                                        Out-of-                                        Out-of-
+ Student Status            In-State      State   Regional                In-State      State   Regional
+ Undergraduate          $      6,162   $     18,436      $    9,244    $     6,162   $    18,436    $    9,244
+ Graduate               $      7,674   $     19,768      $   11,512    $     7,674   $    19,768    $   11,512
+
+Tuition for all students remained the same for fiscal year 2021 and 2022.
+
+Besides tuition, the university charged students other fees during the audited years, including a general
+fee, a state university fee, and a student activity fee. Undergraduates were also charged a media fee. The
+following presents these fees, on an annual basis, during the audited fiscal years:
+
+                                       2020-2021                                     2021-2022
+                                        Out-of-                                        Out-of-
+ Fee                       In-State      State   Regional                In-State      State   Regional
+ General                $      4,484   $      4,484      $    4,484    $     4,484   $    4,484     $    4,484
+ State University       $        946   $      2,076      $      946    $       946   $    2,076     $      946
+ Student Activity -
+ undergraduate          $       140    $       140       $     140     $      140    $        140   $     140
+ Student Activity-
+ graduate               $       132    $       132       $     132     $      132    $        132   $     132
+ Media Fee-
+ undergraduate          $        30    $            30   $      30     $       30    $         30   $      30
+
+In addition, the required resident student Housing and Food Service fees represent a significant portion
+of the operating revenues category titled Auxiliary Revenues. The following presents the average annual
+Housing (double occupancy) and Food Service fees during the audited period:
+
+                                                                 Fiscal Year Ended June 30,
+
+ Fee Description                                                 2021                          2022
+ Housing                                                 $                   7,385   $                  7,385
+ Food Service                                            $                   6,229   $                  6,229
+
+Enrollment Statistics
+The university provided the following enrollment statistics for full and part-time students during the
+audited period:
+
+ Enrollment                      Fall 2020               Spring 2021         Fall 2021         Spring 2022
+ Full-time undergraduate                   6,268                5,525                 5,644              5,114
+ Full-time graduate                          803                  730                   809                776
+   Total full-time                         7,071                6,255                 6,453              5,890
+
+ Part-time undergraduate                    1,172                1,229                1,156              1,310
+ Part-time graduate                         1,088                1,154                1,179              1,137
+   Total part-time                          2,260                2,383                2,335              2,447
+     Total Enrollment                      9,331                8,638                8,788              8,337
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                         29
+The average enrollment was 8,985 and 8,563 during the 2021 and 2022 fiscal years, respectively,
+compared to 9,515 during the 2020 fiscal year. Average student enrollment declined 530 (5.5%) from
+fiscal year 2020 to fiscal year 2021 and 422 (4.7%) from fiscal year 2021 to fiscal year 2022.
+
+Operating Revenues
+
+Operating revenues are derived from the sale or exchange of goods and services related to the
+university’s educational and public service activities. Major sources of operating revenue include tuition
+and fees, federal grants, state grants, and auxiliary services.
+
+Operating revenues, as presented in the university’s audited financial statements for the audited period
+and previous fiscal year, follow:
+
+                                                             Fiscal Year Ended June 30,
+ Operating Revenue Description                            2020             2021              2022
+ Tuition and Fees (net of scholarship allowances)     $   97,648,591   $   96,241,075    $   91,171,331
+ Federal Grants and Contracts                              2,936,840        3,898,422         3,731,461
+ State and Local Grants and Contracts                      4,365,422        4,334,086         4,631,001
+ Non-governmental Grants and Contracts                     4,261,114        4,442,967         5,277,300
+ Indirect Cost Recoveries                                    220,626          240,629           278,086
+ Auxiliary Revenues                                       21,986,518       17,117,877        22,713,157
+ Other Operating Revenues                                  2,178,102          661,311         4,197,093
+    Total Operating Revenues                          $ 133,597,213    $ 126,936,367     $ 131,999,429
+
+Total operating revenues decreased by $6,660,846 (5%) during fiscal year 2021 due to a reduction in
+auxiliary services (such as room and board) of $4,868,641, and a $1,516,791 reduction of other operating
+revenues. These reductions are a direct result of campus closure in response to the COVID-19 pandemic.
+There was also a decrease in tuition and fees of $1,407,516 resulting from declining enrollment. These
+reductions were offset slightly by $961,582 of additional federal grants and contracts revenues.
+
+Total operating revenues grew by $5,063,062 (4%) during fiscal year 2022 due to an increase in auxiliary
+revenues of $5,595,280 as students returned to campus following the COVID-19 pandemic. There were
+also increases in other operating revenues (such as commissions, indirect cost recovery and other fees)
+of $3,535,782, and non-governmental grants and contracts of $834,333. These increases were offset by
+a reduction in tuition and fees of $5,069,744 resulting from declining enrollment.
+
+Operating Expenses
+
+Operating expenses generally result from payments made for goods and services to achieve the
+university’s instruction and public service mission. Operating expenses include employee compensation
+and benefits, professional services, supplies, and depreciation.
+
+Operating expenses, as presented in the university’s audited financial statements for the audited period
+and the previous fiscal year, follow:
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                    30
+                                                              Fiscal Year Ended June 30,
+ Operating Expenses Description                           2020               2021               2022
+ Personal Services and Fringe Benefits                $  180,116,816    $   186,461,863    $   197,482,802
+ Professional Services and Fees                             6,393,303         6,386,129          7,305,513
+ Educational Services and Support                          41,007,556        42,235,108         49,746,319
+ Travel Expenses                                            1,487,342           190,561          1,411,941
+ Operation of Facilities                                   10,598,050         9,433,578         12,275,572
+ Other Operating Supplies and Expenses                      5,772,843         6,396,854          7,778,925
+ Depreciation Expense                                      20,598,377        20,131,664         20,308,571
+ Amortization Expense                                          31,037            36,810            277,956
+    Total Operating Expenses                          $ 266,005,324     $ 271,272,567      $ 296,587,599
+
+Total operating expenses grew by $5,267,243 (2%) during fiscal year 2021 due to increases in both
+educational services and support of $1,227,552 and salaries and benefits of $6,345,047 related to
+pensions and other post-employment benefits. The increase was offset by a reduction of $1,296,781 in
+travel expenses and $1,164,472 in operation of facilities expense due to the COVID-19 pandemic and
+the transition to a remote working environment.
+
+Total operating expenses grew by $25,315,032 (9.3%) during fiscal year 2022 due to an increase in
+salaries and benefits of $11,020,936 resulting from collective bargaining pay increases and retroactive
+payments. There were also increases in educational services and support, totaling $7,511,211, due to
+technology updates and an additional $2,841,994 in operation of facilities expenses.
+
+Nonoperating Revenues and Expenses
+
+Nonoperating revenues and expenses are activities other than the sale or exchange of goods or services
+that relate to the university’s primary functions of instruction, academic support, and student services.
+Nonoperating revenues and expenses include items such as the state’s General Fund appropriation,
+private gifts and donations, investment income, state-financed plant facilities revenues, and interest
+expense.
+
+Nonoperating revenues and expenses during the audited period and the previous fiscal year were
+presented in the university’s audited financial statements as follows:
+
+                                                              Fiscal Year Ended June 30,
+ Nonoperating Revenue/
+ Expense Description                                      2020              2021               2022
+ State Appropriations                                 $    82,758,567   $    88,769,807    $   108,200,523
+ Pell Grant Revenue                                        15,941,138        15,035,858         13,592,763
+ Federal Emergency Grant Revenue                            6,197,754        27,897,043         28,435,320
+ Gifts                                                        148,696           256,419            592,322
+ Investment Income                                          1,448,810            85,283            266,450
+ Interest Expense                                                   -                 -             (4,519)
+ Capital Projects Financed by System Office                 1,653,863         1,572,518          1,513,815
+ Other Nonoperating Revenues (Expenses)                       418,346           (69,069)            49,755
+   Total Nonoperating Revenues (Expenses)             $ 108,567,174     $ 133,547,859      $ 152,646,429
+
+Net nonoperating revenues increased by $24,980,685 (23%) during fiscal year 2021 due to federal
+COVID-19 emergency grants of $21,699,289 and an additional $6,011,240 in state appropriations to fund
+salaries and benefits, offset by a reduction in investment income and Pell grant revenues totaling
+$2,268,807.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                      31
+Net nonoperating revenues increased by $19,098,570 (14.3%) during fiscal year 2022 due to additional
+state appropriations of $19,430,716 to fund salaries and benefits, offset by a reduction in Pell grant of
+$1,443,095.
+
+In addition to the operating and nonoperating revenues and expenses presented above, the university’s
+financial statements presented revenues classified as state appropriations restricted for capital purposes
+totaling $35,738,646 and $46,399,842, for fiscal years 2021 and 2022, respectively.
+
+Southern Connecticut State University Foundation, Inc.
+
+The Southern Connecticut State University Foundation, Inc. is a private, nonprofit corporation established
+to raise funds to support the activities of the university.
+
+Sections 4-37e through 4-37k of the General Statutes define and set requirements for such organizations
+that support state agencies. The requirements address the annual filing of an updated list of board
+members with the state agency for which the foundation was established, financial record keeping and
+reporting in accordance with generally accepted accounting principles, financial statement and audit
+report criteria, written agreements concerning the use of facilities and resources, compensation of state
+officers or employees, and the state agency’s responsibilities with respect to affiliated foundations.
+
+An independent certified public accounting firm audited the books and accounts of the foundation for
+the fiscal years ended June 30, 2021 and 2022 in accordance with Section 4-37f(8) of the General
+Statutes. The auditors expressed unqualified opinions on the foundation’s financial statements in both
+fiscal years. In addition, the foundation’s auditors reported, in an examination, that the foundation
+complied, in all material respects, with Sections 4-37e through 4-37k of the General Statutes.
+
+The foundation’s financial statements reported support and revenues totaling $13,148,665 and
+$1,056,059 during fiscal years 2021 and 2022, respectively. Net assets totaled $48,143,993 and
+$44,764,595 as of June 30, 2021 and 2022, respectively.
+
+
+
+
+Southern Connecticut State University 2021 and 2022                                                    32
+

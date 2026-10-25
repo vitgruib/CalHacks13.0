@@ -1,0 +1,33 @@
+2 CFR Part 200 (Uniform Guidance), selected sections, as of 2026-10-01, via eCFR versioner API (https://www.ecfr.gov/api/versioner/v1/full/2026-10-01/title-2.xml?part=200&section=<n>). Fetched 2026-10-24. Human URL: https://www.ecfr.gov/current/title-2/section-<n>
+
+===== 200.343
+ § 200.343 Effects of suspension and termination. Costs to the recipient or subrecipient resulting 
+from financial obligations incurred by the recipient or subrecipient during a suspension or after 
+the termination of a Federal award are not allowable unless the Federal agency or pass-through 
+entity expressly authorizes them in the notice of suspension or termination or subsequently. 
+However, costs during suspension or after termination are allowable if: (a) The costs result from 
+financial obligations which were properly incurred by the recipient or subrecipient before the 
+effective date of suspension or termination, and not in anticipation of it; and (b) The costs would 
+be allowable if the Federal award was not suspended or expired normally at the end of the period of 
+performance in which the termination takes effect. 
+
+===== 200.403
+ § 200.403 Factors affecting allowability of costs. Except where otherwise authorized by statute, 
+costs must meet the following criteria to be allowable under Federal awards: (a) Be necessary and 
+reasonable for the performance of the Federal award and be allocable thereto under these 
+principles. (b) Conform to any limitations or exclusions set forth in these principles or in the 
+Federal award as to types or amount of cost items. (c) Be consistent with policies and procedures 
+that apply uniformly to both federally financed and other activities of the recipient or 
+subrecipient. (d) Be accorded consistent treatment. For example, a cost must not be assigned to a 
+Federal award as a direct cost if any other cost incurred for the same purpose in like 
+circumstances has been allocated to the Federal award as an indirect cost. (e) Be determined in 
+accordance with generally accepted accounting principles (GAAP), except, for State and local 
+governments and Indian Tribes only, as otherwise provided for in this part. (f) Not be included as 
+a cost or used to meet cost sharing requirements of any other federally-financed program in either 
+the current or a prior period. See § 200.306(b). (g) Be adequately documented. See §§ 200.300 
+through 200.309. (h) Administrative closeout costs may be incurred until the due date of the final 
+report(s). If incurred, these costs must be liquidated prior to the due date of the final report(s) 
+and charged to the final budget period of the award unless otherwise specified by the Federal 
+agency. All other costs must be incurred during the approved budget period. At its discretion, the 
+Federal agency is authorized to waive prior written approvals to carry forward unobligated balances 
+to subsequent budget periods. See § 200.308(g)(3). 

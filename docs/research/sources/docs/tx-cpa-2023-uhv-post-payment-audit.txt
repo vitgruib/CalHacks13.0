@@ -1,0 +1,898 @@
+                            An Audit of the
+University of Houston –
+               Victoria
+
+                          Audit Report #765-22-01
+                            December 16, 2022
+
+
+
+                          Glenn Hegar
+       Texas Comptroller of Public Accounts
+Table of Contents
+Executive Summary
+ Purpose and Scope. ........................................................................................................................... 1
+ Background. ........................................................................................................................................ 1
+ Audit Results........................................................................................................................................ 1
+ Key Recommendations..................................................................................................................... 3
+Detailed Findings
+ Payroll Transactions.......................................................................................................................... 4
+      Missing Prior State Service Verification/Incorrect State Effective Service Date/Incorrect
+          Longevity Payment....................................................................................................................... 4
+      Incorrect Lump Sum Payment of Accrued Vacation............................................................................. 5
+ Purchase, Payment Card and Contract Transactions............................................................... 5
+      Purchase Order Created After Invoice................................................................................................. 6
+      Missing Purchase Order...................................................................................................................... 7
+      Missing/Incorrect Sole Source Justification......................................................................................... 8
+      Missing State Auditor’s Office (SAO) Nepotism Disclosure Statement.................................................. 9
+      Missing Required Contract Clauses..................................................................................................... 9
+      Missing Vendor Compliance Verifications.......................................................................................... 10
+          Warrant Hold Check .......................................................................................................................... 10
+          Iran, Sudan and Foreign Terrorist Organization List Check ......................................................................... 10
+      Contract Amendments Not Processed in Timely Manner................................................................... 11
+      Failure to Report to the Vendor Performance Tracking System.......................................................... 12
+      Failure to Report and Late/Incorrect Reporting to the Legislative Budget Board............................... 14
+      Incorrect Amount Paid...................................................................................................................... 15
+ Grant Transactions. ......................................................................................................................... 16
+ Travel and Travel Card Transactions........................................................................................... 16
+ Fixed Assets........................................................................................................................................ 16
+ Targeted Analysis............................................................................................................................. 16
+ Internal Control Structure ............................................................................................................ 16
+ Security............................................................................................................................................... 16
+Appendices
+ Appendix 1 — Objectives, Scope, Methodology, Authority and Team............................. 17
+ Appendix 2 — Definition of Ratings........................................................................................... 19
+                      Executive Summary
+Purpose and Scope
+  The objectives of this audit were to determine whether the University of Houston –
+  Victoria (University):
+
+    • Procured contracts according to applicable state laws and Comptroller
+      requirements.
+    • Processed payments according to applicable state laws, Comptroller requirements
+      and statewide automated system guidelines.
+    • Maintained documentation to support those payments.
+    • Properly recorded capital and high-risk assets.
+    • Implemented appropriate security over payments.
+  This audit was conducted by the Texas Comptroller of Public Accounts (Comptroller’s
+  office), and covers the period from Sept. 1, 2020, through Aug. 31, 2021.
+
+
+Background
+  Established in 1973, the University of Houston – Victoria
+                                                                               University of Houston – Victoria
+  remains committed to providing quality, affordable
+                                                                               website
+  education with courses leading to over 80 academic
+  programs. The University prides itself on the personalized                   https://www.uhv.edu/
+  attention faculty and staff provide to its nearly 5,000
+  students looking to make their mark on the world.
+
+
+Audit Results
+  The University mostly complied with the General Appropriations Act (GAA), relevant
+  statutes and Comptroller requirements. Auditors found no issues with grants, travel,
+  property management, controls over expenditure processing and security. However,
+  the University should consider making improvements to its payroll, purchase and
+  procurement processes.
+
+  The auditors observed one repeat payroll issue from the previous audit conducted in
+  January 2014. An overview of audit results is presented in the following table.
+
+
+
+
+                          University of Houston-Victoria (12-16-22) – Page 1
+Table Summary
+     Area                Audit Question                               Results                       Rating
+
+Payroll            Did payroll transactions          • Missing prior state service              Compliant,
+Transactions       comply with the GAA,                verification/incorrect state effective   Findings Issued
+                   pertinent statutes and              service date/incorrect longevity
+                   Comptroller requirements?           payment.
+                                                     • Incorrect lump sum payment.
+
+Purchase,          Did purchase, payment card        • Purchase order created after invoice.    Compliant,
+Payment Card       and contract transactions         • Missing purchase order.                  Findings Issued
+and Contract       comply with the GAA,
+Transactions       pertinent statutes and            • Missing/incorrect sole source
+                   Comptroller requirements?           justification.
+                                                     • Missing State Auditor’s Office
+                                                       nepotism disclosure statement.
+                                                     • Missing required contract clauses.
+                                                     • Missing vendor compliance
+                                                       verifications.
+                                                     • Contract amendments not
+                                                       processed in a timely manner.
+                                                     • Failure to report to the Vendor
+                                                       Performance Tracking System.
+                                                     • Failure to report and late/
+                                                       incorrect reporting to the
+                                                       Legislative Budget Board.
+                                                     • Incorrect amount paid.
+
+Grant              Did grant transactions comply     No issues                                  Fully Compliant
+Transactions       with the GAA and state laws
+                   and regulations pertaining to
+                   grants?
+
+Travel and         Did travel and travel card        No issues                                  Fully Compliant
+Travel Card        transactions comply with the
+Transactions       GAA, pertinent statutes and
+                   Comptroller requirements?
+
+Fixed Assets       Were tested assets in their       No issues                                  Fully Compliant
+                   intended location and
+                   properly reported in the
+                   University’s internal system?
+
+Targeted           Did the University comply         No issues                                  Fully Compliant
+Analysis           with the GAA, pertinent
+                   statutes and Comptroller re-
+                   quirements?
+
+  Repeat Finding
+
+
+
+                               University of Houston-Victoria (12-16-22) – Page 2
+     Area                 Audit Question                               Results           Rating
+
+Internal Control    Are duties segregated to the      No issues                      Fully Compliant
+Structure           extent possible to help pre-
+                    vent errors or detect them
+                    in a timely manner and help
+                    prevent fraud?
+
+Security            Are University employees who      No issues                      Fully Compliant
+                    are no longer employed or
+                    whose security was re-voked
+                    properly communi-cated to
+                    the Comptroller’s office?
+
+  Repeat Finding
+
+
+
+
+Key Recommendations
+  Auditors made several recommendations to help mitigate risk arising from control
+  weaknesses. Key recommendations include:
+     • Confirm the amount of lifetime service credit for employees and compute the
+        correct effective service date to prevent incorrect longevity payments.
+     • Improve payroll processes to ensure correct calculations for payments of accrued
+        vacation time.
+     • Enhance contract monitoring procedures to document the outcomes of any
+        meetings with vendors, site visits, monitoring checklists or other monitoring
+        activities conducted on each contract.
+     • Ensure staff retains all supporting documents for purchase/procurement and
+        contract, such as:
+              ⸰ A purchase order dated before services were rendered.
+              ⸰ Appropriate justification for sole source and emergency purchases.
+              ⸰ State Auditor’s Office (SAO) nepotism disclosure form.
+              ⸰ All required contract clauses.
+              ⸰ Documentation of all vendor compliance verification checks conducted
+                before the purchase or contract award.
+              ⸰ Documentation reporting purchases over $25,000 to the Vendor
+                Performance Tracking System (VPTS).
+              ⸰ Documentation reporting contract awards and purchases to the Legislative
+                Budget Board (LBB).
+     • Review invoices for completeness and accuracy and compare them to the contract
+        to ensure that payments do not exceed the amounts authorized in the contract and
+        that all contractual obligations are met timely.
+
+
+                                University of Houston-Victoria (12-16-22) – Page 3
+                           Detailed Findings
+Payroll Transactions
+  Auditors developed a sample totaling $193,223.01 from a group of 20 employees
+  and 262 transactions to ensure the University complied with the GAA, Texas Payroll/
+  Personnel Resource (FPP F.027) and pertinent statutes. Audit tests revealed exceptions
+  in this group of transactions. A limited sample of 10 voluntary contributions transactions
+  was audited. Audit tests revealed no exceptions for this group of transactions.
+
+Missing Prior State Service Verification/Incorrect State Effective Service Date/
+Incorrect Longevity Payment
+  Auditors identified five employees with incorrect months of state service credit in the
+  University’s internal payroll system resulting in incorrect longevity payments for four
+  employees. The incorrect months of service credit resulted in two longevity overpayments
+  of $120 and $1,340, and two longevity underpayments of $1,080 and $120.
+
+  During the audit, the University conducted the prior state service verification for two
+  employees and provided the auditor with the required documentation to validate the correct
+  pay amounts for the employees. According to the University, two employees were hired as
+  faculty members and at that time did not require prior state service verification. For one
+  employee, the state service date was entered incorrectly in the University’s internal payroll
+  system. In addition, the University calculated the prior state service date incorrectly for
+  two employees. The University corrected the prior state service dates in its internal system
+  during fieldwork.
+
+  When an agency hires an employee, the agency must research whether the employee has
+  prior state employment. If prior state employment exists, the agency must confirm the
+  amount of lifetime service credit and properly record it or run the risk of incorrectly paying
+  longevity. See Texas Payroll/Personnel Resource – Non-Salary Payments – Longevity Pay.
+
+Recommendation/Requirement
+  The University must continue to review the payroll/personnel records for all current and new
+  employees to ensure any prior state service is properly verified and documented to prevent
+  incorrect longevity payments. The University should consider using the State of Texas
+  Employment History Application to check for additional prior state service and when
+  additional state service is identified, should request prior state service verifications directly
+  from the listed agency.
+
+  The University should consider recovering the overpayments in accordance with Texas
+  Government Code, Chapter 666 and must compensate the employees for the underpaid
+  amounts. See 34 Texas Administrative Code Section 5.40.
+
+
+                           University of Houston-Victoria (12-16-22) – Page 4
+University Response
+  When an employee indicates on their application or onboarding paperwork that they have
+  previously been employed with another State of Texas agency, we send them a Verification of
+  All Prior State Service form. Previously, we were going by the information on the CV or resume
+  and found that not all state agencies were reported. This form asks them to report all state
+  agencies they have worked at prior to employment at the University.
+
+Incorrect Lump Sum Payment of Accrued Vacation
+  Auditors identified one terminated employee’s lump-sum payment for accrued vacation
+  time was incorrectly calculated, resulting in a $542.16 underpayment. According to the
+  University, this was due to oversight.
+
+  The balance of the accrued vacation time must be completely allocated over the workdays
+  following the effective date of the employee’s separation from state employment. Hours
+  must be added for each state or national holiday that occurs during the period over which
+  the time is allocated. See Texas Government Code, Section 661.064.
+
+Recommendation/Requirement
+  The University must improve its current payroll processes to prevent incorrect payments
+  of accrued vacation time. The University should compensate the employee for the
+  underpaid amount. See 34 Texas Administrative Code Section 5.40.
+
+University Response
+  Payroll will continue to utilize the Terminating Vacation Spreadsheet; however, we have
+  requested that toward the end of the fiscal year, the TVAC spreadsheet for the new FY be
+  sent to calculate future holiday pay for those terminating/retiring towards the end of the
+  fiscal year. If the new TVAC spreadsheet is not available, manual calculations are done to
+  ensure the employee is paid the Holiday Pay, specifically Labor Day. Payroll also checks the
+  spreadsheet to ensure all Holidays are getting picked up throughout the year, not just the
+  issue with Labor Day.
+
+
+Purchase, Payment Card and Contract Transactions
+  Auditors developed a sample of 20 purchase transactions totaling $1,416,193.67 and
+  two contracts with values of $7,467,701.00 and $175,000.00. In addition, a sample of
+  seven contract payment transactions totaling $2,933,601.02 were selected to ensure the
+  University complied with the GAA, eXpendit (FPP I.005) and pertinent statutes. Using
+  reports generated outside the sample, auditors selected 25 payment card transactions
+  totaling $57,633.21 for testing. Audit tests revealed the following exceptions for these
+  groups of transactions.
+
+
+
+                            University of Houston-Victoria (12-16-22) – Page 5
+                                                                           Procurement Cycle
+                                 Type
+ Contract       Amount                                     Procurement     Vendor       Contract Formation/       Contract
+                              of Service     Planning        Method       Selection           Award              Management
+                                                          Determination
+
+ Contract A   $7,467,701.00   Construction                                              • Missing SAO          • Contract
+                              services                                                    nepotism               amendments not
+                                                                                          statement.             processed in a
+                                                 No                           No        • Failure to report      timely manner.
+                                                          No exceptions
+                                             exceptions                   exceptions      to the Legislative   • Failure to report
+                                                                                          Budget Board.          to the Vendor
+                                                                                                                 Performance
+                                                                                                                 Tracking System.
+
+ Contract B    $175,000.00    HVAC                                                      • Missing required     Contract
+                              services                                                    contract clauses.    amendments not
+                                                                                        • Missing vendor       processed in a
+                                                                                          compliance           timely manner.
+                                                 No                           No
+                                                          No exceptions                   verifications.
+                                             exceptions                   exceptions
+                                                                                        • Late/Incorrect
+                                                                                          reporting to
+                                                                                          the Legislative
+                                                                                          Budget Board.
+
+
+
+
+Purchase Order Created After Invoice
+   Auditors identified one purchase transaction for $47,946.64 in which the purchase
+   order was dated after services were rendered and after the final invoice was received.
+   Using a Memorandum of Understanding signed in 2018 by the University of Houston
+   System (System), the University created a purchase order on the original transaction for
+   restoration services after a fire. However, the purchase order was not created at the time
+   the services were requested. The University stated this was due to purchasing staff not
+   following proper policies and procedures.
+
+   According to 34 Texas Administrative Code Section 5.51(c)(1)(D), it is the responsibility
+   of the state agency and its officers to ensure that for each purchase document, the
+   agency maintains necessary records to prove that each payment resulting from the
+   document is legal, proper and fiscally responsible. Without a purchase order issued to
+   the vendor at the time services are requested, it is difficult for the University to ensure
+   that it is not overcharged or billed for goods or services beyond those agreed.
+
+Recommendation/Requirement
+   The University must ensure the purchase order is created at the time the goods or
+   services are requested from the vendor to verify payments are valid and to ensure a
+   proper audit trail.
+
+
+
+
+                                   University of Houston-Victoria (12-16-22) – Page 6
+University Response
+  Together the Sr. Director of Finance/Controller and Purchasing Manager will be reviewing
+  and updating all purchasing policies, procedures, and manuals to ensure they are up to
+  date and provide more detailed procedures for the employee and purchasing manager to
+  follow. All revisions will be sent out campus-wide, we will provide one-on-one training and/
+  or group training at departments requests. We have already established a group called Q&A
+  with Administration & Finance, this group will prepare a PowerPoint presentation and hold
+  monthly meetings for the whole campus to attend in person or via TEAMS to discuss updates
+  to policies, procedures, reminders, refresh on training courses, concerns and/or issues that
+  arise in our departments. The first meeting was held on Oct. 28, 2022, one of the topics that
+  was discussed within the Finance Department is the process of requisitions and purchase
+  orders with emphasis on ensuring the purchase order is created at the time the goods or
+  services are requesting. This PowerPoint presentation will provide useful links to training
+  materials, policies, procedures, and state codes. The PowerPoint presentation will be saved
+  on the Intranet for all employees to access after the meeting. If the Finance department
+  identifies that the procedures were not followed, the individual or department will be required
+  to submit an exception to policy explaining why the procedures were not followed and state
+  what action will be taken to ensure adherence to policy and procedure in the future. The
+  exception will need to be signed by their supervisor, the Sr. Director of Finance/Controller and
+  CFO or President.
+
+Missing Purchase Order
+  Auditors noted one purchase transaction for $46,600 where the University failed to
+  provide a signed purchase order. The University selected a vendor with whom it had an
+  established contract; however, the existing contract’s value of $14,000 did not support
+  the cost of the additional work requested. Additionally, no amendments were made to
+  the contract. Without a signed purchase order on file, the University could not support
+  the legality of the payment. The University attributed the missing purchase order to
+  purchasing staff failing to maintain appropriate documentation.
+
+Recommendation/Requirement
+  The University must maintain the required documentation to support the legality and
+  fiscal responsibility of a payment. See eXpendit – General Provisions – Responsibilities
+  of State Agencies.
+
+University Response
+  The Purchasing Manager will complete a quarterly audit of purchase orders by pulling the
+  purchase order list out of PeopleSoft and verify that all signed purchase orders are saved
+  on the shared drive. The audit form will be dated, signed and saved in the shared drive
+
+
+
+
+                            University of Houston-Victoria (12-16-22) – Page 7
+  purchase order file verifying that the audit was conducted and that all purchase orders have
+  been saved for compliance. The quarterly audit will also need to be sent to the Sr. Director of
+  Finance/Controller to verify the audit has been completed.
+
+Missing/Incorrect Sole Source Justification
+  Auditors noted two purchase transactions where the University identified the
+  acquisitions as sole source but did not maintain the appropriate written justification
+  required by its purchasing manual. On one transaction, the University did not solicit
+  vendors; instead, it selected a vendor that stated it had prior construction experience
+  in a specialized field. This determination was made after the University contacted
+  several vendors in the area. An explanation was provided on the University of Houston
+  System Sole Source Justification form, but its reasoning did not support a sole source
+  procurement. The other transaction did not have the required justification form on
+  file. The University purchased proprietary software without researching if equivalent
+  products were available. Independent research showed similar products on the market.
+  The University stated this was due to the purchasing staff not following proper policy
+  and procedure. An analysis of alternate specifications and a review of similar products
+  and/or services should be conducted to allow competition among other vendors
+  and ensure those products and/or services do not meet the University’s need before
+  identifying the acquisition as a sole source. If an incorrect procurement method is
+  selected, the purchase may not result in the best value to the University or the state.
+
+Recommendation/Requirement
+  The University must strengthen its procedures to accurately identify a sole source
+  procurement and ensure the goods or services cannot be provided by more than one
+  vendor. A resulting incorrect procurement method limits competition amongst all
+  vendors and transparency.
+
+University Response
+  Together the Sr. Director of Finance/Controller and Purchasing Manager will be reviewing
+  and updating all purchasing policies, procedures, and manuals to ensure they are up to
+  date and provide more detailed procedures for the employees and purchasing manager to
+  follow. All revisions will be sent out campus-wide, we will provide one-on-one training and/
+  or group training at departments requests. We have already established a group called Q&A
+  with Administration & Finance, this group will prepare a PowerPoint presentation and hold
+  monthly meetings for the whole campus to attend in person or via TEAMS to discuss updates
+  to policies, procedures, reminders, refresh on training courses, concerns and/or issues that
+  arise in our departments. The next meeting is scheduled for December 2, 2022, Sole Source
+  Justifications will be one of the topics that will be discussed at this meeting. This PowerPoint
+  presentation will provide useful links to training materials, policies, procedures, and state
+  codes. The PowerPoint presentation will be saved on the intranet for all employee to access
+  after the meetings.
+
+
+                            University of Houston-Victoria (12-16-22) – Page 8
+Missing State Auditor’s Office (SAO) Nepotism Disclosure Statement
+  Auditors identified one contract where the University failed to have procurement
+  employees complete and sign nepotism disclosure statements. The University agreed
+  and stated that this was due to procurement staff not following policy and procedure.
+
+  Procurement personnel is defined as an employee of a state agency who makes
+  decisions on behalf of the agency or recommends any of the following:
+
+    • Contract terms or conditions on a major contract.
+    • Vendor to be awarded a major contract.
+    • Preparation of a solicitation for a major contract.
+    • Evaluation of a bid or proposal.
+  See Texas Government Code, Section 2262.004.
+
+Recommendation/Requirement
+  The University must ensure all procurement personnel involved in awarding contracts of
+  at least $1 million sign the SAO disclosure statement for purchasing personnel located
+  on the SAO website or similar documents, and must retain the signed statements in the
+  contract file.
+
+University Response
+  A procurement file checklist and master contract file checklist will be created to ensure proper
+  procedures are followed and all required forms are saved in the master contract file, upon
+  completion of the checklist. the Sr. Director of Finance/Controller will be required to review
+  and sign both checklist that all documents are saved and procedures were followed.
+
+Missing Required Contract Clauses
+  For two purchase transactions, auditors noted that the boycott Israel clause was not
+  included in the contract. Additionally, for both contracts reviewed, auditors did not find
+  the following statutorily-required contract clauses in the executed contract:
+
+    • Boycott Israel: Texas Government Code, Section 2271.002.
+    • Foreign Terrorist Organization: Texas Government Code, Section 2252.152.
+  Failure to include required contract clauses increases the risk that the University’s
+  contracts will be in violation of federal or state statutes and rules, which in turn
+  increases the risk that the contracts and the University will be subject to legal challenge
+  or regulatory action. The University agreed and stated that purchasing staff did not
+  follow policy and procedure or consult with legal counsel.
+
+
+
+
+                            University of Houston-Victoria (12-16-22) – Page 9
+Recommendation/Requirement
+  Auditors recommend the University consults its legal counsel and includes all statutorily
+  required contract clauses in its contract templates to better protect the interest of the
+  state. Omitted required clauses must have clear justifications from the University’s legal
+  counsel to explain why they were not included or applicable to the particular contract.
+  The justification must be documented in the contract file. However, applicable statutorily
+  required clauses should always be included in the contract.
+
+University Response
+  The Sr. Director or Finance/Controller will work with UH System’s legal counsel to ensure all
+  required contract clauses are either in the contract agreement or approved addendums are
+  provided for the vendors to sign. A master contract file checklist will be created to ensure
+  proper procedures are followed and all required forms are saved in the master contract file,
+  upon completion of the checklist, the Sr. Director or Finance/Controller will be required to
+  review and sign both checklist that all documents are saved and procedures were followed.
+
+Missing Vendor Compliance Verifications
+  Auditors noted that the University was unable to provide evidence of completed vendor
+  compliance verifications (VCVs) for nine purchase transactions, 23 payment card
+  transactions and one contract. The University stated that the VCVs were not completed
+  due to purchasing staff not following policy and procedures, and these verifications will
+  be incorporated into the procurement process.
+
+Warrant Hold Check
+  Auditors noted that the University did not verify the vendor’s warrant hold status before
+  making the purchases. The University must check warrant hold status if payment is made
+  with local funds or if a payment card purchase is over $500. See TexPayment Resource
+  Hold Special Circumstances, Local Funds and Payment Card Purchases. The University
+  cannot proceed with a purchase made with local funds or a payment card purchase
+  over $500 until the warrant hold has been released. For transactions involving a written
+  contract, the warrant hold check must be performed no earlier than the seventh day
+  before and no later than the date of contract execution if payments under the contract
+  will be made with local funds. See Texas Government Code, Section 2252.903(a).
+
+Iran, Sudan and Foreign Terrorist Organization List Check
+  The University was unable to provide proof staff conducted the Iran, Sudan and
+  foreign terrorist checks for nine purchase transactions and one contract. Agencies may
+  not contract with a company doing business with Iran, Sudan or a foreign terrorist
+  organization. See Texas Government Code, Sections 2252.001(2), 2252.151(4), and
+  2252.152. Each agency must check the divestment lists before award to determine if the
+
+
+                           University of Houston-Victoria (12-16-22) – Page 10
+  potential awardee is in violation of this requirement. See Texas Government Code,
+  Sections 2252.153 and 2270.0201. The Texas Safekeeping Trust Company maintains the
+  divestment lists and posts them to the Comptroller’s Divestment Statute Lists website.
+  Agencies cannot award a contract to a vendor that is in violation.
+
+Recommendation/Requirement
+  The University must conduct all VCVs before any purchase, contract award, extension
+  or renewal, and it must retain results from the specified website in the procurement
+  file as evidence.
+
+University Response
+  Together the Sr. Director of Finance/Controller and Purchasing Manager will be reviewing
+  and updating all purchasing policies, procedures, and manuals to ensure they are up to date
+  and provide more detailed procedures for the employees and purchasing manager to follow.
+  All revisions will be sent out campus-wide, we will provide one-on-one training and/or group
+  training at departments requests. A procurement file checklist will be created to ensure proper
+  procedures are followed and all required forms are saved in the master contract file, upon
+  completion of the checklist, the Sr. Director of Finance/Controller will be required to review
+  and sign the checklist that all documents are saved and procedures were followed.
+
+Contract Amendments Not Processed in Timely Manner
+  Auditors identified two contracts where the University did not process contract
+  amendments to extend or define the contract terms. One contract, which began in
+  August 2019, was to be completed within 426 calendar days; however, the contract is
+  still ongoing, and no contract amendments to extend or define the contract terms to
+  present day have been processed. By the defined term, the contract should have ended
+  by mid-October 2020. Three contract amendments were processed after the contract
+  should have expired. These change orders increased the dollar value and extended
+  the work for 15 days in October 2020 on one change order and 10 days in February
+  2021 on another. Without a specific expiration date in the contract term, the services
+  could continue indefinitely without the proper contract renewals. Indefinite contracts
+  are generally prohibited unless there are legitimate reasons for longer terms. For the
+  second contract reviewed, the initial term began July 2019 and ended August 2020. The
+  University since has renewed the contract two additional times but failed to process
+  contract renewals in a timely manner. Auditors observed that the University is allowing
+  the contract to lapse before executing an amendment.
+
+  According to the University, contract amendments were not processed due to
+  purchasing staff not following the University’s policies and procedures at the time.
+
+
+
+
+                           University of Houston-Victoria (12-16-22) – Page 11
+  All contract amendments, changes, extensions and renewals should be documented and
+  should conform to the contract and university processes, and both parties must agree
+  to the changes. The University’s Contract Administration Manual states that contract
+  monitoring responsibilities include renewals if contracts allow for additional terms.
+
+Recommendation/Requirement
+  The University must ensure that contract amendments for change of scope, schedule,
+  payment, etc. are in writing and the University and the vendor agree to amend the
+  contract. The University must ensure that procurement personnel execute amendments
+  prior to the contract expiration date and that payments made on the contract do not
+  exceed the contract value.
+
+University Response
+  Together the Sr. Director of Finance/Controller and Purchasing Manager will be reviewing
+  and updating all purchasing policies, procedures, and manuals to ensure they are up to date
+  and provide more detailed procedures for the employees and purchasing manager to follow.
+  All revisions will be sent out campus-wide, we will provide one-on-one training and/or group
+  training at departments requests. Business Services with the assistance of the Sr. Director of
+  Finance/Controller will update the contract administration policies and procedures to ensure
+  proper contract procedures and amendments are followed. We have already established
+  a group called Q&A with Administration & Finance, this group will prepare a PowerPoint
+  presentation and hold monthly meetings for the whole campus to attend in person or via
+  TEAMS to discuss updates to policies, procedures, reminders, refresh on training courses,
+  concerns and/or issues that arise in our departments. The next meeting is scheduled for
+  Dec. 2, 2022, Contract amendments will be one of the topics that will be discussed at this
+  meeting. This PowerPoint presentation will provide useful links to training materials, policies,
+  procedures, and state codes. The PowerPoint presentation will be saved on the intranet for all
+  employees to access after the meetings.
+
+Failure to Report to the Vendor Performance Tracking System
+  Auditors identified seven purchase transactions and one contract that were not
+  reported to the Vendor Performance Tracking System (VPTS) as required for contracts
+  over $25,000. The University stated it believed institutions of higher education were
+  exempt from this requirement and that the purchasing staff was not following the
+  policy and procedure.
+
+  The Statewide Procurement Division (SPD) administers VPTS for use by all ordering
+  agencies per 34 Texas Administrative Code Section 20.115. VPTS relies on agency
+  participation to gather information on vendor performance. Ordering agencies are
+  also encouraged to report vendor performance for purchases under $25,000. Agencies
+  submit the Vendor Performance form (VPF) electronically via the SPD web application
+
+
+                           University of Houston-Victoria (12-16-22) – Page 12
+  portal. See Texas Government Code, Section 2155.089 and Section 2262.055. While
+  Senate Bill No. 799, 87th Leg., Regular Session, 2021, amended Section 2155.089(c),
+  Government Code, to exempt institutions of higher education from VPTS reporting
+  requirements for contract solicitations that began on or after Sept. 1, 2021, all of the
+  transactions and contracts reviewed for this audit were solicited prior to the bill’s
+  implementation date.
+
+Recommendation/Requirement
+  For solicitations that began prior to Sept. 1, 2021, the University must report
+  purchases and contracts over $25,000 to VPTS to identify suppliers demonstrating
+  exceptional performance, aid purchasers in making a best value determination based
+  on vendor past performance and protect the state from vendors with unethical
+  business practices. Reporting should also identify vendors with repeated delivery and
+  performance issues, provide performance scores in five measurable categories for
+  Centralized Master Bidders List (CMBL) vendors, and track vendor performance for
+  delegated and exempt purchases.
+
+University Response
+  Per Government Code Chapter 2155.089, Reporting Vendor Performance (c) 3 (c):
+   (c) This section does not apply to:
+      (3) a contract entered into by:
+          (c) a university system or an institution of higher education, as those terms are
+              defined by section 61.003, Education Code
+
+Comptroller Response
+  While it may appear at first that Texas Education Code, Section 51.9335(d) exempts
+  institutions of higher education from Government Code, Title 10, Subtitle D, such
+  a broad exemption would conflict with the definition of “state agency” in Chapter
+  2151, which specifically includes such institutions. Due to that apparent conflict, the
+  references to “acquisition” and “procurement” in Section 51.9335 must be read as
+  limiting the scope of the exemption. Specifically, institutions of higher education are
+  exempt from procurement provisions in Subtitle D but must follow the rest of the
+  subtitle. Because the reporting of vendor performance under Section 2155.089 is not
+  part of the procurement of goods and services and cannot possibly occur until the
+  procurement process is complete, it is outside the scope of the 51.9335(d) exemption.
+  In addition, the fact that the Legislature listed certain acquisition provisions that
+  apply to institutions of higher education, Historically Underutilized Business (HUB)
+  and procurement from persons with disabilities, further illustrates the distinction
+  between the acquisition provisions in Subtitle D and the rest of Subtitle D. Both the
+  HUB statutes and the procurement from persons with disabilities provisions affect
+
+
+
+                            University of Houston-Victoria (12-16-22) – Page 13
+  how goods and services are acquired, specifying procurement processes and for some
+  goods which vendors must be used. Senate Bill No. 799, 87th Leg., 2021, amended
+  Section 2155.089(c), Government Code, to exempt Institutions of Higher Education
+  from VPTS reporting requirements for contract solicitations that began on or after
+  Sept 1, 2021.
+
+Failure to Report and Late/Incorrect Reporting to the Legislative
+Budget Board
+  Auditors identified nine purchase transactions and two contracts where the University
+  failed to report, reported late or incorrectly reported the contract and/or amendments
+  to the Legislative Budget Board (LBB). The General Appropriations Act (GAA),
+  Reporting Requirements, Article IX, Section 7.04 requires a state agency that receives
+  an appropriation under the GAA to report to the LBB a contract with a value greater
+  than $50,000, “without regard to source of funds or method of finance associated with
+  the expenditure, including a contract for which only non-appropriated funds will be
+  expended.” The submission must include required documentation such as the award,
+  solicitation documents, renewal, amendments, addendums, extensions, attestation
+  letters and certain types of supporting records related to contracts. Contracts initially
+  reported to the LBB database do not have to be re-posted on the web under Texas
+  Government Code, Section 2261.253(g)(1). According to the University, one contract
+  was not reported due to a misunderstanding as to which University of Houston
+  component was responsible for reporting. Additionally, the other reporting issues were
+  due to purchasing staff not following policy and procedure.
+
+Recommendation/Requirement
+  The University must report contract awards including amendments to the LBB to comply
+  with the General Appropriations Act (GAA), Article IX, Section 7.04 and the LBB
+  Contract Reporting Guide.
+
+University Response
+  The new purchasing manager has completed and passed his Certification Texas Contract
+  Developer (CTCD) training and is aware of the LBB reporting requirements. The Sr. Director of
+  Finance/Controller has a monthly tracking list for the whole department for important tasks
+  that need to be completed. The Sr. Director of Finance/Controller monitors this report monthly
+  to ensure all actions have been completed. LBB reporting has been added to the Purchasing
+  Manager monthly duties to make sure any required contracts are reported. The procedure
+  to complete LBB reporting will be created and posted on the UHV intranet for reference. The
+  process will be to report to the LBB as soon as the PO is created. The contract is required to be
+  attached to the PO, the Purchasing Manager will save the contract and the LBB posting to the
+  Procurement File at the time of approving the PO.
+
+
+
+                           University of Houston-Victoria (12-16-22) – Page 14
+Incorrect Amount Paid
+  Auditors identified one purchase transaction in which the University paid for services
+  that exceeded the contracted amount. Amendments to the original agreements were
+  not executed to support the amount of the payments made. The University stated that
+  this occurred because purchasing staff was not following policy and procedures.
+
+  When a state agency or institution of higher education and a vendor agree to a certain
+  rate or quantity, any amount above the rate or quantity may not be paid unless the
+  contract is amended with the vendor providing additional consideration. In addition,
+  any amendments must be completed before the vendor provides goods or services. It
+  is the contract manager’s responsibility to ensure contract requirements are satisfied,
+  goods and services are delivered in a timely manner, and the financial interests of
+  the agency are protected. According to the University of Houston – Office of Contract
+  Management – Contract Management Handbook, once a contract has been fully
+  executed by both parties, the only way a department should change the terms is by a
+  written amendment.
+
+Recommendation/Requirement
+  The University must review and compare the invoices for completeness and accuracy
+  and compare them to the contract to ensure that payments do not exceed the
+  amounts authorized in the contract. Any amendments to the original contract must be
+  documented. Additionally, the University should ensure that employees who expend
+  funds are trained in the procurement policies and procedures.
+
+University Response
+  Together the Sr. Director of Finance/Controller and Purchasing Manager will be reviewing
+  and updating all purchasing policies, procedures, and manuals to ensure they are up to date
+  and provide more detailed procedures for the employees and purchasing manager to follow.
+  All revisions will be sent out campus-wide, we will provide one-on-one training and/or group
+  training at departments requests. Business Services with the assistance of the Sr. Director
+  of Finance/Controller will update the contract administration policies and procedures to
+  ensure proper contract monitoring and payments procedures are followed. We have already
+  established a group called Q&A with Administration & Finance, this group will prepare a
+  PowerPoint presentation and hold monthly meetings for the whole campus to attend in
+  person or via TEAMS to discuss updates to policies, procedures, reminders, refresh on training
+  courses, concerns and/or issues that arise in our departments. The next meeting is scheduled
+  for Dec. 2, 2022, Contract Monitoring and payments on contracts will be one of the topics
+  that will be discussed at this meeting. This PowerPoint presentation will provide useful links to
+  training materials, policies, procedures, and state codes. The PowerPoint presentation will be
+  saved on the intranet for all employees to access after the meetings.
+
+
+
+
+                            University of Houston-Victoria (12-16-22) – Page 15
+Grant Transactions
+  Auditors developed a sample of two grant transactions totaling $305,430.65, then
+  conducted a limited review of the University’s transactions relating to grant payments.
+  This review consisted of verifying that the payments did not exceed the authorized
+  amounts. The review of these payments did not include an investigation of the
+  University’s procedures for awarding the grants or monitoring payments made to
+  grantees; therefore, auditors are not offering an opinion of those procedures. Audit
+  tests revealed no exceptions for this group of transactions.
+
+
+Travel and Travel Card Transactions
+  Using a report generated outside the sample, auditors selected nine travel
+  transactions issued from institutional funds totaling $6,951.03 and 20 travel card
+  transactions totaling $47,042.09 to ensure the University complied with the GAA,
+  Textravel (FPP G.005), pertinent statutes and its internal policies. Audit tests revealed
+  no exceptions for this group of transactions.
+
+
+Fixed Assets
+  The audit included a review of a limited number of fixed assets acquired by the
+  University during the audit period to verify the existence of assets and to test
+  for accurate reporting. All tested assets were in their intended location, and no
+  exceptions were noted.
+
+
+Targeted Analysis
+  The audit included a review of several special reports generated outside the sample.
+  Auditors reviewed the University’s procedures for processing these transactions to
+  determine compliance with state rules, regulations, and processing requirements.
+  Audit tests revealed no exceptions in the targeted analysis reports.
+
+
+Internal Control Structure
+  The review of the University’s internal control structure was limited to obtaining reports
+  identifying current user access. The review did not include tests of existing mitigating
+  controls. The audit tests conducted revealed no exceptions in user access.
+
+
+Security
+  The audit included a security review to identify University employees with security
+  in USAS or on the voucher signature cards who were no longer employed or whose
+  security had been revoked. Upon termination or revocation, certain deadlines must
+  be met so that security can be revoked in a timely manner. Audit tests revealed no
+  security exceptions.
+
+
+                          University of Houston-Victoria (12-16-22) – Page 16
+                                Appendices
+Appendix 1 — Objectives, Scope, Methodology, Authority and Team
+Audit Objectives
+  The objectives of this audit were to:
+    • Ensure payments are documented so a proper audit can be conducted.
+    • Ensure payment vouchers are processed according to the requirements of any
+      of the following:
+          ⸰ Uniform Statewide Accounting System (USAS),
+          ⸰ Uniform Statewide Payroll/Personnel System (USPS),
+          ⸰ Standardized Payroll/Personnel Reporting System (SPRS),
+          ⸰ Human Resource Information System (HRIS) or
+          ⸰ The Centralized Accounting and Payroll/Personnel System (CAPPS).
+
+    • Verify payments are made in accordance with certain applicable state laws.
+    • Verify assets are in their intended locations.
+    • Verify assets are properly recorded for agencies and institutions of higher education
+      that use the State Property Accounting (SPA) system.
+    • Verify voucher signature cards and systems security during the audit period are
+      consistent with applicable laws, rules and other requirements.
+
+Audit Scope
+                                                                      Texas law requires the Texas
+  Auditors reviewed a sample of the University of                     Comptroller of Public Accounts
+  Houston – Victoria (University) payroll, purchase                   (Comptroller’s office) to audit
+  and procurement/contract transactions that                          claims submitted for payment
+  processed through USAS from Sept. 1, 2020,                          through the Comptroller’s
+  through Aug. 31, 2021, to determine compliance                      office. All payment transactions
+                                                                      are subject to audit regardless
+  with applicable state laws.
+                                                                      of amount or materiality.
+  The University received appendices with the full
+  report, including a list of the identified errors. Copies of the appendices may be
+  requested through a Public Information Act inquiry.
+
+  The audit provides a reasonable basis for the findings set forth in this report. The
+  University should implement the recommendations listed in the Detailed Findings of this
+  report. It is the University’s responsibility to seek refunds for all overpayments unless
+  it determines it is not cost effective to do so. If necessary, the Comptroller’s office may
+  take the actions set forth in Texas Government Code, Section 403.071(h), to ensure that
+  the University’s documents comply in the future. The University must ensure that the
+  findings discussed in this report are resolved.
+
+
+                          University of Houston-Victoria (12-16-22) – Page 17
+Audit Methodology
+  The Expenditure Audit section uses limited sampling to conduct a post-payment audit,
+  and relies on professional judgment to select areas the auditor considers high risk.
+
+Fieldwork
+  Each auditor in the Expenditure Audit section approaches each audit with an appropriate
+  level of professional skepticism based on the results of the initial planning procedures.
+
+  If an auditor suspects during an audit that fraud, defalcation or intentional misstatement
+  of the facts has occurred, the auditor will meet with his or her supervisor, the Statewide
+  Fiscal Oversight manager, or both, to decide what action or additional procedures would
+  be appropriate.
+
+Audit Authority
+  State law prohibits the Comptroller’s office from paying a claim against a state agency
+  unless the Comptroller’s office audits the corresponding voucher.
+    • Texas Government Code, Sections 403.071(a), 403.078, 2103.004(a)(3).
+
+  State law allows the Comptroller’s office to audit a payment voucher before or after the
+  Comptroller’s office makes a payment in response to that voucher.
+    • Texas Government Code, Section 403.071(g)-(h).
+
+  In addition, state law authorizes the Comptroller’s office to conduct pre-payment or post-
+  payment audits on a sample basis.
+    • Texas Government Code, Sections 403.011(a)(13), 403.079, 2155.324.
+
+Audit Team
+    Eunice Miranda, CTCD, CTCM, Lead Auditor
+    Monica R. Garcia, CTCD, CTCM
+
+
+
+
+                          University of Houston-Victoria (12-16-22) – Page 18
+Appendix 2 — Definition of Ratings
+Compliance Areas
+
+                            Definition                                                    Rating
+
+ Agency complied with applicable state requirements and no
+                                                                           Fully Compliant
+ significant control issues existed.
+
+ Agency generally complied with applicable state requirements;
+ however, control issues existed that impact the agency’s                  Compliant, Findings Issued
+ compliance, or minor compliance issues existed.
+
+ Agency failed to comply with applicable state requirements.               Noncompliant
+
+ Restrictions impaired auditor’s ability to obtain sufficient
+ evidence to complete all aspects of the audit process. Causes of
+ restriction include but are not limited to:
+                                                                           Scope Limitation
+   • Lack of appropriate and sufficient evidentiary matter.
+   • Restrictions on information provided to auditor.
+   • Destruction of records.
+
+
+Internal Control Structure/Security Areas
+
+                            Definition                                                    Rating
+
+ Agency maintained effective controls over payments.                       Fully Compliant
+
+ Agency generally maintained effective controls over payments;
+ however, some controls were ineffective or not implemented.
+                                                                           Control Weakness Issues Exist
+ These issues are unlikely to interfere with preventing, detecting,
+ or correcting errors or mitigating fraudulent transactions.
+
+ Agency failed to effectively create or implement controls
+                                                                           Noncompliant
+ over payments.
+
+
+Repeat Finding Icon Definition
+      This issue was identified during the previous post-payment audit of the agency.
+
+
+
+
+                               University of Houston-Victoria (12-16-22) – Page 19
+

@@ -1,0 +1,1364 @@
+                     National Science Foundation • Office of Inspector General
+                     4201 Wilson Boulevard, Suite I-1135, Arlington, Virginia 22230
+
+MEMORANDUM
+
+Date:         March 31, 2015
+
+To:           Mary F. Santonastasso, Director
+              Division of Institution and Award Support
+
+              Karen Tiplady, Director
+              Division of Grants and Agreements
+
+From:         Dr. Brett M. Baker
+              Assistant Inspector General for Audit
+
+Subject:      Audit Report No. 15-1-014
+              University of Wisconsin at Madison
+
+This memo transmits Cotton & Company’s (C&C) report for the audit of costs totaling $270
+million charged by the University of Wisconsin at Madison (UWM) to its sponsored agreements
+with NSF during the period April 1, 2010 through March 31, 2013. The objectives of the audit
+were to (1) identify and report on instances of unallowable, unallocable, and unreasonable costs
+from the transactions tested; (2) to identify and report on instances of noncompliance with
+regulations, federal financial assistance requirements, and provisions of the NSF award
+agreements as they relate to the transactions tested; and (3) determine the reasonableness,
+accuracy, and timeliness of the awardee’s ARRA quarterly reporting, including reporting of jobs
+created under ARRA and grant expenditures for the most recent quarters.
+
+The auditors determined that $1,669,588 in costs that UWM charged to its NSF sponsored
+agreements did not always comply with applicable NSF and Federal requirements. Specifically,
+the auditors questioned $1,276,668 in senior personnel salary that exceeded NSF’s two-month
+limit; $192,707 of unreasonably allocated leave accrual payouts; $70,189 of inappropriately
+allocated equipment expenses; $56,965 of expenses incurred after the award period had expired;
+$35,592 of unreasonable consulting expenses; $30,107 of unallowable relocation expenses; and
+$7,360 of unreasonable travel expenses.
+
+The auditors also found that UWM properly accounted for and segregated NSF ARRA funded
+awards in its accounting system. Additionally, UWM’s ARRA reports were reasonable, accurate,
+and timely. For the quarters ending December 31, 2012 and March 31, 2013, expenditures and
+jobs creation were verified without significant exceptions. However, the auditors found that
+$260,926 in unallowable costs (of the $1,669,588 in total questioned costs) were charged to ARRA
+awards.
+The auditors recommended that NSF address the findings by requiring UWM to resolve the
+questioned costs of $1,669,588 and strengthen administrative and management processes and
+controls. UWM did not agree with the majority of the findings and recommendations. UWM’s
+response, described in the report, is included in its entirety in Appendix B.
+
+Appendices A and D contain summaries of the unallowable items that were questioned.
+Additional information concerning the questioned items was provided separately by the OIG to
+the Division of Institution and Award Support, Cost Analysis and Audit Resolution Branch.
+Please coordinate with our office during the six month resolution period, as specified by OMB
+Circular A-50, to develop a mutually agreeable resolution of the audit findings. Also, the
+findings should not be closed until NSF determines that all recommendations have been
+adequately addressed and the proposed corrective actions have been satisfactorily implemented.
+
+OIG Oversight of Audit
+
+To fulfill our responsibilities under generally accepted government auditing standards, the Office of
+Inspector General:
+
+      •   Reviewed C&C’s approach and planning of the audit;
+      •   Evaluated the qualifications and independence of the auditors;
+      •   Monitored the progress of the audit at key points;
+      •   Coordinated periodic meetings with C&C officials, as necessary, to discuss audit progress,
+          findings, and recommendations;
+      •   Reviewed the audit report, prepared by C&C to ensure compliance with generally accepted
+          government auditing standards; and
+      •   Coordinated issuance of the audit report.
+
+C&C is responsible for the attached auditor’s report on UWM and the conclusions expressed in
+the report. We do not express any opinion on the conclusions presented in C&C’s audit report.
+
+We thank your staff for the assistance that was extended to our auditors during this audit. If you
+have any questions regarding this report, please contact Louise Nelson at 303-844-4689 or Ken
+Lish at 303-844-4738.
+
+Attachment
+
+cc:       Michael Van Woert, Executive Officer, NSB
+          Ruth David, Audit & Oversight Committee Chairperson, NSB
+          Dale Bell, Deputy Division Director, BFA/ DIAS
+          Jamie French, Director of Operations, BFA/DGA
+          Alex Wynnyk, Branch Chief, BFA/ DIAS
+          Rochelle Ray, Team Leader, BFA/ DIAS
+          Joanne Rom, Deputy Assistant Director, BFA/OAD
+
+
+
+
+                                                  2
+    UNIVERSITY OF WISCONSIN AT MADISON
+
+
+ PERFORMANCE AUDIT OF INCURRED COSTS FOR
+    NATIONAL SCIENCE FOUNDATION AWARDS
+FOR THE PERIOD APRIL 1, 2010, TO MARCH 31, 2013
+
+
+
+        NATIONAL SCIENCE FOUNDATION
+        OFFICE OF INSPECTOR GENERAL
+                                                              TABLE OF CONTENTS
+
+I.    BACKGROUND .................................................................................................................................................1
+II.   AUDIT RESULTS ..............................................................................................................................................2
+      FINDING 1: SALARY COSTS FOR SENIOR PERSONNEL THAT EXCEEDED NSF’S TWO-MONTH MAXIMUM FOR
+                  SALARY ALLOCATION ....................................................................................................................... 2
+      FINDING 2: LEAVE ACCRUAL PAYOUTS UNREASONABLY ALLOCATED TO NSF AWARDS ..................................... 6
+      FINDING 3: METHODOLOGY USED TO ALLOCATE EQUIPMENT EXPENSES NOT PROPORTIONAL TO THE
+                  BENEFITS RECEIVED .......................................................................................................................... 9
+      FINDING 4: EXPENSES INCURRED AFTER THE GRANT’S PERIOD OF PERFORMANCE HAD EXPIRED ..................... 11
+      FINDING 5: UNREASONABLE CONSULTING EXPENSES ......................................................................................... 14
+      FINDING 6: UNALLOWABLE RELOCATION EXPENSES .......................................................................................... 16
+      FINDING 7: UNREASONABLE TRAVEL EXPENSES ................................................................................................. 18
+      FINDING 8: LATE EFFORT CERTIFICATIONS ......................................................................................................... 20
+APPENDIX A: SCHEDULE OF QUESTIONED COSTS BY FINDING ............................................................ 22
+APPENDIX B: UNIVERSITY OF WISCONSIN AT MADISON RESPONSE .................................................. 24
+APPENDIX C: OBJECTIVES, SCOPE, AND METHODOLOGY...................................................................... 44
+APPENDIX D: SUMMARY OF SALARY EXPENSES EXCEEDING NSF’S ALLOWABLE AMOUNTS .. 48
+                              NATIONAL SCIENCE FOUNDATION
+                          PERFORMANCE AUDIT OF INCURRED COSTS
+                           UNIVERSITY OF WISCONSIN AT MADISON
+
+I. BACKGROUND
+
+The National Science Foundation (NSF) is an independent federal agency whose mission is “to
+promote the progress of science; to advance the national health, prosperity, and welfare; and to
+secure the national defense.” Through grant awards, cooperative agreements, and contracts, NSF
+enters into relationships with non-federal organizations to fund research and education initiatives
+and to assist in supporting its internal financial, administrative, and programmatic operations.
+
+Most federal agencies have an Office of Inspector General (OIG) that provides independent
+oversight of the agency’s programs and operations. Part of the NSF OIG’s mission is to conduct
+audits and investigations to prevent and detect fraud, waste, and abuse. In support of this
+mission, the NSF OIG may conduct independent and objective audits, investigations, and other
+reviews to promote the economy, efficiency, and effectiveness of NSF programs and operations,
+as well as to safeguard their integrity. The NSF OIG may also hire a contractor to provide these
+audit services.
+
+The NSF OIG issued a solicitation to engage a contractor to conduct a performance audit of
+incurred costs for the University of Wisconsin at Madison (UW-Madison). This performance
+audit entailed evaluating UW-Madison’s quarterly American Recovery and Reinvestment Act
+(ARRA) reporting, as well as testing a sample of expenditures that UW-Madison allocated to
+NSF awards during the audit period. Our audit of UW-Madison, which covered the period from
+April 1, 2010, through March 31, 2013, encompassed more than $270 million of expenditures
+that UW-Madison claimed on Federal Financial Reports (FFRs) related to 1,146 NSF awards.
+
+Cotton & Company LLP (referred to as “we”) conducted a performance audit of expenditures
+that UW-Madison reported on the FFRs that it filed with NSF for cost reimbursement under its
+grant awards. We evaluated the accuracy, reasonableness, and timeliness of UW-Madison’s
+quarterly American Recovery and Reinvestment Act (ARRA) reporting. We also evaluated
+whether the costs claimed were allocable, allowable, reasonable, and in conformity with NSF
+award terms and conditions, as well as with applicable federal financial assistance requirements.
+This performance audit, conducted under Contract No.                 , was designed to meet the
+objectives identified in the “Objectives, Scope, and Methodology” section of this report.
+
+We conducted this performance audit in accordance with generally accepted government
+auditing standards, issued by the Government Accountability Office. We communicated the
+results of our audit and the related findings and recommendations to UW-Madison and the NSF
+Office of Inspector General.
+
+
+
+                                                                                            Page | 1
+II. AUDIT RESULTS
+
+The objectives of this audit included determining the reasonableness, accuracy, and timeliness of
+the awardee’s quarterly ARRA reporting, as well as identifying and reporting on instances of
+unallowable, unallocable, and unreasonable costs charged to various NSF awards through
+transaction-based testing.
+
+While evaluating the reasonableness, accuracy, and timeliness of UW-Madison’s ARRA
+reporting, we found that the universe of NSF ARRA-funded awards included approximately
+$13.5 million in expenditures across 67 NSF awards. We determined that UW-Madison properly
+accounted for and segregated NSF ARRA-funded awards in its accounting system, and that the
+ARRA reports were reasonable, accurate, and timely. For the quarters ending December 31,
+2012, and March 31, 2013, we verified expenditures and jobs creation without significant
+exceptions. We also tested the allowability of expenditures reported for ARRA awards in
+conjunction with the other NSF awards, and found $260,926 of questioned costs related to
+expenses charged to ARRA-funded awards, as discussed in the findings below.
+
+To identify and report on instances of unallowable, unallocable, and unreasonable costs, we
+performed transaction-based testing on the entire universe of expenditures that UW-Madison
+claimed on its FFRs during our audit period. This universe encompassed $270,130,383 in costs
+claimed on 1,146 NSF awards. Based on the results of our testing, we found a number of
+instances in which UW-Madison did not comply with all federal, NSF, and university-specific
+award requirements. As a result, we questioned $1,669,588 of costs claimed by UW-Madison
+during the audit period. Specifically we found:
+   •   $1,276,668 of salary costs for senior personnel that exceeded NSF’s two-month
+       maximum for salary allocation
+   •   $192,707 of unreasonably allocated leave accrual payouts
+   •   $70,189 of inappropriately allocated equipment expenses
+   •   $56,965 of expenses incurred after the NSF award period had expired
+   •   $35,592 of unreasonable consulting expenses
+   •   $30,107 of unallowable relocation expenses
+   •   $7,360 of unreasonable travel expenses
+
+Exhibit A of this report provides a breakdown of the questioned costs by finding.
+
+Finding 1: Salary Costs for Senior Personnel That Exceeded NSF’s Two-Month Maximum
+for Salary Allocation
+
+UW-Madison employees that were identified as senior personnel on NSF grants allocated more
+than two months (or the maximum number of approved months) of their salaries to NSF awards
+without receiving specific approval to do so.
+
+The NSF Award and Administration Guide, Chapter V, Section B.1.a.(ii)(a) states that NSF
+normally limits the amount of salary that senior project personnel may allocate to NSF awards to
+no more than two months of their regular salary in any one year. The guidelines specifically
+assert that if the grantee anticipates the need to allocate senior personnel salary in excess of two
+
+
+                                                                                             Page | 2
+ months, the excess compensation must be requested in the proposal budget, justified in the
+ budget support documentation, and specifically approved by NSF in the award notice. In
+ instances in which the grantee specifically requests to allocate more than two months of a senior
+ personnel member’s salary to NSF, the total amount of salary allocable is limited to the
+ maximum number of months that NSF specifically approves within the applicable budget
+ documents.
+
+ To evaluate compliance with the NSF Award and Administration Guide, we obtained the
+ university’s general ledger and extracted all payroll charged to NSF for employees identified as
+ senior personnel. We summarized the payroll data by employee ID and academic year (AY) 1 and
+ compared it to each employee’s approved salary in order to determine what proportion of the
+ employee’s salary was allocated to NSF during each AY tested. We then reviewed the NSF
+ budgets for each grant that employees allocated effort to during the AY and evaluated whether
+ the proportion of each employee’s salary allocated and charged to the grant was greater than the
+ proportion allowable. We found 45 instances in which the proportion of an employee’s salary
+ charged to NSF-funded projects was more than the allowable proportion per NSF policies, as
+ follows:
+
+Instance    Employee                          AY         Allocated     Allowable Allowable          Unallowable
+  No.        Ref No.           AY           Salary        to NSF        Months    Salary 2            Salary
+    1           1           2010-2011       $195,000       $44,298              2  $43,333                  $965
+    2           2           2010-2011        171,609       108,436           4.07    77,605               30,831
+    3           2           2011-2012        171,609       110,696           4.07    77,605               33,091
+    4           2           2012-2013        188,770        65,211              2    41,948               23,263
+    5           3           2012-2013        190,000        64,388              2    42,222               22,166
+    6           4           2009-2010        162,929        44,148              2    36,206                7,942
+    7           4           2010-2011        162,929        53,754              2    36,206               17,548
+    8           5           2011-2012        101,359        27,150              2    22,525                4,625
+    9           6           2011-2012        137,964        31,770              2    30,659                1,111
+   10           7           2010-2011        104,752        35,205           2.13    24,792               10,413
+   11           8           2011-2012        101,689        72,030           4.25    48,020               24,010
+   12           9           2009-2010        181,799        50,452              2    40,400               10,052
+   13           9           2010-2011        191,799        67,269              2    42,622               24,647
+   14           9           2011-2012        199,299        48,718              2    44,289                4,429
+   15          10           2010-2011         90,337        25,094              2    20,075                5,019
+   16          11           2010-2011        122,995        40,579              2    27,332               13,247
+   17          12           2010-2011        104,742       110,587           4.07    47,366               63,221
+   18          12           2011-2012        140,000        87,304              2    31,111               56,193
+   19          13           2009-2010         80,107        26,157              2    17,802                8,355
+   20          14           2011-2012        139,844        43,469              2    31,076               12,393
+   21          15           2009-2010         87,918        26,265              2    19,537                6,728
+   22          15           2010-2011         87,819        26,076              2    19,515                6,561
+
+ 1
+  UW-Madison monitors salary activity using an academic year that begins on September 1 of one year and ends on
+ August 31 of the following year.
+ 2
+  Each employee identified was classified as Academic Year Faculty, meaning that their AY salary amount was
+ based on a nine-month appointment. We therefore calculated the allowable salary by dividing each employee’s AY
+ salary by nine and multiplying the resultant monthly salary by the number of allowable months.
+
+
+                                                                                                        Page | 3
+Instance   Employee                        AY       Allocated    Allowable Allowable       Unallowable
+  No.       Ref No.         AY           Salary      to NSF       Months    Salary 2         Salary
+   23         15         2011-2012        103,242      28,678             2    22,942             5,736
+   24         16         2010-2011         89,573      27,375          2.13    21,199             6,176
+   25         16         2011-2012         89,573      27,419          2.13    21,199             6,220
+   26         17         2009-2010         85,901      23,276             2    19,089             4,187
+   27         18         2011-2012         62,995      20,998             2    13,999             6,999
+   28         19         2010-2011        120,608      31,417             2    26,802             4,615
+   29         20         2009-2010         85,216      23,613             2    18,937             4,676
+   30         20         2010-2011         90,216      53,410             2    20,048            33,362
+   31         20         2011-2012         90,216      38,740             2    20,048            18,692
+   32         21         2010-2011        105,000      24,529             2    23,333             1,196
+   33         22         2011-2012         90,975      64,289             2    20,217            44,072
+   34         23         2010-2011        103,815      40,328          3.13    36,105             4,223
+   35         24         2009-2010         85,000      27,283          2.13    20,117             7,166
+   36         25         2011-2012         82,000      47,833          4.25    38,722             9,111
+   37         26         2011-2012        120,000      40,000             2    26,667            13,333
+   38         27         2010-2011        101,729      24,929             2    22,606             2,323
+   39         28         2010-2011        101,729      24,656             2    22,606             2,050
+   40         29         2011-2012         96,000      32,000             2    21,333            10,667
+   41         30         2011-2012         92,000      30,667             2    20,445            10,222
+   42         31         2011-2012         93,793      28,659             2    20,843             7,816
+   43         32         2011-2012         76,000      25,333             2    16,889             8,444
+   44         33         2011-2012         75,000      20,833             2    16,666             4,167
+   45         34         2011-2012         87,000      29,000             2    19,333             9,667
+
+ UW-Madison understands that NSF generally limits the allocation of salaries for senior project
+ personnel to no more than two months of their regular salary in any one year; however, it
+ believes that the NSF Grant Proposal Guide (GPG) allows grantees to allocate more than two
+ months of a senior personnel member’s salary when the allocation is justified and disclosed in
+ the budget and in the “Current and Pending Support” documents provided to NSF as part of the
+ grant proposal. The university also believes that these GPG instructions only apply in the event
+ that a need for extra salary allocation is recognized at the time of the proposal; it noted that some
+ of the questioned salary costs identified relate to situations in which a need for increased effort
+ was recognized after award and therefore would not have required prior approval based on its
+ interpretation of the GPG. The university contends that NSF’s Award and Administration Guide
+ does not require grantees to obtain prior approval for senior personnel to allocate more than two
+ months’ compensation to an award, as this requirement was not included in the approval matrix,
+ and that the university is therefore not required to request approval from NSF to re-budget
+ funding in this situation. UW-Madison specifically references the Proposal Preparation and
+ Award Administration Frequently Asked Questions (FAQ) document available on NSF’s
+ website, which states that NSF does not require prior approval to re-budget senior personnel
+ salary in this manner.
+
+ The NSF OIG contends that simply including information on budgeted salary for other
+ sponsored projects within the “Current and Pending Support” document provided to NSF does
+ not fulfill the NSF Award and Administration Guide’s requirement that any compensation for
+ senior personnel in excess of two months of their regular AY salary must be disclosed in the
+
+
+                                                                                               Page | 4
+proposal budget, justified in the budget support documentation, and specifically approved by
+NSF in the award notice. While we agree that the Grantee Notifications to and Requests for
+Approval from the National Science Foundation matrix included in NSF’s Award and
+Administration Guide does not specifically require grantees to obtain approval before allocating
+more than two months of a senior personnel member’s compensation to an award, the matrix also
+states, “This listing of Notifications and Requests for Approval is not intended to be all-
+inclusive.” As this requirement was not specifically waived, UW-Madison should have followed
+the guidance in Chapter V, Section B.1.a(ii)(a). In addition, while the FAQ referenced by UW-
+Madison does indicate that grantees are not required to obtain prior approval from NSF to exceed
+the two-month salary limit, the FAQ responses do not represent authoritative guidance and
+therefore do not overrule the Award and Administration Guide requirements.
+
+UW-Madison was not able to provide any documentation to verify that NSF had given express
+permission, either through grant budgets or through subsequent approvals, for the identified
+employees to allocate more than two months (or the maximum number of months identified) of
+their salary to NSF. We are therefore questioning $1,276,668 3 of salary, fringe, and indirect
+expenses charged to NSF that exceeded the allocation limits.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UW-Madison:
+
+      1. Repay NSF the $1,276,668 of questioned costs.
+
+      2. Strengthen the administrative and management controls and processes over the amount of
+         senior personnel salaries charged to NSF awards.
+
+      3. Implement university-wide procedures to ensure that all departments are monitoring the
+         allocation of senior personnel salaries.
+
+University of Wisconsin at Madison Response: UW-Madison believes that salaries for all 45
+employees are appropriately allocated to NSF awards. The university claims that its senior
+personnel salary needs were identified at the time of the proposal in each of the cases identified
+above, and that it included the salary to be paid within the budget and budget justification. UW-
+Madison believes that this information, combined with information in the Current and Pending
+Support document, provides a complete snapshot of intended and potential effort and the time
+period over which the expended effort may occur.
+
+In addition, UW-Madison noted that the NSF GPG’s instructions on the inclusion of salary in
+excess of the two-month limit are provided only in the event that a need for such compensation is
+recognized at the time of proposal. The university stated that several of the questioned salary
+costs involved situations in which a need for increased effort was recognized post-award, and as
+NSF policy provides re-budgeting authority without prior NSF approval, these costs should not
+be questioned.
+3
+    See Appendix D for details regarding how this amount was calculated.
+
+
+                                                                                            Page | 5
+UW-Madison also referred to the NSF Proposal Preparation and Award Administration Guide
+FAQ published in November 2010, an updated FAQ document released in January 2013, recent
+changes to the NSF GPG, and a January 27, 2015, NSF webinar, all of which state that under
+normal re-budgeting authority, an awardee can internally approve an increase of person-months
+devoted to the project, even if doing so results in salary support for senior personnel exceeding
+the two-month salary rule. UW-Madison emphasizes that, as the recipients of federal funds, it
+must be able to rely on the oral and written interpretations provided by staff in the NSF Policy
+Office in order to manage awards responsibly. As the clarifications provided referred to existing
+policy rather than to a change in policy, UW-Madison asserts that the senior personnel costs are
+allowable.
+
+Auditors’ Additional Comments: Our position regarding the finding does not change. UW-
+Madison references guidance provided through a number of sources; however, the only source
+that was applicable during the majority of the audit’s period of performance (POP) was the
+November 2010 FAQ, which did not expressly state that the two-month salary limit could be
+exceeded through normal re-budgeting authority. The rest of the guidance referenced was not
+available during the majority of the audit’s POP and therefore would not have supported the
+allocation methodology used at the time these expenses were incurred. Additionally, while the
+referenced documents and presentations may interpret NSF policies that were effective during
+the audit’s POP, the interpretations do not represent authoritative guidance and therefore do not
+overrule NSF’s Award and Administration Guide, which requires specific approval to allocate
+more than two months of a senior personnel member’s salary to NSF during a one-year period.
+
+Finding 2: Leave Accrual Payouts Unreasonably Allocated to NSF Awards
+
+UW-Madison unreasonably allocated $192,707 of accumulated leave to NSF awards. Full-year
+faculty employees 4 are permitted to save their unused vacation time within an Accumulated
+Leave Reserve Account (ALRA). The university’s cost accounting policies state that these
+accumulated balances are expensed as incurred, as a direct cost to the source of the employee’s
+funding. As a result, when an employee who has a positive balance within their ALRA account
+leaves the university, the lump-sum payment of all leave accumulated by the employee is
+charged to the funding source for the employee’s final month of effort, regardless of when the
+leave was actually earned. Due to this methodology, the university is charging an unreasonable
+proportion of accumulated leave to NSF awards.
+
+Per 2 Code of Federal Regulations (CFR) 220, Appendix A, Section J.10, compensation for
+personal services, including salaries and fringe benefits, covers all amounts paid currently or
+accrued by the institution for services that employees rendered during the POP under sponsored
+agreements. As a result of UW-Madison’s accumulated leave methodology, however, we noted
+several instances in which the university charged expenses to grants despite the fact that the
+expenses were related to services rendered before the grant period became effective. Specifically,
+while each employee identified below did allocate a portion of their effort to the NSF awards to
+which their leave payouts were allocated, we found nine instances in which the accumulated
+
+
+4
+ Academic-year faculty at UW-Madison do not accrue vacation leave; this finding therefore relates solely to 12-
+month faculty.
+
+
+                                                                                                          Page | 6
+leave that was charged to the grant may have been earned by the employee before the effective
+date of the award:
+
+         Employee     Employee’s      NSF Award           Award             Lump-Sum
+          Ref No.     Start Date         No.           Effective Date       Payout Date
+            51        03/01/1976                        04/01/2006           12/27/2010
+           369        11/13/1978                        10/01/2010            1/24/2013
+           371        03/02/1983                        09/15/2010           08/26/2011
+           373        07/09/2001                        04/01/2006           06/23/2010
+           378        08/08/1996                        09/01/2011           11/15/2012
+           381        01/01/2007                        09/01/2009           06/11/2011
+           382        09/01/2006                        09/01/2009           10/21/2011
+           384        07/01/1978                        04/01/2006           03/23/2011
+           386        09/01/1986                        04/01/2006           09/24/2010
+
+In addition, 2 CFR 220 Appendix A, Section J.10.b(1)(b) states that the apportionment of
+employees’ salaries and wages chargeable to more than one sponsored agreement or other cost
+objective must be accomplished by methods that will produce an equitable distribution of
+charges for the employees’ activities. Based on this criterion, we did not note any exceptions in
+cases in which lump-sum payments were provided to employees who allocated all of their effort
+to one award during their appointment at the university. In each of the nine instances identified
+above, however, the employees allocated their effort to more than one funding source during
+their appointment at the university, but the university did not apportion to each funding source its
+relative share of the associated expenses, as required.
+
+UW-Madison claims that these lump-sum payments are calculated and allocated appropriately in
+accordance with its cost accounting policies, which have been approved by its cognizant federal
+agency, and therefore no exceptions should be noted. In response to our evaluation that the
+allocation methodology used was not proportional to the benefits received by NSF, UW-Madison
+personnel provided a spreadsheet detailing all salary earned by each of the identified individuals
+from July 1, 2004, through the date of their retirement. The data indicated that most of the
+employees were working on NSF projects for a large proportion of the time period identified, as
+follows:
+
+                   Employee      Employee Start      Percentage of Salary Paid
+                    Ref No.          Date            by NSF Since July 1, 2004
+                      51          03/01/1976                   91%
+                     369          11/13/1978                   93%
+                     371          03/02/1983                  100%
+                     373          07/09/2001                   88%
+                     378          08/08/1996                   83%
+                     381          01/01/2007                   98%
+                     382          09/01/2006                    4%
+                     384          07/01/1978                  100%
+                     386          09/01/1986                   77%
+
+
+
+                                                                                            Page | 7
+While many of these employees spent the majority of their time on NSF projects, the detailed
+payroll data provided by the university shows that their time was not spent solely on the NSF
+projects to which their lump-sum payouts were charged, but on multiple NSF awards and/or
+other activities. It was therefore inappropriate to allocate all of the employees’ accumulated leave
+to the award on which they were working at the end of their careers. In addition, seven of the
+nine employees identified began working at the university before July 2004; as a result, a
+summary of their payroll earned since July 1, 2004, does not provide an accurate depiction of
+where these employees allocated the majority of their effort while working at the university.
+
+UW-Madison’s cost accounting policies violate rules imposed by 2 CFR 220. We are therefore
+questioning $192,707 of salary-related expenses that were unreasonably allocated to NSF.
+
+ Employee Ref No. NSF Award No. Fiscal Year               Direct    Fringe     Indirect    Total
+        51                      2010-2011                                                 $90,360
+       369                      2012-2013                                                  43,751
+       371                      2011-2012                                                  19,214
+       373                      2010-2011                                                  10,012
+       378                      2012-2013                                                  10,366
+       381                      2010-2011                                                   2,220
+       382                      2011-2012                                                   3,481
+       384                      2010-2011                                                  10,966
+       386                      2010-2011                                                   2,337
+                         Total                                                            $192,707
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UW-Madison:
+
+   1. Repay NSF the $192,707 of questioned costs.
+
+   2. Develop and implement new policies and procedures related to allocating employee leave
+      payouts that result in an equitable distribution of salary expenses on a basis that is
+      consistent with the periods in which the salary was earned.
+
+University of Wisconsin at Madison Response: UW-Madison believes that accumulated leave
+balances were reasonable and appropriate charges to NSF awards. The university refers to 2 CFR
+220, Appendix A, Section C.3., Reasonable costs, which states that a factor in determining
+reasonableness is the extent to which the actions taken with respect to the incurrence of the cost
+are consistent with established institutional policies. UW-Madison also refers to 2 CFR 200.34
+(a), which states that expenditures may be reported on a cash or accrual basis, as long as the
+methodology is disclosed and is consistently applied. As UW-Madison consistently applies an
+approach of treating accumulated leave on a cash basis as direct costs and discloses its treatment
+of leave accrual payouts in its Disclosure Statement, F&A Rate Agreement, and Effort
+Guidelines, the university believes that these costs are reasonable and allowable.
+
+
+
+                                                                                            Page | 8
+Auditors’ Additional Comments: Our position regarding the finding does not change. While
+UW-Madison does consistently allocate accumulated leave payout in accordance with 2 CFR
+220, Appendix A, Section C.3, this methodology does not represent an equitable distribution of
+the costs incurred on sponsored projects, as required by 2 CFR 220, Appendix A, Section
+J.10.b(1)(b). The university may use either a cash-basis or an accrual-basis methodology to
+account for accumulated leave payouts; however, in both cases the methodology must allocate an
+equitable portion of the employee’s leave payout to each funding source the employee worked on
+while earning the accumulated leave. Based on our review, UW-Madison’s current methodology
+resulted in NSF grants being allocated an unreasonable portion of employees’ accumulated leave
+when they left the university. Our finding therefore does not change.
+
+Finding 3: Methodology Used to Allocate Equipment Expenses Not Proportional to the
+Benefits Received
+
+Equipment purchased by UW-Madison was used to achieve more than one cost objective;
+however, these costs were not allocated on a reasonable basis according to the benefits acquired.
+UW-Madison personnel did not maintain adequate documentation to justify the methodology
+used to allocate the expenses to NSF-funded awards. As the methodology appears to be
+unreasonable, we are questioning $70,189 in inappropriately allocated expenses.
+
+Per 2 CFR 220, Appendix A, Section C.4.d(3), if a cost benefits two or more projects or
+activities in proportions that can be determined without undue effort or cost, the cost should be
+allocated to the projects based on the proportional benefit. If the relevant proportions cannot be
+determined due to the interrelationship of the work involved, the costs may be allocated or
+transferred to the benefited projects on any reasonable basis. UW-Madison did not allocate
+equipment expenses based on the proportional benefits received by the NSF-sponsored awards,
+nor did it use a reasonable basis relative to the projects that benefitted from the equipment
+purchase.
+
+NSF Award No. 0628560 had a 5-year POP that began October 1, 2006, and ended September
+30, 2011. On September 14, 2011, 16 days before the grant’s POP expired, UW-Madison
+personnel ordered an Autonomous Underwater Vehicle (AUV) from
+The total cost of this equipment was $71,015. Of this amount, $48,301 (68 percent) was
+allocated to this NSF award. A total of $21,888 (31 percent) was allocated to NSF Award No.
+0941510, and $826 (1 percent) was allocated to general university funding sources. According to
+UW-Madison personnel, the costs were allocated based on the estimated benefit to the project;
+however, as this equipment was available for less than 1 percent of NSF Award No. 0628560’s
+POP, the allocation of 68 percent of the equipment’s price to this NSF award does not appear to
+have been based on the relative benefit this award received.
+
+In addition, the methodology used to allocate the expense was not appropriately based on the
+benefits that each funding source received, as required by 2 CFR 220 Appendix A, Section
+C.4.d(3). According to the university, the equipment purchased was directly applicable in
+obtaining physical limnology measurements (NSF Award No. 0628560), advancing network
+science (NSF Award No. 0941510), and assisting in research funded by the National Oceanic
+and Atmospheric Administration (NOAA). Costs incurred to purchase the AUV were allocated
+
+
+
+                                                                                            Page | 9
+to NSF Award No. 0628560 and NSF Award No. 0941510; however, none of the incurred
+expenses were allocated to NOAA, even though NOAA-funded projects benefitted from the
+purchase of this equipment.
+
+As the methodology used to allocate the AUV expenses was unreasonable, did not represent an
+equitable disbursement of the costs based on the benefits that each funding source would receive,
+and was not supported by adequate documentation, we were not able to verify the appropriate
+percentage of the cost that should have been allocated to NSF. We are therefore questioning all
+expenses related to the purchase of the AUV that were charged to NSF Award No. 0628560 and
+NSF Award No. 0941510.
+
+                                                Questioned Costs
+                 NSF Award No. Fiscal Year Direct Indirect Total
+                 0628560       2011-2012 $48,301         $0 $48,301
+                 0941510       2011-2012    21,888        0 21,888
+                 Total                     $70,189       $0 $70,189
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UW-Madison:
+
+   1. Repay NSF the $70,189 of questioned costs.
+
+   2. Strengthen the administrative and management controls and processes over allocating
+      expenses for equipment and supplies to sponsored funding sources.
+
+   3. Implement processes and procedures that require documentation of the methodology used
+      to allocate expenses to sponsored projects, as well as a justification for how the
+      methodology was determined.
+
+University of Wisconsin at Madison Response: UW-Madison believes that the allocation of
+expenses for the AUV were appropriate. The university claims that the costs were reasonable,
+allocable, and required for the furtherance of both NSF grants charged, and that they were
+therefore allowable on both grants in accordance with the NSF Award and Administration Guide.
+UW-Madison contends that the methodology used to allocate the cost of this piece of equipment
+was based on the approximate percentage of estimated benefit to each project and is not flawed
+because 2 CFR Part 220 allows costs to be allocated on any reasonable basis if the precise
+proportion cannot be determined. UW-Madison’s response states that the activities performed on
+each of the NSF grants were interrelated and the precise benefit could not be determined;
+however, its estimate was reasonable, and the costs should therefore be allowable.
+
+Auditors’ Additional Comments: Our position regarding the finding does not change. It was
+unreasonable for UW-Madison to allocate 68 percent of the costs incurred to purchase the AUV
+to an NSF grant that was expiring 16 days after the purchase was initiated. In addition, the
+methodology used to allocate the expenses among funding sources was flawed. UW-Madison
+
+
+                                                                                        Page | 10
+personnel stated that the AUV was used not only to support multiple NSF awards, but also to
+support a NOAA-funded grant. As none of the AUV expenses were allocated to NOAA, it is
+clear that the expenses incurred were not equitably distributed based on the benefits received, as
+required by 2 CFR 220, Appendix A, Section C.4.d(3).
+
+Finding 4: Expenses Incurred After the Grant’s Period of Performance Had Expired
+
+Purchase orders for equipment and other supplies allocated to NSF grants were submitted after
+the grant’s POP had expired. As a result, UW-Madison personnel inappropriately allocated to
+expired NSF awards $56,965 of expenses related to equipment and supplies.
+
+Per 2 CFR 220, Appendix A, Section C.4.a, a cost is allocable to a particular cost objective if the
+goods or services involved are chargeable or assignable to such cost objective in accordance with
+relative benefits received or other equitable relationship.
+
+In addition, the NSF Award and Administration Guide, Chapter V, Section A.2.c specifically
+states that NSF funds may not be expended subsequent to the expiration date of the grant, except
+to liquidate valid commitments that were made on or before the expiration date. As the
+commitments to incur the costs identified below were not made until after the NSF award
+periods had expired, these expenses are expressly unallowable per NSF policies and procedures.
+
+NSF Award No. 0446017 had a POP of March 1, 2005, through February 28, 2011. On May 10,
+2011, or 71 days after the grant’s POP had expired, the university allocated to this award
+$20,816 of expenses incurred to purchase equipment that would provide measurements in
+support of modeling lake microbial dynamics. The invoice for these expenses was dated April
+26, 2011, or 57 days after the grant’s POP had expired. The associated purchase order was dated
+March 8, 2011, or 8 days after the POP had expired.
+
+On March 29, 2011, or 29 days after the grant’s POP had expired, the university allocated to this
+award $7,837 of supplies related to modeling lake microbial dynamics. The invoice for these
+expenses was dated March 14, 2011, or 14 days after the grant’s POP had expired. The
+associated purchase order was dated March 4, 2011, or 4 days after the grant’s POP had expired.
+
+On April 1, 2011, or 32 days after the grant’s POP had expired, the university allocated to this
+award $5,868 of supplies related to modeling lake microbial dynamics. The invoice for these
+expenses was dated March 16, 2011, or 16 days after the grant’s POP had expired. The
+associated purchase order was dated March 3, 2011, or 3 days after the grant’s POP had expired.
+
+UW-Madison stated that it received specific permission to purchase the aforementioned supplies
+and equipment under NSF Award No. 0446017. The university submitted a re-budgeting request
+to NSF on February 11, 2011, in which it requested permission to reallocate funds initially
+budgeted for a sub-award and purchase the identified equipment instead. The re-budgeting
+request was reviewed by NSF when it was submitted; however, as the purchase orders were not
+created until after the grant’s POP had expired, the expenses are unallowable per the NSF Award
+and Administration Guide.
+
+
+
+
+                                                                                          Page | 11
+NSF Award No. 0911559 had a POP of August 1, 2009, through July 31, 2012. On October 17,
+2012, or 78 days after the grant’s POP had expired, the university allocated to this award
+$17,017 of expenses incurred to purchase computer equipment. The invoice supporting this
+expense was dated September 27, 2012, or 58 days after the grant’s POP had expired, and
+showed that the equipment was ordered on August 8, 2012, or 8 days after the POP had expired.
+The associated purchase order was dated August 2, 2012, or 2 days after the grant’s POP had
+expired.
+
+UW-Madison claimed that toward the end of the grant cycle, it became clear that the university’s
+computational resources were not adequate to finish the project in the time remaining on the
+grant, and it therefore purchased these computers to eliminate this bottleneck. The university
+provided a purchase requisition form dated July 27, 2012 (4 days before the grant’s POP expired)
+to support that the equipment was ordered within the grant’s POP; however, a purchase
+requisition does not represent a valid commitment. The university also provided an e-mail dated
+July 27, 2012, in which an employee states that they placed the order for this equipment;
+however, the e-mail does not provide sufficient support to verify that the equipment was ordered
+on this date. We are therefore using the date provided on the purchase order. Additional
+computing power may have been necessary toward the end of the grant’s POP; however, as the
+purchase order was not created until after the grant’s POP had expired, the expenses are
+unallowable per the NSF Award and Administration Guide.
+
+NSF Award No. 0840494 had a POP of August 1, 2009, through July 31, 2012. On October 17,
+2012, or 78 days after the grant’s POP had expired, the university allocated to this award $5,672
+of expenses incurred to purchase computer equipment. The invoice supporting these expenses
+was dated September 27, 2012, or 58 days after the grant’s POP had expired, and showed that the
+equipment was ordered on August 8, 2012, or 8 days after the POP had expired. The associated
+purchase order was dated August 2, 2012, or 2 days after the grant’s POP had expired.
+
+NSF Award No. 0840494 was awarded to purchase a modern computer cluster for use by the
+entire departmental research and teaching community. UW-Madison stated that there was a small
+amount of money left at the end of the grant’s POP, and it therefore combined this leftover
+amount with the funding remaining on NSF Award No. 0911559 to purchase additional servers
+for the computer cluster. UW-Madison provided a purchase requisition form dated July 27, 2012
+(4 days before the grant’s POP expired) to support that the equipment was ordered within the
+grant’s POP; however, a purchase requisition does not represent a valid commitment. The
+university also provided an e-mail dated July 27, 2012, in which an employee states that they
+placed the order for this equipment; however, this e-mail does not provide sufficient support to
+verify that the equipment was ordered on this date. We are therefore using the date provided on
+the purchase order. While the purchase of this equipment appears to be related to the scope of the
+grant, the purchase order was not created until after the grant’s POP had expired, and the
+expenses are therefore unallowable per the NSF Award and Administration Guide.
+
+As the equipment/supplies identified were not purchased until after each award’s POP had
+expired, they would not have been available to benefit the NSF awards charged and therefore
+were not allocable to those awards per 2 CFR 220, Appendix A, Section C.4.a. Additionally, as
+valid commitments to incur these expenses were not made on or before the expiration date of the
+
+
+
+                                                                                         Page | 12
+NSF awards identified, these expenses are expressly unallowable per the NSF Award and
+Administration Guide. We are therefore questioning $56,965 of expenses associated with
+equipment purchased under NSF awards after the awards had expired.
+
+                                                       Questioned Costs
+                  NSF Grant No. Fiscal Year        Direct Indirect Total
+                                                                  1
+                  0446017       2010-2011                           $38,084
+                  0911559       2012-2013                            17,017
+                                                         2
+                  0840494       2012-2013                              1,864
+                  Total                                             $56,965
+
+1
+ Indirect costs were applied to the expenses incurred for the supplies purchased at a rate of
+percent. Indirect expenses were not applied to the $20,816 equipment purchase.
+2
+ The sampled expenditure was for       ; however,     of this expense was transferred off
+NSF Award No. 0840494 on February 25, 2013. We are therefore only questioning the
+remaining $1,864 of the sampled expense.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UW-Madison:
+
+    1. Repay NSF the $56,965 of questioned costs.
+
+    2. Strengthen the administrative and management controls and processes over charging
+       expenses to federal grants near or after the grant’s expiration date. Processes could
+       include implementing policies and procedures to ensure that all expenses charged to
+       federal grants within the final 90 days of the grant’s POP are reviewed for allowability,
+       allocability, and reasonableness.
+
+University of Wisconsin at Madison Response: UW-Madison does not agree with our
+recommendation to disallow these costs, as the purchase requisitions were placed before the
+grant’s POP had expired. The university claims that administrative processes delayed the
+finalization of paperwork for the purchase of the identified equipment/supplies; however, as the
+purchased equipment/supplies were reasonable in terms of the purposes of the grants, these costs
+should be allowable.
+
+Auditors’ Additional Comments: Our position regarding the finding does not change. The NSF
+Award and Administration Guide, Chapter V, Section A.2.c specifically states that NSF funds
+may not be expended subsequent to the expiration date of the grant, except to liquidate valid
+commitments that were made on or before the expiration date. As the identified purchases did
+not represent valid commitments made before the NSF grants expired, these costs are expressly
+unallowable. Additionally, as UW-Madison would not have received the purchased equipment
+and supplies until after the grant’s POP had expired, the NSF grant would not have benefitted
+from these purchases, and it was therefore unreasonable to allocate the expenses to these awards.
+
+
+                                                                                          Page | 13
+Finding 5: Unreasonable Consulting Expenses
+
+In two cases, consultants performed work for UW-Madison during the effective period of a
+grant, but UW-Madison did not enter into an agreement to pay these consultants until near or
+after the grant’s expiration date. Consequently, UW-Madison inappropriately allocated more
+than $35,000 of consultant expenses to NSF awards.
+
+Per 2 CFR 220, Appendix A, Section C.4.b, costs allocable to a particular sponsored agreement
+may not be shifted in order to meet deficiencies caused by overruns or other fund considerations,
+to avoid restrictions imposed by law, or for any other reasons of convenience; however, we
+identified payments that appear to have been made to consultant service providers
+inappropriately as a matter of convenience.
+
+NSF Award No.              had a POP from August 1, 2007, through January 31, 2012. On March
+12, 2012, or 41 days after the grant’s POP had expired, the university allocated to this award
+$19,162 of consultant expenses for work that                 performed at the university from
+January 1 through August 15, 2011. While the work was performed during the grant’s POP,
+                                                                     the invoice requesting
+payment for these services was dated March 6, 2012, or approximately 14 months after the work
+began, 6 months after the work was completed, and 1 month after the grant’s POP had expired.
+
+UW-Madison stated that it received all invoices for this agreement long after the work was
+performed, and as it received all of the invoices at once, they were paid as a single transaction.
+The university contends that the work performed by                 was structured in the original
+grant budget as                                               ; however,
+                                                   The department therefore agreed to restructure
+                 as a consultant position                                                          .
+While the work performed                    does appear to be related to the purpose of the grant, it
+is clear that this agreement was not reached until significantly after the grant’s POP had expired,
+and the payment therefore appears to be unreasonably allocated to the grant.
+
+As the consultant fees were provided to                                    who had not previously
+been paid as a consultant, after the grant period had expired, for work completed almost 6
+months prior to the invoice date, the principal investigator (PI)’s decision to retroactively request
+payment for               as a consultant was unreasonable. In addition to the fact that this
+represents an unreasonable allocation based on a matter of convenience, the NSF Award and
+Administration Guide, Chapter V, Section A.2.c. does not allow grantees to expend funding
+subsequent to the expiration date of the grant except to liquidate valid commitments that were
+made on or before the expiration date. As the service agreement with                     was not
+signed until after the grant period had expired, the university does not appear to have made a
+valid commitment to expend these funds before the grant’s POP expired, and these expenses
+would therefore be expressly unallowable.
+
+NSF Award No. 0822189 had a period of performance from September 15, 2008, through
+December 31, 2012. On January 16, 2013, or 16 days after the grant’s POP had expired, the
+university charged to this grant $4,999 of consultant expenses for services provided by Rutgers
+
+
+
+                                                                                             Page | 14
+University. The invoice was dated December 27, 2012, and was purportedly for
+                      project services provided from January 1 through December 15, 2012.
+
+While one of the objectives of this NSF award was to prepare a video for          the budget did
+not contain any funding for consultant services to be performed at Rutgers. The PI stated that as
+the research unfolded, they relied on technical assistance from Rutgers to a greater extent than
+originally anticipated, and he therefore hired Rutgers to perform the invoiced work. While UW-
+Madison provided an invoice to support the amount of the expense, it did not provide any
+support to verify that UW-Madison and Rutgers had a service agreement in place for the work
+that was performed, or provide a description of how the PI determined the amount of the invoice.
+The PI stated, “The amount paid was the agreed upon amount between the PI and Rutgers to
+perform this service. The purchase was below $5,000 and made in accordance with UW-
+Madison Purchasing Policy and Procedure 3.”
+
+As these consultant fees were provided without an academic support services agreement in place,
+to a university that had not previously received funding from the NSF grant, the PI’s decision to
+provide funding to Rutgers appears unreasonable per 2 CFR 220, Appendix A, Section C.4.b. In
+addition, 2 CFR 215, Subpart C § 215.21 (b)(7) states that a recipient’s financial management
+system must include accounting records that are supported by source documentation. While UW-
+Madison was able to provide an invoice, it was unable to provide support for the agreement
+reached between Rutgers and UW-Madison. The lack of a services agreement, coupled with the
+fact that the amount of this expense is $1 below the purchasing threshold that would require
+additional approval, implies that the amount of the invoice was not calculated based on the work
+performed, but rather was determined by the university’s purchasing policies.
+
+As a result of the analysis shown above, we are questioning $35,592 associated with
+unreasonable consulting fees paid to university service providers at the end of NSF award
+periods.
+
+                                                       Questioned Costs
+                 NSF Award No. Fiscal Year         Direct Indirect Total
+                               2011-2012
+                 0822189       2012-2013
+                 Total                                                  $35,592
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UW-Madison:
+
+   1. Repay NSF the $35,592 of questioned costs.
+
+   2. Strengthen the administrative and management controls and processes over charging
+      consultant expenses to federally sponsored awards. Processes could include:
+
+
+
+
+                                                                                         Page | 15
+           a. Implementing new policies and procedures that require a more stringent review of
+              all costs allocated to federally sponsored awards within the final 90 days of the
+              grant’s POP.
+
+           b. Ensuring that all payments made to consultants are supported by an academic
+              services support agreement that is signed before the services are provided.
+
+University of Wisconsin at Madison Response: UW-Madison believes that these consulting
+expenses were reasonable and allocable to these awards. It refers to 2 CFR 215, Section 215.2,
+which defines obligations as “the amounts of orders placed, contracts and grants awarded,
+services rendered and similar transactions during a given period that require payment by the
+recipient during the same or a future period.” UW-Madison contends that the work performed by
+the consultants created an obligation during the POP that the university was required to liquidate.
+As UW-Madison was required to pay for such services, which were incurred during the project’s
+POP and related to the project objectives, and did so within the 90 calendar days allowed per 2
+CFR 215, the consultant expenses should be allowable.
+
+Auditors’ Additional Comments: Our position regarding the finding does not change. As UW-
+Madison did not enter into agreements to pay these consultants until near or after the grant’s
+expiration date, it does not appear that these expenses represented valid commitments that the
+university intended to incur until the grant was set to expire. These expenses therefore do not
+represent reasonable, allowable costs and should not have been allocated to the NSF grant.
+
+Finding 6: Unallowable Relocation Expenses
+
+While NSF policies allow grantees to directly charge relocation expenses to NSF grants, the
+relocation fees must be charged in accordance with NSF’s Award and Administration Guide.
+Relocation expenses that UW-Madison charged to one NSF grant were not in accordance with
+the applicable governing cost principles. As a result, UW-Madison inappropriately allocated
+more than $20,000 of relocation expenses to an NSF grant during our audit period.
+
+In April 2012, UW-Madison hired a new                                     to work on NSF Award
+No.           “                                                     The university agreed to cover
+the moving expenses that this employee incurred in relocating from                          to
+Madison, Wisconsin. The university reimbursed more than $20,000 in relocation expenses,
+including costs to move the employee’s personal possessions, as well as all insurance, storage,
+and delivery expenses associated with the move. As this employee was hired to fulfill a position
+related to NSF Award                the university allocated all of the reimbursed relocation
+expenses to this grant.
+
+The NSF Proposal and Award Policies and Procedures Guide, Chapter V, Section C.4 states that
+relocation costs may be charged to an NSF award in accordance with the applicable governing
+cost principles, provided that the proposal for NSF support indicates that the grantee intends to
+hire a specific, named individual to perform full-time work on the project, and that such
+recruitment action is not disapproved by the grant terms.
+
+
+
+
+                                                                                          Page | 16
+While this position was identified in the grant budget, the budget did not specifically indicate
+that the university intended to hire this individual for work on the project. These expenses were
+therefore not appropriate per NSF’s Award and Administration Guide.
+
+UW-Madison agreed that this individual had not been identified in the NSF award budget, but
+claimed that, as the individual was not considered key personnel, the university was not required
+to notify NSF of the individual’s recruitment and relocation. UW-Madison also noted that
+relocation costs are not among the items that require prior approval from NSF per the prior
+approval cost matrix provided in NSF’s Award and Administration Guide. While we agree that
+relocation costs are not specifically identified in the prior approval cost matrix, we also noted
+that prior approval requirements are not specifically waived for relocation expenses. As the
+matrix states that the “listing of Notifications and Requests for Approval is not intended to be all
+inclusive,” grantees should follow the relocation guidance available in Chapter V, Section C.4 of
+the Award and Administration Guide.
+
+As the relocation fees applied to this NSF grant were not for named individuals identified in the
+grant proposal, and the university did not obtain specific permission from NSF to allocate
+relocation expenses for this employee, we determined that the expenses were not reasonably
+allocated to this NSF award. We are therefore questioning a total of $30,107 charged to the NSF
+grant, as follows:
+
+                                                         Questioned Costs
+                 NSF Award No. Fiscal Year           Direct Indirect Total
+                               2011-2012                              $30,107
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UW-Madison:
+
+   1. Repay NSF the $30,107 of questioned costs.
+
+   2. Strengthen the administrative and management controls and processes over allocating
+      relocation expenses to sponsored projects. Processes could include strengthening internal
+      procedures to ensure that NSF awards are not charged for relocation expenses for
+      employees who were not identified as key personnel in the proposals submitted.
+
+University of Wisconsin at Madison Response: UW-Madison believes that these expenses are
+allowable on this award, as it notified NSF of the change in personnel that resulted in the
+relocation expenses being allocated to the grant. The university refers to NSF’s Policy and
+Procedure Guide, which does not include direct cost treatment of relocation expenses requiring
+prior approval and states that costs not specifically budgeted in an NSF award are allowable
+provided that prior approval is not required and costs are incurred consistently with the
+institution’s applicable cost principles. UW-Madison’s cost accounting principles state that costs
+that can be specifically identified with a particular sponsored agreement are charged directly to
+the benefitting sponsored agreement, and as the hired individual worked exclusively on the
+
+
+                                                                                           Page | 17
+sponsored project, the charging of these relocation expenses directly to this NSF grant was
+appropriate.
+
+Auditors’ Additional Comments: Our position regarding the finding does not change. The NSF
+Proposal and Award Policies and Procedures Guide, Chapter V, Section C.4 states that relocation
+costs may be charged to an NSF grant, provided that the NSF proposal specifically indicates that
+the grantee intends to hire a named individual for full-time work on the project. As the grant’s
+budget did not identify the relocated individual as essential to the grant and did not include any
+funding to support relocation costs, and as no documentation was available to support that NSF
+was informed that the university intended to relocate this employee and charge those expenses to
+the grant, these expenses were unreasonably allocated to the grant.
+
+Finding 7: Unreasonable Travel Expenses
+
+UW-Madison charged $7,360 of unreasonable travel expenses to two NSF awards. These
+expenses were not reasonable or necessary for accomplishing the award objectives and did not
+benefit the NSF programs to which they were charged. The expenses therefore should not have
+been charged to the NSF awards.
+
+The NSF Award and Administration Guide, Chapter V, Section A states that grantees should
+ensure that costs claimed under NSF grants are necessary, reasonable, allocable, and allowable
+under the applicable cost principles, NSF policy, and/or the program solicitation. Per 2 CFR 220,
+Appendix A, Section C.3, a cost may be considered reasonable if the nature of the goods or
+services acquired or applied, and the amount involved therefore, reflect the action that a prudent
+person would have taken under the circumstances prevailing at the time the decision to incur the
+cost was made. In addition, Section C4 of the CFR states that a cost is only allocable to a
+particular cost objective if the goods or services involved are chargeable or assignable to such
+cost objective in accordance with the relative benefits received or other equitable relationship.
+While UW-Madison provided documentation to support the travel costs incurred by its
+employees, the expenses were not supported as allocable, reasonable, or necessary in accordance
+with these cost principles.
+
+According to UW-Madison, the PI of NSF Award No.                was unable to attend the one-
+week                                 Conference held in                             in April
+2012;                   was therefore sent in his place to present a paper entitled
+                                                                                    was
+reimbursed for expenses amounting to $3,047, all of which were allocated to this NSF award.
+
+While                        was                                                                 at the
+time of the trip,            did not allocate any of their effort to this award, but rather to other
+sponsored projects that the PI was involved in.                was not identified as a contributor to
+this project, nor was the paper presented at the conference mentioned in the annual report for this
+NSF award. These travel reimbursement expenses therefore do not appear to have benefitted
+NSF Award No.              .
+
+
+
+
+                                                                                              Page | 18
+The PI of NSF Award No.                attended the annual
+         meeting in April 2010 and allocated all travel expenses incurred to this NSF award. As a
+result of our audit, university grant personnel discussed this expense with the PI and determined
+that it was incorrectly allocated to this grant. The university chose to reimburse NSF and transfer
+all of the expenses associated with this trip to a general funding source.
+
+As the travel described above did not benefit the NSF grants charged, we determined that these
+expenses were unreasonably allocated to the identified NSF awards. We are therefore
+questioning $7,360 of expenses related to unallocable travel costs, as follows:
+
+                                                Questioned Costs
+                   NSF Grant No. Fiscal Year Direct Indirect Total
+                                   2011-2012                 $4,433
+                                   2009-2010                  2,927
+                             Total                           $7,360
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UW-Madison:
+
+   1. Repay NSF the $4,433 of questioned costs for NSF Award No.                 .
+
+   2. Provide support verifying that it has repaid the $2,927 of questioned costs for NSF
+      Award No.           .
+
+   3. Strengthen the administrative and management controls and processes over allocating
+      travel expenses to federally sponsored awards. Processes could include documenting the
+      purpose of all trips taken by employees who are not identified as key personnel on the
+      sponsored program.
+
+University of Wisconsin at Madison Response: UW-Madison believes that the expenses
+charged to NSF Award No.               are allowable because the                    travel expenses
+were incurred to present a paper, co-authored by the PI of this award, that resulted from the work
+performed under this award. The university refers to NSF Award and Administration Guide
+Chapter VI, Section D.4.b., Dissemination and Sharing of Research Results, which states that
+investigators are expected to share with other researchers the primary data gathered during the
+course of work under NSF grants. UW-Madison claims that the travel expenses were directly
+related to the dissemination of research results produced by this award and that the travel
+expenses should therefore be allowable.
+
+As mentioned previously, UW-Madison determined that the travel expenses charged to NSF
+Award No.          were not allowable on this project and issued a refund check to NSF on
+September 8, 2014.
+
+
+
+
+                                                                                           Page | 19
+Auditors’ Additional Comments: Our position regarding the finding related to NSF Award No.
+         does not change. As the travel expenses charged to this NSF award were incurred by
+       who did not allocate any effort to this NSF grant, to present a paper that was not
+mentioned in the annual report for this award, it appears that this travel was not allocable to this
+funding source and therefore should not have been charged to this award.
+
+Finding 8: Late Effort Certifications
+
+UW-Madison’s Policy on Effort, Commitments, and Effort Certification requires that employees
+provide effort certifications within 90 days of the date on which the effort statement becomes
+available. We found that for 26 of our 93 sampled salary transactions, employees had not
+certified the effort reports within the specified time period, including six instances in which the
+effort was not certified until after we had requested the effort certification as support for sampled
+transactions.
+
+Under UW-Madison’s effort confirmation system, employees who are committed to work on
+federally sponsored projects must certify the amount of their total work effort that is applicable
+to sponsored research. This certification must take place within 90 days of the payroll data being
+posted in the Electronic Certification and Reporting Tool (ECRT). While each salary transaction
+that we tested was supported by a signed effort certification, a significant number of these reports
+were not signed before the ECRT due date. We also noted that the effort reports provided to
+support six of the sampled transactions were not certified until after February 14, 2014, when we
+requested the supporting documentation.
+
+UW-Madison personnel stated that federal policies and procedures do not include a requirement
+for the timeliness of effort certifications, and therefore the aforementioned instances should not
+be identified as exceptions. However, 2 CFR 220, Appendix A, Section J.10.a states that the
+payroll distribution system used to allocate salary expenses must be incorporated into the official
+records of the institution and must reasonably reflect the activity for which the employee is
+compensated. As UW-Madison’s guidelines for effort reporting are incorporated into its official
+policies, the 90-day effort certification window functions as applicable criteria.
+
+Because many PIs participate on multiple grant awards and are responsible for many employees,
+the PI’s memory of the number and type of activities performed will be less reliable over time.
+Certifying officials generally rely on these memories when approving reported work activities
+for themselves and for other individuals who work for them, making it essential that all effort
+reports are certified on a timely basis.
+
+Certifiers have multiple professional responsibilities according to their appointment at the
+university, and consequently have myriad professional demands at any given time. As a result,
+the certifiers completed the effort certifications significantly after the time period when the work
+was performed. For example, based on the documents we reviewed, UW-Madison personnel
+only recently certified effort expended on NSF grants more than 3 years ago.
+
+Without procedures in place to ensure that faculty effort is verified on a timely basis, it is
+possible that inaccurate effort reports will be certified. As a result, labor costs could be
+
+
+
+                                                                                             Page | 20
+inappropriately allocated and charged to NSF grants. Limiting the window for review and
+certification of effort reports to the shortest reasonable time period helps ensure a more reliable
+certification of labor costs associated with activities on federal awards.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support request
+that UW-Madison:
+
+   1. Strengthen the administrative and management controls and processes over allocating
+      salaries to its federal awards. Processes could include disallowing uncertified effort on
+      federally funded awards.
+
+University of Wisconsin at Madison Response: UW-Madison acknowledged that some of its
+effort certifications were not completed in a timely manner; however, it believes that it has
+adequate procedures in place to address the completion of effort certifications in a compliant
+manner. UW-Madison contends that as 2 CFR 220, Appendix A, Section J.10.c.(2) does not
+require effort certifications to be completed within a specific time period, the audit findings are a
+result of language included in a UW-Madison guidance document and therefore do not relate to a
+formal policy. UW-Madison’s response highlighted the efforts that it has made to ensure that
+effort reports are certified in accordance with federal and university policy, including
+implementing consequences for faculty who fail to certify their effort. Based on its
+comprehensive guidance regarding effort certifications, UW-Madison requested that these audit
+findings be removed.
+
+Auditors’ Additional Comments: Our position regarding the finding does not change. While
+UW-Madison’s policies do include consequences for personnel who fail to certify their effort in
+a timely manner, these penalties do not occur until after the 90-day certification window has
+passed and do not have any effect on the amount of effort that is ultimately allocated to the
+federal funding source. Based on the number of instances that we identified as non-compliant
+with UW-Madison’s regulations, we recommend that the university strengthen its administrative
+and management controls regarding the timing of its employees’ effort certifications, rather than
+solely relying on the penalties under its current effort-reporting policies.
+
+
+COTTON & COMPANY LLP
+
+
+
+
+Partner
+
+
+
+
+                                                                                            Page | 21
+APPENDIX A: SCHEDULE OF QUESTIONED COSTS BY FINDING
+
+
+
+
+                                                      Page | 22
+                                    NATIONAL SCIENCE FOUNDATION
+                                        ORDER # D13PD00390
+                          PERFORMANCE AUDIT OF COSTS CLAIMED ON NSF AWARDS
+                                 UNIVERSITY OF WISCONSIN AT MADISON
+
+                                 SCHEDULE OF QUESTIONED COSTS BY FINDING
+
+                                                 Cost Breakdown                Total Questioned Costs
+                                                      Fringe      Indirect
+Finding         Description          Direct Costs Benefit Costs    Costs     Unsupported    Unallowable
+          Salary Costs for Senior
+          Personnel That
+          Exceeded NSF's Two-
+          Month Maximum for
+  1       Salary Allocation                                                           $0       $1,276,668
+          Leave Accrual Payouts
+          Unreasonably
+          Allocated to NSF
+  2       Awards                                                                        0          192,707
+          Methodology Used to
+          Allocated Equipment
+          Expenses Not
+          Proportionate to the
+  3       Benefits Received                                                             0           70,189
+          Expenses Incurred
+          After the Grant's Period
+          of Performance Had
+  4       Expired                                                                       0           56,965
+          Unreasonable
+  5       Consulting Expenses                                                           0           35,592
+          Unallowable
+  6       Relocation Expenses                                                           0           30,107
+          Unnecessary Travel
+  7       Expenses                                                                     0            7,360
+              Total                                                                   $0       $1,669,588
+
+
+
+
+                                                                                       Page | 23
+APPENDIX B: UNIVERSITY OF WISCONSIN AT MADISON RESPONSE
+
+
+
+
+                                                          Page | 24
+Page | 25
+Page | 26
+Page | 27
+Page | 28
+Page | 29
+Page | 30
+Page | 31
+Page | 32
+Page | 33
+Page | 34
+Page | 35
+Page | 36
+Page | 37
+Page | 38
+Page | 39
+Page | 40
+Page | 41
+Page | 42
+Page | 43
+APPENDIX C: OBJECTIVES, SCOPE, AND METHODOLOGY
+
+
+
+
+                                                 Page | 44
+                                                                                       APPENDIX C
+
+
+                           OBJECTIVES, SCOPE, AND METHODOLOGY
+
+The NSF OIG Office of Audits engaged Cotton & Company LLP (referred to as “we” in this
+report) to conduct a performance audit of costs that UW-Madison incurred on NSF awards for
+the period from April 1, 2010, to March 31, 2013. The objectives of the audit were to (1) identify
+and report on instances of unallowable, unallocable, and unreasonable costs from the transactions
+tested; (2) identify and report on instances of noncompliance with regulations, federal financial
+assistance requirements, and provisions of the NSF award agreements as they relate to the
+transactions tested; and (3) determine the reasonableness, accuracy, and timeliness of the
+awardee’s ARRA quarterly reporting, including reporting of jobs created under ARRA and grant
+expenditures for the most recent quarters.
+
+Our work required reliance on computer-processed data obtained from UW-Madison and the
+NSF OIG. The NSF OIG provided data on each award that UW-Madison reported on its FFRs
+for the quarters submitted during our audit period. In addition, UW-Madison personnel provided
+detailed transaction data for all costs charged to NSF awards during our audit period. This
+resulted in a total audit universe of $270,130,383 in costs that UW-Madison claimed on FFRs for
+1,146 NSF awards.
+
+We assessed the reliability of the data provided by UW-Madison by (1) comparing costs charged
+to NSF award accounts within UW-Madison’s accounting records to reported net expenditures,
+as reflected in UW-Madison’s quarterly financial reports submitted to NSF for the corresponding
+periods; and (2) reviewing the parameters that UW-Madison used to extract transaction data
+from its accounting records and systems.
+
+Based on our assessment, we found UW-Madison’s computer-processed data to be sufficiently
+reliable for the purposes of this audit. We did not review or test whether the data contained in, or
+the controls over, NSF’s databases were accurate or reliable; however, the independent auditor’s
+report on NSF’s financial statements for fiscal years 2012 and 2013 found no reportable
+instances in which NSF’s financial management systems did not substantially comply with
+applicable requirements.
+
+UW-Madison management is responsible for establishing and maintaining effective internal
+control to help ensure that federal award funds are used in compliance with laws, regulations,
+and award terms. In planning and performing our audit, we considered UW-Madison’s internal
+control solely for the purpose of understanding the policies and procedures relevant to the
+financial reporting and administration of NSF awards, in order to evaluate UW-Madison’s
+compliance with laws, regulations, and award terms applicable to the items selected for testing,
+but not for the purpose of expressing an opinion on the effectiveness of UW-Madison’s internal
+control over award financial reporting and administration. Accordingly, we do not express an
+opinion on the effectiveness of UW-Madison’s internal control over its award financial reporting
+and administration.
+
+We assessed the reasonableness, accuracy, and timeliness of the awardee’s ARRA quarterly
+reporting, including reporting of jobs created under ARRA and grant expenditures for the two
+most recent quarters, by (1) recomputing the number of jobs created or retained in compliance
+
+
+
+                                                                                            Page | 45
+                                                                                       APPENDIX C
+
+with Office of Management and Budget (OMB) Memorandum M-10-08, Updated Guidance on
+the American Recovery and Reinvestment Act – Data Quality, Non-Reporting Recipients, and
+Reporting of Job Estimates; (2) reconciling expenditures per the general ledger to the ARRA
+expenditures; and (3) reviewing the ARRA reporting submission dates. We found that the
+universe of NSF ARRA-funded awards included approximately $13.5 million in expenditures
+across 67 NSF awards.
+
+To accomplish our objectives of determining reasonableness, allowability, and allocability of
+costs while identifying and reporting on instances of noncompliance with regulations, federal
+financial assistance requirements, and provisions of the NSF awards, we judgmentally selected
+and tested a variety of expenses allocated to NSF grants.
+
+After confirming the accuracy of the data provided but before performing our analysis, we
+reviewed all available accounting and administrative policies and procedures, relevant
+documented management initiatives, previously issued external audit reports, and desk review
+reports to ensure that we understood the data and that we had identified any possible weaknesses
+within UW-Madison’s system that warranted focus during our testing.
+
+We began our analytics process by reviewing the transaction-level data that UW-Madison
+provided, then used          software to combine it with the data provided by the NSF OIG. We
+conducted data mining and data analytics on the entire universe of data provided and compiled a
+list of transactions that represented anomalies, outliers, and aberrant transactions. We reviewed
+the results of each of our data tests and judgmentally selected transactions for testing based on
+criteria including, but not limited to, transactions of large-dollar amounts, possible duplications,
+indications of unusual trends in spending, descriptions indicating potentially unallowable costs,
+cost transfers, expenditures outside of an award’s period of performance, and unbudgeted
+expenditures.
+
+We identified 275 transactions for testing and sent the list to UW-Madison, requesting
+documentation to support each transaction. We reviewed the supporting documentation provided
+by UW-Madison to determine if we obtained sufficient, appropriate evidence to support the
+allowability of the sampled expenditures. When necessary, we requested additional supporting
+documentation, reviewed it, and obtained explanations and justifications from PIs and other
+knowledgeable UW-Madison personnel until we had sufficient support to assess the allowability,
+allocability, and reasonableness of each transaction.
+
+We held a discussion with the NSF OIG regarding the results of our initial fieldwork testing and
+our recommendations for expanded testing. Based on the results of this discussion, we used
+       software to extract an additional 150 transactions that we identified as anomalies or
+outliers in the recommended expansion areas. We also determined that we would conduct a
+cluster test in one area where weaknesses were identified within our initial testing set.
+
+We sent the list of the additional 150 transactions to UW-Madison and requested documentation
+to support each transaction. We also asked for support verifying the salary amounts for a number
+of employees identified in our cluster test. We reviewed the documentation provided and
+
+
+
+
+                                                                                            Page | 46
+                                                                                    APPENDIX C
+
+evaluated each transaction’s allowability, allocability, and reasonableness based on the same
+methodology used during the initial fieldwork.
+
+At the conclusion of our fieldwork, we provided a summary of our results to NSF OIG personnel
+for review. We also provided the summary of results to UW-Madison personnel, to ensure that
+they were aware of each of our findings and did not have any additional documentation available
+to support the questioned costs identified.
+
+We conducted this performance audit in accordance with generally accepted government
+auditing standards. Those standards require that we plan and perform the audit to obtain
+sufficient, appropriate evidence to provide a reasonable basis for our findings and conclusions
+based on our audit objectives. We believe that the evidence obtained provides a reasonable basis
+for our findings and conclusions based on our audit objectives.
+
+
+
+
+                                                                                         Page | 47
+The remaining attachments contain non-public material and are not posted.
+

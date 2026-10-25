@@ -1,0 +1,43 @@
+===== SOURCE: https://www.mass.gov/info-details/procard-users-made-dovetail-transactions-totaling-6204 (via web.archive.org, fetched 2026-10-24); parent audit https://www.mass.gov/audit/audit-of-the-university-of-massachusetts-amherst — Date published: October 29, 2018; audit period July 1, 2014 through December 31, 2016
+You skipped the table of contents section. Overview In 13 instances during the audit period, 
+authorized UMass Amherst Procard holders made multiple Procard transactions with the same vendor on 
+the same day. These transactions totaled $19,204, $6,204 of which was over the cardholders’ 
+approved single-purchase limits (limits on amounts that cardholders are allowed to spend). 
+Purchases that cumulatively exceed the single-purchase limit in this way are called dovetail 
+purchases. In each of these 13 instances, the single-purchase limit was $1,000 and the cardholder 
+did not receive prior approval to exceed this amount. Allowing employees to exceed the 
+single-purchase limit defeats the purpose of the Procard, which is to make small purchases. The 13 
+dovetail purchases in which cardholders exceeded the single-purchase limit were as follows: 3 
+instances, totaling $1,650 over the limit, in which the cardholder split a single invoice, or a 
+single purchase consisting of multiple items, from the same vendor on the same date into multiple 
+payments 5 instances, totaling $2,049 over the limit, in which the cardholder paid multiple 
+invoices to the same vendor on the same date 5 instances, totaling $2,505 over the limit, in which 
+the cardholder made multiple separate purchases from the same vendor on the same date Authoritative 
+Guidance The university Procard User Guide states, The Cardholder may make as many purchases as 
+(s)he wishes from the same vendor in a single day, as long as the total of the combined purchases 
+from that vendor does not exceed their single purchase limit. The guide also states that a 
+cardholder can request a “one-time exception to [the] single purchase limit” from the Procurement 
+Department to have this limit increased. However, none of the cardholders who were involved in the 
+13 dovetail purchases above requested limit increases. Reasons for Noncompliance According to UMass 
+Amherst Procurement Department officials, their understanding was that dovetail purchases only 
+occur if a cardholder splits the cost of a single item that costs more than the single-purchase 
+limit into multiple purchases. However, according to the Procard User Guide, the cardholder’s 
+single-purchase limit applies not only to the same item but also to the same vendor. Therefore, 
+making multiple purchases from the same vendor with a combined total that exceeds the 
+single-purchase limit, without obtaining a onetime exception to the limit, is dovetailing. 
+Recommendation UMass Amherst management should review and update the university’s definition of 
+dovetail purchases, amend its Procard User Guide accordingly, and provide additional user training 
+to ensure that cardholders understand the definition of dovetailing. Auditee’s Response UMA will 
+update its definition of dovetail in the Procard User Guide. When a cardholder intentionally splits 
+an order/charge with a single vendor in the same day resulting in a combined dollar amount of 
+purchases from that vendor which exceeds the assigned daily spending limit, this is considered 
+“dovetailing.” This will eliminate confusion about our single purchase limit applying not only to 
+the same item/charge but also to the same vendor. If orders are placed on different days and 
+charged on the same day, we do not consider this dovetailing. The Procard audit team monitors 
+purchases for dovetailing during periodic monthly audits. When a review of a cardholder’s purchases 
+shows a pattern of intentionally splitting purchases from a single vendor the Procard audit team 
+will increase the audit selections for that cardholder. Auditor’s Reply Based on its response, 
+UMass Amherst is taking steps to address our concerns in this area by updating its Procard User 
+Guide and redefining dovetailing as it relates to splitting an order/charge from a single vendor in 
+a single day. However, we believe that cardholders who exceed the single-purchase limit should be 
+given additional training to ensure that they understand the definition of dovetailing.

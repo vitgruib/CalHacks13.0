@@ -1,0 +1,523 @@
+The University of Texas
+lijqGrande Valley
+         Cost Transfers Audit
+
+
+           Report No. 23-AEN-05
+
+              February 29, 2024
+
+    Office of Audits & Consulting Services
+ The University ofTexas
+ R.\9Grande Valley                                        Cost Transfers Audit
+  Brownsville • Edinburg • Harlingen
+
+
+
+                                                      EXECUTIVE SUMMARY
+                                       Background: The University of Texas Rio Grande Valley (UTRGV) is a public research university
+Overall Assessment:                                with multiple campuses throughout the Rio Grande Valley region of Texas. UTRGV
+Payroll and non-payroll cost                       receives federal, state, and local research funding.
+transfers follow different paths
+with different procedures. These                      Cost transfers are an after-the-fact reallocation of the costs to or from a sponsored
+paths have created                                    project. In accounting for the costs of its research activities, cost transfers from one
+inconsistencies that do not align                     cost center /project to another are occasionally necessary to correct bookkeeping or
+with policy and Federal                               clerical errors in the originally charged cost center/project. Federal requirements
+requirements. Opportunities                           concerning the management of awards made to the University limit the circumstances
+exist to improve the cost                             under which cost transfers are allowed. Federal requirements for cost transfers require
+transfers’ process and enhance                        that they are timely, supported, reasonable, allocable, allowable, and that grant projects
+controls.                                             have adequate internal controls so they can be monitored. In addition, specific University
+                                                      requirements must also be followed. UTRGV’s ADM 07-303 Cost Transfer for
+                                                      Sponsored Projects Policy outlines the responsibilities and procedures for processing
+                                                      cost transfers, including payroll costs, to or from a sponsored project.
+
+                                          Objective: Determine whether the University developed and implemented adequate procedures
+                                                     and controls that justify and support cost transfers in accordance with Federal
+                                                     regulations and the institution’s policies and procedures.
+         Risk Levels
+         Appendix I                    Scope/Period: June 2022 to December 2022.
+
+        Priority                         Risk                                      Observations Summary
+         High                          Medium 1. Director of Grants & Contracts does not approve payroll cost transfers over 90 days.
+        Medium                         Medium 2. Expenditure correction form is not submitted for all cost transfers and lacks formal
+         Low                                     documented approval of the Office of Grants & Contracts accountant.
+                                       Medium 3. Insufficient or inadequate support documentation.
+                                       Medium 4. Incomplete or inadequate justifications.
+We appreciate the assistance           Medium 5. Frequency of cost transfers and approvals over 90-days.
+provided by UTRGV’s                    Medium 6. Monitoring controls not functioning as intended.
+management and other                   Low    7. Lack of training related to cost transfers policy and procedures.
+personnel throughout this audit.
+                                                                                                                                    2|Page
+  The University ofTexas
+  R.\9Grande Valley                                   Cost Transfers Audit
+  Brownsville • Edinburg • Harlingen
+
+                            Observation Detail                      Recommendation                 Management Action Plan
+Policy, Procedures & Accuracy
+1. (Condition)                                                    1. The Office of Grants     1. Management Action Plan:
+   Payroll cost transfers over 90 days are not approved by the       & Contracts (G&C)        The Grants and Contracts accountant
+   Director of Grants & Contracts. Payroll cost transfers are        should ensure that the   will ID payroll cost transfer over 90
+   processed through a change in funding source (CFS) or             Director of Grants &     days and will review if Time and Effort
+   change in job description (CJD) form; formerly change in          Contracts approves       has been certified. If no T&E has been
+   personnel action form (CPAF). The approval workflow does          and documents all        certified will request approval from
+   not include the Director of Grants & Contracts when the cost      payroll cost transfers   G&C Director. Once approved the
+   transfer is over 90 days. Additionally, we noted that payroll     within the CFS/CJD of    accountant will add in their comment
+   cost transfers approved over 90 days did not have documented      the HR Portal as         section the approval to the CFS/CDJ
+   verification of effort statements not certified prior to          required by policy.      form. If T&E has been certified the
+   processing the cost transfer.                                     Additionally, effort     accountant will need to meet with PI
+                                                                     statements for payroll   about the request and review the details.
+   (Criteria)                                                        cost transfers over 90   Training on how to provide and review
+   ADM 07-303 Cost Transfers for Sponsored Projects                  days should include      CFS/CDJ information will be available
+   D. Procedures                                                     documented               for G&C Accountants, PIs, and
+   3. Cost Transfer for Salary Expenses                              justification of the     department support.
+   A Change of Personnel Action Form (CPAF) should be                benefit to the sponsor        Action Plan owner:
+   completed and routed in the electronic Personnel Action Form      for changing a                Grants and Contracts
+   (ePAF) system for approval by the Office of Grants and            previously certified          Implementation Date:
+   Contracts. The CPAF document must justify the transfer in         effort statement.             March 29, 2024: Start training PIs
+   detail. No salary cost transfers are permitted after effort                                     and departmental support.
+   certification reports are completed and certified by the
+   responsible individual unless it benefits the sponsor.
+   4. Timeliness
+   b. Cost transfers over 90 days after the original charge or
+   effort certification reports will not be approved unless the
+   request:
+   i. has approval signatures from the PI, PD, or PM (as
+   appropriate) of the accounts which will be receiving the
+   charge and receiving a credit, the respective department head,
+   the Director of Grants and Contracts, as well as for certain
+   transfers the appropriate Division head approval, as
+   required….
+                                                                                                                         3|Page
+  The University ofTexas
+  R.\9Grande Valley                                    Cost Transfers Audit
+  Brownsville • Edinburg • Harlingen
+
+                            Observation Detail                         Recommendation                   Management Action Plan
+  (Cause)
+  The approval workflow does not always route to the Office
+  Grants and Contracts, nor does it separately include the
+  Director of Grants & Contracts when the cost transfer is over
+  90 days. The CPAF workflow has inherent limitations
+  impacting this process.
+
+  (Effect)
+  Noncompliance with institutional policy ADM 07-303.
+
+2. (Condition)
+   The Sponsored Project Expenditure Correction Request Form        2. The Office of Grants &      2. Management Action Plan:
+   is not submitted for all cost transfers in accordance with          Contracts should ensure     Fall 2023 the Accounts Payable
+   policy ADM 07-303. We identified 5 non-payroll transactions         that the Sponsored          department implemented an automated
+   without an expenditure correction form.                             Project Expenditure         process to submit expenditure
+                                                                       Correction Request          corrections. This process has the
+   The Office of Grants & Contracts approval of cost transfers is      Form is submitted for all   capability to add attachments and has
+   not formally documented on the expenditure correction form.         non-payroll cost            workflow approval.
+   The form lacks the Office of Grants & Contracts accountants’        transfers to document
+   signature. In addition, we noted five instances where the           required approvals. Non-   AP Workflow will require:
+   Project Manager approval was not documented.                        payroll cost transfers        • Expenditure Correction Form
+                                                                       should not be initiated          for items over 90 days to
+   (Criteria)                                                          until a completed form is        document approvals not in the
+                                                                       provided.                        AP Workflow.
+   ADM 07-303 Cost Transfers for Sponsored Projects
+   C. Policy                                                                                         • supporting documents of
+                                                                       Additionally, the Office         expense
+   4. The Office of Grants and Contracts is responsible for
+                                                                       of Grants & Contracts         • comment box to enter
+   reviewing and approving (or rejecting) cost transfers to/from
+                                                                       should modify the                justification of allowability for
+   sponsored projects in accordance with this policy.
+                                                                       Sponsored Project                the project receiving the
+   D. Procedures
+                                                                       Expenditure Correction           expense.
+   2. Cost Transfer for Non-Salary Expenses
+                                                                       Request Form to include Journal Entry Workflow will require:
+   a. An expenditure correction form must be completed for each
+                                                                       a signature line to            • Expenditure Correction Form
+   Cost Transfer by the individual listed under Section C.3.
+                                                                       document the review and        • Supporting documents of the
+                                                                       approval (or rejection) of        expense
+                                                                                                                             4|Page
+  The University ofTexas
+  R.\9Grande Valley                                     Cost Transfers Audit
+  Brownsville • Edinburg • Harlingen
+
+                            Observation Detail                        Recommendation                    Management Action Plan
+   (Cause)                                                            all cost transfers to/from
+   The Sponsored Project Expenditure Correction Request Form          sponsored projects in        The Expenditure Correction Form will
+   does not have an approval signature line for the Office of         accordance with policy.      be updated to include accountant
+   Grants & Contracts accountants to comply with cost transfers                                    approval or rejection. The form will be
+   policy. Inadequate/Insufficient review (monitoring control)                                     required for all journal entries process
+   from the Office of Grants & Contracts.                                                          no matter the age of expense. The form
+                                                                                                   will only need to be uploaded for items
+   (Effect)                                                                                        over 90 days for the AP process. Due
+   Noncompliance with institutional policy ADM 07-303 and                                          to the automated correction request
+   possible cost disallowance.                                                                     process, we will submit a change of
+                                                                                                   policy request, to be reviewed by HOP.
+                                                                                                   Both AP and JE process have the
+                                                                                                   capability to have attachments and will
+                                                                                                   be used as a central depository for the
+                                                                                                   support documents.
+                                                                                                        Action Plan owner:
+                                                                                                        Grants and Contract
+                                                                                                        Implementation Date:
+                                                                                                        March 01, 2024: Submit
+                                                                                                        Amendment to Policy Committee.
+                                                                                                        April 30, 2024: Training Materials
+                                                                                                        Completed
+                                                                                                        May 01 – June 30, 2024: Training
+                                                                                                        Sessions with departmental
+                                                                                                        support/reconcilers.
+3. (Condition)
+   Cost transfers tested lacked sufficient documentation to        3. The Office of Grants &       3. Management Action Plan:
+   support the transaction. We identified 17 cost transfers with      Contracts accountants        Items department will submit through
+   insufficient support documentation to determine the                should ensure that cost      AP Workflow are:
+   allowability, allocability and benefit to project charged.         transfers include                • Expenditure Correction Form
+                                                                      adequate support                    for items over 90 days to
+   (Criteria)                                                         documentation such as               document approvals not in the
+   ADM 07-303 Cost Transfers for Sponsored Projects                   original invoice, credit            AP Workflow.
+                                                                      card receipt(s), and any         • supporting documents of
+   C. Policy
+                                                                                                                              5|Page
+  The University ofTexas
+  R.\9Grande Valley                                      Cost Transfers Audit
+  Brownsville • Edinburg • Harlingen
+
+                            Observation Detail                           Recommendation                     Management Action Plan
+   2. Principal Investigators (PI), Project Directors (PD), and          other document that                 expense
+   Project Managers (PM) are responsible for:                            supports the original          •    comment box to enter
+   c. Minimizing the occurrence of cost transfers, document              transaction and kept in a           justification of allowability for
+   allowability, allocability and reasonableness of the                  central location to                 the project receiving the
+   transaction, and ensure appropriate authorizing signatures.           support the Office of               expense.
+   E. Definitions                                                        Grants & Contracts’
+   4. Documentation - original invoice, credit card receipt(s), and      approval.                   Journal Entry Workflow are:
+   any other document that supports the transaction.                                                     • Expenditure Correction Form
+                                                                                                         • Supporting documents of the
+   2 CFR Part 200, Subpart E Cost Principles                                                                 expense
+   § 200.403 Factors affecting allowability of costs.
+    (g) Be adequately documented.                                                                        Action Plan owner:
+                                                                                                         Grants and Contracts
+                                                                                                         Implementation Date:
+   (Cause)                                                                                               February 29, 2024: Train
+   Lack of knowledge/training for PI, PD and PM.                                                         accountants in reviewing adequate
+   Inadequate/Insufficient review (monitoring control) from the                                          support for transfer.
+   Office of Grants & Contracts. Lack of knowledge, training and                                         April 30, 2024: Training Materials
+   understanding of institutional policy and federal guidelines for                                      Completed
+   the Office of Grants & Contracts accountants.                                                         May 01 – June 30, 2024: Training
+                                                                                                         Sessions with departmental
+   (Effect)                                                                                              support/reconcilers.
+   Noncompliance with institutional policy ADM 07-303.
+   Noncompliance with Federal Regulations and possible cost
+   disallowance.
+
+4. (Condition)                                                                                     4. Management Action Plan:
+   Cost transfers tested did not include adequate/proper              4. The Office of Grants &    AP Workflow process has a drop down
+   justifications. We identified 14 cost transfers with inadequate       Contracts accountants     menu as CC/PRJ:
+   or incomplete justifications. Several examples of incomplete          should ensure that cost      • Funding not Available
+   justifications are as follow:                                         transfers are justified
+                                                                                                      • Pend Creation/Setup
+       • For an MRI purchase, “Expense was initially charged             with detailed
+                                                                                                      • Pend Budget Revision
+            to a central account for the Neuroscience Building           explanations that support
+                                                                                                      • Incorrect Acct Code
+            expenses.”                                                   the necessity of the
+                                                                                                      • Incorrect CC/PRJ
+                                                                                                                           6|Page
+  The University ofTexas
+  R.\9Grande Valley                                    Cost Transfers Audit
+  Brownsville • Edinburg • Harlingen
+
+                            Observation Detail                       Recommendation                   Management Action Plan
+        •    “Expenditure Correction to move Vessel Research fee     transfers; the reason why   The comment section will require
+             from 5100000566 into 5100000427 in the amount of        the expenses were           justification of allowability,
+             $600.00”.                                               originally charged to the   allocability, and reasonableness.
+        •    “Change of PAF is being processed to add new            incorrect cost                   Action Plan owner:
+             sponsored project account at 1%.”                       centers/projects, and            Grants and Contracts
+                                                                     explanations for the             Implementation Date:
+   (Criteria)                                                        causes of the errors and         February 29, 2024: Train
+   ADM 07-303 Cost Transfers for Sponsored Projects                  how they were                    accountants in reviewing adequate
+   D. Procedures                                                     discovered.                      support for transfer.
+   2. Cost Transfer for Non-Salary Expenses                          Additionally, cost
+   b. The detailed explanation must include a justification          transfers should
+   supporting the necessity of the transfer; the reason why the      document allowability,
+   expense was originally charged to the incorrect cost center;      allocability and
+   and an explanation of the causes of the error and how it was      reasonableness of the
+   discovered.                                                       transactions, and ensure
+   3. Cost Transfer for Salary Expenses                              appropriate authorizing
+   The CPAF document must justify the transfer in detail.            signatures.
+
+  (Cause)
+  Lack of knowledge/training for PI, PD and PM.
+  Inadequate/Insufficient review (monitoring control) from the
+  Office of Grants & Contracts. Lack of knowledge, training and
+  understanding of institutional policy and federal guidelines for
+  the Office of Grants & Contracts accountants.
+
+  (Effect)
+  Noncompliance with institutional policy ADM 07-303.
+  Possible cost disallowance
+
+5. (Condition)                                                                                   5. Management Action Plan:
+   The volume of cost transfers processed for the audit period for 5. The Office of Grants and   Grants and Contracts will start to track
+   non-payroll transactions totaled 742. We could not determine       Contracts should
+                                                                      implement an additional    cost transfer requests in order to review
+   payroll cost transfers.                                                                       areas with high volume. This will also
+                                                                      control to minimize the
+                                                                                                 be included in the weekly metrics
+                                                                                                                              7|Page
+   The University ofTexas
+   R.\9Grande Valley                                     Cost Transfers Audit
+   Brownsville • Edinburg • Harlingen
+
+                             Observation Detail                        Recommendation                   Management Action Plan
+    (Criteria)                                                         occurrences of cost         shared with the SVPR.
+    ADM 07-303 Cost Transfers for Sponsored Projects                   transfers. For instance,        Action Plan owner:
+    C. Policy                                                          requiring corrective            Grants and Contracts
+    1. UTRGV is committed to ensuring that all costs are timely        action plans and/or             Implementation Date:
+                                                                       periodic reviews of areas       February 15, 2024: Cost Transfer
+    charged to the appropriate sponsored projects when such costs
+                                                                       with a high volume of           Log
+    are incurred.                                                      cost transfers.
+    2. Principal Investigators (PI), Project Directors (PD), and
+    Project Managers (PM) are responsible for:
+    c. Minimizing the occurrence of cost transfers,
+
+    (Cause)
+    Lack of knowledge/training for PI, PD and PM
+    Inadequate/Insufficient review (monitoring control) from the
+    Office of Grants & Contracts. Lack of knowledge, training
+    and understanding of institutional policy and federal
+    guidelines for the Office of Grants & Contracts accountants.
+
+    (Effect)
+    Noncompliance with institutional policy ADM 07-303.
+    Noncompliance with Federal Regulations and possible cost
+    disallowance.
+
+Monitoring
+6. (Condition)                                                      6. Since the Office of         6. Management Action Plan:
+   The Office of Grants and Contracts’ monitoring process is not       Grants and Contracts        Grants and Contracts will review best
+   working as intended. Although the Office of Grants and              review and approval is      practices and train accountants to
+   Contract’s accountants review cost transfers prior to posting,      the monitoring              review adequate support for transfer
+   we identified instances of no expenditure request forms,            control, G&C’s              requests. Director/Manager will review
+   insufficient support documentation, incomplete justifications,      review and approval         the cost transfer log quarterly for areas
+   and required approvals not obtained.                                should include              with high volume. Also, will compare
+                                                                       verifying that each         the log to available reports (queries).
+    Additionally, there is no mechanism in place to identify cost      transfer contains:               Action Plan owner:
+    transfers made. The Office of Grants & Contracts could not             • Sponsored                  Grants and Contracts
+                                                                                                                               8|Page
+The University ofTexas
+R.\9Grande Valley                                      Cost Transfers Audit
+Brownsville • Edinburg • Harlingen
+
+                          Observation Detail                       Recommendation             Management Action Plan
+ provide the cost transfer population for the period tested.               Project           Implementation Date:
+ Since cost transfers cannot be clearly identified, there is no            Expenditure       February 15, 2024: Cost Transfer
+ review of cost transfer metrics for compliance requirements               Correction        Log
+ & monitoring.                                                             Request Form,     February 29, 2024: Train
+                                                                       • Sufficient          accountants in reviewing adequate
+(Criteria)                                                                 support           support for transfer.
+ ADM 07-303 Cost Transfers for Sponsored Projects                          documentation,    March 11, 2024: Review available
+C. Policy                                                              • Adequate and        queries from PS.
+4. The Office of Grants and Contracts is responsible for                   complete
+reviewing and approving (or rejecting) cost transfers to/from              justifications,
+sponsored projects in accordance with this policy.                         and
+                                                                       • Required
+2 CFR Part 200, Subpart E Cost Principles                                  approvals.
+§ 200.303 Internal controls.                                       For cost transfers over
+The non-Federal entity must:                                       90 days, corrective
+(a) Establish and maintain effective internal control over the     action plans should be
+Federal award that provides reasonable assurance that the non-     developed and
+Federal entity is managing the Federal award in compliance         followed up.
+with Federal statutes, regulations, and the terms and conditions
+of the Federal award. These internal controls should be in         In addition, a
+compliance with guidance in “Standards for Internal Control        mechanism should be
+in the Federal Government” issued by the Comptroller General       developed to
+of the United States or the “Internal Control Integrated           determine the
+Framework”, issued by the Committee of Sponsoring                  population of cost
+Organizations of the Treadway Commission (COSO).                   transfers.
+(c) Evaluate and monitor the non-Federal entity's compliance
+with statutes, regulations and the terms and conditions of
+Federal awards.
+
+(Cause)
+Lack of knowledge, training and understanding of institutional
+policy and federal guidelines for the Office of Grants &
+Contracts accountants.
+(Effect)
+Internal control weakness
+                                                                                                                  9|Page
+   The University ofTexas
+   R.\9Grande Valley                                      Cost Transfers Audit
+    Brownsville • Edinburg • Harlingen
+
+                              Observation Detail                         Recommendation                 Management Action Plan
+Training
+7. (Condition)                                                        7. The Office of Grants     7. Management Action Plan:
+    There is no cost transfers training available for PIs, PDs, and      & Contracts              Grants and Contracts will create
+    PMs. Lack of employee knowledge and training can lead to             accountants should be    training material on cost transfers and
+    internal control failures.                                           made aware of            will provide training to PIs, reconcilers,
+                                                                         Uniform Guidance         and departmental support. The training
+    (Criteria)                                                           and UTRGV policy         will be recommended but will not be
+     2 CFR Part 200, Subpart E Cost Principles                           requirements. The        mandatory. The training material will
+    § 200.303 Internal controls.                                         Office of Grants &       also be available online with other
+    The non-Federal entity must:                                         Contracts should         Division of Research resources.
+    (a) Establish and maintain effective internal control over the       establish periodic           Action Plan owner:
+        Federal award that provides reasonable assurance that the        training sessions            Grants and Contracts
+        non-Federal entity is managing the Federal award in              focused on cost              Implementation Date:
+        compliance with Federal statutes, regulations, and the           transfers and/or             April 30, 2024: Training Materials
+        terms and conditions of the Federal award. These internal        include training             Completed
+        controls should be in compliance with guidance in                information on               May 01 – June 30, 2024: Training
+        “Standards for Internal Control in the Federal                   website. By training         Sessions with departmental
+        Government” issued by the Comptroller General of the             employees and                support/reconcilers.
+        United States or the “Internal Control Integrated                involving them in the
+        Framework”, issued by the Committee of Sponsoring                process, they can help
+        Organizations of the Treadway Commission (COSO).                 identify and improve
+                                                                         control weaknesses.
+    (Cause)
+    Lack of knowledge, training and understanding of institutional
+    policy and federal guidelines for Grants & Contracts
+    accountants
+
+    (Effect)
+    Internal control weakness
+    Noncompliance with Federal Regulations
+
+
+
+
+                                                                                                                              10 | P a g e
+The University ofTexas
+R.\9Grande Valley                                             Cost Transfers Audit
+Brownsville • Edinburg • Harlingen
+
+
+                                                                APPENDIX I
+
+                                                   Risk Classifications and Definitions
+
+                                     High probability of occurrence that would significantly impact UT System and/or UT Rio Grande Valley.
+                                     Reported to UT System Audit, Compliance, and Risk Management Committee (ACMRC). Priority findings
+                                     reported to the ACMRC are defined as “an issue identified by an internal audit that, if not addressed timely,
+             Priority                could directly impact achievement of a strategic or important operational objective of a UT institution or the
+                                     UT System as a whole.”
+
+                                     Risks are considered substantially undesirable and pose a significant level of exposure to UT Rio Grande
+                                     Valley operations. Without appropriate controls, the risk will happen on a consistent basis. Immediate action
+           High                      is required by management in order to address the noted concern and reduce exposure to the organization.
+
+
+                                     Risks are considered undesirable and could moderately expose UT Rio Grande Valley. Without appropriate
+                                     controls, the risk will occur some of the time. Action is needed by management in order to address the noted
+          Medium                     concern and reduce the risk exposure to a more desirable level.
+
+                                     Low probability of various risk factors occurring. Even with no controls, the exposure to UT Rio Grande
+            Low                      Valley will be minimal. Action should be taken by management to address the noted concern and reduce risk
+                                     exposure to the organization.
+
+
+
+
+                                                                                                                                     11 | P a g e
+The University ofTexas
+R.\9Grande Valley                                                              Cost Transfers Audit
+......................................................
+Brownsville • Edinburg • Harlingen
+
+
+
+                                                                                APPENDIX II
+
+                                                                       Cost Transfers Process Flow
+
+
+
+
+                                                                                             I
+                                                              I                                                 I
+
+                                                         Non-payroll                                         Payroll
+
+
+
+
+                                                                                                            Change in:
+                                                                                                   Personnel Action Form (cPAF}
+                      Account s Payable                                    Journal Voucher
+                                                                                                       Funding Source (CFS)
+                                                                                                       Job Desciption (OD)
+
+
+
+
+                                                                                                           Population: Undetermined
+
+               -                        Population: 692
+                                             Tested: 15
+                                                                       -          Population: 50
+                                                                                    Tested: 18
+                                                                                                                    Tested: 5
+                                                                                                            Perfomed data analytics
+
+
+
+                                                                                                                                      12 | P a g e
+ The University ofTexas
+  R.\9Grande Valley                                    Cost Transfers Audit
+  Brownsville • Edinburg • Harlingen
+
+
+
+                                                       APPENDIX III
+
+                                                 Methodology and Criteria
+
+Methodology
+We conducted this audit in conformance with the Institute of Internal Auditor’s International Standards for the Professional
+Practice of Internal Auditing. Additionally, we conducted this audit in accordance with generally accepted government auditing
+standards. Those standards require that we plan and perform the audit to obtain sufficient, appropriate evidence to provide a
+reasonable basis for our findings and conclusions based on our audit objectives. We believe that the evidence obtained provides
+a reasonable basis for findings and conclusions based on our audit objectives. The Office of Audits and Consulting Services is
+independent per both standards for internal auditors. These standards are also required by the Texas Internal Auditing Act.
+
+
+Criteria
+2 CFR Part 200, Uniform Administrative Requirements, Cost Principles, and Audit Requirements, Subpart E Cost
+Principles
+
+ADM 07-303 Cost Transfers for Sponsored Projects
+
+
+
+
+                                                                                                                             13 | P a g e
+ The University ofTexas
+  R.\9Grande Valley                                 Cost Transfers Audit
+  Brownsville • Edinburg • Harlingen
+
+
+
+
+                                                     APPENDIX IV
+
+
+                                           Report Distribution & Audit Team
+
+Report Distribution
+Ruth Lozano, Executive Director of Research Administration
+Suelema Gonzalez, Director of Grants & Contracts
+UTRGV Internal Audit Committee
+UT System Audit Office
+Governor’s Office – Budget and Policy
+State Auditor’s Office
+Legislative Budget Board
+
+
+Audit Team
+Eloy R. Alaniz, Jr., Chief Audit Officer
+Norma Ramos, Director of Audits
+Angelica Coello-Pineda, Auditor
+
+
+
+
+                                                                              14 | P a g e
+

@@ -1,0 +1,3292 @@
+Performance Audit of Incurred Costs -
+University of Minnesota
+REPORT PREPARED BY KEARNEY & COMPANY, P.C.
+
+
+
+
+April 5, 2019
+OIG 19-1-006
+NSF     NATIONAL SCIENCE FOUNDATION
+        OFFICE OF INSPECTOR GENERAL
+
+
+ AT A GLANCE
+ Performance Audit of Incurred Costs - University of Minnesota
+ Report No. OIG 19-1-006
+ April 5, 2019
+
+  AUDIT OBJECTIVE
+  The National Science Foundation Office of Inspector General engaged Kearney & Company, P.C.
+  (Kearney) to conduct a perfo1mance audit of incmTed costs at the University of Minnesota
+  (Minnesota) for the period March 1, 2014, to Febrnaiy 28, 2017. The auditors tested more than
+  $4 million of the $230.3 million of costs claimed to NSF. The objective of the audit was to dete1mine
+  if costs claimed by Minnesota on NSF awards were allowable, allocable, reasonable, and in
+  confo1mity with NSF award te1ms and conditions and Federal financial assistance requirements.
+
+  AUDIT RESULTS
+  The repo1t highlights concerns about Minnesota's compliance with ce1iain Federal, NSF, and/or
+  Minnesota regulations and policies when allocating expenses to NSF awards. The auditors questioned
+  $73,260 of costs claimed by Minnesota dming the audit period. Specifically, the auditors found
+  $65,973 in unallocable and/or unreasonable expenses charged against expired awards, $6,995 in
+  unsuppo1ted expenses, and $292 in unallowable expense charges. The auditors also identified $37,872
+  of misclassified expenses for which there were no questioned costs. Keainey is responsible for the
+  attached repo1t and the conclusions expressed in this repo1i. NSF OIG does not express any opinion
+  on the conclusions presented in Keatlley's audit repo1t.
+
+  RECOMMENDATIONS
+  The auditors included 4 findings in the report with associated recommendations for NSF to resolve
+  the questioned costs and to ensme Minnesota strengthens adtninistrative and management controls.
+
+  AUDITEE RESPONSE
+  Minnesota agreed with 2 of the 4 findings in the report. Minnesota's response is attached to the repo1i
+  in its entirety as Appendix C.
+
+  FOR FURTHER INFORMATION, CONTACT US AT 703.292.7100 OR OIG@NSF.GOV.
+                          National Science Foundation • Office of Inspector General
+                               2415 Eisenhower Avenue, Alexandria, Virginia 22314
+
+
+
+MEMORANDUM
+
+DATE:                 April 5, 2019
+
+TO:                   Dale Bell
+                      Director
+                      Division of Institution and Award Support
+
+                      Jamie French
+                      Director
+                      Division of Grants and Agreements
+
+
+FROM:                 MarkBell
+                      Assistant Inspector General
+                      Office of Audits
+
+SUBJECT:              Audit Report No. 19-1-006, University of Minnesota
+
+This memo transmits the Kearney & Company, P.C. (Kearney) report for the audit of costs charged by
+the University of Minnesota (Minnesota) to its sponsored agreements with the National Science
+Foundation during the period March 1, 2014, to Febrnaiy 28, 2017. The audit encompassed more than
+$4 million of the $230.3 million claimed to NSF during the period. The objective of the audit was to
+detennine if costs claimed by Minnesota on NSF awai·ds were allowable, allocable, reasonable, and in
+conformity with NSF awai·d tenns and conditions and Federal financial assistance requirements.
+
+Please coordinate with our office during the 6-month resolution period, as specified by Office of
+Management and Budget Circular A-50, to develop a mutually agreeable resolution of the audit findings.
+The findings should not be closed until NSF detennines that all recollllllendations have been adequately
+addressed and the proposed conective actions have been satisfactorily implemented.
+
+OIG Oversight of the Audit
+
+Kearney is responsible for the attached auditors' repo1t and the conclusions expressed in this repo1t. We
+do not express any opinion on the conclusions presented in Kearney's audit report. To fulfill our
+responsibilities, we:
+
+   •   reviewed Kearney's approach and planning of the audit;
+   •   evaluated the qualifications and independence of the auditors;
+   •   monitored the progress of the audit at key points;
+   •   coordinated periodic meetings with Kearney, as necessary, to discuss audit progress, findings,
+       and recommendations;
+   •   reviewed the audit report prepared by Kearney; and
+   •   coordinated issuance of the audit report.
+
+We thank your staff for the assistance that was extended to the auditors during this audit. If you have
+any questions regarding this report, please contact Jeanette Hyatt at 703.292. 7100 or oig@nsf.gov.
+
+Attachment
+
+cc:
+Anneila Sargent            Fae Korsmo                  Carrie Davison              Ken Lish
+John Veysey                Teresa Grancorvitz          Allison Lerner              Billy McCain
+Ann Bushmiller             Pamela Hawkins              Lisa V onder Haar           Jennifer Kendrick
+Christina Sarris           Alex Wynnyk                 Ken Chason                  Louise Nelson
+Fleming Crim               Rochelle Ray                Dan Buchtel                 Karen Scott
+         University of Minnesota
+
+        Performance Audit of Claimed Costs for
+          National Science Foundation Awards
+For the Period March 1, 2014 through February 28, 2017
+
+
+          National Science Foundation
+          Office of Inspector General
+KEARNEY&
+COMPANY
+
+INDEPENDENT ACCOUNTANT'S PERFORMANCE AUDIT
+REPORT
+Kearney & Company, P.C. (defined as "Kearney," "we," and " our" in this report) has conducted
+a performance audit of costs claimed by University of Minnesota (referred to as "Minnesota" or
+"University" in this report) on National Science Foundation (NSF) awards made to the
+University forthe period of March 1, 2014 through February 28, 2017. This performance audit
+was conducted under Blanket Purchase Agreement (BPA) #D14PA00037, Order #D16PB00538.
+
+The objective of the performance audit was to determine if costs claimed in the sample selected
+by Kearney were allowable, allocable, reasonable, and in conformity with NSF award terms and
+conditions, as well as applicable Federal financial assistance requirements. Kearney conducted
+the performance audit by testing costs claimed by the University and reporting on only the
+samples selected.
+
+Kearney performed testing over its selected judgmental sample, which consisted of a listing of an
+initial 250 transactions, based on our risk-based criteria and assessment of University costs
+claimed. These samples included, but were not limited to, transactions of unusual spending
+trends; inconsistencies; even dollar amounts; large dollar amounts; duplicate transactions;
+descriptions indicating potentially unallowable costs; frequency; and transactions near or after
+award expiration. Kearney reported the results and findings within the body of this performance
+audit report. The results of our findings were not projected over the entire award population
+tested in our audit period. Please see Appen dix A: Objectives, Scope and Methodology of the
+Audit of this report for more information regarding the scope and methodology of the audit.
+
+Kearney determined that costs charged to NSF-sponsored agreements did not always comply
+with applicable Federal requirements. Specifically, we determined that actual claimed costs
+totaling $73,260 were unallowable, unallocable, unreasonable, and/or not in conformity with
+NSF award terms and conditions and Federal requirements. Further, Kearney determined costs
+totaling $37,872 were misclassified; these costs were not questioned. The Audit Results section
+of this report further describes the costs in question, the basis for our findings , and the
+recommended actions to be taken by the University.
+
+Kearney conducted this performance audit in accordance with Generally Accepted Government
+Auditing Standards (GAGAS), 2011 Revision, issued by the Comptroller General of the United
+States. Those standards require that we plan and perform the audit to obtain sufficient,
+appropriate evidence to provide a reasonable basis for our findings and conclusions based on our
+audit objectives. Kearney assessed the risk and approach for the audit by conducting planning,
+data mining, and analytical procedures over the universe of data provided by the University. We
+believe that the evidence obtained provides a reasonable basis for our findings and conclusions
+KEARNEY&
+COMPANY
+based on our audit objectives. The purpose of this rep01t is to communicate the results of
+Kearney's performance audit and our related findings and recommendations.
+Thank you for providing us with the opportunity to assist NSF OIG and conduct the performance
+audit of the University. Kearney appreciates the cooperation provided by NSF's and Minnesota's
+personnel during the audit.
+
+
+
+
+Kearney & Company, P.C.
+Alexandria, Virginia
+April 4, 2019
+
+
+
+
+                                              11
+       v...Q
+l(EARNE
+COMPANY l\X
+                      T
+
+
+             ________________________
+                                                                                                                            National Science Foundation
+                                                                                                                     Performance Audit of Claimed Costs
+                                                                                                                                U_n_
+                                                                                                                                   iv_
+                                                                                                                                     er_
+                                                                                                                                       si~
+                                                                                                                                         ty_o_
+                                                                                                                                             fM
+                                                                                                                                              _1'_nn
+                                                                                                                                                   _e_
+                                                                                                                                                     sota
+                                                                                                                                                      _
+
+
+
+
+Table of Contents
+                                                                                                                                                     Page#
+
+INDEPENDENT ACCOUNTANT'S PERFORMANCE AUDIT REPORT ........................... i
+Background ................................................................................................................................... 1
+Audit Results ................................................................................................................................. 2
+      Findings .................................................................................................................................. 4
+      Finding 1 - Unallocable and/or Unreasonable Expenses Charged Against Expired
+      Awards .................................................................................................................................... 4
+      Finding 2 - Unsupported Expenses...................................................................................... 8
+      Finding 3 - Unallowable Expense Charges ....................................................................... 11
+      Finding 4 - Non-Financial Impact Finding- Misclassifications ..................................... 13
+Appendix A: Objectives, Scope and Methodology of the Audit ............................................. 15
+   Objective............................................................................................................................................... 15
+   Scope...................................................................................................................................................... 15
+   Methodology and Work Performed ............................................................................................... 15
+   Work Related to Internal Controls ................................................................................................ 16
+Appendix B: Schedule of Questioned Costs by Finding .......................................................... 17
+Appendix C: University of Minnesota Response ..................................................................... 18
+
+
+Abbreviations
+AAG                       Award and Administration Guide
+ACM$                      Award Cash Management $ervice
+CFR                       Code of Federal Regulations
+FDP                       Federal Demonstration Partnership
+GAGAS                     Generally Accepted Government Auditing Standards
+IDC                       Indirect Costs
+IPA                       Independent Public Accountant
+Kearney                   Kearney & Company, P.C.
+Minnesota                 University of Minnesota
+NSF                       National Science Foundation
+OIG                       Office of Inspector General
+OMB                       Office of Management and Budget
+PI                        Principal Investigator
+
+
+                                                                              111
+l(EARNEv...Q
+       l\X
+             T                                National Science Foundation
+                                       Performance Audit of Claimed Costs
+l:IJIVlll"Jt~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-U_n_iv_e_r_  sify
+                                                           ~o_f_M_i_
+                                                                   nn_e_so_t_
+                                                                            a
+
+
+
+RAM              Resolution and Advanced Monitoring Branch
+University       University of Minnesota
+
+
+
+
+                                              lV
+       v...Q
+l(EARNE
+COMPANY l\X
+                T
+
+
+             _________________________
+                                                                                        National Science Foundation
+                                                                                 Performance Audit of Claimed Costs
+                                                                                            U_n_
+                                                                                               iv_
+                                                                                                 er_
+                                                                                                   si~
+                                                                                                     ty_o_
+                                                                                                         fM
+                                                                                                          _ in_
+                                                                                                              ne_so_t_
+                                                                                                                     a
+
+
+
+
+Background
+The National Science Foundation (NSF) is an independent Federal agency whose mission is to
+"promote the progress of science; to advance the national health, prosperity, and welfare; and to
+secure the national defense ... " 1 Through grant awards, cooperative agreements, and contracts,
+NSF enters into relationships with non-Federal organizations to fund research and education
+initiatives and to assist in supporting its internal financial, administrative, and programmatic
+operations.
+
+The NSF has an Office of Inspector General (OIG) that provides independent oversight of the
+agency's programs and operations. Part of the NSF OIG's mission is to conduct audits and
+investigations to prevent and detect fraud, waste, and abuse. In support of this mission, the NSF
+OIG may conduct independent and objective audits, investigations, and other reviews to promote
+the economy, efficiency, and effectiveness of NSF programs and operations, as well as to
+safeguard their integrity. The NSF OIG may also hire an independent public accountant (IPA) to
+provide these audit services.
+
+The NSF OIG engaged Kearney & Company, P.C. (defined as "Kearney," "we," and "our" in
+this report) to conduct a performance audit of costs incurred by the University of Minnesota
+(referred to as "Minnesota" or "University" in this report). The audit objective was to determine
+if costs claimed were allowable, allocable, reasonable, and in conformity with NSF award terms
+and conditions and applicable Federal financial assistance requirements. Additional information
+on the Objectives, Scope, and Methodology are included in Appendix A of this report.
+
+According to the University's website, Minnesota is "founded in the belief that all people are
+enriched by understanding, is dedicated to the advancement of learning and the search for truth;
+to the sharing of this knowledge through education for a diverse community; and to the
+application of this knowledge to benefit the people of the state, the nation, and the world 2." As
+illustrated in Exhibit 1, Minnesota claimed more than $230 million in expenditures through the
+Award Cash Management $ervice (ACM$) across 857 NSF awards during our audit period of
+March 1, 2014 through February 28, 2017. Exhibit 1 also shows costs claimed by budget
+category based on the accounting data provided by Minnesota.
+
+
+
+
+1
+ Pub. L. No. 81-507
+2
+ University of Minnesota Missions Statement, Board of Regents Policy, January 1994, accessed on
+https://regents. um n. edu/sites/regents. umn. edu/files/policies/Mission Statern ent. pdf
+       v...Q
+l(EARNE
+COMPANY l\X
+                 T
+
+
+             __________________________
+                                                                                           National Science Foundation
+                                                                                    Performance Audit of Claimed Costs
+                                                                                               U_n_
+                                                                                                  iv_
+                                                                                                    er_si~
+                                                                                                         ty_o_
+                                                                                                             f_M_in_n_
+                                                                                                                     eso
+                                                                                                                      _ ta
+
+
+
+
+Exhibit 1: Costs Claimed by NSF Budget Category, March 1, 2014 through February 28, 2017
+
+                       Materials and                          Program Income
+       Travel            Supplies                             $(89,958.50) 0%
+    $6,874,548.0l - s s,ua 0.45 2%
+         3%
+
+
+
+
+                                                                                                    Equipment
+                                                                                                 $8,579,306.16 4%
+
+                                                                                       Participant
+                                                                                         Support,
+                                                                                    $9,073,571.96 4%
+Source: Auditor summary of General Ledger (GL) of the University of Minnesota's Costs Claimed from March 1,
+20 14 through February 28, 20 17
+
+
+Audit Results
+As described in the Appendix A: Objectives, Scope and Methodology of the Audit (i.e. , Objective,
+Scope, and Methodology section) of this report, this performance audit included obtaining
+transaction-level data for all costs that Minnesota claimed on NSF awards during the audit
+period. Kearney conducted this performance audit in accordance with Generally Accepted
+Government Auditing Standards (GAGAS). Those standards require that we plan and perform
+the audit to obtain sufficient, appropriate evidence to provide a reasonable basis for our findings
+and conclusions based on our audit objectives. Kearney assessed the risk and approach for the
+audit by conducting planning, data mining, and analytical procedures over the universe of data
+provided by the University. Kearney judgmentally selected 3 250 transactions, totaling
+$4,078,877, for testing. We believe that the evidence obtained provides a reasonable basis for our
+findings and conclusions based on our audit objectives.
+
+
+
+
+3
+ As sample items were judgmentally selected, the results of our findings were not projected over the entire award
+population tested in our audit period.
+
+
+                                                         2
+       v...Q
+l(EARNE
+COMPANY l\X
+              T
+
+
+             __________________________
+                                                                              National Science Foundation
+                                                                       Performance Audit of Claimed Costs
+                                                                                  U_n_
+                                                                                     iv_
+                                                                                       er_si~
+                                                                                            ty_o_
+                                                                                                f_M_in_n_
+                                                                                                        eso
+                                                                                                         _ ta
+
+
+
+
+Minnesota did not always comply with all Federal, NSF, and University regulations and policies
+when claiming costs to NSF awards. Specific recommendations follow each finding that will
+facilitate improvements to ensure costs claimed are reasonable, allocable, and allowable in
+accordance with those regulations and policies. As a result, we questioned $73,260 in costs
+claimed (i.e., both direct costs and indirect costs, if applicable) by Minnesota during the audit
+period, as follows:
+
+   •   $65,973 of unallocable and/or unreasonable expenses against expired award
+   •   $6,995 of unsupported expenses
+   •   $292 of unallowable costs
+
+Further, we identified $37,872 of misclassified expenses.
+
+We provide a breakdown of the questioned and misclassified costs by finding in Appendix B of
+this report.
+
+
+
+
+                                                3
+       v...Q
+l(EARNE
+COMPANY l\X
+                 T
+
+
+             ___________________________
+                                                                                             National Science Foundation
+                                                                                      Performance Audit of Claimed Costs
+                                                                                                 U_n_iv_e_
+                                                                                                         rs_
+                                                                                                           ity
+                                                                                                            ~  of_M
+                                                                                                                  _1·_n_
+                                                                                                                       ne_so
+                                                                                                                           _t_
+                                                                                                                             a
+
+
+
+
+Findings
+
+Finding 1- Unallocable and/or Unreasonable Expenses Charged Against Expired Awards
+
+Minnesota charged NSF awards for purchases near the end of the award expiration date, and in
+some cases after the award expiration date. The costs identified below were not in accordance
+with the following:
+
+    •    NSF Award and Administration Guide (AAG), Chapter V, Section A.2.c, Post-End Date
+         Costs4 • 5
+    •    Office of Management and Budget (OMB) Circular A-21, Cost Principles for
+         Educational Institutions, Section C.3, "Reasonable costs" 6
+    •    OMB Circular A-21, Section C.4.a, "Allocable costs" 7
+    •    2 Code of Federal Regulations (CFR) 220, Subpart E-Cost Principles, § 200.404,
+         "Reasonable costs" 8
+    •    2 Code of Federal Regulations (CFR) 220, Subpart E-Cost Principles, § 200.405,
+         "Allocable costs. " 9
+
+Expenses Charged Against Expired Award: Minnesota charged expenses (i.e., both indirect
+costs and direct costs, if applicable) against expired NSF awards, as follows:
+
+    •    October 20~es Against Expired Award: The Principal Investigator (PI) of NSF
+         Award No. -       originally purchased capital equipment (i.e., Motion Capture
+         System) on September 1, 2016. The capital equipment was received on October 4, 2016,
+
+4
+  The 2013 NSF AAG, Chapter V, Section A.2.c, Post-Expiration Costs, states: "NSF funds may not be expended
+subsequent to the expiration date of the grant, except to liquidate valid commitments that were made on or before
+the expiration date ... The costs of equipment ordered after the expiration date, however, may not be charged to the
+project."
+5 The 2014 NSF AAG, Chapter V, Section A.2.c, Post-Expiration Costs, states: "NSF funds may not be expended
+
+subsequent to the end date of the grant, except to liquidate valid commitments that were made on or before the end
+date, e.g., commitment of project funds for subrecipient or contractor for services rendered during that award period
+but not billed to the grantee until after the grant expired (See AAG Chapter III.E.2.) Generally, the costs of
+equipment or materials and supplies ordered after the end date, may not be charged to the project. .. "
+6
+  01.ffi Circular A-21, Appendix A, Section C.3, Reasonable costs, states: "A cost may be considered reasonable if
+the nature of the goods or services acquired or applied, and the amount involved therefore, reflect the action that a
+prudent person would have taken under the circumstances prevailing at the time the decision to incur the cost was
+made."
+7 01.ffi Circular A-21, Appendix A, Section C.4.a, Allocable costs, states: "A cost is allocable to a particular cost
+
+objective (i.e., a specific function, project, sponsored agreement, department, or the like) if the goods or services
+involved are chargeable or assignable to such cost objective in accordance with relative benefits received or other
+equitable relationship."
+8
+  2 CFR § 200.404, Reasonable Costs, states: "A cost is reasonable if, in its nature and amount, it does not exceed
+that which would be incurred by a prudent person under the circumstances prevailing at the time the decision was
+made to incur the cost. The question of reasonableness is particularly important when the non-Federal entity is
+predominantly federally-funded ... "
+9 2 CFR § 200.405, Allocable Costs, states: "A cost is allocable to a particular Federal award or other cost objective
+
+if the goods or services involved are chargeable or assignable to that Federal award or cost objective in accordance
+with relative benefits received ... "
+
+
+                                                          4
+KEARN EV~
+       I~
+                T                                                               National Science Foundation
+                                                                         Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+         recorded in the GL on October 6, 2016, and had an invoice date of September 30, 2016;
+         however, the award expired on August 31 , 2016. According to Minnesota personnel, the
+         purchase of the motion capture system was to replace a 12-camera motion tracking
+         system to expand research. However, the purchase occmTed after the award had expired.
+         Thus the timing of the purchase indicates the equipment did not benefit Award No.
+        lliiiliil, but rather other research/awa.rd(s) outside the scope of this award. Therefore,
+         we questioned $56,397 of costs associated with the capital equipment purchase.
+
+   •    December 2016 Charges Against Expired Award: The PI of NSF Award No. -
+        entered into an agreement for consulting services (i.e., services used to improve a cloud
+        application related to the award) with terms for a period of perfonnance of August 1,
+        2016 through August 7, 2017. The consulting service transaction had an invoice date of
+        December 12, 2016 and was recorded in the GL on December 30, 2016; however, the
+        award expired on October 31 , 2016. According to Minnesota personnel, although the
+        invoice date is subsequent of the award expiration date the consulting se1vices occuITed
+        both during and after the a.ward expiration. However, Minnesota was unable to suppo1i
+        the timing of when consulting se1vices were perfo1med associated with the invoice
+        provided. Therefore, we questioned the full invoice amom1t of $9,576 of costs associated
+        with the consulting services invoice, $3,830 of which Minnesota noted that repayment
+        has been made to NSF.
+
+Minnesota. did not properly purchase items or equipment within the allotted periods of
+perfo1mance. Fmiher, Minnesota did not provide adequate oversight or adhere to policies and
+procedures in place to ensure that funds were not expended near or after the award expiration
+date. As a result, Kearney questioned $65,973 of expenses as follows:
+
+  Table 1. Finding 1 - Unallocable and/or Unreasonable Expenses Charged against Expired
+                                          Awards
+
+        Expenses Charged against Expired
+        Award
+        Total uestioned Costs
+       Source: Auditor summmy ofquestioned costs claimed.
+
+Recommendations: Kearney recommends that NSF' s Director of the Division of Institution and
+Award Suppo1i:
+
+   1- Resolve the $62,143 in questioned costs, including $5,746 in unsupp01ied costs, and
+         direct the University of Minnesota to repay or otherwise remove the sustained questioned
+         costs from its NSF awai·ds.
+
+   2. Direct the University of Minnesota to provide support that it has repaid the $3,830 of
+      unsupported questioned costs.
+
+
+
+
+                                                     5
+       v...Q
+l(EARNE
+COMPANY l\X
+              T
+
+
+             _________________________
+                                                                               National Science Foundation
+                                                                        Performance Audit of Claimed Costs
+                                                                                   U_n_
+                                                                                      iv_
+                                                                                        er_
+                                                                                          si~
+                                                                                            ty_o_
+                                                                                                fM
+                                                                                                 _ in_
+                                                                                                     ne_so_t_
+                                                                                                            a
+
+
+
+
+   3. Direct the University of Minnesota to ensure purchases are made timely within the award
+      period of performance to allow the purchases to be fully utilized in support of the award.
+
+Minnesota's Response: The Un~of Minnesota believes that all $65,973 of questioned
+costs (Award Nos. -          a n d - ) are reasonable, allowable, and allocable under OMB
+Circular A-21, the Code of Federal Regulations (2 CFR Part 220), NSF policies, and the terms
+and conditions of the grants issued.
+
+Specifically, for Award N o . - , the University acknowledges that although equipment
+purchases made at the end of most types of NSF awards are not allowable unless under certain
+circumstances, the capital equipment purchased under this award is allowable based on the
+applicable type of program solicitation this award was funded through. Award No. -            falls
+under an NSF award solicitation related to the Computer and Information Science and
+Engineering (CISE) program. The capital equipment purchased was related to the CISE
+institutional infrastructure program, which supports the creation of new and/or existing CISE
+research infrastructure to enable world-class CISE research opportunities at the awardee and
+collaborating institutions. As a result, the equipment purchased has enabled the University to
+sustain additional research opportunities so it believes it is an allocable expense.
+
+Additionally, for Award N o . - , the University disagreed with Kearney's assertion over
+the sufficiency of documentation provided to corroborate the timing of consulting services that
+occurred during the award's period of performance and services that occurred after award
+expiration. The University believes that an agreement between the consultant and PI about the
+timing of services and what deliverables are necessary is sufficient, and formal progress reports
+from the consultant are not required. Further, the University agrees that a portion of the
+consulting services provided occurred after the award expired, totaling 40% of the questioned
+costs. However, the other 60% of consulting services occurred during the award's period of
+performance, and therefore; the University believes these costs are allowable.
+
+See Appendix C for the University of Minnesota's complete response, which includes further
+detail and explanation.
+
+Auditor's Additional Comments: Our position regarding this finding remains the same.
+
+Specifically, for Award N o . - , the capital equipment purchased could have been ordered
+well in advance of the award end date, thus providing adequate time for A w a r d - to have
+received benefit (the equipment requisition occurred two days prior to the award end date, and
+the equipment was not received/used until after the award end date), rather than just benefiting
+other collaborating institutions. Therefore, the report finding and recommendation remain as
+stated.
+
+Additionally, for Award N o . - ' the supporting documentation obtained was not sufficient
+to fully corroborate the timing of consulting services provided to differentiate between services
+that occurred during the award's period of performance and after the award end date. Further,
+additional documentation was developed and provided as a result of our audit inquiries, however;
+
+
+                                                 6
+l(EARNEv...Q
+       l\X
+             T                               National Science Foundation
+                                      Performance Audit of Claimed Costs
+l:IJIVlll"Jt~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~U      ~ ni_ve_r_si~fy_o_f_M_i_
+                                                                        nn_e_so_t_
+                                                                                 a
+
+
+
+the documentation should have been maintained and developed during the time the services were
+performed and completed. Therefore, the report finding and recommendation remain as stated.
+
+
+
+
+                                              7
+       v...Q
+l(EARNE
+COMPANY l\X
+                 T
+
+
+             ___________________________
+                                                                                              National Science Foundation
+                                                                                       Performance Audit of Claimed Costs
+                                                                                                  U_n_iv_e_
+                                                                                                          rs_
+                                                                                                            ity
+                                                                                                             ~  of_M
+                                                                                                                   _1·_n_
+                                                                                                                        ne_so
+                                                                                                                            _t_
+                                                                                                                              a
+
+
+
+Finding 2- Unsupported Expenses
+
+Minnesota charged NSF awards for unsupported expenses. The costs identified below were not
+in accordance with the following:
+
+     •   NSF Award and Administration Guide (AAG), Chapter V, Section B.7.c, Publication,
+         Documentation and Dissemination 10
+     •   OMB Circular A-21, Section A.2(e), "Purpose and scope" 11
+     •   OMB Circular A-21, Section C.3, "Reasonable costs" 12
+     •   OMB Circular A-21, Section C.4.a, "Allocable costs." 13
+
+Minnesota charged $6,995 of unsupported expenses 14 to two NSF awards during the sampled
+period, as follows:
+
+     •   Unsupported Publication Costs: Minnesota charged future publication costs, totaling
+         $5,675, on June 28, 2016 to Award N o . - , which had an expiration date of March
+         31, 2016. According to Minnesota personnel, NSF allows the transfer of funds from the
+         award to an institutional account for valid unpaid obligations at the end of the award.
+         However, documentation (i.e., purchase order, invoice, etc.) to corroborate the amount of
+         the publications was not provided (per Minnesota, these publications have not occurred
+         as of October 2018); thus, the grant was charged based on an estimate and not based on
+         actual costs incurred. Therefore, we questioned $5,675 associated with the publication
+         costs.
+
+     •   Unsupported Supply Costs: The PI of NSF Award No. -             purchased supplies (i.e.,
+         arm lever) as part of developing and reviewing curriculum materials; however, Minnesota
+         was unable to provide supporting documentation (i.e., purchase order, invoice, etc.) to
+
+
+10
+   The 2013 NSF AAG, Chapter V, Section B. 7.c, Publication, Documentation and Dissemination, states: "AAG
+Chapter III.E.2, permits a grantee to transfer from the grant account to an institutional account an amount equal to
+valid unpaid obligations outstanding at the time a grant expires. A grantee should refer to this section if they have
+incurred valid commitments for the costs of publication or sharing of research results and it is not possible to effect
+an actual payment for such charges by the time the final disbursements are due."
+11
+   O:tvfB Circular A-21, Section A.2(e), "Purpose and scope," states: "The application of these cost accounting
+principles should require no significant changes in the generally accepted accounting practices of colleges and
+universities. However, the accounting practices of individual colleges and universities must support the
+accumulation of costs as required by the principles, and must provide for adequate documentation to support costs
+charged to sponsored agreements."
+12
+   O:tvfB Circular A-21, Appendix A, Section C.3, Reasonable costs, states: "A cost may be considered reasonable if
+the nature of the goods or services acquired or applied, and the amount involved therefore, reflect the action that a
+prudent person would have taken under the circumstances prevailing at the time the decision to incur the cost was
+made."
+13
+   O:tvfB Circular A-21 , Appendix A, Section C.4.a, Allocable costs, states: "A cost is allocable to a particular cost
+objective (i.e., a specific function, project, sponsored agreement, department, or the like) if the goods or services
+involved are chargeable or assignable to such cost objective in accordance with relative benefits received or other
+equitable relationship."
+14
+   Expenses include both direct costs and indirect costs, if applicable.
+
+
+                                                           8
+KEARN EV~
+       I~
+               T                                                                  National Science Foundation
+                                                                           Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+        corroborate the expense. Therefore, we questioned $1,320 associated with the supply costs,
+        in which Minnesota noted that repayment in full has been made to NSF.
+
+Minnesota did not follow the appropriate policies and procedures to ensure that documentation
+provided or retained was sufficient to support the allowability of the sampled expenses. As a
+result, Minnesota chai·ged NSF awards for expenses that it was unable to adequately suppo1t as
+allowable. We ai·e therefore questioning $6,995 of expenses, as follows:
+
+
+
+
+       Unsu
+       Total Questioned Costs                                                      $
+        Source: Auditor sununaty of questioned costs claimed.
+
+Recommendations: Kearney recollllllends that NSF's Director of the Division of Institution and
+Award Suppo1t:
+
+    1. Resolve the $5,675 in questioned costs, all of which are unsupported costs, and direct the
+       University of Minnesota to repay or othe1wise remove the sustained questioned costs
+       from its NSF awai·ds.
+
+    2. Direct the University ofMim1esota to provide support that it has repaid the $1,320 of
+       questioned costs.
+
+    3. Direct the University of Minnesota to review and update, as needed, the administrative
+       and management controls and processes over processing expenses on NSF awards to
+       ensure that all costs within sponsored projects ai·e adequately suppo1ted by
+       documentation that supp01ts the actual costs incurred.
+
+Minnesota's Response: The University of Minnesota concurs with $1,320 (Award No.
+-        ) of the $6,995 of questioned costs. The University believes the remaining $5,675
+(Award N o . - ) of questioned costs are reasonable, suppo1ted, and allowable under OMB
+Circular A-2i,'ilieC'ode of Federal Regulations (2 CFR Patt 220), and NSF policies (AAG).
+
+Specifically, for Award N o . -' the University disagrees that the questioned publication
+costs are unsupported. According to NSF' s AAG, Chapter V, Section B.7c, Publication,
+Documentation and Dissemination, "AAG Chapter IILE.2 permits a grantee to transfer from the
+grant account to an institutional accom1t an amount equal to valid unpaid obligations outstanding
+at the time a grant expires. A grantee should refer to this section if they have incmTed valid
+collllllitments for the costs of publication or shai·ing of reseai·ch results and it is not possible to
+effect an actual payment for such charges by the time the final disbursements are due." The
+University provided documentation that corroborates the publication expense regarding the
+transfer of funds to the award, and deems these costs ai·e supported and allowable.
+
+
+
+
+                                                       9
+       v...Q
+l(EARNE
+COMPANY l\X
+              T
+
+
+             __________________________
+                                                                              National Science Foundation
+                                                                       Performance Audit of Claimed Costs
+                                                                                  U_n_
+                                                                                     iv_
+                                                                                       er_si~
+                                                                                            ty_o_
+                                                                                                f_M_in_n_
+                                                                                                        eso
+                                                                                                         _ ta
+
+
+
+
+See Appendix C for the University of Minnesota's complete response, which includes further
+detail and explanation.
+
+Auditor's Additional Comments: Our position regarding this finding remains the same.
+
+Specifically, for Award N o . - , Kearney does not question the process over the
+allowability of funds transferred from an award to an institutional account for valid unpaid
+obligations at the end of the award. However, the $5,675 of publication costs consist of expenses
+that still are pending publication for an award whose end date was March 31, 2016. As a result,
+these publication costs are not allowable or allocable to Award N o . - · Therefore, the
+report finding and recommendation remain as stated.
+
+
+
+
+                                               10
+KEARN EV~
+       I~
+                 T                                                                          National Science Foundation
+                                                                                     Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+Finding 3 - Unallowable Expense Charges
+
+Minnesota personnel charged $292 of general expenses (i.e., direct costs and indirect costs, if
+applicable) to NSF awards that were not allowable, necessaiy, or allocable. Specifically,
+expenses for two NSF awards did not comply with OMB Circular A-21, as follows:
+
+    •     OMB Circular A-21 , Section J-3, "Alcoholic Beverages" 15
+    •     OMB Circular A-21 , Appendix A Pa.Ii 9905-Cost Accounting Standards for
+          Educational Institutions, Section CAS 9905-505, Subsection AA, "Definitions" 16
+
+Unallowable Alcohol Beverages: Minnesota inappro riatel chai·ged alcohol expenses, totaling
+$257, related to a workshop under NSF Award No.           . These costs ai·e specifically
+designated as unallowable. Therefore, we questione 257 associated with the alcohol costs, in
+which Minnesota noted that repayment in full has been made to NSF.
+
+Additional Research Experiences for Undergraduates (REU) Expense Reimbursement:
+Minnesota inappropriately charged additional REU expenses, totaling $35, to NSF Award No.
+-·Specifically, Minnesota received an NSF REU Supplement to suppoli an
+undergraduate student researcher, which was conoborated by a check request fom1. The check
+request fo1m was for $2,461 ; however, $2,496 was recorded within the general ledger. Therefore,
+we questioned the difference of $35 associated with the additional REU expenditures, in which
+Minnesota noted that repayment in full has been made to NSF.
+
+Minnesota personnel did not provide adequate oversight prior to chai·ging the awai·ds. As a
+result, Minnesota inappropriately chai·ged $292 of expenses, which were unallowable or
+unallocable to the awards, as follows:
+
+
+
+
+         Additional Research Experiences for
+         Undergraduates (REU) Expense
+         Reimbursement
+         Total Questioned Costs
+        Source: Auditor summ01y ofquestioned costs claimed.
+                                                               -                             $
+                                                                                                           35
+
+                                                                                                         292
+
+
+Recommendations: Keainey recolllIIlends that NSF's Director of the Division of Institution and
+Award Suppo1t:
+
+
+
+
+15 OMB Circular A-21 , Section J.3, Alcoholic Beverages, states: " Costs of alcoholic beverages are unallowable."
+16 OMB Circular A-21 , App. A, CAS 9905.505 -- Accounting for unallowable costs -- Educational institutions,
+Section A.4, Definitions, states: "Unallowable cost means any cost which, under the provisions of any pe1tinent law,
+regulation, or sponsored agreement, cannot be included in prices, cost reimbursements, or settlements under a
+Government sponsored agreement to which it is allocable."
+
+
+                                                         11
+       v...Q
+l(EARNE
+COMPANY l\X
+             T
+
+
+             __________________________
+                                                                             National Science Foundation
+                                                                      Performance Audit of Claimed Costs
+                                                                                 U_n_
+                                                                                    iv_
+                                                                                      er_si~
+                                                                                           ty_o_
+                                                                                               f_M_in_n_
+                                                                                                       eso
+                                                                                                        _ ta
+
+
+
+
+   1. Direct the University of Minnesota to provide support that it has repaid the $292 of
+       questioned costs.
+
+   2. Direct the University of Minnesota to ensure that the appropriate personnel are informed
+      on the applicable cost principles ofreasonableness and allocability for Federal awards in
+      OMB Circular A-21 for awards made prior to December 26, 2014 and 2 CFR Part 200,
+      Uniform Administrative Requirements, Cost Principles, and Audit Requirements for
+      Federal Awards, for awards made after December 26, 2014.
+
+Minnesota's~e: The University of Minnesota concurs with all $292 of questioned costs
+(Award N o s - a n d - ) . The university believes these costs were accidentally
+charged to NSF awards due to human error and are not indicative of system issues. The
+University stated that it has adequate internal controls in place to ensure that appropriate
+personnel are informed of applicable cost principles.
+
+See Appendix C for the University of Minnesota's complete response, which includes further
+detail and explanation.
+
+Auditor's Additional Comments: Our position regarding this finding remains the same.
+
+
+
+
+                                              12
+       v...Q
+l(EARNE
+COMPANY l\X
+                 T
+
+
+             ___________________________
+                                                                                              National Science Foundation
+                                                                                       Performance Audit of Claimed Costs
+                                                                                                  U_n_iv_e_
+                                                                                                          rs_
+                                                                                                            ity
+                                                                                                             ~  of_M
+                                                                                                                   _1·_n_
+                                                                                                                        ne_so
+                                                                                                                            _t_
+                                                                                                                              a
+
+
+
+Finding 4- Non-Financial Impact Finding- Misclassifications
+
+Minnesota personnel charged $37,872 of incorrectly classified expenses to NSF awards (i.e.,
+costs claimed were allowable and valid, however, expenses were recorded under an incorrect
+account/budget category within the University financial system ofrecord). No financial impact
+was recognized, other than the misclassification of accounts. The transactions identified were not
+in compliance with the following:
+
+     •   OMB Circular A-21, Section J.37.b, "Professional service costs" 17
+     •   University of Minnesota Accounting Definition, "Participant Travel" 18
+     •   University of Minnesota Accounting Definition, ''Moving U ofM Property" 19
+
+Misclassified Travel Expense: We identified two instances where Minnesota personnel
+misclassified valid travel expenses, as follows:
+
+     • January 2015 Consulting Travel Ex~innesota misclassified $1,473 of consultant
+         travel expenses to NSF Award N o . - · In this instance, travel expenses for a
+         collaborator were recorded under Minnesota's "Professional Services" account instead of
+         the University's "Non-Employee Travel" account code. Minnesota was unable to provide
+         a contract to validate the expense classification.
+
+     • May 2016 ~enses: Minnesota misclassified $21,207 of travel expenses to NSF
+         Award N o . - · In this instance, travel expenses for participants attending a
+         conference were recorded under Minnesota's "Travel Non-employee" account code
+         instead of the University's "Participant Support" account code.
+
+Misclassified Relocation Expense: We identified one instance where Minnesota personnel
+misclassified a valid relocation expense, as follows:
+
+     •   June 2016 Relocation Expense: Minnesota misclassified $15,192 of an equipment
+         relocation expense to NSF Award N o . - · Specifically, Minnesota was moving an
+         asset to a new location; however, the transaction was recorded as "Other Supplies"
+         instead of Minnesota's "Moving U of M Property" account code.
+
+
+
+
+17
+   OMB Circular A-21, Section J.37.b, Professional service costs, states: "In determining the allowability of
+costs ... the following factors are relevant: (8) Adequacy of the contractual agreement for the service (e.g.,
+description of the service, estimate of time required, rate of compensation, and termination provisions)."
+18
+   The University of :tvf.innesota Accounting Definition for Participant Travel, states: "For use on sponsored Projects
+only since "Participants" is a specifically defined sponsored term. These individuals are eligible to receive expense
+reimbursements under the terms of the sponsored project agreement and cannot be paid for their participation.
+Covers expenses associated with non-employee participant travel related to sponsor-supported workshops,
+conferences, seminars, training, etc. Includes airfare, lodging, meals, ground transportation, mileage, etc."
+19
+   The University of :tvf.innesota Accounting Definition for Moving U ofM Property, states: "Moving costs for
+relocation of University departments and department property."
+
+
+                                                          13
+KEARN EV~
+       I~
+              T                                                                National Science Foundation
+                                                                        Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+Minnesota personnel did not accurately classify expenses, nor did they perf01m a review to
+detennine whether expenses were classified appropriately. As a result, we identified $37,872 of
+misclassified expenses charged to NSF awards, as follows:
+
+
+
+
+                                                                                $          1,473
+      Misclassified Travel Expense
+                                                                                          21,207
+      Misclassified Relocation Ex ense                                                    15,192
+      Total Questioned Costs                                                    $         37,872
+     Source: Auditor summaiy of non-financial impact costs claimed.
+
+Recommendation: Kearney recommends that NSF 's Director of the Division of Institution and
+Award Suppo1t:
+
+   1. Direct the University of Mim1esota to update policies and procedures, as needed, that
+      require Minnesota to periodically review expense classifications.
+
+
+Minnesota's Response: The University does not contest this finding. The University believes it
+has adequate internal contrnls in place to ensure expenses are appropriately classified. Fmther,
+the University stated that scenario-based training is conducted on a regular basis and has ah·eady
+inc01porated the three scenarios mentioned above into its curriculum.
+
+See Appendix C for the University ofMillllesota's complete response, which includes fmiher
+detail and explanation.
+
+Auditor's Additional Comments: Our position regarding this finding remains the same.
+
+
+
+
+                                                     14
+       v...Q
+l(EARNE
+COMPANY l\X
+              T
+
+
+             _________________________
+                                                                               National Science Foundation
+                                                                        Performance Audit of Claimed Costs
+                                                                                   U_n_
+                                                                                      iv_
+                                                                                        er_
+                                                                                          si~
+                                                                                            ty_o_
+                                                                                                fM
+                                                                                                 _ in_
+                                                                                                     ne_so_t_
+                                                                                                            a
+
+
+
+
+  Appendix A: Objectives, Scope and Methodology of the Audit
+
+Objective
+
+As requested by the National Science Foundation (NSF) Office of Inspector General (OIG),
+Kearney & Company, P.C. (defined as "Kearney," "we," and "our" in this report) audited a
+sample of the University of Minnesota's (defined as "Minnesota" or "University" in this report)
+claimed costs on NSF awards. Kearney conducted this performance audit in accordance with
+Generally Accepted Government Auditing Standards (GAGAS), issued by the Comptroller
+General of the United States.
+
+NSF OIG initiated an audit of costs claimed by the University on NSF awards. The audit
+objective was to determine whether costs claimed were allowable, allocable, reasonable, and in
+conformity with NSF award terms and conditions and applicable Federal financial assistance
+requirements. Kearney conducted the performance audit by testing costs claimed by the
+University and reporting on only the transactions provided.
+
+Scope
+
+NSF OIG engaged Kearney to conduct a performance audit of costs incurred by Minnesota on
+NSF awards for the period of March 1, 2014, to February 28, 2017. Our audit included assessing
+the allowability, allocability, and reasonableness of the sample of 250 transactions selected by
+Kearney through a risk-based sampling approach, which was approved by NSF OIG. The
+Minnesota transaction population consisted of 422, 775 transactions, which was provided by
+Minnesota at the request of Kearney. As of February 28, 2017, Minnesota received 857 NSF
+awards with expenditures totaling $230,361,198 during the scope of the audit. Our work required
+reliance on computer-processed data obtained from Minnesota and NSF OIG.
+
+Methodology and Work Performed
+
+Kearney conducted this performance audit in accordance with GAGAS for performance audits,
+as prescribed in the 2011 Revision of Government Auditing Standards, issued by the Comptroller
+General of the United States. Those standards require that Kearney plan and perform the audit to
+obtain sufficient, appropriate evidence to provide a reasonable basis for the findings and
+conclusions based on the audit objectives. We believe that the evidence obtained provides a
+reasonable basis for the findings and conclusions based on the audit objectives. As a basis for our
+performance audit, the Audit Team used the NSF award documentation; NSF policies; Office of
+Management and Budget (OMB) Circular A-21, Cost Principles for Educational Institutions;
+OMB Circular A-110, Uniform Administrative Requirements for Grants and Other Agreements
+with Institutions ofHigher Education, Hospitals, and Other Non-Profit Organizations; and 2
+Code of Federal Regulations (CFR) Part 200, Uniform Administrative Requirements, Cost
+Principles, and Audit Requirements for Federal Awards, to determine whether costs were in
+compliance and were allowable, allocable, and reasonable.
+
+
+
+
+                                                15
+       v...Q
+l(EARNE
+COMPANY l\X
+              T
+
+
+             __________________________
+                                                                                National Science Foundation
+                                                                         Performance Audit of Claimed Costs
+                                                                                    U_n_
+                                                                                       iv_
+                                                                                         er_si~
+                                                                                              ty_o_
+                                                                                                  f_M_in_n_
+                                                                                                          eso
+                                                                                                           _ ta
+
+
+
+
+To meet the performance audit objectives, Kearney specifically:
+
+    •   Reviewed NSF policy and OMB guidance;
+    •   Performed reconciliations over Minnesota's general ledger (GL) and subledger files to
+        NSF Award Cash Management $ervice's (ACM$) awardee drawdown transactional files
+        for the audit period in scope;
+    •   Performed risk-based sampling analytics to select a judgmental sample of 250
+        expenditures for testing (required sample size based on contract/task order scope of
+        work);
+    •   Tested a sample of 250 expenditures for compliance with grant terms and conditions; and
+    •   Requested and reviewed supporting documentation from Minnesota for each sample item
+        to determine validity and compliance with grant requirements.
+
+To determine completeness of the Minnesota data provided for the audit period, Kearney
+analyzed schedules and reconciliations prepared by Minnesota and agreed them to the accounting
+records. After determining completeness, we conducted data mining and analytical procedures
+over the universe of data provided by Minnesota. Kearney compiled a judgmental sample list of
+an initial 250 transactions based on criteria, including, but not limited to, transactions of unusual
+spending trends; inconsistencies; even dollar amounts; large dollar amounts; duplicate
+transactions; descriptions indicating potentially unallowable costs; frequency; and transactions
+near or after award expiration.
+
+Kearney requested supporting documentation for the 250 transactions from Minnesota, and we
+reviewed the support provided by the University to determine the allowability, allocability, and
+reasonableness of expenditures. When necessary, we obtained additional support or explanations
+from Minnesota to determine whether the transactions were valid. Kearney reported the actual,
+not projected, results and findings within the body of this performance audit report.
+
+Work Related to Internal Controls
+
+Minnesota management is responsible for establishing and maintaining effective internal control
+to help ensure that Federal award funds are used in compliance with laws, regulations, and award
+terms. In planning and performing our audit, we considered Minnesota's internal control over
+awards related to financial reporting solely for the purpose of understanding the policies and
+procedures relevant to the financial reporting and administration of NSF awards in order to
+evaluate Minnesota's compliance with laws, regulations, and award terms applicable to the items
+selected by Kearney for testing, but not for the purpose of expressing an opinion on the
+effectiveness of Minnesota's internal control over award financial reporting and administration.
+Accordingly, we do not express an opinion on the effectiveness of Minnesota's internal control.
+
+
+
+
+                                                 16
+KEARN EV~
+       I~
+               T                                                                      National Science Foundation
+                                                                               Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+         Appendix B: Schedule of Questioned Costs by Finding
+
+                     NATIONAL SCIENCE FOUNDATION
+                           ORDER # D16PB00538
+            PERFORMANCE AUDIT OF COSTS CLAIMED ON NSF AWARDS
+                       UNIVERSITY OF MINNESOTA
+
+                     SCHEDULE OF QUESTIONED COSTS BY FINDING
+
+
+
+                                                              $      9,576    $    56,397           $   65,973
+    2                                                                6,995               0               6,995
+    3                                                                    0            292                  292
+ Total   u stioned Costs                                       $    16,571     $ 56,689           $     73,260
+    4      Non-Financial Impact Finding -                             NIA              NIA
+           Misclassifications                                                                     $ 37,872
+Source: Auditor summary of.findings over NSF-provided data from Minnesota during the period ofMarch 1, 2014
+to Februmy 28, 2017
+
+
+
+
+                                                     17
+KEARN EV~
+       I~
+          T                                                                                  National Science Foundation
+                                                                                      Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _
+                      ··e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+Appendix C: University of Minnesota Response
+
+
+      UN I VERS ITY OF M I NNESOTA
+                                                                                   SnJtC' 'Jn Mc!t,;um aro .. lt1•'ffnJ c~"'·r
+                                                                                   :1Jf1 CMt StlW!l S.t·.
+                                                                                   Min1tA 1(>f111J. II\ $S-l.U
+
+
+      March 21, 2019
+
+
+
+      Kearney & Company, P.C.
+      1701 Duke St_ Suite 500
+      Alexandria, VA 223 14
+
+      DeatMr.•
+
+      The University of Minnesota appreciates lhe oppo11rulity to demonstrate our commitment to
+      adi...-nncing research and innovation and fostering economic development in our state, nation and
+      world. The report demonstrates both strong interoal controls and commitment lo ensuring the
+      internal control environment supports compliance with federal, stale and unil:ersity policies_ The
+      audit report covers over $230 million in claimed com. across 857 National Science Foundation
+      awards for the period ·o fMarch l. 2014 through Febtu..i:ry 28, 2017.
+
+      The University of Minnesota (UMN) has reviewed the National Science Foundation Office of
+      liliptttor General (NSF OIG) draft audit repo11 dated March 7, 2019, and as requested. pto\-ides
+      the following respon!ies to the recommendations listed in the draft report.
+
+      F inding 1 - r nalloc able andior U n re a sonable E xpense~ Charged Against Expi red Awards -
+      S65,.973
+
+      Rl.'com 111<>11dario11s;
+
+          l. Re.s.olve the $62, 143 in questioned costs, including $5, 746 in unsupported costs, and
+             direct the University of Minnesota to repay or otherwise remove the su.staiued queS!ioned
+             costs from its NSF awards.
+
+          ["")fl\' Rl.'S'J'OllS<'."
+
+
+          October 1016 C11Mg<>s Against E\pirl'd Awar d No. -             (SS6,19 7)
+          UMN disagrees that this charge is an unallocable o r unreasonable expense_ While equipment
+          purchases made at the end of most types ofNSF awards are not allowable unless \mder
+          c-ertain specific circumstances. this expense is allowable given the purpose of the NSF
+          program that funded this award. According to the program solicitation that this award ftlls
+          under (NSF 11-536), "The Computer and lnfonuation Science and Engineering (ClSE)
+          Research Infrastrucmre (CRI) program 5Upp0rls two classes of awards:
+
+               1) Institutional I.n1rastrncture (II) awards S'UppOfl !he creation of new (II-New) CISE
+                  research infrastructure or the enhancement (II-EN) o f existing CISE research
+                  infra.structure to enable world,-class CISE research opportunities at the awardee and
+                  collaborating institutions_
+
+
+
+      Driven to Discover ·~
+
+
+
+
+                                                       18
+KEARN EV~
+        T
+       I~
+                                                                                             National Science Foundation
+                                                                                      Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _
+                      ··e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+
+            2) Community Infrastructure (CI) awards support the planning (Cl-P) for new CISE
+               community research infrastrucmre, the creation of new {CI-New) CISE research
+               infrastructure or the enhancement (Cl -EN) of existing C'Lc;E iufra&1rocture to enable
+               world-class CISE r~ arch oppo1tunities for bro ad-based communities of CISE
+               researchers that extend well beyond the awardee institutions_ Each Cl award may
+               support the operation of such infrastrncrure, ensuring that the awardee institution(s) is
+               (are) \•.-ell-positioned to provide a high quality of service to CISE community
+               researchers expeded to use rbe infrastructure to realize their research goals.
+
+        The equipment that was purchased fulls under the first pro~ classifkarion and has
+        enabled the univecsity additional research opportunities so it is allocable expense on the
+        award. As noted in 1be final repot1 for this award that was submitted on Febrnary 11 , 20 17,
+        "The major goal of this project was to develop virtual reality infrastructure that would be
+        m.ed to support architectural education and to conduct basic research in immersive des~
+        embodied interaction, and spatial cognition. The project centers on the acquisition and me of
+        thre-e major items of equipment, plus some additional supplies_~ The report also goes on to
+        note that, 'The major equipment acquired with this grant has already been exlensively used
+
+
+
+
+       - and- "
+        ia supervised research projects by 6 PhD students, 3 MS students, 9 undergraduate studems
+        and 2 hif!:h school students. as well as by students in nmltiple classes 1,aught by professors
+
+
+        Although the equipment did not arrive until after the award end date, the ordering process
+        began prior to the award end date on August 19. 1016, when the re.quisition that produced the
+        purchase o rder was entered into the university's financial system See attached
+        documentation entitled, "Sample 33 Requisition"
+
+        December 2016 Clmrges Agaiust £.\pired A.>ra.rd No. -              S9, 5-6)
+        UMN disagrees that the total cost of this expense is unallocable or unreasonable. FederaJ
+        regulations and NSF policy do not require consultants to provide formal progress reporu but
+        instead expects that there be agreement between the co1.m1ltant and the PI about both timing
+        of and what deliverables are needed. Doc1llllentation was provided to the auditors showing
+        written confirmation by both the consultant .a nd the PI that 60% of the work in the consulting
+        agreement had been completed by the end date of the award; we therefore conchided that
+        6-0 % (SS, 745) of the consulting charge is an allowable charge. UMN concurs rhat the
+        remaining 40% ($3,830) representing work c.ompleted after the award end date is
+        unallowable, and has already refunded that po1tion to NSF.
+
+        2. Direct the University ofMiwlesota to provide support that it has repaid the $5, 830 of
+           unsupported questioned costs.
+
+        "C.\JN Ri!spome:
+
+        See attached documentation entitled, "Sample 35 Returned Funds Confirmation"
+
+        3. Direct the Univ ersity ofMiwlesota to ensure purchases are made timely within the award
+           period of perfom1ance to allow the purchases to be fully 1.1Sed in support of the award.
+
+
+
+
+                                                     19
+KEARN EV~
+       I~
+          T                                                                                  National Science Foundation
+                                                                                      Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _
+                      ··e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+
+          FJ!l\' Re~po11se:
+
+          UMN has adequate internal controls .in place to ensure that purchases are timely and with.in
+          the awai-d period of performance. The university conducts scenario based training on a
+          regular basis and has ah-eady incot'porated both of these scenarios into the curriculum The
+          training is targeted for purcwing initiators, research administrators and financial
+          traru.actions approve.rs. Incorporating the scenarios will strengthen the internal controls
+          currently in place to ensure purchases are timely and withlu the award period of perfo1mance_
+
+      Finding? - U nsupported Expen$eS - $6,995
+
+      Recom 111e11da n'o11 s:
+
+          L   Resoh-e the $5,675 in questioned costs, all of which are unsupp-0rted c-0sts_ and direct the
+              Univer.sify of Minnesota to repay or othe1wise remove the sustained questioned costs
+              from its NSF awards_
+
+          U-\fll,TRe-spouse:
+
+          U"mpported Pu blication Costs .igaimtA.11·ard No. -              SS,6 -S)
+          UMN disagrees that this expense is unsupported. The 2013 NSF AAG, Chapter V. Section
+          B. 7.c, Pliblication, Documentation and Dissemination, states: "AAG Chapter IILE.2, pennits
+          a grantee to transfer from the grant account to an institutional account an amount equal lo
+          valid unpaid obligations outstand.ing at the time a grant expires. A grantee should refer to this
+          section if they have incurred rnlid commitments for the costs of publicatjon or sharing of
+          research results and it is not poss1ble to effect an actual pa}nient for such charges by the time
+          the final disbursements are due." Docnmenlation was provided to the auditor.; that
+          corroborates the expense and therefore, the transfer of funds ftom the award to an
+          institutional account is allowable_
+
+          U11mpporri.>d S11pp{l' Costs Agnirnt Awnrd 3\ro. -          Sl, 320)
+          UMN concurs that these unsupported supply c-0sts are unallowable and bas ah·eady processed
+          a refund to the NSF.
+
+          2. Direct the University of Minnesota to provide support that it has repaid the $ 1.320 of
+             questioned costs .
+
+          UJ:fl\." Re-spo11si.>:
+
+          See attached documentation entitled, ~sample 179 Returned Funds Confirmation"
+
+          3. Direct thf. UniverM1y of Minnesota to re\-iew and update_ as needed, the administrative
+             and management controls and processes over processing expenses on NSF awards lo
+             ensure that all costs within sponsored projects are adequately supported by
+             documentat.ion that supports the actual costs incurred.
+
+
+
+
+                                                       20
+l(EARNEv...Q
+       l\X
+             T                                   National Science Foundation
+                                          Performance Audit of Claimed Costs
+l:IJIVlll"Jt~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-U_n_iv_e_r_si~ty~of_M
+                                                                   ~in_n_e_so
+                                                                           ~ ta_
+
+
+
+
+             UJfJ\' Response:
+
+            UMN has adequate internal controls in place to ensure that all costs charged to sponsored
+            projects have adequate documentation to support the actual costs. The university conducts
+            scenario based training on a regular basis and has already incorporated the sc-enario into the
+            curricufum. The trainIDg is targeted for purchasing initiators, research administrators and
+            financial transactions approvers. Incorporating the scenario will s"trengthen the internal
+            controls currently in place related to the cost principles ofreasonableness and allocability.
+
+         Finding 3 - l"nallowable Expe=e Charge<> - S191
+
+         Recomm e11dario11 s:
+
+             1. Direct the University of Minnesota to provide support that it has repaid the $292 of
+                 questioned costs.
+
+             U.\fl\' Re5po11se:
+
+            See attached documentation entitled, "Sample 63 Rerumed Funds Confirmation" and
+            '·Sample 206 Returned Funds Confinnation"
+
+            2 . Direct the University of Minnesota to ensure that the appropriate personnel are informed
+                 on the applicable cost principles of reasonableness and allocability for Federal awards in
+                 01\.fB Circular A-21 for awards made prior to December 26, 2014 and 2 CFR Part 200,
+                 Uniform Administrative Re.quirements, Cost Principles, and A udit Requirements for
+                 Federal A"tt--ards, for awards made after December 26, 2014.
+
+             U.\fl\' Repo11se:
+
+            These costs was accident.ally charged to NSF awards due to human error and are not
+            indicative of systemic issues_ UMN has adequate internal controls in p lace to en.sure that
+            appropriate personnel are informed of applicable cost princ1ples. The university conducts
+            scenario based training on a regular basis and has already inc.orporated both scenarios into
+            the cwTiculmn. The training is targeted for purchasing initiators, rese.arch administrators and
+            financial transactions approvers_ Incorporating the scenarios will strengthen the internal
+            controls. cutTently in place related to the cost principles ofreasonableness and allocability.
+
+         Finding 4 - ~on-Financial Impact Finding - Misclassificarions - $37 ,872
+
+         Recom111e11datio11 s:
+
+             1. DU-ect the University of Minnesota to update policies and procedures, as needed_ that
+                require l\ltinnesota to periodically review expense classifications.
+
+
+
+
+                                                         21
+KEARN EV~
+       I~
+         T                                                                                  National Science Foundation
+                                                                                     Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _
+                      ··e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+
+         UMN has adequate intemal controls in pl.ace to ensure expenses are appropriately classified_
+         The university conducts scenario based trainlng on a regular basis and has already
+         incorporated the three scenarios into the curricuhlm The training is targeted for purchasing
+         initiators, research administrators and financial transactions approvers_ Incorporating the
+         scenarios will strengthen the in1ema1 controls cunently in place to eDSUte expenses are
+         appropriately classified.
+
+      Thank you for the opportunity to respond to the recommendations outlined in the draft audit
+      reporl. As the findings demonstrate, the University of Minnesota maintains a strong internal
+      control environment to ensure compliance with all applicable NSF policies and guidelines as
+      well as federal regulations.
+
+      We will continue to work with Kearney, the NSF OIG, and the NSF Division of Institution and
+      Award Support to resolve the findings identified in this report. Please do not hesitate to contact
+      me if you have any questions about any of the filformation included in this response.
+
+      Sincerely,
+
+
+
+
+      Nicole Pitman, Director
+      Sponsored Financial Reporting
+
+      Attachmems
+
+
+
+
+                                                      22
+KEARN EV~
+       I~
+                      T                                                                                                                                National Science Foundation
+                                                                                                                                                Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+  3/'20f20111                                                                               Req1.1sitionlPO ~tals ?age
+                                                                                                                                                       ...__ I   ...,o IP.,.ona"'°"-
+    Requisition Details
+
+
+
+
+                 A--__
+     ~-.~
+                                                                            SAMPLE 33 REQUISITION
+                                                                                                           _       ......._   CIX!113'-f27
+                 BudnMs: Unit .....01
+                            "*~6                                                                               ~ID OCD11lU27
+                 ,.._.-.,           C:..Vde
+                                                                                                                   T_.._         >9.=ccu::o
+                                                                                                  ~Dmllilnnot       ea.no.          nm U!D
+            HeadwC~
+
+                     eomrnm 1 . ~ anc tt1r.'S 4il't: Sl'lcNil'l in 111e daad QUClt Ree aoa1rn.
+                     commenz~w 1721 ts ~toD"Js"'<f.19'UOn-
+
+                     comme!tlMTM: aNl:IP"D mu ar i:~~..oo,,,... oe •aw~ cne ff".i.111 ~a tl$UC'il.
+                     ~men:4.:F.IJl~anaa                                 CWQQIYMenqet llll~PONQRs:: 1
+         3hiR:fJ'IQ' d'l:lr,lesf:lrUSUwtJ De: paidot~ Cd ma«.. - r'1tl"QQ CM:f'Quoe- o:D1671l..
+         Ap..,,.,llJ-
+                     TM- ~ MSN"ta:;rocncnteitea~Htomms&io~
+         SB\""5:1 qSltM. ~~~Pl'fDra~Flrlh:CNr:Dft<iinrlt. . . . .lf".dPM!sy~
+                                                                          --
+         •t.<tl!s----·n:-~·--ei=-~'t'"
+                                  11!1 n..OM1cnodob: ,.,...,.....,,,.
+         8i'J Vl6. Untaru'l.Jtetr• eM.Ye ~rd~e"'edth:.3:               ~                   tll:t'l't~m~~
+
+         :::'.:c:=.==~ tW==~Ptor -P·•~ ~; ,. =::a-:~:::c
+         ~ eou.,m.ent. AddUClns31trfom!illfj;Q~n on the ~t'd cumptionao~t:ar'n'o.tlkhts ~tG ll't.:. ~u~.
+
+
+
+
+                                                                                                       2!!!!!!!l                                                       !!!!!!
+                                                                                                   l.St Q.ll!IOO £ad>                                             s&.1&0.00
+
+
+
+
+          :V •            ..,,,,. \\'• natR                                                              ,.0000 EXh
+                  ._.....,...,_
+                     Co~ I: t &") ·C~ ca.IN~• 30 m: )ldt:;JOedw.tt-~tn!Sordef"
+                  PO lllt:nMllOn
+
+
+
+
+     • 1V ...... o-t..P.l :?~f'OE.O.ftr.i       ~
+                                                                              ""
+                                                                                                        1003) Exft               1500..iXC~
+                                                                                                                                                  ""'.....         1,S!JJ.00
+
+
+
+                  PO h1:rnl~on
+
+
+         .,, .    "'-Clrl!                                                                              4,0000 EKl'I             .ailiXDJ USO    Q:l:CO              180.l>O
+
+
+                  PO """""""'
+
+
+
+         sV       lr.kn:t:;ll ~M                eoc,>I....                    N'<>                      .&.0000 Exh              7s.t1Xm USO     co~                ll!IUIO
+                  ._....~
+
+
+
+
+                  ?0--Commed. t: lhM:tt:t 10
+                  Hlndk:aleO: l'l lht~
+                                               N~~ \llill'!anty, 1 ca.J~~atr: Zervk'es;;Arcbc:hJ:kdl:i~ cr.i:r
+
+
+
+
+  https;fffs,.myu.wm.edllpspll:sprd/EMPl.OYEE/ER?l.cJPV_MAIN_cMENU.PV_REO _STATUS.GBL?Fclderf'ath:!f'ORTAL_ROOT_OBJECT.EPCO_EPR...                                               I /1
+
+
+
+
+                                                                                                  23
+KEARN EV~
+       I~
+                     T                                                                                                                           National Science Foundation
+                                                                                                                                          Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+                                                              SAMPLE 35 RETURNED FUNDS CONARMATION
+
+
+                                                                               PeopleSoft Financials                                                          Page:             I ol 1
+  Report Definition: GLX7501                                                  Journal Entry Detail Report                                                 Run Date·           2119119
+                                                                                                                                                          RmT1111e:       4:23:58 PM
+
+  Unit
+  Journal ID:
+  Journal Date:
+                         UMN01
+                         0001069616
+                         11130/18
+                         ESci: ~loving 4°"' of tile S&.300 lnvoi..
+                         w!licll WU callod i"10 quH lion dumg 1119
+                         NSF
+                                                                                   Ledger Group:
+                                                                                   So11<ce:
+                                                                                   Reversal:
+                                                                                                           -ACTUALS
+
+
+                                                                                                            N
+                                                                                                                                        Foreign CUrrency:
+                                                                                                                                        Effective Date:
+                                                                                                                                                               USO
+                                                                                                                                                               11/30118
+
+
+
+
+                                                                                                                           _
+  Desa iplion:           audil The 4K is what wn dw estil'Mtrrd                    Reversal Date:
+                         ....,f1<1o have oocurred ofte<tlle 11'.113 1116
+                         ""d cl.ti. of t.. a wMd. Enwl .,...dlod ln
+
+
+
+
+                          ..                                                                     ..                  ,..
+                         Fe"""'-Con'""'
+           ..,.                           """' ~
+                                                                                        ~              C...,'"'2                   cs   $bdltae1Aat   fortagDAmount        e..-
+  lln•t
+           Pa!U
+                           A""'""
+                                          .....,. ...
+                                                        Oopor""""          Ptowl•
+
+  UMNOl
+
+
+
+
+                          -
+  1        UMN0 1                         :!002         11130                                                                                  OJlO   -2,520.00 USO       -2.~20.00 USO
+           UMSffi                                       GlE
+
+           ~                                                                            Roi......:     12J30i2016
+           UMNOl                           1026          11131             20086                       lllOOOOeao5   2 1026 18                 0.00   2.520.00 USO        2.520.00 USO
+
+
+
+                           ~
+
+                          ..
+           Oiscr¢on:                                                                    Rii~erenot:    12J30i2016
+           UMN01                                         11130                                                                                 OJJO   2,520.00 USO        2.520.00 USO
+
+
+           Oescr.poon:     Duo Fnmtlu• To O!hff Funcls                                  ~fetenCI!:
+           UMN01                           1026          11131                                                                                 OJlO   -2.520.00USO        -2.~20.00 USO
+
+
+
+           ~               Ou. From&>u• To Olh1< FISK!s                                 Rl.ftlWIOC
+
+
+
+   Business Uni t                           Total lines                       Total Debits                      Tolal Credits
+   UMNOl                                                  4                           5.040.00                         5.(l40.00
+
+
+
+
+                                                                                                  24
+KEARN EV~
+       I~
+                 T                                                                                           National Science Foundation
+                                                                                                      Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+  UNlVERSJTY OF MINNESOTA                                                 WELLS FAAGO SA.NK. NA..
+  Regents of the University of Minnesota                                  40 I Plum Stre..1
+  1300 S 2nd St WBOB 645                                                  ReJ Wong MN :'o.5066
+  Minneapolis, MN 55454-1075
+                                                                         Dute         1:?1 1 Jf101~
+
+
+
+   '''-'THR EE THQl'SA/\)} EIG!! f 11\: r-.DRED Il! ~J) -10/!IO DOJ-L"R , ..'.".
+
+
+  PAY                                                                                                      $3,830 40 ...
+                     NATIONAL SCIENCE FOUNDATION
+  TO THE             241 5 EISENHOWER AVEN UE
+  ORDER              ALEXANDRIA, VA 22314·4684 USA
+  OF
+
+
+                                                                                                                                       '
+                                                                                                                                      I ·
+
+
+                                                                                                                                       '
+
+
+
+
+                                                FRB CLEVELAND
+                                                > 041036033 <
+                                       us       Treas DG   OTCNET
+                                                                                                                                      '.
+                                                  01/31/2019
+
+
+
+
+                                                                   25
+KEARN EV~
+       I~
+                 T                                                                   National Science Foundation
+                                                                              Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _··e1~
+                           ~~-
+                             -of_
+                                Mm_
+                                  nes_
+                                     ota
+
+
+
+
+ Award Cash Management $ervice (ACM$)
+  I          I
+ Award Details
+  Organization Name.         University ot Mlnnesata·"llMn C1tin
+  Organization ID.           0023879000
+  State:                     MN
+
+
+                            U New award • cam:elllng award • ThreshOfds applied *" Payment outstanding
+ Award Information
+ Federal Award ID:
+
+ Recipient Account Nu1rt1Jer:
+ Pl/PD Name:
+
+  From_                              05/15
+ To·                                 10/16
+
+ Total Federal Funds Au1horiz.ed:    $146,519.20
+ Previous cumu1at1ve casn            $142,688.80
+ Disbursements·
+ Net /\vallable Funds                $3,830.<40
+ F>:Pf><fed Close Date I Close<'.!   0~2812017
+ Date.
+ Awara Status:                       Closed
+
+
+
+
+                                                     26
+KEARN EV~
+       I~
+                           T                                                                                                                             National Science Foundation
+                                                                                                                                                  Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      ·_
+                       ·e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+                                                                       SAMPLE 179 RETURNED FUNDS CON FIRMATIO N
+
+
+                                                                                    PeopleSoft Financials                                                                 Page:               1 of 1
+                                                                                  Jou rnal Entry Detail Report                                                      Run Dale :              2119/19
+                                                                                                                                                                    Run Time:          4:3 1·04 PM
+
+
+
+
+  Journol Dote:
+
+
+  D•scription:
+                               11129/18
+                               To remove JUne 20 14 cnarge rrom 01a PSTL
+                               G~ NSF al.ldll p;lytnent
+                               to -                             was<ieemea
+                               unalawable and must be removed fran the
+                                                                                      Loagor Group;
+                                                                                      Source:
+                                                                                      Revel"$ol :
+                                                                                                                •ACTUALS
+
+
+                                                                                                                 N
+                                                                                                                                                Foroign Currency:
+                                                                                                                                                Effective Dote:
+                                                                                                                                                                           USO
+                                                                                                                                                                           11129/ 18
+
+
+
+
+                               project per SFR. Moving IO CEHD ICR as
+                               grant aoo PSTL aepartment are closed.
+                                                                  .,.,,._..
+
+                                -•
+  Line#         Unit              Ace°""'            fw.dCode                 Ptogran1      ctund ieltH    Chartfiekl2      f in EmpllD   cs   Sbitistia AIU5   Foteign An.ourtt         Bue A~ml
+
+
+
+  UMNOl
+                PC6U              ~·
+                                       •             Ac:ttv;t     An T
+
+  1             UMl\() 1                                          11229                                                                                 0 00    -1.000 00 USO          -1.00000 USO
+                UMSPR                                             GLE
+
+                                 ROOlOW un3HOW<lbl9 Ch atgo                                 Rororonco.     03044461
+                                                                              20090                                                                     000      1 000 oouso           1,000 OOUSD
+                                 -               -                12255
+
+                oescr1ooon:      Remo·,-e unallcw.'aOle cMroe                               Relerence:     0304446 1
+                UMl>IO I                                                                                                                                0.00     1,000.00 USD          1,000.00 USO
+                                 -               -                11228
+
+                                 Due FromlOue To Other Fmds                                 Reference:
+                                                                                                                                                        0.00    -1,000.00USO           -1,000.00 USD
+                                 -           -                    12255
+
+                Description:     Due FromlDue To O:hef F111ds                               Re ference
+
+
+
+  I   Bu•iD1$$ Unit
+      UM...i1
+                                                       Toul Lint$
+                                                                   4
+                                                                                  Tot:>l Debit$
+                                                                                          2.000.00
+                                                                                                                       Tot>l Cred It$
+                                                                                                                              2.000.00
+                                                                                                                                          I
+
+
+
+
+                                                                                                      27
+KEARN EV~
+       I~
+                  T                                                                                        National Science Foundation
+                                                                                                    Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _
+                      ··e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+  UN IVERSITY OF MINNESOTA                                          WELLS FARGO SANK, N.A .
+  Regents of the UmvecStly of Minnesota                             .IOI Plum Sueel
+  1300 S 2nd St WBOB 645                                            J~,'d W ing l\.1N 5~066
+  Minneapolis, MN 55454-1075
+                                                                    Oate          1:!1141~01 8
+
+
+
+   • " '0:>.E THOUS AJ\D TI!REE !illi'DREP nq;rqy Al\() XX/100 pOLLAR ....
+
+
+  PAY                  NATIONAL SCIENCE FOUNOAT10N                                                         $1.320.00 .. .
+  TO THE               2415 EI SENHOWER AVENUE
+  O::lCER              ALEXANDRIA, VA 22314 -4684 USA
+  OF
+
+
+
+                                                                                                 A uthOnZed S tg naCuf'e
+                                                                                                                                    l!
+                                                                                                                                     '·
+               111 •   0 • ~ ... 2 ... 8 t. :i 111   1:
+
+
+
+                                                 FRB CLEVELAND
+                                                 > 041036033 <
+                                              US Treas DG   OTCNET
+                                                   01/31/2019
+
+
+
+
+                                                              28
+KEARN EV~
+       I~
+                 T                                                                 National Science Foundation
+                                                                            Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _··e1~
+                           ~~-
+                             -of_
+                                Mm_
+                                  nes_
+                                     ota
+
+
+
+Award Details
+  organizauon Name_       University of Mlnnesota-1\Nin Cities
+  Organization lD:        0023879000
+  state·                  MN
+
+
+                         tiNew award !lllcancelling award • Thresholds applted ... Payment outstanding
+ Award Information
+ Federal Award ID:
+
+ Recipient Account Number.
+
+ Pl/PO Name:
+
+ From                               07/11
+
+ To·                                0'6/14
+ Total Federal funds Aulhoriz.ed.   $207,T66.6S
+
+ Previous Cumulative Cash           S20S,446.6B
+ Disbursements:
+
+ Net Ava11at.11e Funos              $1.320.00
+ Expeded Close Date I Closed        09/1812014
+ Date:
+ AWard Status:                      Closed
+
+
+
+
+                                                   29
+KEARN EV~
+       I~
+                         T                                                                                                                           National Science Foundation
+                                                                                                                                              Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _
+                      ··e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+                                                                    SAM PLE 63 RET URNED FUNDS CONFIRMATION
+
+
+                                                                               PeopteSoft Financials                                                                Page:           1 of 1
+  Report Definition: GLX7501                                                  Journal Entry Detail Report                                                      Run Date:          2119119
+
+
+
+
+                                                                                                             -
+                                                                                                                                                                              4.33:4·1 PM
+
+  Untt                        UMNOl                                                l • dg•r G roup:          ACTUALS                        Foreign Currency:       USO
+  Journol 10 :                0001052624                                           Source:                                                  Effective Dote:         9127118
+  Journal Dote:               9127118                                              Reversal:                  N
+                                                ruon or~se on vcuctll!f"
+
+
+
+                              •
+                                        RE:U stipend payment to
+                                         aled 12114115 ana prepated
+  D• scription:                         ent of Elec:tncal and                      R• versal Oat•:
+                              co~er Etlglneenng_Tlie payee receiYed
+                              $34 50 more on this voUdler tilan 9 noUld
+
+
+
+
+                               ...
+                              nave receivea,
+  Line If     Una                  A(ooun t                                             Chartfield1                   f'll'I EmDtlD   CS   Sti16'tiC$Am1   Foreign Amomt       e~eAmount
+
+              PCBU                 Pro·
+  UMN01
+  1           UMl\'01                                           11124                                                                              0.00       -34.50USO        -34.50 USO
+              UMSPR                                             GLE
+
+
+
+                               •
+              Oesa-iption;                     erp-a~ent refvnd                         Referenoe:     V038-9:7'109
+              UMf\1)1                                                      20090                                                                   000        34.50 USO         34.50 USO
+                                                 -                11122
+
+
+
+                               ll             EU O\'GrD3YIOQnl 12· 15
+
+                                                 -                11124
+                                                                                        Rerorenco:     V03897109
+                                                                                                                                                   000        3J.50USO          34.50 USO
+
+
+
+              Desc.riplioo:        Doe FrornfOue To Other Funds                         Reference:
+              UMN01                                                                                                                                0.00       ..J4.50 USO      - 34.50 USO
+                               -                 -                11122
+
+              Description:         Due FromfOU? To other R.mds                          Reference:
+
+
+      Business Unit                                  Total Li nes             Total Debits                        Total Credits
+      UMN01                                                                              69.00                              6 9.00
+
+
+
+
+                                                                                                  30
+KEARN EV~
+       I~
+                            T                                                                                                                     National Science Foundation
+                                                                                                                                           Performance Audit of Claimed Costs
+COMPANJ ~~~~~~~~~~~~~u~
+                      _
+                      ··e1~
+                          ~~-
+                            -of_
+                               Mm_
+                                 nes_
+                                    ota
+
+
+
+
+                                                                      AWARD CASH MANAGEMENT SERVICE (ACM$)
+                                                                             Transacuon Oet3JJS • AdJustmem Requests
+
+
+
+
+        •
+      FeC!4i!'ralAward 10       Fln30.Cbl CJOSEIO oa~   Prevbus CumllatWe cash        Sal:.lr\te Aval!a1:11e tet   Sa!an.ce Ava»ame ror
+                                                             Oisblf'Sement             UVNard ADjus!ment           Oo'Mlward Adj1JSiment
+                                    04(3012018               S257,974.-99                      $0.0 1                  ($257,974.99)           Eligible      ($ 34. 50)
+                                    05/31/2017              $ 7.014.615.52                     $000                   ($7.014.615 .52)     Do\"oMOn:I Only   ($106.00)
+
+            Total:                                           s7,272t790.51                     I0.01                  (17.2n ,790.S1)                        {11 42.50)
+
+
+
+
+  02120/2019 01:05 AM. EST                                                                                                                                                Paoe1
+
+
+
+
+                                                                                               31
+KEARN EV~
+       I~
+                          T                                                                                                                                                National Science Foundation
+                                                                                                                                                                    Performance Audit of Claimed Costs
+COMPANY ~~~~~~~~~~~~~U=·_
+                        ,e1~
+                           ·s~·_
+                               of_
+                                 Mm_
+                                   nes_
+                                      ota
+
+
+
+
+                                                                                    AWARD CASH J.IANAOEMENT SERVICE (ACM$)
+                                                                                           Transaction Oela£1s - Summary
+
+
+  Transaction ID: 192930                                           Payment O•ne Rec1ue-ste1.1: 1ot011201e
+  01ganiz.aoon Name:       Ufi~rslty ot Miooesota-Twirl aties      organizatioo 10: 002"3879000 State: MN
+
+  Ttans;,ct ion Information
+
+
+
+
+                  mil.
+  Tot;)I #of AW3rds~ 192:                                          Trans.action Status: Aeoei:te<t
+  Date Prepar~d: 10101120 18 t 1A 8:l5                             OatEa Cettifie<I: 10/01f20 18 1t:55.27
+
+  Prepared Sy:                                                     C ertiri@d By:
+  Emau ACl<l'ess:                umn.edu
+  Telephone Nu mber:
+
+
+  PaY'ne.u mro.mauoo
+  Paymen t Am ount Requested Total (Open A wau ts)=$.567,9d 1.37
+
+  Adjustrnenl Requested Total; (Closed Awaids):($142.50)
+
+  PitymMt Transaction Total=$567,79il87
+
+
+
+  lntefntil Comments
+  Rem<lrk$
+  Certifieation
+
+
+  1• •        cerUfy:
+  For a11arantoos:
+  Sy submittino tnis electronic reQUest for cash disbursement I cer1ir/ lo the best of my knetJAedOe and betief that ihe expend!tures. disbursements. and casl'l receipts &SOciated with 1tis request fo1
+  payment are for the p ul'poses a nd oq&ti\les set forth i n the sd icitation p10fX>g~ and award letter, a nd comply wilh lhe terms and conditions of the a\'r.l!d I am aware that ¥'!'/ false, fictitious., or
+  113udulan11niormat1on, « It» om1s&1on 0( any matanal tact Ill NSF prcposa!s, roports, anc iJrtf other c:onvnumcatJoo subml:tea to N-SF, may subject mo 10 cnmnJI. CNll., or a<111111tstr.nl'IG pen alm~s I«
+  Ir.Jud. false stoiemeots. false <toim>. or olherwise. (See. e.o .. U.S. Cooe m e 18. Sections 281. 1001 ond 1343: Tille 31. Sec1ions 3729·3730 and 3801·3812).
+
+
+
+  02120/20 1907:(15 llM. EST                                                                                                                                                                                       Poae1
+
+
+
+
+                                                                                                           32
+KEARNEY&                                                                                                                                                       National Science Foundation
+                                                                                                                                                        Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                                            University of Minnesota
+
+
+
+
+                                                                                  AWARD CASH MANAGEMENT SERVICE (ACM$)
+                                                                                        Transaction Deiaifs - Summary
+
+
+
+  Additional CertlflcatiOns applicable only for SBIRJSTIR grantees:
+  {A) That tne pnnapal Investigator and tne smal t>usiness tinn have not accepted tunct.ng k>r tf'le same°' over1appmg ~except as stated in Ule uncse11y1ng prOJXtS31;
+
+  (B) That al proposals desaibinQ the same or cwerbpping wor1t have been deemed or withdrawn;
+
+  (C) That the primaryempk>ymentof the pmcipal investigator. as defined by lhe applicable NSF Program Solicrtation, is wrth the small business firm and will continue to be dumg the condud of the
+
+  research ttvoughout the award period, and that the prtndpat fnvestigator is currendy avallabte to pertonn the proposed Y10r1c:,
+  {0 ) That the grantee is a small business as defined Ul the SBA Eltgibil1ty Gukle at
+  https:/twww.sbir .g ov/ sitesfdef aul t/fileslelig_size_comp liance_guide.pdf
+
+
+
+
+  02120/2019 07:05 AM, EST                                                                                                                                                                       P39e2
+
+
+
+
+                                                                                                        33
+KEARNEY&                                                                                                                                  National Science Foundation
+                                                                                                                                   Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                       University of Minnesota
+
+
+
+
+                                                             AWtlRO CASH UANAGEMENI SERVICE (ACMS)
+                                                                 Transact<in Details . Payment Reauests
+
+
+  Federal A'A'<Ud       Recipient     Pl/PD Name   From          To          Total Federal       Pre\liouS       Net Availa!te   Payment Amount E>:peded Close    Final Flao
+        10          A.ccoonl Number                                             Funds        Cu mulati\'e~          Funds          Requested           Dale
+                                                                              Au1hOfiZed      OISl>urSenlE!fll
+                                                   09117       08121         "591.000.00       $165.744.17       $525.255.83       •2.296.52        1212912021       No
+
+                                                   07115       06119         0392,853.00       $328.400.97       564,362 o~        Cl26,1 1 1 4 8   10/2812019       No
+
+                                                   07114       06/19         0354.755.00       $292,376.19       $62,3i8.8 t         086 .67        10/28/2019       No
+
+                                                   0 1/ 17      12119        06.16,92.5.00     $180,150.65       $266,564.35       -Od,3 10 .77     0412912020       No
+
+                                                   09116       08/19         D561,65J.OQ       $360,878.79       $191,71421         ..0158.18       1212912019       No
+
+                                                   08117       01120         0335,000.00       599,045.10        $235,95d.90       :i:t l ,369.27   1112812020       No
+
+                                                   00118       08121         "329,993.00          S0.00          $329,093.00       • t,216.09       12120!.?021      No
+
+                                                   06116       05119         "600.000.00       $476.709.54       $123.290.46       •23.986.87       0912912019       No
+
+                                                   08117       07120         "557,139.00       $109,416.26       $447,722.74       • 1,102.64       1112812020       No
+
+                                                   10114       09118         "997.401.00       $993.541.98        $3.859.02        4 1.869.60       0112812019       No
+
+                                                   08116       07119         "432.739.00       $273.613.60       $159, 12540        •926,28         1112812019       No
+
+                                                   03113       02119         a439.160.00       $350.212.56       $88.947 ,.        • 1,815 66       0612812019       No
+
+                                                   03118       0212l         a650,000.00       S15,522.21        $8'.14,477 79       05960          06J28/202l       No
+
+                                                   07117       06120         D450,000 00       $169,634. 10      snn,365.90          o l 56.7S.     10J28/20W        No
+
+                                                   04/n        Ol/19        02,999,993.00     $2 ,622,363.29     $377,629.71       018,7236 1       0712912019       No
+
+                                                   08/16       08119         0368,JT6.00       $249,521.61       $1 18,854.39        0201.28        12129/2019       No
+
+                                                   02112        12118        0500,000.00       $478,268.33       521,731.67        P1,146.58        04/3012019       No
+
+                                                   05/16       04/19         "560,975.00       $356,332.38       $"30'1,642.62     a1J,6<1T.79      08128./2019      No
+
+ 0212(1120 19 07:05 AJ.1, EST                                                                                                                                           P39e .3
+
+
+
+
+                                                                                  34
+KEARNEY&                                                                                                                           National Science Foundation
+                                                                                                                            Performance Audit of Claimed Costs
+                                                                                                                                       Cninrsity of ~finnesota
+COMPANY
+                                                        AW~RD CASH JJAA'AGEMEI" S.ERVICE (,4 CMS>
+                                                            TransaaxJ<I Ootal• - Paymonl R°""""'
+
+
+ Feoeral A..ra"d
+       D
+                     !«<,.,....
+                   At<OIOtl~rMe<
+                                   Pl1 '0Nne   From         To         To:.I F-ral
+                                                                          IU:ds            ~""""
+                                                                                         Cnul>ne~
+                                                                                                          Ne1A,..llll>le
+                                                                                                             F\Jllds       p-=;:...       ~<lfCClose
+                                                                                                                                              Cale
+                                                                                                                                                           Roolfl>g
+
+                                                                        AtL'Kl"r.zed     Oi>l>ur>emel11
+                                               09/17       01120        . .!i0,00000      S202,8l8.Sll    $2471614 1        •1,-t9>.49     I 1/2l!l2!Xl0     If!>
+
+                                               07/IS       06!21        0200poooo         '311,23UO       $160 760 20       • 3,352.10     1008/20Z1         110
+
+                                               05116       05119       "1,00d,D19.00      S~12,07U3       $401 042.47       •t.1115. 0     09l28/2019        tl o
+
+                                               ()g/16      O&f19        •140,00000        '89, 199 19      $$),80081         •fg5Q4        121~19            No
+
+                                               08/16       07119        0.366,7.:12 00    S174,GOe02      510207598          0)38 11       1 1/2Bl2019       No
+
+                                               03/15       oi120        •573.779 00       $252.204 73     $321 .574 27      otO 50000      06Q8l2020         No
+
+                                               00/14       07119        •650.000 00       $583.636 70      SGG.3G3 30        111(S06       11/28/2019        No
+
+                                               09/15       07119        •239.521.00       3181.249.42      $58.271.58       •4.582.68      11/28/2019        No
+
+                                               04119       03123        •263,697.00       S10,5J117       $2~3.165 83        • 491.90      07/2912023        No
+
+                                               01115       06110        • 1Jo_g21.oo      $137.050.00      s2.a61 01           "6. 13      10/2'112019       No
+
+                                               01116       06119        •340.728.00       $109.526.10     $151,20 1 00      • 4.016.01     IOIW2019          No
+
+                                               11f t5      10J19        tL135,852.00      $328.575.10     $107,276 30        • 2,001.41    0212812020        No
+
+                                               10/16       09!19        0499,000>0 0      S250,101. 10    U30,8lU4          •l.~42.80      0 1JW2020         No
+
+                                               08/17       07•'20       Q302,02300        S102.505 85     $130~17 15         •3,74tJ 10    11mnmo            No
+
+                                               09/17       08119        a4999900           U<9200          u5.roo40          «<l!lOO       1~19              No
+
+                                               04/17       03120        •326.037CO        S196.0 10 80    Sl30020 15         •17ll SC      07129'2020        No
+
+                                               06/15       05l20        <>500.000CO       $358.8<l3.63    S1<1.11637         •3.911.66     09t2&'2020        llo
+
+                                               f»'t5       08119        •252.318CO        $203.883. 71     $-IS."34.29       •2.192.46     1212912019        llo
+
+
+
+                                                                                                                                                                    ~·
+ 02120.'2010 01.05 AA4 EST
+
+
+
+
+                                                                             35
+KEARNEY&                                                                                                                              National Science Foundation
+                                                                                                                               Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                   University of Minnesota
+
+
+
+
+                                                            AWARD CASfl MANAGEMENT $£RVIC£ /ACM$!
+                                                                Trans.a~tion Details · Paymen1Reauests
+
+
+
+  Federal Award       Recipient        PUPO Name   from         To          Tola! federal       Previous       Net Available   Payment Amount Expected Cl.ose   Fila! Frao
+       10          Accoont l\"umtre1                                           Funds         Cumulalive Gash      Funds          Requesle<I       Dale
+                                                                             Authorized       Disbursement
+                                                   07119       06/23        01 ,100.000.00    $112,200.45      $9117.799.55      011.211 .eo     10/2612023        No
+
+                                                   Ollll7      07/20        a.<50,000.00       $121,142.94     $329,857.16         n163.16       1112912020        No
+
+                                                   07118       12118         nso.000.00        $16,286.15      $33,713.85          ll255.32      Q.1130/2010       No
+
+                                                   07/\5       06/19        0 179,0lO 00      S t 11,435.69    $67,59.S.31         013.SS        10/2812019        No
+
+                                                   08116       07119         090, 148.00       $79.553.40      ~ 1 0, 589.60       o99.80        1112812019        No
+
+                                                   07116       06/21        "601.161.00        5319.461.94     £281.699.16        •506.74        1012612021        No
+
+                                                   Olll19      07121        oS21,957.00          6977.92       $520.979.09        • 1.279.03     111261202 1       No
+
+                                                   10112       00/19        03,440,109.00     63, 115,534.59   $324,574.42        •1,720.55      0112912020        No
+
+                                                   09Jt7       08/20        1)313679 00        $4 1,882'6      $27 1,796 7!.     Ct12, 150.00    12/29/2020        No
+
+                                                   09116       08/19        0256,669 00       S l 63,041.96    $93 627.04          CJ12.3'3      1212912019        No
+
+                                                   09116       08/19        <>e30,28000        $.1 72.614.00   $657,66600          0982 10       1212912019        No
+
+                                                   09117       OB/20        "300,000.00        $159,489.06     $140.510.9"        •2,334.23      1212912020        No
+
+                                                   02115       01/19        •1 ,814.629.00    61,509,272.52    $305.355.49          •6.13        0513112019        No
+
+                                                   06117       05/20        0405,000.00        s176,909.98     ms,090.02          '01,047.05     0912812020        NO
+
+                                                   05116       04121        0500,00000         s 1 87~073.36   $312.9266d         06,796.06      081281202 1       No
+
+                                                   071'5       06/20        01,4~7.25000      S t,020.221.44   5477,02856         ol,052.54      10128.12020       No
+
+                                                   08115       07119        "593.632.00       5289.638.09      $303.993.91          •6.13        1112812019        No
+
+                                                   09115       OG/19        "317,867.00        $202,132.38     $115.734.62        •1,329.07      1212912019        No
+
+
+ 02/2CV'2019 07Xl5 Alli, EST                                                                                                                                          Page5
+
+
+
+
+                                                                                36
+KEARNEY&                                                                                                                                National Science Foundation
+                                                                                                                                 Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                     University of Minnesota
+
+
+
+
+                                                         AWARD CASH MANAGEMENT SERVICE ( ACMS)
+                                                             Transaeti<>n Data11s . Payme.nt Roquasts
+
+
+ FeoeraJAward      ReCIPIE>m       Pl/PO Name   From         TO           Total FeCJE>ral      Previous       Ne; AvalS3 Dh~    Payment Amount Expeoied aose    FlnalFbg
+      ID        Account NllTIDar                                             Funds          c.umuianve casn       Funds           Roquestoo        Dot•
+                                                                           Authonzed          Oisbursomom
+                                                08117      07121          "229,312.00         $92,928.23      .$ 136.383 77         a72f'J 26     ' tJ28J2021     No
+
+                                                06/16      05/20          <>560.000 00        $458,876 24     5101. 123.76        •2.1110.61      0912812020      No
+
+                                                05/19      0021           "243.341.00         5100.035.06     5143.305.94         • 1.293.74      0912912021      No
+
+                                                10117      09/21         02,429,SOO.OO        $235,233.22     S2, 194,266.7 8     « 5,571.35      0 1fl8/2022     No
+
+                                                09/17      08/20          0 160,00000         $43,BC6.68      S t 16 ,393..32     03,2913.24      1212912020      No
+
+                                                08115      07119          "390.000.00         5213.729.32     St 76.270.68          •25.89        11/28/2019      No
+
+                                                09117      08/20          "291.481.00         $87.009.92      S21J.1,471.09       • 1.385.89      1212912020      No
+
+                                                10115      00/19         01 ,573,481.00       $669,692.55     5904,798.45           •643.94       01/2912020      No
+
+                                                07118      06/21          aJ74,93 1 Q:O       $66,743.96      $308, 187.0-4       01,349-54       10/281202 1     No
+
+                                                07117      00/20          "362.409 00         $140.553-94     $221.855.06         u4. t08.31      10/2812020      No
+
+                                                08/17      07119          <>550.549.00        $429.020.97     5121.528.03         • 1.468.86      11/2812019      No
+
+                                                0711 6     0€/19          "315,000.00         $105,699.40     5209,300.60         • 19,095.35     10/28/2019      No
+
+                                                09116      08/19          0999,7J3.00         $47 6,101.19    5521.631.81         P1, 578 .50     1212912019      No
+
+                                                05115      04/19          "359.97300          $359,23353         $739.J7            0739.47       0812812019      No
+
+                                                11/14       10/20        • 15.520.000.00 $11.408,768.87       54.111.211.13       • 8.187.11      02128/2021      No
+
+                                                07118      OOZl           "292.786.00         $213,967.32      $79,818.68         • S.760.49      10/2912023      No
+
+                                                09n4       08/19         06,699,794.00       $4,SOT,763.44    St ,892,030.56      -1126,8-52.94   12/29/2019      No
+
+                                                07116      06f19          c>222.,242 00       $88,244.95      S l33,997.05          U936.37       10/281201 9     No
+
+
+02120/2019 07:06 M1, EST                                                                                                                                             Pages
+
+
+
+
+                                                                               37
+KEARNEY&                                                                                                                         National Science Foundation
+                                                                                                                          Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                              University of Minnesota
+
+
+
+
+                                                        AWARD CASH MANAGE.MENT SERVICE. (ACM$)
+                                                           Transaction Oelails - Payment Requests
+
+
+  Federal Am rd       Reci:p1ent    PVPO Name   from        To         Total Federal      Pre\ofous      Net Available   Payment Amount Expected Close   Filal Flao
+       ID         Atc.oonl Number                                         Funds        Cumulative Cash      Funds          Requested        Dale
+                                                                        Authorized      Oisbv~emenl
+
+                                                lt/15      t ll/19     •408.273.00      $237.047.04      $171.225.96        • 175.70      02!.!912020       No
+
+                                                OBl15      07/19       •300,000.00      $120,731.15      S179,26B.B5        •600.20       1112912019        No
+
+                                                04/17      03119       0175.000.00       555,505.40      $109,49.t.60      03,552.12      0112912019        No
+
+                                                07114      06119       •450.000.00      $390.344 88       $59.655.12       • 1.520.00     1012812019        No
+
+                                                09115      08119       •449.468.00      $222.979.78      $225.488.22       •68.510.03     12/.!9,2019       No
+
+                                                00115      OB/20      03,600,000.00     $2,870,023.20    $729,976.7 1      •11,6B3.54     12!.!912020       No
+
+                                                07/15      06119       Oldl,000.00      $29~,116. 1 6     $46,823.84         06. 13       10/2812019        No
+
+                                                09115      08119      06,480. 140.00    $6,050.0Sl.1 1   $4lG,056.89       037,422(l6     12129/2019        No
+
+                                                06117      05120       •213,759.00       S68.413.72      $145.345.28       •3,8 19.05     0912812020        No
+
+                                                09/1B      07121       •132,000.00       551.525.84       $70.374.16       •2.664.00      1112912021        No
+
+                                                10117      09121       •499,008.00       S3S.!l55.47     $461,042.53       • 2.004.65     0112912022        No
+
+                                                08/15      01119       0438,83600       $388,567A4        $50.268.56        a 1n.2a       0513112019        No
+
+                                                t0/17      09'21       0962,500.00      $192,754 22      $769,745.78        u660.8'3      01128.12022       No
+
+                                                09115      07119       •559.940.00      $513.545.44       $46.394.56         oS.13        1112912019        No
+
+                                                07117      05120       •327,818.00      $100,908.72      $226.909.29        •539.00       1Cl2812020        No
+
+                                                00/15      08119       0746,327.00      $511,079.20      $2Z9,2H.80         OJ25.85       12/29/2019        No
+
+                                                05115      04119       •393,252.00      $368,177 &6       S25,074 .14       .U.170 .95    08n&/2019         No
+
+                                                08115      07119      •12.000.000 00    $6.218.27• 02    S5.781.72598      • 9.548.94     11'2812019        No
+
+
+ 02J201201907:0~AM, -EST                                                                                                                                       Pag!? T
+
+
+
+
+                                                                           38
+KEARNEY&                                                                                                                             National Science Foundation
+                                                                                                                              Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                  University of Minnesota
+
+
+
+                                                       AW•RD CASH MANAGEMENT SERVICE (ACM$)
+                                                          Transaction OetaY'S - Paym~n t Requests
+
+
+  Feoeral Award    Rec1p1en1     Pt/PO Name   From         TO         Total Fooeral       PrG\'IOUS      t..t.et Ava11ab1e   Pa)'!llsnt Amount   expected ao-s.e   Fml Flag
+       ID       Account Numoor                                           Funds         Cumulative casn       Funds              Roouested             Date
+                                                                       Authorized       Disbursement
+                                              08fl8       07121       o.t!l6,6;?2.00       $11 .37       $406,610.63             "561.12           1112812021        No
+
+                                              08/18       0 7Q1       t1501,568.CO        Sl,002.08      $498,565.92           1111,004.24         1 1/2812021       No
+
+                                              06115       05119       1'301,1d7.00       $240,306.31      560,840.69              1'>18.38        09/2812019         No
+
+                                              09117       08!20       u299.999.GO        $ 110.985.46    $ 189,0 1354             ll26 48          1212912020        No
+
+                                              051\ 5      04119       0680,000 GO        $498,330.59     $181 ,66541             a38Q.29          08128/2019         No
+
+                                              07117       12119       •200.000.00        $104,781.55      595.218.45             • 110 88         04/2912020         No
+
+                                              05116       04119       • 153,101 00       S2 1 .~ 11      $131 .16289              •4600           0812812019         No
+
+                                              09117       08120       •330.000.00         $4.518.51      $325.481 49            01.256.22          1712912020        No
+
+                                              06116       05120       •726290.00        53 18.663.01     $407.626.99             •1 17.68         09/2812020         No
+
+                                              08118       07123       •875.000.00         $5.161.68      $869.838.32             •107.80           11/2812023        No
+
+                                              08114       07119       •340.000.00       5215.978.59      $124.021 .41            •653.48           11/2812019        No
+
+                                              07116       06121       •279.ns.oo         $145,458.58     $134,267.42             •716.41           10/2812021        No
+
+                                              10117       09120       •507.523.00        $103,991.95     $403.541.15             -0535.89         01/28/2021         No
+
+                                              Oil/19      07121       0•91,277.00         $ 1,499.63     $'189,777.37             oS.24            11128/2021        No
+
+                                              01113       12118       •S, 125,SGO.OO    $4,853,757.70    $1,271,931.30          "'6,60729         04/30/2019         No
+
+                                              09117       08120       •224,009.00        $20,171.44      $20~ .827.56            •164.67           12/2Q/2020        No
+
+                                              09!17       08121       cs2,ooo.cco.oo     5'91,995.51     $1,e-02~004 .49        03,536.5'          1212912021        No
+
+                                              04117       Ol/19        085,505.00        $69,009.60       516,495 ..10           0226.9~          0712912019         No
+
+
+ 02120/<!019 07:05 AU. EST                                                                                                                                                Pooe8
+
+
+
+
+                                                                          39
+KEARNEY&                                                                                                                          National Science Foundation
+                                                                                                                           Performance Audit of Claimed Costs
+                                                                                                                                      Cninrsity of ~finnesota
+COMPANY
+                                                    AW4RV CASI/ M.lJIAGENf.NT $fRVICE (ACM$/
+                                                        Tramattion DeaJs • Pa)menl R...,....
+
+
+ F944~A""lll     Roc:pt0r1t
+               Accoun1 t.u~
+                              PIPONal'IO   F<O!ll        To         TocalFGc<r.ll
+                                                                        Fu:<!•
+                                                                                        Pr9r.out
+                                                                                    C•ll'l.N:TIO C:>Cll
+                                                                                                          Noc Av3'~
+                                                                                                             F...,.        Pz=~t ~:o:ise                    Fmlfl:lg
+     IO
+                                                                     Ali1!lora0d     OocbvlSCnont
+                                           09117       ()312()      "251 00000        $40 19355           $210.80G~          "9M7a           1212912020       No
+
+                                           09/13       08/19        •727 .000.00      $696.103.61          $30e96.39         •114.00         1212912019       No
+
+                                           08117       07/20        ~00.000.00        S235,2(15.6Q        $564,704.)1       •3011.11         11128/2020       No
+
+                                           08114       07119        "67500000         $000.34131           $2465809         •1 .572 4ft      1112812019       No
+
+                                           09116       08121       01,483,700.00      S95S.072.57         $528.627.43       •S.175.70        1212912021       No
+
+                                           08114'      07/19       020,000,000 00   $151140,747 96        $4.35). 25' 0<    0 10 .~;5   °'   1112812019       No
+
+                                           07115       06/19        •86.40000          140 10301           $40 230 99       • 4 541 39       10/2812019       No
+
+                                           07/17       06120        "399.999.00       $174.46<4.99        S22S.S34.01          •6.21         10/2012020       No
+
+                                           08/17       07120        0430988.00         121, 12Tft4        SMl!l.eeo )(I       02~ .03        1112812020       No
+
+                                           09/1 ~      08120        "4362,600.00      $454.768.77         5407.631.23       •31.920.00       1212912020       No
+
+                                           OlfH        02119        •339.999.00       $319.130.41          $20 868 59         •12.2S         06/2012019       No
+
+                                           05118       04122        Od.43392 00        $90 963 25         U5',428 75         uare 7 1        D8f28/1022       No
+
+
+                                           03/16       02/19        o440.()6ol.00     $337.224.78         $102.839.22        •209.76         06/2812019       No
+
+                                           08J17       07119        0115.CIOO.OO       $67,5361'          $107,483.S.1      •4 815.92        11.1281'2019     No
+
+
+                                           0211•       01119        "4300.00000       S391.~93            S408,415 07       •3 54920         CW3112019        No
+
+                                           05/13       04/19        o5S2.E65.00       $447 .337.32        $105.347.68         ~16.00         08/2812019       No
+
+                                           09n8        OW1          Od99W7.CIO            $0.00           $Alll,9CJ1.00      •Tll.24         12'29t2021       No
+
+                                           04116       0311S        od28dQO OO        $381.366    n        S<f 03328          "4()!,()       07129"2019        No
+
+
+02/20f20190705A." EST                                                                                                                                              Pag•9
+
+
+
+
+                                                                        40
+KEARNEY&                                                                                                                             National Science Foundation
+                                                                                                                              Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                  University of Minnesota
+
+
+
+
+                                                         AWARD CASH MAIJAGE.ME.NT SE.RV/CE /ACMSI
+                                                            Transacticli Details · Paymeot Requests
+
+
+ Federal AwiJrd      RaiDienl      Pl/PO Name   From         Tn         Tola! Federnl        Previous       Net Available   Paymenl Amount Expected Ckls.e   Fi""I Ftao
+      10          Account Number                                           Funds         Ct1mulaiive Gash      Funds          Requeste<!       Date
+                                                                         A.u:hori:i:ed    Oisb..lrsemenl
+                                                09116       07119       o-!80.072.00       5199.189.02      $280.882.98        • 7.122.13     1112SJ2019        No
+
+                                                00116       08119       •207,531.00        5116.530.93      $181.000.07         o08.33        12129/2019        No
+
+                                                01f16       12119       C.1{0!),686.00     S246,45-4.10     $154,231.90         0311.2 1      04129/2020        No
+
+                                                09117       0 7120      .1))70.000.00      $70,"28 94       $2~9. 11 1 a6       0668 75       1112sno20         No
+
+                                                09/17       08120       •2 .500.000 00     5330.520.14      $2,169.479.86     • 17,438.00     1212912020        No
+
+                                                07116       06/19       •433,000.00        5302.17727       $130.822.73       ·•4.741.39      10/2SJ2019        No
+
+                                                00116       08120       •626,197.00        S2112,ll43.57    $333,353.43         •500.29       1212912020        No
+
+                                                01tl7       12120       0510,420.00        SlS2,637.70      $167 .782.3-0       063.79        04/30/2021        No
+
+                                                W 17        08120       u330,000.00        $60,449 45       $269,55055          070.76        12n912020         No
+
+                                                07117       06120       •492.749.00        5148,03528       $344.713 72       ·• 4.535.31     10/2812020        No
+
+                                                10/15       09119       •800.000.00        5509.053.58      $290.936.42       ~1 .1 24.65     01128'2020        No
+
+                                                06/18       05120       •299,967.00           S0.00         $299,g67.00       o21,0S7.61      09128/2020        No
+
+                                                06118       05121       "433.245.00        $24,810.89       $408,434.11        ll2,000.21     09/2812021        No
+
+                                                1)9115      08119       •299.995.00        5220.n 225        $79.222.75         074.25        1212912019        No
+
+                                                10116       09120       •2.198,800.00      $688.637.08      $1,510.162.92       •768 SS       0112812021        No
+
+                                                09117       08120       •300.797.00        $91.330.73       $209,466.27         064.94        12129/2020        No
+
+                                                08/17       07120       •420,000.00        $161,393.36      $258,616.64         •195.37       11128/2020        No
+
+                                                04!18       03121       1'360,39(100       S 1a3,48J.35     $256,906.6~        n4,548.66      07129/2021        No
+
+
+0212012019 07:05 Ml. EST                                                                                                                                          Paae 10
+
+
+
+
+                                                                              41
+KEARNEY&                                                                                                                              National Science Foundation
+                                                                                                                               Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                   University of Minnesota
+
+
+
+                                                         AWARD CASH MANAGEMENT $£RV/CE (ACM$)
+                                                            Transa~ion Details· Payment Reouests
+
+
+
+ Federal Aw~ud      Recipient      PVPO Nom<>   From         To        Tomi Federal         Previous        Net AvDibble      Payment Amoll'!t Expected Close   Finol Flog
+      ID         t\ccouni Number                                          Fund$          Cumulative Cash       Funds            Re<1uested         D~te
+                                                                        Authorized        Oi ~burse men t
+                                                09/16       08119      0724,000.00         $130,955.15      $593,044.85          1'2,357.79      12129i2019        No
+
+                                                09f17       08122     •2,997,329.00        $509, 16 1 00    52,488,167.96       034,509.44       12129.'2022       No
+
+                                                06/17       05120      •380,000.00         $294,01 986       S65,960.14           o3U5          1)912812020        No
+
+                                                09117       OS/20      oE90,734.00         $266,908.77      $423,825.23           •249.22        1212912020        No
+
+                                                05-116      04121     0 10,213,661.00     55,014.507.20     $5,259,15.l .SO     ·-01,378.93      08/2812021        No
+
+                                                07116       06119      "313.000 00         $188.21 1 25     $124.788 75         ·•2.154.68       10/2812019        No
+
+                                                06117       05119      • 103.148.00        S25.SOS.85        sn.639.IS           • t.832.91      09/2812019        No
+
+                                                08118       07123       •46,000.00          S9,S07 .6 8      $36,192.32          •9,22025        1112812023        No
+
+                                                10113       09118     :01 ,036.(100,00    $1,032 76087        53,239 13           024.50         0 112812019       No
+
+                                                07114       06119     oJ,002.612.00       $2.841,492.5 6    $82t .119 ••          0134 3t        10/2812019        No
+
+                                                07115       06119      "204.031.00         $117,11 0.79      SBS,920.21           •69920         tCl/2812019       No
+
+                                                08116       07/19      0613.374.00         $320,291.15      $293,082.85          JJl,854 .85     11/2812019        No
+
+                                                07fl6       06fl9      Od25,550.00         $320,81 0 06     $104,739 94          U t~26d .07     lOl2812019        No
+
+                                                0&117       05120      "404.600.00         $102,765.63      $30t ,834.37          •284.95        09/2812020        No
+
+                                                07118       06121      "267 ,829.00         S3,638.90       $264,190.10           •70.66         10/2812021        No
+
+                                                05117       04120      0350,117.00         $135,296.82      $214,820.18           0454.15        08/28120~         No
+
+                                                09/16       08119      "454.597 00         $271,172.59      $183.•2441           ·•865 43        1212912019        No
+
+                                                08117       07f22     03,748,263.00        $337,252.13      $3,411.010.07         •939.13        t1120/2022        No
+
+
+02120/20 19 07:05 AM, EST                                                                                                                                            Pooe I I
+
+
+
+
+                                                                           42
+KEARNEY&                                                                                                                                National Science Foundation
+                                                                                                                                 Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                     University of Minnesota
+
+
+
+                                                            AWARD CASH MANAGEME.vT SERVICE (ACM$)
+                                                               Transactioo Details . Paymom Requests
+
+
+ 'Fodoral Award      Rocipiom         PilPDNomo   From          To         Total Fedora!        Pre\'IOUS       Net Available   Payment Amollll Expoct<>dCIOSO   Final Flag
+      ID          Account N1..1nbar                                           Funds         Cumulative Cast!       Funds          Re-quostod         Date
+                                                                            Au~honzoo        DisburoomGnt
+                                                  10/17       09121        ll540,41 ll.OD     S101,&20 09       $438,593.91        0269 50        01/2812022        No
+
+                                                  07116       06121        •387.9 11 .00      $200,582.03       $97,328.97         •2.726 40      10/2812021        No
+
+                                                  01/17        12119       •573.342.00        5182. 121.24      $391.220.76        •1.732.50      04/2912020        No
+
+                                                  07118       06120        •300,000.00         $2,7119.92       $297,210.08        •6,550.04      10/2$12020        No
+
+                                                  07117       06120        0589,881.01)       s 162.626.17      $427,254.83        0158.62        10/2812020        No
+
+                                                  00/16       04119        •520.193.00        $481,332.44       $38,860 56         010640         08/28121)19       No
+
+                                                  06116       05119        "421.851.00        5259. 175.01      $162.675.99         •19.62        09/2912019        No
+
+                                                  04/17       03121        •913.697.00        511 5. 136.05     $798,550.95         a94.34        07/2912021        No
+
+                                                  04/16       03121        ll2l3,700.0D       $95,343 59        $118,356.4 1        ti36.94       07/2W2-o21        No
+
+                                                  09/15       08119        •330.000.00        $255.436.09       $74.50391          •779 75        12129121)19       No
+
+                                                  02/15       01119        •262.125.00        s197.338.17       $64.786.83         • 110.05       05/3112019        No
+
+                                                  06118       04121        •119.813.00        $97,115.07        $21,697.93        • 13,644.87     0812S/2021        No
+
+                                                  O<l/17      03122        0774,385.0()       5592,273.83       $182,111.17        0918.33        0712912022        No
+
+                                                  06/16       05/19        •404,486.00        $335.348.08       $69. 137 92        "329 10        09/2812019        No
+
+                                                  04117       03120.       0255.081.00        SI00.724.34       $154.366.66         •37.37        0712912020        No
+
+                                                  07116       06119        0296,290.00        $145,490.36       $150,799.64       •1,379.97       10/W2{)19         No
+
+                                                  tl91'17     08120        0 588,J88.00       S 11 7,61d.07     $470,773.93        "276.12        1212912020        No
+
+                                                  06/14       05119        ll447,950.00       .s.403, 188. 16   $<4,761 SJ          tt12.25       09/2812019        No
+
+
+02120/2019 07:05 M'l, EST                                                                                                                                             Pago 12
+
+
+
+
+                                                                                43
+KEARNEY&                                                                                                                     National Science Foundation
+                                                                                                                      Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                          University of Minnesota
+
+
+
+
+                                                     AWARD CASH MANAGEMENT SERVICE (ACM$)
+                                                        Transaction Details· Payment Requests
+
+
+ Feder31 Award      Recipient     PUPO Name   From       To         Total Federal       Previous      Net Available   Payment Amoun1 Expected Close   Final F"'9
+       ID        Accoun1 Number                                        Funds        Cumulative cash      Funds          Requested        Date
+                                                                     Authonzed       Disburnement
+     Total:                                                       $181.959,712.00 s105,893,728.91 $76.065.983.09        $567 ,941.37
+
+
+
+
+02120/2019 07:()5 AM , EST                                                                                                                                 P39013
+
+
+
+
+                                                                        44
+KEARN EV~
+       I~
+                            T                                                                                                                                National Science Foundation
+                                                                                                                                                      Performance Audit of Claimed Costs
+COMPANY ~~~~~~~~~~~~~U=
+                      _
+                      ·,e1~
+                          ·s~·_
+                              of_
+                                Mm_
+                                  nes_
+                                     ota
+
+
+
+                                                                           AWARD CASH MANAGEllENTSERVICE (ACM$)
+                                                                                  Transaction Details - Ad1ustmem RequOOis
+
+
+    F~ctera! Award to           Fi~nc:ial CIOSeO Oare   P CE!VbuS Cum.Jl atl'/9 Cash        ~ lance A\GU:ablE!   tor   Bal ance Av-aib l>le tor   AdjuSlme111 Eligibllity s~tus   Ad).:s1meo1 R equ9S1ed
+                                                              OIS!:i..Jr"SMlenl             Up.'fard Adjustmem         Downward Aa1us1ment
+
+
+        II                           04f.l0/2018
+                                     C5/3112017
+                                                               $257.974.99
+                                                              SJ,0 14,815.52
+                                                                                                   S0.01
+                                                                                                   SO.OD
+                                                                                                                             ·• 257.974.99
+                                                                                                                          .rn ,014,815.52
+                                                                                                                                                            Elgible
+                                                                                                                                                        oo~nwara   Olly
+                                                                                                                                                                                         ~34.50
+
+                                                                                                                                                                                        -01os.oo
+
+         Total:                                               S7,2n,T90.51                         SM !                  ($7,272,790.51/                                                ($142.50/
+
+
+
+
+02120120 19 07:05 AM. EST                                                                                                                                                                           Pooe 14
+
+
+
+
+                                                                                                     45
+KEARN EV~
+       I~
+COMPANY ~~~~~~~~~~~~~U=
+                      _
+                           T
+
+
+                       ·,e1~
+                           ·s~_
+                              ·of_
+                                 Mm_
+                                   nes_
+                                      ota
+                                                                                                                                               National Science Foundation
+                                                                                                                                        Performance Audit of Claimed Costs
+
+
+
+
+                                                                  SAM PLE 206 RETURNED FUNDS CONFIRMATION
+
+
+                                                                               PeopleSoft Financials                                                          Page.           1 of 1
+  Report Definibon: GLX7501                                                  Journal Entry Detail Report                                                 Run Date:          2119119
+
+
+
+
+                                                                                                          -
+                                                                                                                                                         Run T ime .    4:35:3 1 PM
+
+  Un it                        UMN01                                           Ledger Group:               ACTIJALS                   Forei gn Currency:       USO
+  Journal ID:                  0001046895                                      Sourc.:                                                Effoctivo Dato:          916/18
+  Journal Dato:                9/6118                                          Rovorsal:                    N
+                          transfer expense for aJcotd to non
+                          spon50<ed dk>:t s1ring. lncarecily charye to
+  Description:            Ille grant ~OOllol was purchase during the           Reversal Date:
+                          event for Ille earticirants meal. Charge on
+
+
+
+
+                               ... •
+                         ~               I     "2411S
+  Lin•#        Unit              Accounl      Fund Code    Department   Plog1;11m   Ch.attfiekl 1    Chlutfield2    fiii ~HD    cs   S latislia Amt   F~gr1 Amou-tl:     8 .a- Amou l'll
+
+               PC6U              Pro;         Aclivit      An T
+  UMN ~
+  1            UMN01                                       11136                                                                              0.00      ·257.23USO      ·257.23 USO
+               UMSPR                                       Gl.E
+
+               oesctiptlOn:
+               UMN01
+
+
+               oescnp:uon:
+               IJ.iNOI
+                               _.,.
+                                -~-                        11139
+
+
+
+
+                                                           11136
+                                                                                    Reier~oce.
+
+                                                                                    UMF0005532
+
+
+                                                                                    Remrence:
+                                                                                                     6125J1'5
+                                                                                                     1000012901
+
+
+                                                                                                     61'25115
+                                                                                                                    2101319                   0.00
+
+
+
+
+                                                                                                                                              000
+                                                                                                                                                        257 23USO
+
+
+
+
+                                                                                                                                                        257 23. USO
+                                                                                                                                                                         25723USO
+
+
+
+
+                                                                                                                                                                         257.23 USO
+
+
+               oesct1ot1on:
+               UMNO·I
+
+
+               Oesc.ripnon·
+
+
+      Busln..s Unit
+      lRAN01
+                               -•Due FromtOUe T<> 01ner Funds
+                                                           11139
+
+
+
+                                 Doe FromtOve To Other Funds
+
+
+                                                Total Li nes
+                                                                                    Reterence:
+
+
+
+                                                                                    Re~erence:
+
+
+
+                                                                            Total Oobhs
+                                                                                    514.46
+                                                                                                                Total Credits
+                                                                                                                       514.46
+                                                                                                                                              0.00      -257.23 USO     ·257.23 USO
+
+
+
+
+                                                                                                46
+KEARN EV~
+       I~
+                      T                                                                                                                         National Science Foundation
+                                                                                                                                         Performance Audit of Claimed Costs
+COMPANY ~~~~~~~~~~~~~U=·_
+                        ,e1~
+                           ·s~·_
+                               of_
+                                 Mm_
+                                   nes_
+                                      ota
+
+
+                                                                 A WAR D CASH M ANAGEM ENT SERVICE (ACMS)
+                                                                        Transaction Oelaits-Adjustment Requests
+
+
+
+  f ederal Awatd 10       Financial Closed Date   Prevws Cumulative Casi\        Balance Available for      Balance Avrulable for   Adjustment Eligib-llity St<:ttus   Adjustment Requested
+                                                       Ois.bursement              Upward Adjustment        Oown\\13rd Adjustment
+                              0513112018               $727.436.00                      $0.00                     ($727,436.00)                Eligible                     ($ 383.60)
+                              09J22r.?017             $34 .691,035.44                   $ 1.56                ($16,8 18.696.44)                Eligible                     ($257.23)
+
+       Total:                                         $3.5.418.471.44                   $1 .56                ($17.5461132..44)                                             ($640.83)
+
+
+
+
+                                                                                          47
+KEARN EV~
+       I~
+                           T                                                                                                                                            National Science Foundation
+                                                                                                                                                                 Performance Audit of Claimed Costs
+COMPANY ~~~~~~~~~~~~~U=
+                      _
+                      ·,e1~
+                          ·s~·_
+                              of_
+                                Mm_
+                                  nes_
+                                     ota
+
+
+
+
+                                                                                  OWARD CASH MANAGEMENT SERVICE. (ACM$)
+                                                                                            TransactiOn C>Erails • Sutml art
+
+
+
+  Transacuon 10: 192666                                 Payment o a1e R9Qoos.tod: 001211201&
+  Oroanizotion Name: Uriversity of Mrmesota-Twin Cities OrotlniwUon ID: 0023879000 St.Me: MN
+
+  Transacuon 1nrormauon
+
+
+
+
+                  Si.
+  Total # of Awards: 6                                            Tnmsaction SWtus: Acc.eoted
+  Datt Prepared: 09J2t/201SOS:27:08                               oat• cenlfied: 09121120 18 09:52:57
+  Prep<lred8y:                                                    Cenified By:
+  Email ACJdress                 i.-rr"l.~du
+
+  Tetephone Number:
+
+  Paymoot 1nrorma11on
+  Payment Amount Requested Total (Open Awa1d s)=S22,49l 57
+
+  Adjustment Requested Total; (Closed Aweirds)=($&:!0.83)
+  Paymoot Transacuon Tota 1=$21, 852. 7~
+
+
+
+  lntemol Comments
+  Remarks
+  cert1t1canon
+
+
+  I. •certify:
+  Fora!I aramees:
+  By slft>mittilo this electronic requesl for cash disbursement I certif1 k> the best of my llnowledge and belief that the expenditures. dl:sbursement$. and cash receipts &$0C.i..1ted wllti this request f(lr
+  paymenf are for the purposes <'ind objeci:ives set forth in the s.o~dation. prQoosal. and award letter. and comoly with the tenns and conditions of the award I am aware tha1any false, fictitious. or
+  fraudulent informaticn, or lhe omission af any material fad in NSF prcposa!s, reports, and any olher comm~ica 1ion submitted kl NSF, may subjed me IO criminal clvi, or administr.atNe penal:i e:s for
+
+  fraud, fal se statements false daims, or othe;wise (See, e 9 , US Code Title 18, Seclions 287, I OOt and 1343; Title 31, Secl5ons 3n9-3730 and 3801-3812).
+
+
+
+
+  02/20{2010 07:14AM. EST                                                                                                                                                                                         Pago,
+
+
+
+
+                                                                                                          48
+KEARNEY&                                                                                                                                                      National Science Foundation
+                                                                                                                                                       Performance Audit of Claimed Costs
+
+COMPANY                                                                                                                                                           University of Minnesota
+
+
+
+
+                                                                               AWARD CASH MANAGEMENT $ERV/CE (ACM$)
+                                                                                         Transaction Details - summary
+
+
+
+ Add~lonal Certillcatioos applicable ooty for SBIR/STTR grantees:
+
+ (A) That the prinapal investigator aoo the small business firm have not accepted fund1n9 for the same or ovef1appu19 work except as stated in the undertytng proposal;
+
+ (B) That au proposals descnbtn9 the same or over1apping work have beef! dechned o r withdrawn;
+
+ (C) That the primary employment of the principal investigator, as defmed by the applicable NSF Program Solicitation, is with the smaD business firm and will continue to be durTig the conduct of the
+
+ research throufJhout the award period, and that the pnnapal investJQator is currentty available to perform the proposed work;
+
+ (0 ) That the orantee is a smatl business as defined in the SBA Eligibility Gutde at:
+
+ https :J/www.sbir.govlsites/default/files/elig_size_compliance_guide.pdf
+
+
+
+
+ 02120/2019 07:14 AM , EST                                                                                                                                                                           Page 2
+
+
+
+
+                                                                                                     49
+KEARN EV~
+       I~
+COMPANY ~~~~~~~~~~~~~U=
+                      _
+                      ·,e1~
+                            T
+
+
+                          ·s~·_
+                              of_
+                                Mm_
+                                  nes_
+                                     ota
+                                                                                                                                        National Science Foundation
+                                                                                                                                 Performance Audit of Claimed Costs
+
+
+
+
+                                                             AWARD CASff MANAGEMENT SERVICE /ACM$)
+                                                                Transaction Details · Paymenl Requests
+
+
+  Federal Award         Reci-Dient      PIJPD Name   From        To        To!<tl Federal       Previous        Net Availahle   Payment Arnounl Expected Close   Final Fla9
+        ID          At:<:OIXll Number                                          Furlt1S      cunu.t1a11ve casn      Funds          Re-ques1E!d        Date
+                                                                             Aulh0tl2~d      Dis.ru-seroent
+                                                     07115      06118       D76,625.QO        $74.905.35         51.719.65         • 1.669.69     10/2812018        No
+
+                                                     09/15      06118       0105..379.72      $97.826.37         57.553..35        •7.552.63      1012812018        No
+
+                                                     10/12      0!1'18      0749.732.00       $749.732.00          so.co            -o0.08        0112812019        No
+
+                                                     07/13      06118       0782,790.00       576(),518.67      $13,271.33        >13,271.33      1012812018        No
+
+
+      Tomi:                                                                S1 .714,526.72    $1.691.982.39      $22.$44.33        $22.493.57
+
+
+
+
+ 02120.'20 19 07· t4 AM , EST                                                                                                                                            Page3
+
+
+
+
+                                                                                50
+KEARN EV~
+       I~
+                         T                                                                                                                   National Science Foundation
+                                                                                                                                      Performance Audit of Claimed Costs
+COMPANY ~~~~~~~~~~~~~U=·_
+                        ,e1~
+                           ·s~·_
+                               of_
+                                 Mm_
+                                   nes_
+                                      ota
+
+
+
+
+                                                                  AWARD CASH MANAGEMENT $E.RV/C£ /ACM$)
+                                                                    Transac.lbn Oet<iils • Ac::fm tmeflt Requests
+
+
+     Feeloral Award ID       Fmaooal ClOSOd 03t9   PrevJOus cumu1auve CaSh     Balanoo Ava!lat>IG ror     Salanco Avatlable ror   AdJUStmant Eng11llliy Status   AdjUSunGnt R oquestGd
+                                                        Oisbt.nement            Upward Adjustment         Dovmward AOJUStment
+                                 0 513112018             $727,436.00                  S0.00                   -"727,436.00                  Elg 1>kl                   -"383.60
+                                 0002/2017             $ 34,691 ,035.44               51.56                  .016,818,696.44                El:9f>te                   ..0257.23
+
+          Tolo.I:                                      $35,4 13,471.44                 $1.56                (S17,54ll, 1:J2.44)                                        (SG40.8J)
+
+
+
+
+ 02120/2019 07: 14 AM, EST                                                                                                                                                         Page 4
+
+
+
+
+                                                                                       51
+About NSF OIG
+We promote effectiveness, efficiency, and economy in administering the Foundation's programs; detect
+and prevent fraud, waste, and abuse within NSF or by individuals who receive NSF funding; and
+identify and help to resolve cases of research misconduct. NSF OIG was established in 1989, in
+compliance with the Inspector General Act of 1978, as amended. Because the Inspector General reports
+directly to the National Science Board and Congress, the Office is organizationally independent from the
+Foundation.
+
+Obtaining Copies of Our Reports
+To view this and any of our other reports, please visit our website at www.nsf.gov/oig.
+
+Connect with Us
+For further information or questions, please contact us at oig@nsf.gov or 703.292.7100. Follow us on
+Twitter at @nsfoig. Visit our website at www.nsf.gov/oig.
+
+Report Fraud, Waste, Abuse, or Whistleblower Reprisal
+   • File online report: https://www.nsf.gov/oig/report-fraud/fonn.jsp
+   • Anonymous Hotline: 1.800.428.2189
+   • Mail: 2415 Eisenhower Avenue, Alexandria, VA 22314ATTN: OIG HOTLINE
+

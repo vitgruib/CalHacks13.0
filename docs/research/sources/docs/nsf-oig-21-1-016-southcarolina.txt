@@ -1,0 +1,1091 @@
+Performance Audit of Incurred Costs -
+University of South Carolina
+REPORT PREPARED BY WITHUM SMITH+BROWN, PC
+
+
+
+
+June 29, 2021
+OIG 21-1-016
+NSF      NATIONAL SCIENCE FOUNDATION
+         OFFICE OF INSPECTOR GENERAL
+
+ AT A GLANCE
+ Performance Audit of Incurred Costs – University of South Carolina
+ Report No. OIG 21-1-016
+ June 29, 2021
+
+AUDIT OBJECTIVE
+The National Science Foundation Office of Inspector General engaged WithumSmith+Brown, PC
+(Withum) to conduct a performance audit of incurred costs at the University of South Carolina (UofSC)
+for the period March 1, 2016, to February 28, 2019. The auditors tested more than $1.7 million of the
+$40.9 million of costs claimed to NSF. The audit objective was to determine if costs claimed by UofSC on
+NSF awards were allowable, allocable, reasonable, and in compliance with NSF awards terms and
+conditions and Federal financial assistance requirements. A full description of the audit’s objective, scope,
+and methodology is attached to the report as Appendix B.
+
+AUDIT RESULTS
+
+The report highlights concerns about UofSC’s compliance with certain Federal and NSF award
+requirements. The auditors questioned $140,360 of costs claimed by UofSC during the audit period.
+Specifically, the auditors identified $93,738 in purchases and adjustments near or after award expiration,
+$25,277 in inadequate documentation, $20,883 in unallocable and unreasonable costs, and $462 in foreign
+currency conversion errors. Withum is responsible for the attached report and the conclusions expressed in
+it. NSF OIG does not express any opinion on the conclusions presented in Withum’s audit report.
+
+RECOMMENDATIONS
+
+The auditors included 4 findings in the report with associated recommendations for UofSC to provide
+supporting documentation that it has repaid the questioned costs and to ensure UofSC strengthens
+administrative and management controls.
+
+AUDITEE RESPONSE
+
+UofSC agreed with the findings in the report. UofSC’s response is attached in its entirety as Appendix A.
+
+FOR FURTHER INFORMATION, CONTACT US AT OIGPUBLICAFFAIRS@NSF.GOV.
+                         National Science Foundation • Office of Inspector General
+                            2415 Eisenhower Avenue, Alexandria, Virginia 22314
+
+
+MEMORANDUM
+
+DATE:                 June 29, 2021
+
+TO:                   Dale Bell
+                      Director
+                      Division of Institution and Award Support
+
+                      Jamie French
+                      Director
+                      Division of Grants and Agreements
+
+
+FROM:                 Mark Bell
+                      Assistant Inspector General
+                      Office of Audits
+
+SUBJECT:              Audit Report No. 21-1-016, University of South Carolina
+
+This memorandum transmits the WithumSmith+Brown (Withum) report for the audit of costs charged
+by the University of South Carolina (UofSC) to its sponsored agreements with the National Science
+Foundation during the period March 1, 2016, to February 28, 2019. The audit encompassed more than
+$1.7 million of the $40.9 million claimed to NSF during the period. The objective of the audit was to
+determine if costs claimed by UofSC on NSF awards were allowable, allocable, reasonable, and in
+compliance with NSF awards terms and conditions and Federal financial assistance requirements. A
+full description of the audit’s objective, scope, and methodology is attached to the report as Appendix
+B.
+
+Please coordinate with our office during the 6-month resolution period, as specified by OMB Circular
+A-50, to develop a mutually agreeable resolution of the audit findings. The findings should not be
+closed until NSF determines that all recommendations have been adequately addressed and the
+proposed corrective actions have been satisfactorily implemented.
+
+OIG Oversight of the Audit
+
+Withum is responsible for the attached auditors’ report and the conclusions expressed in this report. We
+do not express any opinion on the conclusions presented in Withum’s audit report. To fulfill our
+responsibilities, we:
+   •   reviewed Withum’s approach and planning of the audit;
+   •   evaluated the qualifications and independence of the auditors;
+   •   monitored the progress of the audit at key points;
+   •   coordinated periodic meetings with Withum, as necessary, to discuss audit progress, findings,
+       and recommendations;
+   •   reviewed the audit report prepared by Withum; and
+   •   coordinated issuance of the audit report.
+
+We thank your staff for the assistance that was extended to the auditors during this audit. If you have
+any questions regarding this report, please contact Jae Kim at 703.292.7100 or
+OIGpublicaffairs@nsf.gov.
+
+Attachment
+
+cc:
+Anneila Sargent            Judy Hayden                Victor McCrary              Ken Lish
+John Veysey                Teresa Grancorvitz         Carrie Davison              Jae Kim
+Ann Bushmiller             Kim Silverman              Allison Lerner              Jennifer Kendrick
+Christina Sarris           Alex Wynnyk                Lisa Vonder Haar            Louise Nelson
+Fleming Crim               Rochelle Ray               Ken Chason                  Karen Scott
+Judy Chu                   Ellen Ochoa                Dan Buchtel                 Priscilla Agyepong
+University of South Carolina
+      Audit of Incurred Costs
+
+
+
+
+   National Science Foundation
+   Office of Inspector General
+
+
+          June 25, 2021
+
+          OIG 21-1-016
+
+
+
+
+                                wi thu m~~
+Table of Contents
+Background ..................................................................................................................................... 1
+Results of Audit .............................................................................................................................. 2
+Finding 1: Purchases and Adjustments Near or After Award Expiration....................................... 2
+    Recommendations ................................................................................................................... 6
+    Summary of Awardee Response ............................................................................................. 6
+    Auditor’s Additional Comments ............................................................................................. 6
+Finding 2: Inadequate Documentation ............................................................................................ 7
+    Recommendations ................................................................................................................... 8
+    Summary of Awardee Response ............................................................................................. 9
+    Auditor’s Additional Comments ............................................................................................. 9
+Finding 3: Unallocable and Unreasonable Costs ............................................................................ 9
+    Recommendations ................................................................................................................. 11
+    Summary of Awardee Response ........................................................................................... 11
+    Auditor’s Additional Comments ........................................................................................... 11
+Finding 4: Foreign Currency Conversion Error............................................................................ 11
+    Recommendations ................................................................................................................. 12
+    Summary of Awardee Response ........................................................................................... 12
+    Auditor’s Additional Comments ........................................................................................... 12
+Appendix A: Awardee Response .................................................................................................. 13
+Appendix B: Objective, Scope, Methodology, and Criteria ......................................................... 16
+  Objective ................................................................................................................................... 16
+  Scope ......................................................................................................................................... 16
+  Methodology ............................................................................................................................. 16
+  Criteria....................................................................................................................................... 18
+Appendix C: Questioned Costs Summary by Award ................................................................... 19
+
+Abbreviations
+
+F&A                   Facilities and Administrative (costs)
+PAPPG                 Proposal and Award Policies and Procedures Guide
+PI                    Principal Investigator
+UofSC                 University of South Carolina
+                                                                                                withum~~                ADVISORY TAX AUDIT
+
+
+
+  Background
+  The National Science Foundation is an independent Federal agency created “to promote the
+  progress of science; to advance the national health, prosperity, and welfare; and to secure the
+  national defense; and for other purposes. 1 NSF is also committed to ensuring an adequate supply
+  of the Nation’s scientists, engineers, and science educators. NSF funds research and education in
+  science and engineering by awarding grants and contracts to educational and research institutions
+  in all parts of the United States.
+
+  NSF awardees must follow Federal and NSF award regulations and guidance in administering NSF
+  awards. The University of South Carolina (UofSC) is a comprehensive research university with
+  annual sponsored research awards that totaled more than $200 million for the past eight years.
+  Between March 1, 2016, and February 28, 2019, UofSC claimed approximately $40.9 million in
+  expenditures on 234 NSF awards. See Figure 1 for an analysis of these costs by budget category.
+
+  Figure 1. Costs Claimed by NSF Budget Category, March 1, 2016, to February 28, 2019
+
+                                                                                   Other Direct Costs
+                                                                                    $5 .3 04 million
+                                                                                        12.97%
+
+                                                                                                              Subawards
+                                                                                                            $3.389 million
+                                                                                                                8.28%
+
+
+
+
+                                                                                                                        Materials
+                                                                                                                      $2. 550million
+                                                                                                                           6.23%
+
+
+
+                                                                                                                              Equipment
+                                                                                                                            $2.113 million
+                                                                                                                                5.16%
+
+
+                                                                                                                      Fringe Benefits
+                                                                                                                      $ 1.806 million
+                                                                                                                           4.42%
+
+
+                                                                                                                   Consultant Se1vices
+                                                                                                                     $ 1.3 79 million
+                   s and Wages                                                                                            3.37%
+              $13.421 million
+                 32.8 1%                                                                                       Travel
+                                                                                                          $ 1.468 million
+                                                                                                               3.59%
+
+
+
+
+  Source: Auditor summary of accounting data provided by UofSC
+
+
+
+
+  1
+      National Science Foundation Act of 1950, Pub. L. No. 81-507
+
+WithumSmith+Brown, PC       1835 Market Street, Suite 1710, Philadelphia PA 19103-2945 T [215) 546 2140     F [215) 546 2148      withum.com
+  www.nsf.gov/oig                                                 1
+                             AN INDEPENDENT MEMBER OF HLB • THE GLOBAL ADVISORY AND ACCOUNTING NETWORK
+                                                                                        withum~~
+Results of Audit
+NSF OIG engaged WithumSmith+Brown, PC (referred to as “we”) to audit the costs claimed by
+UofSC on NSF awards for the period beginning March 1, 2016, and ending February 28, 2019. In
+our testing of 262 judgmentally selected transactions, we identified 49 transactions totaling
+$140,360 of questioned costs charged to 21 NSF awards. Improved oversight is needed in four
+areas to ensure costs claimed are reasonable, necessary, and in accordance with Federal and NSF
+award requirements. The four areas include: 1) $93,738 in purchases and adjustments near or after
+award expiration; 2) $25,277 of inadequate documentation; 3) $20,883 in unallocable and
+unreasonable costs; and 4) $462 in foreign currency conversion errors. See Appendix C for a
+schedule of questioned costs by award.
+
+Finding 1: Purchases and Adjustments Near or After Award
+Expiration
+
+We questioned $93,738 for purchases and adjustments near or after the end of award periods for
+items that were not allowable under Federal regulations 2 and NSF Proposal and Award Policies
+and Procedures Guides (PAPPG). 3
+
+Equipment, Materials, and Supplies Purchased, Received, or Adjusted at the End of the Award
+
+We questioned 21 transactions, charged to eight awards, totaling $93,738, for the purchase of
+equipment, materials, and supplies, and for adjustments made, near or after the award expiration
+date. The purchases and adjustments do not appear reasonable, necessary, fully allocable, or to
+provide benefit to the awards charged, as shown in Table 1.
+
+
+
+
+2
+  According to 2 CFR Part 220, Appendix A, §C.2 and C.3, costs “must be reasonable; they must be allocable to
+sponsored agreements …. A cost may be considered reasonable if the nature of the goods or services acquired or
+applied, and the amount involved therefore, reflect the action that a prudent person would have taken under the
+circumstances prevailing at the time the decision to incur the cost was made. Major considerations involved in the
+determination of the reasonableness of a cost are: whether or not the cost is of a type generally recognized as necessary
+for the operation of the institution or the performance of the sponsored agreement….” Additionally, according to 2
+CFR Part 220, Appendix A, §C.4, “[a] cost is allocable to a particular cost objective… (i.e., a specific function, project,
+sponsored agreement, department, or the like) if the goods or services involved are chargeable or assignable to such
+cost objective in accordance with relative benefits received….” According to 2 CFR §200.403(a), a cost must be
+necessary, reasonable and allocable to be allowable under a Federal award. Additionally, according to 2 CFR
+§200.405(a), “[a] cost is allocable to a particular Federal award or other cost objective if the goods or services involved
+are chargeable or assignable to that Federal award or cost objective in accordance with relative benefits received….”
+3
+  According to NSF PAPPGs 14-1, 15-1, and 16-1, Part II, Chapter V.A.2.c and 17-1, Chapter X.A.2.c., grantees
+“typically should not purchase items of equipment, computing devices, or restock materials and supplies in
+anticipation of grant expiration when there is little or no time left for such items to be utilized in the actual conduct of
+the research.”
+
+
+www.nsf.gov/oig                                              2
+Table 1. Transactions and Adjustments Near or After the Award Expiration
+                                                                               withum~~
+                                                                                          Days
+                                                                                       Remaining    UofSC
+                           Award        Questioned      Questioned       Questioned    in Award    Agreed to
+     Description           Number         Invoice          F&A             Total         Period    Reimburse
+ Tube Assemblies                         $ 13,680        $        --      $ 13,680         (46)    $ 13,680
+ Tube Assemblies                             13,654               --         13,654        (11)        13,654
+ Apple Computer                               4,616           2,146            6,762        44          6,762
+ Probes                                       4,484           1,480            5,964         --         5,964
+ Apple Computer                               3,390           1,576            4,966        54          4,966
+ Cisco System                                 3,376           1,519            4,895        (6)         4,895
+ Tablet and Phone                             3,186           1,434            4,620        43          4,620
+ Digestion Bombs                              2,945           1,326            4,271         7          4,271
+ Apple Computer                               2,722           1,225            3,947        27          3,947
+ Apple Computer                               2,654           1,194            3,848        28          3,848
+ Drone and Sensor                             2,515           1,170            3,685      (165)         3,685
+ Lab Supplies                                 2,420             799            3,219        (9)         3,219
+ Tablet                                       2,362           1,063            3,425         9          3,425
+ Apparatus                                    2,331           1,049            3,380       (26)         3,380
+ Gaming Laptop,
+                                                2,085             938          3,023       2            3,023
+ Monitor and Support
+ Apple Laptop                                  1,785               803         2,588      29            2,588
+ Access Probes                                 1,528               504         2,032       --           2,032
+ Lab Supplies                                  1,099               494         1,593       --           1,593
+ Lab Supplies                                  1,026               338         1,364      (9)           1,364
+ User Licenses                                 1,018               474         1,492      64            1,492
+ Lab Supplies                                  1,000               330         1,330      (9)           1,330
+                                         $    73,876        $   19,862    $   93,738               $   93,738
+Source: Auditor analysis of questioned transactions
+
+The questioned items include:
+    •   Tube Assemblies – $13,680 on NSF Award No.                    for photomultiplier tube
+        assemblies that were purchased on September 15, 2016, on an award that expired on July
+        31, 2016. The equipment was purchased and received 1.5 months after the award expiration
+        and therefore could not benefit this award.
+    •   Tube Assemblies – $13,654 on NSF Award No.                    for photomultiplier tube
+        assemblies that were purchased on August 11, 2016, on an award that expired on July 31,
+        2016. The equipment was purchased 11 days after the award expiration and therefore could
+        not benefit this award.
+    •   Apple Computer – $6,762 on NSF Award No.                   for the purchase of an iMac,
+        monitor, and accessories on July 18, 2017, on an award that expired August 31, 2017. The
+        computer and accessories were available for 6 percent of the award period (44 out of 730
+        days). According to UofSC, this purchase was charged to this account due to the PI's
+        oversight or miscommunication. Although the computing capabilities were beneficial to
+        the award, the outcome could have been achieved with other available resources. The
+
+www.nsf.gov/oig                                         3
+                                                                       withum~~
+       computer and accessories were not necessary, reasonable, fully allocable, or prudent for
+       the administration of the award.
+   •   Probes – $5,964 on NSF Award No.                   for the purchase of various probes on
+       February 28, 2017, the same day as the NSF award expiration. The probes were received
+       after the award expiration and therefore could not benefit this award.
+   •   Apple Computer – $4,966 on NSF Award No.                for the purchase of a MacBook Pro
+       on December 8, 2017, on an award that expired January 31, 2018. The PI stated that his
+       old computer failed and he needed a new computer, but this computer was not used
+       exclusively on this NSF award. The computer, charged 100 percent to this NSF award, was
+       only available for 8 percent of the award period (54 out of 640 days). Given the limited
+       time remaining, this charge does not appropriately reflect the relative benefits received by
+       the award.
+   •   Cisco System – $4,895 on NSF Award No.                for the purchase of a system ordered
+       on July 6, 2016, on an award that expired on June 30, 2016. The item was ordered 6 days
+       after the award expiration and therefore could not benefit this award.
+   •   Tablet and Phone – $4,620 on NSF Award No.                 for the purchase of a Surface Pro
+       4 and Nexus 5x Phone, ordered on May 18, 2016, on an award that expired June 30, 2016.
+       The tablet and phone were available for 3 percent of the award period (43 out of 1,245
+       days), but were charged 100 percent to the NSF award. Given the limited time remaining,
+       this charge does not appropriately reflect the relative benefits received by the award.
+   •   Digestion Bombs – $4,271 on NSF Award No.                  for 70 percent of the cost of six
+       acid digestion bombs that were shipped on July 24, 2017, on an award that expired July 31,
+       2017. The supplies were available for less than 1 percent of the award period (7 out of
+       1,460 days). UofSC could not provide support for the allocation methodology, and given
+       the limited time remaining, this charge does not appear to appropriately reflect the relative
+       benefits received by the award.
+   •   Apple Computer – $3,947 on NSF Award No.                  for the purchase of a computer that
+       was shipped on June 3, 2016, on an award that expired June 30, 2016. The computer was
+       available for 2 percent of the award period (27 out of 1,245 days), but was charged 100
+       percent to the NSF award. Given the limited time remaining, this charge does not
+       appropriately reflect the relative benefits received by the award.
+   •   Apple Computer – $3,848 on NSF Award No.                  for the purchase of a computer that
+       was shipped on June 2, 2016, on an award that expired June 30, 2016. The computer was
+       available for 2 percent of the award period (28 out of 1,245 days), but was charged 100
+       percent to the NSF award. Given the limited time remaining, this charge does not
+       appropriately reflect the relative benefits received by the award.
+   •   Drone and Sensor – $3,685 on NSF Award No.               for the purchase of a drone and
+       altitude sensor. The items were purchased on October 26, 2016, but were not posted to the
+       NSF award until February 12, 2018. The posting occurred 15-months after the original
+       purchase, and 6-months after the award expiration on August 31, 2017. According to the
+       documentation provided, the items were related to the award. Per UofSC response, these
+       expenses were charged to the incorrect account, and during reconciliation of the NSF
+
+
+www.nsf.gov/oig                                  4
+                                                                     withum~~
+       award, they discovered and corrected the oversight. There were 309 days remaining on the
+       award when the purchase was made; however, the purchase was not moved on to the award
+       until 165 days after expiration.
+   •   Lab Supplies – $3,219 on NSF Award                for the purchase of mounting bases,
+       clamps, and magnesium oxide on June 29 and July 21, 2016. These purchases were not
+       transferred to the NSF award until March 9, 2017, 9 days after the award expiration on
+       February 28, 2017. According to UofSC, the laboratory supplies were purchased to replace
+       those used up by REU students.
+   •   Tablet – $3,425 on NSF Award                 for the purchase of a Surface Pro 4 ordered on
+       June 21, 2016, on an award that expired on June 30, 2016. The tablet was ordered with less
+       than 1 percent of the award period remaining (9 out of 1,245 days), but was charged 100
+       percent to the NSF award. Given the limited time remaining, this charge does not
+       appropriately reflect the relative benefits received by the award.
+   •   Apparatus – $3,380 on NSF Award             for the purchase of a stress/strain apparatus
+       that was ordered on June 20, 2016 and shipped on July 26, 2016, on an award that expired
+       on June 30, 2016. The apparatus was received after the award expiration and therefore
+       could not benefit this award.
+   •   Gaming Laptop, Monitor, and Support – $3,023 on NSF Award                  for the purchase
+       of an Alienware 17 gaming laptop, monitor, and software support that was ordered on June
+       28, 2016, 2 days prior to the award expiration on June 30, 2016. The items were ordered 2
+       days prior to the award expiration and therefore could not benefit this award.
+   •   Apple Laptop – $2,588 on NSF Award                  for the purchase of a computer that was
+       shipped on June 1, 2016, on an award that expired June 30, 2016. The computer was
+       available for 2 percent of the award period (29 out of 1,245 days), but was charged 100
+       percent to the NSF award. Given the limited time remaining, this charge does not
+       appropriately reflect the relative benefits received by the award.
+   •   Access Probes – $2,032 on NSF Award                for the purchase of access probes that
+       were shipped on February 28, 2017, the same day as the NSF award expiration. The access
+       probes were received after the award expiration and therefore could not benefit this award.
+   •   Lab Supplies – $1,593 on NSF Award             for the purchase of consumable lab supplies
+       that were invoiced and shipped between April 30 and May 23, 2018, on an award that
+       expired April 30, 2018. The supplies were received after the award expiration and therefore
+       could not benefit this award.
+   •   Lab Supplies – $1,364 on NSF Award                for the purchase of various lab supplies
+       between June 24, 2016 and July 19, 2016, that were not transferred to the NSF award until
+       March 9, 2017, 9 days after the award expiration on February 28, 2017. Per UofSC, these
+       purchase card items were originally posted to the incorrect account.
+   •   User Licenses – $1,492 on NSF Award             for 30 percent of the renewal of annual
+       software licenses on June 28, 2017, on an award that expired on August 31, 2017. The
+       software was available for approximately 6 percent of the award period (64 out of 1,095
+       days).
+
+
+www.nsf.gov/oig                                 5
+   •   Lab Supplies – $1,330 on NSF Award
+                                                                     withum~~
+                                                            for the purchase of lab supplies on
+       September 1, 2016, that were not transferred to the NSF award until March 9, 2017, 9 days
+       after the award expiration on February 28, 2017. Per UofSC, these were laboratory supplies
+       purchased to replace those used up by REU students.
+The UofSC personnel did not adequately review these questioned expenditures, which resulted in
+unreasonable costs. Enhanced oversight procedures and controls should be adopted to review
+expenditures charged near or after the end of the award period. Having improved oversight
+processes ensures costs are reasonable and allowable, thus reducing the risk that funds may not be
+used as required to accomplish the necessary project objectives in accordance with Federal and
+NSF PAPPG requirements. UofSC concurred with all $93,738 of the questioned costs, as
+illustrated in Table 1.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+   1. Direct UofSC to provide documentation supporting that it has repaid or otherwise credited
+      the $93,738 of questioned equipment, material, and supply costs for which it has agreed to
+      reimburse NSF.
+
+   2. Direct UofSC to strengthen the administrative and management controls, training,
+      processes, and procedures over expenditures near the end of an award. Processes could
+      include requiring UofSC to review all equipment and materials/supplies purchased during
+      the final 90 days of an award’s period of performance to evaluate whether the costs are
+      allocable in accordance with all relevant Federal and sponsor-specific regulations before
+      charging the expenses to a sponsored project.
+
+Summary of Awardee Response
+
+UofSC agrees with this finding. See Appendix A for the complete UofSC response.
+
+Auditor’s Additional Comments
+
+UofSC’s comments are responsive to this finding. Once NSF determines that the recommendations
+have been adequately addressed and the $93,738 in questioned costs have been resolved, this
+finding should be closed.
+
+
+
+
+www.nsf.gov/oig                                 6
+Finding 2: Inadequate Documentation
+                                                                                       withum~~
+We identified $25,277 of costs charged to six awards that were not adequately supported and
+therefore not in compliance with Federal requirements 4 and UofSC policy, 5 as shown below in
+Table 2.
+
+Table 2. Description of Questioned Transaction Due to Inadequate Documentation
+
+                                                                 Award            Date
+                                                                Expiration       UofSC
+                                                                 or Final          was           Retention        UofSC
+                               Award           Total             Report         Notified of       Period         Agreed to
+       Description             Number        Questioned*          Date            Audit          End Date        Reimburse
+ Documentation provided does not support transactions selected:
+ Lab Supplies                        $ 1,275 05/31/2017                         03/25/2019       06/01/2020           $    1,275
+ Materials and Supplies                 2,442 06/30/2018                        03/25/2019       07/01/2021                2,442
+ Subtotal                               3,717                                                                              3,717
+ Documentation provided was missing supporting invoice:
+ Lab Supplies                           6,602 05/31/2017                        03/25/2019       06/01/2020                6,602
+                                                                                                   Once the
+                                                                                                     audit
+                                                                                                   findings
+                                                                                                  have been
+ Bad Debt Expense                                     5,183     11/29/2016      03/25/2019                                 5,183
+                                                                                                   resolved
+                                                                                                   and final
+                                                                                                  action has
+                                                                                                 been taken
+ Materials and Supplies                               2,438     06/30/2018      03/25/2019       07/01/2021                2,438
+ Laboratory Analysis                                  3,370     07/31/2018      03/25/2019       08/01/2021                3,370
+ Lab Supplies                                         2,056     07/31/2018      03/25/2019       08/01/2021                2,056
+ Various Supplies                                     1,911     07/31/2020      03/25/2019       08/01/2023                1,911
+ Subtotal                                            21,560                                                               21,560
+ Total                                          $    25,277                                                       $       25,277
+Source: Auditor analysis of questioned transactions
+*
+  Total questioned includes the applicable F&A costs.
+
+
+
+4 2 CFR § 200.333 states: “Financial records, supporting documents, statistical records, and all other non-Federal
+
+entity records pertinent to a Federal award must be retained for a period of three years from the date of submission of
+the final expenditure report…Federal awarding agencies and pass-through entities must not impose any other record
+retention requirements….”
+2 CFR 215.53(b) states: “Financial records, supporting documents, statistical records, and all other records pertinent
+to an award shall be retained for a period of three years from the date of submission of the final expenditure report...”
+There are limited exceptions to this rule, one of which is “if any litigation, claim, or audit is started before the
+expiration of the 3-year period, the records shall be retained until all litigation, claims or audit findings involving the
+records have been resolved and final action taken.”
+5 Per University of South Carolina, BUSA Business Affairs, Purchasing Policy, BUSA 7.00, “all documentation of
+
+purchases (sales, slips, receipts, packing lists, etc.) and monthly statements must be reconciled and maintained for
+internal and external audit.”
+
+www.nsf.gov/oig                                             7
+Specifically, we questioned:
+                                                                      withum~~
+    •   Lab Supplies – $7,877 in NSF Award No.                       for lab supplies. Supporting
+        documentation could not be located for $6,602 in lab supply purchases. For the remaining
+        $1,275, the documentation that was provided did not agree to the total expenditures.
+        Therefore, we were unable to verify the validity of the transactions.
+    •   Bad Debt Expense – $5,183 in NSF Award No.                for bad debt expenditures.
+        Supporting documentation could not be located. Furthermore, bad debt expenditures are
+        unallowable.
+    •   Materials and Supplies – $4,880 in Award No.              for various supplies. Supporting
+        documentation was not provided. For $2,438, UofSC did not retain the supporting
+        invoices. For the remaining $2,442, UofSC provided documentation acknowledging the
+        receipt of a UofSC purchase order dated July 7, 2016, but did not provide the
+        documentation to support the transaction. Additionally, this acknowledgement did not
+        correspond to the total expenditure. Per UofSC, documentation is maintained by the
+        departments. With staff turnover, administrative error resulted in missing receipts and the
+        untimely identification of the issue.
+    •   Laboratory Analysis – $3,370 in NSF Award No.             for payment for a laboratory
+        analysis. Supporting documentation was not provided. UofSC provided an email from the
+        PI requesting the expenditure be billed to the award, but no other documentation was
+        provided.
+    •   Lab Supplies – $2,056 in NSF Award No.              for the purchase of lab supplies.
+        Supporting documentation was not provided. The transaction selected included 13
+        invoices. UofSC was unable to provide support for 7 of the 13 invoices. Therefore, we
+        could not verify the validity of the purchases.
+    •   Various Supplies – $1,911 in NSF Award No.                     for the purchase of various
+        supplies. Supporting documentation was not provided. Per UofSC, documentation is
+        maintained by the departments. With staff turnover, an administrative oversight resulted
+        in missing receipts and the untimely identification of the issue.
+
+UofSC did not retain or provide adequate documentation, which resulted in unallowable costs.
+Without a process to ensure that documentation is available and accessible in accordance with
+Federal requirements, there is increased risk that funds may not be used as required to accomplish
+the necessary project objectives. UofSC concurred with all $25,277 of the questioned costs, as
+illustrated in Table 2.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+   1. Direct UofSC to provide documentation supporting that it has repaid or otherwise credited
+      the $25,277 of questioned unsupported costs for which it has agreed to reimburse NSF.
+
+   2. Direct UofSC to strengthen the administrative and management controls, training,
+      processes, and procedures related to document retention.
+
+www.nsf.gov/oig                                 8
+                                                                                       withum~~
+Summary of Awardee Response
+
+UofSC agrees with this finding. See Appendix A for the complete UofSC response.
+
+Auditor’s Additional Comments
+
+UofSC’s comments are responsive to this finding. Once NSF determines that the recommendations
+have been adequately addressed and the $25,277 in questioned costs have been resolved, this
+finding should be closed.
+
+
+
+
+Finding 3: Unallocable and Unreasonable Costs
+We questioned 20 transactions in eight categories, charged to seven awards, totaling $20,883, for
+various unallocable or unreasonable purchases. 6 These purchases do not appear reasonable,
+necessary, fully allocable, or to provide benefit to the awards charged, as noted below in Table 3.
+
+Table 3. Summary of Unallocable and Unreasonable Costs
+
+                                                                                                             UofSC
+                         Award         Questioned       Questioned       Questioned        Questioned       Agreed to
+      Description        Number         Invoice          Fringe            F&A               Total          Reimburse
+    Salaries and
+                                        $      4,912      $       276      $     2,412      $     7,600      $      7,600
+    Wages
+    Research
+                                               5,450                --           1,826            7,276             7,276
+    Materials
+    Travel                                     2,310                --           1,074            3,384             3,384
+    Travel                                       900                --             405            1,305             1,305
+    Publication Costs                            599                --             257              856               856
+    Registration Fee                             128                --              60              188               188
+    Cleaning
+                                                 123                --               57             180               180
+    Supplies
+    Rental Car Gas                                64                --              30               94               94
+    Total                               $     14,486      $       276     $      6,121      $    20,883      $    20,883
+Source: Auditor analysis of questioned transactions
+
+
+
+6
+ According to 2 CFR Part 220, Appendix A, §C.2 and C.3, costs “must be reasonable; they must be allocable to
+sponsored agreements …. A cost may be considered reasonable if the nature of the goods or services acquired or
+applied, and the amount involved therefore, reflect the action that a prudent person would have taken under the
+circumstances prevailing at the time the decision to incur the cost was made. Major considerations involved in the
+determination of the reasonableness of a cost are: whether or not the cost is of a type generally recognized as necessary
+for the operation of the institution or the performance of the sponsored agreement.” Additionally, according to 2 CFR
+§200.405(a), “[a] cost is allocable to a particular Federal award or other cost objective if the goods or services involved
+are chargeable or assignable to that Federal award or cost objective in accordance with relative benefits received.”
+
+www.nsf.gov/oig                                               9
+Specifically, we questioned:
+                                                                            withum~~
+      •    $7,600 in NSF Award No.             for salaries and wages that were charged to the award
+           in error. Per UofSC, "Upon inspection, it was discovered this was charged in error due to
+           a keying mistake. This expense has been removed and charged to a departmental account."
+      •    $7,276 in NSF Award No.                for research materials that were charged to the award
+           in error. The PI is responsible for reviewing the fiscal reports to ensure all charges are
+           properly recorded. 7 Expenditures were allocated to this award on June 22, 2017, 99 days
+           after the award began on March 15, 2017. However, it was not until documentation was
+           provided in relation to this audit that the expenditures were identified as unallocable to the
+           award, 803 days after the final reimbursement was requested through ACM$.
+      •    $3,384 in NSF Award No.                   for travel expenses for the PI to meet with a
+           collaborator and attend a meeting at the University                 . Per UofSC, this expense
+           should not have been charged to the award, and was the result of a clerical error. Due to
+           staff turnover, this error was not caught until final reconciliation of the award at closeout.
+      •    $1,305 in NSF Award No.              for airfare and meals per diem that did not benefit the
+           award. We questioned $1,222 for the purchase of a flight that did not benefit the NSF
+           award. UofSC stated that it purchased airfare, but the travel agency booked the ticket under
+           the wrong name. The travel agency could not change the ticket, so it had to purchase
+           another ticket. Both flights were inappropriately charged to the NSF award.
+           Additionally, we questioned $83 in NSF Award No.          for meals that did not benefit
+           the NSF award. The meeting was from May       , 2016. The traveler arrived in
+           on May , 2016, 3 days before the meeting was held. Therefore, we questioned the meals
+           charged on May     and May as they did not benefit the NSF award.
+      •    $856 in NSF Award No.             for publication costs. According to UofSC, the expenses
+           were incurred to cover the publication costs of the results generated from the project.
+           However, the invoice provided was for an advertisement for a job posting described as a
+           Postdoctoral Position in Plant Biology.
+      •    $188 in NSF Award No.               for a portion of a conference registration fee. UofSC
+           provided a Travel Authorization form showing the conference registration fee was $501,
+           but did not provide a receipt supporting the registration fee. UofSC charged $128 of the
+           conference registration fee to the NSF award and stated that the remaining amount was
+           covered by departmental funds. UofSC stated that the PI is no longer with UofSC and was
+           unable to provide any additional justification for the allocation.
+      •    $180 in NSF Award No.                 for the purchase of general purpose cleaning supplies.
+      •    $94 in NSF Award No.               charged for gas for a rental car. UofSC stated "While a
+           rental car is mentioned, no expenses were charged or reimbursement sought." However,
+           gas for the rental car was charged to the NSF award.
+UofSC personnel did not adequately review these expenditures, which resulted in unallocable
+costs. Enhanced oversight procedures and controls should be adopted to review expenditures
+charged to the award. Having improved oversight processes ensures costs are reasonable and
+
+7
+    UofSC Policy, FINA 3.15, Contracts and Grants -- Closeouts
+
+www.nsf.gov/oig                                         10
+                                                                                  withum~~
+allowable, thus reducing the risk that funds may not be used as required to accomplish the project
+objectives in accordance with Federal regulations and NSF PAPPG requirements. 8 UofSC
+concurred with all $20,883 of the questioned costs, as illustrated in Table 3.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+    1. Direct UofSC to provide documentation supporting that it has repaid or otherwise credited
+       the $20,883 of questioned unallocable and unreasonable costs for which it has agreed to
+       reimburse NSF.
+
+    2. Direct UofSC to strengthen the administrative and management controls, training,
+       processes, and review procedures for the NSF award expenditures.
+
+Summary of Awardee Response
+
+UofSC agrees with this finding. See Appendix A for the complete UofSC response.
+
+Auditor’s Additional Comments
+
+UofSC’s comments are responsive to this finding. Once NSF determines that the recommendations
+have been adequately addressed and the $20,883 in questioned costs have been resolved, this
+finding should be closed.
+
+
+
+Finding 4: Foreign Currency Conversion Error
+UofSC claimed excess costs of $462 on two NSF awards. The overcharge occurred because UofSC
+failed to properly convert          and                  to US Dollars before the costs were
+charged to the awards.
+
+    •   $312 on NSF Award No.             for an equipment purchase that was recorded using the
+        incorrect exchange rate. UofSC could not provide documentation to support the exchange
+        rate used.
+    •   $150 on NSF Award No.             for a visa charge that was recorded using the incorrect
+        exchange rate. UofSC made a reimbursement, however the amount was in
+                and should have been converted to US Dollars.
+
+    UofSC acknowledged the errors when providing responses to the audit.
+
+8 According to NSF PAPPGs 13-1, 15-1, and 16-1, Part II, Chapter V.A, and 17-1 and 18-1, Chapter X Section A,
+
+…grantees are responsible for ensuring that all costs charged to NSF awards meet the requirements of the applicable
+cost principles, grant terms and conditions, and requirements of the award terms and conditions and the applicable
+program solicitation.
+
+www.nsf.gov/oig                                         11
+                                                                                     withum~~
+Without a process in place to ensure the proper charging of expenditures that require foreign
+currency conversion, there is an increased risk that funds may not be spent in accordance with
+Federal regulations. 9 UofSC personnel did not adequately monitor the expenditures requiring
+foreign currency conversion charged to NSF awards which resulted in unallowable costs. UofSC
+concurred with all $462 of questioned costs.
+
+Recommendations
+
+We recommend that NSF’s Director of the Division of Institution and Award Support:
+
+    1. Direct UofSC to provide documentation supporting that it has repaid or otherwise credited
+       the $462 of questioned currency conversion costs for which it has agreed to reimburse NSF.
+    2. Direct UofSC to strengthen processes for reviewing and approving costs charged to NSF
+       awards that require foreign currency conversion.
+
+Summary of Awardee Response
+
+UofSC agrees with this finding. See Appendix A for the complete UofSC response.
+
+Auditor’s Additional Comments
+
+UofSC’s comments are responsive to this finding. Once NSF determines that the recommendations
+have been adequately addressed and the $462 in questioned costs have been resolved, this finding
+should be closed.
+
+
+
+
+June 25, 2021
+
+
+
+
+9
+  2 CFR §200.403(a), states that a cost must be necessary, reasonable and allocable to be allowable under a Federal
+award. Furthermore, per §200.400(d), “the accounting practices of the non-Federal entity must be consistent with
+these cost principles and support the accumulation of costs as required by the principles, and must provide for adequate
+documentation to support costs charged to the Federal award.”
+
+
+www.nsf.gov/oig                                           12
+Appendix A: Awardee Response
+
+
+
+
+                                                          UN I V ERS I TY OF
+
+                                                  SOLJIH CAROLINA
+                                                                                                      Office of the Con tro ller
+
+             ay 17, 2021
+
+           Nat iona l Science Foundati on
+           Office of Inspector General
+           24 15 Eisenhower Ave
+           Alexandria, VA 223 14
+
+
+
+           Subj :   Audit of Incurred Cost s - Management Response
+
+
+
+
+           To Whom It M ay Concern :
+
+           Please fi nd herei n our management response to t he quest ioned costs ident ified in the discussion draft
+           report . If you have any questions, please do not hesit at e to co ntact us.
+
+           Finding 1: Pu rchases and Adjustments Nea r or After Award Expiration
+
+           Ma nagement agrees w ith t he fin ding and recommenda t io n. Th e University of Sout h Carolina understands
+           t he im portance of accurate and t imely expense allocat ion t o awa rds. W ith in t he last severa l yea rs, the
+           Grants and Funds Ma nagement Office ha s experienced more th an 80% t urnover in staff. As a resu lt, the
+           Unive rsity seized t he opportunity to eva luate and upgrade t he posit ions t o ga in a more experienced and
+           knowledgea ble staff of accountants, including hiring a new Director and Assist ant Directo r in FY18. Si nce
+           FY18, t he Contro ller's Office has developed new financia l re porting t oo ls and implement ed seve ral
+           enhancement s to cur rent resources to assist facul t y and st aff in t he review, ma nagement, and
+           reconci li at ion of t heir awards. New resources inclu de t he developmen t of th e Gra nt Dashboa rd and t he
+           creation of a new Time and Effort Report ing syst em. Enhancements include an upgraded payroll re port ing
+           too l, enhanced expense t ransaction wo rkflow approva ls, and implementation of several auto mated
+           notifi cat ions alert ing Pis and Project Team members as t he award end da te approaches. The Cont roller' s
+           Office has also develo ped t rain ing web inars specifi cal ly targeted for researchers and grant administ rat ion
+           st aff. These webinars are available on demand and offered live severa l t imes t hroughou t t he year. The
+           Contro ller' s Office has also implemented a co m prehensive Cost Transfer Policy. Int erna lly, t he Gran ts and
+           Funds Management Office has also en hanced procedures for closing out gra nt awards and reviewing
+           tra nsactions fo r co mpliance. The Contro ller's Office has also created a Co mpliance Department to ensure
+           establ ished po licies and proce dures are fo llowed . The majority of th e find ings (35 out of t he 262
+           select ions or 71%) occurred in FY16 and FY17 with a dramat ic decrease in FY18 and FY19 as shown in the
+           table below. We believe t he decrease is a direct result of the various process improvement s we've ma de
+
+
+
+               University of South Caro lina •Colu mbia, South Carolina 29208 • 803-777- 2602 • FAX: 803-777-9586
+
+
+
+
+www.nsf.gov/oig                                                   13
+                    the Cont roller's Office and University. UofSC also received no findings related to research and
+           development awar ds in t he FY20 single audit.
+
+            Fiscal Year                 Total NSF Selections      Num be r of Findings       Percentage Per FY
+            FY16                        60                        6                          12%
+            FY17                        79                        29                         59%
+            FY18                        65                        10                         20%
+            FY19                        58                        4                          8%
+            Total                       262                       49                         100%
+
+
+
+           Finding 2 : Inadequate Docume ntation
+
+           Management agrees w ith the finding and recommendation. The University of South Caro lina understands
+           the importance of retaining adequat e documentation and is committed to ensuring documentation is
+           available and accessible in accordance with federal, st ate, and University requirements. The Controller' s
+           Office is currently in the process of implement ing Hyland OnBase, an electronic record system.        Once
+           complete, all Controller Office documents w ill be electronic and available on demand for all cent ral
+           departments (payroll, accounts payable, travel, et c.). The Controller's Office has also hired a Records
+           Manager to maint ain the system and overall record retention for t he Controller's Office. Since FY17, t he
+           Controller's Office has also implemented t he expense module w ithin PeopleSoft Finance for employee
+           reimbursement and travel.      Expense module t raining is offered monthly to ensure users are properly
+           educated and appropriate documentation is attached to support all cost s. Live webinar s are also hosted
+           annually to review t he various types of payment requests and their associated documentat ion
+           requirements; these webinars are recorded and available for researchers and grant administrat ion staff
+           t o view on demand along with job aids.
+
+           Finding 3 : Unallocable and Unreasonable Costs
+
+           Management agrees w ith the finding and recommendat ion. The University of Sout h Carolina understands
+           the importance of review ing expenditures to ensure cost s are reasonable and allowable. Within t he last
+           several years, t he Grants and Funds Management Office has experienced more than 80% t urnover in
+           st aff. As a result, the University seized t he opportunity to evaluate and upgrade the positions to gain a
+           more experienced and know ledgeable st aff of accountants, including hiring a new Director and Assist ant
+           Director in FY18. With new and higher level staff, emphasis has been placed on oversight procedures and
+           cont rols to ensure costs are allowable and reasonable. The Cont roller's Office has also developed t raining
+           w ebinars specifically t argeted for researchers and grant administration staff.       These trainings are
+           available on demand and offered live several times throughout the year. The Controller's Office has also
+           implemented a comprehensive Cost Transfer Policy. Internally, t he Grants and Funds Management Office
+           has also enhanced procedures for closing out grant awards and review ing transactions for
+           compliance.     The Controller's Office has also created a Compliance Depart ment to ensure established
+           policies and procedures are followed. The majority of t he findings (35 out of the 262 select io ns or 71%)
+           occurred in FY16 and FYl 7 w ith a dramat ic decrease in FY18 and FY19 as shown in the table below . We
+           believe t he decrease is a direct result of the various process improvements we've made across t he
+
+
+
+
+www.nsf.gov/oig                                                14
+             ntroller's Office and University. UofSC also received no findings relat ed to research and development
+           aw ards in the FY20 single audit.
+
+            Fiscal Year                 Total NSF Select ions       Number of Findings          Percentage Per FY
+            FY16                        60                          6                           12%
+            FY17                        79                          29                          59%
+            FY18                        65                          10                          20%
+            FY19                        58                          4                           8%
+            Total                       262                         49                          100%
+
+
+
+           Finding 4 : Foreign Currency Conversion Error
+
+           Management agrees w ith the finding and recommendat ion.               The University of South Carolina is
+           committed t o ensuring expenses are converted to the proper currency and allocated in accordance w ith
+           federal regulations. The Controller's Office has review ed these errors and noted that t hey both occurred
+           in FY17 and believes sufficient controls, process improvements, and enhanced oversight have been
+           implemented to prevent t hese errors from reoccurring. Staff have been trained to review all invoices,
+           receipts, and requests for reimbursement and convert any foreign currency to US$ prior to issuing
+           payments.      The Controller's Office has also discussed t he currency conversion errors w it h the Cent ral
+           Account s Payable st aff as well as t he Leadership st aff of the colleges in w hich the error occurred.
+
+
+
+
+           Sincerely,
+
+
+
+
+           M andy Kibler
+           Associate Vice President and University Controller
+           University of South Carolina
+
+
+
+
+www.nsf.gov/oig                                                  15
+Appendix B: Objective, Scope, Methodology, and Criteria
+Objective
+
+To determine if costs claimed by UofSC on NSF awards were allowable, allocable, reasonable,
+and in compliance with NSF award terms and conditions and Federal financial assistance
+requirements.
+
+Scope
+
+Our audit included assessing the allowability, allocability, and reasonableness of costs claimed by
+UofSC through the Award Cash Management $ervice for the 3-year period beginning March 1,
+2016, and ending February 28, 2019.
+
+The audit was conducted in two phases: an Audit Survey Phase and an Incurred Cost Audit Phase.
+The audit work was conducted at the auditors’ offices and onsite at UofSC in Columbia, SC. Onsite
+Audit Survey fieldwork was conducted in November 2019. Offsite Incurred Cost fieldwork
+continued in October 2020.
+
+UofSC management is responsible for establishing and maintaining effective internal control to
+help ensure that Federal award funds are used in compliance with laws, regulations, and award
+terms. In planning and performing our audit, we considered UofSC’s internal control solely to
+understand the policies and procedures relevant to the financial reporting and administration of
+NSF awards. We also evaluated UofSC’s compliance with laws, regulations, and award terms
+applicable to the items selected for testing, but not to express an opinion on the effectiveness of
+UofSC’s internal control over award financial reporting and administration. Accordingly, we do
+not express an opinion on the effectiveness of UofSC’s internal control over its award financial
+reporting and administration.
+
+This performance audit was conducted in accordance with Generally Accepted Government
+Auditing Standards. Those standards require that we plan and perform the audit to obtain
+sufficient, appropriate evidence to provide a reasonable basis for the conclusions based on the
+audit objective. The auditors believe that the evidence obtained provides a reasonable basis for the
+conclusions based on the audit objective.
+
+Methodology
+
+The audit was conducted in two phases: an Audit Survey Phase and an Incurred Cost Audit Phase.
+The Audit Survey Phase was conducted as follows:
+
+   •    UofSC provided detailed transaction data for all costs charged to NSF awards for the period
+        March 1, 2016, through February 28, 2019. This provided an audit universe of
+        $40,909,723, with more than 43,000 transactions, across 234 individual NSF awards.
+   •    We assessed the reliability of the data provided by UofSC by 1) comparing costs charged
+        to NSF award accounts within UofSC’s accounting records to reported net expenditures,
+
+www.nsf.gov/oig                                 16
+       as reflected in UofSC’s financial reports submitted to NSF for the corresponding periods;
+       2) performing general ledger to sub-ledger reconciliations of accounting data; and 3)
+       reviewing and testing the parameters UofSC used to extract transaction data from its
+       accounting records and systems. Based on our testing, we found UofSC’s computer-
+       processed data sufficiently reliable for the purposes of this audit.
+   •   We conducted onsite walk-throughs and interviews to gain a detailed understanding of
+       UofSC’s systems, processes, policies, and procedures.
+   •   We obtained and reviewed available accounting and administration policies and
+       procedures, relevant documented management initiatives, previously issued external audit
+       reports and desk review reports, and schedules and reconciliations prepared by UofSC and
+       verified them against supporting accounting records. To ensure that the internal controls
+       were properly designed to detect, deter, and prevent fraud, errors and irregularities, we
+       judgmentally selected a sample of 33 transactions designed to test various internal controls.
+       These transactions were tested to assess the internal controls, the applicable policies and
+       procedures, and the compliance with Federal regulations, NSF PAPPG’s and the award
+       terms.
+   •   At the conclusion of our fieldwork, we provided a summary of our results and
+       recommendation to NSF OIG personnel for review and approval.
+Based on the issues identified during the Survey Phase, we determined that an additional Incurred
+Cost Audit phase was warranted. The Incurred Cost Phase was conducted as follows:
+   •   We judgmentally selected 229 transactions, totaling more than $1.7 million based on issues
+       identified in the Survey Phase.
+   •   Selected transactions were provided to UofSC, with a request for the documentation to
+       support each transaction.
+   •   We conducted additional audit work in the following areas: 1) follow-up on general ledger
+       ACM$ reconciliation issues, 2) ensured participant support costs were fully expended, and
+       if not, that UofSC received prior approval as necessary, 3) obtained additional information
+       on cost share, and 4) reviewed the indirect costs rates applied.
+   •   We reviewed the supporting documentation provided by UofSC and evaluated the
+       allowability, allocability, and reasonableness of each transaction.
+   •   When necessary, we requested additional supporting documentation.
+   •   We also obtained explanations and justifications from knowledgeable personnel until we
+       had sufficient support to assess the allowability, allocability, and reasonableness of each
+       transaction.
+At the conclusion of our fieldwork, we provided a summary of our results to NSF OIG personnel
+for review. We also provided the summary of results to UofSC personnel to ensure that they were
+aware of each of our findings and did not have any additional documentation to support the
+questioned costs.
+
+
+
+www.nsf.gov/oig                                 17
+Our work required us to rely on the computer-processed data obtained from UofSC and NSF OIG.
+We assessed NSF's computer-processed data and found it to be sufficiently reliable for the
+purposes of this audit. We did not review or test whether the data contained in, or controls over,
+NSF’s databases were accurate or reliable; however, the independent auditor’s report on NSF’s
+financial statements for fiscal years 2016, 2017 and 2018 found no reportable instances in which
+NSF’s financial management systems did not substantially comply with applicable requirements.
+
+Criteria
+
+We assessed UofSC’s compliance with its internal policies and procedures, as well as the
+following:
+
+   •   2 CFR Part 200, Uniform Administrative Requirements, Cost Principles, and Audit
+       Requirements for Federal Awards
+   •   2 CFR Part 220, Cost Principles for Educational Institutions (Office of Management and
+       Budget Circular A-21)
+   •   2 CFR Part 215, Uniform Administrative Requirements for Grants and Agreements with
+       Institutions of Higher Education, Hospitals, and Other Non-Profit Organizations (Office
+       of Management and Budget Circular A-110)
+   •   NSF Proposal and Award Policies and Procedures Guide (includes the Grant Proposal
+       Guide and Award and Administration Guide)
+   •   NSF Award Specific Terms and Conditions
+
+
+
+
+www.nsf.gov/oig                                18
+Appendix C: Questioned Costs Summary by Award
+                                    Fringe         Indirect
+                   Direct Costs    Benefits         Costs          Total    Total
+Award Number Questioned Questioned Questioned Questioned Unsupported
+Finding 1: Purchases and Adjustments Near or After Award Expiration
+                   $     27,334 $            -- $           -- $     27,334       --
+                         20,501              --         9,225        29,726       --
+                         10,458              --         3,451        13,909       --
+                          7,131              --         3,316        10,447       --
+                          3,390              --         1,576         4,966       --
+                          2,945              --         1,326         4,271       --
+                          1,099              --           494         1,593       --
+                          1,018              --           474         1,492       --
+Finding 1 Total          73,876              --   19,862       93,738             --
+Finding 2: Inadequate Documentation
+                          5,377              --    2,500        7,877          7,877
+                          5,183              --        --       5,183          5,183
+                          3,366              --     1514        4,880          4,880
+                          2,300              --     1070        3,370          3,370
+                          1,403              --      653        2,056          2,056
+                          1,304              --      607        1,911          1,911
+Finding 2 Total          18,933              --    6,344       25,277         25,277
+Finding 3: Unallocable and Unreasonable Costs
+                          4,912           276      2,412        7,600             --
+                          5,450             --     1,826        7,276             --
+                          2,438             --     1,134        3,572             --
+                            900             --       405        1,305             --
+                            599             --       257          856             --
+                            123             --        57          180             --
+                             64             --        30           94             --
+Finding 3 Total          14,486            276     6,121       20,883             --
+Finding 4: Foreign Currency Conversion Error
+                            312              --        --         312             --
+                            102              --       48          150             --
+ Finding 4 Total            414              --       48          462             --
+
+
+
+
+www.nsf.gov/oig                              19
+NSF      NATIONAL SCIENCE FOUNDATION
+         OFFICE OF INSPECTOR GENERAL
+
+
+ About NSF OIG
+ We promote effectiveness, efficiency, and economy in administering the Foundation’s programs; detect
+ and prevent fraud, waste, and abuse within NSF or by individuals who receive NSF funding; and
+ identify and help to resolve cases of research misconduct. NSF OIG was established in 1989, in
+ compliance with the Inspector General Act of 1978, as amended. Because the Inspector General reports
+ directly to the National Science Board and Congress, the Office is organizationally independent from the
+ Foundation.
+
+ Obtaining Copies of Our Reports
+ To view this and any of our other reports, please visit our website at www.nsf.gov/oig.
+
+ Connect with Us
+ For further information or questions, please contact us at OIGpublicaffairs@nsf.gov or 703.292.7100.
+ Follow us on Twitter at @nsfoig. Visit our website at www.nsf.gov/oig.
+
+ Report Fraud, Waste, Abuse, or Whistleblower Reprisal
+    • File online report: https://www.nsf.gov/oig/report-fraud/form.jsp
+    • Anonymous Hotline: 1.800.428.2189
+    • Email: oig@nsf.gov
+    • Mail: 2415 Eisenhower Avenue, Alexandria, VA 22314 ATTN: OIG HOTLINE
+NATIONAL SCIENCE FOUNDATION
+OFFICE OF INSPECTOR GENERAL
+
+
+
+
+       1
+

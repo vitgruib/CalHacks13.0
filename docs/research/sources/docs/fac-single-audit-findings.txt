@@ -1,0 +1,331 @@
+Federal Audit Clearinghouse (official GSA API, https://api.fac.gov/findings_text) — finding text, verbatim. Fetched 2026-10-24.
+
+===== Saint Louis University, FY2023 single audit, report_id 2023-06-GSAFAC-0000030175 (FAC accepted 2024-03-29), finding 2023-001
+API: https://api.fac.gov/findings_text?report_id=eq.2023-06-GSAFAC-0000030175
+Criteria: 2 CFR 200.431 includes the standards for documentation of fringe benefits. According to
+2 CFR 200.431(c), the cost of fringe benefits are allowable, provided such benefits are granted 
+under established written policies. Such benefits should be charged as direct or indirect costs in 
+accordance with the non-Federal entity’s accounting practices. Additionally, the National 
+Institutes of Health (NIH) Grants Policy Statement section 7.5, Cost Transfers, Overruns, 
+Accelerated and Delayed Expenditures, states that cost transfers to NIH grants that represent 
+corrections of clerical or bookkeeping errors should be accomplished within 90 days of when the 
+error was discovered. The transfers must be supported by documentation that fully explains how the 
+error occurred and a certification of the correctness of the new charge by a responsible 
+organizational official.
+Documentation must be maintained of cost transfers, pursuant to 2 CFR Part 200.337 and
+45 CFR Part 75.364. The recipient should have systems in place to detect such errors within a 
+reasonable time frame; untimely discovery of errors could be an indication of poor internal 
+controls. Frequent errors in recording costs may indicate the need for accounting system 
+improvements, enhanced internal controls, or both. If such errors occur, recipients are encouraged 
+to evaluate the need for improvements and to make whatever improvements are deemed necessary to 
+prevent reoccurrence. Lastly, 2 CFR 200.303 requires nonfederal entities to, among other things, 
+establish and maintain effective internal control over the Federal award that provides reasonable 
+assurance that the non-Federal entity is managing the Federal award in compliance with Federal 
+statutes, regulations, and the terms and conditions of the Federal award. Conditions Found: We 
+noted several conditions that existed due to cost transfers that occurred during the fiscal year. 
+While performing procedures related to cost transfers, we noted the University had not followed 
+their ‘Cost Transfer Policy’ which states “Cost transfers for current transactions must occur on a 
+timely basis”. The University’s cost transfer policy defines timely as “occurring no later than two 
+accounting periods after the month end of the date of the original transaction (no later than 90 
+days total)”. The University did not have an effective system of internal control in place to 
+timely discover errors and get them corrected as we noted seventy-five of our one hundred nineteen 
+transactions sampled cost transfers (totaling $246,869 positive and $66,004 negative) where the 
+cost transfer date was between 91 and 1,002 days past the date the original expenditure was 
+incurred (30 were between 91 and 180 days past, 15 were between 181 and
+270 days past, and 30 were greater than 271 days past). While testing cost transfers and 
+adjustments, we noted a transaction recorded to a grant that did not have supporting documentation 
+resulting in the costs being unallowable to the grant: Additionally, we noted a transaction 
+recorded to a grant that was recorded outside of the period of performance resulting in the costs 
+being unallowable to the grant: During the fiscal year, positive cost transfers were approximately 
+$2,815,865 and negative cost transfers were $1,792,678 during fiscal year 2023. While performing 
+procedures related to fringe benefits, we noted one of twenty-five sampled grants (totaling 
+$461,382) where transactions were originally recorded to an incorrect worktag. Management 
+identified the error and a cost transfer was performed to move the fringe benefits to a federal 
+research and development grant. However, the incorrect fringe rate was utilized as the University’s 
+non-sponsored research fringe rate utilized in the original entry is a higher fringe rate than the 
+federally approved fringe rate which resulted in an overcharge to the research and development 
+grant during the University’s fiscal year ended June 30, 2023 for a total overstatement of $26 as 
+noted below: Additionally, we noted fringe benefits were expensed during the University’s fiscal 
+year ended June 30, 2023 for two of twenty-five sampled grants (totaling $461,382) where the labor 
+transaction originated in previous fiscal years. The University booked an adjustment within Workday 
+to correct the fringe benefit charges for the life of the grant. This resulted in the SEFA being 
+overstated during the University’s fiscal year ended June 30, 2023. We noted the total fringe 
+benefits charged for the life of the grants was allowable and within the period of performance. 
+These overstatements to the SEFA for the University’s fiscal year 2023 was for a total of $3,134 as 
+noted below: Total fringe benefits during fiscal year 2023 totaled approximately $2,673,231.While 
+performing procedures related to indirect costs, we noted indirect costs were expensed during the 
+University’s fiscal year ended June 30, 2023 for two of forty sampled grants (totaling $1,817,264) 
+where indirect costs were originally undercharged during the previous fiscal year. The University 
+booked an adjustment within Workday to correct the indirect costs for the life of the grant. This 
+resulted in the SEFA being overstated during the University’s fiscal year ended June 30, 2023. We 
+noted the total indirect costs charged for the life of the grants was allowable and within the 
+period of performance. These overstatements to the SEFA for the University’s fiscal year 2023 was 
+for a total of $3,677 as noted below:  Total indirect costs during fiscal year 2023 totaled 
+approximately $10,484,419. Questioned Cost: Known questioned costs of $26. Cause and Effect: In 
+discussing these conditions with University management, they stated that during fiscal year 2023, 
+they continued reconciliation procedures related to ‘grant level’ activity as a result of 
+implementing the grants module of Workday during fiscal year 2021. Grant level activity allows them 
+to track the specific budget provided by the individual grant as well as monitor other key 
+compliance requirement aspects. The University continued to process an increased volume of cost 
+transfers and experienced delays in posting necessary cost transfers for identified unallowable 
+costs stemming from the reconciliation efforts. Repeat Finding: A similar finding was reported in 
+prior year audit as finding number 2022-001. Statistical Sampling: The sample was not intended to 
+be, and was not, a statistically valid sample. Recommendations: We recommend the University 
+continue its corrective action plan and adjust internal controls as needed to prevent and detect 
+noncompliance with and improve adherence to federal regulations.View of Responsible Official: The 
+University concurs with the finding. As noted in our prior year response, the University continued 
+to have cost transfers in fiscal year 2023 as it reconciled its grants. To limit cost transfers in 
+the future, the following steps have been taken by the University: Additionally, the University is 
+exploring additional functionality within our Workday grants management module to build in 
+additional approvals, specifically for labor, on expense before the expenses are charged to the 
+grant to reduce future cost transfers. In regards to the three transactions noted above (federal 
+award number HHSN272201300021I; federal award number 5R21AG065526-02; and federal award number 
+UH3HD096929), the erroneous charges have been refunded to the federal agency. As part of the 
+University’s corrective action plan, during fiscal year 2023 the sponsored programs accounting team 
+recalculated fringe and indirect costs on all federal grants to ensure the correct expense was 
+recorded to each grant. During this reconciliation process cumulative award to date errors were 
+identified and corrected in fiscal year 2023. The sponsored program accounting team continues to 
+reconcile fringe and indirect costs on cost transfers at the grant level on a periodic basis to 
+ensure accuracy.
+
+===== SAINT LOUIS UNIVERSITY, FY2021 single audit, report_id 2021-06-CENSUS-0000065863 (FAC 
+accepted 2022-09-27), finding 2021-001
+API: https://api.fac.gov/findings_text?report_id=eq.2021-06-CENSUS-0000065863
+Finding 2021-001 Federal Program Title ? Research and Development Cluster (R&D) Assistance Listing 
+No. ? Various Federal Agencies ? U.S. Department of Agriculture, U.S. Department of Commerce, U.S. 
+Department of Defense, U.S. Department of Interior, U.S. Department of Justice, Department of 
+State, U.S. Department of Transportation, National Aeronautics and Space Administration, National 
+Science Foundation, U.S. Department of Veterans Affairs, U.S. Department of Energy, U.S. Department 
+of Education, and U.S. Department of Health and Human Services Federal Award Numbers ? Various 
+Grant Award Periods ? Various Compliance Requirement ? Activities Allowed or Unallowed and 
+Allowable Costs/Cost Principles Criteria: 2 CFR 200.430 includes the standards for documentation of 
+personnel expenses. According to 2 CFR 200.430(i)(1), charges to federal awards for salary and 
+wages must be based on records that accurately reflect the work performed. Among other requirements 
+within 2 CFR 200.430(i)(1), section (i) states records must be supported by a system of internal 
+control which provides reasonable assurance that the charges are accurate, allowable, and properly 
+allocated and section (v) states that the records must comply with established accounting policies 
+and practices. Additionally, the National Institutes of Health (NIH) Grants Policy Statement 
+section 7.5, Cost Transfers, Overruns, Accelerated and Delayed Expenditures, states that cost 
+transfers to NIH grants that represent corrections of clerical or bookkeeping errors should be 
+accomplished within 90 days of when the error was discovered. The transfers must be supported by 
+documentation that fully explains how the error occurred and a certification of the correctness of 
+the new charge by a responsible organizational official. Documentation must be maintained of cost 
+transfers, pursuant to 2 CFR Part 200.337 and 45 CFR Part 75.364. The recipient should have systems 
+in place to detect such errors within a reasonable time frame; untimely discovery of errors could 
+be an indication of poor internal controls. Frequent errors in recording costs may indicate the 
+need for accounting system improvements, enhanced internal controls, or both. If such errors occur, 
+recipients are encouraged to evaluate the need for improvements and to make whatever improvements 
+are deemed necessary to prevent reoccurrence.  Further, as set forth in 2 CFR 200, the University 
+is required to ensure allowable costs do not consist of improper payments, including payments that 
+should not have been made or that were made in incorrect amounts (including overpayments and 
+underpayments). Lastly, 2 CFR 200.303 requires nonfederal entities to, among other things, 
+establish and maintain effective internal control over the Federal award that provides reasonable 
+assurance that the non-Federal entity is managing the Federal award in compliance with Federal 
+statutes, regulations, and the terms and conditions of the Federal award. Conditions Found: While 
+performing procedures related to personnel expenses, we noted the University had not followed their 
+`Effort Reporting Policy? which states ?On a regular basis (every six months) an effort report form 
+will be generated from the University?s effort reporting system for faculty, managerial and 
+professional, clerical and technical staff, and post-doctoral associates whose compensation was 
+charged in whole or in part to a sponsored project during the respective effort period. 
+Specifically, the University did not send effort reports `every six months? and instead, sent all 
+effort reports on September 7, 2021 that included all fiscal year 21 salaries and wages.  
+Additionally, the University did not follow their `Effort Reporting Policy? which states ?Subjects 
+must return the certified effort verification report no later than 30 calendar days after they have 
+been distributed.? We noted three of our sixty sampled effort reports that had not been returned 
+within the 30 calendar day policy. While performing procedures related to cost transfers, we noted 
+the University had not followed their `Cost Transfer Policy? which states ?Cost transfers for 
+current transactions must occur on a timely basis?. The University?s cost transfer policy defines 
+timely as ?occurring no later than two accounting periods after the month end of the date of the 
+original transaction (no later than 90 days total)?. The University did not have an effective 
+system of internal control in place to timely discover errors and get them corrected as we noted 
+forty-seven of our sixty-nine sampled cost transfers where the cost transfer date was between 91 
+and 730 days past the date the original expenditure was incurred (12 were between 91 and 180 days 
+past, 19 were between 181 and 270 days past, and 16 were greater than 271 days past). Additionally, 
+for $372,483 of costs transfers sampled, the University did not have detailed or summary 
+documentation that fully explained how each error occurred. Additionally, we noted the following 
+exceptions related to cost transfers: Transactions where labor charges were recorded via a cost 
+transfer without an effort report that supported the cost transfer before the cost transfer was 
+recorded: See Schedule of Findings and Questioned Costs for chart/table A transaction recorded as a 
+cost transfer that moved FY21 expenditures off a federal grant after compliance testwork had 
+started and also removed labor charges without an effort report that supported the costs transfer: 
+See Schedule of Findings and Questioned Costs for chart/table A transaction recorded as a cost 
+transfer dated June 30, 2022 to record F&A costs to a federal award that had a period of 
+performance that ended June 30, 2020: See Schedule of Findings and Questioned Costs for chart/table 
+Additionally, while performing audit procedures related to activities allowed and unallowed and 
+allowable costs/cost principles, we noted one of sixty subrecipient invoices selected for testwork 
+in the amount of $690 (Department of Health and Human Services, ALN 93.279, Award number 
+R01DA043543) that was not approved per the electronic approval flow parameters programmed within 
+Workday. Additionally, this subrecipient invoice was erroneously paid twice and indirect costs in 
+the amount of $355 were charged to the grant twice resulting in a total of $1,045 of unallowable 
+costs. The University did not have an effective system of internal control in place to ensure 
+compliance with activities allowed/unallowed and allowable costs/cost principles. Questioned Cost: 
+Questioned costs are not determinable. Cause and Effect: The University implemented several modules 
+of Workday as of July 1, 2020, including the grants module. Within the Workday grants module, 
+federal R&D Cluster activities are accounted for at the `grant level? which allows the University 
+to track the specific budget provided by the individual agreement, period of availability, approved 
+overhead rate, etc. `Grant level? activity then rolls up to the `award level?. The migration of 
+data for federal R&D awards from the previous system (Banner) to the Workday grants module resulted 
+in implementation issues that required significant additional laborious manual processes which were 
+outside the University?s normal process for managing federal R&D awards, including tracking via ad 
+hoc spreadsheets maintained outside Workday. This resulted in Workday not containing complete 
+accounting for all aspects of R&D activity at the `grant level?. Workday implementation issues 
+resulted in the following: 1) effort reports were not available to be sent every six months 
+according to the University?s policy; 2) increased volume and delayed timing of preparing and 
+posting cost transfers; 3) significant delays in the preparation of invoices/billings to federal 
+awarding agencies for federal R&D Cluster activity for awards that operated on a cash reimbursement 
+basis as all invoicing had to be done manually which resulted in the University being more than a 
+year behind in billings; and 4) manual tracking and preparation of closeout reports. Repeat 
+Finding: A similar finding was not reported in prior year. Statistical Sampling: The sample was not 
+intended to be, and was not, a statistically valid sample. Recommendations: We recommend the 
+University enhance its internal control process to ensure the University has effective internal 
+controls in place to ensure that all R&D Cluster expenditures are properly reviewed for compliance 
+with activities allowed or unallowed and adherence to allowable cost principles/cost principles and 
+the Universities established policies. Additionally, we recommend the University enhance its 
+internal control process to ensure the University is performing cost transfers and cash drawdowns 
+on a timely basis, has adequate supporting documentation, and takes necessary action to 
+significantly reduce the volume of cost transfers. Lastly, we recommend the University determine 
+what additional Workday reporting is needed to monitor compliance effectively and efficiently for 
+activities allowed or unallowed and allowable costs/cost principles. View of Responsible Official: 
+The University concurs with this finding, noting that it was largely a product of a new system 
+implementation. These findings are new and do not represent repeat findings. Many of the issues 
+noted above have since been corrected during FY 2022. As noted, the University?s policies and 
+procedures reflect our normal way of operating. The University will implement stronger controls and 
+update policies to ensure that they are well aligned with the new financial system. The University 
+implemented Workday July 1, 2020 and the period under audit was the first year of the University?s 
+use of this new financial system. Implementation of the Workday Grants Module resulted in an effort 
+certification system that did not run correctly during the first certification period of the year 
+so instead of every 6 months, an annual certification was completed. Due to implementation of 
+Workday, the University allowed cost transfers in higher volumes and later than it had in the prior 
+year. While we are confident that we have resolved the underlying issues related to cost transfers 
+at this time, we note that this was not fully resolved in FY 2021 and may impact a subsequent audit 
+period. The University utilized manual invoicing throughout the period to ensure that amounts 
+invoiced followed Uniform Guidance and were correctly charged. By the end of FY 2022, the 
+University had returned to regular invoicing and entirely system-generated invoices. Because this 
+fiscal year was the first use of Workday effort certifications, the University did not anticipate 
+that effort reports would not run in cases where effort was allocated to an award after the end of 
+the fiscal year. The University is now requiring a manual effort certification to be included with 
+labor reallocations from the prior fiscal year. The errors in the effort certification have been 
+resolved and the University has returned to following its policies on timely effort certification. 
+Contact Name: Matthew Christian, Associate Vice President for Research Contact Telephone Number: 
+314-977-2047
+
+===== POMONA COLLEGE, FY2022 single audit, report_id 2022-06-CENSUS-0000123634 (FAC accepted 
+2023-03-29), finding 2022-001
+API: https://api.fac.gov/findings_text?report_id=eq.2022-06-CENSUS-0000123634
+Federal Program: Research and Development Cluster Federal Assistance Listing Number: Various 
+Federal Agency: Various Award Year: Various Criteria: The OMB Compliance Supplement notes the 
+excerpt below as one of the Allowable Cost criteria: c. Costs did not consist of improper payments, 
+including (1) payments that should not have been made or that were made in incorrect amounts 
+(including overpayments and underpayments) under statutory, contractual, administrative, or other 
+legally applicable requirements; (2) payments that do not account for credit for applicable 
+discounts; (3) duplicate payments; (4) payments that were made to an ineligible party or for an 
+ineligible good or service; and (5) payments for goods or services not received (except for such 
+payments where authorized by law). Condition and Context: During of testwork of 76 expenditures 
+during the current year, we identified four expenditures that were not an allowable expenditure to 
+the federal grant. Management charged nonpayroll expenses that had not been incurred as of year-end 
+to a federal grant. Stipends for an 8-week summer program relating to Grant 6117 (Pomona Research 
+in Mathematics Experience), ALN: 47.049, that ran from June 9, 2022 to August 6, 2022 were 
+partially incurred by year-end (June 30, 2022), but charged entirely to the grant in FY22. Per the 
+contract with the hired Research Assistants, stipends were to be made in two installments, whereby 
+the second installment relates to the portion of the expenditure incurred after year-end. The 
+second installment was charged to the grant in FY22, before the Research Assistants completed their 
+grant-related work. This questioned cost represents the entire amount of the stipends paid in FY22 
+that relate to grant-related work performed after June 30, 2022. Isolated or Systemic: Isolated. 
+Cause and Effect: The College?s control failed in detecting timely that unallowable costs were 
+charged to the Research and Development Cluster. Questioned Costs: $16,588.                         
+                                                                                 Whether the 
+sampling was a statistically valid sample: The sample was not intended to be, and was not, a 
+statistically valid sample. Repeat Finding: No. Recommendation: We recommend that the College 
+enhance its internal controls to ensure all expenditures charged to the Research and Development 
+Cluster are for allowable costs. View of Responsible Officials: Finance staff are working with the 
+Director of Sponsored Research to better align stipend payment schedules with our fiscal year-end. 
+Appropriate schedules for the variety of grant-funded summer research will be communicated to the 
+Primary Investigators and academic department staff. Accounts Payable staff will be instructed to 
+reject any participant payment requests that are not in accordance with the approved schedules. 
+Additionally, reviews of each grant payment will be performed at the time of the payment request 
+and in July, as part of our year-end close process, to identify any grant expenses that may have 
+been charged to the incorrect fiscal year and reclassify them accordingly.
+
+===== Keyword scan (fetched 2026-10-24): findings_text where report_id like 202* and text ilike any of *duplicate payment*, *paid twice*, *paid the same invoice*
+Findings matched: 269 across 191 reports. Findings by auditee entity_type: {'state': 139, 'local': 70, 'non-profit': 51, 'tribal': 2, 'higher-ed': 6, 'unknown': 1}
+Higher-ed matches (some only quote the Compliance Supplement criteria, not an actual duplicate):
+   2020-06-CENSUS-0000182268 2020-016 SAINT AUGUSTINE'S UNIVERSITY higher-ed
+   2021-06-CENSUS-0000180985 2021-002 PURDUE UNIVERSITY higher-ed
+   2021-05-CENSUS-0000000127 2021-002 UNIVERSITY OF NEW ENGLAND non-profit
+   2021-06-CENSUS-0000065863 2021-001 SAINT LOUIS UNIVERSITY higher-ed
+   2022-06-CENSUS-0000123634 2022-001 POMONA COLLEGE higher-ed
+   2023-06-GSAFAC-0000364620 2023-005 Departamento de Educación higher-ed
+   2024-06-GSAFAC-0000054078 2024-002 BERKELEY SCHOOL DISTRICT 87 higher-ed
+
+===== Washington University (St. Louis), FY2023 single audit, report_id 2023-06-GSAFAC-0000011065, finding 2023-001 (upgrades the fac.procurementexpress.com mirror cited in pain-points/08)
+API: https://api.fac.gov/findings_text?report_id=eq.2023-06-GSAFAC-0000011065
+Finding 2023-001 Allowable costs/cost principles – Cost Transfers
+
+Federal Agency:
+Department of Health and Human Services, National Institutes of Health
+Department of Health and Human Services, Health Resources and Services Administration (HRSA)
+
+Program:			
+Research and Development Cluster
+Sickle Cell Treatment Demonstration Program
+
+Assistance Listing #:		
+93.395, 93.242
+93.365
+
+Award #:    		
+5R01CA25831102, 5R01MH11676804
+2U1EMC278650800		
+
+Award Year:			
+7/1/2022 – 6/30/2023, 7/1/2022 – 6/30/2023
+9/1/2021 – 8/31/ 2022
+
+Pass-through Number:	
+Not applicable
+Not applicable
+
+Criteria
+The National Institute of Health’s (NIH) Grants policy manual requires cost transfers to NIH grants 
+by recipients, consortium participants, or contractors under grants that represent corrections of 
+clerical or bookkeeping errors to be accomplished within 90 days of when the error was discovered. 
+
+The Department of Health and Human Services Grants policy manual requires permissible cost 
+transfers to be made promptly after the error occurs but no later than 90 days following occurrence 
+unless a longer period is approved in advance by the Grants Management Office.
+
+The University’s Cost Transfer policy requires cost transfers to be allocable, allowable, 
+reasonable, and submitted in a timely manner.
+
+Condition
+Research and Development Cluster
+We selected 25 cost transfers, which included cost transfers related to payroll and non-payroll 
+costs, totaling $368,956. During our testing, we noted 2 of 25 cost transfers, totaling $24,438, 
+that were not completed within the timeframe noted above.  The cost transfers were completed 8 to 
+16 days late. 
+
+Other Major Program - Sickle Cell Treatment Demonstration Program
+We selected 19 cost transfers, which included cost transfers related to payroll and non-payroll 
+costs, totaling $28,628. During our testing, we noted 1 of 19 cost transfers, totaling $4,951, that 
+was not completed within the timeframe noted above.  The cost transfer was completed 55 days late.
+
+Cause
+The university has a cost transfer policy which includes a requirement for cost transfers to be 
+made in a timely manner.  However, there were certain instances where there were delays in 
+processing cost transfers which ultimately resulted in the completion of the cost transfer process 
+outside of the timeframe required by the regulations.
+
+Effect
+There were certain cost transfers that were processed outside of the timeframe that is allowed by 
+the federal regulations.
+
+Questioned Costs
+There are no questioned costs associated with this finding as the costs transferred were allowable 
+and allocable to the awards to which they were transferred.
+
+Recommendation
+We recommend management continue to educate staff on the cost transfer policy, with a specific 
+emphasis on the importance of processing cost transfers in a timely manner.
+
+Views of Responsible Officials
+Please refer to management’s views and corrective action plan.

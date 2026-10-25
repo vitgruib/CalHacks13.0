@@ -1,0 +1,2829 @@
+Performance Audit of Incurred Costs –
+University of Southern California
+REPORT PREPARED BY KEARNEY & COMPANY, P.C.
+
+
+
+
+September 29, 2017
+OIG 17-1-009
+AT A GLANCE
+Performance Audit of Incurred Costs – University of Southern
+California
+Report No. OIG 17-1-009
+September 29, 2017
+
+AUDIT OBJECTIVE
+The National Science Foundation Office of Inspector General engaged Kearney & Company, P.C.
+(Kearney) to conduct a performance audit of incurred costs at the University of Southern California
+(USC) for the period October 1, 2011, to September 30, 2014. The audit encompassed more than $324
+million comprising all costs claimed to NSF. The objective of the audit was to determine if costs
+claimed by USC during this period were allocable, allowable, reasonable, and in conformity with NSF
+award terms and conditions and applicable Federal financial assistance requirements. Kearney is
+responsible for the attached auditor’s report and the conclusions expressed in this report. NSF OIG does
+not express any opinion on the conclusions presented in Kearney’s audit report.
+
+AUDIT RESULTS
+Costs USC charged to its NSF-sponsored agreements did not always comply with Federal and NSF
+award requirements. The auditors questioned $639,479 of costs claimed by USC during the audit
+period. Specifically, the auditors found $304,290 of unreasonable expenses near award expiration;
+$217,387 of misapplied indirect costs (IDC) on subawards; $55,182 of unsupported or incorrect charges
+to participant support; $40,199 of unreasonable, unallowable, or unsupported travel costs; $9,364 of
+unreasonable or unallocable general expense charges; $8,640 of untimely posting of travel charges; and
+$4,417 of unreasonable payroll charges.
+
+RECOMMENDATIONS
+The auditors included seven findings in the report with associated recommendations for NSF to resolve
+the questioned costs and to ensure USC strengthens its administrative and management controls.
+
+AWARDEE RESPONSE
+USC disagreed with the majority of the findings in the report. USC contends that some of the costs
+within the findings are allowable and disagreed with the auditors’ conclusions. USC did not dispute the
+auditors’ statements that there were weaknesses in management and administrative controls. After
+taking USC’s comments into consideration, the auditors continue to question the costs and left the
+findings unchanged. USC’s response is attached in its entirety to the report as Appendix B.
+
+FOR FURTHER INFORMATION, CONTACT US AT (703) 292-7100 OR OIG@NSF.GOV.
+MEMORANDUM
+
+TO:            Dale Bell
+               Director
+               Division of Institution and Award Support
+
+               Jamie French
+               Director
+               Division of Grants and Agreements
+
+FROM:          Mark Bell
+               Assistant Inspector General
+               Office of Audits
+
+DATE:          September 29, 2017
+
+SUBJECT:       Audit Report No. 17-1-009, University of Southern California
+
+This memo transmits the Kearney & Company (Kearney) report for the audit of costs totaling
+approximately $324 million charged by the University of Southern California (USC) to its sponsored
+agreements with the National Science Foundation during the period October 1, 2011, to September 30,
+2014. The objective of the audit was to determine if costs claimed by USC during this period were
+allocable, allowable, reasonable, and in conformity with NSF award terms and conditions and applicable
+Federal financial assistance requirements.
+
+In accordance with Office of Management and Budget Circular A-50, Audit Followup, please provide a
+written corrective action plan to address the report recommendations. In addressing the report’s
+recommendations, this corrective action plan should detail specific actions and associated milestone
+dates. Please provide the action plan within 60 calendar days of the date of this report.
+
+OIG Oversight of Audit
+
+To fulfill our monitoring responsibilities, the Office of Inspector General:
+
+   •   reviewed Kearney’s approach and planning of the audit;
+   •   evaluated the qualifications and independence of the auditors;
+   •   monitored the progress of the audit at key points;
+   •   coordinated periodic meetings with Kearney, as necessary, to discuss audit progress, findings,
+       and recommendations;
+   •   reviewed the audit report prepared by Kearney to ensure compliance with generally accepted
+       government auditing standards; and
+   •   coordinated issuance of the audit report.
+We thank your staff for the assistance that was extended to the auditors during this audit. If you have
+any questions regarding this report, please contact Billy McCain at 703-292-7100.
+
+Attachment
+
+cc:
+John Anderson              Fae Korsmo                  Carrie Davison              Ken Lish
+John Veysey                Teresa Grancorvitz          Allison Lerner              Billy McCain
+Ann Bushmiller             Pamela Hawkins              Ken Chason                  Jeremy Hall
+Christina Sarris           Alex Wynnyk                 Susan Carnohan
+Joan Ferrini-Mundy         Rochelle Ray                Dan Buchtel
+University of Southern California
+
+               Audit of Claimed Costs
+For the Period October 1, 2011 to September 30, 2014
+
+
+        National Science Foundation
+        Office of Inspector General
+                                                          1701 Duke Street, Suite 500, Alexandria, VA 22314
+                                                          PH: 703.931.5600, FX: 703.931.3655, www.kearneyco.com
+
+
+
+
+INDEPENDENT ACCOUNTANT’S PERFORMANCE AUDIT
+REPORT
+
+To the Inspector General of the National Science Foundation:
+
+Kearney & Company, P.C. (defined as “Kearney,” “we,” and “our” in this report) has conducted
+an audit of costs claimed by the University of Southern California (referred to as “USC” or
+“University” in this report) on National Science Foundation (NSF) awards made to the
+University from the period of October 1, 2011 through September 30, 2014. This performance
+audit was conducted under Blanket Purchase Agreement (BPA) #DI4PA00037, Order
+#D14PB00558.
+
+The objective of the performance audit is to determine if costs claimed in the sample provided to
+us by the NSF Office of Inspector General (OIG) are allowable, allocable, reasonable, and in
+conformity with NSF award terms and conditions, as well as applicable Federal financial
+assistance requirements. Kearney conducted the performance audit by testing costs claimed by
+the University and reporting on only the samples provided to us by the NSF OIG.
+
+Kearney performed testing over NSF OIG’s compiled judgmental sample, which consisted of a
+listing of an initial 250 transactions, based on NSF OIG’s criteria and assessment of University
+costs claimed. These samples included, but were not limited to, transactions of large dollar
+amounts; duplicate transactions; unusual spending trends; inconsistencies; even dollar amounts;
+descriptions indicating potentially unallowable costs; frequency; and transactions near or after
+award expiration. Based on our initial results, NSF OIG chose to expand testing and selected an
+additional sample to include an additional 55 judgmental transactions and 6 cluster issue areas.
+In total, Kearney tested the judgmental transactions and 6 cluster issue areas, and we reported the
+results and findings within the body of this performance audit report. Please see Appendix A of
+this report for more information regarding the scope and methodology of the audit.
+
+Kearney determined that the University costs charged to its NSF-sponsored agreements did not
+always comply with applicable Federal requirements. Specifically, we determined that claimed
+costs totaling $639,479 were questioned and determined to be either unallowable, unallocable,
+unreasonable, and/or not in conformity with NSF award terms and conditions and Federal
+requirements. The Findings section of this report further describes the costs in question, the basis
+for our findings, and the recommended actions to be taken by the University. The results of our
+findings were not projected over the entire award population tested in our audit period.
+
+Kearney conducted this performance audit in accordance with Generally Accepted Government
+Auditing Standards (GAGAS), 2011 Revision, issued by the Comptroller General of the United
+States. Those standards require that we plan and perform the audit to obtain sufficient,
+appropriate evidence to provide a reasonable basis for our findings and conclusions based on our
+
+
+                                                 i
+                                                        1701 Duke Street, Suite 500, Alexandria, VA 22314
+                                                        PH: 703.931.5600, FX: 703.931.3655, www.kearneyco.com
+
+
+
+audit objectives. NSF OIG assessed the risk and approach for the audit by conducting planning,
+data mining, and analytical procedures over the universe of data provided by the University. We
+believe that the evidence obtained provides a reasonable basis for our findings and conclusions
+based on our audit objectives. The results of our findings were not projected over the entire
+award population tested in our audit period. The purpose of this report is to communicate the
+results of Kearney’s performance audit and our related findings and recommendations.
+
+Thank you for providing us with the opportunity to assist the NSF OIG and conduct the
+performance audit of the University. Kearney appreciates the cooperation provided by NSF’s
+personnel during the audit.
+
+
+
+
+Kearney & Company, P.C.
+Alexandria, Virginia
+September 29, 2017
+
+
+
+
+                                               ii
+                                                                                                                               National Science Foundation
+                                                                                                                              Audit of Claimed Costs of the
+                                                                                                                           University of Southern California
+
+
+
+
+Table of Contents
+                                                                                                                                                        Page #
+
+INDEPENDENT ACCOUNTANT’S PERFORMANCE AUDIT REPORT ................................................ i
+Objective ....................................................................................................................................................... 1
+Background ................................................................................................................................................... 1
+Audit Results................................................................................................................................................. 1
+  Conclusion ................................................................................................................................................ 2
+  Findings .................................................................................................................................................... 3
+    Finding 1 – Unreasonable Expenses Near Award Expiration ............................................................... 3
+    Finding 2 – Misapplication of Indirect Costs (IDC) on Subawards...................................................... 9
+    Finding 3 – Unsupported or Incorrect Charges to Participant Support ............................................... 12
+    Finding 4 – Unreasonable, Unallowable, or Unsupported Travel Costs............................................. 16
+    Finding 5 – Unreasonable or Unallocable General Expense Charges ................................................ 19
+    Finding 6 – Untimely Posting of Travel Charges ............................................................................... 23
+    Finding 7 – Unreasonable Payroll Charges......................................................................................... 25
+Appendix A: Scope and Methodology of the Audit.................................................................................... 28
+  Scope and Limitations............................................................................................................................. 28
+  Methodology and Work Performed ........................................................................................................ 28
+  Work Related to Internal Controls .......................................................................................................... 29
+Appendix B: Management’s Views on Conclusions and Findings ............................................................. 30
+Appendix C: Criteria ................................................................................................................................... 49
+
+Abbreviations
+AAG                      Award and Administration Guide
+CFR                      Code of Federal Regulations
+FDP                      Federal Demonstration Partnership
+GAGAS                    Generally Accepted Government Auditing Standards
+IDC                      Indirect Costs
+Kearney                  Kearney & Company, P.C.
+MRI                      Major Research Instrumentation
+MTDC                     Modified Total Direct Cost
+NSF                      National Science Foundation
+OIG                      Office of Inspector General
+OMB                      Office of Management and Budget
+PI                       Principal Investigator
+RAM                      Resolution and Advanced Monitoring Branch
+University               University of Southern California
+USC                      University of Southern California
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+
+Objective
+As requested by the National Science Foundation (NSF) Office of Inspector General (OIG),
+Kearney & Company, P.C. (defined as “Kearney,” “we,” and “our” in this report) audited a
+sample of the University of Southern California’s (defined as “USC” or “University” in this
+report) claimed costs on NSF awards. Kearney conducted this performance audit in accordance
+with Generally Accepted Government Auditing Standards (GAGAS), issued by the Comptroller
+General of the United States.
+
+NSF OIG initiated an audit of costs claimed by the University on NSF awards made to the
+University. The audit objective was to determine if costs claimed were allowable, allocable,
+reasonable, and in conformity with NSF award terms and conditions and applicable Federal
+financial assistance requirements. Kearney conducted the performance audit by testing costs
+claimed by the University and reporting on only the transactions and cluster areas provided.
+
+Please see Appendix A of this report for more information regarding the scope and methodology
+of the audit.
+
+Background
+NSF is an independent Federal agency whose mission is “[t]o promote the progress of science; to
+advance the national health, prosperity, and welfare; to secure the national defense...” NSF funds
+research and education in science and engineering by awarding grants and contracts to
+educational and research institutions in all parts of the United States. Through grants,
+cooperative agreements, and contracts, NSF enters into relationships with non-Federal
+organizations to fund research education initiatives and assist in supporting internal program
+operations. USC, which is located in Los Angeles, CA, is an NSF grant recipient. As of
+September 30, 2014, USC received 603 NSF awards, totaling $324,028,578, during the scope of
+the audit.
+
+Audit Results
+Kearney conducted this performance audit in accordance with GAGAS. Those standards require
+that we plan and perform the audit to obtain sufficient, appropriate evidence to provide a
+reasonable basis for our findings and conclusions based on our audit objectives. NSF OIG
+assessed the risk and approach for the audit by conducting planning, data mining, and analytical
+procedures over the universe of data provided by the University. We believe that the evidence
+obtained provides a reasonable basis for our findings and conclusions based on our audit
+objectives. The results of our findings were not projected over the entire award population tested
+in our audit period.
+
+
+
+
+                                                1
+                                                                                       National Science Foundation
+                                                                                      Audit of Claimed Costs of the
+                                                                                   University of Southern California
+
+
+
+Conclusion
+When conducting the performance audit, Kearney gathered sufficient evidential matter to support
+our findings and conclusions. We summarized our questioned costs identified while conducting
+the audit in Table 1.
+
+                               Table 1. Schedule of Questioned Costs
+                                                                    Total
+                                                                Questioned
+                      Finding Description                                                       Reference
+                                                                 Costs 1 by
+                                                                  Finding
+    Unreasonable Expenses Near Award Expiration                  $     304,290                  Finding #1
+    Misapplication of Indirect Costs (IDC) on Subawards                217,387                  Finding #2
+    Unsupported or Incorrect Charges to Participant Support             55,182                  Finding #3
+    Unreasonable, Unallowable, or Unsupported Travel Costs              40,199                  Finding #4
+    Unreasonable or Unallocable General Expense Charges                   9,364                 Finding #5
+    Untimely Posting of Travel Charges                                    8,640                 Finding #6
+    Unreasonable Payroll Charges                                          4,417                 Finding #7
+                                                Grand Total       $    639,479
+Source: Auditor summary of findings over NSF-provided data from USC during the period October 1, 2011 to
+September 30, 2014
+
+
+
+
+1
+    Total Questioned Costs include direct and indirect costs.
+
+
+                                                            2
+                                                                                       National Science Foundation
+                                                                                      Audit of Claimed Costs of the
+                                                                                   University of Southern California
+
+
+
+Findings
+Finding 1 – Unreasonable Expenses Near Award Expiration
+
+                          Table 2. Questioned Cost Breakdown by Award
+                                                 Total Questioned
+                                   Award No.
+                                                       Costs
+                                                        $ 20,409
+                                                             6,025
+                                                            21,899
+                                                             2,466
+                                                            16,272
+                                                            56,696
+                                                             1,510
+                                                            31,375
+                                                            23,012
+                                                            10,194
+                                                          106,069
+                                                             6,434
+                                                             1,929
+                                   Grand Total:         $ 304,290
+Source: Auditor analysis of NSF-provided data from USC during the period October 1, 2011 to September 30, 2014
+
+Expenses for 13 NSF awards, totaling $304,290, claimed near the award expiration did not
+appear to benefit the award or appear necessary for the administration of the award. Kearney
+questioned the allocability of the purchases, as each was not received in time to provide
+meaningful use during the award period. The expenses were questioned based on the criteria
+referenced in Appendix C:
+
+    •   Reasonable Costs;
+    •   Allocable Costs;
+    •   Post-End Date Costs; and
+    •   NSF Major Research Instrumentation (MRI) policy.
+
+According to 2 Code of Federal Regulations (CFR) Section 220, Appendix A, Section C.3, to be
+considered a reasonable cost under a Federal grant, a cost incurred must reflect the action that a
+“prudent person” would have taken under the circumstances prevailing at the time the decision
+was made.
+
+2 CFR 220, Appendix A, Section C.4 states that a cost is allocable to an award if it is incurred
+solely to advance the work under the award; it benefits both the award and work of the institution
+in proportions that can be reasonably approximated; or it is necessary to the overall operation of
+the institution and is assignable in part to sponsored projects.
+
+
+
+
+                                                      3
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+Regarding Post-Expiration Costs, under NSF’s Award and Administration Guide (AAG),
+Chapter V, Section A.c, charges to an award must be made on or before the expiration date. A
+charge may be deemed valid when equipment is ordered well in advance of the expiration date
+but, due to unusual or unforeseen circumstances, delivery of such purchases is delayed beyond
+award expiration. Kearney did not feel that sufficient documentation was provided showing the
+equipment being ordered well in advance and evidencing a delay in delivery for these charges.
+
+Kearney questioned the following expenses near award expiration:
+
+   •   Award No.             – A hydraulic pump, totaling $20,409, was not operational by the
+       end of the award and was installed after the award had expired.
+   •   Award No.             – A laboratory clean hood, totaling $6,025, was ordered during the
+       last month of the award period and delivered the month after the award had expired. No
+       further extension requests were made to NSF after award expiration.
+   •   Award No.             – DNA analysis services, totaling $21,899, were completed 3 days
+       prior to award expiration. Performing an analysis 3 days prior to award expiration does
+       not appear as a reasonable time to incur the expenses and complete the project.
+   •   Award No.             – Cell phones from Amazon were purchased for $2,466 in the last
+       month of the award. Although the University stated that the cell phones were needed for
+       the final Testing Phase in their follow-up response, a cell phone purchase within the last
+       month of the award was unreasonable to be the sole benefit of the award. In addition, the
+       purchase does not reflect the action of a prudent person, as they charged the full amount
+       to the award, when the award will only benefit from a portion of the cell phone’s useful
+       life. The cell phones were available for less than 1 percent of the award period (roughly
+       24 out of 1,446 days).
+   •   Award No.             – A high-precision isotopic piece of equipment was purchased for
+       $16,272 and received within the last 4 months of the award period. When an older model
+       of the equipment was previously purchased on the award, the purchase of the new
+       equipment to be used at the end of award was not reasonable. Kearney did not find it
+       reasonable for the equipment purchase to be fully charged to the award when the same
+       functioning piece of equipment was in use for a majority of the award period already.
+       Specifically, the purchase does not reflect the action of a prudent person, as they charged
+       the full amount to the award, when the award will only benefit from a portion of the
+       equipment’s useful life. The equipment was available for less than 7 percent of the award
+       period (roughly 108 out of 1,477 days).
+   •   Award No.             – Lab equipment items, totaling $41,506, were purchased within 1
+       month of award expiration, which was not reasonable, given the short period of time
+       remaining on the award for which the equipment could be utilized. Additional lab
+       equipment items were purchased, totaling $15,190, and arrived after award expiration.
+       Total questioned expenses for this award are $56,696.
+   •   Award No.             – Hydrogen was purchased to replenish a laboratory within the last
+       2 weeks of the award period, totaling $1,510. Justifiable support was not provided for the
+       purchase near expiration.
+   •   Award No.             – A computer, totaling $31,375, was installed 15 days prior to the
+       end of the award. The purchase does not reflect the action of a prudent person, as they
+
+
+
+                                                4
+                                                                                National Science Foundation
+                                                                               Audit of Claimed Costs of the
+                                                                            University of Southern California
+
+
+
+       charged the full amount to the award, when the award will only benefit from a portion of
+       the computer’s useful life. The computer was available for use for less than 2 percent of
+       the award period (roughly 15 out of 852 days).
+   •   Award No.               – Research equipment, totaling $16,193, was used past the
+       expiration date and taken by the Principal Investigator (PI) to another university.
+       Therefore, this item was not fully allocable to the award. Additionally, the equipment was
+       unreasonably charged to the award 1 month prior to expiration. An additional purchase of
+       supplies 1 month prior to award expiration, totaling $6,819, was transferred onto the
+       award, which was not reasonable. Total questioned expenses for this award were
+       $23,012.
+   •   Award No.               – A data collection instrument, totaling $10,194, was purchased 4
+       days prior to award expiration. Although USC noted future use of the instrument, the
+       entire purchase was not used on this specific award and, therefore, is not allocable to the
+       award, as it was not received prior to award expiration.
+   •   Award No.               – Equipment, totaling $106,069, was unreasonably charged to the
+       award, because the equipment was received after award expiration. Due to the timing of
+       receipt, the equipment needed to support the scientific and engineering instruments was
+       not used until after expiration. As such, the instrument was not operational by the end of
+       the award, which does not comply with NSF’s MRI policy.
+   •   Award No.               – Lab supplies, totaling $6,434, were ordered in August 2013, and
+       award expiration was September 30, 2013. USC did not provide physical documentation
+       as to when the items were received to evidence that the items were used for this specific
+       award. USC stated that items were still in use for two other awards. As such, the items
+       should not have been fully allocated to this award.
+   •   Award No.               – A laptop computer purchase, totaling $1,929, was transferred onto
+       the award approximately 1 month before the expiration date. When asked about the use
+       of the laptop, USC noted that the computer would be used for taking research notes and
+       writing papers, which do not appear reasonable, as the computer was unreasonably used
+       for additional activities outside of the award itself. The transfer does not reflect the action
+       of a prudent person, as they charged the full amount to the award, when the award will
+       only benefit from a portion of the computer’s useful life. The computer was available for
+       use for less than 4 percent of the award period (roughly 37 out of 911 days).
+
+The cause of charging awards near its expiration may vary on a case-by-case basis. USC did not
+properly plan the purchase of items or equipment within the allotted period awarded to be
+operational for regular research. Charging grant funds near award expiration may result in
+noncompliance with NSF’s administrative terms and conditions determined in the original grant
+agreements. Inappropriate use of previously funded grants may result in repayment to NSF.
+
+Recommendations: Kearney recommends that NSF’s Director of the Division of Institution and
+Award Support request that USC:
+
+   1. Resolve the $304,290 in questioned costs and repay the sustained questioned cost
+      amounts, as directed by the NSF Resolution and Advanced Monitoring (RAM) Branch.
+
+
+
+
+                                                  5
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+   2. Ensure purchases are made timely within the award period of performance to allow the
+      purchases to be fully utilized in the actual conduct of the research. For items that are
+      needed to be purchased near award expiration, USC should ensure justification is
+      supported in the NSF proposal or prior NSF Grant Officer approval is obtained.
+
+Management’s Response:
+
+   •   Award No.              – USC disagrees that this was an unreasonable expense. As this
+       award was a Major Research Instrumentation (MRI) Program award and the objective of
+       MRI Program grants is the acquisition or development of the instrumentation itself, not
+       the use of the instrumentation in support of a separate research objective on the project.
+   •   Award No.              – USC disagrees that this was an unreasonable expense because the
+       laboratory “PCR” hood was necessary to perform the last portion of data sample analysis.
+   •   Award No.              – USC disagrees that this was an unreasonable expense. NSF’s
+       Proposal and Award Policies and Procedures Guide (PAPPG) allows for the payment of
+       services even past the end date of the award as long as the services were rendered prior to
+       the end date. The service was performed prior to the end date of the grant.
+   •   Award No.              – USC disagrees that this was an unreasonable expense. The subject
+       matter of the PI’s research is mobile computing. As such, the PI regularly purchases
+       cellphones for research-related and software development purposes. These cell phones
+       were purchased in order to finish experiments.
+   •   Award No.              – USC disagrees that this was an unreasonable expense. This charge
+       was for the purchase of a high-precision isotopic piece of equipment that was used to
+       make necessary measurements for the project, which occurred well before the project end
+       date.
+   •   Award No.              – USC disagrees that this was an unreasonable expense. As this
+       award was a MRI award and the objective of MRI grants is the acquisition or
+       development of the instrumentation itself, not the use of the instrumentation in support of
+       a separate research objective on the project.
+   •   Award No.              – USC disagrees that justifiable support was not provided for the
+       purchase near award expiration. The questioned transaction involved the purchase of
+       hydrogen gas, which is indispensable to the operation of the PI’s crystal growth
+       equipment, a fundamental tool used in this project up through its end date. The PI
+       allocated the total expense based on usage between the award under review, a then-active
+       award from another Federal sponsor, and non-sponsored funds, as reflected in supporting
+       documentation provided to OIG.
+   •   Award No.              – USC disagrees that this was an unreasonable expense. This
+       equipment was a custom-made special upgrade that took a significant amount of time to
+       both build and then to install. Although this equipment was charged 10 days prior to the
+       end of the grant, it was ordered over eight months before the end date of the award. The
+       equipment was in use during its installation for roughly 2and a half months prior to the
+       end date of the award, not 15 days. The purchase benefitted this grant because prior
+       equipment used to perform the functions the computer enabled was inoperable and also
+       obsolete.
+
+
+
+
+                                                6
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+   •   Award No.               – USC disagrees that this was an unreasonable expense. The
+       purpose of the fellowship award funding mechanism is to develop the next generation of
+       faculty, which it did. The equipment was used by the PI in his research at USC for an
+       additional 15 months after the end date of the award, and the PI has continued to use the
+       equipment at his new institution. In addition, the equipment questioned here and its
+       relationship to the aims of the grant were documented by the PI in the Final Report.
+   •   Award No.               – USC disagrees that this expense is not allocable to the award
+       under review. The OIG’s characterization of this award is incorrect. While the data
+       collection instrument was purchased 4 days before the end date of a grant period, the
+       grant was continued through August 2017. In addition, one of the explicit purposes of the
+       award under review was to develop novel instrumentation to support this continuing
+       research effort. This charge was for the purchase of a data acquisition board, which was a
+       line item in the equipment budget for this award, and this purchase enabled the
+       equipment to work as intended.
+   •   Award No.               – USC disagrees that this was an unreasonable expense. As this
+       award was a MRI Program award and the objective of MRI grants is the acquisition or
+       development of the instrumentation itself, not the use of the instrumentation in support of
+       a separate research objective on the project.
+   •   Award No.               – Due to an inadvertent oversight, USC did not provide physical
+       documentation as to when the items were received. We have included such
+       documentation as an attachment to this response.
+   •   Award No.               – While the laptop was necessary for a student to support core
+       activities related to the research such as writing papers, taking research notes, and
+       developing and compiling code which can then be installed and run on a smartphone,
+       USC does not contest this finding.
+
+See Appendix B for USC’s complete response.
+
+Auditor’s Response: For these costs that USC disagreed with, our conclusions remain
+unchanged.
+
+   •   Award No.             – For the hydraulic pump, totaling $20,409, that was not installed
+       and fully developed until after the award had expired, it is reasonable that USC should
+       have expected delays due to the “highly technical installation.” While Kearney agrees the
+       grant was to acquire equipment, USC stated in their original follow-up response that the
+       purpose of the award “was to purchase and install robot instrumentation.” However, the
+       equipment purchased was not installed by the end of the award period. USC should have
+       appropriately monitored purchases and requested an award extension if they knew about
+       the delayed receipt and installation of award equipment. Additionally, USC used MRI
+       guidance from 2015 in its response, which would not be applicable to the costs in
+       question. Thus, the explanation provided did not change our conclusion that the expenses
+       were unreasonable.
+   •   Award No.             – For the laboratory clean hood, totaling $6,025, that was ordered
+       during the last month of the award period and delivered the month after the award had
+       expired, both the equipment and the related work occurred outside of the award period.
+
+
+
+                                                7
+                                                                          National Science Foundation
+                                                                         Audit of Claimed Costs of the
+                                                                      University of Southern California
+
+
+
+    Award period extension requests were made to NSF after award expiration. The
+    explanation provided did not change our conclusion that the expenses were unreasonable.
+•   Award No.              – For the DNA analysis services, totaling $21,899, that were
+    completed 3 days prior to award expiration, our opinion is not changed that performing
+    an analysis 3 days prior to award expiration does not appear reasonable. Services
+    provided 3 days before the end date of an award are in jeopardy of not being completed
+    prior to the award end date. Also, 3 days prior to the award end date does not provide
+    sufficient time to fully incorporate the results of the analysis into the project. The
+    explanation provided did not change our conclusion that the expenses were unreasonable.
+•   Award No.              – For the cell phones, totaling $2,466, in the last month of the
+    award, it is unreasonable to be the sole benefit of the award when the cell phones were
+    available for less than 1 percent of the award period. One month does not provide
+    adequate time to test the phones and report the results in the grant period. Additionally,
+    USC states that the PI regularly purchases cell phones for research. If this is a regular
+    occurrence, the cell phone purchases would be expected to be outlined as a necessary and
+    reasonable purchase within the award, and the cell phones purchases are not specifically
+    budgeted. The report finding and recommendations remain unchanged.
+•   Award No.              – For the high-precision isotopic piece of equipment, purchased for
+    $16,272, it remains unreasonable for the equipment purchase to be fully charged to the
+    award. The same functioning piece of equipment was in use for a majority of the award
+    period already and it was received within the last 4 months of the award period. The
+    report finding and recommendations remain unchanged.
+•   Award No.              – Lab equipment items, totaling $41,506, were purchased within 1
+    month of award expiration. Additional lab equipment, totaling $15,190, arrived after
+    award expiration. USC stated in their original follow-up response that the equipment was
+    necessary for testing. However, the equipment items were unable to be fully utilized for
+    testing, as they did not arrive timely prior to award expiration. USC should have
+    appropriately monitored purchases and requested an award extension if they knew about
+    the delayed receipt of award equipment. Additionally, USC used MRI guidance from
+    2015 in its response, which would not be applicable to the costs in question. Thus, the
+    report finding and recommendations remain unchanged.
+•   Award No.              – USC did not concur with the questioned costs for the hydrogen to
+    replenish a laboratory within the last 2 weeks of the award period, totaling $1,510.
+    Regardless of any allocation method used, additional justifiable support was not provided
+    for the purchase of supplies so close to the grant expiration. Replenishing hydrogen in a
+    laboratory using NSF award funding near award expiration makes the purchase
+    unreasonable and unallocable, as the purchased hydrogen did not benefit this award. The
+    explanation and support provided did not change our conclusion that the expenses were
+    unreasonable.
+•   Award No.              – For the computer, totaling $31,375, although it may have been in
+    use during installation, this still represents less than 9 percent of the award period
+    (roughly 75 out of 852 days). Additional justifiable support was not provided for the
+    purchase near expiration. The explanation and support provided did not change our
+    conclusion that the expenses were unreasonable.
+
+
+
+
+                                            8
+                                                                                National Science Foundation
+                                                                               Audit of Claimed Costs of the
+                                                                            University of Southern California
+
+
+
+   •   Award No.               – Additional justifiable support was not provided to support the
+       research equipment, totaling $16,193, or the additional purchase of supplies 1 month
+       prior to award expiration, totaling $6,819. The explanation and support provided did not
+       change our conclusion that the expenses were unreasonable. Total questioned expenses
+       for this award remain $23,012.
+   •   Award No.               – For the data collection instrument, totaling $10,194, that were
+       purchased 4 days prior to award expiration, our conclusion remains unchanged. Although
+       USC noted future use of the instrument in Continuing Grant No.               , this instrument
+       is not allocable to Award No.             and, thus, should have not been charged to the
+       award. The report finding and recommendations remain unchanged.
+   •   Award No.               – For the equipment, totaling $106,069, the finding remains
+       unchanged that the equipment was received after award expiration. Specific sponsor
+       approval does not mean that the costs should automatically be considered reasonable and
+       appropriate when not in compliance with NSF’s MRI policy. While Kearney agrees the
+       grant was to acquire equipment, NSF 09-502, MRI Program Solicitation for Instrument
+       Development and Acquisition, states: “Instruments are expected to be operational for
+       regular research use by the end of the award period.” The equipment purchased was not
+       acquired until after the grant’s expiration and thus not operational for research by the end
+       of the grant. USC should have appropriately monitored purchases and requested an award
+       extension if they knew about the delayed receipt and operation of award equipment.
+       Additionally, USC used MRI guidance from 2015 in its response, which would not be
+       applicable to the costs in question. Thus, the report finding and recommendations remain
+       unchanged.
+   •   Award No.               – For the lab supplies, totaling $6,434, USC provided additional
+       documentation through an invoice, but it did not provide documentation to support the
+       receipt of good date. Although the invoice had a ship date and notes “UPS 3 Day
+       Ground,” that does not mean the receipt actually occurred within 3 days. Further, the
+       documentation provided by USC did not evidence that the supplies were used only on
+       Award No.             . The explanation and support provided did not change our
+       conclusion that the expenses were unreasonable.
+   •   Award No.               – For the laptop computer purchase, totaling $1,929, USC did not
+       contest the finding. The report finding and recommendations remain unchanged.
+
+Finding 2 – Misapplication of Indirect Costs (IDC) on Subawards
+
+Kearney questioned the application of IDCs for several subawards on NSF Award No.           ,
+totaling $217,387. We determined that the $25,000 IDC limitation requirement was not properly
+followed based on the following criteria, referenced in Appendix C:
+
+
+
+
+                                                 9
+                                                                                       National Science Foundation
+                                                                                      Audit of Claimed Costs of the
+                                                                                   University of Southern California
+
+
+
+      •   Exclusions of Some Costs from IDCs Recovery Calculations and
+      •   Modified Total Direct Cost (MTDC)
+
+Kearney determined that USC did not limit IDCs for subawards so that IDCs were only applied
+up to the allowable amount. We totaled the transactions for each subawardee that were classified
+under the “Sub Contracts, $25,000” object code and noted subawards exceeding the $25,000
+threshold and, thus, having applied IDCs over the allowable amount, shown in Table 3.
+
+                          Table 3. Questioned Cost Breakdown by Award
+                                                                                     Questioned Cost
+                                                            Total Charges to
+                                                                                          Amount
+                     Subaward                              Object Code 15310 2
+                                                                                     B = (A – 25,000) *
+                                                                   A
+                                                                                            .62
+    University of Hawaii at Manoa                                    $ 113,052                  $ 54,592
+    Bigelow Lab for Ocean Sciences                                      88,612                    39,439
+    University of Tennessee                                             79,670                    33,895
+    Woods Hole Oceanographic Institution                                57,491                    20,145
+    University of Delaware                                              57,474                    20,134
+    California State University – Monterey Bay                          50,257                    15,659
+    Photon Systems Inc.                                                 48,745                    14,722
+    Rutgers University                                                  35,548                     6,540
+    University of North Carolina                                        33,198                     5,082
+    Western Washington University                                       30,031                     3,119
+    Colorado School of Mines                                            28,697                     2,292
+    East Carolina University                                            27,851                     1,768
+                                                                         Total                 $ 217,387
+Source: Auditor analysis of NSF-provided data from USC during the period October 1, 2011 to September 30, 2014
+
+Per the 2 CFR Part 220, MTDC consists of “all salaries and wages, fringe benefits, materials and
+supplies, services, travel, and subgrants and subcontracts up to the first $25,000 of each subgrant
+or subcontract (regardless of the period covered by the subgrant or subcontract).”
+
+Due to the nature and complexity of the award, USC collaborated with many other subawarded
+universities. USC divided the subawards into separate purchase orders that each had its own
+objective and unique scope of work, rather than treating each university as a stand-alone
+subaward. USC applied the IDC threshold requirement to each subaward purchase order, instead
+of the aggregate level, thus causing subaward universities to exceed the $25,000 threshold
+requirement. Kearney did not receive support to evidence that this purchase order IDC
+application approach was approved by the NSF Grant Officer.
+
+Recommendations: Kearney recommends that NSF’s Director of the Division of Institution and
+Award Support request that USC:
+2
+ The NSF OIG analyzed USC’s financial data relating to USC’s General Ledger Object Code Name “SUB
+CONTRACTS < $25 000.” Subawards with multiple transactions were aggregated together for the total amount
+charged to each university.
+
+
+                                                      10
+                                                                                National Science Foundation
+                                                                               Audit of Claimed Costs of the
+                                                                            University of Southern California
+
+
+
+
+   1. Resolve the $217,387 in questioned costs and repay the sustained questioned cost
+      amounts, as directed by the NSF RAM Branch.
+
+   2. Avoid questioned costs as they relate to the application of IDCs on subawards by
+      obtaining prior NSF approval from its assigned Grant Officer for changes to the grant
+      agreement or for exceptions to grant policies and procedures, especially for large and
+      complex awards.
+
+Management’s Response: USC disagrees with this finding. There is no requirement that USC
+aggregate all subawards made to a single institution and treat them as a single subaward for
+purposes of applying USC’s F&A rate to the first $25,000 of direct charges. Rather, as noted in
+the finding, the prime awardee’s F&A cost rate is to be applied to a modified total direct cost
+(MTDC) base that includes the first $25,000 of each subaward, regardless of whether the
+subaward is made to one institution or multiple institutions.
+
+The specific subawards under review involved the collection of unique samples at different field
+sites around the world, each of which required the use of different collection, analysis, and
+reporting activity at each site. Oversight of these efforts required monitoring separate
+workstreams, collecting and analyzing distinct reports, and ensuring that each subproject was
+performed appropriately from both a scientific and programmatic perspective. Under NSF’s
+Cooperative Agreement Financial & Administrative Terms and Conditions (CA-FATC), prior
+approval is not required before implementing the subaward methodology USC employed, as
+suggested by the OIG. Each subaward was therefore executed and administered separately, and
+the costs that USC incurred for administering two or more subawards to the same institution
+were the same costs that USC would have incurred for administering two subawards to two
+different institutions. Accordingly, USC’s approach of applying its F&A rate to the first $25,000
+of each subaward was appropriate, regardless of whether there were multiple subawards to the
+same institution.
+
+See Appendix B for USC’s complete response.
+
+Auditor’s Response: For these costs that USC disagreed with, our conclusions remain
+unchanged. Because of the nature and complexity of the award, USC chose to divide the
+subawards under NSF Award No.                 into individual purchase orders to separate objectives
+and the unique scope of work, rather than treating each university as a stand-alone subaward for
+USC’s convenience. USC applied the IDC threshold requirement to each subaward purchase
+order, instead of the aggregate level, thus causing subaward universities to exceed the $25,000
+threshold requirement. USC’s response to this finding does not warrant proper interpretation of
+MTDC requirements under OMB Circular A-21 for awards made prior to December 26, 2014, as
+Kearney considers each university a stand-alone subawardee. Additionally, USC used CFR
+§200.68, Modified Total Direct Costs guidance in its response, which would not be applicable to
+the costs in question. Further, we did not receive support to evidence that this purchase order
+IDC application approach was approved by the NSF Grant Officer. Thus, the explanation
+provided by USC did not change our conclusion that the IDCs were misapplied.
+
+
+
+                                                 11
+                                                                                       National Science Foundation
+                                                                                      Audit of Claimed Costs of the
+                                                                                   University of Southern California
+
+
+
+Finding 3 – Unsupported or Incorrect Charges to Participant Support
+
+                          Table 4. Questioned Cost Breakdown by Award
+                                                 Total Questioned
+                                   Award No.
+                                                       Costs
+                                                         $ 1,540
+                                                               517
+                                                             5,828
+                                                             1,663
+                                                            20,873
+                                                                69
+                                                             8,122
+                                                            11,293
+                                                             5,277
+                                   Grand Total:         $ 55,182
+Source: Auditor analysis of NSF-provided data from USC during the period October 1, 2011 to September 30, 2014
+
+Expenses for nine NSF awards, totaling $55,182, were incorrectly charged as participant support.
+University employee charges to participant support are unallowable. The expenses were
+questioned based on the following criteria, referenced in Appendix C:
+
+    •   Participant Support Costs.
+
+NSF AAG, Chapter V, Section 8.a defines participant support costs as direct costs for items such
+as stipends or subsistence, travel allowances, and registration fees paid to or on behalf of
+participants or trainees in connection with conferences or training projects. Participant support
+costs should not be used for University employees, unless specifically permitted under that
+provision.
+
+Kearney questioned the following expenses that were incorrectly charged to participant support:
+
+    •   Award No.              – Travel reimbursement expenses related to a USC employee
+        attending a conference in Colorado totaled $1,540 and were incorrectly charged as
+        participant support.
+    •   Award No.              – Reimbursement expenses related to a USC employee attending a
+        conference in California totaled $517 and were incorrectly charged as participant support.
+        Of the $517 expenses in question, $46 related to unallowable alcohol expenses charged to
+        the award. USC agreed that these charges were related to a USC employee and that the
+        alcohol charges should not have been charged to the award in any case.
+    •   Award No.              – Two expenses relating to travel to Japan were charged to
+        participant support, totaling $5,828. USC agreed that the charge totaling $3,661 for a
+        student satellite project was incorrectly charged to participant support. USC stated that
+        the other charge, totaling $2,167, was an expense related to a non-enrolled student in the
+        summer of 2012 who was not considered a staff or faculty employee. However, Kearney
+        noted that the individual had a USC employee ID number and was paid a research
+
+
+                                                      12
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+       assistant’s salary for the months of April and May 2012. The travel end date for the
+       expenses related to the award was within this timeframe.
+   •   Award No.               – Expenses relating to travel to Japan and reimbursed to a USC
+       employee, totaling $1,663, were incorrectly charged as participant support.
+   •   Award No.               – Payroll expenses were incorrectly charged to participant support,
+       totaling $20,873. The costs were noted to not be participant support, but evidence to
+       support that conclusion was not provided. Therefore, the participant support expenses in
+       question were not fully supported and appear to be commingled between participant and
+       non-participant support accounts within the same award.
+   •   Award No.               – A USC employee included herself in a conference meal
+       reimbursement with other participants. The charges related to the USC employee totaled
+       $69 and were incorrectly charged as participant support.
+   •   Award No.               – Participant support charges, totaling $8,122, related to speaker
+       fees were unallowable. The charges do not meet the requirements of a participant support
+       charge, as a speaker is neither a participant nor a trainee.
+   •   Award No.               – A reimbursement expense, totaling $11,293, for a USC employee
+       to travel to                for a special study was incorrectly charged to participant
+       support.
+   •   Award No.               – Three expenses, totaling $5,277, related to travel reimbursement
+       for USC employees to attend a workshop in Washington, D.C. were incorrectly charged
+       as participant support.
+
+The cause of incorrectly charging participant support accounts may vary on a case-by-case basis.
+Clerical errors or PI oversight were the main reasons for the incorrect charges. USC’s Office of
+Financial Analysis does not have oversight to determine which accounts relate to NSF awards
+and should be charged to participant support. The PIs of the awards are responsible for tracking
+their participant support accounts. System incapability of tracking participant support, as well as
+incorrectly charging funds to participant support accounts, may result in noncompliance with
+NSF’s administrative terms and conditions determined in the original grant agreements, as well
+as noncompliance with the terms of the award. Finally, inappropriate use of grant funds may
+result in repayment to NSF.
+
+Recommendations: Kearney recommends that NSF’s Director of the Division of Institution and
+Award Support request that USC:
+
+   1. Resolve the $55,182 in questioned costs and repay the sustained questioned cost amounts,
+      as directed by the NSF RAM Branch.
+
+   2. Ensure that PIs are informed on the NSF AAG, as well as applicable 2 CFR compliance
+      requirements over participant support charges. Additionally, USC should periodically
+      monitor its PIs participant support accounts to ensure appropriate use.
+
+   3. Ensure participant support accounts entered into the accounting system are appropriately
+      flagged to be used for participant support charges only.
+
+
+
+
+                                                13
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+Management’s Response:
+
+   •   Award Nos.             ,          ,        , and           – USC is not contesting these
+       findings. While the reimbursements did support the aims of the respective awards, they
+       were inadvertently charged to the participant support companion accounts in error.
+   •   Award No.              – USC is not contesting this finding. At the time, USC was
+       transitioning between systems and the participant support expenses on this account were
+       comingled. In early 2015, USC strengthened existing procedures to ensure that separate
+       companion accounts were created for any awards with participant support.
+   •   Award No.              – USC is not contesting this finding. While the reimbursement did
+       support the aims of the award, it was inadvertently charged to the participant support
+       companion account in error.
+   •   Award No.              – USC does not agree with this finding. These participants were all
+       named in the proposal for supplemental funding to this award, which was approved and
+       funded by NSF. In addition, the amount in question was separately budgeted and charged
+       to a companion account where no indirect charges were applied. As such, USC did not
+       inappropriately burden this charge with indirect costs, nor did USC bill the NSF for
+       indirect costs as claimed in this finding.
+   •   Award No.              – USC is not contesting the directly charged portion of this finding.
+       However, the amount in question was separately budgeted and charged to a companion
+       account where no indirect charges were applied. As such, USC did not inappropriately
+       burden this charge with indirect costs, nor did USC bill the NSF for indirect costs as
+       claimed in this finding.
+   •   Award No.              – USC is not contesting this finding. While the reimbursement did
+       support the aims of the award, it was inadvertently charged to the participant support
+       companion account in error.
+
+See Appendix B for USC’s complete response.
+
+Auditor’s Response: For these costs that USC disagreed with, our conclusions remain
+unchanged.
+
+   •   Award No.              – For the travel reimbursement expenses related to a USC employee
+       attending a conference in Colorado, totaling $1,540, USC did not contest the finding. The
+       report finding and recommendations remain unchanged.
+   •   Award No.              – For the reimbursement expenses related to a USC employee
+       attending a conference in California, totaling $517, USC did not contest the finding. The
+       report finding and recommendations remain unchanged.
+   •   Award No.              – For the two expenses relating to travel to Japan charged to
+       participant support, totaling $5,828, USC did not contest the finding. The report finding
+       and recommendations remain unchanged.
+   •   Award No.              – For the expenses relating to travel to Japan and reimbursed to a
+       USC employee, totaling $1,663, USC did not contest the finding. The report finding and
+       recommendations remain unchanged.
+
+
+
+
+                                                14
+                                                                            National Science Foundation
+                                                                           Audit of Claimed Costs of the
+                                                                        University of Southern California
+
+
+
+•   Award No.              – For the payroll expenses incorrectly charged to participant
+    support, totaling $20,873, USC did not contest the finding. The report finding and
+    recommendations remain unchanged. USC indicated that they strengthened procedures to
+    segregate participant support in the companion account. While these strengthened
+    procedures were not subject to audit or review, we commend USC’s actions to strengthen
+    controls.
+•   Award No.              – For the USC employee including herself in a conference meal
+    reimbursement with other participants, totaling $69, USC did not contest the finding. The
+    report finding and recommendations remain unchanged.
+•   Award No.              – USC disagreed that the participant support charges, totaling
+    $8,122, related to speaker fees were unallowable. Based on discussions with USC,
+    Kearney noted that the participant support crosswalk provided to NSF and Kearney was
+    difficult to gather because, at the time of the audit scope, the system previously in place
+    did not track participant support accounts from a systems standpoint. Based on previous
+    discussions, USC stated that in order to provide the participant support crosswalk, USC
+    personnel had to ask the PI on the grant to identify which account was classified as
+    participant support. For that reason, during discussions, USC stated that there may be
+    accounts in the crosswalk that were mistakenly identified as participant support. As NSF
+    was unable to rely on the initial participant support crosswalk provided during the risk
+    assessment and review. Kearney is unable to rely on the participant support crosswalk
+    that USC provided, as there has been a noted breakdown in the system. Additionally,
+    USC did not provide further evidence to confirm IDCs were not charged under this
+    award. Thus, the report finding and recommendations remain unchanged.
+•   Award No.              – USC did not contest the direct cost portion of a USC employee’s
+    travel to               , totaling $11,293, but it did contest the indirect portion. Based on
+    discussions with USC, Kearney noted that the participant support crosswalk provided to
+    NSF and Kearney was difficult to gather because, at the time of the audit scope, the
+    system previously in place did not track participant support accounts from a systems
+    standpoint. Based on previous discussions, USC stated that in order to provide the
+    participant support crosswalk, USC personnel had to ask the PI on the grant to identify
+    which account was classified as participant support. For that reason, during discussions,
+    USC stated that there may be accounts in the crosswalk that were mistakenly identified as
+    participant support. As NSF was unable to rely on the initial participant support
+    crosswalk provided during the risk assessment and review. Kearney is unable to rely on
+    the participant support crosswalk that USC provided, as there has been a noted
+    breakdown in the system. Additionally, USC did not provide further evidence to confirm
+    IDCs were not charged under this award. Thus, the report finding and recommendations
+    remain unchanged.
+•   Award No.              – For the three expenses incorrectly charged as participant support,
+    totaling $5,277, USC did not contest the finding. The report finding and
+    recommendations remain unchanged.
+
+
+
+
+                                             15
+                                                                                        National Science Foundation
+                                                                                       Audit of Claimed Costs of the
+                                                                                    University of Southern California
+
+
+
+Finding 4 – Unreasonable, Unallowable, or Unsupported Travel Costs
+
+                          Table 5. Questioned Cost Breakdown by Award
+                                                 Total Questioned
+                                   Award No.
+                                                       Costs
+                                                            12,671
+                                                             3,729
+                                                            17,279
+                                                             6,520
+                                   Grand Total:          $ 40,199
+Source: Auditor analysis of NSF-provided data from USC during the period of October 1, 2011 to September 30,
+2014
+
+Travel expenses for five NSF awards, totaling $40,199, were questioned as unreasonable,
+unallowable, or unsupported. The travel expenses were questioned based on the following
+criteria, referenced in Appendix C:
+
+    •   Reasonableness Costs and
+    •   Allocable Costs.
+
+According to 2 CFR Section 220, Appendix A, Section C.3, to be considered a reasonable cost
+under a Federal grant, a cost incurred must reflect the action that a “prudent person” would have
+taken under the circumstances prevailing at the time the decision was made.
+
+Per 2 CFR 220, Appendix A, Section C.4, a cost is allocable to an award if it is incurred solely to
+advance the work under the award; it benefits both the award and work of the institution in
+proportions that can be reasonably approximated; or it is necessary to the overall operation of the
+institution and is assignable in part to sponsored projects.
+
+Kearney questioned the following expenses related to travel:
+
+    •   Award No.               – Travel expenses, totaling $12,671, related to an                car
+        rental and travel to and/or from             University,              , and          were
+        unallowable. USC agreed that these expenses should not have been charged to the award
+        and will repay the funds to NSF.
+    •   Award No.               – PI travel expenses to a conference in Germany, with a separate
+        trip to collaborate at a university in     , were charged to the award, totaling $3,729.
+        USC stated that the PI’s collaboration “focused on the analysis of primitive equations of
+        the atmosphere, consistent with the research aims of the grant under review.” The
+        separate trip to       is questioned for reasonableness, as USC’s response does not
+        provide enough evidence showing the amount incurred for the              travel reflects the
+        action of a prudent person and the         collaboration was not listed within the award’s
+        Annual or Final Project Report. In addition, the Final Project Report states that no
+        international collaboration occurred for the PI.
+
+
+
+
+                                                      16
+                                                                                 National Science Foundation
+                                                                                Audit of Claimed Costs of the
+                                                                             University of Southern California
+
+
+
+   •   Award No.              – The PI traveled to            ,          ,             , and
+       from January 2013 through August 2013 to collaborate with universities. The travel
+       expenses for one trip totaled $13,831, and the collaborations were not included in the
+       initial NSF proposal submitted. This trip was not mentioned in the award proposal for an
+       8-month travel period. As the PI returned early (July), another flight home was purchased
+       and charged to the award. The original round trip flight was not used and was not
+       refundable. An additional trip to            , totaling $3,448, charged to the award for
+       further collaborations was questioned. Based on supporting documentation provided,
+       only certain costs were charged to the grant (i.e., airfare, car rental, and a 1-night stay in a
+       hotel). USC stated that the purpose of this trip was to collaborate with professors and
+       work on joint publications; however, the documentary evidence provided was not
+       sufficient to support this and the trip was not mentioned in the Annual or Final Project
+       Report. Because this specific travel was not included in the budget and the total travel
+       exceeded the budgeted amount, the aforementioned travel booked does not reflect the
+       action of a prudent person. Additionally, there is no documented evidence of how this trip
+       directly benefitted the award; therefore, Kearney questioned these travel charges. Total
+       questioned expenses for this award were $17,279.
+   •   Award No.              – PI travel expenses, totaling $6,520, were unreasonably charged to
+       the award. The expenses related to a conference in Massachusetts to publish research
+       results. The PI had to travel from         to attend the conference in Massachusetts;
+       however, publishing the results could have been achieved in other ways, such as through
+       a publication, and international travel was not considered prudent. Travel was not
+       budgeted in the original proposal, but 33 percent of the award budget was rebudgeted for
+       travel. Travel should have been considered within the original budget if the PI planned to
+       publish results at a conference outside of          .
+
+The cause of unreasonable, unallowable, or unsupported charges to awards may vary on a case-
+by-case basis. One cause is that travel expenses were charged to the awards in error.
+Additionally, USC is authorized to re-budget among budget categories, including travel
+expenses, without obtaining prior approval from NSF, per the Federal Demonstration Partnership
+(FDP) terms and conditions, as long as the rebudgeting does not constitute a change in scope.
+However, significant changes to the budget within the original award may call into question the
+reasonableness and prudence of the charge and how it relates to the administrative terms and
+conditions determined in the original grant agreement. Unreasonable, unallowable, or
+unsupported charges of previously funded awards may result in repayment to NSF.
+
+Recommendations: Kearney recommends that NSF’s Director of the Division of Institution and
+Award Support request that USC:
+
+   1. Resolve the $40,199 in questioned costs and repay the sustained questioned cost amounts,
+      as directed by the NSF RAM Branch.
+
+   2. Avoid questioned costs as they relate to re-budget authority and allowability by obtaining
+      prior NSF approval from its assigned Grant Officer for significant changes in budget
+      from the original grant agreement.
+
+
+                                                 17
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+Management’s Response:
+
+   •   Award No.               – USC is not contesting this finding.
+   •   Award No.               – USC disagrees with this finding. The PI used the General Services
+       Administration (GSA)-approved per diem rates for              , an approved form of travel
+       reimbursement per OMB Circular A-21 and USC Travel Policy. The PI did budget for
+       international travel in      proposal, which was approved and awarded by the NSF. In
+       addition, listed travel to            in the Final Project Report, although chose not to
+       identify any international collaboration in the Final Project Report because and
+             collaborator had not successfully solved the problem.
+   •   Award No.               – USC disagrees with this finding. This trip was mentioned in the
+       Final Project Report in the International Travel Section. In an earlier response, the PI
+       provided a detailed itinerary, documenting his collaborations and noting two papers that
+       resulted from this collaborative trip and cited this award and the continuation award. The
+       papers also included and acknowledged            collaborators in        . The itinerary and
+       these two papers both document the direct benefit of this trip to the award. In terms of the
+       flight charged, the research was completed ahead of schedule but it would have cost more
+       to change the flight return date than to buy a second one way ticket.
+   •   Award No.               – It appears that this travel was found unreasonable because the trip
+       was not originally budgeted in the award proposal. However, under the Federal
+       Demonstration Partnership (FDP), of which NSF is a member, universities are authorized
+       to rebudget for travel without advance approval.
+
+See Appendix B for USC’s complete response.
+
+Auditor’s Response: For these costs that USC disagreed with, our conclusions remain
+unchanged.
+
+   •   Award No.               – For the travel expenses, totaling $12,671, related to an
+                     car rental and travel to and/or from            University,             , and
+               , USC did not contest the finding. The report finding and recommendations remain
+       unchanged.
+   •   Award No.               – USC disagreed with the finding for the questioned PI travel
+       expenses to a conference in Germany, with a separate trip to collaborate at a university in
+            , totaling $3,729. As the Final Project Report was not in agreement with itself, by
+       including the          travel, but not the collaboration, and USC did not provide a
+       sufficient additional explanation and supporting documentation, our conclusion remains
+       unchanged.
+   •   Award No.               – For the PI travel to collaborate with universities, USC disagreed
+       with the finding. Total questioned expenses for this award were $17,279, consisting of
+       one trip totaling $13,831 and an additional trip to             totaling $3,448. While the
+       Final Project Report mentioned the international collaboration, it only specified a
+       timeframe of travel and did not include any explanation of the actual collaboration.
+       Kearney expected to review further details of the trip within the Annual or Final Project
+       Report for appropriate allocation and to evidence how all the additional university visits
+
+
+                                                18
+                                                                                       National Science Foundation
+                                                                                      Audit of Claimed Costs of the
+                                                                                   University of Southern California
+
+
+
+        directly benefitted the grant. However, the reports did not provide that sufficient detail.
+        The explanation provided did not change our conclusion; the report finding and
+        recommendations remain unchanged.
+    •   Award No.              – PI travel expenses, totaling $6,520, were unreasonably charged to
+        the award, as we do not feel it was appropriate to spend $6,520 to attend a conference
+        rather than simply publishing the papers without traveling from           to Massachusetts.
+        Additionally, there was no travel budgeted, and the travel occurred one month prior to
+        award expiration. The explanation provided did not change our conclusion; the report
+        finding and recommendations remain unchanged.
+
+Finding 5 – Unreasonable or Unallocable General Expense Charges
+
+                          Table 6. Questioned Cost Breakdown by Award
+                                                 Total Questioned
+                                   Award No.
+                                                       Costs
+                                                         $      71
+                                                             1,129
+                                                               225
+                                                             6,939
+                                                               340
+                                                               230
+                                                               205
+                                                               225
+                                   Grand Total:            $ 9,364
+Source: Auditor analysis of NSF-provided data from USC during the period October 1, 2011 to September 30, 2014
+
+General expenses, totaling $9,364, charged to eight NSF awards were not in accordance with
+Office of Management and Budget (OMB) Circular A-21, Cost Principles for Educational
+Institutions. The general expenses were questioned based on the following criteria, referenced in
+Appendix C:
+
+    •   Reasonableness Costs;
+    •   Allocable Costs; and
+    •   Non-University Employees.
+
+According to 2 CFR Section 220, Appendix A, Section C.3, to be considered a reasonable cost
+under a Federal grant, a cost incurred must reflect the action that a “prudent person” would have
+taken under the circumstances prevailing at the time the decision was made.
+
+Per 2 CFR 220, Appendix A, Section C.4, a cost is allocable to an award if it is incurred solely to
+advance the work under the award; it benefits both the award and work of the institution in
+proportions that can be reasonably approximated; or it is necessary to the overall operation of the
+institution and is assignable in part to sponsored projects.
+
+
+
+
+                                                      19
+                                                                             National Science Foundation
+                                                                            Audit of Claimed Costs of the
+                                                                         University of Southern California
+
+
+
+Additionally, per USC’s non-University employee policy, USC must first consult with the
+Human Resources Office to confirm that the assignment cannot be filled by a university
+employee prior to hiring a non-University employee.
+
+Kearney questioned the following general expenses:
+
+   •   Award No.               – Lunch expenses with research collaborators, totaling $71, were
+       unreasonably charged to the award. No agenda or itinerary was provided to support that
+       the meeting benefitted this specific award.
+   •   Award No.               – Temporary employment expenses, totaling $1,129, for a summer
+       internship was given to a non-USC student. Kearney questioned the reasonableness, as a
+       USC student could have performed these tasks. USC did not provide evidence that it
+       consulted its Human Resources Office prior to hiring a temporary employee to perform
+       the work. Additionally, the Annual and Final Project Reports did not support that the
+       individual performed work directly benefitting the award.
+   •   Award No.               – A 3-night hotel stay was charged to the award for a 1-day
+       conference, totaling $225 per night. Kearney determined the charges for the night before
+       the conference and the night of the conference were reasonable; however, we questioned
+       the reasonableness of the additional 1 night’s stay, as USC was unable to provide any
+       type of justification for the extended stay.
+   •   Award No.               – Lab usage expenses for individuals, totaling $6,939, were charged
+       to the award. These individuals were not mentioned in the Final Project Report. Other
+       individuals on the invoice were listed as people who worked on the grant in the Final
+       Project Report. Since the list of individuals included within the Final Project Report were
+       inconsistent with the lab usage invoice charges, Kearney questioned whether the
+       individuals used the lab for the direct benefit of the award.
+   •   Award No.               – Parking expenses for a         competition, totaling $340, were
+       transferred onto the award. The original charges were made to NSF Award No.               ,
+       which directly relates to the          competition. USC stated that these charges were used
+       to support participant middle school teachers who served as mentors for the student
+       participants in the          competition. The transaction under review transferred the
+       parking charges for teacher participants in the          competition event at USC.
+       However, the expenses were transferred to NSF Award No.                 , where the
+       competition is not directly mentioned. The award originally charged, Award No.
+                , does mention the           event. The same PI is in charge of both of these
+       awards. Kearney questioned the allocability of the transfer due to the incorrect award
+       account being charged.
+   •   Award No.               – Lunch meeting expenses, totaling $230, were charged to the
+       award 2 days prior to the expiration period. No agenda or itinerary was provided to
+       support that the meeting benefitted this specific award.
+   •   Award No.               – Lunch expenses with the PI’s research students, totaling $205,
+       were unreasonably charged to the award. No agenda or itinerary was provided to support
+       that the meeting benefitted this specific award.
+
+
+
+
+                                               20
+                                                                             National Science Foundation
+                                                                            Audit of Claimed Costs of the
+                                                                         University of Southern California
+
+
+
+   •   Award No.            – A stipend for a USC research associate professor, totaling $225,
+       was incorrectly charged to participant support. USC agreed that these expenses should
+       not have been charged to the award and stated the funds will be repaid to NSF.
+
+The cause of unreasonable or unallocable general expense charges may vary on a case-by-case
+basis. One cause is that the PIs overseeing the awards may not closely review OMB Circular A-
+21 requirements or seek approval prior to charging the award. Unreasonable or unallocable
+charges to awards may result in noncompliance with NSF’s administrative terms and conditions
+determined in the original grant agreements. Inappropriate use of previously funded awards may
+result in repayment to NSF.
+
+Recommendations: Kearney recommends that NSF’s Director of the Division of Institution and
+Award Support request that USC:
+
+   1. Resolve the $9,364 in questioned costs and repay the sustained questioned cost amounts,
+      as directed by the NSF RAM Branch.
+
+   2. Ensure that PIs are informed on the applicable cost principles of reasonableness and
+      allocability for Federal awards in OMB Circular A-21 for awards made prior to
+      December 26, 2014 and 2 CFR Part 200, Uniform Administrative Requirements, Cost
+      Principles, and Audit Requirements for Federal Awards, for awards made after
+      December 26, 2014. Additionally, USC should periodically monitor its PIs’ accounts to
+      ensure appropriate use.
+
+Management’s Response:
+
+   •   Award No.             – USC disagrees with this finding, as the lunch was to further the
+       research collaboration. It is reasonable for researchers be allowed to participate in
+       research collaboration meetings that directly benefit the award without having to create
+       an agenda or itinerary.
+   •   Award No.             – USC disagrees with this finding. This student was paid from a
+       Research Experiences for Undergraduates (REU) Supplement. REU Supplements are
+       open to application by undergraduate students from any university. In addition, this
+       student worked on projects benefiting the grant.
+   •   Award No.             – USC is not contesting this finding.
+   •   Award No.             – All individuals listed used the lab for the direct benefit of the
+       award. Only those who charged salary to the award were listed in the Final Project
+       Report. Others received departmental and fellowship support, so were not listed but still
+       worked in support of the award objectives. Several publications credit these individuals,
+       as well as acknowledge funding from this award.
+   •   Award No.             – At the time of proposal, the PI was not aware that the GCER
+       (Global Conference on Educational Robotics) would take place in Los Angeles so the
+               competition was not directly mentioned in the proposal. The Final Project Report
+       described the overall program, which included, but did not specifically mention, the
+               competition. The charge was allocated between two awards based on the number
+
+
+
+                                               21
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+       of participants attending from each award which is a reasonable and appropriate
+       allocation methodology.
+   •   Award No.              – USC disagrees with this finding, as the lunch was to further the
+       research collaboration. It is reasonable for researchers be allowed to participate in
+       research collaboration meetings that directly benefit the award without having to create
+       an agenda or itinerary.
+   •   Award No.              – USC disagrees with this finding, as the lunch was to further the
+       research collaboration. It is reasonable for researchers be allowed to participate in
+       research collaboration meetings that directly benefit the award without having to create
+       an agenda or itinerary.
+   •   Award No.              – USC does not contest this finding. This stipend was charged to
+       the main account, not the participant support companion account.
+
+See Appendix B for USC’s complete response.
+
+Auditor’s Response: For these costs that USC disagreed with, our conclusions remain
+unchanged.
+
+   •   Award No.               – USC disagreed that lunch expenses with research collaborators,
+       totaling $71, were unreasonably charged to the award. USC did not provide
+       documentation (e.g., agendas, itineraries) to support this lunch was directly related to the
+       award scope and objectives. The explanation provided did not change our conclusion; the
+       report finding and recommendations remain unchanged.
+   •   Award No.               – USC disagreed that temporary employment expenses, totaling
+       $1,129, for a summer internship given to a non-USC student should be questioned. USC
+       stated that the student was paid from an REU Supplement open to all undergraduates.
+       Additional supporting documentation was not provided to demonstrate the application
+       was open to all undergraduates. Therefore, the explanation provided did not change our
+       conclusion; the report finding and recommendations remain unchanged.
+   •   Award No.               – USC did not contest the reasonableness of 1 night of a 3-night
+       hotel stay that was charged to the award for a 1-day conference, totaling $225 per night.
+       The report finding and recommendations remain unchanged.
+   •   Award No.               – USC disagreed with the questioned lab usage expenses for
+       individuals, totaling $6,939, that were charged to the award. Publications crediting
+       individuals not included in the Final Project Report were not provided by USC. The
+       explanation provided did not change our conclusion; the report finding and
+       recommendations remain unchanged.
+   •   Award No.               – USC disagreed with the questioned parking expenses for a
+       competition, totaling $340, which were transferred onto the award. Additional supporting
+       documentation was not provided and the explanation provided did not change our
+       conclusion; the report finding and recommendations remain unchanged.
+   •   Award No.               – USC disagreed with the questioned lunch meeting expenses,
+       totaling $230, that were charged to the award 2 days prior to the expiration period. USC
+       did not provide documentation (e.g., agendas, itineraries) to support this lunch was
+       directly related to the award scope and objectives. The additional supporting
+
+
+
+                                                22
+                                                                                       National Science Foundation
+                                                                                      Audit of Claimed Costs of the
+                                                                                   University of Southern California
+
+
+
+        documentation was not provided and the explanation provided did not change our
+        conclusion; the report finding and recommendations remain unchanged.
+    •   Award No.             – USC disagreed that the lunch expenses with the PI’s research
+        students, totaling $205, were unreasonably charged to the award. USC did not provide
+        documentation (e.g., agendas, itineraries) to support this lunch was directly related to the
+        award scope and objectives. The explanation provided did not change our conclusion; the
+        report finding and recommendations remain unchanged.
+    •   Award No.             – USC did not contest that the stipend for a USC research associate
+        professor, totaling $225, was incorrectly charged to participant support. The report
+        finding and recommendations remain unchanged.
+
+Finding 6 – Untimely Posting of Travel Charges
+
+                          Table 7. Questioned Cost Breakdown by Award
+                                                 Total Questioned
+                                   Award No.
+                                                       Costs
+                                                          $ 1,863
+                                                             6,777
+                                 Grand Total:             $ 8,640
+Source: Auditor analysis of NSF-provided data from USC during the period October 1, 2011 to September 30, 2014
+
+Travel expenses for two NSF awards, totaling $8,640, were questioned as unreasonable due to
+the untimely posting of the charges to the awards. The expenses were questioned based on the
+following criteria, referenced in Appendix C:
+
+    •   Reimbursement;
+    •   Reasonable Costs; and
+    •   Allocable Costs.
+
+Per USC Expenditure Policies and Procedures, Section 1.5, “Timely and Accurate Processing,”
+expenses incurred should be processed and submitted within 60 days of trip or event completion.
+
+Additionally, according to 2 CFR Section 220, Appendix A, Section C.3, to be considered a
+reasonable cost under a Federal grant, a cost incurred must reflect the action that a “prudent
+person” would have taken under the circumstances prevailing at the time the decision was made.
+
+Kearney questioned the following travel expenses:
+
+    •   Award No.            – Travel conference charges for a trip to Taiwan, totaling $1,863,
+        were posted 15 months after the travel end date and eight months after award expiration,
+        even though the conference was related to the award. The untimely submission violates
+        USC’s expenditure policy regarding timely and accurate processing. In addition, the
+        amount incurred for the travel does not reflect the action of a prudent person, as expenses
+        should be submitted in a timely manner to be considered reasonable and allocable to the
+        award.
+
+
+
+                                                      23
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+   •   Award No.              – Travel charges, totaling $5,629, were posted 11 months after the
+       travel end date and 3 months after award expiration for one transaction. The travel was
+       related to charges for a conference in Japan and charges to visit with a collaborator at a
+       Japanese university, which related to the award. The untimely submission violates USC’s
+       expenditure policy regarding timely and accurate processing. In addition, the amount
+       incurred for the travel does not reflect the action of a prudent person, as expenses should
+       be submitted in a timely manner to be considered reasonable and allocable to the award.
+       In addition, lodging expenses were not supported, and no collaborations were listed in the
+       initial proposal, Annual Project Report, or Final Project Report.
+
+       On the same award, conference charges, totaling $1,148, were posted 4 months after the
+       award end date. When asked to provide a justification or NSF approval for posting the
+       expense untimely, only the award end date was given, which was not a sufficient reason
+       for the charge. The untimely submission violates USC’s expenditure policy regarding
+       timely and accurate processing. In addition, the amount incurred for the conference does
+       not reflect the action of a prudent person, as expenses should be submitted in a timely
+       manner to be considered reasonable and allocable to the award.
+
+       Total questioned expenses for this award were $6,777.
+
+The cause of untimely posting charges to awards may vary on a case-by-case basis. One reason
+provided for the late posting was due to the PI’s busy schedule. Untimely posting of travel
+charges to an NSF award may call into question the charge’s reasonableness as it relates to the
+administrative terms and conditions determined in the original grant agreement. Inappropriate
+use of grant funds may result in repayment to NSF.
+
+Recommendations: Kearney recommends that NSF’s Director of the Division of Institution and
+Award Support request that USC:
+
+   1. Resolve the $8,640 in questioned costs and repay the sustained questioned cost amounts,
+      as directed by the NSF RAM Branch.
+
+   2. Ensure that charges are posted timely to the award at or around the award expiration. If
+      charges for valid expenses incurred are expected to be invoiced to USC after award
+      expiration and, therefore, reimbursement requested after award expiration, USC should
+      obtain a no-cost grant extension.
+
+Management’s Response:
+
+   •   Award No.               – Although this reimbursement was posted late, the auditors agreed
+       that this travel benefited the project. The submission was not a violation of USC policy,
+       as the policy states that expenses “should be processed” in a timely manner. This policy
+       is in part to ensure that faculty and staff are reimbursed promptly for out-of-pocket costs.
+       That was not an issue here since the reimbursee was responsible for submitting his
+       reimbursement late.
+
+
+
+                                                24
+                                                                                       National Science Foundation
+                                                                                      Audit of Claimed Costs of the
+                                                                                   University of Southern California
+
+
+
+    •   Award No.               – Although this reimbursement was posted late, the auditors agreed
+        that this travel benefited the project. The submission was not a violation of USC policy,
+        as the policy states that expenses “should be processed” in a timely manner. This policy
+        is in part to ensure that faculty and staff are reimbursed promptly for out-of-pocket costs.
+        That was not an issue here since the reimbursee was responsible for submitting his
+        reimbursement late.
+
+See Appendix B for USC’s complete response.
+
+Auditor’s Response: For these costs that USC disagreed with, our conclusions remain
+unchanged.
+
+    •   Award No.              – USC disagreed with the questioned costs for the travel conference
+        charges for a trip to Taiwan, totaling $1,863, that were posted 15 months after the travel
+        end date and 8 months after award expiration. While Kearney agrees that the conference
+        was related to the award, the late submission of the travel invoice violated USC’s
+        expenditure policy regarding timely and accurate processing, as personal funds should be
+        processed and submitted within 60 days. Kearney expects USC to follow up with the
+        traveler on a periodic basis to ensure timeliness of submission in order to be fully
+        reasonable under the award. The report finding and recommendations remain unchanged.
+    •   Award No.              – USC disagreed with the questioned expenses for two transactions
+        that were posted untimely for a total of $6,777. One transaction for travel expenses,
+        totaling $5,629, was posted 11 months after the travel end date and 3 months after award
+        expiration. The second transaction for conference charges, totaling $1,148, was posted 4
+        months after the award end date. While Kearney agrees that the expenses were related to
+        the award, the late submission of the travel invoice violated USC’s expenditure policy
+        regarding timely and accurate processing, as personal funds should be processed and
+        submitted within 60 days. Kearney expects USC to follow up with the traveler on a
+        periodic basis to ensure timeliness of submission in order to be fully reasonable under the
+        award. The report finding and recommendations remain unchanged.
+
+Finding 7 – Unreasonable Payroll Charges
+
+                          Table 8. Questioned Cost Breakdown by Award
+                                                 Total Questioned
+                                   Award No.
+                                                       Costs
+                                                           $ 3,750
+                                                               667
+                                   Grand Total:            $ 4,417
+Source: Auditor analysis of NSF-provided data from USC during the period October 1, 2011 to September 30, 2014
+
+Payroll expenses for two NSF awards, totaling $4,417, were questioned as unreasonable. The
+payroll expenses were questioned based on the following criteria, referenced in Appendix C:
+
+
+
+
+                                                      25
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+   •   Reasonableness Costs and
+   •   Allocable Costs.
+
+According to 2 CFR Section 220, Appendix A, Section C.3, to be considered a reasonable cost
+under a Federal grant, a cost incurred must reflect the action that a “prudent person” would have
+taken under the circumstances prevailing at the time the decision was made.
+
+Per 2 CFR 220, Appendix A, Section C.4, a cost is allocable to an award if it is incurred solely to
+advance the work under the award; it benefits both the award and work of the institution in
+proportions that can be reasonably approximated; or it is necessary to the overall operation of the
+institution and is assignable in part to sponsored projects.
+
+Kearney questioned the following expenses related to payroll:
+
+   •   Award No.              – A member of USC’s staff received a bonus of $3,750 while
+       serving as an administrative assistant on the award. USC stated that the reason for this
+       bonus was to “compensate [the Administrative Assistant] for the enhanced
+       responsibilities he assumed on this grant prior to [a] promotion.” The bonus should have
+       not been charged using award funding, as the bonus provided on behalf of the award does
+       not reflect the action of a prudent person.
+   •   Award No.              – A teaching assistant charge of $667 was transferred onto the
+       award 2 months after award expiration. Award expiration was August 31, 2011, and the
+       effort certification document stated work was performed by the assistant during the
+       month of October 2011.
+
+The cause of unreasonable or unallocable payroll charges may vary on a case-by-case basis. One
+cause is that USC did not closely review OMB Circular A-21 requirements or appropriately
+support the reasonableness prior to awarding bonuses through the award. Based on discussions
+and follow-up responses from USC, the University did not review OMB Circular A-21
+requirements prior to awarding a bonus with NSF grant funding. Additionally, the University did
+not review a teaching charge to ensure the work was performed within the award’s period of
+performance. Incorrectly charging payroll to an award may result in noncompliance with NSF’s
+administrative terms and conditions determined in the original grant agreement, as well as
+noncompliance of OMB Circular A-21. Inappropriate use of previously funded awards may
+result in repayment to NSF.
+
+Recommendations: Kearney recommends that NSF’s Director of the Division of Institution and
+Award Support request that USC:
+
+   1. Resolve the $4,417 in questioned costs and repay the sustained questioned cost amounts,
+      as directed by the NSF RAM Branch.
+
+   2. Resolve any other improper bonus charges made and ensure that payroll charges comport
+      with NSF compliance requirements, as well as OMB Circular A-21 for awards made
+      prior to December 26, 2014, and 2 CFR Part 200, Uniform Administrative Requirements,
+
+
+
+                                                26
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+       Cost Principles, and Audit Requirements for Federal Awards, for awards or funding
+       increments made after December 26, 2014. Additionally, USC should ensure only
+       allocable employees may charge to the award.
+
+Management’s Response:
+
+   •   Award No.            – USC disagrees with this finding. The employee performed work
+       above and beyond      normal duties and was compensated for this in accordance with
+       USC policy. In addition, OMB Circular A-21, allows supplemental compensation for
+       excess work. Accordingly, this was a reasonable and allowable charge.
+   •   Award No.            – USC is not contesting this finding.
+
+See Appendix B for USC’s complete response.
+
+Auditor’s Response: For these costs that USC disagreed with, our conclusions remain
+unchanged.
+
+   •   Award No.                – USC disagreed with the questioned costs for a member of USC’s
+       staff to receive a bonus of $3,750 while serving as an administrative assistant on the
+       award. USC indicates that the staff member performed work above and beyond normal
+       duties and, therefore, the bonus was allowable. USC did not provide sufficient
+       documentation to reflect these actions were specifically and solely related to Award No.
+                 ; therefore, the report finding and recommendations remain unchanged.
+   •   Award No.                – USC did not contest the finding for the teaching assistant charge
+       of $667 that was transferred onto the award two months after award expiration. The
+       report finding and recommendations remain unchanged.
+
+
+
+
+                                                27
+                                                                                              National Science Foundation
+                                                                                             Audit of Claimed Costs of the
+                                                                                          University of Southern California
+
+
+
+
+Appendix A: Scope and Methodology of the Audit
+Scope and Limitations
+NSF OIG engaged Kearney to conduct a performance audit of an NSF OIG-selected sample of
+costs incurred by USC on NSF awards for the period of October 1, 2011, to September 30, 2014.
+Our audit included assessing the allowability, allocability, and reasonableness of the sample of
+250 transactions initially selected by the NSF OIG from a population of 91,815 transactions
+provided by USC at the request of NSF. As of September 30, 2014, USC received 603 NSF
+awards, totaling $324,028,578, during the scope of the audit. Our work required reliance on
+computer-processed data obtained from USC and the NSF OIG.
+
+Methodology and Work Performed
+Kearney conducted this performance audit in accordance with GAGAS for performance audits,
+as prescribed in the most current version of Government Auditing Standards, issued by the
+Comptroller General of the United States. Those standards require that Kearney plan and
+perform the audit to obtain sufficient, appropriate evidence to provide a reasonable basis for the
+findings and conclusions based on the audit objectives. We believe that the evidence obtained
+provides a reasonable basis for the findings and conclusions based on the audit objectives. As a
+basis for our performance audit, the Audit Team used the NSF award documentation; NSF
+policies; OMB Circular A-21, Cost Principles for Educational Institutions; and OMB Circular
+A-110, Uniform Administrative Requirements for Grants and Other Agreements with Institutions
+of Higher Education, Hospitals, and Other Non-Profit Organizations, to determine whether costs
+were in compliance and were allowable, allocable, and reasonable.
+
+To meet the performance audit objectives, Kearney specifically:
+
+    •    Reviewed NSF policy and OMB guidance;
+    •    Tested a sample of 250 expenditures selected by the NSF OIG for compliance with grant
+         terms and conditions;
+    •    Tested a sample of 55 additional expenditures and 6 cluster 3 areas selected by the NSF
+         OIG for compliance with grant terms and conditions based upon results of the 250
+         expenditures initially tested; and
+    •    Requested and reviewed supporting documentation from USC for each sample item to
+         ensure validity and compliance with grant requirements.
+
+To ensure completeness of the USC data provided for the audit period, NSF OIG analyzed
+schedules and reconciliations prepared by USC and agreed them to the accounting records. After
+ensuring completeness, NSF OIG conducted data mining and analytical procedures over the
+universe of data provided by USC. NSF OIG compiled a judgmental sample list of an initial 250
+transactions based on criteria, including, but not limited to, transactions of large dollar amounts;
+
+3
+ Cluster testing involves groups, or clusters, of transactions and/or awards which can be effectively and efficiently
+scrutinized together.
+
+
+                                                          28
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+duplicate transactions; unusual spending trends; inconsistencies; even dollar amounts;
+descriptions indicating potentially unallowable costs; frequency; and transactions near award
+expiration.
+
+Kearney requested supporting documentation for the 250 transactions from USC, and we
+reviewed the support provided by USC to determine the allowability, allocability, and
+reasonableness of expenditures. When necessary, we obtained additional support or explanations
+from USC to determine whether the transactions were valid.
+
+Kearney discussed the preliminary results of our testing with NSF OIG. Based on those results,
+NSF OIG chose to expand the sample to include an additional 55 judgmental transactions and 6
+cluster issue areas. NSF OIG used Kearney’s preliminary results and assessed potential cluster
+issue areas to further expand testing. NSF OIG grouped the cluster issue areas by a set of related
+transactions or by NSF award into the following expanded testing areas:
+
+   •   Reporting reconciliation variances noted between NSF data and data provided by USC;
+   •   IDC application relating to subawards exceeding the $25,000 threshold;
+   •   IDC application adjustments (Part I and Part II) applied at the end of the award period;
+   •   Participant support rebudgeting (unallowable) over transactions that did not appear to be
+       participant support related; and
+   •   Participant support rebudgeting (unobligated balances) over transactions with participant
+       support costs budgeted were not fully utilized.
+
+In total, Kearney tested 305 judgmental transactions and 6 cluster issue areas and reported the
+results and findings within the body of this Performance Audit Report. The results of our
+findings were not projected over the entire award population tested in our audit period.
+
+Work Related to Internal Controls
+USC management is responsible for establishing and maintaining effective internal control to
+help ensure that Federal award funds are used in compliance with laws, regulations, and award
+terms. In planning and performing our audit, we considered USC’s internal control over awards
+related to financial reporting solely for the purpose of understanding the policies and procedures
+relevant to the financial reporting and administration of NSF awards in order to evaluate USC’s
+compliance with laws, regulations, and award terms applicable to the items selected by NSF OIG
+for testing, but not for the purpose of expressing an opinion on the effectiveness of USC’s
+internal control over award financial reporting and administration. Accordingly, we do not
+express an opinion on the effectiveness of USC’s internal control.
+
+
+
+
+                                                29
+                                                National Science Foundation
+                                               Audit of Claimed Costs of the
+                                            University of Southern California
+
+
+
+
+Appendix B: Management’s Views on Conclusions and Findings
+
+
+
+
+                            30
+                                                                          National Science Foundation
+                                                                         Audit of Claimed Costs of the
+                                                                      University of Southern California
+
+
+
+            Finding 1 – Unreasonable Expenses Near Award Expiration
+
+1. Award No.           : A hydraulic pump, totaling $20,409, was not operational by the
+   end of the award and was installed after the award had expired.
+
+   Response: USC disagrees that this was an unreasonable expense. This award was a
+   Major Research Instrumentation Program (MRI) award. As described by NSF, the MRI
+   program serves to increase access to shared scientific and engineering instruments to be
+   used in future research and research training by providing opportunities to acquire major
+   instrumentation that supports the research and research training goals of the university.
+   (https://www.nsf.gov/funding/pgm_summ.jsp?pims_id=5260). The objective of MRI
+   grants, therefore, is the acquisition or development of the instrumentation itself, not the
+   use of the instrumentation in support of a separate research objective on the project.
+
+   The NSF’s MRI policy does not require that the instrumentation be operational by the
+   end of the award. Rather, the MRI policy provides that “[a]n instrument acquired or
+   developed with support from the MRI program is expected to be operational for regular
+   research use by the end of the award period.” (Emphasis added). This expectation is a
+   reflection of the complexity of the MRI program, which contemplates “the acquisition or
+   development of a single, shared-use, state-of-the-art, well-integrated instrument”
+   comprised of an “ensemble of equipment”. (See
+   https://www.nsf.gov/pubs/2015/nsf15012/nsf15012.pdf, FAQ #26).
+
+   The purpose of this award was to purchase and install robot instrumentation to be used in
+   future research. The equipment purchase questioned in this finding was a hydraulic
+   pump that was used to power the robot. The engagement with the vendor from whom the
+   pump was purchased required it to both deliver and install the pump, which was a highly
+   technical installation. While the pump itself was delivered nearly a year prior to the end
+   of the award, it could not be installed and tested until the robot instrumentation was
+   complete.
+
+   Although the PI expected that the instrumentation would be operational prior to the end
+   date of the award, the robot required a year lead time and the company that manufactured
+   it was acquired during the life of the award, which led to a delay in its acquisition. This
+   challenge was explicitly described in the Progress Reports submitted for this award.
+   Once the robot was complete, the pump was promptly installed and tested by the vendor.
+   The vendor was then paid shortly after the end date of the award.
+
+   Also, consistent with the purpose of the MRI program, the robot has been used in
+   connection with several NSF awards, including:
+
+       •   Award No.          (“RI: Small:
+                     ); Period of Performance: 8/19/10 – 7/31/16
+       •   Award No.          (“MRI-R2:
+                                ); Period of Performance: 7/8/10 - 9/30/15
+
+
+
+                                            31
+                                                                          National Science Foundation
+                                                                         Audit of Claimed Costs of the
+                                                                      University of Southern California
+
+
+
+       •   Award No.           (“AIS:
+                                    ); Period of Performance: 9/9/09 – 9/30/17
+       •   Award No.           (“RI: Small:                              ”); Period of
+           Performance: 9/9/09 – 8/31/15
+
+2. Award No.            : A laboratory clean hood, totaling $6,025, was ordered during the
+   last month of the award period and delivered the month after the award had expired. No
+   further extension requests were made to the NSF after award expiration.
+
+   Response: USC disagrees that this was an unreasonable expense. The laboratory
+   “PCR” hood was necessary to perform the last portion of data sample analysis. At the
+   time the PCR hood was ordered, there were no comparable facilities that could provide a
+   sterile clean workspace to complete the work. Using this equipment, an additional
+   component of the proposed work was completed. The PI published 13 manuscripts
+   affiliated with this project and had multiple scientific presentations and education and
+   outreach activities, including manuscripts made possible by the purchase of the PCR
+   hood, as detailed in the final report. Two of these publications resulted from lab work
+   done in the 3 month period after the end of the award.
+
+3. Award No.            : DNA analysis services, totaling $21,899, were completed 3 days
+   prior to award expiration. Performing an analysis 3 days prior to award expiration does
+   not appear as a reasonable time to incur the expenses and complete the project.
+
+   Response: USC disagrees that this was an unreasonable expense. This invoice is for
+   services rendered by the USC core genomics facility, which provides DNA sequencing
+   services. As to the provision of services, NSF’s Proposal & Award Policies &
+   Procedures Guide (PAPPG), allows for the payment of services even past the end-date of
+   the award as long as the services were rendered prior to the end date. (See
+   https://www.nsf.gov/pubs/policydocs/pappg17_1/pappg_10.jsp, Chapter X., paragraph c.,
+   “Post-End Date Costs”).
+
+   The service provided here was to perform DNA sequencing on a series of samples
+   collected from oysters entrained to a tidal cycle and then subsequently held under
+   constant conditions. This was performed prior to the end date of the grant and the
+   experiment and its outcome are described in detail at the bottom of page in the Final
+   Report to NSF on this award. The experiment was also consistent with one of the aims of
+   the proposal -- “IOS: Causes and consequences of transcriptional oscillations in intertidal
+   mussels”.
+
+   This charge may have been questioned by the OIG because it initially believed that it
+   related to an equipment purchase and not a service charge.
+
+4. Award No.             : Cell phones from Amazon were purchased for $2,466 in the last
+   month of the award. Although the University stated that the cell phones were needed for
+   the final testing phase in their follow-up response, a cell phone purchase within the last
+
+
+
+                                            32
+                                                                          National Science Foundation
+                                                                         Audit of Claimed Costs of the
+                                                                      University of Southern California
+
+
+
+   month of the award was unreasonable to be the sole benefit of the award. In addition, the
+   purchase does not reflect the action of a prudent person, as they charged the full amount
+   to the award, when the award will only benefit from a portion of the cell phone’s useful
+   life. The cell phones were available for less than 1 percent of the award period (roughly
+   24 of 1,446 days).
+
+   Response: USC disagrees that this was an unreasonable expense. The subject matter of
+   the principal investigator’s research is mobile computing, which seeks to understand how
+   to design/improve mobile computing devices (smartphones, tablets). As such, the PI
+   regularly purchases cellphones for research-related and software development purposes.
+   These cell phones were purchased in order to finish experiments on the automotive
+   software called CarMA, which runs on a mobile device and collects sensor readings from
+   cars, using which we are able to assess various aspects of car and driver behavior. The
+   CarMA software was tested in experiments conducted in a car club in New Jersey, as
+   explained more fully in the final report for the grant under review.
+
+5. Award No.             : A high-precision isotopic piece of equipment was purchased for
+   $16,272 and received within the last 4 months of the award period. When an older model
+   of the equipment was previously purchased on the award, the purchase of the new
+   equipment to be used at the end of the award was not reasonable. Kearney did not find it
+   reasonable for the equipment purchase to be fully charged to the award, when the same
+   functioning piece of equipment was in use for a majority of the award period already.
+   Specifically, the purchase does not reflect the action of a prudent person, as they charged
+   the full amount to the award, when the award will only benefit from a portion of the
+   equipment’s useful life. The equipment was available for less than 7 percent of the award
+   period (roughly 108 out of 1,477 days).
+
+   Response: USC disagrees that this was an unreasonable expense. This charge was for
+   the purchase of a high-precision isotopic piece of equipment. In 2010, an earlier version
+   of this equipment was purchased for the grant. The PI was able to purchase this
+   improved and much more precise piece of equipment for a substantial discount, and
+   thereby create a superior piece of equipment. The equipment was used to make
+   necessary measurements for the project, which occurred well before the project end date.
+
+6. Award No.           : Lab equipment items, totaling $41,506, were purchased within 1
+   month of award expiration, which was not reasonable, given the short amount of time
+   remaining on the award for which the equipment could be utilized. Additional lab
+   equipment items were purchased, totaling $15,190, and arrived after award expiration.
+   Total questioned expenses for this award are $56,696.
+
+   Response: USC disagrees that this was an unreasonable expense. This award was a
+   Major Research Instrumentation Program (MRI) award. The NSF’s MRI policy does not
+   require that the instrumentation be operational by the end of the award. Rather, the MRI
+   policy provides that “[a]n instrument acquired or developed with support from the MRI
+   program is expected to be operational for regular research use by the end of the award
+
+
+
+                                            33
+                                                                         National Science Foundation
+                                                                        Audit of Claimed Costs of the
+                                                                     University of Southern California
+
+
+
+period.” (Emphasis added). This expectation is a reflection of the complexity of the MRI
+program, which contemplates “the acquisition or development of a single, shared-use,
+state-of-the-art, well-integrated instrument” comprised of an “ensemble of equipment”.
+(See https://www.nsf.gov/pubs/2015/nsf15012/nsf15012.pdf, FAQ #26).
+This award was an “Instrument Development for Biological Research (IDBR) award
+whose purpose was “to develop novel instrumentation” to advance biological research.
+All of the equipment purchased was necessary to test the novel instrumentation
+developed under the award in question.
+
+As to the lab equipment items totaling $41,506, the equipment was delivered and used to
+acquire and develop the instrumentation prior to end date of the award, consistent with
+the objective of MRI grants. Delivery in the last month of the award is consistent with
+this objective – the equipment was delivered and assembled prior to the end date of the
+award.
+
+As to the lab equipment totaling $15,190 that was delivered one day after award
+expiration, the PI has an established reputation in the field and with her vendors, and was
+able to try out several different units over the last two years of the award on a loaner basis
+in advance of actually placing an order. In that two year period of testing, the PI obtained
+data results from one of the pieces of equipment tested, which was subsequently included
+in the Final Report to NSF and reflected in a publication where the PI expressly
+acknowledged NSF support from the grant under review (See - “
+                   ”, Applied Physics Letters       (12),         (2013)). Proceeding in this
+fashion allowed for a rigorous evaluation and verification that the unit eventually
+purchased and currently questioned by the OIG would be of the most benefit for the
+equipment developed on the project.
+
+As described by NSF, the MRI program serves to increase access to shared scientific and
+engineering instruments to be used in future research and research training by providing
+opportunities to acquire major instrumentation that supports the research and research
+training goals of the university.
+(https://www.nsf.gov/funding/pgm_summ.jsp?pims_id=5260). The objective of MRI
+grants, therefore, is the acquisition or development of the instrumentation itself, not the
+use of the instrumentation in support of a separate research objective on the project. In
+this case, the instrumentation developed was used in subsequent NSF awards, including:
+
+   •   Award No.             (
+                                                ”); Period of Performance: 5/7/10 –
+       4/30/14.
+   •   Award No.             (
+
+                             ”); Period of Performance: 6.1.14 – 5.31.18.
+
+
+
+
+                                         34
+                                                                            National Science Foundation
+                                                                           Audit of Claimed Costs of the
+                                                                        University of Southern California
+
+
+
+7. Award No.            : Hydrogen was purchased to replenish a laboratory within the last
+   2 weeks of the award period, totaling $1,510. Justifiable support was not provided for the
+   purchase near expiration.
+
+   Response: USC disagrees that justifiable support was not provided for the purchase near
+   award expiration. The questioned transaction involved the purchase of hydrogen gas,
+   which is indispensable to the operation of the PI’s crystal growth equipment, a
+   fundamental tool used in this project up through its end date. The total cost of the
+   hydrogen gas purchased was $3600. Based on a good faith estimate of the amount of
+   projected use prior to the end date of the project under review, the PI allocated the total
+   expense based on usage between the award under review, a then-active award from
+   another federal sponsor, and non-sponsored funds, as reflected in supporting
+   documentation provided to OIG. Under this allocation, the award in question was
+   charged approximately 32% of the total cost of the hydrogen.
+
+8. Award No.            : A computer, totaling $31,375, was installed 15 days prior to the
+   end of the award. The purchase does not reflect the action of a prudent person, as they
+   charged the full amount to the award, when the award will only benefit from a portion of
+   the computer’s useful life. The computer was available for use for less than 2 percent of
+   the award period (roughly 15 out of 852 days).
+
+   Response: USC disagrees that this was an unreasonable expense. This equipment was a
+   custom made special upgrade that took a significant amount of time to both build and
+   then to install. Although this equipment was charged 10 days prior to the end of the
+   grant, it was ordered over eight months before the end date of the award. The equipment
+   was in use during its installation for roughly two and a half months prior to the end date
+   of the award, not 15 days. The purchase benefitted this grant because prior equipment
+   used to perform the functions the computer enabled was inoperable and also obsolete.
+
+9. Award No.             : Research equipment, totaling $16,193, was used past the
+   expiration date and taken by the Principal Investigator (PI) to another university.
+   Therefore, this item was not fully allocable to the award. Additionally, the equipment
+   was unreasonably charged to the award 1 month prior to expiration. An additional
+   purchase of supplies 1 month prior to award expiration, totaling $6,819, was transferred
+   onto the award, which was not reasonable. Total questioned expenses for this award
+   were $23,012.
+
+   Response: USC disagrees that this was an unreasonable expense. This was a fellowship
+   award. The purpose of the award funding mechanism is to develop the next generation of
+   faculty, which it did, as the PI received a faculty appointment at another university. The
+   equipment was used by the PI in        research at USC for an additional 15 months after
+   the end date of the award, and the PI has continued to use the equipment at        new
+   institution. In addition, the cryostat questioned here and its relationship to the aims of the
+   grant was documented by the PI in the Final Report.
+
+
+
+
+                                             35
+                                                                            National Science Foundation
+                                                                           Audit of Claimed Costs of the
+                                                                        University of Southern California
+
+
+
+10. Award No.             : A data collection instrument, totaling $10,194, was purchased 4
+    days prior to award expiration. Although USC noted future use of the instrument, the
+    entire purchase was not used on this specific award and, therefore, is not allocable to the
+    award, as it was not received prior to award expiration.
+
+   Response: USC disagrees that this expense is not allocable to the award under review.
+   The OIG’s characterization of this award is incorrect. While the data collection
+   instrument was purchased 4 days before the end date of a grant period, the grant was
+   continued through August 2017 and the PI continued to use the instrument during that
+   time period. (See NSF Continuing Grant No.             ; Period of Performance: 9.1.13 -
+   8.31.17).
+
+   In addition, one of the explicit purposes of the award under review was to develop novel
+   instrumentation, namely a liquid photoelectronic spectrometer, to support this continuing
+   research effort. This charge was for the purchase of a data acquisition board which was a
+   line item in the equipment budget for this award. The board was necessary for the data
+   collection portion of the spectrometer. This purchase enabled the equipment to work as
+   intended.
+
+11. Award No.            : Equipment, totaling $106,069, was unreasonably charged to the
+    award, because the equipment was received after award expiration. Due to the timing of
+    receipt, the equipment needed to support the scientific and engineering instruments was
+    not operational by the end of the award, which does not comply with NSF’s MRI policy.
+
+   Response: USC disagrees that this was an unreasonable expense. This award was a
+   Major Research Instrumentation Program (MRI) award. As described by NSF, the MRI
+   program serves to increase access to shared scientific and engineering instruments to be
+   used in future research and research training by providing opportunities to acquire major
+   instrumentation that supports the research and research training goals of the university.
+   (https://www.nsf.gov/funding/pgm_summ.jsp?pims_id=5260). The objective of MRI
+   grants, therefore, is the acquisition or development of the instrumentation itself, not the
+   use of the instrumentation in support of a separate research objective on the project.
+
+   The NSF’s MRI policy does not require that the instrumentation be operational by the
+   end of the award. Rather, the MRI policy provides that “[a]n instrument acquired or
+   developed with support from the MRI program is expected to be operational for regular
+   research use by the end of the award period.” (Emphasis added). This expectation is a
+   reflection of the complexity of the MRI program, which contemplates “the acquisition or
+   development of a single, shared-use, state-of-the-art, well-integrated instrument”
+   comprised of an “ensemble of equipment”. (See
+   https://www.nsf.gov/pubs/2015/nsf15012/nsf15012.pdf, FAQ #26).
+
+   In this case, although the PI expected the equipment would be operational before the end
+   date of the award, later recognized that the questioned equipment would be delivered
+   after the award end date and obtained specific sponsor approval for the late delivery from
+
+
+
+                                             36
+                                                                           National Science Foundation
+                                                                          Audit of Claimed Costs of the
+                                                                       University of Southern California
+
+
+
+   the NSF Program Manager. USC provided a copy of this prior approval to the NSF OIG
+   in its prior submission.
+
+   As noted in USC’s earlier response, this award was made under the American Recovery
+   and Reinvestment Act (ARRA), in connection with which USC contributed $117,000 in
+   cost sharing.
+
+   The purpose of this award was to acquire a networked instrument composed of two
+   complementary Autonomous Underwater Vehicles (AUV's), which support an extensive
+   program of research in robotics, underwater acoustic communication and networking,
+   marine biology, oceanography, and biogeochemistry at the Center for Integrated
+   Networked Aquatic PlatformS (CINAPS).
+
+   Despite the late delivery (approved by the sponsor), the objective of this grant was
+   therefore met and the AUV’s are in use today on NSF Award No.                 (“
+                                                            ”).
+
+12. Award No.            : Lab supplies, totaling $6,434, were ordered in August 2013, and
+    award expiration was September 30, 2013. USC did not provide physical documentation
+    as to when the items were received to evidence that the items were used for this specific
+    award. USC stated that items were still in use for two other awards. As such, the items
+    should not have been fully allocated to this award.
+
+   Response: Due to an inadvertent oversight, USC did not provide physical
+   documentation as to when the items were received. We have included such
+   documentation as an attachment to this response.
+
+13. Award No.              : A laptop computer purchase, totaling $1,929, was transferred onto
+    the award approximately 1 month before expiration date. When asked about the use of
+    the laptop, USC noted that the computer would be used for taking research notes and
+    writing papers, which do not appear reasonable, as the computer was unreasonably used
+    for additional activities outside of the award itself. The transfer does not reflect the
+    action of a prudent person, as they charged the full amount to the award, when the award
+    will only benefit from a portion of the computer’s useful life. The computer was
+    available for use for less than 4 percent of the award period (roughly 37 out of 911 days).
+
+   Response: While the laptop was necessary for a student to support core activities related
+   to the research such as writing papers, taking research notes, and developing and
+   compiling code which can then be installed and run on a smartphone, USC does not
+   contest this finding. However, USC also notes that use of an allocation methodology that
+   derives from the number of remaining open days on an award is not appropriate. If use of
+   this methodology was a requirement, an institution would be required to allocate all
+   award expenses from the first day after the award start date until the end of the award.
+   This is not the applicable standard on allocation.
+
+
+
+
+                                            37
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+              Finding 2 – Misapplication of Indirect Costs (IDC) on Subawards
+
+Finding: Per the 2 CFR Part 220: MTDC consists of “all salaries and wages, fringe benefits,
+materials and supplies, services, travel, and subgrants and subcontracts up to the first $25,000 of
+each subgrant or subcontract (regardless of the period covered by the subgrant or subcontract).”
+Due to the nature and complexity of the award, USC collaborated with many other subawarded
+universities. USC divided the subawards into separate purchase orders that each had its own
+objective and unique scope of work, rather than treating each university as a stand-alone
+subaward. USC applies the IDC threshold to each subaward purchase order, instead of the
+aggregate level, thus causing subaward universities to exceed the $25,000 threshold requirement.
+Kearney did not receive support to evidence that this purchase order IDC application approach
+was approved by the NSF Grant Officer.
+
+Response: USC disagrees with this finding. There is no requirement that USC aggregate all
+subawards made to a single institution and treat them as a single subaward for purposes of
+applying USC’s F&A rate to the first $25,000 of direct charges. Rather, as noted in the finding,
+the prime awardee’s F&A cost rate is to be applied to a modified total direct cost (MTDC) base
+that includes the first $25,000 of each subaward, regardless of whether the subaward is made to
+one institution or multiple institutions. See 2 CFR §200.68 (“MTDC means all direct salaries and
+wages, applicable fringe benefits, materials and supplies, services, travel, and up to the first
+$25,000 of each subaward (regardless of the period of performance of the subawards under the
+award).”)
+
+ The Uniform Guidance indicates that an award qualifies as a subaward if it is “provided by a
+pass-through entity to a subrecipient for the subrecipient to carry out part of a Federal award
+received by the pass-through entity.” 2 CFR §200.92; see also 2 CFR §200.330 (providing for
+the issuance of a subaward “for the purpose of carrying out a portion of a Federal award.”).
+
+As acknowledged in the finding, the questioned cooperative agreement is highly complex $47.6
+million dollar award that involves key contributions from a team of investigators who bring
+different disciplinary foundations for the intellectual and technical challenges of the research,
+including at times more than one investigator with different areas of substantive expertise at the
+same subawardee institution or entity. In addition to the lead investigators at the primary
+institutions, this project has supported deep biosphere community research at over 40 institutions
+in nearly 100 projects, including about 45 graduate student and postdoctoral research
+fellowships.
+
+The specific subawards under review involved the collection of unique samples at different field
+sites around the world, each of which required the use of different collection, analysis, and
+reporting activity at each site. Oversight of these efforts required monitoring separate work
+streams, collecting and analyzing distinct reports, and ensuring that each subproject was
+performed appropriately from both a scientific and programmatic perspective.
+
+It should also be noted that under NSF’s Cooperative Agreement Financial & Administrative
+Terms and Conditions (CA-FATC)
+
+
+
+                                                38
+                                                                            National Science Foundation
+                                                                           Audit of Claimed Costs of the
+                                                                        University of Southern California
+
+
+
+(https://www.nsf.gov/pubs/policydocs/cafatc/cafatc_716.pdf), prior approval is not required
+before implementing the subaward methodology USC employed, as suggested by the OIG. (See
+CA-FATC, paragraph 3).
+
+Each subaward was therefore executed and administered separately, and the costs that USC
+incurred for administering two or more subawards to the same institution were the same costs
+that USC would have incurred for administering two subawards to two different
+institutions. Accordingly, USC’s approach of applying its F&A rate to the first $25,000 of each
+subaward was appropriate, regardless of whether there were multiple subawards to the same
+institution.
+
+
+
+
+                                              39
+                                                                             National Science Foundation
+                                                                            Audit of Claimed Costs of the
+                                                                         University of Southern California
+
+
+
+           Finding 3 – Unsupported or Incorrect Charges to Participant Support
+
+1. Award No.             – Travel reimbursement expenses related to a USC employee attending
+   a conference in Colorado totaled $1,540 and were incorrectly charged as participant support.
+   Award No.             – Reimbursement expenses related to a USC employee attending a
+   conference in California totaled $517 and were incorrectly charged as participant support. Of
+   the $517 expenses in question, $46 related to unallowable alcohol expenses charged to the
+   award. USC agreed that these charges were related to a USC employee and that the alcohol
+   charges should not have been charged to the award in any case.
+   Award No.             – Two expenses relating to travel to Japan were charged to participant
+   support, totaling $5,828. USC agreed that the charge totaling $3,661 for a student satellite
+   project was incorrectly charged to participant support. USC stated that the other charge,
+   totaling $2,167, was an expense related to a non-enrolled student in the summer of 2012 who
+   was not considered a staff or faculty employee. However, Kearney noted that the individual
+   had a USC employee ID number and was paid a research assistant’s salary for the months of
+   April and May 2012. The travel end date for the expenses related to the award was within
+   this timeframe.
+   Award No.             – Expenses relating to travel to Japan and reimbursed to a USC
+   employee, totaling $1,663, were incorrectly charged as participant support.
+
+   Response: USC is not contesting these findings. While the reimbursements did support the
+   aims of the respective awards, they were inadvertently charged to the participant support
+   companion accounts in error.
+
+2. Award No.             – Payroll expenses were incorrectly charged to participant support,
+   totaling $20,873. The costs were noted to not be participant support, but evidence to support
+   that conclusion was not provided. Therefore, the participant support expenses in question
+   were not fully supported and appear to be commingled between participant and non-
+   participant support accounts within the same award.
+
+   Response: USC is not contesting this finding. At the time, USC was transitioning between
+   systems and the participant support expenses on this account were comingled. In early 2015,
+   USC strengthened existing procedures to ensure that separate companion accounts were
+   created for any awards with participant support. Participant support budget and expense
+   would be segregated in the companion account. Non-participant support budget and expense
+   would be on the main grant account. This procedure also enabled identification of
+   participant support costs.
+
+3. Award No.            – A USC employee included herself in a conference meal
+   reimbursement with other participants. The charges related to the USC employee totaled $69
+   and were incorrectly charged as participant support.
+
+   Response: USC is not contesting this finding. While the reimbursement did support the
+   aims of the award, it was inadvertently charged to the participant support companion account
+   in error.
+
+
+
+                                               40
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+4. Award No.              – Participant support charges, totaling $8,122, related to speaker fees
+   were unallowable. The charges do not meet the requirements of a participant support charge,
+   as a speaker is neither a participant nor a trainee.
+
+   Response: USC does not agree with this finding. These participants were all named in the
+   proposal for supplemental funding to this award. The supplemental proposal was
+   and was exclusively for participant support. These three speakers were the only participants
+   named and were listed by name in the “Summary of Proposed Work”, the “Justification for
+   Supplemental Funding”, and the “Budget Justification Page”. Accordingly, they were clearly
+   identified as participants in the proposal, which was approved and funded by NSF.
+
+   In addition, the amount in question was separately budgeted and charged to a companion
+   account where no indirect charges were applied. As such, USC did not inappropriately
+   burden this charge with indirect costs nor did USC bill the NSF for $1,675.96 of indirect
+   costs as claimed in this finding.
+
+5. Award No.             – A reimbursement expense, totaling $11,293, for a USC employee to
+   travel to              for a special study was incorrectly charged to participant support.
+
+   Response: USC is not contesting the directly charged portion of this finding of $6,971.25.
+   However, the amount in question was separately budgeted and charged to a companion
+   account where no indirect charges were applied. As such, USC did not inappropriately
+   burden this charge with indirect costs nor did USC bill the NSF for $4,322.18 of indirect
+   costs as claimed in this finding.
+
+6. Award No.            – Three expenses, totaling $5,277, related to travel reimbursement for
+   USC employees to attend a workshop in Washington, D.C. were incorrectly charged as
+   participant support.
+
+   Response: USC is not contesting this finding. While the reimbursement did support the
+   aims of the award, it was inadvertently charged to the participant support companion account
+   in error.
+
+
+
+
+                                               41
+                                                                                  National Science Foundation
+                                                                                 Audit of Claimed Costs of the
+                                                                              University of Southern California
+
+
+
+                Finding 4 – Unreasonable, Unallowable, or Unsupported Travel Costs
+
+1. Award No.              – Travel expenses, totaling $12,671, related to an        car
+   rental, and travel to and/or from           University,              , and  , were
+   unallowable. USC agreed that these expenses should not have been charged to the award and
+   will repay the funds to NSF.
+
+   Response: USC is not contesting this finding.
+
+2. Award No.              – PI travel expenses to a conference in Germany, with a separate trip to
+   collaborate at a university in      , were charged to the award, totaling $3,729. USC stated
+   that the PI’s collaboration “focused on the analysis of primitive equations of the atmosphere,
+   consistent with the research aims of the grant under review.” The separate trip to         is
+   questioned for reasonableness, as USC’s response does not provide enough evidence
+   showing the amount incurred for the          travel reflects the action of a prudent person, and
+   the       collaboration was not listed within the award’s Annual or Final Project Report. In
+   addition, the Final Project Report states that no international collaboration occurred for the
+   PI.
+
+   Response: USC disagrees with this finding. The PI used the General Services
+   Administration (GSA) approved per diem rates for Paris and per diem reimbursement is an
+   approved form of travel reimbursement per OMB Circular A-21 and USC Travel Policy.
+   Furthermore, the PI did not claim per diem for the two weekend days he was in    since
+   was not providing services benefiting the grant on those days.
+
+   The PI did budget for international travel in     proposal which was approved and awarded
+   by the NSF. In addition, listed travel to            in the Final Project Report. chose not
+   to identify any international collaboration in the Final Project Report because and his
+   collaborator had not successfully solved the problem they were working on.
+
+3. Award No.                – The PI traveled to                                    , and          from
+   January 2013 through August 2013 to collaborate with universities. The travel expenses for
+   one trip totaled $13,831, and the collaborations were not included in the initial NSF proposal
+   submitted. This trip was not mentioned in the award proposal for an 8-month travel period.
+   As the PI returned early (July), another flight home was purchased and charged to the award.
+   The original round trip flight was not used and was not refundable. An additional trip to
+                totaling $3,448, charged to the award for further collaborations was questioned.
+   Based on supporting documentation provided, only certain costs were charged to the grant
+   (i.e., airfare, car rental, and a 1-night stay in a hotel). USC stated that the purpose of this trip
+   was to collaborate with professors and work on joint publications; however, the documentary
+   evidence provided was not sufficient to support this and the trip was not mentioned in the
+   Annual or Final Project Report. Because this specific travel was not included in the budget
+   and the total travel exceeded the budgeted amount, the aforementioned travel booked does
+   not reflect the action of a prudent person. Additionally, there is no documented evidence of
+
+
+
+
+                                                  42
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+   how this trip directly benefitted the award; therefore, Kearney questioned these travel
+   charges. Total questioned expenses for this award were $17,279.
+
+   Response: USC disagrees with this finding. This trip was mentioned in the Final Project
+   Report for Award           in the International Travel Section, “International Travel: Yes,
+            - 0 years, 6 months, 7 days”.
+
+   In an earlier response, the PI provided a detailed itinerary documenting his collaborations and
+   noting two papers that resulted from this collaborative trip. The papers cited this award and
+   the continuation award,                  . The papers also included and acknowledged
+   collaborators in         . The itinerary and these two papers both document the direct benefit
+   of this trip to the award.
+
+   In terms of the flight charged, the research was completed ahead of schedule but it would
+   have cost more to change the flight return date than to buy a second one way ticket.
+
+4. Award No.             – PI travel expenses, totaling $6,520, were unreasonably charged to the
+   award. The expenses related to a conference in Massachusetts to publish research results. The
+   PI had to travel from         to attend the conference in Massachusetts; however, publishing
+   the results could have been achieved in other ways, such as through a publication, and
+   international travel was not considered prudent. Travel was not budgeted in the original
+   proposal, but 33 percent of the award budget was rebudgeted for travel. Travel should have
+   been considered within the original budget if the PI planned to publish results at a conference
+   outside of         .
+
+   Response: It appears that this travel was found unreasonable because the trip was not
+   originally budgeted in the award proposal. However, under the Federal Demonstration
+   Partnership (FDP), of which NSF is a member, universities are authorized to rebudget for
+   travel without advance approval.
+
+
+
+
+                                                43
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+            Finding 5 – Unreasonable or Unallocable General Expense Charges
+
+1. Award No.             – Lunch expenses with research collaborators, totaling $71, were
+   unreasonably charged to the award. No agenda or itinerary was provided to support that the
+   meeting benefitted this specific award.
+
+   Response: USC disagrees with this finding as the lunch was to further the research
+   collaboration. It is reasonable for researchers be allowed to participate in research
+   collaboration meetings that directly benefit the award without having to create an agenda or
+   itinerary.
+
+2. Award No.             – Temporary employment expenses, totaling $1,129, for a summer
+   internship was given to a non-USC student. Kearney questioned the reasonableness, as a
+   USC student could have performed these tasks. USC did not provide evidence that they
+   consulted its Human Resources Office prior to hiring a temporary employee to perform the
+   work. Additionally, the Annual and Final Project Reports did not support that the individual
+   performed work directly benefitting the award.
+
+   Response: USC disagrees with this finding. This student was paid from a Research
+   Experiences for Undergraduates (REU) Supplement. REU Supplements are open to
+   application by undergraduate students from any university with the only stipulation that
+   students must be citizens or permanent residents of the US or its territories
+   (https://www.nsf.gov/crssprgm/reu/). NSF does not restrict REU educational opportunities to
+   students enrolled at the awardee institution. In addition, this student worked on projects
+   benefiting the grant.
+
+3. Award No.              – A 3-night hotel stay was charged to the award for a 1-day conference,
+   totaling $225 per night. Kearney determined the charges for the night before the conference
+   and the night of the conference were reasonable; however, we questioned the reasonableness
+   of the additional 1 night’s stay, as USC was unable to provide any type of justification for the
+   extended stay.
+
+   Response: USC is not contesting this finding.
+
+4. Award No.              – Lab usage expenses for individuals, totaling $6,939, were charged to
+   the award. These individuals were not mentioned in the Final Project Report. Other
+   individuals on the invoice were listed as people who worked on the grant in the Final Project
+   Report. Since the list of individuals included within the Final Project Report were
+   inconsistent with the lab usage invoice charges, Kearney questioned whether the individuals
+   used the lab for the direct benefit of the award.
+
+   Response: All individuals listed used the lab for the direct benefit of the award. Only those
+   who charged salary to the award were listed in the Final Project Report. Others received
+   departmental and fellowship support so were not listed but still worked in support of the
+
+
+
+
+                                                44
+                                                                             National Science Foundation
+                                                                            Audit of Claimed Costs of the
+                                                                         University of Southern California
+
+
+
+   award objectives. Several publications credit these individuals as well as acknowledge
+   funding from this award.
+
+5. Award No.              – Parking expenses for a          competition, totaling $340, were
+   transferred onto the award. The original charges were made to NSF Award No.               ,
+   which directly relates to the          competition. USC stated that these charges were used to
+   support participant middle school teachers who served as mentors for the student participants
+   in the         competition. The transaction under review transferred the parking charges for
+   teacher participants in the          competition event at USC. However, the expenses were
+   transferred to NSF Award No.              , where the        competition is not directly
+   mentioned. The award originally charged, Award No.               , does mention the Botball
+   event. The same PI is in charge of both of these awards. Kearney questioned the allocability
+   of the transfer due to the incorrect award account being charged.
+
+   Response: At the time of proposal of Award No.               , the PI was not aware that the
+   GCER (Global Conference on Educational Robotics) would take place in Los Angeles so the
+            competition was not directly mentioned in the proposal. Although not mentioned
+   specifically, the Final Project Report described the overall program, which included the
+            competition. The charge was allocated between the two awards based on the number
+   of participants attending from each award which is a reasonable and appropriate allocation
+   methodology.
+
+6. Award No.              – Lunch meeting expenses, totaling $230, were charged to the award 2
+   days prior to the expiration period. No agenda or itinerary was provided to support that the
+   meeting benefitted this specific award.
+
+   Response: USC disagrees with this finding as the lunch was to further the research
+   collaboration. It is reasonable for researchers be allowed to participate in research
+   collaboration meetings that directly benefit the award without having to create an agenda or
+   itinerary.
+
+7. Award No.             – Lunch expenses with the PI’s research students, totaling $205, were
+   unreasonably charged to the award. No agenda or itinerary was provided to support that the
+   meeting benefitted this specific award.
+
+   Response: USC disagrees with this finding as the lunch was to further the research
+   collaboration. It is reasonable for researchers be allowed to participate in research
+   collaboration meetings that directly benefit the award without having to create an agenda or
+   itinerary.
+
+8. Award No.             – A stipend for a USC research associate professor, totaling $225, was
+   incorrectly charged to participant support. USC agreed that these expenses should not have
+   been charged to the award and stated the funds will be repaid to NSF.
+
+
+
+
+                                               45
+                                                                      National Science Foundation
+                                                                     Audit of Claimed Costs of the
+                                                                  University of Southern California
+
+
+
+Response: USC does not contest this finding. This stipend was charged to the main
+account, not the participant support companion account.
+
+
+
+
+                                         46
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+                       Finding 6 – Untimely Posting of Travel Charges
+
+1. Award No.              – Travel conference charges for a trip to Taiwan, totaling $1,863, were
+   posted 15 months after the travel end date and eight months after award expiration, even
+   though the conference was related to the award. The untimely submission violates USC’s
+   Expenditure policy regarding timely and accurate processing. In addition, the amount
+   incurred for the travel does not reflect the action of a prudent person, as expenses should be
+   submitted in a timely manner to be considered reasonable and allocable to the award.
+
+   Response: Although this reimbursement was posted late, the auditors agreed that this travel
+   benefited the project. The submission was not a violation of USC policy as the policy states
+   that expenses “should be processed” in a timely manner. This policy is in part to ensure that
+   faculty and staff are reimbursed promptly for out of pocket costs. That was not an issue here
+   since the reimbursee was responsible for submitting his reimbursement late.
+
+2. Award No.              – Travel charges, totaling $5,629, were posted 11 months after the
+   travel end date and 3 months after award expiration for one transaction. The travel was
+   related to charges for a conference in Japan and charges to visit with a collaborator at a
+   Japanese university, which related to the award. The untimely submission violates USC’s
+   Expenditure policy regarding timely and accurate processing. In addition, the amount
+   incurred for the travel does not reflect the action of a prudent person, as expenses should be
+   submitted in a timely manner to be considered reasonable and allocable to the award. In
+   addition, lodging expenses were not supported, and no collaborations were listed in the initial
+   proposal, Annual, or Final Project Reports.
+
+   On the same award, conference charges, totaling $1,148, were posted 4 months after the
+   award end date. When asked to provide a justification or NSF approval for posting the
+   expense untimely, only the award end date was given, which was not a sufficient reason for
+   the charge. The untimely submission violates USC’s Expenditure policy regarding timely and
+   accurate processing. In addition, the amount incurred for the conference does not reflect the
+   action of a prudent person, as expenses should be submitted in a timely manner to be
+   considered reasonable and allocable to the award.
+
+   Total questioned expenses for this award were $6,777.
+
+   Response: Although this reimbursement was posted late, the auditors agreed that this travel
+   benefited the project. The submission was not a violation of USC policy as the policy states
+   that expenses “should be processed” in a timely manner. This policy is in part to ensure that
+   faculty and staff are reimbursed promptly for out of pocket costs. That was not an issue here
+   since the reimbursee was responsible for submitting his reimbursement late.
+
+
+
+
+                                                47
+                                                                              National Science Foundation
+                                                                             Audit of Claimed Costs of the
+                                                                          University of Southern California
+
+
+
+                         Finding 7 – Unreasonable Payroll Charges
+
+1. Award No.               – A member of USC’s staff received a bonus of $3,750 while serving as
+   an administrative assistant on the award. USC stated that the reason for this bonus was to
+   “compensate [the Administrative Assistant] for the enhanced responsibilities he assumed on
+   this grant prior to [a] promotion.” The bonus should have not been charged using award
+   funding, as the bonus provided on behalf of the award does not reflect the action of a prudent
+   person.
+
+   Response: USC disagrees with this finding. The employee performed work above and
+   beyond his normal duties and was compensated for this in accordance with USC policy. In
+   addition, OMB Circular A-21, Section J.10 allows supplemental compensation for excess
+   work. The section reads:
+
+       Incidental work (that in excess of normal for the individual), for which supplemental
+       compensation is paid by an institution under institutional policy, need not be included in
+       the payroll distribution systems described below, provided such work and compensation
+       are separately identified and documented in the financial management system of the
+       institution.
+
+   Accordingly, this was a reasonable and allowable charge,
+
+2. Award No.            – A teaching assistant charge of $667 was transferred onto the award 2
+   months after award expiration. Award expiration was August 31, 2011, and the effort
+   certification document stated work was performed by the assistant during the month of
+   October 2011.
+
+   Response: USC is not contesting this finding.
+
+
+
+
+                                               48
+                                                                             National Science Foundation
+                                                                            Audit of Claimed Costs of the
+                                                                         University of Southern California
+
+
+
+
+Appendix C: Criteria
+                                      Reasonable Costs
+      Reference                                         Description
+                          “A cost may be considered reasonable if the nature of the goods or
+                          services acquired or applied, and the amount involved therefore,
+                          reflect the action that a prudent person would have taken under the
+                          circumstances prevailing at the time the decision to incur the cost
+                          was made. Major considerations involved in the determination of
+                          the reasonableness of a cost are: whether or not the cost is of a
+                          type generally recognized as necessary for the operation of the
+                          institution or the performance of the sponsored agreement; the
+ OMB Circular A-21,
+                          restraints or requirements imposed by such factors as arm’s length
+ App. A, Section C.3.:
+                          bargaining, Federal and State laws and regulations, and sponsored
+  “Reasonable costs”
+                          agreement terms and conditions; whether or not the individuals
+                          concerned acted with due prudence in the circumstances,
+                          considering their responsibilities to the institution, its employees,
+                          its students, the Federal Government, and the public at large; and,
+                          the extent to which the actions taken with respect to the incurrence
+                          of the cost are consistent with established institutional policies and
+                          practices applicable to the work of the institution generally,
+                          including sponsored agreements.”
+                                       Allocable Costs
+      Reference                                         Description
+                          “A cost is allocable to a particular cost objective (i.e., a specific
+                          function, project, sponsored agreement, department, or the like) if
+                          the goods or services involved are chargeable or assignable to such
+                          cost objective in accordance with relative benefits received or
+                          other equitable relationship. Subject to the foregoing, a cost is
+                          allocable to a sponsored agreement if it is incurred solely to
+                          advance the work under the sponsored agreement; it benefits both
+ OMB Circular A-21,       the sponsored agreement and other work of the institution, in
+ App. A, Section C.4.a,   proportions that can be approximated through use of reasonable
+   “Allocable costs”      methods, or it is necessary to the overall operation of the institution
+                          and, in light of the principles provided in this [Circular], is deemed
+                          to be assignable in part to sponsored projects. Where the purchase
+                          of equipment or other capital items is specifically authorized under
+                          a sponsored agreement, the amounts thus authorized for such
+                          purchases are assignable to the sponsored agreement regardless of
+                          the use that may subsequently be made of the equipment or other
+                          capital items involved.”
+
+
+
+
+                                             49
+                                                                               National Science Foundation
+                                                                              Audit of Claimed Costs of the
+                                                                           University of Southern California
+
+
+
+                                Changes in Objectives of Scope
+       Reference                                          Description
+                            “Neither the phenomena under study nor the objectives of the
+                            project stated in the proposal or agreed modifications thereto
+                            should be changed without prior NSF approval. Such changes
+    NSF Award and
+                            should be proposed electronically via use of NSF’s electronic
+ Administration Guide
+                            systems to the cognizant NSF Program Officer by the PI [Principal
+   (AAG), Chapter II,
+                            Investigator]/PD. If approved by NSF, the Grants and Agreements
+Section B.1.a: “Changes
+                            Officer will amend the grant. Prior NSF approval also is required
+in Objectives or Scope”
+                            for any change to the Facilities, Equipment, and Other Resources
+                            section of the approved proposal that would constitute a change in
+                            objective or scope.”
+                                      Post-End Date Costs
+       Reference                                          Description
+                            “NSF funds may not be expended subsequent to the expiration date
+                            of the grant, except to liquidate valid commitments that were made
+                            on or before the expiration date. For example, commitment of
+NSF AAG, Chapter V,         project funds is valid when specialized (research) equipment is
+Section A.2.c: “Post-       ordered well in advance of the expiration date but where, due to
+  Expiration Costs”         unusual or unforeseen circumstances, delivery of such equipment
+                            is delayed beyond the expiration date. The costs of equipment
+                            ordered after the expiration date, however, may not be charged to
+                            the project.”
+                                   Participant Support Costs
+       Reference                                          Description
+                            “(i) Participant support costs are direct costs for items such as
+                            stipends or subsistence allowances, travel allowances and
+                            registration fees paid to or on behalf of participants or trainees (but
+                            not employees) in connection with meetings, conferences,
+                            symposia or training projects. For some educational projects
+                            conducted at local school districts, however, the participants being
+                            trained are employees. In such cases, the costs must be classified
+ NSF AAG, Chapter V,        as participant support if payment is made through a stipend or
+Section 8.a, “Participant   training allowance method. The school district must have an
+    Support Costs”          accounting mechanism in place (i.e., sub-account code) to
+                            differentiate between regular salary and stipend payments.
+
+                            (ii) Funds provided for participant support may not be used by
+                            grantees for other categories of expense without the specific prior
+                            written approval of the cognizant NSF Program Officer. Therefore,
+                            awardee organizations must account for participant support costs
+                            separately.”
+
+
+
+
+                                               50
+                                                                            National Science Foundation
+                                                                           Audit of Claimed Costs of the
+                                                                        University of Southern California
+
+
+
+                          Major Research Instrumentation (MRI)
+       Reference                                  Description
+ NSF MRI policy: NSF
+ 09-502, MRI Program
+                          “Instruments are expected to be operational for regular research
+     Solicitation for
+                          use by the end of the award period.”
+Instrument Development
+     and Acquisition
+           Exclusions of Some Costs from Indirect Costs Recovery Calculations
+       Reference                                       Description
+                          “The Federal government in general, and NSF specifically, does
+                          not permit indirect costs to be recovered on certain types of costs.
+                          Commonly excluded costs include:
+NSF Indirect Cost Rates
+    policy statement          •   Equipment and capital expenditures
+                              •   The portion of subawards or subcontracts that exceed
+                                  $25,000
+                              •   Participant support costs.”
+                           Modified Total Direct Cost (MTDC)
+       Reference                                       Description
+                          “F&A costs shall be distributed to applicable sponsored
+                          agreements and other benefiting activities within each major
+                          function (see Section B.1) on the basis of [MTDC], consisting of
+2 CFR Part 220, App. A, all salaries and wages, fringe benefits, materials and supplies,
+      Section G.2.,       services, travel, and subgrants and subcontracts up to the first
+   “Determination and     $25,000 of each subgrant or subcontract (regardless of the period
+  Application of F&A      covered by the subgrant or subcontract). Equipment, capital
+  Cost Rate or Rates”     expenditures, charges for patient care and tuition remission, rental
+                          costs, scholarships, and fellowships as well as the portion of each
+                          subgrant and subcontract in excess of $25,000 shall be excluded
+                          from modified total direct costs.”
+                                      Reimbursement
+       Reference                                       Description
+                          “REIMBURSEMENTS – For reimbursements to individuals who
+    USC Expenditure       used personal funds to pay for university expenses, timely
+Policies and Procedures, processing is important in order to avoid financial hardship to an
+Section 1.5, “Timely and employee. Expenses incurred using personal forms of payment
+  Accurate Processing”    should be processed and submitted to Disbursement Control and
+                          Accounts Payable within 60 days of trip or event completion.”
+
+
+
+
+                                              51
+                                                                     National Science Foundation
+                                                                    Audit of Claimed Costs of the
+                                                                 University of Southern California
+
+
+
+                           Non-University Employees
+    Reference                                    Description
+                     “EMPLOYEES OF A TEMPORARY AGENCY are not university
+                     employees and are not eligible to receive university benefits.
+                     Before a department may engage a temporary employee, the
+USC Non-University
+                     department must consult with their Human Resources office to
+ Employee policy
+                     confirm that the assignment cannot be filled by a university
+                     employee in a regular full-time or part-time, fixed-term, per diem,
+                     resource or student employee status paid on USC payroll.”
+
+
+
+
+                                       52
+

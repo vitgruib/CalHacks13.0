@@ -1,0 +1,223 @@
+Multi-Agency Desk Audit
+                    Duplicate Payments
+
+                         Audit Report # 001-19-01
+                          September 30, 2020
+
+
+
+                          Glenn Hegar
+        Texas Comptroller of Public Accounts
+Table of Contents
+Executive Summary
+ Purpose and Scope....................................................................................................................... 1
+ Background. ................................................................................................................................... 2
+Detailed Findings
+ Duplicate Payments..................................................................................................................... 3
+ Missing Documentation.............................................................................................................. 3
+ Conclusion/General Observation............................................................................................. 3
+      Table 1: Samples Selected for Auditor Review................................................................................... 4
+      Table 2: Populations Reported to Agencies for Investigation.............................................................. 4
+      Table 3: Identified Duplicates in Audited Samples............................................................................. 5
+      Table 4: Identified Duplicates From Population. ................................................................................ 5
+      Table 5: Other Issues Related to Transactions . ................................................................................. 6
+                    Executive Summary
+Purpose and Scope
+ The Fiscal Management Division of the Comptroller of Public Accounts (Comptroller’s
+ office) performed a desk audit of potential duplicate payments processed by state
+ agencies and universities from Sept. 1, 2015, through Aug. 31, 2018. The audit was
+ conducted under authority granted in Texas Government Code, Section 403.071.
+
+ The objective was to conduct a desk audit of potential duplicate payments at selected
+ agencies. The audit was performed based on an analytical report produced from the
+ Uniform Statewide Accounting System (USAS) showing potential duplicate payments
+ from Sept. 1, 2015 through Aug. 31, 2018. The report covered 170 agencies with 367,847
+ potential duplicate payments totaling $921,920,710.73.
+
+ Of the 167 active agencies and universities with potential duplicate payments, auditors
+ selected 17 agencies and universities for the audit and identified 663 potential
+ duplicates totaling $9,207,069.28 for review. See Table 1.
+
+ Additionally, for each of the selected 17 agencies, auditors requested the agencies to
+ investigate the remaining potential duplicates in the reported population. Only 14 of
+ the 17 agencies had transactions in their population for investigation. See Table 2.
+
+ The scope of the audit included:
+
+   • Requesting and reviewing each agency’s written policies and procedures for the
+     accounting and recording of expenditures, including information relating to any
+     controls that are intended to prevent or detect and correct duplicate payments.
+
+   • Requesting and reviewing supporting documentation for each payment listed in
+     the sample (invoice, receipts, travel voucher, purchase order, proof of delivery, proof
+     of cancellation, credit memo, etc.) and any additional information to enable the
+     auditor to determine if the payment was a duplicate payment.
+
+   • Requesting agencies to review an additional population of potential duplicate
+     payments not selected for the audit sample but processed by the agency during
+     the audit period. The agencies needed to verify through their own research
+     whether these transactions were duplicates.
+
+
+
+
+                   Multi-Agency Desk Audit - Duplicate Payments_09-30-20 – Page 1
+Background
+ Each year, to ensure that agencies’ payroll, purchase, procurement
+ and travel expenditures comply with state law, the Comptroller’s                   Recovery Audit
+ Fiscal Management Division performs customized audits of                           Techniques
+ selected state agencies based on a risk assessment, in addition to
+ performing post-payment audits.
+
+ The Expenditure Audit section uses audit procedures to identify recoverable monies for
+ state agencies. These procedures include generating and reviewing data to test agency
+ payments of goods and services to identify potential duplicate payments.
+
+
+
+
+                   Multi-Agency Desk Audit - Duplicate Payments_09-30-20 – Page 2
+                       Detailed Findings
+Duplicate Payments
+ Based on the review of the responses and documentation provided by the agencies to
+ support the 633 potential duplicate payments tested, auditors identified 61 duplicate
+ purchase and travel payments totaling $56,542.24. See Table 3.
+
+ As a result of the audit, the agencies recouped $4,978.48 of the $56,542.24 duplicate
+ payments during the audit process and are working to recover the rest. See Table 4 for
+ detailed list of the duplicate payments and the amounts recouped.
+
+ Due to the audit, agencies investigated the remaining potential duplicates in the
+ populations identified in the report, and identified $1,166,963.51 in actual duplicates
+ from the $285,371,790.77 potential duplicates investigated. See Table 5 for list of the
+ actual duplicate amounts identified by each agency.
+
+
+Missing Documentation
+ Auditors identified 14 other potential duplicate payment transactions totaling $2,850.03
+ with missing or purged documentation. See Table 5.
+
+
+Conclusion/General Observation
+ Agencies that had duplicate payments should strengthen their current procedures for
+ identifying duplicate purchase and travel payments. In addition, the agencies should
+ maintain proper supporting documentation for all purchases and recoup any remaining
+ overpayments identified in the sample or during their own investigations unless the
+ agencies determine it is not cost effective to do so.
+
+
+
+
+                   Multi-Agency Desk Audit - Duplicate Payments_09-30-20 – Page 3
+                                            Tables
+Table 1: Samples Selected for Auditor Review
+                                                                        # of Transactions    Total Sample
+ Agency #                        Agency Name                               in Sample           Amount
+   302      Office of the Attorney General                                      50               $30,771.19
+   305      General Land Office                                                 48            $2,090,820.83
+   403      Texas Veterans Commission                                           31              $119,905.39
+   405      Texas Department of Public Safety                                   50               $37,103.99
+   466      Office of Consumer Credit Commissioner                              11               $18,213.32
+   503      Texas Medical Board                                                 50               $19,052.10
+   504      State Board of Dental Examiners                                     10                 $2,435.00
+   529      Health and Human Services                                           50              $183,095.36
+   530      Department of Family and Protective Services                        50              $789,841.87
+   537      Department of State Health Services                                 50              $142,999.10
+   580      Texas Water Development Board                                       47            $5,176,980.65
+   644      Texas Juvenile Justice Department                                   19               $31,783.55
+   696      Texas Department of Criminal Justice                                38              $167,081.54
+   719      Texas State Technical College System                                50               $55,013.17
+   752      University of North Texas                                           50              $234,909.74
+   755      Stephen F. Austin State University                                  16               $13,795.81
+   809      State Preservation Board                                            43               $93,266.67
+                        Total — 17 Agencies                                    663            $9,207,069.28
+
+
+Table 2: Populations Reported to Agencies for Investigation
+                                                                        # of Transactions   Total Population
+ Agency #                        Agency Name                            for Investigation       Amount
+   302      Office of the Attorney General                                     3300           $3,247,895.03
+   305      General Land Office                                                 168             $319,627.86
+   403      Texas Veterans Commission                                           132             $379,195.53
+   405      Texas Department of Public Safety                                  5178           $5,202,048.20
+   466      Office of Consumer Credit Commissioner                              45                $21,124.63
+   503      Texas Medical Board                                                 201               $96,082.64
+   504      State Board of Dental Examiners                                     33                $28,038.23
+   529      Health and Human Services                                         62,305        $192,080,728.12
+   530      Department of Family and Protective Services                        128             $768,766.44
+   537      Department of State Health Services                                1262           $1,725,870.96
+   580      Texas Water Development Board                                        0                     $0.00
+   644      Texas Juvenile Justice Department                                  2096          $46,266,062.50
+   696      Texas Department of Criminal Justice                                 0                     $0.00
+   719      Texas State Technical College System                               295            $3,147,610.79
+   752      University of North Texas                                          7824          $31,981,728.20
+   755      Stephen F. Austin State University                                   0                     $0.00
+   809      State Preservation Board                                            92              $107,011.64
+                        Total — 17 Agencies                                   83,059        $285,371,790.77
+
+
+                       Multi-Agency Desk Audit - Duplicate Payments_09-30-20 – Page 4
+Table 3: Identified Duplicates in Audited Samples
+                                                                                  Total Duplicate
+                                                                # of Duplicates      Amounts
+ Agency #                     Agency Name                                                           Recouped
+                                                                 in the Sample     Identified in
+                                                                                      Sample
+    302        Office of the Attorney General                    No duplicates             $0.00
+    305        General Land Office                               No duplicates             $0.00
+    403        Texas Veterans Commission                          3 duplicates           $682.79       $540.79
+    405        Texas Department of Public Safety                 18 duplicates         $6,194.70
+    466        Office of Consumer Credit Commissioner             1 duplicate            $114.64       $114.64
+    503        Texas Medical Board                               No duplicates             $0.00
+    504        State Board of Dental Examiners                   No duplicates             $0.00
+    529        Health and Human Services                         No duplicates             $0.00
+    530        Department of Family and Protective Services       9 duplicates       $25,463.78       $1,514.5
+    537        Department of State Health Services               14 duplicates       $18,229.55       $469.62
+    580        Texas Water Development Board                      1 duplicate            $237.27
+    644        Texas Juvenile Justice Department                  4 duplicates           $750.31       $295.19
+    696        Texas Department of Criminal Justice              No duplicates             $0.00
+    719        Texas State Technical College System               4 duplicates         $1,444.70     $1,444.70
+    752        University of North Texas                          1 duplicate            $431.23
+    755        Stephen F. Austin State University                 3 duplicates         $2,393.32
+    809        State Preservation Board                           3 duplicates           $598.95      $598.95
+                     Total — 17 Agencies                              61             $56,541.24      $4,978.48
+
+
+Table 4: Identified Duplicates From Population
+                                                                     Total Population        Total Duplicates
+ Agency #                      Agency Name                               Amount                Identified*
+    302        Office of the Attorney General                            $3,247,895.03           Undetermined
+    305        General Land Office                                         $319,627.86                    $0.00
+    403        Texas Veterans Commission                                   $379,195.53                    $0.00
+    405        Texas Department of Public Safety                         $5,202,048.20              $48,189.71
+    466        Office of Consumer Credit Commissioner                        $21,124.63                   $0.00
+    503        Texas Medical Board                                           $96,082.64                 $473.40
+    504        State Board of Dental Examiners                               $28,038.23                   $0.00
+    529        Health and Human Services                               $192,080,728.12           Undetermined
+    530        Department of Family and Protective Services                $768,766.44             $676,474.10
+    537        Department of State Health Services                       $1,725,870.96             $440,700.77
+    580        Texas Water Development Board                                      $0.00                   $0.00
+    644        Texas Juvenile Justice Department                        $46,266,062.50                  $304.24
+    696        Texas Department of Criminal Justice                               $0.00                   $0.00
+    719        Texas State Technical College System                      $3,147,610.79              $43,219.29
+    752        University of North Texas                                $31,981,728.20               $3,785.11
+    755        Stephen F. Austin State University                                 $0.00                   $0.00
+    809        State Preservation Board                                    $107,011.64               $2,480.00
+                      Total — 17 Agencies                              $285,371,790.77           $1,166,963.51
+ *Unverified
+
+
+
+
+                          Multi-Agency Desk Audit - Duplicate Payments_09-30-20 – Page 5
+Table 5: Other Issues Related to Transactions
+ Agency #                    Agency Name                          Amount                     Issue
+   530      Department of Family and Protective Services           $1,433.66       7 Missing Documentations
+   809      State Preservation Board                               $1,664.35       7 Missing Documentations
+                    Total — 2 Agencies                             $3,098.01
+
+
+
+
+                       Multi-Agency Desk Audit - Duplicate Payments_09-30-20 – Page 6
+
