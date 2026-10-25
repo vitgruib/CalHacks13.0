@@ -466,6 +466,11 @@ const DEMO_REQUESTS = new Set([
   'rq-101', // demo path: buy on the restored, unpaid grant
   'rq-012', // ordinary past order, the vendor rq-101 reuses
   'rq-060', // the "Bought after the cut" edge case
+  // Failure cases the grant office sees on Requests, one rule each:
+  'rq-102', // supplies in the grant's last 90 days
+  'rq-103', // an unallowable item (espresso machine)
+  'rq-105', // over the $5,000 card limit
+  'rq-108', 'rq-109', // a split purchase: two same-day buys over the limit together
 ])
 // Payment requests and progress reports are out of scope (T105): archive only.
 const DEMO_PAPERS = new Set()

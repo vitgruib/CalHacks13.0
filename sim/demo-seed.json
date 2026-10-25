@@ -260,6 +260,76 @@
       "explanation": "Waiting for the grant office."
     },
     {
+      "id": "rq-102",
+      "day": "2026-06-12",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Agar plates, 40 packs",
+      "category": "lab supplies",
+      "price": 1180,
+      "grantId": "R21AI182745",
+      "purpose": "Assay validation runs before the grant ends",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the grant office."
+    },
+    {
+      "id": "rq-103",
+      "day": "2026-06-13",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Espresso machine for the lab",
+      "category": "general office",
+      "price": 890,
+      "grantId": "R21AI182745",
+      "purpose": "Lab morale during the final push",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the grant office."
+    },
+    {
+      "id": "rq-105",
+      "day": "2026-06-15",
+      "requester": "scientist",
+      "requesterName": "Dr. Priya Nair",
+      "item": "Peristaltic pump with controller",
+      "category": "equipment",
+      "price": 6850,
+      "grantId": "R01GM061721",
+      "purpose": "Continuous-flow folding experiments, aim 3",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the grant office."
+    },
+    {
+      "id": "rq-108",
+      "day": "2026-06-15",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Sequencing core: 48 isolates, run 1 of 2",
+      "category": "core facility services",
+      "price": 2900,
+      "grantId": "R21AI182745",
+      "purpose": "Resistance-gene survey of the clinical isolate panel",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the grant office."
+    },
+    {
+      "id": "rq-109",
+      "day": "2026-06-15",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Sequencing core: 48 isolates, run 2 of 2",
+      "category": "core facility services",
+      "price": 2600,
+      "grantId": "R21AI182745",
+      "purpose": "Resistance-gene survey of the clinical isolate panel",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the grant office."
+    },
+    {
       "id": "rq-060",
       "day": "2025-06-09",
       "requester": "scientist",
@@ -592,11 +662,51 @@
     },
     {
       "id": "l-0016",
+      "day": "2026-06-12",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Agar plates, 40 packs ($1,180)",
+      "reason": "Assay validation runs before the grant ends",
+      "refId": "rq-102"
+    },
+    {
+      "id": "l-0017",
+      "day": "2026-06-13",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Espresso machine for the lab ($890)",
+      "reason": "Lab morale during the final push",
+      "refId": "rq-103"
+    },
+    {
+      "id": "l-0018",
       "day": "2026-06-14",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",
       "reason": "Membrane prep for aim 2. The court restored the grant, so the money is coming.",
       "refId": "rq-101"
+    },
+    {
+      "id": "l-0019",
+      "day": "2026-06-15",
+      "actor": "scientist",
+      "action": "Dr. Priya Nair asked to buy Peristaltic pump with controller ($6,850)",
+      "reason": "Continuous-flow folding experiments, aim 3",
+      "refId": "rq-105"
+    },
+    {
+      "id": "l-0020",
+      "day": "2026-06-15",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 1 of 2 ($2,900)",
+      "reason": "Resistance-gene survey of the clinical isolate panel",
+      "refId": "rq-108"
+    },
+    {
+      "id": "l-0021",
+      "day": "2026-06-15",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 2 of 2 ($2,600)",
+      "reason": "Resistance-gene survey of the clinical isolate panel",
+      "refId": "rq-109"
     }
   ],
   "checkRequests": [
