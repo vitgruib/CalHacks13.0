@@ -53,3 +53,11 @@
 .iv-tabs-4 .iv-tab { flex: 1 1 220px; }
 .iv-stage .iv-tabs-4 .iv-tab:nth-child(4) { animation-delay: -1s; }
 .iv-tab-violet .iv-count, .iv-tab-red .iv-count { background: rgb(255 255 255 / .25); }
+
+/* Invoices for approved requests: a teal tab and a small blue Add invoice button. */
+.iv-tab-teal { background: #0d9488; border-color: #0d9488; }
+.iv-stage .iv-tab-teal { background: linear-gradient(145deg, #2dd4bf, #0b7f77); box-shadow: 0 14px 30px rgb(13 148 136 / .36), inset 0 1px 0 rgb(255 255 255 / .35); }
+.iv-tab-teal .iv-count { background: rgb(255 255 255 / .25); }
+.iv-stage .iv-tabs .iv-tab { flex: 1 1 190px; }
+.iv-stage button.iv-add { background: #2563eb; border: 1px solid #2563eb; color: #fff; font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 12px rgb(37 99 235 / .28); transition: background .15s, transform .1s; }
+.iv-stage button.iv-add:hover { background: #1d4ed8; transform: translateY(-1px); }

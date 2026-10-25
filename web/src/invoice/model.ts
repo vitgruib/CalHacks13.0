@@ -79,6 +79,19 @@ export const DEMO_PO: PurchaseOrder = {
   by: 'Sofia Alvarez', approvedOn: '2026-05-20', state: 'open', category: 'external services', demo: true,
 }
 
+const demoPo = (id: string, vendor: string, item: string, amount: number, grantId: string, by: string, approvedOn: string, category: string): PurchaseOrder =>
+  ({ id, vendor, item, amount, grantId, by, approvedOn, state: 'open', category, demo: true })
+
+/** Approved sample orders for the two researchers; the first is the sequencing scenario. */
+export const DEMO_POS: PurchaseOrder[] = [
+  DEMO_PO,
+  demoPo('PO-4418', 'Vertex Lab Supply', 'Pipette tips and culture plates', 1100, 'R21AI182745', 'Sofia Alvarez', '2026-06-02', 'lab supplies'),
+  demoPo('PO-4419', 'CoolChain', 'Ultra-low freezer service contract', 1290, 'R21AI182745', 'Sofia Alvarez', '2026-05-28', 'external services'),
+  demoPo('PO-3201', 'Northside Imaging Core', 'Brain imaging core sessions', 3600, 'R01GM061721', 'Dr. Priya Nair', '2026-06-03', 'external services'),
+  demoPo('PO-3202', 'NeuroProbe Reagents', 'Amyloid imaging probe, 5 vials', 1950, 'R01GM061721', 'Dr. Priya Nair', '2026-05-30', 'reagents'),
+  demoPo('PO-3203', 'Vertex Lab Supply', 'Cell culture media, 12 bottles', 780, 'R01GM061721', 'Dr. Priya Nair', '2026-06-08', 'lab supplies'),
+]
+
 const reqFor = (db: Db, requestId: string): PurchaseRequest | undefined => db.requests.find(r => r.id === requestId)
 
 export function purchaseOrders(db: Db): PurchaseOrder[] {
@@ -91,7 +104,7 @@ export function purchaseOrders(db: Db): PurchaseOrder[] {
       category: r?.category ?? '',
     } satisfies PurchaseOrder
   })
-  return [DEMO_PO, ...real]
+  return [...DEMO_POS, ...real]
 }
 
 // ── Reading an uploaded file (stand-in) ──────────────────────────────────

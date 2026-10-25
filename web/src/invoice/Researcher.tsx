@@ -8,6 +8,7 @@ import { OpenInvoice, StatusBadge } from './Findings'
 import { Count } from './Stage'
 import { check, parseAmount, type Draft, type Submission } from './model'
 import { demoSubmissions } from './demo'
+import { approvedRequests, draftForRequest, type ApprovedRequest } from './requests'
 import SubmitForm from './SubmitForm'
 import { newSubmissionId, saveSubmission, useSubmissions } from './store'
 
@@ -39,7 +40,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const all = useSubmissions()
   const mine = all.filter(s => s.researcher === name)
   const [form, setForm] = useState<{ edit?: Submission; seed?: Draft; seedKey?: string } | null>(null)
-  const [view, setView] = useState<'approved' | 'action' | 'submit' | null>(null)
+  const [view, setView] = useState<'approved' | 'action' | 'submit' | 'requests' | null>(null)
 
   const submit = (d: Draft, r: ReturnType<typeof check>) => {
     const prior = form?.edit
@@ -98,6 +99,19 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
       </li>
     )
   }
+  const approvedReqs = approvedRequests(db, name, all)
+  const reqCard = (r: ApprovedRequest) => {
+    const g = db.grants.find(x => x.id === r.grantId)
+    return (
+      <li key={r.orderId} className="iv-card" data-tilt="card" data-status="approved">
+        <header>
+          <strong>{r.item}</strong><span className="iv-amt">{money(r.amount)}</span><Badge tone="good">Approved</Badge>
+        </header>
+        <p className="iv-note">{r.vendor} · {g ? grantHeading(g) : r.grantId} · approved {r.approvedOn} by {r.by}</p>
+        <div className="iv-actions"><button type="button" className="iv-add" onClick={() => { setForm({ seed: draftForRequest(db, r), seedKey: r.orderId }); setView('submit') }}>Add invoice</button></div>
+      </li>
+    )
+  }
   const bill = (i: Db['invoices'][number]) => (
     <li key={i.id} className="iv-card" data-tilt="card" data-status={i.state === 'held' ? 'exception' : 'approved'}>
       <header>
@@ -116,11 +130,14 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     </li>
   )
 
-  const pick = (v: 'approved' | 'action') => { setForm(null); setView(x => (x === v ? null : v)) }
+  const pick = (v: 'approved' | 'action' | 'requests') => { setForm(null); setView(x => (x === v ? null : v)) }
   return (
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoices">
         <button type="button" data-tilt="tab" className={`iv-tab iv-tab-blue${view === 'submit' ? ' on' : ''}`} aria-pressed={view === 'submit'} onClick={() => { setForm({}); setView(v => (v === 'submit' ? null : 'submit')) }}>Submit an invoice</button>
+        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-teal${view === 'requests' ? ' on' : ''}`} aria-pressed={view === 'requests'} onClick={() => pick('requests')}>
+          Invoices for approved requests <span className="iv-count"><Count n={approvedReqs.length} /></span>
+        </button>
         <button type="button" data-tilt="tab" className={`iv-tab iv-tab-orange${view === 'action' ? ' on' : ''}`} aria-pressed={view === 'action'} onClick={() => pick('action')}>
           Need your action <span className="iv-count"><Count n={nAction} /></span>
         </button>
@@ -130,6 +147,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
       </div>
 
       {view === 'submit' && <SubmitForm key={form?.edit?.id ?? form?.seedKey ?? 'new'} db={db} others={all} initial={form?.edit ? draftOf(form.edit) : form?.seed} onSubmit={submit} onCancel={() => { setForm(null); setView(null) }} />}
+      {view === 'requests' && (approvedReqs.length === 0 ? <Empty>No approved requests are waiting for an invoice.</Empty> : <ul className="iv-list">{approvedReqs.map(reqCard)}</ul>)}
       {view === 'approved' && (nApproved === 0 ? <Empty>Nothing approved yet.</Empty> : <ul className="iv-list">{[...approvedSubs.map(card), ...approvedBills.map(bill), ...approvedDemo.map(card)].slice(0, MAX)}</ul>)}
       {view === 'action' && (nAction === 0 ? <Empty>Nothing needs your action.</Empty> : (
         <>
