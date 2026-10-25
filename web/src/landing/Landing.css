@@ -24,28 +24,31 @@ html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavio
 /* The stand-in hero: hero a1's palette, light in both color schemes. */
 .hero-still { position: absolute; inset: 0; display: block; }
 /* The embed's still framing (.a-stage-still in hero/src/demos/a1/demo-a1.css), so the handover doesn't jump. */
-.hero-still img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; }
+.hero-still img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; }
 .hero-stub { position: absolute; inset: 0; color: #1c232c; }
 .hero-stub ::selection { background: #2e5ba6; color: #fff; }
 /* A veil in the stage's grey under the copy, so it reads over any framing of the still. */
 .hero-stub .hero-still::after { content: ''; position: absolute; inset: 0 0 auto; height: 54%; background: linear-gradient(to bottom, rgb(201 206 213 / 0.94), rgb(201 206 213 / 0.82) 62%, rgb(201 206 213 / 0)); pointer-events: none; }
 .hero-stub :focus-visible { outline-color: #1e3f7a; }
-/* Like the embed: the headline across the top, the description under it, the
-   prompt below; the still fills the stage behind. */
-.hero-stub-copy { position: absolute; top: clamp(16px, 3.5vh, 36px); left: clamp(16px, 2.4vw, 40px); right: clamp(16px, 2.4vw, 40px); }
+/* Like the embed: the title centred across the top, the product line and the
+   replay line under it; the still fills the stage behind. */
+.hero-stub-copy { position: absolute; top: clamp(16px, 3.5vh, 36px); left: clamp(16px, 2.4vw, 40px); right: clamp(16px, 2.4vw, 40px); text-align: center; }
 .hero-stub h1 { margin: 0 0 6px; font-size: clamp(32px, 3.6vw, 52px); line-height: 1; letter-spacing: -0.03em; font-weight: 700; }
-.hero-stub-copy p { margin: 0 0 12px; color: #3c4753; font-size: clamp(14px, 1.05vw, 16px); }
-/* The landing's only choice, a quiet italic line: the two phrases are the buttons. */
-.hero-stub-copy .hero-stub-prompt { margin: 0; max-width: none; color: #1c232c; font-size: clamp(15px, 1.15vw, 17px); line-height: 1.7; font-style: italic; font-weight: 400; }
-.hero-stub-prompt button { padding: 1px 8px 2px; border: 0; border-radius: 6px; background: #1c232c; color: #f3f5f7; font: inherit; font-style: normal; font-weight: 600; font-size: 0.92em; cursor: pointer; }
-.hero-stub-prompt button:hover { background: #2e5ba6; }
-.hero-stub-prompt button:active { transform: translateY(1px); }
-.hero-stub-note { position: absolute; left: clamp(16px, 2.4vw, 40px); bottom: 14px; margin: 0; color: #3c4753; font-size: 13px; }
+.hero-stub-copy p { margin: 0 0 4px; color: #3c4753; font-size: clamp(14px, 1.05vw, 16px); }
+.hero-stub-copy .hero-stub-lede { font-size: 12px; }
+/* The two ways in, over their plinths: the pill's top centre at the embed's
+   positions on its stills (percent of the stage). */
+.hero-stub-way { position: absolute; transform: translate(-50%, 0); padding: 7px 14px 8px; border: 0; border-radius: 999px; background: #1c232c; color: #f3f5f7; font: inherit; font-size: 15px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+.hero-stub-way:hover { background: #2e5ba6; }
+.hero-stub-way:active { transform: translate(-50%, 1px); }
+.hero-stub-way.lab { left: 23%; top: 35.8%; }
+.hero-stub-way.net { left: 68.8%; top: 24.8%; }
 @media (max-width: 759px) {
   .landing-bar { padding: 0 16px; }
-  .hero-still img { object-position: 50% 100%; }
   .hero-stub-copy { top: 16px; }
   .hero-stub h1 { font-size: 32px; margin-bottom: 6px; }
-  .hero-stub-copy p { margin-bottom: 10px; font-size: 14px; }
-  .hero-stub-copy .hero-stub-prompt { font-size: 15px; }
+  .hero-stub-copy p { font-size: 14px; }
+  .hero-stub-way { font-size: 13.5px; }
+  .hero-stub-way.lab { left: 55.4%; top: 48.4%; }
+  .hero-stub-way.net { left: 71.3%; top: 19.4%; }
 }

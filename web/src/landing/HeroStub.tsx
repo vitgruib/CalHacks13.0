@@ -1,7 +1,7 @@
 // Stands in for the 3D hero (T76) when hero/src/embed.tsx fails to load, and
 // shows while its chunk loads. Same contract as the embed: fills its parent,
-// adds no global listeners, and its two choices call onEnter with a role, in
-// the same prompt the embed shows. The still is the very file the embed's own
+// adds no global listeners, and its two labels call onEnter with a role, where
+// the embed shows them. The still is the very file the embed's own
 // still imports (hero/src/demos/a1/EmbedBar.tsx), so it is one cached image at
 // the same framing and the embed mounts over it without a jump; regenerated
 // stills show up here by themselves. If they are missing, the stage's
@@ -32,15 +32,12 @@ export function HeroStub({ onEnter }: HeroEmbedProps) {
       <HeroStill />
       <div className="hero-stub-copy">
         <h1>Grant Test Auto</h1>
-        <p>An AI grant office that keeps a lab’s spending inside its grants’ rules. Three AI agents check every request; the grant manager decides the exceptions.</p>
-        <p className="hero-stub-prompt">
-          Select the{' '}
-          <button type="button" aria-label="Research lab: open the research portal" onClick={() => onEnter?.('researcher')}>research lab</button>
-          {' '}or the{' '}
-          <button type="button" aria-label="Grant manager network: open the grant manager portal" onClick={() => onEnter?.('grant_office')}>grant manager network</button>.
-        </p>
+        <p>An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
+        <p className="hero-stub-lede">A still of the simulated lab; the spending rules are the real ones.</p>
       </div>
-      <p className="hero-stub-note">Still of the simulated lab</p>
+      {/* The two ways in sit over their plinths, where the embed puts them (hero 9925fa6). */}
+      <button type="button" className="hero-stub-way lab" aria-label="Research lab: open the research portal" onClick={() => onEnter?.('researcher')}>Research lab</button>
+      <button type="button" className="hero-stub-way net" aria-label="Grant manager network: open the grant manager portal" onClick={() => onEnter?.('grant_office')}>Grant manager network</button>
     </div>
   )
 }
