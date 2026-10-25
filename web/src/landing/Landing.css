@@ -3,10 +3,12 @@
    inside .hero-stub. */
 
 /* Set on <html> only while the landing is mounted (Landing.tsx). */
-html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavior: none; }
+
 
 /* A thin bar, then the hero fills the rest of the viewport. Its title is Grant Test Auto. */
-.landing { display: grid; grid-template-rows: auto minmax(0, 1fr); height: 100vh; height: 100dvh; overflow: hidden; background: #c9ced5; color: var(--text); line-height: 1.5; }
+.landing { background: #c9ced5; color: var(--text); line-height: 1.5; }
+/* The hero keeps the whole first screen under the bar; the facts follow it. */
+.landing-stage { height: calc(100vh - 36px); height: calc(100dvh - 36px); }
 .landing-bar { display: flex; align-items: center; height: 36px; padding: 0 20px; background: var(--bg); border-bottom: 1px solid var(--line); }
 .landing-mark { font-size: 14px; font-weight: 700; letter-spacing: -0.01em; }
 .landing-stage { position: relative; overflow: hidden; }
@@ -54,3 +56,19 @@ html.landing-lock, html.landing-lock body { overflow: hidden; overscroll-behavio
   .hero-stub-way.lab { left: 55.1%; top: 50.4%; }
   .hero-stub-way.net { left: 70.4%; top: 22.2%; }
 }
+
+/* Problem vs. solution, below the hero. */
+.facts { padding: clamp(32px, 6vh, 64px) clamp(16px, 4vw, 56px) 40px; background: var(--bg); border-top: 1px solid var(--line); }
+.facts h2 { max-width: 1100px; margin: 0 auto 20px; font-size: clamp(22px, 2vw, 28px); letter-spacing: -0.02em; }
+.facts-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; max-width: 1100px; margin: 0 auto; }
+.facts-col { padding: 20px 24px; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.facts-col h3 { margin: 0; font-size: 18px; }
+.facts-sub { margin: 4px 0 0; padding-bottom: 14px; border-bottom: 1px solid var(--line); color: #555f6b; font-size: 14px; }
+.fact { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.fact:last-child { border-bottom: 0; padding-bottom: 0; }
+.fact p { margin: 0; }
+.fact-figure { font-size: clamp(24px, 2.2vw, 30px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; }
+.fact-title { margin-top: 4px !important; font-weight: 600; }
+.fact-text { margin-top: 4px !important; color: #555f6b; font-size: 14px; }
+.facts-note { max-width: 1100px; margin: 16px auto 0; color: #6b7480; font-size: 12.5px; }
+@media (max-width: 759px) { .facts-grid { grid-template-columns: minmax(0, 1fr); } }
