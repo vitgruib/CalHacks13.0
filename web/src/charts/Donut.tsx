@@ -1,8 +1,8 @@
 // The award as a donut: three arcs for spent, committed and available, with
 // the available share in the middle. Committed is kept visible even when it's
 // small (striped, with a minimum arc length). Legend labels are always shown
-// small and grow on hover or focus; double-click (or Enter on) an arc or a
-// legend row to open what's behind it.
+// small and grow on hover or focus. What's behind each color opens from the
+// buttons under the charts (MoneyCharts).
 import { useId, useState } from 'react'
 import { money } from '../ui'
 import type { Segment } from './Details'
@@ -14,7 +14,7 @@ const C = 2 * Math.PI * R
 const GAP = 3 // visible gap between arcs, in px of arc length
 const MIN_COMMITTED = 0.06 // committed never draws thinner than this share of the ring
 
-export default function Donut({ r, onSegment }: { r: Runway; onSegment?: (s: Segment) => void }) {
+export default function Donut({ r }: { r: Runway }) {
   const [active, setActive] = useState<Segment | null>(null)
   const stripes = `dn${useId().replace(/[^a-zA-Z0-9]/g, '')}`
   const total = r.awarded || 1
@@ -51,10 +51,6 @@ export default function Donut({ r, onSegment }: { r: Runway; onSegment?: (s: Seg
     onFocus: () => setActive(key),
     onBlur: () => setActive(null),
   })
-  const open = (key: Segment) => onSegment && {
-    onDoubleClick: () => onSegment(key),
-    style: { cursor: 'zoom-in' },
-  }
   const state = (key: Segment) => (active === key ? ' dn-on' : active ? ' dn-off' : '')
 
   return (
@@ -77,7 +73,6 @@ export default function Donut({ r, onSegment }: { r: Runway; onSegment?: (s: Seg
               strokeDashoffset={-a.offset}
               transform="rotate(-90 80 80)"
               {...on(a.key)}
-              {...open(a.key)}
             />
           ))}
           <text x="80" y="82" textAnchor="middle" className="dn-pct">{r.left < 0 ? 'Over' : `${pct(available)}%`}</text>
@@ -90,10 +85,7 @@ export default function Donut({ r, onSegment }: { r: Runway; onSegment?: (s: Seg
               key={p.key}
               className={`dn-item dn-${p.key}${state(p.key)}${p.key === 'committed' && p.amount > 0 ? ' dn-strong' : ''}`}
               tabIndex={0}
-              title={onSegment ? 'Double-click to open the list in a new tab' : undefined}
-              onKeyDown={e => { if (e.key === 'Enter') onSegment?.(p.key) }}
               {...on(p.key)}
-              {...open(p.key)}
             >
               <span className="dn-name"><span className="dn-swatch" />{p.name}{p.key === 'committed' && p.amount > 0 && <small> (ordered, not yet paid)</small>}</span>
               <span className="dn-value">{money(p.amount)} · {pct(p.amount)}%</span>

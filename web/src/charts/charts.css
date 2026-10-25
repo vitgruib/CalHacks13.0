@@ -53,8 +53,3 @@
 .rw-bad .rw-key-proj { border-top-color: var(--c-bad); }
 
 
-/* Charts that open details on double-click (Funds). */
-.chart-open { border-radius: 10px; padding: 6px; margin: -6px; cursor: zoom-in; outline: none; transition: background .15s; user-select: none; }
-.chart-open:hover { background: color-mix(in srgb, var(--c-accent) 5%, transparent); }
-.chart-open:focus-visible { box-shadow: 0 0 0 2px var(--c-accent); }
-.chart-opened { background: color-mix(in srgb, var(--c-accent) 8%, transparent); cursor: zoom-out; }

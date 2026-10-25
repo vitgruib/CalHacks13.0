@@ -1,7 +1,7 @@
 // Funds window (MASTER-PLAN §3.1, §4): how much money each grant really has,
 // its status timeline, and any flags. Information only; decisions live in the Inbox.
 import SourceCheck from '../SourceCheck'
-import MoneyCharts, { detailUrl, openTab } from '../charts/MoneyCharts'
+import MoneyCharts from '../charts/MoneyCharts'
 import { useStore } from '../data/store'
 import { type Db, type Grant, type GrantStatus, type SourceReading, type StatusEvent } from '../data/types'
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
@@ -65,7 +65,6 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
       aside={
         <span className="funds-badges">
           <Badge tone={grantStatus(g).tone}>{grantStatus(g).label}</Badge>
-          <button type="button" className="funds-detail" onClick={() => openTab(detailUrl(g.id, 'all'))}>Detailed view</button>
         </span>
       }
     >
@@ -75,7 +74,6 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
       </p>
 
       <MoneyCharts db={db} g={g} details forecastDetails />
-      <p className="funds-hint">Double-click a color for its list in a new tab, or the forecast for the status timeline.</p>
 
       {openHolds.length > 0 && (
         <p className="funds-inbox">

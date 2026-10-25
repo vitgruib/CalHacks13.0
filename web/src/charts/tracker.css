@@ -38,9 +38,15 @@
 .money-charts { display: grid; grid-template-columns: 1fr; gap: 24px; }
 .mc-panel { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
 .mc-title { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--c-muted); }
-.mc-panel > .chart-open, .mc-panel > .dn { flex: 1; }
+.mc-panel > .dn { flex: 1; }
+.mc-details { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 16px; }
+.mc-details-label { font-size: 13px; color: var(--c-muted); }
+.mc-detail { padding: 4px 12px; font-size: 13px; }
+.mc-detail-spent { border-left: 4px solid var(--c-spent); }
+.mc-detail-committed { border-left: 4px solid var(--c-promised); }
+.mc-detail-available { border-left: 4px solid var(--c-left); }
 
-/* Details under the donut (double-click a color). */
+/* A color's list on the details page. */
 .sd { margin-top: 12px; border-top: 1px solid var(--c-line); padding-top: 8px; color: var(--c-text); }
 .sd-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 6px; }
 .sd-table th { font-size: 11px; text-transform: uppercase; letter-spacing: .03em; color: var(--c-muted); text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--c-line); }

@@ -1,4 +1,4 @@
-// What's behind each color of the donut, shown when you double-click it:
+// What's behind each color of the donut, opened from its button under the charts:
 // committed = who in the lab ordered what, spent = the receipts and payroll,
 // available = how the award adds up. Shown on the details page (DetailPage),
 // opened in a new tab from either window.

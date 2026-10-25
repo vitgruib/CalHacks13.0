@@ -1,7 +1,6 @@
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.funds-badges { display: inline-flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-.funds-detail { padding: 3px 10px; font-size: 13px; }
+.funds-badges { display: inline-flex; gap: 6px; flex-wrap: wrap; }
 .funds-meta { color: var(--muted); margin: 0 0 12px; font-size: 14px; }
 .funds-h3 { font-size: 13px; margin: 16px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; display: flex; align-items: center; gap: 8px; }
 
@@ -31,4 +30,3 @@
   .funds-cols { grid-template-columns: 1fr; }
 }
 .funds-sim-note { margin: 16px 0 0; font-size: 13px; color: var(--muted); }
-.funds-hint { margin: 6px 0 0; font-size: 12px; color: var(--muted); }
