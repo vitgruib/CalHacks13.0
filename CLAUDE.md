@@ -11,3 +11,5 @@
   work for more than an hour.
 - After pulling, if `server/` changed, regenerate the client bindings
   before you keep building against them.
+- After pulling, run `./whiteboard.sh @<human>/<agent>` and reply to what's
+  waiting on you (`AGENTS.md` §3, `whiteboard/README.md`).

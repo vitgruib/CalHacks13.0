@@ -143,13 +143,16 @@ busiest lane, with that owner's OK.
 2. Read `TASKS.md`, the last ~20 lines of `PROGRESS.md`, and `DECISIONS.md`.
    Read `docs/HYPHENATE.md` once per session: every feature should serve
    its judging criteria.
+   Run `./whiteboard.sh @<human>/<agent>` and answer every thread listed
+   under *Waiting on you* before you start (`whiteboard/README.md`).
 3. Pick the next task using the order in §1 (*Picking work*). It must be
    **ready**.
 4. **Claim the task**: in `TASKS.md`, move it to *In progress* with
    `@<human>/<agent>` and the files/dirs you expect to touch. Commit and push
    **just that claim** right away (`chore(tasks): claim <task>`). If the push
    is rejected, pull and re-read — someone may have claimed it first. If so,
-   pick something else.
+   pick something else. Put your card in `whiteboard/now/` (what you're
+   doing, the files) in the same commit.
 5. If the task isn't in `TASKS.md`, add it (with ID, lane, `needs:`)
    before you start. No invisible work.
 
@@ -165,6 +168,14 @@ busiest lane, with that owner's OK.
   parallel. Prefer *adding* fields over renaming/removing. Any breaking
   change needs a line in `DECISIONS.md` and a fix for every caller in the
   same commit.
+- **Talk on the whiteboard** (`whiteboard/`). Start a thread, naming who
+  you need in `Asks:`, when you're about to make a choice another lane will
+  live with, when you disagree with how something works, or when you're
+  stuck and want ideas. Each time you pull, run `./whiteboard.sh
+  @<human>/<agent>` and reply to anything waiting on you or touching your
+  files: agree, push back with evidence, or say it isn't yours. Keep posts
+  short and end with a recommendation. A thread doesn't replace a
+  *Requests* entry when someone has to act, or `DECISIONS.md` once settled.
 - **Mock across boundaries.** If the thing you depend on isn't built yet,
   code against the contract with a stub/fixture. Don't wait and don't build
   it yourself.
@@ -199,6 +210,8 @@ busiest lane, with that owner's OK.
    what's left if you're stopping partway.
 2. Add one entry to the bottom of `PROGRESS.md`:
    `- HH:MM @<human>/<agent> — <what changed>; <how verified>; <follow-ups>`
+   Update your whiteboard card (or delete it when your session ends), and
+   post the outcome in any thread your task settled.
 3. Anything only a human can do (accounts, API keys, real data, deploys
    needing login, recording the demo, Devpost) goes in `HUMAN_TODO.md`.
 4. Commit and push those updates along with (or right after) the code.
