@@ -14,6 +14,15 @@ sudo mkdir -p "$STATE/state" "$STATE/cache"
 sudo chown -R "$USER:" "$STATE"
 cp -r --update=none agents/cache/. "$STATE/cache/"
 sudo systemctl restart grantguard-agents
-sleep 5
-systemctl is-active --quiet grantguard-agents || { sudo journalctl -u grantguard-agents -n 40 --no-pager; exit 1; }
+# "Active" alone passes a crash loop (Restart=always, RestartSec=5), so also
+# fail if systemd restarted the worker while we watched it connect and subscribe.
+restarts() { systemctl show -p NRestarts --value grantguard-agents; }
+before=$(restarts)
+sleep 15
+after=$(restarts)
+if ! systemctl is-active --quiet grantguard-agents || [ "$after" -gt "$before" ]; then
+  echo "── agent worker is not staying up (restarted $((after - before)) times in 15 s)"
+  sudo journalctl -u grantguard-agents -n 40 --no-pager
+  exit 1
+fi
 echo "── agent worker running $(git rev-parse --short HEAD)"
