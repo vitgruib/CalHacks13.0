@@ -5,3 +5,15 @@
 .evals .evals-cases table { margin-top: 6px; }
 .evals .evals-cases td { font-size: 14px; }
 .evals .evals-scroll { overflow-x: auto; }
+.evals .evals-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin: 4px 0 16px; }
+.evals .evals-stat { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); }
+.evals .evals-stat-value { font-size: 28px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--text); }
+.evals .evals-stat-value small { font-size: 16px; font-weight: 600; color: var(--muted); }
+.evals .evals-stat-label { font-size: 13px; color: var(--muted); }
+.evals .evals-table td { vertical-align: top; }
+.evals .evals-grant { display: block; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.evals .evals-org { display: block; color: var(--muted); font-size: 12px; }
+.evals .evals-day { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--muted); }
+.evals .evals-expected { white-space: nowrap; }
+.evals .evals-flag { display: block; margin-top: 4px; color: var(--muted); font-size: 12px; }
+.evals .evals-outcome { white-space: nowrap; color: var(--good); font-weight: 600; }

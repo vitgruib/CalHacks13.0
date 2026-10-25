@@ -9,7 +9,7 @@ import type { Tone } from '../ui'
 import fundTrackerJson from '../../../eval/fund-tracker-real.json'
 import './Evals.css'
 
-interface TrackerRow { case: string; grantId: string; org: string; day: string; facts: string; expected: string; trackerSaid: string; outcome: string }
+interface TrackerRow { case: string; grantId: string; org: string; day: string; facts: string; expected: string; trackerSaid: string | null; outcome: string }
 interface FundTracker {
   totals: { checks: number; grants: number; caught: number; missed: number; falseAlarms: number; correctPasses: number }
   rows: TrackerRow[]
@@ -19,7 +19,22 @@ const fundTracker = fundTrackerJson as FundTracker
 /** The outcomes shown: the agent got the case right. */
 const RIGHT = new Set(['caught', 'correct pass'])
 const right = <T extends { outcome: string }>(rows: T[]) => rows.filter(r => RIGHT.has(r.outcome))
-const outcomeTone: Record<string, Tone> = { caught: 'good', 'correct pass': 'good' }
+
+/** "frozen + decide" → what spending should be, and the flag that comes with it. */
+const FLAG: Record<string, string> = {
+  decide: 'Grant manager decides',
+  court_order_no_payment: 'Court restored it, no payment yet',
+  sources_disagree: 'Sources disagree',
+  notice: 'Grant manager notified',
+}
+function expectedOf(expected: string): { label: string; tone: Tone; flag?: string } {
+  const [state, flag] = expected.split(' + ')
+  const open = state === 'unfrozen'
+  return { label: open ? 'Spending open' : 'Spending frozen', tone: open ? 'good' : 'warn', flag: flag && (FLAG[flag] ?? flag.replace(/_/g, ' ')) }
+}
+const OUTCOME: Record<string, string> = { caught: 'Caught', 'correct pass': 'Passed' }
+/** The facts without their closing verdict (": stays frozen, flagged."): the Expected column says it. */
+const factsOf = (facts: string) => facts.replace(/:\s*(stays )?(frozen|unfrozen)\b[^:]*\.$/, '.')
 
 export default function Evals() {
   return (
@@ -47,28 +62,40 @@ function FundTrackerBoard() {
   const shown = right(rows)
   return (
     <>
-      <p>
-        <strong>{t.caught} of {t.caught + t.missed}</strong> checks where spending should be stopped or flagged were caught;
-        {' '}<strong>{t.correctPasses} of {t.correctPasses + t.falseAlarms}</strong> where it should be open passed,
-        {' '}over {t.checks} checks on {t.grants} grants.
-      </p>
+      <div className="evals-stats">
+        <div className="evals-stat">
+          <span className="evals-stat-value">{t.caught}<small> / {t.caught + t.missed}</small></span>
+          <span className="evals-stat-label">checks where spending should stop or be flagged: caught</span>
+        </div>
+        <div className="evals-stat">
+          <span className="evals-stat-value">{t.correctPasses}<small> / {t.correctPasses + t.falseAlarms}</small></span>
+          <span className="evals-stat-label">checks where spending should stay open: passed</span>
+        </div>
+        <div className="evals-stat">
+          <span className="evals-stat-value">{t.checks}</span>
+          <span className="evals-stat-label">checks on {t.grants} real NIH grants</span>
+        </div>
+      </div>
       <details className="evals-cases" open>
         <Selected shown={shown.length} of={rows.length} />
         <div className="evals-scroll">
-        <table>
+        <table className="evals-table">
           <thead>
             <tr><th>Grant</th><th>Day</th><th>What the records show</th><th>Expected</th><th>Outcome</th></tr>
           </thead>
           <tbody>
-            {shown.map(r => (
-              <tr key={`${r.case}-${r.grantId}-${r.day}`} title={r.trackerSaid}>
-                <td>{r.grantId}<span className="muted"> {r.org}</span></td>
-                <td>{r.day}</td>
-                <td>{r.facts}</td>
-                <td>{r.expected}</td>
-                <td><Badge tone={outcomeTone[r.outcome]}>{r.outcome}</Badge></td>
-              </tr>
-            ))}
+            {shown.map(r => {
+              const e = expectedOf(r.expected)
+              return (
+                <tr key={`${r.case}-${r.grantId}-${r.day}`} title={r.trackerSaid ?? undefined}>
+                  <td><span className="evals-grant">{r.grantId}</span><span className="evals-org">{r.org}</span></td>
+                  <td className="evals-day">{r.day}</td>
+                  <td>{factsOf(r.facts)}</td>
+                  <td className="evals-expected"><Badge tone={e.tone}>{e.label}</Badge>{e.flag && <span className="evals-flag">{e.flag}</span>}</td>
+                  <td className="evals-outcome"><span aria-hidden="true">✓</span> {OUTCOME[r.outcome] ?? r.outcome}</td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
         </div>
