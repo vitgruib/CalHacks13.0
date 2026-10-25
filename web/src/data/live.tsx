@@ -1,7 +1,7 @@
 // Live backend (T17): the windows' store, filled from Track A's SpacetimeDB
 // module. Subscribes to every table, rebuilds `Db` (adapter.ts) on any
 // insert/update/delete, so every open window and tab updates live. Actions
-// call the module's reducers; failures come back as notices.
+// call the module's reducers; a refusal rejects with the module's reason.
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import seed from '../../../sim/demo-seed.json'
 import { DbConnection } from '../module_bindings'
@@ -178,11 +178,17 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
 
   if (!db) return <Connecting />
 
-  /** Run a reducer call; its failure (e.g. a rule the module enforces) becomes a notice. */
-  const call = (what: string, p: () => Promise<void>) => {
-    const c = manager.current
-    if (!c || status !== 'live') { notify(`${what} failed: not connected to the server. Reload to reconnect.`); return }
-    p().catch(e => notify(`${what} failed: ${msg(e)}`))
+  /** Run a reducer call. It rejects with the module's refusal (or no
+   *  connection); `notice` also puts that in a corner notice, for callers that
+   *  don't show it themselves. */
+  const call = async (what: string, p: () => Promise<void>, notice = false) => {
+    try {
+      if (!manager.current || status !== 'live') throw new Error('not connected to the server. Reload to reconnect.')
+      await p()
+    } catch (e) {
+      if (notice) notify(`${what} failed: ${msg(e)}`)
+      throw e
+    }
   }
   const conn = () => manager.current!
 
@@ -201,16 +207,15 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
 
   const store: Store = {
     db,
-    decide: (holdId, choice, reason) => {
+    decide: async (holdId, choice, reason) => {
       if (!reason.trim()) throw new Error('A reason is required')
-      call('Decision', () => conn().reducers.decideHold({ holdId: BigInt(holdId), choice, reason }))
+      return call('Decision', () => conn().reducers.decideHold({ holdId: BigInt(holdId), choice, reason }))
     },
-    submitRequest: (r, by) => {
+    submitRequest: (r, by) =>
       call('Request', async () => {
         const c = await asResearcher(by)
         await c.reducers.submitRequest({ item: r.item, category: r.category, price: r.price, grantId: r.grantId || undefined, purpose: r.purpose, sharedWith: [] })
-      })
-    },
+      }),
     // The worker's bookkeeping agent answers with Haiku (answer_item_check);
     // the answer is read from the grant manager's subscription.
     checkItem: async (a, by) => {
@@ -218,13 +223,9 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
       if (!manager.current || status !== 'live') return unchecked
       const checks = () => [...conn().db.itemCheck.iter()]
       const before = checks().reduce((max, c) => (c.id > max ? c.id : max), 0n)
-      try {
-        const c = await asResearcher(by)
-        await c.reducers.askItemCheck({ item: a.item, purpose: a.purpose, price: a.price })
-      } catch (e) {
-        notify(`Item check failed: ${msg(e)}`)
-        return unchecked
-      }
+      // A refusal rejects (Ask shows it); only no answer in time is 'unchecked'.
+      const c = await asResearcher(by)
+      await c.reducers.askItemCheck({ item: a.item, purpose: a.purpose, price: a.price })
       const deadline = Date.now() + ITEM_CHECK_TIMEOUT_MS
       while (Date.now() < deadline) {
         const mine = checks().find(c => c.id > before && c.answered && c.item === a.item.trim() && c.price === a.price)
@@ -233,26 +234,26 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
       }
       return unchecked
     },
-    pushBack: (requestId, message, by) => {
+    pushBack: async (requestId, message, by) => {
       if (!message.trim()) throw new Error('Say what changed.')
-      call('Push back', async () => {
+      return call('Push back', async () => {
         const c = await asResearcher(by)
         await c.reducers.pushBack({ requestId, message })
       })
     },
     // The local rules run first only to catch bad input synchronously (the
     // Test lab shows those inline); the module decides what really happens.
-    injectStatusEvent: a => {
+    injectStatusEvent: async a => {
       applyStatusEvent(db, a)
-      call('Status event', () => conn().reducers.injectStatusEvent({ grantId: a.grantId, kind: a.kind, source: a.source, summary: a.summary, amount: a.amount, day: a.day }))
+      return call('Status event', () => conn().reducers.injectStatusEvent({ grantId: a.grantId, kind: a.kind, source: a.source, summary: a.summary, amount: a.amount, day: a.day }))
     },
-    injectInvoice: a => {
+    injectInvoice: async a => {
       applyInvoice(db, a)
-      call('Invoice', () => conn().reducers.injectInvoice({ orderId: a.orderId, amount: a.amount }))
+      return call('Invoice', () => conn().reducers.injectInvoice({ orderId: a.orderId, amount: a.amount }), true)
     },
-    advanceDays: a => {
+    advanceDays: async a => {
       applyAdvanceDays(db, a)
-      call('Fast-forward', () => conn().reducers.advanceDays({ days: a.days }))
+      return call('Fast-forward', () => conn().reducers.advanceDays({ days: a.days }), true)
     },
     sourceCheck,
     // The worker's bookkeeping agent picks the request up and calls complete_check.
@@ -261,28 +262,26 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
       await conn().reducers.requestCheck({ grantId, reason: 'check_now', asOf })
     },
     plans,
-    savePlan: (p, by) => {
+    savePlan: (p, by) =>
       call('Plan', async () => {
         const c = await asResearcher(by)
         await c.reducers.savePlan({
           id: p.id, status: p.status, grantId: p.plan.grantId, experiment: p.plan.experiment, total: planTotal(p.plan.items),
           overall: p.report?.overall ?? '', lines: planLines(p), body: JSON.stringify(p.plan), report: p.report ? JSON.stringify(p.report) : '',
         })
-      })
-    },
-    deletePlan: (id, by) => {
+      }),
+    deletePlan: (id, by) =>
       call('Deleting the plan', async () => {
         const c = await asResearcher(by)
         await c.reducers.deletePlan({ id })
-      })
-    },
-    decidePlan: (id, choice, reason) => {
+      }),
+    decidePlan: async (id, choice, reason) => {
       if (!reason.trim()) throw new Error('A reason is required.')
-      call('Plan decision', () => conn().reducers.decidePlan({ id, choice, reason }))
+      return call('Plan decision', () => conn().reducers.decidePlan({ id, choice, reason }))
     },
-    setGrantStatus: (grantId, status, reason) => {
+    setGrantStatus: async (grantId, status, reason) => {
       if (!reason.trim()) throw new Error('A reason is required.')
-      call('Setting the grant status', () => conn().reducers.setGrantStatus({ grantId, status, reason }))
+      return call('Setting the grant status', () => conn().reducers.setGrantStatus({ grantId, status, reason }))
     },
     submissions,
     saveSubmission: s => call('Saving the invoice', () => conn().reducers.saveInvoiceSubmission({ id: s.id, body: JSON.stringify(s) })),

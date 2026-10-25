@@ -5,33 +5,35 @@ import { createContext, useContext, useState, type ReactNode } from 'react'
 import seed from '../../../sim/demo-seed.json'
 import { clearLocalSubmissions, saveLocalSubmission, useLocalSubmissions } from '../invoice/local'
 import type { Submission } from '../invoice/model'
-import type { Researcher } from '../people'
+import { isEdgeGrant, type Researcher } from '../people'
 import { planLines, type SavedPlan } from '../spendguard/store'
 import type { Db, Decision, Invoice, PurchaseRequest, SettableStatus, SourceCheck, StatusEvent } from './types'
 
 /** The item check's look at an item, before any grant (T103). category: the kind of thing it is ('' = not read). */
 export interface ItemCheck { verdict: 'fine' | 'flag' | 'unchecked'; why: string; category: string }
 
+// Every action returns a Promise that rejects with the reason (the module's
+// refusal, or the local check) when nothing changed.
 export interface Store {
   db: Db
   /** Grant manager decides a hold. Reason is required (MASTER-PLAN §2). */
-  decide: (holdId: string, choice: Decision['choice'], reason: string) => void
+  decide: (holdId: string, choice: Decision['choice'], reason: string) => Promise<void>
   /** A researcher submits a purchase request as themselves; it goes to the grant office (submit_request). */
-  submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose'>, by: Researcher) => void
+  submitRequest: (r: Pick<PurchaseRequest, 'item' | 'category' | 'price' | 'grantId' | 'purpose'>, by: Researcher) => Promise<void>
   /** Ask's item check (T103): is it a research cost at all, before any grant?
    *  Resolves with the bookkeeping agent's answer (Haiku), or 'unchecked' when
    *  none comes in time (offline: no agents, always). */
   checkItem: (a: { item: string; purpose: string; price: number }, by: Researcher) => Promise<ItemCheck>
   /** The researcher who asked pushes back with new information; the grant office looks again (push_back). */
-  pushBack: (requestId: string, message: string, by: Researcher) => void
+  pushBack: (requestId: string, message: string, by: Researcher) => Promise<void>
   // Test lab only (T18). Same argument shapes as Track A's reducers
   // inject_status_event, inject_invoice and advance_days, so T17 can swap them.
   /** Drop a status event into the world; applies the freeze rule (MASTER-PLAN §3.1). */
-  injectStatusEvent: (e: InjectStatusEventArgs) => void
+  injectStatusEvent: (e: InjectStatusEventArgs) => Promise<void>
   /** A vendor invoice arrives for an order, unchecked. */
-  injectInvoice: (a: { orderId: string; amount: number }) => void
+  injectInvoice: (a: { orderId: string; amount: number }) => Promise<void>
   /** Move the simulated clock forward. */
-  advanceDays: (a: { days: number }) => void
+  advanceDays: (a: { days: number }) => Promise<void>
   /** When the sources were last checked, and whether a check now is running (T31). */
   sourceCheck: SourceCheck
   /** Ask the bookkeeping agent to check every source now (request_check
@@ -43,22 +45,22 @@ export interface Store {
   plans: SavedPlan[]
   /** A researcher saves a draft, submits for review, or sends a plan whose
    *  report cleared every check; a sent plan's lines become their requests. */
-  savePlan: (p: SavedPlan, by: Researcher) => void
+  savePlan: (p: SavedPlan, by: Researcher) => Promise<void>
   /** The researcher deletes a plan whose lines aren't requests yet. */
-  deletePlan: (id: string, by: Researcher) => void
+  deletePlan: (id: string, by: Researcher) => Promise<void>
   /** Grant manager: approve a submitted plan (its lines become requests in the
    *  researcher's name) or return it, always with a reason. */
-  decidePlan: (id: string, choice: 'approve' | 'return', reason: string) => void
+  decidePlan: (id: string, choice: 'approve' | 'return', reason: string) => Promise<void>
   /** Grant manager: set a grant's status (active, reinstated by a court with no
    *  money yet, or inactive), with a reason for the log (set_grant_status).
    *  Spending follows the status in every portal. */
-  setGrantStatus: (grantId: string, status: SettableStatus, reason: string) => void
+  setGrantStatus: (grantId: string, status: SettableStatus, reason: string) => Promise<void>
   /** Invoice submissions (T112): what researchers sent and the grant office's decisions on them. */
   submissions: Submission[]
   /** A researcher submits or resubmits an invoice, or the grant office records a decision on one. */
-  saveSubmission: (s: Submission) => void
-  /** Demo controls: replace the whole world with the demo seed (sim/demo-seed.json). Live, every open window sees it. */
-  loadDemoSeed: () => void
+  saveSubmission: (s: Submission) => Promise<void>
+  /** Testing events: replace the whole world with the demo seed (sim/demo-seed.json). Live, every open window sees it. */
+  loadDemoSeed: () => Promise<void>
 }
 
 export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number; day?: string }
@@ -180,7 +182,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
   // The full fake world from sim/ (T8), raw: agents still have to find the planted mistakes.
   const [db, setDb] = useState<Db>(() => structuredClone(seed) as unknown as Db)
 
-  const decide: Store['decide'] = (holdId, choice, reason) => {
+  const decide: Store['decide'] = async (holdId, choice, reason) => {
     if (!reason.trim()) throw new Error('A reason is required')
     setDb(d => {
       const held = d.holds.find(h => h.id === holdId)
@@ -193,7 +195,8 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     })
   }
 
-  const submitRequest: Store['submitRequest'] = (r, by) => {
+  const submitRequest: Store['submitRequest'] = async (r, by) => {
+    if (!(r.price > 0)) throw new Error('The price must be more than $0.')
     setDb(d => {
       const id = nextId('rq')
       return {
@@ -205,7 +208,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
   }
 
   // Same refusals as the module's push_back.
-  const pushBack: Store['pushBack'] = (requestId, message, by) => {
+  const pushBack: Store['pushBack'] = async (requestId, message, by) => {
     const r = db.requests.find(x => x.id === requestId)
     if (!r) throw new Error(`No request ${requestId}.`)
     if (r.requestedBy !== by.id) throw new Error('Only the person who asked can push back.')
@@ -220,9 +223,9 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
 
   // Validate against the current state up front so callers can show the error;
   // the updater then re-applies against the latest state.
-  const injectStatusEvent: Store['injectStatusEvent'] = a => { applyStatusEvent(db, a); setDb(d => applyStatusEvent(d, a)) }
-  const injectInvoice: Store['injectInvoice'] = a => { applyInvoice(db, a); setDb(d => applyInvoice(d, a)) }
-  const advanceDays: Store['advanceDays'] = a => { applyAdvanceDays(db, a); setDb(d => applyAdvanceDays(d, a)) }
+  const injectStatusEvent: Store['injectStatusEvent'] = async a => { applyStatusEvent(db, a); setDb(d => applyStatusEvent(d, a)) }
+  const injectInvoice: Store['injectInvoice'] = async a => { applyInvoice(db, a); setDb(d => applyInvoice(d, a)) }
+  const advanceDays: Store['advanceDays'] = async a => { applyAdvanceDays(db, a); setDb(d => applyAdvanceDays(d, a)) }
 
   // Offline demo data has no agents, so Check now here is SIMULATED: a short
   // pause, then "finished". Nothing outside this tab is read.
@@ -249,7 +252,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
   // Plans, with the same refusals as the module's save_plan, delete_plan and decide_plan.
   const [plans, setPlans] = useState<(SavedPlan & { by: Researcher })[]>([])
   const sendLines = (p: SavedPlan, by: Researcher) => {
-    for (const l of planLines(p)) submitRequest({ item: l.item, category: l.category, price: l.price, grantId: p.plan.grantId, purpose: l.purpose }, by)
+    for (const l of planLines(p)) submitRequest({ item: l.item, category: l.category, price: l.price, grantId: p.plan.grantId, purpose: l.purpose }, by).catch(() => {})
   }
   const ownPlan = (id: string, by: Researcher) => {
     const old = plans.find(x => x.id === id)
@@ -257,7 +260,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     if (old?.status === 'sent') throw new Error("This plan's lines are already requests; push back on those instead.")
     return old
   }
-  const savePlan: Store['savePlan'] = (p, by) => {
+  const savePlan: Store['savePlan'] = async (p, by) => {
     const old = ownPlan(p.id, by)
     if (p.status !== 'draft' && !p.report) throw new Error('Assess the plan before submitting it.')
     if (p.status === 'sent' && p.report?.overall !== 'aligned') throw new Error('Only a plan that clears every check goes straight out as requests; submit it for review instead.')
@@ -268,11 +271,11 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     setPlans(ps => (old ? ps.map(x => (x.id === p.id ? row : x)) : [row, ...ps]))
     if (row.status === 'sent') sendLines(row, by)
   }
-  const deletePlan: Store['deletePlan'] = (id, by) => {
+  const deletePlan: Store['deletePlan'] = async (id, by) => {
     if (!ownPlan(id, by)) throw new Error(`No plan ${id}.`)
     setPlans(ps => ps.filter(x => x.id !== id))
   }
-  const decidePlan: Store['decidePlan'] = (id, choice, reason) => {
+  const decidePlan: Store['decidePlan'] = async (id, choice, reason) => {
     if (!reason.trim()) throw new Error('A reason is required.')
     const p = plans.find(x => x.id === id)
     if (!p) throw new Error(`No plan ${id}.`)
@@ -285,21 +288,45 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     if (choice === 'approve') sendLines(row, p.by)
   }
 
-  const setGrantStatus: Store['setGrantStatus'] = (grantId, status, reason) => { applySetStatus(db, grantId, status, reason); setDb(d => applySetStatus(d, grantId, status, reason)) }
+  const setGrantStatus: Store['setGrantStatus'] = async (grantId, status, reason) => { applySetStatus(db, grantId, status, reason); setDb(d => applySetStatus(d, grantId, status, reason)) }
   const submissions = useLocalSubmissions()
 
-  const loadDemoSeed: Store['loadDemoSeed'] = () => {
+  const loadDemoSeed: Store['loadDemoSeed'] = async () => {
     setDb(structuredClone(seed) as unknown as Db)
     setPlans([])
     clearLocalSubmissions()
     setSourceCheck(seedCheck())
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, setGrantStatus, submissions, saveSubmission: saveLocalSubmission, loadDemoSeed }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, setGrantStatus, submissions, saveSubmission: async s => saveLocalSubmission(s), loadDemoSeed }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {
   const s = useContext(Ctx)
   if (!s) throw new Error('useStore outside StoreProvider')
-  return s
+  return { ...s, db: withoutEdgeGrants(s.db) }
+}
+
+// The edge-case samples' grants stay in the seed and the live world but never
+// show: drop them and every row on them. Cached per db so the result keeps its
+// identity while db does (windows use db as an effect dependency).
+const shown = new WeakMap<Db, Db>()
+function withoutEdgeGrants(db: Db): Db {
+  let out = shown.get(db)
+  if (out) return out
+  const keep = <T,>(rows: T[]) => rows.filter(r => !isEdgeGrant({ id: (r as { grantId?: string }).grantId ?? '' }))
+  const requests = keep(db.requests)
+  const hiddenRequests = new Set(db.requests.filter(r => !requests.includes(r)).map(r => r.id))
+  const orders = db.orders.filter(o => !hiddenRequests.has(o.requestId))
+  const gone = new Set(db.orders.filter(o => hiddenRequests.has(o.requestId)).map(o => o.id))
+  const onOrder = <T extends { orderId: string },>(rows: T[]) => rows.filter(r => !gone.has(r.orderId))
+  out = {
+    ...db,
+    grants: db.grants.filter(g => !isEdgeGrant(g)),
+    statusEvents: keep(db.statusEvents), sourceReadings: keep(db.sourceReadings), flags: keep(db.flags),
+    requests, orders, approvals: onOrder(keep(db.approvals)), invoices: onOrder(keep(db.invoices)),
+    payroll: keep(db.payroll), paymentRequests: keep(db.paymentRequests), papers: keep(db.papers), holds: keep(db.holds), log: keep(db.log),
+  }
+  shown.set(db, out)
+  return out
 }

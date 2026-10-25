@@ -5,8 +5,6 @@ import { useStore } from '../data/store'
 import type { Grant } from '../data/types'
 import { Badge, Empty, Section, type Tone } from '../ui'
 import { shortName } from '../plain'
-import EdgeGroup from '../EdgeGroup'
-import { isEdgeGrant } from '../people'
 import { buildCases, type Case, type CaseKind, type CaseStatus } from './Cases.model'
 import './Cases.css'
 
@@ -120,10 +118,7 @@ export default function Cases() {
         a grant's status and the money actually paid, a paper and the grant it credits.
         Every record here looks fine on its own; the problem only shows when they're read together.
       </p>
-      {db.grants.filter(g => !isEdgeGrant(g)).map(g => <GrantCases key={g.id} g={g} cases={all.filter(c => c.grantId === g.id)} />)}
-      <EdgeGroup count={db.grants.filter(isEdgeGrant).length}>
-        {db.grants.filter(isEdgeGrant).map(g => <GrantCases key={g.id} g={g} cases={all.filter(c => c.grantId === g.id)} />)}
-      </EdgeGroup>
+      {db.grants.map(g => <GrantCases key={g.id} g={g} cases={all.filter(c => c.grantId === g.id)} />)}
     </>
   )
 }

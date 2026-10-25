@@ -1,0 +1,7 @@
+.evals .evals-banner { background: var(--panel); border: 1px dashed var(--line); border-radius: 8px; padding: 10px 14px; margin: 0 0 16px; }
+.evals .muted { color: var(--muted); font-size: 13px; }
+.evals .evals-cases { margin: 10px 0; }
+.evals .evals-cases summary { cursor: pointer; font-size: 13px; font-weight: 600; }
+.evals .evals-cases table { margin-top: 6px; }
+.evals .evals-cases td { font-size: 14px; }
+.evals .evals-scroll { overflow-x: auto; }

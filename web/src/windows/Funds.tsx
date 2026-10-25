@@ -13,8 +13,6 @@ import { STATUS_WORDS, useStore } from '../data/store'
 import { type Db, type Decision, type Grant, type GrantStatus, type Hold, type HoldKind, type SettableStatus, type SourceReading, type StatusEvent } from '../data/types'
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
 import { SIM_NOTE, grantHeading } from '../plain'
-import EdgeGroup from '../EdgeGroup'
-import { edgeCaseOf, isEdgeGrant } from '../people'
 import { whyFrozen } from '../frozen'
 import { latestPerSource, openHolds } from './Inbox'
 import './Funds.css'
@@ -28,12 +26,10 @@ export const fundsHref = (grantId: string) => `#funds/${encodeURIComponent(grant
 
 const cardId = (grantId: string) => `funds-${grantId}`
 
-/** Scroll to a grant's card, unfolding the Failure cases group when the card is in it. */
+/** Scroll to a grant's card. */
 function showGrant(grantId: string) {
   const el = document.getElementById(cardId(grantId))
   if (!el) return
-  const group = el.closest('details')
-  if (group) group.open = true
   el.closest('.section')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
@@ -103,10 +99,7 @@ export default function Funds() {
           ))}
         </p>
       )}
-      <div className="funds-grid">{db.grants.filter(g => !isEdgeGrant(g)).map(g => <GrantCard key={g.id} g={g} db={db} />)}</div>
-      <EdgeGroup count={db.grants.filter(isEdgeGrant).length}>
-        <div className="funds-grid">{db.grants.filter(isEdgeGrant).map(g => <GrantCard key={g.id} g={g} db={db} />)}</div>
-      </EdgeGroup>
+      <div className="funds-grid">{db.grants.map(g => <GrantCard key={g.id} g={g} db={db} />)}</div>
       <p className="funds-sim-note">{SIM_NOTE}</p>
     </>
   )
@@ -114,7 +107,6 @@ export default function Funds() {
 
 function GrantCard({ g, db }: { g: Grant; db: Db }) {
   const daysLeft = daysBetween(db.today, g.end)
-  const edgeCase = edgeCaseOf(g)
   const holds = openHolds(db, ...GRANT_HOLDS).filter(h => h.grantId === g.id)
   const decided = db.holds
     .filter(h => h.grantId === g.id && GRANT_HOLDS.includes(h.kind) && h.decision)
@@ -125,7 +117,6 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
       title={grantHeading(g)}
       aside={
         <span className="funds-badges">
-          {edgeCase && <Badge tone="neutral">Failure case: {edgeCase}</Badge>}
           <Badge tone={grantStatus(g).tone}>{grantStatus(g).label}</Badge>
           {g.frozen && g.status !== 'ended' && <Badge tone="bad">Spending paused</Badge>}
         </span>
@@ -176,11 +167,24 @@ function GrantStatusPanel({ db, g, holds }: { db: Db; g: Grant; holds: Hold[] })
   const id = useId()
   const disputed = db.flags.some(f => f.grantId === g.id && f.open && f.kind === 'sources_disagree')
   const changes = status !== '' && (status !== current || (status === 'active' && g.frozen) || holds.length > 0 || disputed)
-  const ok = changes && reason.trim() !== ''
-  const save = () => {
-    if (status === '') return
-    setGrantStatus(g.id, status, reason)
-    setReason('')
+  const ended = g.status === 'ended'
+  const [saving, setSaving] = useState(false)
+  const [error, setError] = useState('')
+  const [saved, setSaved] = useState(false)
+  const ok = changes && reason.trim() !== '' && !ended && !saving
+  // The reason stays until the change is in; a refusal shows next to the button.
+  const save = async () => {
+    if (status === '' || !ok) return
+    setSaving(true); setError(''); setSaved(false)
+    try {
+      await setGrantStatus(g.id, status, reason)
+      setReason('')
+      setSaved(true)
+    } catch (e) {
+      setError(`Not saved: ${e instanceof Error ? e.message : String(e)}`)
+    } finally {
+      setSaving(false)
+    }
   }
   return (
     <fieldset className="hold hold-embedded funds-status" aria-labelledby={`${id}-title`}>
@@ -199,19 +203,23 @@ function GrantStatusPanel({ db, g, holds }: { db: Db; g: Grant; holds: Hold[] })
       <div className="funds-status-options" role="radiogroup" aria-labelledby={`${id}-title`}>
         {SETTABLE.map(s => (
           <label key={s} className={`funds-status-option${status === s ? ' on' : ''}`}>
-            <input type="radio" name={id} value={s} checked={status === s} onChange={() => setStatus(s)} />
+            <input type="radio" name={id} value={s} checked={status === s} disabled={ended} onChange={() => { setStatus(s); setSaved(false); setError('') }} />
             <span><strong>{STATUS_WORDS[s]}</strong>{s === current && <span className="funds-muted"> (now)</span>}<br /><span className="funds-muted">{statusEffect[s]}</span></span>
           </label>
         ))}
       </div>
       <div className="field">
         <label htmlFor={`${id}-reason`}>Your reason (required, goes in the log)</label>
-        <textarea id={`${id}-reason`} rows={2} value={reason} onChange={e => setReason(e.target.value)} placeholder="e.g. NIH confirmed the award is live and payments resume this month" />
+        <textarea id={`${id}-reason`} rows={2} value={reason} onChange={e => { setReason(e.target.value); setSaved(false) }} placeholder="e.g. NIH confirmed the award is live and payments resume this month" />
       </div>
       <div className="actions">
-        <button type="button" className="primary" disabled={!ok} onClick={save}>Save status</button>
-        {!changes && <span className="hint">Pick a different status to change it.</span>}
-        {changes && !ok && <span className="hint">Type a reason to save.</span>}
+        <button type="button" className="primary" disabled={!ok} onClick={save}>{saving ? 'Saving…' : 'Save status'}</button>
+        {ended ? <span className="hint">This grant has ended, so its status can't change.</span>
+          : saving ? null
+          : error ? <span role="status" className="inline-error">{error}</span>
+          : saved ? <span role="status" className="hint">Status saved.</span>
+          : !changes ? <span className="hint">Pick a different status to change it.</span>
+          : !ok && <span className="hint">Type a reason to save.</span>}
       </div>
     </fieldset>
   )

@@ -1,19 +1,18 @@
 // The one user switcher (T81), the same control in both portals: who you are,
 // and a menu of everyone else. Grant office sidebar and researcher top bar.
 import { useEffect, useRef, useState } from 'react'
-import { edgeCases, office, people } from './Entry'
+import { office, people } from './Entry'
 import './UserSwitch.css'
 
 const groups = [{ title: 'Grant office', list: [office] }, { title: 'Researchers', list: people }]
-const everyone = [...groups.flatMap(g => g.list), ...edgeCases]
+const everyone = groups.flatMap(g => g.list)
 const initials = (label: string) => label.replace(/^Dr\.?\s*/, '').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase()
 
 export default function UserSwitch({ portal, onSwitch, align = 'left' }: { portal: string; onSwitch: (portal: string) => void; align?: 'left' | 'right' }) {
   const [open, setOpen] = useState(false)
-  const [edgeOpen, setEdgeOpen] = useState(false)
   const box = useRef<HTMLDivElement>(null)
   const me = everyone.find(p => p.id === portal) ?? office
-  const toggle = () => { if (!open) setEdgeOpen(edgeCases.some(p => p.id === portal)); setOpen(o => !o) }
+  const toggle = () => setOpen(o => !o)
   useEffect(() => {
     if (!open) return
     const out = (e: PointerEvent) => { if (!box.current?.contains(e.target as Node)) setOpen(false) }
@@ -44,14 +43,6 @@ export default function UserSwitch({ portal, onSwitch, align = 'left' }: { porta
             <div key={g.title} className="us-head">{g.title}</div>,
             ...g.list.map(item),
           ])}
-          {edgeCases.length > 0 && (
-            <div className="us-edge">
-              <button type="button" className="us-head us-fold" aria-expanded={edgeOpen} onClick={() => setEdgeOpen(o => !o)}>
-                <span aria-hidden="true">{edgeOpen ? '▾' : '▸'}</span> Failure cases ({edgeCases.length})
-              </button>
-              {edgeOpen && edgeCases.map(item)}
-            </div>
-          )}
         </div>
       )}
     </div>

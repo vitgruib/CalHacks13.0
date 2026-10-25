@@ -137,8 +137,9 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
   // Prefilled for the demo: a request that passes every rule only needs the grant manager's yes.
   const [reason, setReason] = useState(hold.kind === 'purchase' && hold.why.includes('Every rule passes') ? 'Money arrived; all rules pass.' : '')
   const [source, setSource] = useState('')
-  // One click decides: the buttons stay off until the server answers (the card then goes away), or a few seconds if it fails.
+  // One click decides: the buttons stay off until the card goes away, or the refusal shows.
   const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
   const reasonId = useId()
   const sourceId = useId()
   const hasReason = reason.trim() !== ''
@@ -147,12 +148,17 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
   // Source readings: show each source once, as it reads now.
   const evidence = hold.kind === 'source_disagreement' ? latestPerSource(hold.evidence) : hold.evidence
 
-  const onDecide = (choice: Decision['choice']) => {
+  const onDecide = async (choice: Decision['choice']) => {
     const text = choice === 'pick_source' ? `Source picked: ${source}. ${reason.trim()}` : reason.trim()
     if (sending) return
     setSending(true)
-    setTimeout(() => setSending(false), 4000)
-    decide(hold.id, choice, text)
+    setError('')
+    try {
+      await decide(hold.id, choice, text)
+    } catch (e) {
+      setError(`Not saved: ${e instanceof Error ? e.message : String(e)}`)
+      setSending(false)
+    }
   }
 
   return (
@@ -217,6 +223,7 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
             </button>
           )
         })}
+        {error && <span role="status" className="inline-error">{error}</span>}
         {!hasReason && <span className="hint">Type a reason to enable the buttons.</span>}
         {hasReason && picksSource && !source && <span className="hint">Choose a source to pick it.</span>}
       </div>

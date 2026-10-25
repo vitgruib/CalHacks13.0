@@ -90,6 +90,8 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
   const { submitRequest } = useStore()
   const me = useResearcher()
   const [why, setWhy] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
   // An item the item check flagged isn't matched to a grant at all.
   const out: Outcome = ask.flag ? { kind: 'not_allowed' } : checkAsk(pool(db, ask.grantId), ask)
   const checks = allChecks(pool(db, ask.grantId), ask)
@@ -135,9 +137,17 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
     send = 'Send it anyway'
   }
 
-  const onSend = () => {
-    if (!g) return
-    submitRequest({ item: ask.item, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.purpose }, me)
+  const onSend = async () => {
+    if (!g || sending) return
+    setSending(true)
+    setError('')
+    try {
+      await submitRequest({ item: ask.item, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.purpose }, me)
+    } catch (e) {
+      setSending(false)
+      setError(`Not sent: ${e instanceof Error ? e.message : String(e)}`)
+      return
+    }
     onSent(`Sent: ${ask.item}. The grant office has it now.`)
   }
 
@@ -150,9 +160,10 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
       {body}
       {better && <p className="ask-sub">Your <strong>{shortName(better)}</strong> grant could pay for it. Choose it below, or let us pick.</p>}
       <div className="ask-buttons">
-        {send && <button type="button" className="ask-primary" onClick={onSend}>{send}</button>}
+        {send && <button type="button" className="ask-primary" onClick={onSend} disabled={sending}>{sending ? 'Sending…' : send}</button>}
         <button type="button" className="ask-secondary" aria-expanded={why} onClick={() => setWhy(w => !w)}>{why ? 'Hide the checks' : 'See the checks'}</button>
       </div>
+      {error && <p role="status" className="inline-error">{error}</p>}
       {why && out.kind === 'not_allowed' && (
         <div className="ask-checks">
           <h3>The thing itself</h3>
@@ -187,6 +198,7 @@ export default function Ask() {
   const [topic, setTopic] = useState<Topic | null>(null)
   const [sent, setSent] = useState('')
   const [checking, setChecking] = useState(false)
+  const [checkError, setCheckError] = useState('')
   const latest = useRef(0)
 
   // The item is checked first (Haiku, on the worker), and only then matched to a grant.
@@ -200,8 +212,17 @@ export default function Ask() {
     setAsk(null)
     setTopic(null)
     setSent('')
+    setCheckError('')
     setChecking(true)
-    const check = await checkItem(asked, me)
+    let check
+    try {
+      check = await checkItem(asked, me)
+    } catch (e) {
+      if (turn !== latest.current) return
+      setChecking(false)
+      setCheckError(`Couldn't check it: ${e instanceof Error ? e.message : String(e)}`)
+      return
+    }
     if (turn !== latest.current) return
     setChecking(false)
     const category = CATEGORIES.includes(check.category) ? check.category : guessCategory(`${what} ${purpose}`)
@@ -248,6 +269,7 @@ export default function Ask() {
           )}
           <button type="submit" className="ask-primary" disabled={checking}>{checking ? 'Checking…' : 'Check'}</button>
         </form>
+        {checkError && <p role="status" className="inline-error">{checkError}</p>}
       </section>
 
       {sent && <p role="status" className="ask-sent">{sent} <a href="#ask" onClick={toMine}>See my requests</a></p>}
@@ -271,7 +293,7 @@ export default function Ask() {
         <h2 id="ask-questions" className="ask-also">Check on your grants</h2>
         <div className="ask-chips">
           {TOPICS.map(t => (
-            <button key={t.id} type="button" aria-pressed={topic === t.id && !ask} onClick={() => { latest.current++; setChecking(false); setTopic(t.id); setAsk(null); setSent('') }}>{t.label}</button>
+            <button key={t.id} type="button" aria-pressed={topic === t.id && !ask} onClick={() => { latest.current++; setChecking(false); setCheckError(''); setTopic(t.id); setAsk(null); setSent('') }}>{t.label}</button>
           ))}
         </div>
       </section>

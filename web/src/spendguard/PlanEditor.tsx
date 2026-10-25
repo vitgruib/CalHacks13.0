@@ -37,34 +37,41 @@ export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; 
   const [report, setReport] = useState<Report | undefined>(saved?.report)
   const [assessedKey, setAssessedKey] = useState(saved?.report ? JSON.stringify(saved.plan) : '')
   const [message, setMessage] = useState('')
+  const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
   const grant = db.grants.find(g => g.id === plan.grantId)
   const stale = report !== undefined && assessedKey !== JSON.stringify(plan)
   const total = useMemo(() => planTotal(plan.items), [plan.items])
 
-  const edit = (patch: Partial<Plan>) => { setPlan(p => ({ ...p, ...patch })); setMessage('') }
+  const edit = (patch: Partial<Plan>) => { setPlan(p => ({ ...p, ...patch })); setMessage(''); setError('') }
   const editItem = (itemId: string, patch: Partial<Item>) => edit({ items: plan.items.map(i => (i.id === itemId ? { ...i, ...patch } : i)) })
 
   const run = () => {
     if (!grant) return undefined
     const r = assess(plan, grant, db.today)
-    setReport(r); setAssessedKey(JSON.stringify(plan)); setMessage('')
+    setReport(r); setAssessedKey(JSON.stringify(plan)); setMessage(''); setError('')
     return r
   }
   // The store (the module, when live) dates the plan and, once sent, makes its requests.
-  const persist = (status: SavedPlan['status'], r: Report | undefined) => {
+  // The editor stays open with the reason if it refuses.
+  const persist = async (status: SavedPlan['status'], r: Report | undefined) => {
+    setSaving(true); setMessage(''); setError('')
     try {
-      savePlan({ id, researcher: researcher.name, status, savedOn: db.today, plan, report: r }, researcher)
+      await savePlan({ id, researcher: researcher.name, status, savedOn: db.today, plan, report: r }, researcher)
       return true
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : String(e))
+      setError(`Not saved: ${e instanceof Error ? e.message : String(e)}`)
       return false
+    } finally {
+      setSaving(false)
     }
   }
-  const saveDraft = () => { if (persist('draft', report)) setMessage('Saved as a draft.') }
-  const submit = () => {
+  const saveDraft = async () => { if (!saving && await persist('draft', report)) setMessage('Saved as a draft.') }
+  const submit = async () => {
+    if (saving) return
     const r = stale || !report ? run() : report
     if (!r) return
-    if (persist(r.overall === 'aligned' ? 'sent' : 'submitted', r)) onDone()
+    if (await persist(r.overall === 'aligned' ? 'sent' : 'submitted', r)) onDone()
   }
 
   const upload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -204,11 +211,12 @@ export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; 
           </div>
           <h3 className="sg-h3">What next?</h3>
           <div className="sg-actions">
-            <button type="button" onClick={saveDraft}>Save as draft</button>
-            <button type="button" className="primary" onClick={submit}>Submit for review</button>
+            <button type="button" onClick={saveDraft} disabled={saving}>Save as draft</button>
+            <button type="button" className="primary" onClick={submit} disabled={saving}>{saving ? 'Saving…' : 'Submit for review'}</button>
             <a href="#requests" onClick={e => { e.preventDefault(); document.querySelector('.sg-editor')?.scrollIntoView({ behavior: 'smooth' }) }}>Revise the plan above</a>
             {message && <Badge tone="good">{message}</Badge>}
           </div>
+          {error && <p role="status" className="inline-error">{error}</p>}
           <p className="sg-note">
             {report.overall === 'aligned'
               ? 'All three checks pass, so submitting sends each line to the grant office as its own request. The spending rules still check every one.'

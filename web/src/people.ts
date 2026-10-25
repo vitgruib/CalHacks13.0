@@ -9,34 +9,20 @@ export interface Researcher {
   name: string // as stored on each request (requesterName)
   title: string
   grantId: string // the grant their work is on; the request form starts there
-  failure?: string // edge-case users: shown in place of the name (the failure case's title)
 }
 
 export const RESEARCHERS: Researcher[] = [
   { id: 'priya', name: 'Dr. Priya Nair', title: 'Postdoctoral researcher', grantId: 'R01GM061721' },
   { id: 'sofia', name: 'Sofia Alvarez', title: 'Graduate researcher', grantId: 'R21AI182745' },
-  // Failure cases: one per real failure case (T65, FailureCases.tsx), each on a grant cut on
-  // the real list. Pickers file them in a Failure cases folder, labeled by failure.
-  { id: 'kenji', name: 'Kenji Watanabe', title: 'Graduate researcher', grantId: 'R01GM155497', failure: 'Bought after the cut' },
-  { id: 'elena', name: 'Dr. Elena Petrova', title: 'Research scientist', grantId: 'R01HL176691', failure: 'Court restored, no cash' },
-  { id: 'jordan', name: 'Jordan Kim', title: 'Research associate', grantId: 'K01DK133670', failure: 'Paid while terminated' },
 ]
 
-/** The demo's main researchers, then the edge cases. */
-export const MAIN_RESEARCHERS = RESEARCHERS.filter(r => !r.failure)
-export const EDGE_CASES = RESEARCHERS.filter(r => r.failure)
-
-/** What the app calls a researcher: the failure for an edge case, else the name. */
-export const displayName = (r: Researcher) => r.failure ?? r.name
-
-const EDGE_GRANTS = new Set(EDGE_CASES.map(r => r.grantId))
-/** A grant that only backs an edge-case user (a failure case's grant), not the lab's own. */
+// The old edge-case samples' grants (the real failure cases) are still in the
+// seed and the live world; the app hides them everywhere (useStore).
+const EDGE_GRANTS = new Set(['R01GM155497', 'R01HL176691', 'K01DK133670'])
+/** A grant that only backed an edge-case sample, not the lab's own: hidden. */
 export const isEdgeGrant = (g: { id: string }) => EDGE_GRANTS.has(g.id)
-/** The edge case a grant backs ("Bought after the cut"); undefined for the lab's own. */
-export const edgeCaseOf = (g: { id: string }) => EDGE_CASES.find(r => r.grantId === g.id)?.failure
-/** The grants a researcher works with: an edge-case user only their own; everyone else the lab's. */
-export const grantsOf = <G extends { id: string }>(r: Researcher, grants: G[]) =>
-  grants.filter(g => (r.failure ? g.id === r.grantId : !isEdgeGrant(g)))
+/** The grants a researcher works with: the lab's. */
+export const grantsOf = <G extends { id: string }>(_r: Researcher, grants: G[]) => grants.filter(g => !isEdgeGrant(g))
 /** The world as a researcher's portal sees it: only their grants. */
 export const forResearcher = <D extends { grants: { id: string }[] }>(db: D, r: Researcher): D => ({ ...db, grants: grantsOf(r, db.grants) })
 
@@ -45,7 +31,7 @@ export const researcherNamed = (name: string | undefined) => RESEARCHERS.find(r 
 /** "Dr. Priya Nair, Postdoctoral researcher"; "a researcher" when unknown. */
 export const requesterLabel = (name: string | undefined) => {
   const r = researcherNamed(name)
-  return r ? (r.failure ? `Failure case: ${r.failure}` : `${r.name}, ${r.title}`) : name || 'a researcher'
+  return r ? `${r.name}, ${r.title}` : name || 'a researcher'
 }
 
 export const firstNameOf = (r: Researcher) => r.name.replace(/^Dr\.?\s*/, '').split(' ')[0]

@@ -70,13 +70,19 @@ function PushBack({ r }: { r: PurchaseRequest }) {
   const [text, setText] = useState('')
   const [error, setError] = useState('')
   const [sent, setSent] = useState(false)
-  const send = (e: FormEvent) => {
+  const [sending, setSending] = useState(false)
+  // The form closes only once the grant office has it; a refusal keeps the text.
+  const send = async (e: FormEvent) => {
     e.preventDefault()
+    if (sending) return
+    setSending(true); setError('')
     try {
-      pushBack(r.id, text.trim(), me)
-      setOpen(false); setText(''); setError(''); setSent(true)
+      await pushBack(r.id, text.trim(), me)
+      setOpen(false); setText(''); setSent(true)
     } catch (err) {
-      setError((err as Error).message)
+      setError(err instanceof Error ? err.message : String(err))
+    } finally {
+      setSending(false)
     }
   }
   if (!open) {
@@ -94,7 +100,7 @@ function PushBack({ r }: { r: PurchaseRequest }) {
         <textarea rows={2} value={text} onChange={e => { setText(e.target.value); setError('') }} />
       </label>
       <div className="rq-actions">
-        <button type="submit" className="primary" disabled={!text.trim()}>Send push back</button>
+        <button type="submit" className="primary" disabled={!text.trim() || sending}>{sending ? 'Sending…' : 'Send push back'}</button>
         <button type="button" onClick={() => setOpen(false)}>Cancel</button>
         <span role="status" className="rq-error">{error}</span>
       </div>
@@ -184,9 +190,13 @@ function PlanDecision({ p }: { p: SavedPlan }) {
   const { decidePlan } = useStore()
   const [reason, setReason] = useState('')
   const [error, setError] = useState('')
-  const decide = (choice: 'approve' | 'return') => {
+  const [pending, setPending] = useState(false)
+  // On success the card leaves the queue, so the buttons stay disabled until then.
+  const decide = async (choice: 'approve' | 'return') => {
+    if (pending) return
     if (!reason.trim()) return setError('Give a reason; the researcher sees it.')
-    try { decidePlan(p.id, choice, reason.trim()) } catch (e) { setError(e instanceof Error ? e.message : String(e)) }
+    setPending(true); setError('')
+    try { await decidePlan(p.id, choice, reason.trim()) } catch (e) { setError(e instanceof Error ? e.message : String(e)); setPending(false) }
   }
   return (
     <div className="rq-push">
@@ -195,8 +205,8 @@ function PlanDecision({ p }: { p: SavedPlan }) {
         <textarea rows={2} value={reason} onChange={e => { setReason(e.target.value); setError('') }} placeholder="e.g. Organoids are covered by aim 2 per the PI's note; quote on file" />
       </label>
       <div className="rq-actions">
-        <button type="button" className="primary" onClick={() => decide('approve')}>Approve: send its lines as requests</button>
-        <button type="button" onClick={() => decide('return')}>Return to the researcher</button>
+        <button type="button" className="primary" disabled={pending} onClick={() => decide('approve')}>Approve: send its lines as requests</button>
+        <button type="button" disabled={pending} onClick={() => decide('return')}>Return to the researcher</button>
         <span role="status" className="rq-error">{error}</span>
       </div>
       <p className="rq-muted rq-small">Approving clears the plan's scope questions. Each line becomes its own request, checked by the spending rules, and waits for your approval in the Inbox.</p>
@@ -204,10 +214,19 @@ function PlanDecision({ p }: { p: SavedPlan }) {
   )
 }
 
-function PlanCard({ p, onRevise, onDelete }: { p: SavedPlan; onRevise?: () => void; onDelete?: () => void }) {
+function PlanCard({ p, onRevise, onDelete }: { p: SavedPlan; onRevise?: () => void; onDelete?: () => Promise<void> }) {
   const { db } = useStore()
   const role = useContext(RoleContext)
   const [open, setOpen] = useState(role === 'grant_manager' && p.status === 'submitted')
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
+  const [error, setError] = useState('')
+  // On success the card goes away; a refusal shows here.
+  const remove = async () => {
+    if (!onDelete || deleting) return
+    setDeleting(true); setError('')
+    try { await onDelete() } catch (e) { setError(e instanceof Error ? e.message : String(e)); setDeleting(false); setConfirmDelete(false) }
+  }
   const lineStatus = useLineStatus(p)
   const g = db.grants.find(x => x.id === p.plan.grantId)
   const [tone, label] = planLabel[p.status]
@@ -237,7 +256,13 @@ function PlanCard({ p, onRevise, onDelete }: { p: SavedPlan; onRevise?: () => vo
             {p.status === 'submitted' ? 'Withdraw and revise' : 'Revise'}
           </button>
         )}
-        {onDelete && p.status !== 'sent' && <button type="button" onClick={onDelete}>Delete</button>}
+        {onDelete && p.status !== 'sent' && (confirmDelete
+          ? <>
+              <button type="button" className="primary" disabled={deleting} onClick={remove}>{deleting ? 'Deleting…' : 'Yes, delete this plan'}</button>
+              <button type="button" disabled={deleting} onClick={() => setConfirmDelete(false)}>Cancel</button>
+            </>
+          : <button type="button" onClick={() => { setConfirmDelete(true); setError('') }}>Delete</button>)}
+        <span role="status" className="rq-error">{error}</span>
       </div>
       {open && p.report && <ReportView report={p.report} lineStatus={lineStatus} />}
       {role === 'grant_manager' && p.status === 'submitted' && <PlanDecision p={p} />}
