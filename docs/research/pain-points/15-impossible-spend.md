@@ -359,13 +359,13 @@ against today's checks:
 | Failure mode | Records that conflict | Best precedent | Caught today |
 |---|---|---|---|
 | Charges after award end / suspension | award end date or status vs. PO, receipt, invoice dates | UW-Madison NSF OIG 15-1-014; USC 17-1-009 ($304,290) | partly |
-| Salary above certified effort | payroll distribution vs. effort certification / salary cap | UF $19.875M; UNT HSC $13.07M; NYMC $7.5M | no |
-| Late cost transfers | original expense date vs. transfer date (90 days) | Saint Louis Univ. 2023-001 (75 of 119) | no |
-| Order after invoice | PO approval date vs. invoice / service date | SCSU 2025 ($12,727); UHV $47,946.64 | no |
-| Split purchases | sum of same-day charges vs. card limit | Yale Petrone $40.5M; SCSU 2025; NSF 25-06-001 | partly (single charge only) |
-| Duplicate payment | payment vs. earlier payment (vendor, invoice #, amount) | Saint Louis Univ. 2021-001 (NIH, overhead doubled) | no |
-| Paid but not received / sham vendor | payment vs. receiving record; vendor vs. requester | Stony Brook Girnun; SCSU $5,500 | no |
-| Requester = approver | requester vs. approver vs. vendor editor | UT Tyler 2024 | no |
+| Salary above certified effort | payroll distribution vs. effort certification / salary cap | UF $19.875M; UNT HSC $13.07M; NYMC $7.5M | yes (over 100% across grants; not the NSF 2-month cap) |
+| Late cost transfers | original expense date vs. transfer date (90 days) | Saint Louis Univ. 2023-001 (75 of 119) | no (no cost-transfer records) |
+| Order after invoice | PO approval date vs. invoice / service date | SCSU 2025 ($12,727); UHV $47,946.64 | yes |
+| Split purchases | sum of same-day charges vs. card limit | Yale Petrone $40.5M; SCSU 2025; NSF 25-06-001 | yes (same person, day and category) |
+| Duplicate payment | payment vs. earlier payment (vendor, invoice #, amount) | Saint Louis Univ. 2021-001 (NIH, overhead doubled) | yes (second bill on one order) |
+| Paid but not received / sham vendor | payment vs. receiving record; vendor vs. requester | Stony Brook Girnun; SCSU $5,500 | no (no receiving or vendor records) |
+| Requester = approver | requester vs. approver vs. vendor editor | UT Tyler 2024 | yes (nobody approves their own request) |
 | Invoice above approved PO | invoice total vs. approved PO amount | UT Tyler 2024 (freight) | yes |
 | End-of-grant spend-down | purchase date vs. award end date | Yale 2008; NSF capstone (see 08) | yes |
 | Invoice for canceled order | invoice vs. PO status | none found | yes |

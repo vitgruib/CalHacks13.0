@@ -17,6 +17,7 @@ import {
   canBuyAlone,
   checkInvoice,
   checkPaper,
+  effortWhy,
   freezeState,
   isRealDay,
   spendingVerdicts,
@@ -62,6 +63,16 @@ function guard<T>(fn: () => T): T {
 }
 
 const today = (ctx: Ctx): string => ctx.db.clock.id.find(0)?.today ?? '2026-01-01';
+
+/** A request with the same person's other live requests that day, for the split-purchase rule. */
+function withSameDay<R extends { id: string; day: string; requesterName: string }>(ctx: Ctx, r: R): R & { sameDay: { id: string; category: string; price: number }[] } {
+  const sameDay = r.requesterName
+    ? [...ctx.db.request.iter()]
+      .filter(o => o.id !== r.id && o.day === r.day && o.requesterName === r.requesterName && !['rejected', 'blocked', 'canceled'].includes(o.state))
+      .map(o => ({ id: o.id, category: o.category, price: o.price }))
+    : [];
+  return { ...r, sameDay };
+}
 
 function agentRole(ctx: Ctx): AgentRole | undefined {
   return ctx.db.agent.identity.find(ctx.sender)?.role as AgentRole | undefined;
@@ -268,7 +279,7 @@ export const evaluate_request = spacetimedb.reducer(
     const gid = grantId ?? r.grantId ?? fail('Pick a grant to check against.');
     const g = getGrant(ctx, gid);
     const grants = grantsForRules(ctx);
-    const req = { ...r, split };
+    const req = withSameDay(ctx, { ...r, split });
     const verdicts = spendingVerdicts(req, g, today(ctx), new Map(grants.map(x => [x.id, x])));
     ctx.db.request.id.update({ ...r, chargedGrantId: gid, split, verdicts: vrows(verdicts) });
     const failed = verdicts.filter(v => !v.pass);
@@ -296,7 +307,7 @@ export const act_on_request = spacetimedb.reducer(
     const gid = a.grantId ?? r.chargedGrantId ?? r.grantId ?? fail('Pick a grant.');
     const grants = grantsForRules(ctx);
     const byId = new Map(grants.map(x => [x.id, x]));
-    const verdicts = spendingVerdicts(r, getGrant(ctx, gid), today(ctx), byId);
+    const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx), byId);
 
     if (action === 'buy' || action === 'reroute') {
       if (!canBuyAlone(verdicts)) {
@@ -405,7 +416,7 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       }
       const gid = r.chargedGrantId ?? r.grantId;
       if (!gid) return;
-      const verdicts = spendingVerdicts(r, getGrant(ctx, gid), today(ctx), new Map(grantsForRules(ctx).map(x => [x.id, x])));
+      const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx), new Map(grantsForRules(ctx).map(x => [x.id, x])));
       const blocking = verdicts.filter(v => !v.pass && !v.rule.startsWith('Under the card limit'));
       if (c === 'approve' && blocking.length) {
         ctx.db.request.id.update({ ...r, verdicts: vrows(verdicts), state: 'blocked' });
@@ -585,7 +596,8 @@ export const check_invoice = spacetimedb.reducer({ invoiceId: t.string() }, (ctx
   const inv = ctx.db.invoice.id.find(invoiceId) ?? fail(`No invoice ${invoiceId}.`);
   if (inv.state === 'paid' || inv.state === 'rejected') fail(`Invoice is already ${inv.state}.`);
   const o = ctx.db.order.id.find(inv.orderId);
-  const v = checkInvoice(inv, o ?? undefined, [...ctx.db.approval.orderId.filter(inv.orderId)]);
+  const others = [...ctx.db.invoice.iter()].filter(x => x.orderId === inv.orderId && x.id !== inv.id);
+  const v = checkInvoice(inv, o ?? undefined, [...ctx.db.approval.orderId.filter(inv.orderId)], others);
   ctx.db.invoice.id.update({ ...inv, state: v.matched ? 'matched' : 'held', mismatch: v.mismatch, timeline: v.timeline, checked: true });
   if (v.matched) {
     writeLog(ctx, role, `Matched invoice ${inv.id}`, 'Order open and amount matches the approval; paid.', { rule: 'Invoice needs an open order and the approved amount', refId: inv.id });
@@ -637,7 +649,13 @@ export const draft_payment_request = spacetimedb.reducer(
         excluded.push({ requestId: o.requestId, why: `Invoice ${i.id} is on hold: ${i.mismatch ?? 'mismatch'}` });
       }
     }
-    const pay = [...ctx.db.payroll.grantId.filter(a.grantId)].filter(p => p.from >= a.from && p.to <= a.to);
+    const allPay = [...ctx.db.payroll.iter()];
+    const pay: typeof allPay = [];
+    for (const p of allPay.filter(p => p.grantId === a.grantId && p.from >= a.from && p.to <= a.to)) {
+      const why = effortWhy(p, allPay);
+      if (why) excluded.push({ requestId: p.id, why });
+      else pay.push(p);
+    }
     amount += pay.reduce((s, p) => s + p.amount, 0);
     const id = nextId(ctx, 'pr', x => !!ctx.db.paymentRequest.id.find(x));
     ctx.db.paymentRequest.insert({

@@ -207,12 +207,13 @@ const CHECKS = {
   'an author-affiliation correction': (p) => (isRawPaper(p) && p.correction?.kind === 'minor' && /affiliation/i.test(p.correction.note)) || 'must be an unchecked paper with a minor affiliation correction',
   'a retracted paper cited in order to discuss the retraction': (p) => (isRawPaper(p) && p.correction?.kind === 'retraction' && p.correction.disclosed) || 'must be an unchecked paper with a disclosed retraction',
 }
-const TABLE_FOR = { fund_tracker: null, purchases: 'requests', invoices: 'invoices', payment_requests: 'requests', reports: 'papers' }
+// A payment request leaves out purchases (requests) and salary (payroll rows).
+const TABLE_FOR = { fund_tracker: null, purchases: ['requests'], invoices: ['invoices'], payment_requests: ['requests', 'payroll'], reports: ['papers'] }
 for (const c of key.cases) {
   const entry = byId.get(c.refId)
   if (!entry) continue
   const want = TABLE_FOR[c.feature]
-  if (want && entry.table !== want) { fail(`answer key ${c.id}: refId ${c.refId} is in ${entry.table}, expected ${want}`); continue }
+  if (want && !want.includes(entry.table)) { fail(`answer key ${c.id}: refId ${c.refId} is in ${entry.table}, expected ${want.join(' or ')}`); continue }
   if (c.grantId && entry.row.grantId && entry.row.grantId !== c.grantId && c.feature !== 'invoices') fail(`answer key ${c.id}: grantId ${c.grantId} but ${c.refId} is on ${entry.row.grantId}`)
   const check = CHECKS[c.case]
   if (check) {

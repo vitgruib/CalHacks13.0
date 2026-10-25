@@ -8,7 +8,7 @@
       "agency": "NIH / NIGMS",
       "awarded": 420000,
       "received": 104415,
-      "spent": 105305,
+      "spent": 109855,
       "promised": 0,
       "start": "2025-01-01",
       "end": "2027-07-31",
@@ -23,8 +23,8 @@
       "agency": "NIH / NIAID",
       "awarded": 275000,
       "received": 119070,
-      "spent": 132610,
-      "promised": 9590,
+      "spent": 135210,
+      "promised": 11470,
       "start": "2024-08-01",
       "end": "2026-08-31",
       "status": "active",
@@ -1816,6 +1816,86 @@
       "explanation": "Charged directly on the department purchasing card on 2026-03-18, outside GrantGuard. Imported from the university ledger."
     },
     {
+      "id": "rq-202",
+      "day": "2026-06-10",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Biosafety cabinet annual certification",
+      "category": "equipment service",
+      "price": 1240,
+      "grantId": "R21AI182745",
+      "purpose": "Required yearly certification of the BSL-2 cabinet",
+      "state": "bought",
+      "verdicts": [
+        {
+          "rule": "Grant is active and not frozen",
+          "pass": true,
+          "detail": "Active."
+        },
+        {
+          "rule": "Category allowed",
+          "pass": true,
+          "detail": "Equipment service are allowed on this grant."
+        },
+        {
+          "rule": "Not in the grant's last 90 days",
+          "pass": true,
+          "detail": "More than 90 days left."
+        },
+        {
+          "rule": "Under the card limit ($5,000)",
+          "pass": true,
+          "detail": "$1,240."
+        },
+        {
+          "rule": "Enough truly available money",
+          "pass": true,
+          "detail": "Enough money left."
+        }
+      ],
+      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+    },
+    {
+      "id": "rq-203",
+      "day": "2026-06-02",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Genomics core: sequencing run for 24 isolates, second batch",
+      "category": "core facility services",
+      "price": 640,
+      "grantId": "R21AI182745",
+      "purpose": "Whole-genome sequencing of the second clinical isolate batch",
+      "state": "bought",
+      "verdicts": [
+        {
+          "rule": "Grant is active and not frozen",
+          "pass": true,
+          "detail": "Active."
+        },
+        {
+          "rule": "Category allowed",
+          "pass": true,
+          "detail": "Core facility services are allowed on this grant."
+        },
+        {
+          "rule": "Not in the grant's last 90 days",
+          "pass": true,
+          "detail": "More than 90 days left."
+        },
+        {
+          "rule": "Under the card limit ($5,000)",
+          "pass": true,
+          "detail": "$640."
+        },
+        {
+          "rule": "Enough truly available money",
+          "pass": true,
+          "detail": "Enough money left."
+        }
+      ],
+      "explanation": "Every rule passed and it is under the card limit, so I bought it."
+    },
+    {
       "id": "rq-101",
       "day": "2026-06-14",
       "requester": "scientist",
@@ -1895,6 +1975,48 @@
       "price": 5000,
       "grantId": "R01GM061721",
       "purpose": "BamA detergent screen, round 2",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the purchasing agent."
+    },
+    {
+      "id": "rq-108",
+      "day": "2026-06-15",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Sequencing core: 48 isolates, run 1 of 2",
+      "category": "core facility services",
+      "price": 2900,
+      "grantId": "R21AI182745",
+      "purpose": "Resistance-gene survey of the clinical isolate panel",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the purchasing agent."
+    },
+    {
+      "id": "rq-109",
+      "day": "2026-06-15",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Sequencing core: 48 isolates, run 2 of 2",
+      "category": "core facility services",
+      "price": 2600,
+      "grantId": "R21AI182745",
+      "purpose": "Resistance-gene survey of the clinical isolate panel",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the purchasing agent."
+    },
+    {
+      "id": "rq-110",
+      "day": "2026-06-15",
+      "requester": "scientist",
+      "requesterName": "Sofia Alvarez",
+      "item": "Biosafety cabinet filter replacement",
+      "category": "equipment service",
+      "price": 2400,
+      "grantId": "R21AI182745",
+      "purpose": "HEPA filter replacement found at certification",
       "state": "submitted",
       "verdicts": [],
       "explanation": "Waiting for the purchasing agent."
@@ -2238,6 +2360,22 @@
       "amount": 890,
       "placed": "2026-03-18",
       "state": "paid"
+    },
+    {
+      "id": "o-202",
+      "requestId": "rq-202",
+      "vendor": "CertiFlow",
+      "amount": 1240,
+      "placed": "2026-06-10",
+      "state": "open"
+    },
+    {
+      "id": "o-203",
+      "requestId": "rq-203",
+      "vendor": "Campus Genomics Core",
+      "amount": 640,
+      "placed": "2026-06-02",
+      "state": "open"
     }
   ],
   "approvals": [
@@ -3072,6 +3210,51 @@
         }
       ],
       "checked": false
+    },
+    {
+      "id": "inv-201",
+      "orderId": "o-033",
+      "vendor": "MicroMedia",
+      "amount": 1180,
+      "received": "2026-06-10",
+      "state": "matched",
+      "checked": false,
+      "timeline": [
+        {
+          "day": "2026-06-10",
+          "what": "Invoice arrived ($1,180)"
+        }
+      ]
+    },
+    {
+      "id": "inv-202",
+      "orderId": "o-202",
+      "vendor": "CertiFlow",
+      "amount": 1240,
+      "received": "2026-06-03",
+      "state": "matched",
+      "checked": false,
+      "timeline": [
+        {
+          "day": "2026-06-03",
+          "what": "Invoice arrived ($1,240)"
+        }
+      ]
+    },
+    {
+      "id": "inv-203",
+      "orderId": "o-203",
+      "vendor": "Campus Genomics Core",
+      "amount": 640,
+      "received": "2026-06-09",
+      "state": "matched",
+      "checked": false,
+      "timeline": [
+        {
+          "day": "2026-06-09",
+          "what": "Invoice arrived ($640)"
+        }
+      ]
     }
   ],
   "payroll": [
@@ -3938,6 +4121,30 @@
       },
       "effortPct": 50,
       "amount": 2250
+    },
+    {
+      "id": "pay-R21-2026-05-3",
+      "grantId": "R21AI182745",
+      "person": "Priya Shah",
+      "role": "Postdoctoral researcher",
+      "period": {
+        "from": "2026-05-01",
+        "to": "2026-05-31"
+      },
+      "effortPct": 40,
+      "amount": 2600
+    },
+    {
+      "id": "pay-R01-2026-05-1",
+      "grantId": "R01GM061721",
+      "person": "Priya Shah",
+      "role": "Postdoctoral researcher",
+      "period": {
+        "from": "2026-05-01",
+        "to": "2026-05-31"
+      },
+      "effortPct": 70,
+      "amount": 4550
     }
   ],
   "paymentRequests": [
@@ -5940,6 +6147,40 @@
     },
     {
       "id": "l-0165",
+      "day": "2026-06-02",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Genomics core: sequencing run for 24 isolates, second batch ($640)",
+      "reason": "Whole-genome sequencing of the second clinical isolate batch",
+      "refId": "rq-203"
+    },
+    {
+      "id": "l-0166",
+      "day": "2026-06-02",
+      "actor": "purchasing",
+      "action": "Bought genomics core: sequencing run for 24 isolates, second batch ($640) on R21AI182745",
+      "rule": "All rules pass, under card limit",
+      "reason": "Every rule passed.",
+      "refId": "rq-203"
+    },
+    {
+      "id": "l-0167",
+      "day": "2026-06-10",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Biosafety cabinet annual certification ($1,240)",
+      "reason": "Required yearly certification of the BSL-2 cabinet",
+      "refId": "rq-202"
+    },
+    {
+      "id": "l-0168",
+      "day": "2026-06-10",
+      "actor": "purchasing",
+      "action": "Bought biosafety cabinet annual certification ($1,240) on R21AI182745",
+      "rule": "All rules pass, under card limit",
+      "reason": "Every rule passed.",
+      "refId": "rq-202"
+    },
+    {
+      "id": "l-0169",
       "day": "2026-06-12",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Agar plates, 40 packs ($1,180)",
@@ -5947,7 +6188,7 @@
       "refId": "rq-102"
     },
     {
-      "id": "l-0166",
+      "id": "l-0170",
       "day": "2026-06-12",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Proteomics core: 10 hours of mass spec ($1,800)",
@@ -5955,7 +6196,7 @@
       "refId": "rq-107"
     },
     {
-      "id": "l-0167",
+      "id": "l-0171",
       "day": "2026-06-13",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Espresso machine for the lab ($890)",
@@ -5963,7 +6204,7 @@
       "refId": "rq-103"
     },
     {
-      "id": "l-0168",
+      "id": "l-0172",
       "day": "2026-06-13",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Confocal microscope service contract, 12 months ($3,600)",
@@ -5971,7 +6212,7 @@
       "refId": "rq-104"
     },
     {
-      "id": "l-0169",
+      "id": "l-0173",
       "day": "2026-06-14",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",
@@ -5979,7 +6220,7 @@
       "refId": "rq-101"
     },
     {
-      "id": "l-0170",
+      "id": "l-0174",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Peristaltic pump with controller ($6,850)",
@@ -5987,12 +6228,36 @@
       "refId": "rq-105"
     },
     {
-      "id": "l-0171",
+      "id": "l-0175",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Membrane protein detergent screening kit, 4 plates ($5,000)",
       "reason": "BamA detergent screen, round 2",
       "refId": "rq-106"
+    },
+    {
+      "id": "l-0176",
+      "day": "2026-06-15",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 1 of 2 ($2,900)",
+      "reason": "Resistance-gene survey of the clinical isolate panel",
+      "refId": "rq-108"
+    },
+    {
+      "id": "l-0177",
+      "day": "2026-06-15",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 2 of 2 ($2,600)",
+      "reason": "Resistance-gene survey of the clinical isolate panel",
+      "refId": "rq-109"
+    },
+    {
+      "id": "l-0178",
+      "day": "2026-06-15",
+      "actor": "scientist",
+      "action": "Sofia Alvarez asked to buy Biosafety cabinet filter replacement ($2,400)",
+      "reason": "HEPA filter replacement found at certification",
+      "refId": "rq-110"
     }
   ]
 }

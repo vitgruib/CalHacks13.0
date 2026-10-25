@@ -220,6 +220,30 @@ db.requests.push({
 db.orders.push({ id: 'o-050', requestId: 'rq-050', vendor: 'MembraneChem', amount: 890, placed: '2026-03-18', state: 'paid' })
 log('2026-03-20', 'system', 'Imported a card charge from the university ledger', 'MembraneChem $890 on R01GM061721, charged 2026-03-18.', 'rq-050')
 
+// PLANTED (invoices, T57): MicroMedia bills the agar-plate order o-033 a second
+// time. o-033 was paid in April (inv-033). Raw: not yet checked.
+db.invoices.push({ id: 'inv-201', orderId: 'o-033', vendor: 'MicroMedia', amount: 1_180, received: '2026-06-10', state: 'matched', checked: false, timeline: [{ day: '2026-06-10', what: 'Invoice arrived ($1,180)' }] })
+
+// PLANTED (invoices, T57): an after-the-fact order. CertiFlow certified the
+// biosafety cabinet and billed on 2026-06-03; the lab entered the order a week
+// later, after the bill arrived. Raw: not yet checked.
+// DECOY (invoices, T57): a second genomics-core batch: same vendor and amount
+// as o-038, but its own order, placed before its invoice. Should pass.
+for (const [n, day, item, vendor, category, price, purpose, received] of [
+  [202, '2026-06-10', 'Biosafety cabinet annual certification', 'CertiFlow', 'equipment service', 1_240, 'Required yearly certification of the BSL-2 cabinet', '2026-06-03'],
+  [203, '2026-06-02', 'Genomics core: sequencing run for 24 isolates, second batch', 'Campus Genomics Core', 'core facility services', 640, 'Whole-genome sequencing of the second clinical isolate batch', '2026-06-09'],
+]) {
+  const id = `rq-${n}`, oid = `o-${n}`
+  db.requests.push({
+    id, day, requester: 'scientist', requesterName: researcherFor(B), item, category, price, grantId: B, purpose,
+    state: 'bought', verdicts: passVerdicts(price, category), explanation: 'Every rule passed and it is under the card limit, so I bought it.',
+  })
+  log(day, 'scientist', `${researcherFor(B)} asked to buy ${item} (${money(price)})`, purpose, id)
+  log(day, 'purchasing', `Bought ${item.toLowerCase()} (${money(price)}) on ${B}`, 'Every rule passed.', id, 'All rules pass, under card limit')
+  db.orders.push({ id: oid, requestId: id, vendor, amount: price, placed: day, state: 'open' })
+  db.invoices.push({ id: `inv-${n}`, orderId: oid, vendor, amount: price, received, state: 'matched', checked: false, timeline: [{ day: received, what: `Invoice arrived (${money(price)})` }] })
+}
+
 // ---------------------------------------------------------------------------
 // Today's raw requests: submitted, no verdicts yet. Planted mistakes and decoys.
 // ---------------------------------------------------------------------------
@@ -230,6 +254,12 @@ const raw = [
   ['rq-104', '2026-06-13', 'Confocal microscope service contract, 12 months', 'equipment service', 3_600, A, undefined, `Annual service of the shared confocal microscope; imaging for both ${A} (membrane folding) and ${B} (assay imaging)`],
   ['rq-105', '2026-06-15', 'Peristaltic pump with controller', 'equipment', 6_850, A, undefined, 'Continuous-flow folding experiments, aim 3'],
   ['rq-106', '2026-06-15', 'Membrane protein detergent screening kit, 4 plates', 'reagents', 5_000, A, undefined, 'BamA detergent screen, round 2'],
+  // PLANTED (purchases, T57): two sequencing runs on the same day, each under
+  // the card limit, $5,500 together: a split purchase.
+  ['rq-108', '2026-06-15', 'Sequencing core: 48 isolates, run 1 of 2', 'core facility services', 2_900, B, undefined, 'Resistance-gene survey of the clinical isolate panel'],
+  ['rq-109', '2026-06-15', 'Sequencing core: 48 isolates, run 2 of 2', 'core facility services', 2_600, B, undefined, 'Resistance-gene survey of the clinical isolate panel'],
+  // DECOY (purchases, T57): same person and day, but another category.
+  ['rq-110', '2026-06-15', 'Biosafety cabinet filter replacement', 'equipment service', 2_400, B, undefined, 'HEPA filter replacement found at certification'],
   ['rq-107', '2026-06-12', 'Proteomics core: 10 hours of mass spec', 'core facility services', 1_800, A, [{ grantId: A, share: 0.6 }, { grantId: B, share: 0.4 }], `Samples from both projects: 6 hours for ${A}, 4 hours for ${B}`],
 ]
 for (const [id, day, item, category, price, grantId, split, purpose] of raw) {
@@ -261,6 +291,14 @@ for (const [grantId, from, to] of [[A, '2025-01-01', '2026-02-01'], [B, '2024-08
     })
   }
 }
+
+// PLANTED (payment requests, T57): Priya Shah's May salary is charged 40% to B
+// and 70% to A: 110% effort. B's May request must leave her B row out (its
+// total stays the same); A is frozen in May, so no request is drafted there.
+db.payroll.push(
+  { id: 'pay-R21-2026-05-3', grantId: B, person: 'Priya Shah', role: 'Postdoctoral researcher', period: { from: '2026-05-01', to: '2026-05-31' }, effortPct: 40, amount: 2_600 },
+  { id: 'pay-R01-2026-05-1', grantId: A, person: 'Priya Shah', role: 'Postdoctoral researcher', period: { from: '2026-05-01', to: '2026-05-31' }, effortPct: 70, amount: 4_550 },
+)
 
 // ---------------------------------------------------------------------------
 // Payment requests (history). Included purchases: orders placed in the period

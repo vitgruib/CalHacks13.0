@@ -19,8 +19,12 @@ What it covered:
 - rq-101 is bought, rq-102 is rerouted to A and rq-106 ($5,000 exactly) is
   bought;
 - the rq-107 split puts 60% on A and 40% on B;
-- inv-030 and inv-034 are held;
-- the May payment request for B comes to $7,060.
+- inv-030 and inv-034 are held; so are inv-201 (a second bill on o-033) and
+  inv-202 (its order was placed after the bill); inv-203 is paid;
+- rq-108 and rq-109 (same-day split, $5,500) wait on the grant manager;
+  rq-110 is bought;
+- the May payment request for B comes to $7,060 and leaves out Priya Shah's
+  salary (110% effort across A and B).
 
 The cases below are what a dropped connection, a double-click or a curious
 judge can hit.

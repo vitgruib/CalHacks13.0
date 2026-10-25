@@ -35,6 +35,9 @@ function describe(db: Db, requestId: string, grantId: string): { name: string; a
 
   const share = rq?.split?.find(s => s.grantId === grantId)?.share ?? 1
   if (rq) return { name: rq.item, amount: Math.round(rq.price * share), held }
+  // A salary row left out (for example, effort over 100% across grants).
+  const pay = db.payroll.find(p => p.id === requestId)
+  if (pay) return { name: `${pay.person}'s salary (${pay.role}, ${pay.effortPct}% effort, ${pay.period.from} to ${pay.period.to})`, amount: pay.amount, held }
   const o = orders[0]
   if (o) return { name: `${o.vendor} order ${o.id}${invoices[0] ? `, invoice ${invoices[0].id}` : ''}`, amount: invoices[0]?.amount ?? o.amount, held }
   return { name: `Request ${requestId} (no record found)`, held }

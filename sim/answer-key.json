@@ -92,6 +92,16 @@
       "source": "MASTER-PLAN §3.2 planted mistakes and §2 hard limits"
     },
     {
+      "id": "pu-5", "feature": "purchases", "kind": "mistake",
+      "case": "a split purchase: two same-day buys under the card limit that are over it together",
+      "refId": "rq-109", "grantId": "R21AI182745", "expected": "hold",
+      "relatedIds": ["rq-108"],
+      "rule": "Under the card limit, counting same-day purchases",
+      "check": "rq-109 (and rq-108) waiting_on_manager with a purchase hold citing the same-day card-limit rule",
+      "why": "Sofia Alvarez asked for two runs of the same sequencing job on 2026-06-15, $2,900 and $2,600: $5,500 together, over the $5,000 card limit.",
+      "source": "docs/research/pain-points/15-impossible-spend.md §5 (SCSU 2025, UMass Amherst 2018, NSF OIG 25-06-001)"
+    },
+    {
       "id": "pu-d1", "feature": "purchases", "kind": "decoy",
       "case": "a buy exactly at the limit",
       "refId": "rq-106", "grantId": "R01GM061721", "expected": "pass",
@@ -108,6 +118,15 @@
       "check": "shared-cost verdict passes on rq-107 (60% R01GM061721 / 40% R21AI182745); once R01GM061721 unfreezes it is bought with no hold",
       "why": "Mass-spec hours split 6/4 between the two projects, matching its stated use. Core-facility services are not supplies, so the 90-day rule does not apply to B's share.",
       "source": "MASTER-PLAN §3.2 decoys"
+    },
+    {
+      "id": "pu-d3", "feature": "purchases", "kind": "decoy",
+      "case": "a same-day buy by the same person in another category",
+      "refId": "rq-110", "grantId": "R21AI182745", "expected": "pass",
+      "rule": "Under the card limit, counting same-day purchases",
+      "check": "the same-day card-limit verdict passes on rq-110 and it is bought",
+      "why": "A $2,400 filter replacement (equipment service) is not part of the sequencing runs; only purchases in one category are added together.",
+      "source": "docs/research/pain-points/15-impossible-spend.md §5"
     },
     {
       "id": "in-1", "feature": "invoices", "kind": "mistake",
@@ -128,6 +147,26 @@
       "source": "MASTER-PLAN §3.3 planted mistakes"
     },
     {
+      "id": "in-3", "feature": "invoices", "kind": "mistake",
+      "case": "a second bill for an order already paid",
+      "refId": "inv-201", "grantId": "R21AI182745", "expected": "hold",
+      "relatedIds": ["inv-033", "o-033"],
+      "rule": "An invoice is payable only if its order hasn't been billed already",
+      "check": "inv-201 held with an invoice hold naming inv-033",
+      "why": "MicroMedia billed o-033 ($1,180) again on 2026-06-10; inv-033 for the same order was paid in April.",
+      "source": "docs/research/pain-points/15-impossible-spend.md §6 (Saint Louis Univ. 2021-001)"
+    },
+    {
+      "id": "in-4", "feature": "invoices", "kind": "mistake",
+      "case": "an order placed after its invoice arrived",
+      "refId": "inv-202", "grantId": "R21AI182745", "expected": "hold",
+      "relatedIds": ["o-202", "rq-202"],
+      "rule": "An invoice is payable only if its order was placed before it",
+      "check": "inv-202 held: order o-202 placed 2026-06-10, after the invoice arrived on 2026-06-03",
+      "why": "CertiFlow billed the cabinet certification on 2026-06-03; the order was entered a week later, so the grant was never checked before the money was committed.",
+      "source": "docs/research/pain-points/15-impossible-spend.md §4 (SCSU 2025, UT Tyler 2024, UH-Victoria 2022)"
+    },
+    {
       "id": "in-d1", "feature": "invoices", "kind": "decoy",
       "case": "an invoice matching an approved change to the order",
       "refId": "inv-036", "grantId": "R21AI182745", "expected": "pass",
@@ -135,6 +174,15 @@
       "check": "inv-036 matched (ready to pay); no hold",
       "why": "Order o-036 changed from $1,150 to $1,290 with the grant manager's approval (ap-036); the invoice is $1,290.",
       "source": "MASTER-PLAN §3.3 decoy"
+    },
+    {
+      "id": "in-d2", "feature": "invoices", "kind": "decoy",
+      "case": "the same vendor and amount on a different order",
+      "refId": "inv-203", "grantId": "R21AI182745", "expected": "pass",
+      "rule": "An invoice is payable only if its order hasn't been billed already",
+      "check": "inv-203 matched (paid); no hold",
+      "why": "A second genomics-core batch: $640 from Campus Genomics Core like o-038, but its own order, placed before its invoice. Naive duplicate matching flags these.",
+      "source": "docs/research/pain-points/15-impossible-spend.md §6 (Texas Comptroller 2020: most potential duplicates were not)"
     },
     {
       "id": "pr-1", "feature": "payment_requests", "kind": "mistake",
@@ -145,6 +193,16 @@
       "check": "the May 2026 payment request for R21AI182745 (2026-05-01 to 2026-05-31) has rq-037 in `excluded`, not in includedRequestIds",
       "why": "The broth order's invoice (inv-037) is on hold, waiting for the grant manager (h-004): billed $2,920 for a $1,460 order.",
       "source": "MASTER-PLAN §3.4 planted mistake"
+    },
+    {
+      "id": "pr-2", "feature": "payment_requests", "kind": "mistake",
+      "case": "salary charged above 100% effort across grants",
+      "refId": "pay-R21-2026-05-3", "grantId": "R21AI182745", "expected": "exclude",
+      "rule": "Salary can't be claimed above 100% effort",
+      "relatedIds": ["pay-R01-2026-05-1"],
+      "check": "the May 2026 payment request for R21AI182745 has pay-R21-2026-05-3 in `excluded`, not in includedPayrollIds, and its total is unchanged",
+      "why": "Priya Shah's May salary is charged 40% to R21AI182745 and 70% to R01GM061721: 110% effort.",
+      "source": "docs/research/pain-points/15-impossible-spend.md §2 (UF 2015, UNT HSC 2018, NYMC 2024)"
     },
     {
       "id": "rp-1", "feature": "reports", "kind": "mistake",

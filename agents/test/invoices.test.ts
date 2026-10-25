@@ -125,7 +125,7 @@ test('every_waiting_sim_invoice_is_checked_and_only_the_planted_ones_are_held', 
   assert.deepEqual(conn.rows('invoice').filter((row) => !row.checked).map((row) => row.id), []);
   assert.equal(invoice(conn, 'inv-038').state, 'paid');
   const open = conn.rows('hold').filter((hold) => hold.kind === 'invoice' && hold.open).map((hold) => hold.refId).sort();
-  assert.deepEqual(open, ['inv-030', 'inv-034', 'inv-037']);
+  assert.deepEqual(open, ['inv-030', 'inv-034', 'inv-037', 'inv-201', 'inv-202']);
 });
 
 test('a_second_idle_on_the_sim_world_changes_nothing', async () => {
@@ -144,7 +144,7 @@ test('reloading_the_sim_world_in_the_test_lab_checks_its_invoices_again_without_
   assert.equal(invoice(conn, 'inv-030').state, 'held');
   assert.equal(invoice(conn, 'inv-036').state, 'paid');
   const open = conn.rows('hold').filter((hold) => hold.kind === 'invoice' && hold.open).map((hold) => hold.refId).sort();
-  assert.deepEqual(open, ['inv-030', 'inv-034', 'inv-037']);
+  assert.deepEqual(open, ['inv-030', 'inv-034', 'inv-037', 'inv-201', 'inv-202']);
   assert.equal(evidence(openHold(conn, 'inv-034'), 'Approval ap-034'), '$5,800 by the grant manager on 2026-04-21');
   await settle();
 });

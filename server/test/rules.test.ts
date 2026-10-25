@@ -5,6 +5,7 @@ import {
   canBuyAlone,
   checkInvoice,
   checkPaper,
+  effortOver,
   freezeState,
   rerouteTarget,
   spendingVerdicts,
@@ -118,6 +119,22 @@ describe('spending rules', () => {
     const g = grant();
     expect(rerouteTarget({ ...supplies(890), category: 'general office' }, g, TODAY, [g, grant({ id: 'A' })])).toBeUndefined();
   });
+
+  test('planted: same-day purchases in one category that each pass the card limit but together exceed it go to the grant manager', () => {
+    const vs = spendingVerdicts({ ...supplies(2_600), sameDay: [{ id: 'rq-1', category: 'lab supplies', price: 2_900 }] }, grant(), TODAY);
+    expect(failed(vs)).toEqual(['Under the card limit, counting same-day purchases']);
+    expect(vs.find(v => !v.pass)?.detail).toContain('$5,500');
+  });
+
+  test('decoy: same-day purchases in other categories are not added together', () => {
+    const vs = spendingVerdicts({ ...supplies(2_600), sameDay: [{ id: 'rq-1', category: 'equipment service', price: 4_000 }] }, grant(), TODAY);
+    expect(canBuyAlone(vs)).toBe(true);
+  });
+
+  test('a split purchase is not rerouted: another grant does not fix it', () => {
+    const g = grant();
+    expect(rerouteTarget({ ...supplies(2_600), sameDay: [{ id: 'rq-1', category: 'lab supplies', price: 2_900 }] }, g, TODAY, [g, grant({ id: 'A' })])).toBeUndefined();
+  });
 });
 
 describe('invoice check', () => {
@@ -141,6 +158,43 @@ describe('invoice check', () => {
     const v = checkInvoice({ amount: 1_290, received: '2026-06-08' }, { ...order, state: 'changed', changedAmount: 1_290 },
       [{ amount: 1_290, day: '2026-05-04', by: 'grant_manager' }]);
     expect(v.matched).toBe(true);
+  });
+
+  test('planted: a second bill for an order already paid is held as a duplicate', () => {
+    const v = checkInvoice({ amount: 1_150, received: '2026-06-10' }, order, [{ amount: 1_150, day: '2026-05-01', by: 'purchasing' }],
+      [{ id: 'inv-1', amount: 1_150, received: '2026-05-07', state: 'paid' }]);
+    expect(v.matched).toBe(false);
+    expect(v.mismatch).toContain('inv-1');
+  });
+
+  test('decoy: the same vendor and amount on a different order is not a duplicate', () => {
+    const v = checkInvoice({ amount: 1_150, received: '2026-06-10' }, order, [{ amount: 1_150, day: '2026-05-01', by: 'purchasing' }], []);
+    expect(v.matched).toBe(true);
+  });
+
+  test('planted: an order placed after its invoice arrived is held', () => {
+    const v = checkInvoice({ amount: 1_150, received: '2026-04-25' }, order, [{ amount: 1_150, day: '2026-05-01', by: 'purchasing' }]);
+    expect(v.matched).toBe(false);
+    expect(v.mismatch).toContain('2026-05-01');
+    expect(v.mismatch).toContain('2026-04-25');
+  });
+});
+
+describe('effort', () => {
+  const row = (id: string, grantId: string, effortPct: number, from = '2026-03-01', to = '2026-03-31') =>
+    ({ id, grantId, person: 'Jordan Kim', from, to, effortPct });
+
+  test('planted: one person charged 110% for a month across two grants is over', () => {
+    const over = effortOver(row('p1', 'A', 50), [row('p1', 'A', 50), row('p2', 'B', 60)]);
+    expect(over?.total).toBe(110);
+  });
+
+  test('decoy: exactly 100% across grants is fine', () => {
+    expect(effortOver(row('p1', 'A', 40), [row('p1', 'A', 40), row('p2', 'B', 60)])).toBeUndefined();
+  });
+
+  test('decoy: rows in different months do not add up', () => {
+    expect(effortOver(row('p1', 'A', 50), [row('p1', 'A', 50), row('p2', 'B', 60, '2026-04-01', '2026-04-30')])).toBeUndefined();
   });
 });
 

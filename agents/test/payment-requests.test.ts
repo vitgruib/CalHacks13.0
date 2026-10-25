@@ -758,6 +758,8 @@ test('a_fast_forward_past_two_month_ends_drafts_june_for_each_grant_that_spent_i
   await world.worker.idle();
   const juneOrders = (grantId: string) => conn.rows('order').filter((o) => o.grantId === grantId && o.placed >= JUNE.from && o.placed <= JUNE.to);
   assert.ok(juneOrders(R01).length && juneOrders(R21).length, 'both grants spent in June');
+  // o-202 was ordered after its bill arrived, so its invoice is held and it is left out.
+  const claimable = (grantId: string) => juneOrders(grantId).filter((o) => !conn.rows('invoice').some((i) => i.orderId === o.id && i.state === 'held'));
 
   await manager.call('advance_days', { days: 47 });
   await world.worker.idle();
@@ -765,10 +767,10 @@ test('a_fast_forward_past_two_month_ends_drafts_june_for_each_grant_that_spent_i
   for (const grantId of [R01, R21]) {
     const june = requestsFor(conn, grantId, JUNE);
     assert.equal(june.length, 1, `one June request for ${grantId}`);
-    assert.deepEqual(sorted(june[0].includedRequestIds), sorted([...new Set(juneOrders(grantId).map((o) => o.requestId))]));
+    assert.deepEqual(sorted(june[0].includedRequestIds), sorted([...new Set(claimable(grantId).map((o) => o.requestId))]));
     assert.deepEqual(requestsFor(conn, grantId, JULY), [], `July is empty on ${grantId}`);
   }
-  assert.equal(requestsFor(conn, R01, JUNE)[0].amount + requestsFor(conn, R21, JUNE)[0].amount, 8_620, 'every June purchase is claimed');
+  assert.equal(requestsFor(conn, R01, JUNE)[0].amount + requestsFor(conn, R21, JUNE)[0].amount, 11_660, 'every June purchase but the held o-202 is claimed');
 
   const before = world.db.version();
   await world.worker.idle();

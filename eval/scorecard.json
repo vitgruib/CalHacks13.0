@@ -3,13 +3,13 @@
   "key": "sim/answer-key.json",
   "today": "2026-06-15",
   "totals": {
-    "caught": 14,
+    "caught": 18,
     "missed": 0,
     "falseAlarms": 0,
-    "correctPasses": 5,
+    "correctPasses": 7,
     "notRun": 0,
-    "mistakes": 14,
-    "decoys": 5,
+    "mistakes": 18,
+    "decoys": 7,
     "unlistedFalseAlarms": 0
   },
   "features": [
@@ -28,36 +28,36 @@
     {
       "feature": "purchases",
       "label": "Purchases",
-      "caught": 5,
+      "caught": 6,
       "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 2,
+      "correctPasses": 3,
       "notRun": 0,
-      "mistakes": 5,
-      "decoys": 2,
+      "mistakes": 6,
+      "decoys": 3,
       "unlistedFalseAlarms": 0
     },
     {
       "feature": "invoices",
       "label": "Invoices",
-      "caught": 2,
+      "caught": 4,
       "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 1,
+      "correctPasses": 2,
       "notRun": 0,
-      "mistakes": 2,
-      "decoys": 1,
+      "mistakes": 4,
+      "decoys": 2,
       "unlistedFalseAlarms": 0
     },
     {
       "feature": "payment_requests",
       "label": "Payment requests",
-      "caught": 1,
+      "caught": 2,
       "missed": 0,
       "falseAlarms": 0,
       "correctPasses": 0,
       "notRun": 0,
-      "mistakes": 1,
+      "mistakes": 2,
       "decoys": 0,
       "unlistedFalseAlarms": 0
     },
@@ -164,6 +164,17 @@
       "detail": "waiting_on_manager; Under the card limit ($5,000): $6,850 is over the limit; the grant manager decides."
     },
     {
+      "id": "pu-5",
+      "feature": "purchases",
+      "kind": "mistake",
+      "refId": "rq-109",
+      "expected": "hold",
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "waiting_on_manager; Under the card limit, counting same-day purchases: $5,500 with rq-108 ($2,900), same person, category and day: over the limit together, so the grant manager decides."
+    },
+    {
       "id": "pu-d1",
       "feature": "purchases",
       "kind": "decoy",
@@ -184,6 +195,17 @@
       "outcome": "correct pass",
       "notRun": false,
       "detail": "Split 60% R01GM061721, 40% R21AI182745."
+    },
+    {
+      "id": "pu-d3",
+      "feature": "purchases",
+      "kind": "decoy",
+      "refId": "rq-110",
+      "expected": "pass",
+      "got": "pass",
+      "outcome": "correct pass",
+      "notRun": false,
+      "detail": "Same-day purchases are in other categories."
     },
     {
       "id": "in-1",
@@ -208,10 +230,43 @@
       "detail": "Invoice is $6,200 but the approved amount is $5,800."
     },
     {
+      "id": "in-3",
+      "feature": "invoices",
+      "kind": "mistake",
+      "refId": "inv-201",
+      "expected": "hold",
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "The order was already billed by inv-033 ($1,180, paid); paying this would pay it twice."
+    },
+    {
+      "id": "in-4",
+      "feature": "invoices",
+      "kind": "mistake",
+      "refId": "inv-202",
+      "expected": "hold",
+      "got": "hold",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "The order was placed on 2026-06-10, after this invoice arrived on 2026-06-03, so the grant was never checked before the money was committed."
+    },
+    {
       "id": "in-d1",
       "feature": "invoices",
       "kind": "decoy",
       "refId": "inv-036",
+      "expected": "pass",
+      "got": "pass",
+      "outcome": "correct pass",
+      "notRun": false,
+      "detail": "Invoice paid."
+    },
+    {
+      "id": "in-d2",
+      "feature": "invoices",
+      "kind": "decoy",
+      "refId": "inv-203",
       "expected": "pass",
       "got": "pass",
       "outcome": "correct pass",
@@ -228,6 +283,17 @@
       "outcome": "caught",
       "notRun": false,
       "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): Invoice inv-037 is on hold: Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460)."
+    },
+    {
+      "id": "pr-2",
+      "feature": "payment_requests",
+      "kind": "mistake",
+      "refId": "pay-R21-2026-05-3",
+      "expected": "exclude",
+      "got": "exclude",
+      "outcome": "caught",
+      "notRun": false,
+      "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): The same person is charged 110% effort for 2026-05-01 to 2026-05-31: 40% on R21AI182745, 70% on R01GM061721. Salary can't be claimed above 100% effort until the grant manager fixes the charges."
     },
     {
       "id": "rp-1",
@@ -298,13 +364,13 @@
       "reports": "record_paper_facts with the facts already on each paper in the seed (no public-records lookup)."
     },
     "totals": {
-      "caught": 14,
+      "caught": 18,
       "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 5,
+      "correctPasses": 7,
       "notRun": 0,
-      "mistakes": 14,
-      "decoys": 5,
+      "mistakes": 18,
+      "decoys": 7,
       "unlistedFalseAlarms": 0
     },
     "features": [
@@ -320,32 +386,32 @@
       },
       {
         "feature": "purchases",
-        "caught": 5,
+        "caught": 6,
+        "missed": 0,
+        "falseAlarms": 0,
+        "correctPasses": 3,
+        "notRun": 0,
+        "mistakes": 6,
+        "decoys": 3
+      },
+      {
+        "feature": "invoices",
+        "caught": 4,
         "missed": 0,
         "falseAlarms": 0,
         "correctPasses": 2,
         "notRun": 0,
-        "mistakes": 5,
+        "mistakes": 4,
         "decoys": 2
       },
       {
-        "feature": "invoices",
-        "caught": 2,
-        "missed": 0,
-        "falseAlarms": 0,
-        "correctPasses": 1,
-        "notRun": 0,
-        "mistakes": 2,
-        "decoys": 1
-      },
-      {
         "feature": "payment_requests",
-        "caught": 1,
+        "caught": 2,
         "missed": 0,
         "falseAlarms": 0,
         "correctPasses": 0,
         "notRun": 0,
-        "mistakes": 1,
+        "mistakes": 2,
         "decoys": 0
       },
       {
@@ -400,6 +466,11 @@
         "outcome": "caught",
         "detail": "waiting_on_manager; Under the card limit ($5,000): $6,850 is over the limit; the grant manager decides."
       },
+      "pu-5": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "waiting_on_manager; Under the card limit, counting same-day purchases: $5,500 with rq-108 ($2,900), same person, category and day: over the limit together, so the grant manager decides."
+      },
       "pu-d1": {
         "got": "pass",
         "outcome": "correct pass",
@@ -409,6 +480,11 @@
         "got": "pass",
         "outcome": "correct pass",
         "detail": "Split 60% R01GM061721, 40% R21AI182745."
+      },
+      "pu-d3": {
+        "got": "pass",
+        "outcome": "correct pass",
+        "detail": "Same-day purchases are in other categories."
       },
       "in-1": {
         "got": "hold",
@@ -420,7 +496,22 @@
         "outcome": "caught",
         "detail": "Invoice is $6,200 but the approved amount is $5,800."
       },
+      "in-3": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "The order was already billed by inv-033 ($1,180, paid); paying this would pay it twice."
+      },
+      "in-4": {
+        "got": "hold",
+        "outcome": "caught",
+        "detail": "The order was placed on 2026-06-10, after this invoice arrived on 2026-06-03, so the grant was never checked before the money was committed."
+      },
       "in-d1": {
+        "got": "pass",
+        "outcome": "correct pass",
+        "detail": "Invoice paid."
+      },
+      "in-d2": {
         "got": "pass",
         "outcome": "correct pass",
         "detail": "Invoice paid."
@@ -429,6 +520,11 @@
         "got": "exclude",
         "outcome": "caught",
         "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): Invoice inv-037 is on hold: Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460)."
+      },
+      "pr-2": {
+        "got": "exclude",
+        "outcome": "caught",
+        "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): The same person is charged 110% effort for 2026-05-01 to 2026-05-31: 40% on R21AI182745, 70% on R01GM061721. Salary can't be claimed above 100% effort until the grant manager fixes the charges."
       },
       "rp-1": {
         "got": "hold",

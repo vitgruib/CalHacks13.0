@@ -19,6 +19,7 @@
 // - Claude's text is only used when every id and dollar amount in it comes
 //   from the records; otherwise the template is.
 
+import { effortWhy } from '../../../server/src/rules.ts';
 import { PAYMENT_EXPLANATION_MAX } from '../../../server/src/vocab.ts';
 import { ask } from '../claude.ts';
 import type { Connection, FollowUpRow, GrantRow, InvoiceRow, PaymentRequestRow } from '../db/contract.ts';
@@ -165,7 +166,8 @@ const heldWhy = (invoice: InvoiceRow) =>
 // (server/src/index.ts), so the explanation can be written before the module
 // picks: orders on the grant placed in the period and not canceled, minus any
 // with a held invoice; held invoices on the grant that arrived in the period;
-// payroll rows wholly inside the period. Only the picking is copied; the
+// payroll rows wholly inside the period, minus any that put a person over 100%
+// effort (the module's own effortWhy). Only the picking is copied; the
 // module's own lists and amount are read back after the draft and win.
 function modulePicks(conn: Connection, grantId: string, { from, to }: Period): Picks {
   const inRange = (day: string) => day >= from && day <= to;
@@ -189,8 +191,15 @@ function modulePicks(conn: Connection, grantId: string, { from, to }: Period): P
     if (excluded.some((e) => e.requestId === order.requestId)) continue;
     excluded.push({ requestId: order.requestId, why: heldWhy(invoice), invoice });
   }
-  const payroll = conn.rows('payroll').filter((row) => row.grantId === grantId && row.from >= from && row.to <= to);
-  return { includedRequestIds: included, includedPayrollIds: payroll.map((row) => row.id), excluded };
+  const allPayroll = conn.rows('payroll');
+  const payroll: string[] = [];
+  for (const row of allPayroll) {
+    if (row.grantId !== grantId || row.from < from || row.to > to) continue;
+    const why = effortWhy(row, allPayroll);
+    if (why) excluded.push({ requestId: row.id, why });
+    else payroll.push(row.id);
+  }
+  return { includedRequestIds: included, includedPayrollIds: payroll, excluded };
 }
 
 const rowPicks = (row: PaymentRequestRow): Picks => ({
@@ -253,10 +262,11 @@ function describe(conn: Connection, grant: GrantRow, period: Period, picks: Pick
     const placed = its.filter((order) => inRange(order.placed));
     const counted = placed.length ? placed : its;
     const invoiceId = e.invoice?.id ?? mentionedIds(e.why).find((id) => id.startsWith('inv'));
+    const pay = payroll.get(e.requestId);
     leftOut.push({
       requestId: e.requestId,
-      item: requests.get(e.requestId)?.item ?? e.requestId,
-      amount: counted.length ? sum(counted.map((order) => order.changedAmount ?? order.amount)) : undefined,
+      item: requests.get(e.requestId)?.item ?? (pay ? `${pay.role} salary (${pay.effortPct}% effort)` : e.requestId),
+      amount: counted.length ? sum(counted.map((order) => order.changedAmount ?? order.amount)) : pay?.amount,
       why: e.why,
       invoiceId,
       ids: [...new Set([...its.map((order) => order.id), ...(invoiceId ? [invoiceId] : []), ...mentionedIds(e.why)])],

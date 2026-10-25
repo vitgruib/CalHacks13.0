@@ -133,6 +133,8 @@ export interface RequestFacts {
   price: number;
   sharedWith: string[];
   split: { grantId: string; share: number }[];
+  /** The same person's other live requests that day: a split purchase adds up across them. */
+  sameDay?: { id: string; category: string; price: number }[];
 }
 
 export interface GrantForRules extends GrantFacts {
@@ -199,6 +201,22 @@ export function spendingVerdicts(
     detail: req.price <= CARD_LIMIT ? `${usd(req.price)}.` : `${usd(req.price)} is over the limit; the grant manager decides.`,
   });
 
+  if (req.sameDay?.length) {
+    const alike = req.sameDay.filter(o => o.category.toLowerCase() === req.category.toLowerCase());
+    const total = alike.reduce((s, o) => s + o.price, req.price);
+    const ok = alike.length === 0 || total <= CARD_LIMIT;
+    out.push({
+      rule: 'Under the card limit, counting same-day purchases',
+      pass: ok,
+      detail: alike.length === 0
+        ? `Same-day purchases are in other categories.`
+        : ok
+          ? `${usd(total)} with ${alike.map(o => o.id).join(', ')} the same day.`
+          : `${usd(total)} with ${alike.map(o => `${o.id} (${usd(o.price)})`).join(', ')}, same person, category and day: over the limit together, so the grant manager decides.`,
+      auditCase: ok ? undefined : 'Southern Connecticut State Univ. (CT auditors, 2025): orders of $1,038, $910, $1,377 and $467 with one vendor on the same day, split to stay under the $2,500 limit',
+    });
+  }
+
   if (req.sharedWith.length >= 2 || req.split.length > 0) {
     const sum = req.split.reduce((s, c) => s + c.share, 0);
     const charged = new Set(req.split.filter(c => c.share > 0).map(c => c.grantId));
@@ -259,6 +277,8 @@ export function checkInvoice(
   inv: { amount: number; received: string },
   order: OrderFacts | undefined,
   approvals: { amount: number; day: string; by: string }[],
+  /** Other invoices on the same order: paid ones, and checked matched ones, already billed it. */
+  others: { id: string; amount: number; received: string; state: string; checked?: boolean }[] = [],
 ): InvoiceVerdict {
   if (!order) {
     return {
@@ -282,6 +302,26 @@ export function checkInvoice(
     return {
       matched: false,
       mismatch: `The order was canceled${order.canceledOn ? ` on ${order.canceledOn}` : ''}, before this invoice arrived.`,
+      timeline,
+    };
+  }
+  const billed = others.filter(o => o.state === 'paid' || (o.state === 'matched' && o.checked !== false));
+  for (const b of billed) timeline.push({ day: b.received, what: `Invoice ${b.id} billed this order (${usd(b.amount)}), ${b.state}` });
+  if (order.placed > inv.received) {
+    timeline.push({ day: inv.received, what: `Invoice arrived for ${usd(inv.amount)}, before the order existed` });
+    timeline.sort((a, b) => (a.day < b.day ? -1 : 1));
+    return {
+      matched: false,
+      mismatch: `The order was placed on ${order.placed}, after this invoice arrived on ${inv.received}, so the grant was never checked before the money was committed.`,
+      timeline,
+    };
+  }
+  if (billed.length > 0) {
+    timeline.push({ day: inv.received, what: `Invoice arrived for ${usd(inv.amount)}, a second bill for the order` });
+    timeline.sort((a, b) => (a.day < b.day ? -1 : 1));
+    return {
+      matched: false,
+      mismatch: `The order was already billed by ${billed.map(b => `${b.id} (${usd(b.amount)}, ${b.state})`).join(', ')}; paying this would pay it twice.`,
       timeline,
     };
   }
@@ -340,4 +380,34 @@ export function checkPaper(p: PaperFacts): { checks: { check: string; pass: bool
   }
   const result = checks.some(c => !c.pass) ? 'held' : note ? 'note' : 'ok';
   return { checks, result };
+}
+
+// ── Effort (salary charged above 100%) ────────────────────────────────────
+
+export interface EffortRow {
+  id: string;
+  grantId: string;
+  person: string;
+  from: string;
+  to: string;
+  effortPct: number;
+}
+
+/**
+ * One person's effort across every grant for the period of `row`, when it is
+ * over 100%. Overlapping periods add up; the grant manager has to sort out
+ * which charge is wrong, so the row stays out of payment requests until then.
+ */
+export function effortOver(row: EffortRow, all: EffortRow[]): { total: number; parts: EffortRow[] } | undefined {
+  const parts = all.filter(r => r.person === row.person && r.from <= row.to && r.to >= row.from);
+  const total = parts.reduce((s, r) => s + r.effortPct, 0);
+  return total > 100 ? { total, parts } : undefined;
+}
+
+/** Why a payroll row is left out of a payment request, or undefined if it can go in. */
+export function effortWhy(row: EffortRow, all: EffortRow[]): string | undefined {
+  const over = effortOver(row, all);
+  if (!over) return undefined;
+  // No name: the reason reaches the funder in the payment request's explanation.
+  return `The same person is charged ${over.total}% effort for ${row.from} to ${row.to}: ${over.parts.map(p => `${p.effortPct}% on ${p.grantId}`).join(', ')}. Salary can't be claimed above 100% effort until the grant manager fixes the charges.`;
 }

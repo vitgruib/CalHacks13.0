@@ -145,8 +145,16 @@ function invoiceCase(db: Db, inv: Invoice, hold: Hold | undefined): Case | undef
     : { label: 'Approval', value: order ? `Only the original order amount (${money(order.amount)})` : 'None found', tone: order && order.amount === inv.amount ? undefined : 'bad' })
   if (request) records.push({ label: `Request ${request.id}`, value: `${request.item}, asked for by ${requesterLabel(request.requesterName)}`, href: '#requests' })
 
+  // Other bills on the same order that were already paid or passed the check.
+  const earlier = db.invoices.filter(i => i.id !== inv.id && i.orderId === inv.orderId && (i.state === 'paid' || (i.state === 'matched' && i.checked !== false)))
+  for (const e of earlier) records.push({ label: `Invoice ${e.id}`, value: `${money(e.amount)} from ${e.vendor}, received ${e.received}, ${e.state}`, tone: 'bad', href: '#invoices' })
+  const afterTheFact = order !== undefined && order.placed > inv.received
+
   let missing: string | undefined
+  let auditCase: string | undefined
   if (!order) missing = 'An order this invoice belongs to.'
+  else if (order.state !== 'canceled' && afterTheFact) { missing = `An order placed before the work was billed. ${order.id} was placed on ${order.placed}, after the invoice arrived on ${inv.received}, so nobody checked the grant before the money was committed.`; auditCase = AFTER_INVOICE }
+  else if (order.state !== 'canceled' && earlier.length > 0) { missing = `Proof this is a different bill. ${earlier.map(e => e.id).join(', ')} already billed ${order.id}.`; auditCase = DUPLICATE }
   else if (order.state === 'canceled') missing = `An open order. ${order.id} was canceled on ${order.canceledOn ?? 'an earlier date'}, so nothing on it should be billed. A credit note or proof the goods shipped before the cancellation would settle it.`
   else if (approved !== undefined && Math.abs(approved - inv.amount) >= 0.005) missing = `An approval for ${money(inv.amount)}. The most anyone approved for ${order.id} is ${money(approved)}.`
 
@@ -154,11 +162,13 @@ function invoiceCase(db: Db, inv: Invoice, hold: Hold | undefined): Case | undef
     id: `invoice-${inv.id}`, grantId, kind: 'invoice',
     status: inv.state === 'rejected' ? 'decided' : statusOfHold(hold, 'stopped'),
     day: inv.received,
-    title: `${inv.vendor} bill for ${money(inv.amount)} doesn't match its order`,
+    title: afterTheFact && order?.state !== 'canceled' ? `${inv.vendor} billed ${money(inv.amount)} before the order existed`
+      : earlier.length > 0 && order?.state !== 'canceled' ? `${inv.vendor} billed ${order?.id ?? 'the order'} a second time (${money(inv.amount)})`
+      : `${inv.vendor} bill for ${money(inv.amount)} doesn't match its order`,
     conflict: inv.mismatch ?? hold?.why ?? 'The invoice does not match its order and approval.',
     records, timeline: inv.timeline, missing,
     rules: [{ rule: 'Invoice needs an open order and the approved amount', detail: '',
-      auditCase: order?.state !== 'canceled' && approved !== undefined ? ABOVE_APPROVAL : undefined }],
+      auditCase: auditCase ?? (order?.state !== 'canceled' && approved !== undefined ? ABOVE_APPROVAL : undefined) }],
     next: hold && !hold.decision ? INBOX : { text: 'See it in Invoices', href: '#invoices' },
     decision: hold?.decision,
   }
@@ -214,6 +224,28 @@ function reportCase(p: ReportPaper, hold: Hold | undefined): Case {
   }
 }
 
+// ── Salary: one person charged over 100% effort across grants ──────────────
+
+function effortCases(db: Db): Case[] {
+  const out: Case[] = []
+  for (const row of db.payroll) {
+    const parts = db.payroll.filter(p => p.person === row.person && p.period.from <= row.period.to && row.period.from <= p.period.to)
+    const total = parts.reduce((s, p) => s + p.effortPct, 0)
+    if (total <= 100) continue
+    out.push({
+      id: `effort-${row.id}`, grantId: row.grantId, kind: 'spend', status: 'stopped', day: row.period.to,
+      title: `${row.person} is charged ${total}% effort for ${row.period.from} to ${row.period.to}`,
+      conflict: `${row.person}'s salary is split ${parts.map(p => `${p.effortPct}% on ${p.grantId}`).join(', ')}. Nobody works more than 100% of their time, so payment requests leave this salary out until the charges are fixed.`,
+      records: parts.map(p => ({ label: `Payroll ${p.id}`, value: `${p.role}, ${p.effortPct}% on ${p.grantId}, ${money(p.amount)}`, tone: 'bad' as const, href: '#payment-requests' })),
+      timeline: [],
+      missing: `A corrected effort split for ${row.person} that adds up to 100% or less, or a cost transfer moving the extra off a grant.`,
+      rules: [{ rule: "Salary can't be claimed above 100% effort", detail: '', auditCase: OVER_EFFORT }],
+      next: { text: 'See it in Payment requests', href: '#payment-requests' },
+    })
+  }
+  return out
+}
+
 // ── Anything else waiting on (or decided by) the grant manager ───────────────
 
 function holdCase(h: Hold): Case {
@@ -236,6 +268,10 @@ const kindOrder: Record<CaseKind, number> = { funding: 0, spend: 1, invoice: 2, 
 // charges after an award ended. Nothing found for billing a canceled order.
 const AFTER_END = 'NSF OIG 15-1-014 (UW-Madison, 2015): $56,965 questioned for expenses incurred after the award period expired; one order was placed 8 days after the end date.'
 const ABOVE_APPROVAL = 'Texas Comptroller post-payment audit of UT Tyler (2024): the vendor\'s invoice added freight the purchase order didn\'t include, and the order was changed to add it only after the invoice arrived.'
+
+const AFTER_INVOICE = 'CT Auditors of Public Accounts, Southern Connecticut State Univ. (2025): two orders totaling $12,727 approved after the invoice date; one vendor was paid $5,500 before the service was received.'
+const DUPLICATE = 'Saint Louis Univ. single audit finding 2021-001: a $690 invoice on an NIH grant was paid twice, and $355 of overhead was charged twice with it.'
+const OVER_EFFORT = 'Univ. of Florida (2015): $19.875M settlement for charging grants salary above the documented effort; UNT Health Science Center (2018): $13.07M where pay did not match effort reports.'
 
 export function buildCases(db: Db): Case[] {
   const holds = db.holds
@@ -273,6 +309,8 @@ export function buildCases(db: Db): Case[] {
     if (p.result === 'ok' && !hold) continue
     out.push(reportCase(p, hold))
   }
+
+  out.push(...effortCases(db))
 
   for (const h of holds) if (!used.has(h.id)) out.push(holdCase(h))
 
