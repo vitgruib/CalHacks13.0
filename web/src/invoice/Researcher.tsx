@@ -9,7 +9,7 @@ import { check, parseAmount, type Draft, type Submission } from './model'
 import SubmitForm from './SubmitForm'
 import { newSubmissionId, saveSubmission, useSubmissions } from './store'
 
-const draftOf = (s: Submission): Draft => ({ vendor: s.vendor, invoiceNo: s.invoiceNo, invoiceDate: s.invoiceDate, amount: s.amount, lines: s.lines, files: s.files, receipt: s.receipt, grantId: s.grantId, poId: s.poId, note: s.note })
+const draftOf = (s: Submission): Draft => ({ vendor: s.vendor, invoiceNo: s.invoiceNo, invoiceDate: s.invoiceDate, amount: s.amount, lines: s.lines, files: s.files, receiptFiles: s.receiptFiles ?? [], receipt: s.receipt, grantId: s.grantId, poId: s.poId, note: s.note })
 
 const NEXT: Record<Submission['status'], string> = {
   ready: 'The grant office is reviewing it. Nothing for you to do.',
@@ -30,12 +30,12 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     const prior = form?.edit
     const flagged = r.findings.filter(f => f.level !== 'ok' && f.area !== 'Authorization').length
     const base: Submission = {
-      ...d, id: prior?.id ?? newSubmissionId(), researcher: name, submittedOn: db.today, status: r.status, findings: r.findings, effect: r.effect,
+      ...d, poId: r.poId, id: prior?.id ?? newSubmissionId(), researcher: name, submittedOn: db.today, status: r.status, findings: r.findings, effect: r.effect,
       audit: prior?.audit ?? [],
     }
     base.audit = [
       ...base.audit,
-      { day: db.today, who: name, what: prior ? 'resubmitted the invoice with changes' : `submitted invoice ${d.invoiceNo || '(no number)'} from ${d.vendor || 'a vendor'} for ${money(parseAmount(d.amount))}`, why: d.note || undefined },
+      { day: db.today, who: name, what: prior ? 'resubmitted the invoice with changes' : `submitted an invoice from ${d.vendor || 'a vendor'} for ${money(parseAmount(d.amount))}`, why: d.note || undefined },
       { day: db.today, who: 'Invoice agent', what: flagged === 0 ? 'checked the invoice: no problems found. Ready for the grant office.' : `checked the invoice: ${flagged} ${flagged === 1 ? 'thing needs' : 'things need'} review. Payment paused until a decision is recorded.` },
     ]
     saveSubmission(base)
@@ -76,7 +76,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
                   <span className="iv-amt">{money(parseAmount(s.amount))}</span>
                   <StatusBadge status={s.status} />
                 </header>
-                <p className="iv-note">Invoice {s.invoiceNo} · {g ? grantHeading(g) : s.grantId}{s.poId && <> · {s.poId}</>} · submitted {s.submittedOn}</p>
+                <p className="iv-note">{g ? grantHeading(g) : s.grantId} · submitted {s.submittedOn}</p>
                 <p className="iv-next"><strong>Next:</strong> {NEXT[s.status]}{(s.status === 'clarification' || s.status === 'rejected') && decision?.why && <> “{decision.why}”</>}</p>
                 <div className="iv-actions">
                   <button type="button" onClick={() => setOpen(open === s.id ? null : s.id)}>{open === s.id ? 'Hide details' : 'Details and history'}</button>

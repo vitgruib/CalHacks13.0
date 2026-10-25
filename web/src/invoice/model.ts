@@ -36,6 +36,7 @@ export interface Submission {
   amount: string
   lines: LineItem[]
   files: string[]
+  receiptFiles: string[] // the receipt or proof of purchase, required
   receipt: boolean
   grantId: string
   poId: string // '' = no purchase order
@@ -46,10 +47,10 @@ export interface Submission {
   audit: AuditEntry[]
 }
 
-export type Draft = Pick<Submission, 'vendor' | 'invoiceNo' | 'invoiceDate' | 'amount' | 'lines' | 'files' | 'receipt' | 'grantId' | 'poId' | 'note'>
+export type Draft = Pick<Submission, 'vendor' | 'invoiceNo' | 'invoiceDate' | 'amount' | 'lines' | 'files' | 'receiptFiles' | 'receipt' | 'grantId' | 'poId' | 'note'>
 
 export const blankDraft = (grantId = ''): Draft => ({
-  vendor: '', invoiceNo: '', invoiceDate: '', amount: '', lines: [{ description: '', amount: '' }], files: [], receipt: false, grantId, poId: '', note: '',
+  vendor: '', invoiceNo: '', invoiceDate: '', amount: '', lines: [{ description: '', amount: '' }], files: [], receiptFiles: [], receipt: false, grantId, poId: '', note: '',
 })
 
 export const STATUS_LABEL: Record<Status, string> = {
@@ -125,12 +126,12 @@ export function readInvoiceText(text: string): Partial<Draft> {
 
 /** The brief's scenario: a $4,800 sequencing invoice against a $4,000 purchase order. */
 export const sampleDraft = (): Draft => ({
-  vendor: 'Campus Genomics Core', invoiceNo: 'CGC-2291', invoiceDate: '2026-06-12', amount: '4800',
+  vendor: 'Campus Genomics Core', invoiceNo: '', invoiceDate: '2026-06-12', amount: '4800',
   lines: [
     { description: 'Single-cell RNA sequencing library preparation', amount: '3200' },
     { description: 'Sequencing run, one lane', amount: '1600' },
   ],
-  files: ['CGC-2291-invoice.pdf', 'CGC-2291-receipt.pdf'], receipt: true, grantId: DEMO_PO.grantId, poId: DEMO_PO.id, note: '',
+  files: ['CGC-2291-invoice.pdf'], receiptFiles: ['CGC-2291-receipt.pdf'], receipt: true, grantId: DEMO_PO.grantId, poId: '', note: '',
 })
 
 // ── The invoice agent's checks ───────────────────────────────────────────
@@ -138,22 +139,25 @@ export const sampleDraft = (): Draft => ({
 const DAY_MS = 86_400_000
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
 
-export function check(d: Draft, db: Db, others: Submission[], selfId = ''): { findings: Finding[]; effect?: BudgetEffect; status: Status } {
+export function check(d: Draft, db: Db, others: Submission[], selfId = ''): { findings: Finding[]; effect?: BudgetEffect; status: Status; poId: string } {
   const f: Finding[] = []
   const add = (x: Finding) => f.push(x)
   const amount = num(d.amount)
   const g: Grant | undefined = db.grants.find(x => x.id === d.grantId)
-  const po = purchaseOrders(db).find(p => p.id === d.poId)
+  // The agent finds the purchase order itself: the open order with the same vendor, on this grant if possible.
+  const orders = purchaseOrders(db)
+  const vendorKey = norm(d.vendor)
+  const po = orders.find(p => p.id === d.poId) ?? (vendorKey ? orders.filter(p => p.state === 'open' && norm(p.vendor) === vendorKey).sort((a, b) => Number(b.grantId === d.grantId) - Number(a.grantId === d.grantId))[0] : undefined)
   const lineSum = planAmount(d.lines)
 
   // 1. Documents
-  const missing = [!d.vendor.trim() && 'vendor', !d.invoiceNo.trim() && 'invoice number', !d.invoiceDate && 'date', amount === 0 && 'amount', !d.grantId && 'grant'].filter(Boolean) as string[]
+  const missing = [!d.vendor.trim() && 'vendor', !d.invoiceDate && 'date', amount === 0 && 'amount', !d.grantId && 'grant'].filter(Boolean) as string[]
   if (missing.length) add({ area: 'Documents', level: 'block', title: 'Required fields are missing', detail: `Add the ${missing.join(', ')} before this can be checked.` })
-  else add({ area: 'Documents', level: 'ok', title: 'Required fields are complete', detail: `${d.vendor}, invoice ${d.invoiceNo}, ${d.invoiceDate}, ${money(amount)}.` })
+  else add({ area: 'Documents', level: 'ok', title: 'Required fields are complete', detail: `${d.vendor}, ${d.invoiceDate}, ${money(amount)}.` })
   if (d.lines.some(l => l.description.trim() || num(l.amount)) && lineSum > 0 && Math.abs(lineSum - amount) > 0.5) {
     add({ area: 'Documents', level: 'warn', title: 'Line items do not add up to the total', detail: `The lines add to ${money(lineSum)} but the invoice total is ${money(amount)}.`, evidence: d.lines.filter(l => num(l.amount)).map(l => `${l.description || 'Line'}: ${money(num(l.amount))}`) })
   }
-  if (!d.receipt) add({ area: 'Documents', level: 'warn', title: 'No receipt or proof of delivery attached', detail: 'Attach the receipt or packing slip so the grants office can confirm the goods or service were received.' })
+  if (!d.receipt) add({ area: 'Documents', level: 'warn', title: 'No receipt or proof of purchase attached', detail: 'Attach the receipt so the grants office can confirm the goods or service were received.' })
 
   // 2. Duplicates
   const dup: string[] = []
@@ -173,7 +177,7 @@ export function check(d: Draft, db: Db, others: Submission[], selfId = ''): { fi
   // 3. Purchase order
   let committedForPo = 0
   if (!po) {
-    add({ area: 'Purchase order', level: 'warn', title: 'No purchase order to match', detail: 'Pick the purchase order this bill is for. Without one, the grant manager has to confirm it was authorized.' })
+    add({ area: 'Purchase order', level: 'warn', title: 'No purchase order found for this vendor', detail: 'No open order matches this vendor, so the grant manager has to confirm the purchase was authorized.' })
   } else {
     const ev = [`Invoice: ${money(amount)} from ${d.vendor || '(no vendor)'}`, `${po.id}: ${money(po.amount)} approved to ${po.vendor} on ${po.approvedOn} (${po.item})`]
     if (po.state === 'canceled') add({ area: 'Purchase order', level: 'block', title: 'The purchase order was canceled', detail: `${po.id} was canceled, so this bill has nothing to match.`, evidence: ev })
@@ -215,7 +219,7 @@ export function check(d: Draft, db: Db, others: Submission[], selfId = ''): { fi
   add({ area: 'Authorization', level: 'ok', title: 'Approval is required before payment', detail: `Only the grant office can approve, never the person who submitted it${amount > CARD_LIMIT ? `; ${money(amount)} is also over the ${money(CARD_LIMIT)} card limit` : ''}. Payment stays paused until a decision is recorded.` })
 
   const status: Status = f.some(x => x.level !== 'ok' && x.area !== 'Authorization') ? 'exception' : 'ready'
-  return { findings: f, effect, status }
+  return { findings: f, effect, status, poId: po?.id ?? '' }
 }
 
 /** The posting the grant office would review (nothing is posted). */

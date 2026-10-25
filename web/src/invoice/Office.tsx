@@ -66,8 +66,8 @@ function Review({ db, s }: { db: Db; s: Submission }) {
         <div className="iv-panel">
           <h3 className="iv-h3">Invoice</h3>
           <dl className="iv-facts">
-            <dt>Vendor</dt><dd>{s.vendor}</dd><dt>Number</dt><dd>{s.invoiceNo}</dd><dt>Date</dt><dd>{s.invoiceDate}</dd>
-            <dt>Total</dt><dd><strong>{money(amt)}</strong></dd><dt>Files</dt><dd>{s.files.join(', ') || 'none'}{!s.receipt && ' (no receipt)'}</dd>
+            <dt>Vendor</dt><dd>{s.vendor}</dd><dt>Date</dt><dd>{s.invoiceDate}</dd>
+            <dt>Total</dt><dd><strong>{money(amt)}</strong></dd><dt>Files</dt><dd>{[...s.files, ...(s.receiptFiles ?? [])].join(', ') || 'none'}{!s.receipt && ' (no receipt)'}</dd>
           </dl>
           <ul className="iv-lines">{s.lines.filter(l => l.description || l.amount).map((l, i) => <li key={i}><span>{l.description}</span><span>{money(parseAmount(l.amount))}</span></li>)}</ul>
         </div>
@@ -125,7 +125,7 @@ export default function Office({ db }: { db: Db }) {
               <header>
                 <strong>{s.vendor}</strong><span className="iv-amt">{money(parseAmount(s.amount))}</span><StatusBadge status={s.status} />
               </header>
-              <p className="iv-note">{s.researcher} · invoice {s.invoiceNo} · {s.grantId}{s.poId && ` · ${s.poId}`} · submitted {s.submittedOn}{s.findings.some(f => f.level === 'block') && ` · ${s.findings.filter(f => f.level === 'block').length} problems`}</p>
+              <p className="iv-note">{s.researcher} · {s.grantId}{s.poId && ` · ${s.poId}`} · submitted {s.submittedOn}{s.findings.some(f => f.level === 'block') && ` · ${s.findings.filter(f => f.level === 'block').length} problems`}</p>
               <div className="iv-actions"><button type="button" onClick={() => setOpen(open === s.id ? null : s.id)}>{open === s.id ? 'Close review' : 'Review'}</button></div>
               {open === s.id && <Review db={db} s={s} />}
             </li>

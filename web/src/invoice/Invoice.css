@@ -79,3 +79,4 @@
 .iv-line .iv-grow { flex: 3 1 240px; }
 .iv-after { font-size: 14px; margin: 10px 0 0; color: var(--v-muted); }
 .iv-after strong { color: var(--v-text); }
+.iv-req { font-size: 11px; font-weight: 600; color: var(--v-bad); }

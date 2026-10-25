@@ -6,7 +6,7 @@ import { useMemo, useState, type ChangeEvent, type ReactNode } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
 import { money } from '../ui'
-import { blankDraft, check, purchaseOrders, readInvoiceText, sampleDraft, type Draft, type Submission } from './model'
+import { blankDraft, check, readInvoiceText, sampleDraft, type Draft, type Submission } from './model'
 
 /** A field label with a "?" that explains what to enter. */
 function Field({ label, hint, grow, children }: { label: string; hint: string; grow?: boolean; children: ReactNode }) {
@@ -23,7 +23,6 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
 }) {
   const [d, setD] = useState<Draft>(initial ?? blankDraft(db.grants[0]?.id ?? ''))
   const set = (patch: Partial<Draft>) => setD(x => ({ ...x, ...patch }))
-  const pos = useMemo(() => purchaseOrders(db).filter(p => p.state === 'open' || p.id === d.poId), [db, d.poId])
   const result = useMemo(() => check(d, db, others), [d, db, others])
   const grant = db.grants.find(g => g.id === d.grantId)
 
@@ -32,13 +31,15 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
     e.target.value = ''
     if (!files.length) return
     const textual = files.find(f => /\.(txt|csv|md)$/i.test(f.name) || f.type.startsWith('text/'))
-    const names = files.map(f => f.name)
-    set({
-      files: [...d.files, ...names],
-      receipt: d.receipt || d.files.length + names.length > 1 || files.some(f => /receipt|packing/i.test(f.name)),
-      ...(textual ? readInvoiceText(await textual.text()) : {}),
-    })
+    set({ files: [...d.files, ...files.map(f => f.name)], ...(textual ? readInvoiceText(await textual.text()) : {}) })
   }
+
+  const addReceipt = (e: ChangeEvent<HTMLInputElement>) => {
+    const names = [...(e.target.files ?? [])].map(f => f.name)
+    e.target.value = ''
+    if (names.length) set({ receiptFiles: [...d.receiptFiles, ...names], receipt: true })
+  }
+  const removeReceipt = (n: string) => { const left = d.receiptFiles.filter(x => x !== n); set({ receiptFiles: left, receipt: left.length > 0 }) }
 
   return (
     <div className="iv-form">
@@ -48,7 +49,7 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
       </div>
 
       <div className="iv-drop">
-        <Field label="Invoice and receipt" hint="Upload the vendor invoice and, if you have it, the receipt. Text files are read automatically in this demo; for other files, type the details below.">
+        <Field label="Invoice" hint="Upload the vendor invoice. Text files are read automatically in this demo; for other files, type the details below.">
           <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.txt,.csv,.md" onChange={upload} />
         </Field>
         {d.files.map(n => <span key={n} className="iv-chip">{n}<button type="button" aria-label={`Remove ${n}`} onClick={() => set({ files: d.files.filter(x => x !== n) })}>×</button></span>)}
@@ -57,21 +58,14 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
 
       <div className="iv-row">
         <Field label="Vendor" hint="Who is billing you, as written on the invoice."><input value={d.vendor} onChange={e => set({ vendor: e.target.value })} /></Field>
-        <Field label="Invoice number" hint="The reference number printed on the invoice. It is used to catch duplicates."><input value={d.invoiceNo} onChange={e => set({ invoiceNo: e.target.value })} /></Field>
         <Field label="Date" hint="The date on the invoice."><input type="date" value={d.invoiceDate} onChange={e => set({ invoiceDate: e.target.value })} /></Field>
         <Field label="Total (USD)" hint="The total due. It is compared with the approved purchase order."><input inputMode="decimal" value={d.amount} onChange={e => set({ amount: e.target.value })} /></Field>
       </div>
 
       <div className="iv-row">
-        <Field label="Grant" hint="The grant that should pay. It is checked against the purchase order and the budget." grow>
+        <Field label="Grant" hint="The grant that should pay. We find the matching purchase order and check it against the budget." grow>
           <select value={d.grantId} onChange={e => set({ grantId: e.target.value })}>
             {db.grants.map(g => <option key={g.id} value={g.id}>{grantHeading(g)} ({g.id})</option>)}
-          </select>
-        </Field>
-        <Field label="Purchase order" hint="The approved order this bill is for. Leave blank if you don't have one; the grants office will then confirm it was authorized." grow>
-          <select value={d.poId} onChange={e => { const po = pos.find(p => p.id === e.target.value); set({ poId: e.target.value, ...(po?.grantId ? { grantId: po.grantId } : {}) }) }}>
-            <option value="">None</option>
-            {pos.map(p => <option key={p.id} value={p.id}>{p.id}: {p.vendor}, {money(p.amount)}</option>)}
           </select>
         </Field>
       </div>
@@ -87,17 +81,19 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
         <button type="button" className="iv-link" onClick={() => set({ lines: [...d.lines, { description: '', amount: '' }] })}>+ Add a line</button>
       </div>
 
-      <label className="iv-check">
-        <input type="checkbox" checked={d.receipt} onChange={e => set({ receipt: e.target.checked })} /> Receipt attached
-        <span className="iv-hint" tabIndex={0} role="img" aria-label="A receipt or packing slip proves the goods or service arrived.">?<span className="iv-tip" role="tooltip">A receipt or packing slip proves the goods or service arrived.</span></span>
-      </label>
+      <div className="iv-field">
+        <span className="iv-label">Receipt / proof of purchase <span className="iv-req">required</span><span className="iv-hint" tabIndex={0} role="img" aria-label="A receipt, packing slip or delivery note that proves the goods or service arrived. It is required before you can submit.">?<span className="iv-tip" role="tooltip">A receipt, packing slip or delivery note that proves the goods or service arrived. It is required before you can submit.</span></span></span>
+        <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.txt" onChange={addReceipt} />
+        {d.receiptFiles.map(n => <span key={n} className="iv-chip">{n}<button type="button" aria-label={`Remove ${n}`} onClick={() => removeReceipt(n)}>×</button></span>)}
+      </div>
 
       {result.effect && grant && (
-        <p className="iv-after">After this is paid, <strong>{money(result.effect.after)}</strong> is left on {grant.id}.</p>
+        <p className="iv-after">After this is paid, <strong>{money(result.effect.after)}</strong> is left of this grant ({Math.round((result.effect.after / (grant.awarded || 1)) * 100)}% of its total budget).</p>
       )}
 
       <div className="iv-actions">
-        <button type="button" className="primary" onClick={() => onSubmit(d, result)}>Submit invoice</button>
+        <button type="button" className="primary" disabled={!d.receipt} onClick={() => onSubmit(d, result)}>Submit invoice</button>
+        {!d.receipt && <span className="iv-note">Add a receipt to submit.</span>}
       </div>
     </div>
   )
