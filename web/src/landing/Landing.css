@@ -22,47 +22,21 @@
 }
 @keyframes landing-nudge { 50% { transform: translateY(3px); } }
 
-/* Who are you? */
-.landing-who { max-width: 1040px; margin: 0 auto; padding: 96px 24px 80px; }
-.landing-who h2 { margin: 0 0 12px; font-size: clamp(30px, 4.2vw, 42px); line-height: 1.1; letter-spacing: -0.02em; scroll-margin-top: 32px; }
-.landing-who h2:focus:not(:focus-visible) { outline: none; }
-.landing-lede { margin: 0 0 56px; max-width: 68ch; color: var(--muted); font-size: 17px; }
-.landing-seats { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 72px; align-items: start; }
-.landing-seat h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
-.landing-seat > p { margin: 0 0 20px; max-width: 65ch; color: var(--muted); }
+/* "Who are you?" is T81's Entry (Entry.css, not ours): here it sits below the
+   hero instead of filling the screen, and the bar above already names the app. */
+.landing-rest { display: flex; flex-direction: column; min-height: 100vh; min-height: 100svh; }
+.landing-who { flex: 1; display: grid; }
+.landing-who:focus { outline: none; } /* a scroll target, not a control */
+.landing .entry { min-height: auto; padding: 64px 24px; }
+.landing .entry-brand { display: none; }
+.landing .entry button:active { transform: translateY(1px); }
 
-.landing-go { display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; }
-.landing-go:hover { background: color-mix(in srgb, var(--accent) 86%, #000); border-color: color-mix(in srgb, var(--accent) 86%, #000); }
-.landing-go:active { transform: translateY(1px); }
-.landing-go:disabled, .landing-people button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
-
-.landing-people { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
-.landing-people button {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name arrow" "meta arrow";
-  align-items: center; column-gap: 16px; width: 100%; padding: 12px 10px; text-align: left;
-  border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; color: var(--text);
-}
-.landing-people button:hover { background: var(--neutral-bg); }
-.landing-people button:hover .landing-arrow { color: var(--accent); }
-.landing-people button:active { background: color-mix(in srgb, var(--neutral-bg) 80%, var(--text)); }
-.landing-people button:focus-visible { outline-offset: -2px; }
-.landing-name { grid-area: name; font-weight: 600; }
-.landing-meta { grid-area: meta; color: var(--muted); font-size: 14px; }
-.landing-people .landing-arrow { grid-area: arrow; color: var(--muted); }
-
-.landing-foot { max-width: 1040px; margin: 0 auto; padding: 24px 24px 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
-
-@media (prefers-color-scheme: dark) {
-  .landing-go, .landing-go:hover { color: var(--bg); }
-  .landing-go:hover { background: color-mix(in srgb, var(--accent) 86%, #fff); border-color: color-mix(in srgb, var(--accent) 86%, #fff); }
-}
+/* The bottom padding clears the fixed backend status badge (bottom right). */
+.landing-foot { width: min(640px, calc(100% - 32px)); margin: 0 auto; padding: 20px 0 96px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
 
 @media (max-width: 720px) {
   .landing-bar { padding: 0 16px; }
-  .landing-who { padding: 64px 16px 56px; }
-  .landing-lede { margin-bottom: 40px; }
-  .landing-seats { grid-template-columns: minmax(0, 1fr); gap: 48px; }
-  .landing-foot { padding: 20px 16px 32px; }
+  .landing .entry { padding: 48px 16px; }
 }
 
 /* The stand-in hero: hero a1's palette, light in both color schemes. */
@@ -84,10 +58,3 @@
   .hero-stub h1 { font-size: 27px; margin-bottom: 12px; }
   .hero-stub-copy p { margin-bottom: 18px; font-size: 15px; }
 }
-
-/* "Back to start" in both portals' headers. */
-nav a.back-start { margin-top: 12px; color: var(--muted); font-size: 13px; }
-nav a.back-start:hover { color: var(--text); }
-.sci a.sci-back { color: var(--s-muted); font-size: 15px; text-decoration: none; white-space: nowrap; }
-.sci a.sci-back:hover { color: var(--s-text); text-decoration: underline; text-underline-offset: 3px; }.landing-edge { margin-top: 16px; }
-.landing-edge summary { cursor: pointer; padding: 8px 0; color: var(--muted); font-size: 14px; font-weight: 600; }
