@@ -7,7 +7,7 @@ import { type Db, type Grant, type GrantStatus, type SourceReading, type StatusE
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
 import { SIM_NOTE, grantHeading } from '../plain'
 import EdgeGroup from '../EdgeGroup'
-import { isEdgeGrant } from '../people'
+import { edgeCaseOf, isEdgeGrant } from '../people'
 import './Funds.css'
 
 const statusLabel: Record<GrantStatus, string> = {
@@ -57,12 +57,14 @@ export default function Funds() {
 
 function GrantCard({ g, db }: { g: Grant; db: Db }) {
   const daysLeft = daysBetween(db.today, g.end)
+  const edgeCase = edgeCaseOf(g)
 
   return (
     <Section
       title={grantHeading(g)}
       aside={
         <span className="funds-badges">
+          {edgeCase && <Badge tone="neutral">Edge case: {edgeCase}</Badge>}
           <Badge tone={grantStatus(g).tone}>{grantStatus(g).label}</Badge>
         </span>
       }

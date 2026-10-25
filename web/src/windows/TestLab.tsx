@@ -13,7 +13,7 @@ import { nextStep, paymentNote } from '../frozen'
 import { Badge, Section, grantStatus, money } from '../ui'
 import type { Tone } from '../ui'
 import scorecardJson from '../../../eval/scorecard.json'
-import { isEdgeGrant } from '../people'
+import { edgeCaseOf, isEdgeGrant } from '../people'
 import './TestLab.css'
 import { grantHeading, setCondensedNames, useCondensedNames } from '../plain'
 
@@ -167,7 +167,7 @@ export default function TestLab() {
             <select value={grantId} onChange={e => setGrantId(e.target.value)}>
               {db.grants.filter(g => !isEdgeGrant(g)).map(g => <option key={g.id} value={g.id}>{grantHeading(g)} ({g.id})</option>)}
               <optgroup label="Edge cases">
-                {db.grants.filter(isEdgeGrant).map(g => <option key={g.id} value={g.id}>{grantHeading(g)} ({g.id})</option>)}
+                {db.grants.filter(isEdgeGrant).map(g => <option key={g.id} value={g.id}>{edgeCaseOf(g)}: {grantHeading(g)} ({g.id})</option>)}
               </optgroup>
             </select>
           </label>

@@ -35,6 +35,8 @@ export const displayName = (r: Researcher) => r.failure ?? r.name
 const EDGE_GRANTS = new Set(EDGE_CASES.map(r => r.grantId))
 /** A grant that only backs an edge-case user (a cut script's grant), not the lab's own. */
 export const isEdgeGrant = (g: { id: string }) => EDGE_GRANTS.has(g.id)
+/** The edge case a grant backs ("Bought after the cut"); undefined for the lab's own. */
+export const edgeCaseOf = (g: { id: string }) => EDGE_CASES.find(r => r.grantId === g.id)?.failure
 /** The grants a researcher works with: an edge-case user only their own; everyone else the lab's. */
 export const grantsOf = <G extends { id: string }>(r: Researcher, grants: G[]) =>
   grants.filter(g => (r.failure ? g.id === r.grantId : !isEdgeGrant(g)))
