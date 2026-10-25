@@ -5,5 +5,4 @@
 .demo-dock-panel[hidden] { display: none; }
 .demo-dock-head { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 12px 0; background: var(--bg); }
 .demo-dock-head button { border: 0; background: transparent; font-size: 22px; line-height: 1; padding: 2px 8px; }
-.demo-dock-user { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; margin: 0 0 16px; }
 .demo-dock .testlab .scenarios button { min-width: 0; }

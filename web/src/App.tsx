@@ -6,6 +6,7 @@ import DetailPage from './DetailPage'
 import Notices from './Notices'
 import Entry from './Entry'
 import DemoDock from './DemoDock'
+import UserSwitch from './UserSwitch'
 import Landing from './landing/Landing'
 import './scientist.css'
 
@@ -14,7 +15,7 @@ import './scientist.css'
 // only their own requests. A portal is 'grant_office' or a researcher id.
 type Portal = 'grant_office' | string
 // Asked on entry (T81): a new tab starts at "Who are you?"; a reload keeps the
-// answer. The only way to switch afterwards is the floating Demo controls.
+// answer. Switching afterwards is the same UserSwitch in both portals.
 const PORTAL_KEY = 'grantguard.portal'
 const savedPortal = (): Portal | null => {
   try {
@@ -58,7 +59,7 @@ export default function App() {
   if (atStart(hash)) return <Landing onPick={switchPortal} />
 
   if (!portal) return <Entry onPick={switchPortal} />
-  const dock = <DemoDock portal={portal} onSwitch={switchPortal} />
+  const dock = <DemoDock />
 
   if (researcher) {
     return (
@@ -75,7 +76,7 @@ export default function App() {
             </nav>
             <div className="sci-role">
               <a href="#start" className="sci-back">Back to start</a>
-              <span className="sci-me">{researcher.name}<small>{researcher.title}</small></span>
+              <UserSwitch portal={portal} onSwitch={switchPortal} align="right" />
             </div>
           </div>
         </header>
@@ -98,6 +99,7 @@ export default function App() {
         <div className="brand">GrantGuard</div>
         <div className="portal-name">Grant office portal</div>
         <div className="today">Today: {db.today}</div>
+        <div className="nav-user"><UserSwitch portal={portal} onSwitch={switchPortal} /></div>
         {menu(role).map(w => (
           <a key={w.id} href={`#${w.id}`} className={w === current ? 'active' : ''}>
             {w.label}

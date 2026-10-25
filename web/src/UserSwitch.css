@@ -1,0 +1,17 @@
+/* Same look in both portals: every value set here, nothing inherited from either shell. */
+.user-switch { position: relative; font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.25; text-align: left; }
+.user-switch button.us-trigger, .user-switch .us-menu button { display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.user-switch button.us-trigger:hover, .user-switch .us-menu button:hover { border-color: var(--accent); }
+.user-switch .us-avatar { flex: none; width: 30px; height: 30px; border-radius: 999px; display: grid; place-items: center; background: var(--accent); color: #fff; font-size: 12px; font-weight: 700; }
+.user-switch .us-who { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.user-switch .us-who strong { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-switch .us-who small { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.user-switch .us-chev { color: var(--muted); font-size: 12px; }
+.user-switch .us-menu { position: absolute; top: calc(100% + 6px); z-index: 70; width: 280px; max-width: calc(100vw - 32px); max-height: min(480px, calc(100vh - 100px)); overflow: auto; display: flex; flex-direction: column; gap: 4px; padding: 8px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 30px rgb(0 0 0 / .18); }
+.user-switch.left .us-menu { left: 0; }
+.user-switch.right .us-menu { right: 0; }
+.user-switch .us-head { padding: 2px 6px 4px; color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.user-switch .us-menu button { border-color: transparent; background: transparent; }
+.user-switch .us-menu button.current { background: var(--neutral-bg); }
+.user-switch .us-tick { color: var(--accent); font-weight: 700; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
