@@ -1,11 +1,16 @@
-// The page a donut color or the forecast opens in a new tab: `#detail/<grant id>/<what>`
-// with <what> = committed | spent | available | history. No navigation; the
-// tab just shows that one list and can be closed.
+// The page the Detailed view button opens in a new tab: `#detail/<grant id>/<what>`.
+// <what> = all is the whole grant (totals, both charts, what was spent, what's on
+// order, and for the grant office the status timeline); committed | spent |
+// available | history show one list. No navigation; the tab can be closed.
+import type { ReactNode } from 'react'
 import SegmentDetails, { SEGMENT_TITLES, type Segment } from './charts/Details'
+import MoneyCharts from './charts/MoneyCharts'
 import { StatusHistory } from './windows/Funds'
 import { useStore } from './data/store'
+import type { Db, Grant } from './data/types'
 import type { Role } from './windows/registry'
-import { grantHeading } from './plain'
+import { grantHeading, longDate } from './plain'
+import { Badge, grantStatus, money } from './ui'
 import './windows/Funds.css'
 import './DetailPage.css'
 
@@ -21,17 +26,21 @@ export default function DetailPage({ role }: { role: Role }) {
     if (window.opener) window.close()
     else location.hash = home
   }
-  const title = what === 'history' ? 'Status timeline' : SEGMENTS.includes(what as Segment) ? SEGMENT_TITLES[what as Segment] : ''
+  const title = what === 'all' ? 'Detailed view'
+    : what === 'history' ? 'Status timeline'
+    : SEGMENTS.includes(what as Segment) ? SEGMENT_TITLES[what as Segment] : ''
 
   return (
     <div className={role === 'scientist' ? 'sci' : undefined}>
-      <main className="dp">
+      <main className={what === 'all' ? 'dp dp-wide' : 'dp'}>
         <div className="dp-top">
           <span className="dp-brand">GrantGuard</span>
           <button type="button" onClick={close}>Close tab</button>
         </div>
         {!g || !title ? (
           <p className="dp-missing">{db.grants.length === 0 ? 'Loading…' : 'That list is not available.'}</p>
+        ) : what === 'all' ? (
+          <GrantDetails db={db} g={g} role={role} />
         ) : (
           <>
             <p className="dp-kicker">{g.id} · {g.pi}</p>
@@ -42,5 +51,54 @@ export default function DetailPage({ role }: { role: Role }) {
         )}
       </main>
     </div>
+  )
+}
+
+/** Everything about one grant on one page. */
+function GrantDetails({ db, g, role }: { db: Db; g: Grant; role: Role }) {
+  const status = grantStatus(g)
+  const available = g.awarded - g.spent - g.promised
+  return (
+    <>
+      <header className="dp-head">
+        <p className="dp-kicker">{g.id} · {g.pi} · {g.agency}</p>
+        <h1>{grantHeading(g)}</h1>
+        <p className="dp-meta">
+          <Badge tone={status.tone}>{status.label}</Badge>
+          <span>{longDate(g.start)} to {longDate(g.end)}</span>
+        </p>
+      </header>
+
+      <dl className="dp-stats">
+        <Stat label="Total award" value={money(g.awarded)} />
+        <Stat label="Spent" value={money(g.spent)} kind="spent" />
+        <Stat label="Committed" value={money(g.promised)} kind="committed" note="ordered, not yet paid" />
+        <Stat label="Available" value={money(available)} kind="available" note={`${money(g.received)} received from the funder`} />
+      </dl>
+
+      <Card title="Where the money stands"><MoneyCharts db={db} g={g} /></Card>
+      <Card title={SEGMENT_TITLES.spent}><SegmentDetails db={db} g={g} segment="spent" /></Card>
+      <Card title={SEGMENT_TITLES.committed}><SegmentDetails db={db} g={g} segment="committed" /></Card>
+      {role === 'grant_manager' && <Card title="Status and sources"><StatusHistory g={g} db={db} /></Card>}
+    </>
+  )
+}
+
+function Stat({ label, value, kind, note }: { label: string; value: string; kind?: Segment; note?: string }) {
+  return (
+    <div className={kind ? `dp-stat dp-stat-${kind}` : 'dp-stat'}>
+      <dt>{label}</dt>
+      <dd>{value}</dd>
+      {note && <dd className="dp-stat-note">{note}</dd>}
+    </div>
+  )
+}
+
+function Card({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section className="dp-card">
+      <h2>{title}</h2>
+      {children}
+    </section>
   )
 }

@@ -8,3 +8,30 @@
 .dp h2 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
 .dp .sd { margin-top: 0; border-top: 0; padding-top: 0; }
 .dp-missing { color: var(--muted); }
+
+/* The Detailed view (`#detail/<id>/all`): header, four totals, then one card per part. */
+.dp { --dp-panel: var(--panel); --dp-line: var(--line); --dp-spent: var(--muted); --dp-committed: #d97706; --dp-available: var(--good); }
+.sci .dp { --dp-panel: var(--s-bg); --dp-line: var(--s-line); --dp-spent: var(--s-muted); --dp-committed: var(--s-orange); --dp-available: var(--s-blue); }
+.dp-wide { max-width: 1040px; }
+.dp-head { margin-bottom: 20px; }
+.dp-head h1 { margin: 4px 0 8px; font-size: 28px; line-height: 1.2; }
+.dp-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0; font-size: 14px; color: var(--muted); }
+.sci .dp-meta { color: var(--s-muted); }
+.dp-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin: 0 0 16px; }
+.dp-stat { background: var(--dp-panel); border: 1px solid var(--dp-line); border-top: 4px solid var(--dp-line); border-radius: 10px; padding: 12px 14px; }
+.dp-stat-spent { border-top-color: var(--dp-spent); }
+.dp-stat-committed { border-top-color: var(--dp-committed); }
+.dp-stat-available { border-top-color: var(--dp-available); }
+.dp-stat dt { font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.sci .dp-stat dt, .sci .dp-stat-note { color: var(--s-muted); }
+.dp-stat dd { margin: 4px 0 0; font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.dp-stat .dp-stat-note { margin-top: 2px; font-size: 12px; font-weight: 400; color: var(--muted); }
+.dp-card { background: var(--dp-panel); border: 1px solid var(--dp-line); border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
+.dp-card > h2 { margin: 0 0 12px; font-size: 17px; }
+.dp-card .mc { margin: 0; }
+.dp-card .funds-cols > div > .funds-h3:first-child { margin-top: 0; }
+
+@media (max-width: 720px) {
+  .dp { padding: 16px 16px 40px; }
+  .dp-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

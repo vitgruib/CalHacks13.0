@@ -73,7 +73,7 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
         {daysLeft >= 0 && daysLeft <= 90 && <> <Badge tone="warn">last 90 days</Badge></>}
       </p>
 
-      <MoneyCharts db={db} g={g} details forecastDetails />
+      <MoneyCharts db={db} g={g} details />
 
       {openHolds.length > 0 && (
         <p className="funds-inbox">
