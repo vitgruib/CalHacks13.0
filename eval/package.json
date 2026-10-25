@@ -9,7 +9,8 @@
   "scripts": {
     "score": "node score.mjs",
     "test": "node --test test/*.test.mjs",
-    "check": "npm test && node score.mjs"
+    "check": "npm test && node score.mjs && node real-findings.mjs",
+    "real-findings": "node real-findings.mjs"
   },
   "devDependencies": {
     "tsx": "^4.23.15"

@@ -1,0 +1,968 @@
+{
+  "about": "Questioned costs from real audit reports, each rebuilt in a fresh copy of sim/seed.json and run through the real module and agents. Agents run on their deterministic fallbacks unless GG_CLAUDE says otherwise.",
+  "claude": "offline",
+  "totals": {
+    "findings": 40,
+    "inScope": 27,
+    "caught": 22,
+    "missed": 5,
+    "outOfScope": 13,
+    "decoys": 3,
+    "correctPasses": 3,
+    "falseAlarms": 0
+  },
+  "findings": [
+    {
+      "id": "rf-01",
+      "what": "An underwater vehicle serving two NSF awards and a NOAA project was charged 68% to one award and 0% to NOAA.",
+      "source": {
+        "file": "nsf-oig-15-1-014-uwm.txt",
+        "auditee": "Univ. of Wisconsin-Madison",
+        "year": "2015",
+        "amount": 70189,
+        "quote": "The total cost of this equipment was $71,015. Of this amount, $48,301 (68 percent) was"
+      },
+      "rule": "Shared cost split across the grants it serves",
+      "auditee": "Univ. of Wisconsin-Madison",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-01-c",
+          "kind": "mistake",
+          "refId": "rf-01",
+          "expected": "hold or block",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves R01AI178875 and R01HL176691 but is charged to one grant only."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-02",
+      "what": "Expenses benefiting several NSF awards were not allocated by benefit.",
+      "source": {
+        "file": "nsf-oig-20-1-008-duke.txt",
+        "auditee": "Duke University",
+        "year": "2020 (resolved 2023)",
+        "amount": 28719,
+        "quote": "NSF sustains the finding. The auditor questioned $28,719 on eight (8) NSF awards in Recommendations"
+      },
+      "rule": "Shared cost split across the grants it serves",
+      "auditee": "Duke University",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-02-c",
+          "kind": "mistake",
+          "refId": "rf-02",
+          "expected": "hold or block",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves R01AI178875 and R01HL176691 and R01GM155497 but is charged to one grant only."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-03",
+      "what": "Publication costs were charged 100% to one award when the paper credited several.",
+      "source": {
+        "file": "nsf-oig-22-6-002-promising-practices.txt",
+        "auditee": "NSF OIG compendium (6 audits)",
+        "year": "2022",
+        "amount": null,
+        "quote": "Common Findings: Award recipients charged a single NSF award for 100"
+      },
+      "rule": "Shared cost split across the grants it serves",
+      "auditee": "NSF OIG compendium (6 audits)",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-03-c",
+          "kind": "mistake",
+          "refId": "rf-03",
+          "expected": "hold or block",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves R01AI178875 and R01HL176691 but is charged to one grant only."
+        },
+        {
+          "id": "rf-03-d",
+          "kind": "decoy",
+          "refId": "rf-03-d",
+          "expected": "pass",
+          "got": "pass",
+          "outcome": "correct pass",
+          "detail": "Split 50% R01AI178875, 50% R01HL176691."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-04",
+      "what": "70% of digestion bombs shipped 7 days before award end was charged to it, with no support for the split.",
+      "source": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "auditee": "Univ. of South Carolina",
+        "year": "2021",
+        "amount": 4271,
+        "quote": "1,460 days). UofSC could not provide support for the allocation methodology, and given"
+      },
+      "rule": "Shared cost split across the grants it serves",
+      "auditee": "Univ. of South Carolina",
+      "outcome": "missed",
+      "cases": [
+        {
+          "id": "rf-04-c",
+          "kind": "mistake",
+          "refId": "rf-04",
+          "expected": "hold or block or reroute",
+          "got": "hold",
+          "outcome": "missed",
+          "detail": "waiting_on_manager; Shared cost split across the grants it serves: Split 70% R21AI182745, 30% R01AI178875."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-05",
+      "what": "Lab supplies ordered the month before expiration were charged to it while used on two other awards.",
+      "source": {
+        "file": "nsf-oig-17-1-009-usc.txt",
+        "auditee": "Univ. of Southern California",
+        "year": "2017",
+        "amount": 6434,
+        "quote": "Lab supplies, totaling $6,434, were ordered in August 2013, and"
+      },
+      "rule": "Not in the grant's last 90 days",
+      "auditee": "Univ. of Southern California",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-05-c",
+          "kind": "mistake",
+          "refId": "rf-05",
+          "expected": "reroute or hold or block",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-06",
+      "what": "A tablet and phone ordered 43 days before award end were charged 100% to it.",
+      "source": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "auditee": "Univ. of South Carolina",
+        "year": "2021",
+        "amount": 4620,
+        "quote": "The tablet and phone were available for 3 percent of the award period (43 out of 1,245"
+      },
+      "rule": "Not in the grant's last 90 days",
+      "auditee": "Univ. of South Carolina",
+      "outcome": "missed",
+      "cases": [
+        {
+          "id": "rf-06-c",
+          "kind": "mistake",
+          "refId": "rf-06",
+          "expected": "hold or hold or block or reroute",
+          "got": "buy",
+          "outcome": "missed",
+          "detail": "bought"
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-07",
+      "what": "Cell phones bought in the last month of a 4-year award were charged 100% to it.",
+      "source": {
+        "file": "nsf-oig-17-1-009-usc.txt",
+        "auditee": "Univ. of Southern California",
+        "year": "2017",
+        "amount": 2466,
+        "quote": "Cell phones from Amazon were purchased for $2,466 in the last"
+      },
+      "rule": "Not in the grant's last 90 days",
+      "auditee": "Univ. of Southern California",
+      "outcome": "missed",
+      "cases": [
+        {
+          "id": "rf-07-c",
+          "kind": "mistake",
+          "refId": "rf-07",
+          "expected": "hold or hold or block or reroute",
+          "got": "buy",
+          "outcome": "missed",
+          "detail": "bought"
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-08",
+      "what": "A computer installed 15 days before award end was charged in full.",
+      "source": {
+        "file": "nsf-oig-17-1-009-usc.txt",
+        "auditee": "Univ. of Southern California",
+        "year": "2017",
+        "amount": 31375,
+        "quote": "A computer, totaling $31,375, was installed 15 days prior to the"
+      },
+      "rule": "Not in the grant's last 90 days",
+      "auditee": "Univ. of Southern California",
+      "outcome": "missed",
+      "cases": [
+        {
+          "id": "rf-08-c",
+          "kind": "mistake",
+          "refId": "rf-08",
+          "expected": "hold or hold or block or reroute",
+          "got": "hold",
+          "outcome": "missed",
+          "detail": "Stopped (hold), but not by \"Not in the grant's last 90 days\": waiting_on_manager"
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-09",
+      "what": "Equipment was ordered, invoiced and posted after the award ended.",
+      "source": {
+        "file": "nsf-oig-15-1-014-uwm.txt",
+        "auditee": "Univ. of Wisconsin-Madison",
+        "year": "2015",
+        "amount": 20816,
+        "quote": "$20,816 of expenses incurred to purchase equipment that would provide measurements in"
+      },
+      "rule": "Grant is active and not frozen",
+      "auditee": "Univ. of Wisconsin-Madison",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-09-c",
+          "kind": "mistake",
+          "refId": "rf-09",
+          "expected": "hold or hold or block or reroute",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-10",
+      "what": "Computers were charged to an expired award; a requisition dated before the end did not count as a commitment.",
+      "source": {
+        "file": "nsf-oig-15-1-014-uwm.txt",
+        "auditee": "Univ. of Wisconsin-Madison",
+        "year": "2015",
+        "amount": 17017,
+        "quote": "$17,017 of expenses incurred to purchase computer equipment. The invoice supporting this"
+      },
+      "rule": "Grant is active and not frozen",
+      "auditee": "Univ. of Wisconsin-Madison",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-10-c",
+          "kind": "mistake",
+          "refId": "rf-10",
+          "expected": "hold or hold or block or reroute",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-11",
+      "what": "A motion capture system bought the day after the award expired was charged to it.",
+      "source": {
+        "file": "nsf-oig-19-1-006-minnesota.txt",
+        "auditee": "Univ. of Minnesota",
+        "year": "2019",
+        "amount": 56397,
+        "quote": "we questioned $56,397 of costs associated with the capital equipment purchase."
+      },
+      "rule": "Grant is active and not frozen",
+      "auditee": "Univ. of Minnesota",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-11-c",
+          "kind": "mistake",
+          "refId": "rf-11",
+          "expected": "hold or hold or block or reroute",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-12",
+      "what": "Tube assemblies were bought and received 1.5 months after the award expired.",
+      "source": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "auditee": "Univ. of South Carolina",
+        "year": "2021",
+        "amount": 13680,
+        "quote": "The equipment was purchased and received 1.5 months after the award expiration"
+      },
+      "rule": "Grant is active and not frozen",
+      "auditee": "Univ. of South Carolina",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-12-c",
+          "kind": "mistake",
+          "refId": "rf-12",
+          "expected": "hold or hold or block or reroute",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-13",
+      "what": "Equipment for an instrumentation award was received after it expired and charged to it.",
+      "source": {
+        "file": "nsf-oig-17-1-009-usc.txt",
+        "auditee": "Univ. of Southern California",
+        "year": "2017",
+        "amount": 106069,
+        "quote": "Equipment, totaling $106,069, was unreasonably charged to the"
+      },
+      "rule": "Grant is active and not frozen",
+      "auditee": "Univ. of Southern California",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-13-c",
+          "kind": "mistake",
+          "refId": "rf-13",
+          "expected": "hold or hold or block or reroute",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-14",
+      "what": "Costs were charged after the award's funds were canceled, though the project end date was later.",
+      "source": {
+        "file": "nsf-oig-20-1-008-duke.txt",
+        "auditee": "Duke University",
+        "year": "2020 (resolved 2023)",
+        "amount": 29892,
+        "quote": "NSF sustains the finding. The auditors questioned costs of $29,892 on two (2) awards related to"
+      },
+      "rule": "Grant is active and not frozen",
+      "auditee": "Duke University",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-14-c",
+          "kind": "mistake",
+          "refId": "rf-14",
+          "expected": "hold or block or reroute",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Grant is active and not frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-15",
+      "what": "Alcohol in an employee's conference reimbursement was charged to an NSF award.",
+      "source": {
+        "file": "nsf-oig-17-1-009-usc.txt",
+        "auditee": "Univ. of Southern California",
+        "year": "2017",
+        "amount": 46,
+        "quote": "Of the $517 expenses in question, $46 related to unallowable alcohol expenses charged to"
+      },
+      "rule": "Category allowed",
+      "auditee": "Univ. of Southern California",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-15-c",
+          "kind": "mistake",
+          "refId": "rf-15",
+          "expected": "block",
+          "got": "block",
+          "outcome": "caught",
+          "detail": "blocked; Category allowed: alcohol is not an allowable direct cost on a federal grant."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-16",
+      "what": "Alcohol at a workshop was charged to an NSF award.",
+      "source": {
+        "file": "nsf-oig-19-1-006-minnesota.txt",
+        "auditee": "Univ. of Minnesota",
+        "year": "2019",
+        "amount": 257,
+        "quote": "$257, related to a workshop under NSF Award No."
+      },
+      "rule": "Category allowed",
+      "auditee": "Univ. of Minnesota",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-16-c",
+          "kind": "mistake",
+          "refId": "rf-16",
+          "expected": "block",
+          "got": "block",
+          "outcome": "caught",
+          "detail": "blocked; Category allowed: alcohol is not an allowable direct cost on a federal grant."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-17",
+      "what": "University cards were used for alcohol and liquor licenses (state funds).",
+      "source": {
+        "file": "wa-auditor-2013-pcard.txt",
+        "auditee": "Univ. of Washington",
+        "year": "2013",
+        "amount": 118146,
+        "quote": "found UW spent $118,146 for purchases that included alcohol or liquor licenses."
+      },
+      "rule": "Category allowed",
+      "auditee": "Univ. of Washington",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-17-c",
+          "kind": "mistake",
+          "refId": "rf-17",
+          "expected": "block",
+          "got": "block",
+          "outcome": "caught",
+          "detail": "blocked; Category allowed: alcohol is not an allowable direct cost on a federal grant."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-18",
+      "what": "General cleaning supplies were charged to an NSF award.",
+      "source": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "auditee": "Univ. of South Carolina",
+        "year": "2021",
+        "amount": 180,
+        "quote": "for the purchase of general purpose cleaning supplies."
+      },
+      "rule": "Category allowed",
+      "auditee": "Univ. of South Carolina",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-18-c",
+          "kind": "mistake",
+          "refId": "rf-18",
+          "expected": "block",
+          "got": "block",
+          "outcome": "caught",
+          "detail": "blocked; Category allowed: general office is not an allowable direct cost on a federal grant."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-19",
+      "what": "Four same-day orders with one vendor, split to stay under the $2,500 limit.",
+      "source": {
+        "file": "ct-apa-2025-scsu-fy2021-2022.txt",
+        "auditee": "Southern Connecticut State Univ.",
+        "year": "2025 (FY21-22)",
+        "amount": 3792,
+        "quote": "orders for $1,038, $910, $1,377, and $467 (totaling $3,792)"
+      },
+      "rule": "Under the card limit, counting same-day purchases",
+      "auditee": "Southern Connecticut State Univ.",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-19-c",
+          "kind": "mistake",
+          "refId": "rf-19c",
+          "expected": "hold",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Under the card limit, counting same-day purchases: $7,584 with rf-19a ($2,076), rf-19b ($1,820), rf-19d ($934), same person, category and day: over the limit together, so the grant manager decides."
+        },
+        {
+          "id": "rf-19-d",
+          "kind": "decoy",
+          "refId": "rf-19-d2",
+          "expected": "pass",
+          "got": "pass",
+          "outcome": "correct pass",
+          "detail": "$5,000 with rf-19-d1 the same day."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-20",
+      "what": "Same-vendor, same-day Procard purchases went over the $1,000 single-purchase limit.",
+      "source": {
+        "file": "ma-osa-2018-umass-amherst-procard-dovetail.txt",
+        "auditee": "UMass Amherst",
+        "year": "2018",
+        "amount": 6204,
+        "quote": "These transactions totaled $19,204, $6,204 of which was over the cardholders’"
+      },
+      "rule": "Under the card limit, counting same-day purchases",
+      "auditee": "UMass Amherst",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-20-c",
+          "kind": "mistake",
+          "refId": "rf-20b",
+          "expected": "hold",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Under the card limit, counting same-day purchases: $6,000 with rf-20a ($3,100), same person, category and day: over the limit together, so the grant manager decides."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-21",
+      "what": "Tested card transactions were improper split purchases (a federal agency, not a university).",
+      "source": {
+        "file": "nsf-oig-25-06-001-pcard-risk.txt",
+        "auditee": "NSF (agency card program)",
+        "year": "2025",
+        "amount": 30000,
+        "quote": "high-risk transactions we tested were improper split purchases totaling $30,000."
+      },
+      "rule": "Under the card limit, counting same-day purchases",
+      "auditee": "NSF (agency card program)",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-21-c",
+          "kind": "mistake",
+          "refId": "rf-21b",
+          "expected": "hold",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "waiting_on_manager; Under the card limit, counting same-day purchases: $7,500 with rf-21a ($4,000), same person, category and day: over the limit together, so the grant manager decides."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-22",
+      "what": "Auditors found 61 duplicate purchase and travel payments.",
+      "source": {
+        "file": "tx-cpa-2021-multi-agency-duplicate-payments.txt",
+        "auditee": "Texas agencies incl. UNT",
+        "year": "2020",
+        "amount": 56542.24,
+        "quote": "purchase and travel payments totaling $56,542.24. See Table 3."
+      },
+      "rule": "An invoice is payable only if its order hasn't been billed already",
+      "auditee": "Texas agencies incl. UNT",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-22-c",
+          "kind": "mistake",
+          "refId": "rf-22",
+          "expected": "hold",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "The order was already billed by rf-22-i1 ($431, paid); paying this would pay it twice."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-23",
+      "what": "A subrecipient invoice and its indirect costs were charged to the grant twice.",
+      "source": {
+        "file": "fac-single-audit-findings.txt",
+        "auditee": "Saint Louis University",
+        "year": "FY2021",
+        "amount": 1045,
+        "quote": "Workday. Additionally, this subrecipient invoice was erroneously paid twice and indirect costs in"
+      },
+      "rule": "An invoice is payable only if its order hasn't been billed already",
+      "auditee": "Saint Louis University",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-23-c",
+          "kind": "mistake",
+          "refId": "rf-23",
+          "expected": "hold",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "The order was already billed by rf-23-i1 ($690, paid); paying this would pay it twice."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-24",
+      "what": "A $46,600 payment was made against a $14,000 contract with no amendment.",
+      "source": {
+        "file": "tx-cpa-2023-uhv-post-payment-audit.txt",
+        "auditee": "Univ. of Houston-Victoria",
+        "year": "2023",
+        "amount": 46600,
+        "quote": "established contract; however, the existing contract’s value of $14,000 did not support"
+      },
+      "rule": "An invoice is payable only if its amount matches the approval",
+      "auditee": "Univ. of Houston-Victoria",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-24-c",
+          "kind": "mistake",
+          "refId": "rf-24",
+          "expected": "hold",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "Invoice is $46,600 but the approved amount is $14,000."
+        },
+        {
+          "id": "rf-24-dc",
+          "kind": "decoy",
+          "refId": "rf-24-d",
+          "expected": "pass",
+          "got": "pass",
+          "outcome": "correct pass",
+          "detail": "Invoice paid."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-25",
+      "what": "A $7,400 purchase requisition and order were approved 31 days after the invoice.",
+      "source": {
+        "file": "ct-apa-2025-scsu-fy2021-2022.txt",
+        "auditee": "Southern Connecticut State Univ.",
+        "year": "2025 (FY21-22)",
+        "amount": 7400,
+        "quote": "The university approved one $7,400 purchase requisition and order 31 days after the invoice."
+      },
+      "rule": "An invoice is payable only if its order was placed before it",
+      "auditee": "Southern Connecticut State Univ.",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-25-c",
+          "kind": "mistake",
+          "refId": "rf-25",
+          "expected": "hold",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "The order was placed on 2026-06-12, after this invoice arrived on 2026-05-12, so the grant was never checked before the money was committed."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-26",
+      "what": "A ticket booked under the wrong name was replaced, and both flights were charged to the award.",
+      "source": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "auditee": "Univ. of South Carolina",
+        "year": "2021",
+        "amount": 1222,
+        "quote": "another ticket. Both flights were inappropriately charged to the NSF award."
+      },
+      "rule": "An invoice is payable only if its order hasn't been billed already",
+      "auditee": "Univ. of South Carolina",
+      "outcome": "missed",
+      "cases": [
+        {
+          "id": "rf-26-c",
+          "kind": "mistake",
+          "refId": "rf-26",
+          "expected": "hold",
+          "got": "pass",
+          "outcome": "missed",
+          "detail": "Invoice paid."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-27",
+      "what": "Awardees charged NSF to publish papers that did not credit the award charged.",
+      "source": {
+        "file": "nsf-oig-22-6-002-promising-practices.txt",
+        "auditee": "NSF OIG compendium",
+        "year": "2022",
+        "amount": null,
+        "quote": "Common Findings: Award recipients charged NSF for costs incurred to publish"
+      },
+      "rule": "A listed paper must credit the grant whose report lists it",
+      "auditee": "NSF OIG compendium",
+      "outcome": "caught",
+      "cases": [
+        {
+          "id": "rf-27-c",
+          "kind": "mistake",
+          "refId": "p-10",
+          "expected": "hold",
+          "got": "hold",
+          "outcome": "caught",
+          "detail": "Listed in R21AI182745's report, but its acknowledgments name R01GM061721."
+        }
+      ],
+      "falseAlarms": 0,
+      "extras": [],
+      "errors": []
+    },
+    {
+      "id": "rf-28",
+      "what": "Conference travel was posted 15 months after the trip and 8 months after the award expired.",
+      "source": {
+        "file": "nsf-oig-17-1-009-usc.txt",
+        "auditee": "Univ. of Southern California",
+        "year": "2017",
+        "amount": 1863,
+        "quote": "were posted 15 months after the travel end date and eight months after award expiration,"
+      },
+      "outcome": "out of scope",
+      "why": "Travel reimbursements and their posting dates are not modeled."
+    },
+    {
+      "id": "rf-29",
+      "what": "Estimated future publication costs were charged to an expired award with no invoice.",
+      "source": {
+        "file": "nsf-oig-19-1-006-minnesota.txt",
+        "auditee": "Univ. of Minnesota",
+        "year": "2019",
+        "amount": 5675,
+        "quote": "the grant was charged based on an estimate and not based on"
+      },
+      "outcome": "out of scope",
+      "why": "GrantGuard charges a grant only through request, order and invoice; it has no journal entries to test."
+    },
+    {
+      "id": "rf-30",
+      "what": "A drone bought on the wrong account was moved onto the award 165 days after it expired.",
+      "source": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "auditee": "Univ. of South Carolina",
+        "year": "2021",
+        "amount": 3685,
+        "quote": "until 165 days after expiration."
+      },
+      "outcome": "out of scope",
+      "why": "Cost transfers between accounts are not modeled (the report checker only proposes moves)."
+    },
+    {
+      "id": "rf-31",
+      "what": "Cost transfers onto NSF awards were not allocable.",
+      "source": {
+        "file": "nsf-oig-17-1-002-ucdavis.txt",
+        "auditee": "UC Davis",
+        "year": "2018 (resolved)",
+        "amount": 69545,
+        "quote": "The University concurred that $69,545 was not allocable to the"
+      },
+      "outcome": "out of scope",
+      "why": "Cost transfers between accounts are not modeled."
+    },
+    {
+      "id": "rf-32",
+      "what": "75 of 119 cost transfers were made 91 to 1,002 days after the original charge.",
+      "source": {
+        "file": "fac-single-audit-findings.txt",
+        "auditee": "Saint Louis University",
+        "year": "FY2023",
+        "amount": 246869,
+        "quote": "transactions sampled cost transfers (totaling $246,869 positive and $66,004 negative) where the"
+      },
+      "outcome": "out of scope",
+      "why": "Cost transfers are not modeled; the report checker counts the 90 days only for the moves it proposes."
+    },
+    {
+      "id": "rf-33",
+      "what": "Charges were allegedly moved onto grants near expiration to spend down remaining funds.",
+      "source": {
+        "file": "usao-ct-2008-yale-grants-settlement.txt",
+        "auditee": "Yale University",
+        "year": "2008",
+        "amount": 7600000,
+        "quote": "wrongful transfers when the federal grant was near its expiration date and they needed to spend"
+      },
+      "outcome": "out of scope",
+      "why": "Cost transfers are not modeled. New supply purchases in a grant's last 90 days are (rf-05)."
+    },
+    {
+      "id": "rf-34",
+      "what": "Materials charged to the wrong award stayed in claimed costs until the audit.",
+      "source": {
+        "file": "nsf-oig-21-1-016-southcarolina.txt",
+        "auditee": "Univ. of South Carolina",
+        "year": "2021",
+        "amount": 7276,
+        "quote": "award, 803 days after the final reimbursement was requested through ACM$."
+      },
+      "outcome": "out of scope",
+      "why": "Nothing in the records says which award the materials served; only a person could tell."
+    },
+    {
+      "id": "rf-35",
+      "what": "Stipends for summer work not yet done were charged before year-end.",
+      "source": {
+        "file": "fac-single-audit-findings.txt",
+        "auditee": "Pomona College",
+        "year": "FY2022",
+        "amount": 16588,
+        "quote": "Management charged nonpayroll expenses that had not been incurred as of year-end"
+      },
+      "outcome": "out of scope",
+      "why": "Untested: payment requests claim only bought purchases and past payroll, but no case here plants future stipends."
+    },
+    {
+      "id": "rf-36",
+      "what": "P-cards were used for item types the university prohibits on the card.",
+      "source": {
+        "file": "nc-auditor-2024-fayetteville-state-pcard.txt",
+        "auditee": "Fayetteville State Univ.",
+        "year": "2024",
+        "amount": 13650,
+        "quote": "17 purchases totaling $13,650 were for various items which were unallowable per"
+      },
+      "outcome": "out of scope",
+      "why": "The report does not say which items, so there is nothing specific to rebuild."
+    },
+    {
+      "id": "rf-37",
+      "what": "A finance director split fraudulent orders to stay below the $10,000 approval threshold.",
+      "source": {
+        "file": "doj-university-grant-settlements.txt",
+        "auditee": "Yale School of Medicine",
+        "year": "2021-2022",
+        "amount": 40504200,
+        "quote": "broke up the fraudulent purchases into orders below the $10,000 threshold that would require"
+      },
+      "outcome": "out of scope",
+      "why": "Insider fraud by the person who approves. The same-day split rule only sees one person's orders on one day (rf-19)."
+    },
+    {
+      "id": "rf-38",
+      "what": "A PI paid sham companies, partly from NIH funds, for goods never received.",
+      "source": {
+        "file": "doj-university-grant-settlements.txt",
+        "auditee": "Stony Brook Univ.",
+        "year": "2020",
+        "amount": 200000,
+        "quote": "payment to the sham companies for equipment, goods and services that were never received or"
+      },
+      "outcome": "out of scope",
+      "why": "GrantGuard does not check receipt of goods or who owns a vendor."
+    },
+    {
+      "id": "rf-39",
+      "what": "Senior salary above NSF's two-month limit.",
+      "source": {
+        "file": "nsf-oig-15-1-014-uwm.txt",
+        "auditee": "Univ. of Wisconsin-Madison",
+        "year": "2015",
+        "amount": 1276668,
+        "quote": "the auditors questioned $1,276,668 in senior personnel salary that exceeded NSF’s two-month"
+      },
+      "outcome": "out of scope",
+      "why": "NSF's two-month salary rule is not modeled; GrantGuard checks only effort above 100%."
+    },
+    {
+      "id": "rf-40",
+      "what": "Salaries were claimed from budget estimates rather than actual effort.",
+      "source": {
+        "file": "hhs-oig-2024-a-04-20-03583-nymc-summary.txt",
+        "auditee": "New York Medical College",
+        "year": "2024",
+        "amount": 7469306,
+        "quote": "instead of actual activity to claim $7.5 million in salaries, fringe benefits, and indirect costs."
+      },
+      "outcome": "out of scope",
+      "why": "Payroll rows are taken as given; nothing compares claimed effort with actual work."
+    }
+  ]
+}
