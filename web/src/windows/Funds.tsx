@@ -55,7 +55,7 @@ const eventLabel: Record<StatusEvent['kind'], string> = {
   court_order: 'Court order',
   payment_received: 'Payment received',
   reading_changed: 'Source changed',
-  unfrozen: 'Unfrozen',
+  unfrozen: 'Active again',
 }
 const eventTone: Record<StatusEvent['kind'], Tone> = {
   canceled: 'bad', court_order: 'warn', payment_received: 'good', reading_changed: 'neutral', unfrozen: 'good',
@@ -132,7 +132,7 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
         {daysLeft >= 0 && daysLeft <= 90 && <> <Badge tone="warn">last 90 days</Badge></>}
       </p>
 
-      {g.frozen && g.status !== 'ended' && <Unpause db={db} g={g} />}
+      {(g.status === 'canceled' || g.status === 'restored_by_court') && <MarkActive db={db} g={g} />}
       {holds.map(h => <HoldCard key={h.id} hold={h} embedded />)}
       {decided.map(h => (
         <p key={h.id} className="funds-decided">
@@ -146,10 +146,11 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
   )
 }
 
-/** A paused grant: why, as the researchers see it, and the grant manager's
- *  unpause (unfreeze_grant), which reaches every portal (T112). */
-function Unpause({ db, g }: { db: Db; g: Grant }) {
-  const { unfreezeGrant } = useStore()
+/** A canceled or court-restored grant: why spending is paused, and the grant
+ *  manager confirming it is live (unfreeze_grant). Its status becomes active,
+ *  which is what opens spending in every portal (T112). */
+function MarkActive({ db, g }: { db: Db; g: Grant }) {
+  const { markGrantActive } = useStore()
   const [reason, setReason] = useState('')
   const id = useId()
   const ok = reason.trim() !== ''
@@ -160,11 +161,11 @@ function Unpause({ db, g }: { db: Db; g: Grant }) {
       </header>
       <p className="why"><strong>Why:</strong> {whyFrozen(db, g).map(c => c.text).join('; ')}.</p>
       <div className="field">
-        <label htmlFor={id}>Unpause now? Your reason (required, goes in the log)</label>
+        <label htmlFor={id}>Confirmed it's live? Mark it active. Your reason (required, goes in the log)</label>
         <textarea id={id} rows={2} value={reason} onChange={e => setReason(e.target.value)} placeholder="e.g. NIH confirmed the award is live and payments resume this month" />
       </div>
       <div className="actions">
-        <button type="button" className="primary" disabled={!ok} onClick={() => { unfreezeGrant(g.id, reason); setReason('') }}>Unpause spending</button>
+        <button type="button" className="primary" disabled={!ok} onClick={() => { markGrantActive(g.id, reason); setReason('') }}>Mark grant active</button>
         {!ok && <span className="hint">Type a reason to enable the button.</span>}
       </div>
     </div>

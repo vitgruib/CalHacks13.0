@@ -61,12 +61,28 @@ describe('fund tracker', () => {
     expect(s.frozenReason).toContain('grant manager');
   });
 
-  test('the grant manager can unfreeze a grant paid while canceled', () => {
+  test('the grant manager confirming a grant paid while canceled makes it active', () => {
     expect(freezeState('active', [
       { day: '2025-06-30', kind: 'canceled' },
       { day: '2025-11-30', kind: 'payment_received' },
       { day: '2026-06-15', kind: 'unfrozen' },
-    ], false)).toEqual({ status: 'canceled', frozen: false });
+    ], false)).toEqual({ status: 'active', frozen: false });
+  });
+
+  test('the grant manager confirming a court-restored grant makes it active before any payment', () => {
+    expect(freezeState('active', [
+      { day: '2026-03-10', kind: 'canceled' },
+      { day: '2026-04-20', kind: 'court_order' },
+      { day: '2026-06-15', kind: 'unfrozen' },
+    ], false)).toEqual({ status: 'active', frozen: false });
+  });
+
+  test('a cancellation after the grant manager confirmed it freezes again', () => {
+    expect(freezeState('active', [
+      { day: '2026-03-10', kind: 'canceled' },
+      { day: '2026-06-15', kind: 'unfrozen' },
+      { day: '2026-07-01', kind: 'canceled' },
+    ], false)).toMatchObject({ status: 'canceled', frozen: true });
   });
 
   test('a payment before the cancellation does not unfreeze', () => {

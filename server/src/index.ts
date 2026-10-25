@@ -134,23 +134,24 @@ function recomputeGrant(ctx: Ctx, id: string, actor = 'system'): void {
   // Index order is not insertion order; ids only grow, so sort by id to
   // replay same-day events in the order they happened.
   const events = [...ctx.db.statusEvent.grantId.filter(id)].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
-  const lastCourt = events.map(e => e.kind).lastIndexOf('court_order');
-  if (lastCourt >= 0 && events.slice(lastCourt + 1).some(e => e.kind === 'payment_received')) {
-    for (const f of [...ctx.db.flag.grantId.filter(id)]) {
-      if (!f.open || f.kind !== 'court_order_no_payment') continue;
-      ctx.db.flag.id.update({ ...f, open: false });
-      writeLog(ctx, actor, `Closed flag on ${id}`, 'A payment arrived after the court order.', { refId: id });
-    }
-  }
   const disagree = [...ctx.db.flag.grantId.filter(id)].some(f => f.open && f.kind === 'sources_disagree');
   const ended = g.status === 'ended' || today(ctx) > g.end;
   const fs = freezeState(ended ? 'ended' : 'active', events, disagree);
+  // "Court order, no payment yet" only describes a grant still restored by a
+  // court: once a payment or the grant manager makes it active, it's settled.
+  if (fs.status !== 'restored_by_court') {
+    for (const f of [...ctx.db.flag.grantId.filter(id)]) {
+      if (!f.open || f.kind !== 'court_order_no_payment') continue;
+      ctx.db.flag.id.update({ ...f, open: false });
+      writeLog(ctx, actor, `Closed flag on ${id}`, `${id} is ${fs.status === 'active' ? 'active again' : fs.status}.`, { refId: id });
+    }
+  }
   const available = g.awarded - g.spent - g.promised;
   ctx.db.grant.id.update({ ...g, status: fs.status, frozen: fs.frozen, frozenReason: fs.frozenReason, available });
   askAboutPaymentWhileCanceled(ctx, id, events, fs.paidWhileCanceled);
   if (fs.frozen !== g.frozen) {
     writeLog(ctx, actor, `${fs.frozen ? 'Froze' : 'Unfroze'} ${id}`, fs.frozenReason ?? 'A payment arrived after the cancellation.', {
-      rule: fs.frozen ? 'Canceled or disputed grants freeze' : 'Only a payment (or the grant manager) unfreezes',
+      rule: fs.frozen ? 'Canceled or disputed grants freeze' : 'Only a payment (or the grant manager) makes it active again',
       refId: id,
     });
     resendWaiting(ctx, id);
@@ -675,18 +676,20 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
   }
 }
 
-/** Grant manager only: unfreeze a grant early, with a reason that goes in the log. */
+/** Grant manager only: confirm a canceled or court-restored grant is live
+ *  again, with a reason that goes in the log. Its status becomes active, which
+ *  is what opens spending; it also settles a source disagreement about it. */
 export const unfreeze_grant = spacetimedb.reducer({ grantId: t.string(), reason: t.string() }, (ctx, { grantId, reason }) => guard(() => {
   const who = requirePerson(ctx, 'grant_manager');
   if (!reason.trim()) fail('A reason is required.');
-  getGrant(ctx, grantId);
-  ctx.db.statusEvent.insert({ id: 0n, grantId, day: today(ctx), kind: 'unfrozen', source: 'Payment system', summary: `Unfrozen early by the grant manager: ${reason}`, amount: undefined, at: ctx.timestamp });
-  // The grant manager's call settles what was holding it: sources disagreeing,
-  // or a court order with no payment yet.
+  const g = getGrant(ctx, grantId);
+  if (g.status === 'ended' || today(ctx) > g.end) fail(`${grantId} has ended.`);
+  if (!g.frozen) fail(`${grantId} is already active.`);
+  ctx.db.statusEvent.insert({ id: 0n, grantId, day: today(ctx), kind: 'unfrozen', source: 'Payment system', summary: `Marked active by the grant manager: ${reason}`, amount: undefined, at: ctx.timestamp });
   for (const f of [...ctx.db.flag.grantId.filter(grantId)]) {
-    if (f.open && (f.kind === 'sources_disagree' || f.kind === 'court_order_no_payment')) ctx.db.flag.id.update({ ...f, open: false });
+    if (f.open && f.kind === 'sources_disagree') ctx.db.flag.id.update({ ...f, open: false });
   }
-  writeLog(ctx, who, `Unfroze ${grantId} early`, reason, { refId: grantId });
+  writeLog(ctx, who, `Marked ${grantId} active`, reason, { refId: grantId });
   recomputeGrant(ctx, grantId, who);
 }));
 

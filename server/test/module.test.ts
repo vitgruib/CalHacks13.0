@@ -222,6 +222,7 @@ test('a payment after the court order closes the "no payment yet" flag', () => {
   expect(rows('flag').some(f => f.grantId === A && f.kind === 'court_order_no_payment' && f.open)).toBe(true);
   moneyArrivesOnA();
   expect(rows('flag').filter(f => f.grantId === A && f.kind === 'court_order_no_payment' && f.open)).toEqual([]);
+  expect(() => call('gm', mod.unfreeze_grant, { grantId: A, reason: 'again' })).toThrow(/already active/);
 });
 
 // ── Smoke-test fixes (T36) ────────────────────────────────────────────────
@@ -445,9 +446,9 @@ test('the grant manager approves or returns a submitted plan, with a reason', ()
 
 // ── Grant office ↔ researcher sync (T112) ─────────────────────────────────
 
-test('the grant manager unpauses a grant held by a court order with no payment', () => {
+test('the grant manager marking a court-restored grant active opens spending', () => {
   call('gm', mod.unfreeze_grant, { grantId: A, reason: 'NIH confirmed by phone that the award is live.' });
-  expect(db().grant.id.find(A)).toMatchObject({ status: 'restored_by_court', frozen: false });
+  expect(db().grant.id.find(A)).toMatchObject({ status: 'active', frozen: false });
   expect(rows('flag').filter(f => f.grantId === A && f.kind === 'court_order_no_payment' && f.open)).toEqual([]);
 });
 

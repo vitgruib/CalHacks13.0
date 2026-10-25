@@ -63,7 +63,8 @@ export interface FreezeState {
 /**
  * Status and freeze from the grant's events. A cancellation freezes
  * spending; a court order restores the status but does NOT unfreeze; only a
- * payment received after a court order (or a grant manager's unfreeze) does.
+ * payment received after a court order, or the grant manager confirming the
+ * grant is live (an `unfrozen` event), makes it active again.
  * A payment with nothing restoring the grant keeps it frozen: after a
  * termination, money still comes in for costs incurred before it
  * (2 CFR 200.343), so it doesn't prove the grant is live. An open sources-disagree flag freezes too.
@@ -95,14 +96,12 @@ export function freezeState(
       courtOn = e.day;
     } else if (e.kind === 'payment_received' && canceledOn && !courtOn) {
       if (frozenByCancel) paidOn = e.day;
-    } else if (e.kind === 'payment_received' && canceledOn) {
-      // Money actually arrived after the court order: the grant is live again.
+    } else if ((e.kind === 'payment_received' && canceledOn) || e.kind === 'unfrozen') {
+      // Money actually arrived after the court order, or the grant manager
+      // confirmed the grant is live (reason in the log): it is active again.
       status = 'active';
       canceledOn = undefined;
       courtOn = undefined;
-      frozenByCancel = false;
-    } else if (e.kind === 'unfrozen') {
-      // The grant manager unfroze it early (reason is in the log).
       frozenByCancel = false;
       paidOn = undefined;
     }

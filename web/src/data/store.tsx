@@ -49,9 +49,10 @@ export interface Store {
   /** Grant manager: approve a submitted plan (its lines become requests in the
    *  researcher's name) or return it, always with a reason. */
   decidePlan: (id: string, choice: 'approve' | 'return', reason: string) => void
-  /** Grant manager: unpause a frozen grant now, with a reason that goes in the
-   *  log (unfreeze_grant). Every portal sees it: the researcher can buy again. */
-  unfreezeGrant: (grantId: string, reason: string) => void
+  /** Grant manager: confirm a canceled or court-restored grant is live, with a
+   *  reason for the log (unfreeze_grant). Its status becomes active, so every
+   *  portal sees spending open again. */
+  markGrantActive: (grantId: string, reason: string) => void
   /** Invoice submissions (T112): what researchers sent and the grant office's decisions on them. */
   submissions: Submission[]
   /** A researcher submits or resubmits an invoice, or the grant office records a decision on one. */
@@ -113,19 +114,20 @@ export function applyStatusEvent(d: Db, a: InjectStatusEventArgs): Db {
   }
 }
 
-/** The grant manager unpauses a frozen grant (as the module's unfreeze_grant). */
-export function applyUnfreeze(d: Db, grantId: string, reason: string): Db {
+/** The grant manager marks a grant active again (as the module's unfreeze_grant). */
+export function applyMarkActive(d: Db, grantId: string, reason: string): Db {
   const g = d.grants.find(x => x.id === grantId)
   if (!g) throw new Error(`No grant ${grantId}`)
   if (!reason.trim()) throw new Error('A reason is required.')
-  const ev: StatusEvent = { id: nextId('se'), grantId, day: d.today, kind: 'unfrozen', source: 'Payment system', summary: `Unfrozen early by the grant manager: ${reason}` }
+  if (!g.frozen) throw new Error(`${grantId} is already active.`)
+  const ev: StatusEvent = { id: nextId('se'), grantId, day: d.today, kind: 'unfrozen', source: 'Payment system', summary: `Marked active by the grant manager: ${reason}` }
   const settles = (f: Db['flags'][number]) => f.grantId === grantId && f.open && (f.kind === 'sources_disagree' || f.kind === 'court_order_no_payment')
   return {
     ...d,
-    grants: d.grants.map(x => (x.id === grantId ? { ...x, frozen: false, frozenReason: undefined } : x)),
+    grants: d.grants.map(x => (x.id === grantId ? { ...x, status: 'active', frozen: false, frozenReason: undefined } : x)),
     flags: d.flags.map(f => (settles(f) ? { ...f, open: false } : f)),
     statusEvents: [...d.statusEvents, ev],
-    log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: `Unfroze ${grantId} early`, reason, refId: grantId }],
+    log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: `Marked ${grantId} active`, reason, refId: grantId }],
   }
 }
 
@@ -265,7 +267,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     if (choice === 'approve') sendLines(row, p.by)
   }
 
-  const unfreezeGrant: Store['unfreezeGrant'] = (grantId, reason) => { applyUnfreeze(db, grantId, reason); setDb(d => applyUnfreeze(d, grantId, reason)) }
+  const markGrantActive: Store['markGrantActive'] = (grantId, reason) => { applyMarkActive(db, grantId, reason); setDb(d => applyMarkActive(d, grantId, reason)) }
   const submissions = useLocalSubmissions()
 
   const loadDemoSeed: Store['loadDemoSeed'] = () => {
@@ -275,7 +277,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     setSourceCheck(seedCheck())
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, unfreezeGrant, submissions, saveSubmission: saveLocalSubmission, loadDemoSeed }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, markGrantActive, submissions, saveSubmission: saveLocalSubmission, loadDemoSeed }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {
