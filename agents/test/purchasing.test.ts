@@ -559,6 +559,59 @@ async function payTestGrant(grantManager: Connection) {
   });
 }
 
+// unfreeze_grant leaves the grant canceled, so it fails the rule until its
+// payment lands, and then only its status changes.
+test('a_freeze_hold_is_bought_once_a_grant_unfrozen_early_is_paid', async () => {
+  world = await startWorld({ seedJson: grantsSeed([{ id: TEST_GRANT }], { statusEvents: [canceledJune1(TEST_GRANT)] }) });
+  const scientist = await world.person('scientist');
+  const grantManager = await world.person('grant_manager');
+  await scientist.call('submit_request', gloves);
+  await world.worker.idle();
+  const id = newestRequest().id;
+  assert.match(openPurchaseHolds(id)[0].why, PROMISE);
+
+  await grantManager.call('unfreeze_grant', { grantId: TEST_GRANT, reason: 'The agency confirmed funds are coming.' });
+  await world.worker.idle();
+  assert.equal(request(id).state, 'waiting_on_manager');
+  assert.match(openPurchaseHolds(id)[0].why, PROMISE);
+
+  await payTestGrant(grantManager);
+  await world.worker.idle();
+  assert.equal(request(id).state, 'bought');
+  assert.equal(ordersFor(id).length, 1);
+  assert.deepEqual(openPurchaseHolds(id), []);
+});
+
+// The agent never moves money alone after a person's decision, so a block
+// after one can't promise a reroute on unfreeze either.
+test('after_a_person_s_decision_a_block_waiting_on_a_frozen_grant_goes_back_to_the_inbox_without_a_promise', async () => {
+  world = await startWorld({
+    seedJson: grantsSeed(
+      [{ id: TEST_GRANT, end: '2026-09-25' }, { id: SECOND_GRANT, title: 'Second test grant', end: '2028-06-30' }],
+      { statusEvents: [canceledJune1(TEST_GRANT), canceledJune1(SECOND_GRANT)] },
+    ),
+  });
+  const scientist = await world.person('scientist');
+  const grantManager = await world.person('grant_manager');
+  await scientist.call('submit_request', { ...gloves, item: 'Agar plates, 10 packs', price: 300 });
+  await world.worker.idle();
+  const id = newestRequest().id;
+  await grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice: 'reject', reason: 'Not while both grants are canceled.' });
+  await grantManager.call('advance_days', { days: 15 }); // the test grant is in its last 90 days
+  await scientist.call('push_back', { requestId: id, message: 'Please look again.' });
+  await world.worker.idle();
+  assert.equal(request(id).state, 'waiting_on_manager');
+  const [hold] = openPurchaseHolds(id);
+  assert.match(hold.why, /already decided this request/);
+  assert.doesNotMatch(hold.why, /rerouted there once/);
+  assert.doesNotMatch(hold.why, PROMISE);
+
+  await grantManager.call('inject_status_event', { grantId: SECOND_GRANT, kind: 'payment_received', source: 'Payment system', summary: 'Paid.', amount: 10_000 });
+  await world.worker.idle();
+  assert.equal(request(id).state, 'waiting_on_manager');
+  assert.deepEqual(ordersFor(id), []);
+});
+
 test('a_grant_manager_s_approval_that_the_module_blocks_on_the_freeze_is_bought_once_the_grant_unfreezes', async () => {
   world = await startWorld({ seedJson: oneGrantSeed() });
   const grantManager = await world.person('grant_manager');

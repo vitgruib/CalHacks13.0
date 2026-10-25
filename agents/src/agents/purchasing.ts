@@ -604,12 +604,14 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     }
 
     // Never buy alone when unsure, after a person's decision, or on a stale
-    // status. A freeze hold after a person's decision would promise a buy on
-    // unfreeze that never comes, so it says the grant manager decides again.
+    // status. A freeze hold or a block waiting on another grant after a
+    // person's decision would promise a buy or a reroute on unfreeze that
+    // never comes, so it says the grant manager decides again.
     const movesMoney = decision.action === 'buy' || decision.action === 'reroute';
-    const asHold = (reason: HoldReason, note?: string): Decision => ({ ...decision, action: 'hold', reason, to: undefined, note });
+    const promisesMove = decision.reason === 'freeze' || Boolean(decision.pendingTo);
+    const asHold = (reason: HoldReason, note?: string): Decision => ({ ...decision, action: 'hold', reason, to: undefined, pendingTo: undefined, note });
     if (!reading.grantIsClear && decision.action !== 'block') decision = asHold('unclear_grant', reading.note);
-    else if ((movesMoney || decision.reason === 'freeze') && personDecided(requestId)) decision = asHold('decided_before');
+    else if ((movesMoney || promisesMove) && personDecided(requestId)) decision = asHold('decided_before');
     else if (movesMoney && !fresh) decision = asHold('unchecked');
 
     if (decision.action === 'reroute') await reroute(requestId, decision, reading.serves, 'block');
@@ -765,8 +767,11 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     conn.onUpdate('request', (before, after) => {
       if (after.state === 'submitted' && before.state !== 'submitted') onSubmitted(after);
     }),
+    // Unfrozen, or usable again while unfrozen: a grant the grant manager
+    // unfroze early stays canceled until its payment lands, and only its
+    // status changes then.
     conn.onUpdate('grant', (before, after) => {
-      if (before.frozen && !after.frozen) onUnfrozen(after);
+      if (!after.frozen && (before.frozen || before.status !== after.status)) onUnfrozen(after);
     }),
   ];
 
