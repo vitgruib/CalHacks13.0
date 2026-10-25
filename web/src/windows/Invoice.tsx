@@ -9,9 +9,10 @@ import Office from '../invoice/Office'
 import Researcher from '../invoice/Researcher'
 import { ResearcherContext } from '../people'
 import '../invoice/Invoice.css'
+import { hashPart } from '../url'
 
 const useSubId = () => {
-  const read = () => decodeURIComponent(location.hash.split('/')[1] ?? '')
+  const read = () => hashPart(1)
   const [id, setId] = useState(read)
   useEffect(() => {
     const on = () => setId(read())

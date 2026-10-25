@@ -1,10 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Boot from './Boot'
+import Crash from './Crash'
 import './styles.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Boot />
+    <Crash>
+      <Boot />
+    </Crash>
   </StrictMode>,
 )

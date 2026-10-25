@@ -13,13 +13,14 @@ import { grantHeading, longDate } from './plain'
 import { Badge, grantStatus, money } from './ui'
 import './windows/Funds.css'
 import './DetailPage.css'
+import { hashPart } from './url'
 
 const SEGMENTS: Segment[] = ['spent', 'committed', 'available']
 
 export default function DetailPage({ role }: { role: Role }) {
   const { db } = useStore()
-  const [, id = '', what = ''] = location.hash.split('/')
-  const g = db.grants.find(x => x.id === decodeURIComponent(id))
+  const [, , what = ''] = location.hash.split('/')
+  const g = db.grants.find(x => x.id === hashPart(1))
   const home = role === 'scientist' ? '#grants' : '#funds'
   // A tab the app opened closes; one reached in place (or by a pasted link) goes back to the list.
   const close = () => {

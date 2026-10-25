@@ -18,6 +18,7 @@ import { edgeCaseOf, isEdgeGrant } from '../people'
 import { whyFrozen } from '../frozen'
 import { latestPerSource, openHolds } from './Inbox'
 import './Funds.css'
+import { hashPart } from '../url'
 
 /** Inbox items about a grant itself, not one request or invoice: decided on the grant's Funds card. */
 export const GRANT_HOLDS: HoldKind[] = ['source_disagreement', 'paid_while_canceled']
@@ -81,7 +82,7 @@ export default function Funds() {
   // Live, the grants arrive after the first render: scroll once they're in.
   useEffect(() => {
     const go = () => {
-      const id = decodeURIComponent(location.hash.split('/')[1] ?? '')
+      const id = hashPart(1)
       if (id) showGrant(id)
     }
     go()
