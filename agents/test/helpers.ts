@@ -1,5 +1,5 @@
 // Shared test setup: Track A's real module in this process (db/local.ts),
-// the three agents started on it, and people who can act in it.
+// the agents started on it, and people who can act in it.
 
 import type { Connection, Db, PersonRole } from '../src/db/contract.ts';
 import { createLocalDb } from '../src/db/local.ts';
@@ -38,6 +38,16 @@ export async function startWorld({
       db.close();
     },
   };
+}
+
+/**
+ * The grant office approves every purchase waiting in the Inbox whose rules
+ * all pass (T108: nothing is bought without it). Flagged ones stay waiting.
+ */
+export async function approvePassingPurchases(manager: Connection, worker: Worker): Promise<void> {
+  const passing = manager.rows('hold').filter((hold) => hold.open && hold.kind === 'purchase' && hold.title.startsWith('Approve '));
+  for (const hold of passing) await manager.call('decide_hold', { holdId: hold.id, choice: 'approve', reason: 'Every rule passes.' });
+  await worker.idle();
 }
 
 export const TEST_GRANT = 'R01TEST000001';

@@ -1,4 +1,4 @@
-// The price check (T69): before the purchasing agent buys lab supplies,
+// Unused since T108 (the purchasing agent was cut). The price check (T69): before the purchasing agent buys lab supplies,
 // reagents or equipment on its own, it compares the request's price with a
 // public list price. A price far above it goes to the grant manager instead.
 //

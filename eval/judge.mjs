@@ -23,7 +23,9 @@ const CUT = new Set(['payment_requests', 'reports']);
 
 const FREEZE_RULE = 'Grant is active and not frozen';
 
-// A purchasing agent's action, as the request's state shows it.
+// What happened to a request, as its state shows it. Since T108 every request
+// waits for the grant office, so a stopped one is a `hold`: flagged to it with
+// the failing rule. blocked / rerouted / bought-by-an-agent are older states.
 const REQUEST_ACTION = { waiting_on_manager: 'hold', blocked: 'block', rerouted: 'reroute', bought: 'buy' };
 
 const HOLD_FEATURE = {
@@ -137,14 +139,14 @@ export function judge({ tables, key, seed }) {
         return { got: 'pass', detail: v ? v.detail : `${action}.` };
       }
       if (action) {
-        // The purchasing agent acted: score its choice too.
+        // Score what happened too: waiting for the grant office with the cited rule failing.
         const ok = accepted(c).includes(action) && (!v || !v.pass);
         return { got: action, caught: ok, detail: `${r.state}${v ? `; ${c.rule}: ${v.detail}` : ''}` };
       }
       // Verdicts only (no agent acted): caught when the cited rule fails.
       return v.pass
         ? { got: 'rule passes', detail: v.detail }
-        : { got: 'rule fails', caught: true, detail: `${v.detail} (verdict only; no agent chose ${accepted(c).join(' / ')})` };
+        : { got: 'rule fails', caught: true, detail: `${v.detail} (verdict only; not sent to the grant office)` };
     },
 
     invoices(c) {
@@ -198,6 +200,10 @@ export function judge({ tables, key, seed }) {
   for (const h of newHolds) {
     if (explained.has(`hold:${h.id}`) || keyed.has(h.refId)) continue;
     if (h.kind === 'payment_request' || h.kind === 'follow_up') continue; // always go to the grant manager, by design
+    // Every purchase and every matched invoice goes to the grant office to approve (T108).
+    // A purchase only counts when a rule fails (the request loop below); a matched invoice never.
+    if (h.kind === 'purchase') continue;
+    if (h.kind === 'invoice' && t.invoice.find(x => x.id === h.refId)?.state === 'matched') continue;
     if (h.kind === 'source_disagreement' && newFlags.some(f => String(f.id) === h.refId && explained.has(`flag:${f.id}`))) continue;
     extras.push({ feature: HOLD_FEATURE[h.kind] ?? 'other', refId: h.refId, what: `${h.kind} hold: ${h.why}` });
   }

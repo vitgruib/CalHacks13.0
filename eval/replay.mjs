@@ -14,7 +14,7 @@ import { addDays } from '../server/src/rules.ts';
 
 /** What the stand-in run does in place of an agent that isn't built yet. */
 export const STAND_INS = {
-  purchases: 'evaluate_request on each request still submitted; scores the module\'s rule verdicts (no hold / block / reroute choice).',
+  purchases: 'nothing: the module sends every request to the grant office with its rule verdicts (T108).',
   invoices: 'check_invoice on each unchecked invoice.',
   payment_requests: 'draft_payment_request for the month after each grant\'s latest request, once that month has ended.',
   reports: 'record_paper_facts with the facts already on each paper in the seed (no public-records lookup).',
@@ -49,9 +49,7 @@ export async function replay(seed, { standIns = false } = {}) {
       };
       const today = as.bookkeeping.today();
 
-      for (const r of rows('request').filter(x => x.state === 'submitted' && x.verdicts.length === 0)) {
-        await attempt(as.purchasing, 'evaluate_request', { requestId: r.id, split: r.split }, r.id);
-      }
+      // No purchasing stand-in (T108): the module sends each request to the grant office itself.
       for (const inv of rows('invoice').filter(x => !x.checked && x.state !== 'paid' && x.state !== 'rejected')) {
         await attempt(as.bookkeeping, 'check_invoice', { invoiceId: inv.id }, inv.id);
       }

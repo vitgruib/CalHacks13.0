@@ -1,12 +1,13 @@
-// Starts the three agents, each on its own connection and identity, and
-// registers each identity's role with the database. The bookkeeping and the
-// payment and report agents each run two loops on their one identity.
+// Starts the agents, each on its own connection and identity, and registers
+// each identity's role with the database. The bookkeeping agent runs the
+// invoice check and Ask's item check; the payment and report agent runs two
+// loops (cut in T105). There is no purchasing agent (T108): every request
+// goes to the grant office.
 
 import { startTracker, type Tracker } from './agents/bookkeeping.ts';
 import { startInvoices } from './agents/invoices.ts';
 import { startItemChecks } from './agents/item-check.ts';
 import { startPaymentRequests } from './agents/payment-requests.ts';
-import { startPurchasing } from './agents/purchasing.ts';
 import { startReportChecker } from './agents/report-checker.ts';
 import type { AgentHandle } from './agents/types.ts';
 import type { Connection, Db } from './db/contract.ts';
@@ -50,8 +51,7 @@ export async function startWorker(
   const tracker = startTracker(sessions.bookkeeping, sources);
   const lookup = papers ?? createPaperLookup();
   const agents: AgentHandle[] = [
-    startPurchasing({ conn: sessions.purchasing, tracker, papers: lookup }),
-    startItemChecks({ conn: sessions.purchasing }),
+    startItemChecks({ conn: sessions.bookkeeping }),
     startInvoices({ conn: sessions.bookkeeping, tracker, papers: lookup }),
     startPaymentRequests({ conn: sessions.payment_report, tracker, papers: lookup, lastDay }),
     startReportChecker({ conn: sessions.payment_report, tracker, papers: lookup }),
@@ -61,8 +61,8 @@ export async function startWorker(
     sessions,
     tracker,
     async idle() {
-      // One agent's action can wake another (a payment unfreezes a grant, and
-      // purchasing buys what was waiting), so wait until a whole round passes
+      // One agent's action can wake another (an invoice check after a source
+      // check), so wait until a whole round passes
       // with no new change.
       for (let round = 0; round < 100; round++) {
         const before = db.version();

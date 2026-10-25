@@ -37,8 +37,8 @@
     "auditor": {
       "findings": 17,
       "outOfScope": 8,
-      "mistakes": 9,
-      "caught": 9,
+      "mistakes": 8,
+      "caught": 8,
       "decoys": 2,
       "passed": 2
     }
@@ -46,8 +46,8 @@
   "totals": {
     "findings": 42,
     "inScope": 25,
-    "caught": 19,
-    "missed": 6,
+    "caught": 18,
+    "missed": 7,
     "outOfScope": 17,
     "decoys": 4,
     "correctPasses": 4,
@@ -150,7 +150,7 @@
           "id": "rf-05-c",
           "kind": "mistake",
           "refId": "rf-05",
-          "expected": "reroute or hold or block",
+          "expected": "hold",
           "got": "hold",
           "outcome": "caught",
           "detail": "waiting_on_manager; Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away."
@@ -184,10 +184,10 @@
           "id": "rf-06-c",
           "kind": "mistake",
           "refId": "rf-06",
-          "expected": "hold or hold or block or reroute",
-          "got": "buy",
+          "expected": "hold",
+          "got": "hold",
           "outcome": "missed",
-          "detail": "bought"
+          "detail": "Stopped (hold), but not by \"Not in the grant's last 90 days\": waiting_on_manager"
         }
       ],
       "falseAlarms": 0,
@@ -218,10 +218,10 @@
           "id": "rf-07-c",
           "kind": "mistake",
           "refId": "rf-07",
-          "expected": "hold or hold or block or reroute",
-          "got": "buy",
+          "expected": "hold",
+          "got": "hold",
           "outcome": "missed",
-          "detail": "bought"
+          "detail": "Stopped (hold), but not by \"Not in the grant's last 90 days\": waiting_on_manager"
         }
       ],
       "falseAlarms": 0,
@@ -252,7 +252,7 @@
           "id": "rf-08-c",
           "kind": "mistake",
           "refId": "rf-08",
-          "expected": "hold or hold or block or reroute",
+          "expected": "hold",
           "got": "hold",
           "outcome": "missed",
           "detail": "Stopped (hold), but not by \"Not in the grant's last 90 days\": waiting_on_manager"
@@ -285,7 +285,7 @@
           "id": "rf-09-c",
           "kind": "mistake",
           "refId": "rf-09",
-          "expected": "hold or hold or block or reroute",
+          "expected": "hold",
           "got": "hold",
           "outcome": "caught",
           "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
@@ -318,7 +318,7 @@
           "id": "rf-10-c",
           "kind": "mistake",
           "refId": "rf-10",
-          "expected": "hold or hold or block or reroute",
+          "expected": "hold",
           "got": "hold",
           "outcome": "caught",
           "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
@@ -351,7 +351,7 @@
           "id": "rf-11-c",
           "kind": "mistake",
           "refId": "rf-11",
-          "expected": "hold or hold or block or reroute",
+          "expected": "hold",
           "got": "hold",
           "outcome": "caught",
           "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
@@ -385,7 +385,7 @@
           "id": "rf-12-c",
           "kind": "mistake",
           "refId": "rf-12",
-          "expected": "hold or hold or block or reroute",
+          "expected": "hold",
           "got": "hold",
           "outcome": "caught",
           "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
@@ -419,7 +419,7 @@
           "id": "rf-13-c",
           "kind": "mistake",
           "refId": "rf-13",
-          "expected": "hold or hold or block or reroute",
+          "expected": "hold",
           "got": "hold",
           "outcome": "caught",
           "detail": "waiting_on_manager; Grant is active and not frozen: The grant has ended."
@@ -452,7 +452,7 @@
           "id": "rf-14-c",
           "kind": "mistake",
           "refId": "rf-14",
-          "expected": "hold or block or reroute",
+          "expected": "hold",
           "got": "hold",
           "outcome": "caught",
           "detail": "waiting_on_manager; Grant is active and not frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen."
@@ -485,10 +485,10 @@
           "id": "rf-15-c",
           "kind": "mistake",
           "refId": "rf-15",
-          "expected": "block",
-          "got": "block",
+          "expected": "hold",
+          "got": "hold",
           "outcome": "caught",
-          "detail": "blocked; Category allowed: alcohol is not an allowable direct cost on a federal grant."
+          "detail": "waiting_on_manager; Category allowed: alcohol is not an allowable direct cost on a federal grant."
         }
       ],
       "falseAlarms": 0,
@@ -518,10 +518,10 @@
           "id": "rf-16-c",
           "kind": "mistake",
           "refId": "rf-16",
-          "expected": "block",
-          "got": "block",
+          "expected": "hold",
+          "got": "hold",
           "outcome": "caught",
-          "detail": "blocked; Category allowed: alcohol is not an allowable direct cost on a federal grant."
+          "detail": "waiting_on_manager; Category allowed: alcohol is not an allowable direct cost on a federal grant."
         }
       ],
       "falseAlarms": 0,
@@ -550,10 +550,10 @@
           "id": "rf-17-c",
           "kind": "mistake",
           "refId": "rf-17",
-          "expected": "block",
-          "got": "block",
+          "expected": "hold",
+          "got": "hold",
           "outcome": "caught",
-          "detail": "blocked; Category allowed: alcohol is not an allowable direct cost on a federal grant."
+          "detail": "waiting_on_manager; Category allowed: alcohol is not an allowable direct cost on a federal grant."
         }
       ],
       "falseAlarms": 0,
@@ -584,10 +584,10 @@
           "id": "rf-18-c",
           "kind": "mistake",
           "refId": "rf-18",
-          "expected": "block",
-          "got": "block",
+          "expected": "hold",
+          "got": "hold",
           "outcome": "caught",
-          "detail": "blocked; Category allowed: general office is not an allowable direct cost on a federal grant."
+          "detail": "waiting_on_manager; Category allowed: general office is not an allowable direct cost on a federal grant."
         }
       ],
       "falseAlarms": 0,
@@ -797,7 +797,7 @@
           "expected": "pass",
           "got": "pass",
           "outcome": "correct pass",
-          "detail": "Invoice paid."
+          "detail": "Invoice matched."
         }
       ],
       "falseAlarms": 0,
@@ -863,7 +863,7 @@
           "expected": "hold",
           "got": "pass",
           "outcome": "missed",
-          "detail": "Invoice paid."
+          "detail": "Invoice matched."
         }
       ],
       "falseAlarms": 0,
@@ -886,18 +886,8 @@
       },
       "rule": "A listed paper must credit the grant whose report lists it",
       "auditee": "NSF OIG compendium",
-      "outcome": "caught",
-      "cases": [
-        {
-          "id": "rf-27-c",
-          "kind": "mistake",
-          "refId": "p-10",
-          "expected": "hold",
-          "got": "hold",
-          "outcome": "caught",
-          "detail": "Listed in R21AI182745's report, but its acknowledgments name R01GM061721."
-        }
-      ],
+      "outcome": "no case",
+      "cases": [],
       "falseAlarms": 0,
       "extras": [],
       "errors": []
@@ -1158,7 +1148,7 @@
           "expected": "pass",
           "got": "pass",
           "outcome": "correct pass",
-          "detail": "buy."
+          "detail": "hold."
         }
       ],
       "falseAlarms": 0,
@@ -1192,7 +1182,7 @@
           "expected": "pass",
           "got": "pass",
           "outcome": "correct pass",
-          "detail": "Invoice paid."
+          "detail": "Invoice matched."
         }
       ],
       "falseAlarms": 0,

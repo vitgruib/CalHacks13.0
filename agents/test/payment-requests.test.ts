@@ -24,7 +24,7 @@ import { createLocalDb } from '../src/db/local.ts';
 import { fileDay, memoryDay, memoryTokens, type DayStore } from '../src/identity.ts';
 import { createPaperLookup } from '../src/sources/papers.ts';
 import { startWorker } from '../src/worker.ts';
-import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
+import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld, approvePassingPurchases } from './helpers.ts';
 
 const R21 = 'R21AI182745';
 const R01 = 'R01GM061721';
@@ -880,12 +880,13 @@ test('a_fast_forward_past_two_month_ends_drafts_june_for_each_grant_that_spent_i
   world = await startWorld();
   const conn = world.worker.sessions.payment_report;
   const manager = await world.person('grant_manager');
-  // The money arrives and the sources are settled, so the waiting purchases are bought today (2026-06-15).
+  // The money arrives and the sources are settled, so the grant office approves the waiting purchases today (2026-06-15).
   await manager.call('inject_status_event', { grantId: R01, kind: 'payment_received', source: 'Payment system', summary: 'Drawdown paid.', amount: 50_000 });
   await world.worker.idle();
   const [disagreement] = conn.rows('hold').filter((hold) => hold.open && hold.kind === 'source_disagreement');
   await manager.call('decide_hold', { holdId: disagreement.id, choice: 'pick_source', reason: 'The payment system is right.' });
   await world.worker.idle();
+  await approvePassingPurchases(manager, world.worker);
   const juneOrders = (grantId: string) => conn.rows('order').filter((o) => o.grantId === grantId && o.placed >= JUNE.from && o.placed <= JUNE.to);
   assert.ok(juneOrders(R01).length && juneOrders(R21).length, 'both grants spent in June');
   // o-202 was ordered after its bill arrived, so its invoice is held and it is left out.
@@ -900,7 +901,8 @@ test('a_fast_forward_past_two_month_ends_drafts_june_for_each_grant_that_spent_i
     assert.deepEqual(sorted(june[0].includedRequestIds), sorted([...new Set(claimable(grantId).map((o) => o.requestId))]));
     assert.deepEqual(requestsFor(conn, grantId, JULY), [], `July is empty on ${grantId}`);
   }
-  assert.equal(requestsFor(conn, R01, JUNE)[0].amount + requestsFor(conn, R21, JUNE)[0].amount, 9_860, 'every June purchase but the held o-202 is claimed');
+  // $8,680: rq-102's $1,180 agar plates are flagged (last 90 days) and no longer rerouted by an agent (T108).
+  assert.equal(requestsFor(conn, R01, JUNE)[0].amount + requestsFor(conn, R21, JUNE)[0].amount, 8_680, 'every June purchase but the held o-202 is claimed');
 
   const before = world.db.version();
   await world.worker.idle();

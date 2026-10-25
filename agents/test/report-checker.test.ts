@@ -349,16 +349,16 @@ test('approving_a_failed_lookup_looks_the_paper_up_again_and_asks_once', async (
 test('the_module_refuses_paper_facts_from_another_agent_and_the_checker_keeps_going', async (t) => {
   const errors = t.mock.method(console, 'error', () => {});
   const db = await createLocalDb({ world: 'sim' });
-  const purchasing: Connection = await db.connect();
-  await purchasing.call('register_agent', { role: 'purchasing' });
+  const other: Connection = await db.connect();
+  await other.call('register_agent', { role: 'bookkeeping' });
   const tracker: Tracker = { refresh: async () => {}, idle: async () => {}, stop() {} };
-  const checker = startReportChecker({ conn: purchasing, tracker, papers: offlinePapers() });
+  const checker = startReportChecker({ conn: other, tracker, papers: offlinePapers() });
   await checker.idle();
   await db.settled();
   checker.stop();
 
-  assert.ok(purchasing.rows('reportPaper').every((row) => !row.checked), 'nothing was recorded');
-  assert.deepEqual(purchasing.rows('hold').filter((h) => h.kind === 'report'), []);
+  assert.ok(other.rows('reportPaper').every((row) => !row.checked), 'nothing was recorded');
+  assert.deepEqual(other.rows('hold').filter((h) => h.kind === 'report'), []);
   const refusals = errors.mock.calls.filter((call) => /Only the payment_report agent can do this/.test(String(call.arguments[1])));
   assert.equal(refusals.length, 7, 'every paper was tried; one refusal did not stop the others');
   db.close();

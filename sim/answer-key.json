@@ -57,19 +57,18 @@
     {
       "id": "pu-1", "feature": "purchases", "kind": "mistake",
       "case": "supplies bought in the last 90 days",
-      "refId": "rq-102", "grantId": "R21AI182745", "expected": "reroute", "alsoAccept": ["block"],
-      "rerouteTo": "R01GM061721",
+      "refId": "rq-102", "grantId": "R21AI182745", "expected": "hold",
       "rule": "Not in the grant's last 90 days",
-      "check": "rq-102 rerouted to R01GM061721 (it goes through once that grant unfreezes), or blocked; cites the last-90-days rule",
+      "check": "rq-102 waiting_on_manager, flagged to the grant office citing the last-90-days rule (T108: no agent reroutes or blocks it)",
       "why": "Lab supplies on R21AI182745, which ends 2026-08-31, 80 days after the request; R01GM061721 runs to 2027-07-31.",
       "source": "MASTER-PLAN §3.2 planted mistakes; NSF OIG 22-1-010 (WVU, $17,335 disallowed) and OIG 19-1-011 (Delaware)"
     },
     {
       "id": "pu-2", "feature": "purchases", "kind": "mistake",
       "case": "an unallowable item",
-      "refId": "rq-103", "grantId": "R21AI182745", "expected": "block",
+      "refId": "rq-103", "grantId": "R21AI182745", "expected": "hold",
       "rule": "Category allowed",
-      "check": "rq-103 blocked; cites the category rule",
+      "check": "rq-103 waiting_on_manager, flagged to the grant office citing the category rule (T108: no agent blocks it)",
       "why": "An espresso machine (general office) is not an allowable direct cost on a federal grant.",
       "source": "MASTER-PLAN §3.2 planted mistakes; NSF OIG 17-1-002 (UC Davis)"
     },
@@ -97,7 +96,7 @@
       "case": "a buy exactly at the limit",
       "refId": "rq-106", "grantId": "R01GM061721", "expected": "pass",
       "rule": "Under the card limit ($5,000)",
-      "check": "card-limit verdict passes on rq-106; once R01GM061721 unfreezes it is bought with no hold",
+      "check": "card-limit verdict passes on rq-106; once R01GM061721 unfreezes it waits for the grant office with every rule passing, not flagged",
       "why": "$5,000 is exactly the limit, which is allowed. It waits only for grant A's freeze, not for the limit.",
       "source": "MASTER-PLAN §3.2 decoys"
     },

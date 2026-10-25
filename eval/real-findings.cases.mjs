@@ -34,7 +34,7 @@ function request(seed, r) {
   const row = {
     id: r.id, day: r.day ?? TODAY, requester: 'scientist', requesterName: r.requesterName ?? `Dr. Rf Requester ${++n}`,
     item: r.item, category: r.category, price: r.price, grantId: r.grantId ?? CLEAN, purpose: r.purpose,
-    state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.',
+    state: 'submitted', verdicts: [], explanation: 'Waiting for the grant office.',
   };
   seed.requests.push(row);
   return row;
@@ -70,7 +70,8 @@ const purchaseDecoy = (id, refId, grantId, rule, why) =>
 const invoiceCase = (id, refId, kind, rule, why, extra = {}) =>
   ({ id, feature: 'invoices', kind, refId, grantId: CLEAN, expected: kind === 'decoy' ? 'pass' : 'hold', rule, why, check: `${refId} ${kind === 'decoy' ? 'matched' : 'held'}`, ...extra });
 
-const STOP = ['hold', 'block', 'reroute'];
+// Every purchase waits for the grant office (T108), so a stopped purchase is a
+// hold: flagged to the grant office with the failing rule. Nothing blocks or reroutes.
 const FREEZE = 'Grant is active and not frozen';
 const END = "Not in the grant's last 90 days";
 const SAME_DAY = 'Under the card limit, counting same-day purchases';
@@ -114,7 +115,7 @@ export const FINDINGS = [
     quote: 'Lab supplies, totaling $6,434, were ordered in August 2013, and',
     plant(seed) {
       request(seed, { id: 'rf-05', item: 'Lab supplies', category: 'lab supplies', price: 6434, grantId: ENDING, purpose: 'Stock for the lab' });
-      return [purchase('rf-05-c', 'rf-05', ENDING, 'reroute', END, 'Supplies on a grant 77 days from its end.', { alsoAccept: ['hold', 'block'] })];
+      return [purchase('rf-05-c', 'rf-05', ENDING, 'hold', END, 'Supplies on a grant 77 days from its end.')];
     },
   },
   {
@@ -123,7 +124,7 @@ export const FINDINGS = [
     quote: 'The tablet and phone were available for 3 percent of the award period (43 out of 1,245',
     plant(seed) {
       request(seed, { id: 'rf-06', item: 'Tablet and phone', category: 'computing equipment', price: 4620, grantId: ENDING, purpose: 'Field data entry' });
-      return [purchase('rf-06-c', 'rf-06', ENDING, 'hold', END, 'Devices bought 77 days before the grant ends, used for a few percent of it.', { alsoAccept: STOP })];
+      return [purchase('rf-06-c', 'rf-06', ENDING, 'hold', END, 'Devices bought 77 days before the grant ends, used for a few percent of it.')];
     },
   },
   {
@@ -132,7 +133,7 @@ export const FINDINGS = [
     quote: 'Cell phones from Amazon were purchased for $2,466 in the last',
     plant(seed) {
       request(seed, { id: 'rf-07', item: 'Cell phones from Amazon', category: 'computing equipment', price: 2466, grantId: ENDING, purpose: 'Lab phones' });
-      return [purchase('rf-07-c', 'rf-07', ENDING, 'hold', END, 'Phones bought 77 days before the grant ends.', { alsoAccept: STOP })];
+      return [purchase('rf-07-c', 'rf-07', ENDING, 'hold', END, 'Phones bought 77 days before the grant ends.')];
     },
   },
   {
@@ -141,7 +142,7 @@ export const FINDINGS = [
     quote: 'A computer, totaling $31,375, was installed 15 days prior to the',
     plant(seed) {
       request(seed, { id: 'rf-08', item: 'Workstation computer', category: 'computing equipment', price: 31375, grantId: ENDING, purpose: 'Data analysis' });
-      return [purchase('rf-08-c', 'rf-08', ENDING, 'hold', END, 'A computer bought 77 days before the grant ends.', { alsoAccept: STOP })];
+      return [purchase('rf-08-c', 'rf-08', ENDING, 'hold', END, 'A computer bought 77 days before the grant ends.')];
     },
   },
 
@@ -153,7 +154,7 @@ export const FINDINGS = [
     plant(seed) {
       endedGrant(seed, 'R21AI000901', '2026-06-07');
       request(seed, { id: 'rf-09', item: 'Measurement equipment', category: 'equipment', price: 20816, grantId: 'R21AI000901', purpose: 'Measurements for the project' });
-      return [purchase('rf-09-c', 'rf-09', 'R21AI000901', 'hold', FREEZE, 'Ordered 8 days after the grant ended.', { alsoAccept: STOP })];
+      return [purchase('rf-09-c', 'rf-09', 'R21AI000901', 'hold', FREEZE, 'Ordered 8 days after the grant ended.')];
     },
   },
   {
@@ -163,7 +164,7 @@ export const FINDINGS = [
     plant(seed) {
       endedGrant(seed, 'R21AI000902', '2026-06-13');
       request(seed, { id: 'rf-10', day: '2026-06-09', item: 'Computer equipment', category: 'computing equipment', price: 17017, grantId: 'R21AI000902', purpose: 'Analysis computers' });
-      return [purchase('rf-10-c', 'rf-10', 'R21AI000902', 'hold', FREEZE, 'Requested 4 days before the end, still unbought 2 days after.', { alsoAccept: STOP })];
+      return [purchase('rf-10-c', 'rf-10', 'R21AI000902', 'hold', FREEZE, 'Requested 4 days before the end, still unbought 2 days after.')];
     },
   },
   {
@@ -173,7 +174,7 @@ export const FINDINGS = [
     plant(seed) {
       endedGrant(seed, 'R21AI000903', '2026-06-14');
       request(seed, { id: 'rf-11', item: 'Motion capture system', category: 'equipment', price: 56397, grantId: 'R21AI000903', purpose: 'Gait studies' });
-      return [purchase('rf-11-c', 'rf-11', 'R21AI000903', 'hold', FREEZE, 'Bought the day after the grant ended.', { alsoAccept: STOP })];
+      return [purchase('rf-11-c', 'rf-11', 'R21AI000903', 'hold', FREEZE, 'Bought the day after the grant ended.')];
     },
   },
   {
@@ -183,7 +184,7 @@ export const FINDINGS = [
     plant(seed) {
       endedGrant(seed, 'R21AI000904', '2026-05-01');
       request(seed, { id: 'rf-12', item: 'Tube assemblies', category: 'equipment', price: 13680, grantId: 'R21AI000904', purpose: 'Instrument upgrade' });
-      return [purchase('rf-12-c', 'rf-12', 'R21AI000904', 'hold', FREEZE, 'Bought 45 days after the grant ended.', { alsoAccept: STOP })];
+      return [purchase('rf-12-c', 'rf-12', 'R21AI000904', 'hold', FREEZE, 'Bought 45 days after the grant ended.')];
     },
   },
   {
@@ -193,7 +194,7 @@ export const FINDINGS = [
     plant(seed) {
       endedGrant(seed, 'R21AI000905', '2026-06-10');
       request(seed, { id: 'rf-13', item: 'Instrumentation equipment', category: 'equipment', price: 106069, grantId: 'R21AI000905', purpose: 'Instrument build' });
-      return [purchase('rf-13-c', 'rf-13', 'R21AI000905', 'hold', FREEZE, 'Bought after the grant ended.', { alsoAccept: STOP })];
+      return [purchase('rf-13-c', 'rf-13', 'R21AI000905', 'hold', FREEZE, 'Bought after the grant ended.')];
     },
   },
 
@@ -205,7 +206,7 @@ export const FINDINGS = [
     plant(seed) {
       request(seed, { id: 'rf-14', item: 'Sequencing service', category: 'core facility services', price: 2900, grantId: 'R01GM061721',
         purpose: 'Membrane protein work', requesterName: 'Dr. Rf Duke' });
-      return [purchase('rf-14-c', 'rf-14', 'R01GM061721', 'hold', FREEZE, 'R01GM061721 was canceled and has had no payment since the court restored it; its end date is 2027.', { alsoAccept: ['block', 'reroute'] })];
+      return [purchase('rf-14-c', 'rf-14', 'R01GM061721', 'hold', FREEZE, 'R01GM061721 was canceled and has had no payment since the court restored it; its end date is 2027.')];
     },
   },
 
@@ -216,7 +217,7 @@ export const FINDINGS = [
     quote: 'Of the $517 expenses in question, $46 related to unallowable alcohol expenses charged to',
     plant(seed) {
       request(seed, { id: 'rf-15', item: 'Conference dinner drinks', category: 'alcohol', price: 46, purpose: 'Conference travel' });
-      return [purchase('rf-15-c', 'rf-15', CLEAN, 'block', CATEGORY, 'Alcohol is unallowable on a federal award.')];
+      return [purchase('rf-15-c', 'rf-15', CLEAN, 'hold', CATEGORY, 'Alcohol is unallowable on a federal award.')];
     },
   },
   {
@@ -225,7 +226,7 @@ export const FINDINGS = [
     quote: '$257, related to a workshop under NSF Award No.',
     plant(seed) {
       request(seed, { id: 'rf-16', item: 'Workshop reception wine', category: 'alcohol', price: 257, purpose: 'Project workshop' });
-      return [purchase('rf-16-c', 'rf-16', CLEAN, 'block', CATEGORY, 'Alcohol is unallowable on a federal award.')];
+      return [purchase('rf-16-c', 'rf-16', CLEAN, 'hold', CATEGORY, 'Alcohol is unallowable on a federal award.')];
     },
   },
   {
@@ -234,7 +235,7 @@ export const FINDINGS = [
     quote: 'found UW spent $118,146 for purchases that included alcohol or liquor licenses.',
     plant(seed) {
       request(seed, { id: 'rf-17', item: 'Wine for a donor event', category: 'alcohol', price: 1200, purpose: 'Lab open house' });
-      return [purchase('rf-17-c', 'rf-17', CLEAN, 'block', CATEGORY, 'Alcohol on a grant. Scaled: one $1,200 purchase.')];
+      return [purchase('rf-17-c', 'rf-17', CLEAN, 'hold', CATEGORY, 'Alcohol on a grant. Scaled: one $1,200 purchase.')];
     },
   },
   {
@@ -243,7 +244,7 @@ export const FINDINGS = [
     quote: 'for the purchase of general purpose cleaning supplies.',
     plant(seed) {
       request(seed, { id: 'rf-18', item: 'General purpose cleaning supplies', category: 'general office', price: 123, purpose: 'Office cleaning' });
-      return [purchase('rf-18-c', 'rf-18', CLEAN, 'block', CATEGORY, 'General-purpose costs belong in overhead. The requester picks the category; filed as lab supplies, this would pass.')];
+      return [purchase('rf-18-c', 'rf-18', CLEAN, 'hold', CATEGORY, 'General-purpose costs belong in overhead. The requester picks the category; filed as lab supplies, this would pass.')];
     },
   },
 

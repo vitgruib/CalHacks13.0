@@ -1,4 +1,4 @@
-// Ask's item check (T103): a person asks, the purchasing agent answers with
+// Ask's item check (T103): a person asks, the bookkeeping agent answers with
 // Claude before any grant is matched. Claude is faked at the network edge.
 
 import assert from 'node:assert/strict';
@@ -31,9 +31,9 @@ async function start(answer: (item: string) => Record<string, unknown> | Error) 
     },
   };
   const db = await createLocalDb({ world: { seedJson: oneGrantSeed() } });
-  const purchasing = await db.connect();
-  await purchasing.call('register_agent', { role: 'purchasing' });
-  const agent = startItemChecks({ conn: purchasing, itemClaude: { client, mode: 'live', cacheDir } });
+  const bookkeeping = await db.connect();
+  await bookkeeping.call('register_agent', { role: 'bookkeeping' });
+  const agent = startItemChecks({ conn: bookkeeping, itemClaude: { client, mode: 'live', cacheDir } });
   const scientist = await db.connect();
   await scientist.call('register_person', { role: 'scientist', name: 'scientist' });
   cleanup = () => {
@@ -69,7 +69,7 @@ test('with_no_claude_answer_the_item_comes_back_unchecked', async () => {
   assert.equal(row.verdict, 'unchecked');
 });
 
-test('only_a_person_can_ask_and_only_the_purchasing_agent_can_answer', async () => {
+test('only_a_person_can_ask_and_only_an_agent_can_answer', async () => {
   const db = await createLocalDb({ world: { seedJson: oneGrantSeed() } });
   cleanup = () => db.close();
   const scientist = await db.connect();

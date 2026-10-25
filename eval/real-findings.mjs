@@ -73,7 +73,7 @@ export function checkSources(findings = FINDINGS) {
 }
 
 /**
- * The judge counts a purchase as caught when the agent stopped it even if the
+ * The judge counts a purchase as caught when it was stopped even if the
  * cited rule never ran (a card-limit hold on a computer bought at a grant's
  * end). Here a finding is caught only for the reason the auditors gave.
  */

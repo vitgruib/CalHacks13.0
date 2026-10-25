@@ -24,7 +24,7 @@ const rows = (table: string) => [...db()[table].iter()] as any[];
 beforeEach(() => {
   h = createModuleTestHarness(spacetimedb, mod as Record<string, unknown>);
   h.withReducerTx(TestAuth.internal(), ctx => (mod.init as any)(ctx, {}));
-  call('pa', mod.register_agent, { role: 'purchasing' });
+  call('pa', mod.register_agent, { role: 'payment_report' });
   call('bk', mod.register_agent, { role: 'bookkeeping' });
   call('gm', mod.register_person, { role: 'grant_manager', name: 'Grant manager' });
   call('sci', mod.register_person, { role: 'scientist', name: 'Scientist' });
@@ -42,8 +42,8 @@ test('the fixtures load with grant A frozen by a court order without payment', (
 });
 
 test('an identity binds to one agent role, and a role to one identity', () => {
-  expect(() => call('pa', mod.register_agent, { role: 'bookkeeping' })).toThrow(/already the purchasing/);
-  expect(() => call('someone-else', mod.register_agent, { role: 'purchasing' })).toThrow(/another identity/);
+  expect(() => call('pa', mod.register_agent, { role: 'bookkeeping' })).toThrow(/already the payment_report/);
+  expect(() => call('someone-else', mod.register_agent, { role: 'payment_report' })).toThrow(/another identity/);
   expect(() => call('pa', mod.register_person, { role: 'grant_manager', name: 'x' })).toThrow(/agent/);
 });
 
@@ -62,7 +62,6 @@ test('the scientist cannot decide Inbox items; the grant manager must give a rea
 test('nobody approves their own request', () => {
   submit('gm', 'R21AI182745', 6_000);
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: 'R21AI182745', vendor: 'V', explanation: 'Over the card limit.' });
   const hold = rows('hold').find(x => x.refId === rq.id && x.open);
   expect(() => call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'mine' })).toThrow(/own request/);
 });
@@ -73,66 +72,95 @@ test('each request names the researcher who asked, and only they can push back o
   submit('priya', A, 7_000);
   const rq = lastRequest();
   expect(rq.requesterName).toBe('Dr. Priya Nair');
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: A, vendor: 'V', explanation: 'Over the card limit.' });
   expect(() => call('marcus', mod.push_back, { requestId: rq.id, message: 'Needed for aim 3' })).toThrow(/person who asked/);
   call('priya', mod.push_back, { requestId: rq.id, message: 'Needed for aim 3' });
   expect(rows('log').some(l => l.refId === rq.id && l.action.startsWith('Dr. Priya Nair asked to buy'))).toBe(true);
+  const [hold] = rows('hold').filter(x => x.refId === rq.id && x.open);
+  expect(hold.evidence[0]).toEqual({ label: 'The researcher pushed back', value: 'Needed for aim 3' });
 });
 
-test('the purchasing agent cannot buy over the card limit on its own', () => {
+const openHold = (refId: string) => rows('hold').find(x => x.refId === refId && x.open);
+const approve = (refId: string, reason = 'ok') => call('gm', mod.decide_hold, { holdId: openHold(refId).id, choice: 'approve', reason });
+
+test('every request waits for the grant office; nothing is bought until it approves', () => {
+  call('sci', mod.submit_request, { item: 'Pipette tips', category: 'core facility services', price: 380, grantId: 'R21AI182745', purpose: 'Aim 1', sharedWith: [] });
+  const rq = lastRequest();
+  expect(rq.state).toBe('waiting_on_manager');
+  expect(openHold(rq.id).title).toBe('Approve Pipette tips ($380) on R21AI182745 for Scientist?');
+  expect(rows('order').filter(o => o.requestId === rq.id)).toEqual([]);
+
+  approve(rq.id);
+  expect(db().request.id.find(rq.id).state).toBe('bought');
+  expect(rows('order').filter(o => o.requestId === rq.id).map(o => o.amount)).toEqual([380]);
+});
+
+test('a request that fails a rule is flagged to the grant office with the rule, not blocked', () => {
   submit('sci', 'R21AI182745', 5_001);
   const rq = lastRequest();
-  expect(() => call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', vendor: 'V', explanation: 'buy' })).toThrow(/card limit/);
-  expect(rows('order').some(o => o.requestId === rq.id)).toBe(false);
+  const hold = openHold(rq.id);
+  expect(hold.title).toMatch(/^Flagged: approve/);
+  expect(hold.evidence.map((e: any) => e.label)).toContain('Under the card limit ($5,000)');
+  expect(rq.state).toBe('waiting_on_manager');
 });
 
-test('demo path: court order is not cash; the purchase goes through only after the payment lands', () => {
+test('demo path: court order is not cash; the request on the frozen grant stays flagged until the payment lands', () => {
   submit('sci');
   const rq = lastRequest();
-  expect(() => call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', vendor: 'V', explanation: 'buy' }))
-    .toThrow(/not frozen/);
+  expect(openHold(rq.id).evidence.map((e: any) => e.label)).toContain('Grant is active and not frozen');
 
   // The open sources-disagree flag also freezes A; the manager settles it first.
   const disagreement = rows('hold').find(x => x.kind === 'source_disagreement' && x.open);
   call('gm', mod.decide_hold, { holdId: disagreement.id, choice: 'pick_source', reason: 'Court order makes RePORTER right.' });
   expect(db().grant.id.find(A).frozen).toBe(true); // still frozen: no payment yet
+  expect(openHold(rq.id).title).toMatch(/^Flagged/);
 
   call('bk', mod.post_status_event, { grantId: A, kind: 'payment_received', source: 'Payment system', summary: 'Drawdown received.', amount: 25_000 });
   const g = db().grant.id.find(A);
   expect(g.frozen).toBe(false);
   expect(g.received).toBe(205_000);
+  expect(openHold(rq.id).title).toMatch(/^Approve/); // every rule passes now, but nobody bought it
+  expect(ordersFor(rq.id)).toEqual([]);
 
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', vendor: 'LabSource', explanation: 'Money arrived; every rule passes.' });
-  expect(db().request.id.find(rq.id).state).toBe('bought');
+  approve(rq.id, 'Money arrived.');
   expect(db().grant.id.find(A).promised).toBe(12_350 + 640);
 });
 
 test('every action writes a log row', () => {
   const before = rows('log').length;
   submit('sci', 'R21AI182745', 380);
-  call('pa', mod.evaluate_request, { requestId: lastRequest().id, split: [] });
-  expect(rows('log').length).toBe(before + 2);
+  expect(rows('log').map(l => l.action).slice(before)).toEqual([
+    'Scientist asked to buy Nitrile gloves ($380)',
+    'Sent to the Inbox: Flagged: approve Nitrile gloves ($380) on R21AI182745 for Scientist?',
+  ]);
 });
 
-// A fresh $380 LabSource order on B, bought by the agent, with nothing billed yet
-// (the fixtures' o1 already has its matched invoice inv3).
+// A fresh $380 order on B (vendor not known until the invoice: the researcher buys it), approved by the grant office, with
+// nothing billed yet (the fixtures' o1 already has its matched invoice inv3).
 function boughtOrder(): string {
   call('sci', mod.submit_request, { item: 'Pipette tips', category: 'core facility services', price: 380, grantId: 'R21AI182745', purpose: 'Aim 1', sharedWith: [] });
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', vendor: 'LabSource', explanation: 'Every rule passes.' });
+  approve(rq.id);
   return rows('order').find(o => o.requestId === rq.id).id;
 }
 
-test('a held invoice goes to the Inbox; a matched one is paid and moves money from promised to spent', () => {
+test('a matched invoice waits for the grant office, then is charged to the grant and the researcher reimbursed', () => {
   const oid = boughtOrder();
   call('gm', mod.inject_invoice, { orderId: oid, amount: 380 });
   const inv = rows('invoice').find(i => i.orderId === oid && !i.checked);
   const before = db().grant.id.find('R21AI182745');
   call('bk', mod.check_invoice, { invoiceId: inv.id });
+  expect(db().invoice.id.find(inv.id).state).toBe('matched');
+  expect(db().grant.id.find('R21AI182745').spent).toBe(before.spent);
+
+  approve(inv.id);
   const after = db().grant.id.find('R21AI182745');
   expect(db().invoice.id.find(inv.id).state).toBe('paid');
+  expect(db().invoice.id.find(inv.id).timeline.at(-1).what).toBe('Charged to R21AI182745; the researcher is reimbursed');
   expect(after.spent - before.spent).toBe(380);
   expect(before.promised - after.promised).toBe(380);
+});
+
+test('a held invoice goes to the Inbox', () => {
 
   call('gm', mod.inject_invoice, { orderId: 'o2', amount: 2_400 });
   const bad = rows('invoice').find(i => i.orderId === 'o2' && !i.checked);
@@ -176,26 +204,16 @@ function moneyArrivesOnA(): void {
 }
 const ordersFor = (requestId: string) => rows('order').filter(o => o.requestId === requestId);
 
-test('buying a held request closes its hold, and approving a stale hold places no second order', () => {
+test('approving a stale hold places no second order', () => {
   submit('sci');
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: A, vendor: 'V', explanation: 'Grant is frozen.' });
   moneyArrivesOnA();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', grantId: A, vendor: 'LabSource', explanation: 'Money arrived.' });
+  approve(rq.id);
   expect(rows('hold').filter(x => x.refId === rq.id && x.open)).toEqual([]);
 
   call('pa', mod.raise_hold, { kind: 'purchase', refId: rq.id, grantId: A, title: 'Buy gloves?', why: 'stale', evidence: [], options: [] });
   const stale = rows('hold').find(x => x.refId === rq.id && x.open);
   call('gm', mod.decide_hold, { holdId: stale.id, choice: 'approve', reason: 'ok' });
-  expect(ordersFor(rq.id)).toHaveLength(1);
-});
-
-test('a rerouted request cannot be bought again', () => {
-  call('sci', mod.submit_request, { item: 'Centrifuge service', category: 'equipment service', price: 900, grantId: A, purpose: 'Aim 1', sharedWith: [] });
-  const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'reroute', grantId: 'R21AI182745', vendor: 'V', explanation: 'A is frozen.' });
-  expect(db().request.id.find(rq.id).state).toBe('rerouted');
-  expect(() => call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', grantId: 'R21AI182745', vendor: 'V', explanation: 'again' })).toThrow(/already rerouted/);
   expect(ordersFor(rq.id)).toHaveLength(1);
 });
 
@@ -220,9 +238,9 @@ const openInvoiceHolds = (invoiceId: string) => rows('hold').filter(x => x.kind 
 
 test('asking the vendor keeps an Inbox item open whose decision settles the invoice', () => {
   const { inv, hold, oid } = heldInvoice();
-  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'ask_vendor', reason: 'Asking LabSource why it is $20 more.' });
+  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'ask_vendor', reason: 'Asking the vendor why it is $20 more.' });
   const [waiting] = openInvoiceHolds(inv.id);
-  expect(waiting.title).toMatch(/^Waiting on LabSource about inv\d+/);
+  expect(waiting.title).toMatch(/^Waiting on Vendor about inv\d+/);
   expect(waiting.options).toEqual(['approve', 'reject']);
   expect(db().invoice.id.find(inv.id).state).toBe('held');
 
@@ -240,6 +258,7 @@ test("the vendor's corrected invoice replaces the one asked about, so the order 
 
   const corrected = rows('invoice').find(i => i.orderId === oid && !i.checked);
   call('bk', mod.check_invoice, { invoiceId: corrected.id });
+  approve(corrected.id);
   expect(db().invoice.id.find(corrected.id).state).toBe('paid');
 });
 
@@ -259,7 +278,7 @@ test('the "which source is right" item shows each source once, at its latest rea
 test('canceling the only order of a bought request marks the request canceled', () => {
   call('sci', mod.submit_request, { item: 'Freezer service', category: 'equipment service', price: 300, grantId: B, purpose: 'Aim 1', sharedWith: [] });
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', vendor: 'LabSource', explanation: 'Every rule passes.' });
+  approve(rq.id);
   const [o] = ordersFor(rq.id);
   call('gm', mod.cancel_order, { orderId: o.id });
   expect(db().request.id.find(rq.id).state).toBe('canceled');
@@ -279,38 +298,23 @@ test('money in module-written text has thousands separators and cents only when 
   const inv = rows('invoice').find(i => i.orderId === oid && !i.checked);
   call('bk', mod.check_invoice, { invoiceId: inv.id });
   const hold = rows('hold').find(x => x.refId === inv.id && x.open);
-  expect(hold.title).toBe('Pay LabSource $6,200.50?');
+  expect(hold.title).toBe('Pay Vendor $6,200.50?');
   expect(hold.why).toBe('Invoice is $6,200.50 but the approved amount is $380.');
 });
 
-test('a purchase the grant manager approves is explained as approved and bought, not held', () => {
+test('an approved request tells the researcher to buy it and send the invoice', () => {
   call('sci', mod.submit_request, { item: 'Plate reader service', category: 'equipment service', price: 6_000, grantId: B, purpose: 'Aim 2', sharedWith: [] });
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: B, vendor: 'V', explanation: `Held ${rq.item} ($6,000) on ${B} for the grant manager.` });
-  const hold = rows('hold').find(x => x.refId === rq.id && x.open);
-  call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'Needed for Aim 2.' });
+  approve(rq.id, 'Needed for Aim 2.');
   const after = db().request.id.find(rq.id);
   expect(after.state).toBe('bought');
-  expect(after.explanation).not.toMatch(/^Held/);
-  expect(after.explanation).toMatch(/approved/i);
-  expect(after.explanation).toContain('Needed for Aim 2.');
-});
-
-test('the purchasing agent never rejects a request: a block flags it to the Inbox for the grant manager', () => {
-  call('sci', mod.submit_request, { item: 'Espresso machine', category: 'general office', price: 890, grantId: B, purpose: 'Lab morale', sharedWith: [] });
-  const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'block', grantId: B, vendor: 'V', explanation: 'General office items are not allowable.' });
-  expect(db().request.id.find(rq.id).state).toBe('blocked');
-  expect(rows('order').filter(o => o.requestId === rq.id)).toEqual([]);
-  const hold = rows('hold').find(x => x.kind === 'purchase' && x.refId === rq.id && x.open);
-  expect(hold.options).toEqual(['approve', 'reject']);
-  expect(hold.why).toBe('General office items are not allowable.');
+  expect(after.explanation).toMatch(/^The grant office approved it \(Needed for Aim 2\.\)/);
+  expect(after.explanation).toMatch(/sends the invoice/);
 });
 
 test("the grant manager's approval buys a flagged request even when rules fail; there is no override", () => {
   call('sci', mod.submit_request, { item: 'Espresso machine', category: 'general office', price: 890, grantId: B, purpose: 'Lab morale', sharedWith: [] });
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'block', grantId: B, vendor: 'V', explanation: 'General office items are not allowable.' });
   const hold = rows('hold').find(x => x.refId === rq.id && x.open);
   expect(() => call('gm', mod.decide_hold, { holdId: hold.id, choice: 'override', reason: 'Buy it.' })).toThrow(/choice/);
   call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'Used in the shared core facility.' });
@@ -324,7 +328,6 @@ test("the grant manager's approval buys a flagged request even when rules fail; 
 test("a purchase the grant manager rejects says so on the request, with the reason", () => {
   call('sci', mod.submit_request, { item: 'Plate reader service', category: 'equipment service', price: 6_000, grantId: B, purpose: 'Aim 2', sharedWith: [] });
   const rq = lastRequest();
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', grantId: B, vendor: 'V', explanation: `Held ${rq.item} ($6,000) on ${B} for the grant manager.` });
   const hold = rows('hold').find(x => x.refId === rq.id && x.open);
   call('gm', mod.decide_hold, { holdId: hold.id, choice: 'reject', reason: 'The core facility can do this for free.' });
   const after = db().request.id.find(rq.id);
@@ -336,7 +339,8 @@ test("a purchase the grant manager rejects says so on the request, with the reas
 test("the grant manager's call on a held invoice goes in its trail, with the reason", () => {
   const paid = heldInvoice();
   call('gm', mod.decide_hold, { holdId: paid.hold.id, choice: 'approve', reason: 'Shipping fee was agreed.' });
-  expect(db().invoice.id.find(paid.inv.id).timeline.at(-1).what).toMatch(/^Approved by the grant manager.*Shipping fee was agreed\.$/);
+  expect(db().invoice.id.find(paid.inv.id).timeline.at(-1).what).toBe('Charged to R21AI182745; the researcher is reimbursed');
+  expect(db().invoice.id.find(paid.inv.id).timeline.at(-2).what).toMatch(/^Approved by the grant office.*Shipping fee was agreed\.$/);
 
   const refused = heldInvoice();
   call('gm', mod.decide_hold, { holdId: refused.hold.id, choice: 'reject', reason: 'We never agreed to $400.' });
@@ -347,17 +351,14 @@ test("the grant manager's call on a held invoice goes in its trail, with the rea
   expect(db().invoice.id.find(asked.inv.id).timeline.at(-1).what).toContain('Why $20 more?');
 });
 
-test('same-day purchases that dodge the card limit together cannot be bought by the agent, but the grant manager can approve them', () => {
+test('same-day purchases that dodge the card limit together are flagged, and the grant manager can approve them', () => {
   const service = (price: number) => call('sci', mod.submit_request, {
     item: 'Sequencing core run', category: 'core facility services', price, grantId: 'R21AI182745', purpose: 'Aim 1', sharedWith: [],
   });
   service(2_900);
   service(2_600);
   const rq = lastRequest();
-  call('pa', mod.evaluate_request, { requestId: rq.id, split: [] });
-  expect(() => call('pa', mod.act_on_request, { requestId: rq.id, action: 'buy', vendor: 'V', explanation: 'buy' })).toThrow(/same-day/);
-
-  call('pa', mod.act_on_request, { requestId: rq.id, action: 'hold', vendor: 'V', explanation: 'Looks split to stay under the card limit.' });
+  expect(openHold(rq.id).evidence.map((e: any) => e.label)).toContain('Under the card limit, counting same-day purchases');
   const hold = rows('hold').find(x => x.refId === rq.id && x.open);
   call('gm', mod.decide_hold, { holdId: hold.id, choice: 'approve', reason: 'Two separate experiments.' });
   expect(db().request.id.find(rq.id).state).toBe('bought');
@@ -368,6 +369,7 @@ test('a second bill for an order already paid is held, not paid twice', () => {
   call('gm', mod.inject_invoice, { orderId: oid, amount: 380 });
   const first = rows('invoice').find(i => i.orderId === oid && !i.checked);
   call('bk', mod.check_invoice, { invoiceId: first.id });
+  approve(first.id);
   expect(db().invoice.id.find(first.id).state).toBe('paid');
   const spent = db().grant.id.find('R21AI182745').spent;
 
@@ -384,7 +386,6 @@ test('a request an older client declares shared is checked like any other: no sh
     item: 'Confocal time', category: 'core facility services', price: 900, grantId: B, purpose: 'Both aims', sharedWith: [B, A], oneGrantBasis: 'Same slides.',
   });
   const rq = lastRequest();
-  call('pa', mod.evaluate_request, { requestId: rq.id, split: [{ grantId: B, share: 0.5 }, { grantId: A, share: 0.5 }] });
   const checked = db().request.id.find(rq.id);
   expect(checked.verdicts.filter((v: any) => !v.pass)).toEqual([]);
   expect(checked.sharedWith).toEqual([]);
@@ -419,8 +420,8 @@ test('a plan that clears every check becomes one request per line in the researc
   expect(() => call('priya', mod.save_plan, planArgs('sent', 'clarify'))).toThrow(/submit it for review/);
   call('priya', mod.save_plan, planArgs('sent'));
   expect(planRequests().map(r => [r.item, r.price, r.requesterName, r.grantId, r.state])).toEqual([
-    ['Matrigel', 900, 'Dr. Priya Nair', B2, 'submitted'],
-    ['Antibody panel', 600, 'Dr. Priya Nair', B2, 'submitted'],
+    ['Matrigel', 900, 'Dr. Priya Nair', B2, 'waiting_on_manager'],
+    ['Antibody panel', 600, 'Dr. Priya Nair', B2, 'waiting_on_manager'],
   ]);
   expect(() => call('priya', mod.save_plan, planArgs('draft'))).toThrow(/already requests/);
   expect(() => call('priya', mod.delete_plan, { id: 'pl-test' })).toThrow(/already requests/);

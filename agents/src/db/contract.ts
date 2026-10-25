@@ -148,7 +148,7 @@ export interface CheckRequestRow {
   asOf: string; // demo time (T59): the real day the cancellation list is read as of; '' = today
 }
 
-/** Ask's look at an item before any grant (T103); the purchasing agent answers it. */
+/** Ask's look at an item before any grant (T103); the bookkeeping agent answers it. */
 export interface ItemCheckRow {
   id: bigint;
   item: string;
@@ -171,7 +171,7 @@ export interface RequestRow {
   item: string;
   category: string;
   price: number;
-  /** The grant asked for; the purchasing agent picks one if there is none. */
+  /** The grant asked for. */
   grantId?: string;
   /** The grant actually charged (set by evaluate_request / act_on_request). */
   chargedGrantId?: string;
@@ -395,7 +395,7 @@ export interface Actions {
   register_agent: { role: AgentRole };
   register_person: { role: PersonRole; name: string };
 
-  // Purchases. People submit; the purchasing agent evaluates, then acts.
+  // Purchases. People submit; the module sends each to the grant office (T108). evaluate_request and act_on_request are unused.
   submit_request: { item: string; category: string; price: number; grantId?: string; purpose: string; sharedWith: string[]; oneGrantBasis?: string };
   push_back: { requestId: string; message: string };
   /** Researchers: save, submit or send (report cleared every check) a plan; a sent plan's lines become requests. */
@@ -421,7 +421,7 @@ export interface Actions {
   request_check: { grantId?: string; reason: CheckReason; asOf?: string };
   complete_check: { id: bigint };
 
-  // Ask's item check (T103): a person asks, the purchasing agent answers. Nothing is bought or held.
+  // Ask's item check (T103): a person asks, the bookkeeping agent answers. Nothing is bought or held.
   ask_item_check: { item: string; purpose: string; price: number };
   answer_item_check: { id: bigint; verdict: 'fine' | 'flag' | 'unchecked'; why: string; category: string };
 
@@ -448,7 +448,7 @@ export interface Actions {
 }
 export type ActionName = keyof Actions;
 
-/** The module refused an action (its SenderError message, e.g. "Only the purchasing agent can do this"). */
+/** The module refused an action (its SenderError message, e.g. "Only the bookkeeping agent can do this"). */
 export class ActionError extends Error {
   constructor(
     readonly action: string,

@@ -17,12 +17,12 @@ afterEach(() => {
 
 const gloves = { item: 'Nitrile gloves', category: 'lab supplies', price: 240, grantId: TEST_GRANT, purpose: 'Aim 2', sharedWith: [] };
 
-test('three_agents_connect_as_separate_registered_identities', async () => {
+test('each_agent_connects_as_its_own_registered_identity', async () => {
   world = await startWorld({ seedJson: oneGrantSeed() });
   const { sessions } = world.worker;
   const identities = ROLES.map((role) => sessions[role].identity);
-  assert.equal(new Set(identities).size, 3);
-  const registered = new Map(sessions.purchasing.rows('agent').map((agent) => [agent.role, agent.identity]));
+  assert.equal(new Set(identities).size, ROLES.length);
+  const registered = new Map(sessions.bookkeeping.rows('agent').map((agent) => [agent.role, agent.identity]));
   for (const role of ROLES) assert.equal(registered.get(role), sessions[role].identity);
 });
 
@@ -35,13 +35,13 @@ test('a_restarted_worker_keeps_the_same_identities', async () => {
 
   const second = await startWorker(db, { tokens });
   assert.deepEqual(ROLES.map((role) => second.sessions[role].identity), before);
-  assert.equal(second.sessions.purchasing.rows('agent').length, 3);
+  assert.equal(second.sessions.bookkeeping.rows('agent').length, ROLES.length);
   second.stop();
 });
 
 test('agents_cannot_ask_to_buy_things', async () => {
   world = await startWorld({ seedJson: oneGrantSeed() });
-  await assert.rejects(world.worker.sessions.purchasing.call('submit_request', gloves), (error: unknown) => {
+  await assert.rejects(world.worker.sessions.bookkeeping.call('submit_request', gloves), (error: unknown) => {
     assert.ok(error instanceof ActionError);
     assert.match(error.message, /only people/i);
     return true;
@@ -51,22 +51,22 @@ test('agents_cannot_ask_to_buy_things', async () => {
 test('a_person_cannot_take_an_agent_role', async () => {
   world = await startWorld({ seedJson: oneGrantSeed() });
   const scientist = await world.person('scientist');
-  await assert.rejects(scientist.call('register_agent', { role: 'purchasing' }), /agent/);
+  await assert.rejects(scientist.call('register_agent', { role: 'bookkeeping' }), /agent/);
 });
 
 test('a_refused_action_changes_nothing', async () => {
   world = await startWorld({ seedJson: oneGrantSeed() });
-  const { purchasing } = world.worker.sessions;
-  const logBefore = purchasing.rows('log').length;
-  await assert.rejects(purchasing.call('evaluate_request', { requestId: 'rq-404', split: [] }), /No request rq-404/);
-  assert.equal(purchasing.rows('log').length, logBefore);
+  const { bookkeeping } = world.worker.sessions;
+  const logBefore = bookkeeping.rows('log').length;
+  await assert.rejects(bookkeeping.call('check_invoice', { invoiceId: 'inv-404' }), /No invoice inv-404/);
+  assert.equal(bookkeeping.rows('log').length, logBefore);
 });
 
 test('subscribers_hear_about_a_new_row_only_after_the_action_returns', async () => {
   world = await startWorld({ seedJson: oneGrantSeed() });
   const scientist = await world.person('scientist');
   const heard: string[] = [];
-  world.worker.sessions.purchasing.onInsert('request', (row) => heard.push(row.item));
+  world.worker.sessions.bookkeeping.onInsert('request', (row) => heard.push(row.item));
   await scientist.call('submit_request', gloves);
   assert.deepEqual(heard, [], 'not inside the action');
   assert.equal(scientist.rows('request').length, 1, 'but the row is already readable');
@@ -107,7 +107,7 @@ test('run_sim_returns_every_table_once_the_agents_are_quiet', async () => {
   try {
     assert.equal(run.tables.grant.length, 8); // grants A and B, and the six cut-script grants (T65, T74)
     assert.ok(run.tables.log.length > 0);
-    assert.equal(run.tables.agent.length, 3);
+    assert.equal(run.tables.agent.length, ROLES.length);
   } finally {
     run.stop();
   }

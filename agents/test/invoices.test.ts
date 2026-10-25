@@ -96,15 +96,15 @@ test('in_2_the_invoice_over_its_approval_is_held_naming_ap_034', async () => {
   assert.equal(hold.grantId, 'R21AI182745');
 });
 
-test('in_d1_the_invoice_matching_an_approved_change_is_paid_with_no_hold', async () => {
+test('in_d1_the_invoice_matching_an_approved_change_is_matched_and_waits_for_the_grant_office', async () => {
   world = await startWorld();
   const conn = world.worker.sessions.bookkeeping;
   const inv = invoice(conn, 'inv-036');
   assert.equal(inv.checked, true);
-  assert.equal(inv.state, 'paid', 'the module pays a matching invoice as soon as it matches');
+  assert.equal(inv.state, 'matched', 'nothing is paid until the grant office approves it (T108)');
   assert.equal(inv.mismatch, undefined);
   assert.match(inv.timeline.at(-1)!.what, /matches the approved amount/);
-  assert.deepEqual(invoiceHolds(conn, 'inv-036'), [], 'no hold, open or closed');
+  assert.match(openHold(conn, 'inv-036').title, /^Approve .*invoice inv-036/);
   assert.ok(conn.rows('log').some((row) => row.action === 'Matched invoice inv-036' && row.rule === RULE));
 });
 
@@ -123,9 +123,9 @@ test('every_waiting_sim_invoice_is_checked_and_only_the_planted_ones_are_held', 
   world = await startWorld();
   const conn = world.worker.sessions.bookkeeping;
   assert.deepEqual(conn.rows('invoice').filter((row) => !row.checked).map((row) => row.id), []);
-  assert.equal(invoice(conn, 'inv-038').state, 'paid');
-  const open = conn.rows('hold').filter((hold) => hold.kind === 'invoice' && hold.open).map((hold) => hold.refId).sort();
-  assert.deepEqual(open, ['inv-030', 'inv-034', 'inv-037', 'inv-201', 'inv-202']);
+  assert.equal(invoice(conn, 'inv-038').state, 'matched');
+  const held = conn.rows('invoice').filter((row) => row.state === 'held').map((row) => row.id).sort();
+  assert.deepEqual(held, ['inv-030', 'inv-034', 'inv-037', 'inv-201', 'inv-202']);
 });
 
 test('a_second_idle_on_the_sim_world_changes_nothing', async () => {
@@ -142,9 +142,10 @@ test('reloading_the_sim_world_in_the_test_lab_checks_its_invoices_again_without_
 
   assert.deepEqual(conn.rows('invoice').filter((row) => !row.checked).map((row) => row.id), []);
   assert.equal(invoice(conn, 'inv-030').state, 'held');
-  assert.equal(invoice(conn, 'inv-036').state, 'paid');
-  const open = conn.rows('hold').filter((hold) => hold.kind === 'invoice' && hold.open).map((hold) => hold.refId).sort();
-  assert.deepEqual(open, ['inv-030', 'inv-034', 'inv-037', 'inv-201', 'inv-202']);
+  assert.equal(invoice(conn, 'inv-036').state, 'matched');
+  const open = conn.rows('hold').filter((hold) => hold.kind === 'invoice' && hold.open).map((hold) => hold.refId);
+  assert.equal(open.length, new Set(open).size, 'one Inbox item per invoice');
+  assert.deepEqual(conn.rows('invoice').filter((row) => row.state === 'held').map((row) => row.id).sort(), ['inv-030', 'inv-034', 'inv-037', 'inv-201', 'inv-202']);
   assert.equal(evidence(openHold(conn, 'inv-034'), 'Approval ap-034'), '$5,800 by the grant manager on 2026-04-21');
   await settle();
 });
@@ -219,17 +220,21 @@ test('an_injected_invoice_for_a_canceled_order_is_held_with_a_timeline', async (
   await settle();
 });
 
-test('a_matching_injected_invoice_is_matched_and_paid', async () => {
+test('a_matching_injected_invoice_is_matched_then_paid_once_the_grant_office_approves', async () => {
   const { conn, lab } = await oneOrderWorld(480);
   const grant = () => conn.rows('grant').find((row) => row.id === TEST_GRANT)!;
   const before = grant();
   await lab.call('inject_invoice', { orderId: 'o-1', amount: 480 });
   await world!.worker.idle();
 
-  const [inv] = invoicesFor(conn, 'o-1');
-  assert.equal(inv.checked, true);
+  const [checked] = invoicesFor(conn, 'o-1');
+  assert.equal(checked.checked, true);
+  assert.equal(checked.state, 'matched');
+  assert.equal(grant().spent, before.spent, 'nothing is charged before the grant office approves');
+  await lab.call('decide_hold', { holdId: openHold(conn, checked.id).id, choice: 'approve', reason: 'Matches the order.' });
+  await world!.worker.idle();
+  const inv = invoice(conn, checked.id);
   assert.equal(inv.state, 'paid');
-  assert.deepEqual(invoiceHolds(conn, inv.id), []);
   assert.equal(conn.rows('order').find((row) => row.id === 'o-1')?.state, 'paid');
   assert.equal(grant().spent - before.spent, 480, 'the module moved the money');
   assert.equal(grant().promised - before.promised, -480);
@@ -281,7 +286,10 @@ test('paying_an_order_does_not_recheck_its_other_held_invoice', async () => {
 
   await lab.call('inject_invoice', { orderId: 'o-1', amount: 700 });
   await world!.worker.idle();
-  const right = invoicesFor(conn, 'o-1').find((row) => row.id !== duplicate.id)!;
+  const matched = invoicesFor(conn, 'o-1').find((row) => row.id !== duplicate.id)!;
+  await lab.call('decide_hold', { holdId: openHold(conn, matched.id).id, choice: 'approve', reason: 'Matches the order.' });
+  await world!.worker.idle();
+  const right = invoice(conn, matched.id);
   assert.equal(right.state, 'paid');
   assert.equal(conn.rows('order').find((row) => row.id === 'o-1')?.state, 'paid');
   assert.equal(invoice(conn, duplicate.id).state, 'held');
@@ -330,7 +338,7 @@ test('a_rejected_invoice_is_left_alone_when_its_order_is_canceled_later', async 
 
 // ── When the module refuses ────────────────────────────────────────────────
 
-test('the_module_refuses_to_pay_an_invoice_on_a_missing_grant_and_the_agent_carries_on', async () => {
+test('the_module_refuses_to_match_an_invoice_on_a_missing_grant_and_the_agent_carries_on', async () => {
   const errors = mock.method(console, 'error', () => {});
   try {
     const unchecked = (id: string, orderId: string, amount: number) => ({
@@ -347,7 +355,7 @@ test('the_module_refuses_to_pay_an_invoice_on_a_missing_grant_and_the_agent_carr
     const refused = invoice(conn, 'inv-6');
     assert.equal(refused.checked, false, 'left as not checked yet, for a person to see');
     assert.deepEqual(invoiceHolds(conn, 'inv-6'), []);
-    assert.equal(invoice(conn, 'inv-7').state, 'paid', 'the next invoice is still checked');
+    assert.equal(invoice(conn, 'inv-7').state, 'matched', 'the next invoice is still checked');
     const logged = errors.mock.calls.map((call) => call.arguments.map(String).join(' '));
     assert.ok(logged.some((line) => line.startsWith('invoices: check inv-6 failed') && line.includes('No grant R01GONE000009')), logged.join('\n'));
     await settle();

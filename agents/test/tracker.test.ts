@@ -8,7 +8,7 @@ import { createLocalDb } from '../src/db/local.ts';
 import { memoryTokens } from '../src/identity.ts';
 import type { AwardAction, Reading, SourceClient } from '../src/sources/types.ts';
 import { startWorker } from '../src/worker.ts';
-import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
+import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld, approvePassingPurchases } from './helpers.ts';
 
 let world: TestWorld | undefined;
 afterEach(() => {
@@ -235,7 +235,7 @@ test('a_failing_source_does_not_stop_the_others', async () => {
 test('only_the_bookkeeping_agent_can_post_readings', async () => {
   const conn = await startWith([]);
   await assert.rejects(
-    world!.worker.sessions.purchasing.call('post_source_reading', { grantId: TEST_GRANT, source: 'NIH RePORTER', status: 'active', url: 'https://example.test' }),
+    world!.worker.sessions.payment_report.call('post_source_reading', { grantId: TEST_GRANT, source: 'NIH RePORTER', status: 'active', url: 'https://example.test' }),
     ActionError,
   );
   assert.equal(conn.rows('sourceReading').length, 0);
@@ -296,6 +296,7 @@ test('canceling_a_grant_after_the_days_purchases_flags_none_of_them', async () =
   await lab.call('decide_hold', { holdId: hold.id, choice: 'pick_source', reason: 'The court order stands.' });
   await lab.call('inject_status_event', { grantId: 'R01GM061721', kind: 'payment_received', source: 'Payment system', summary: 'Payment of $50,000 received.', amount: 50_000 });
   await world.worker.idle();
+  await approvePassingPurchases(lab, world.worker);
   const spent = () => conn.rows('flag').filter((flag) => flag.kind === 'spend_while_canceled' && flag.open).map((flag) => flag.summary);
   const before = spent();
   assert.ok(conn.rows('order').some((o) => o.placed === conn.today() && o.grantId === 'R01GM061721'), "today's purchases were placed");
@@ -357,7 +358,8 @@ test('ft_3_the_court_order_without_payment_keeps_grant_a_frozen_and_flagged', as
 
 // The demo path's climax: a court order is not cash, and the open
 // disagreement (ft-1) also holds the freeze. Once the grant manager picks a
-// source and the money arrives, in either order, grant A spends again.
+// source and the money arrives, in either order, grant A spends again: the
+// grant office can approve what was waiting, and the flagged supplies stay flagged.
 for (const order of [['pick', 'pay'], ['pay', 'pick']] as const) {
   test(`demo_path_${order.join('_then_')}_unfreezes_grant_a_and_its_waiting_purchases_go_through`, async () => {
     world = await startWorld();
@@ -378,8 +380,10 @@ for (const order of [['pick', 'pay'], ['pay', 'pick']] as const) {
     assert.equal(grantA().frozen, false, `still frozen: ${grantA().frozenReason}`);
     assert.equal(disagreements(conn).filter((flag) => flag.grantId === 'R01GM061721').length, 1, 'the decided disagreement was not raised again');
     const state = (id: string) => conn.rows('request').find((r) => r.id === id)?.state;
+    await approvePassingPurchases(lab, world.worker);
     assert.deepEqual(['rq-101', 'rq-106'].map(state), ['bought', 'bought']);
-    assert.equal(state('rq-102'), 'rerouted');
+    assert.equal(state('rq-102'), 'waiting_on_manager');
+    assert.match(conn.rows('hold').find((h) => h.open && h.refId === 'rq-102')!.title, /^Flagged/);
   });
 }
 

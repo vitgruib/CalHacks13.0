@@ -63,9 +63,9 @@ test('every_table_has_exactly_the_columns_contract_ts_describes', async () => {
 
 test('identities_are_hex_strings_and_timestamps_are_milliseconds', async () => {
   world = await startWorld();
-  const [agent] = world.worker.sessions.purchasing.rows('agent');
+  const [agent] = world.worker.sessions.bookkeeping.rows('agent');
   assert.match(agent.identity, /^[0-9a-f]{64}$/);
   assert.equal(typeof agent.registeredAt, 'number');
   assert.ok(agent.registeredAt > Date.parse('2026-01-01'));
-  assert.equal(typeof world.worker.sessions.purchasing.rows('log')[0].id, 'bigint');
+  assert.equal(typeof world.worker.sessions.bookkeeping.rows('log')[0].id, 'bigint');
 });

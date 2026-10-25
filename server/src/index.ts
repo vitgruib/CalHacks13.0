@@ -4,8 +4,8 @@
 //   separately, and one identity can't be both;
 // - only the grant manager decides Inbox items, always with a reason;
 // - nobody approves their own request; agents never decide anything;
-// - an agent buys alone only when every rule passes and it's under the card
-//   limit, rechecked right before the money moves.
+// - nothing is bought alone (T108): every purchase request and every invoice
+//   waits for the grant office; the module's rules flag what fails.
 // Every action writes a log row.
 
 import { SenderError, t } from 'spacetimedb/server';
@@ -152,6 +152,7 @@ function recomputeGrant(ctx: Ctx, id: string, actor = 'system'): void {
       rule: fs.frozen ? 'Canceled or disputed grants freeze' : 'Only a payment (or the grant manager) unfreezes',
       refId: id,
     });
+    resendWaiting(ctx, id);
   }
 }
 
@@ -217,11 +218,51 @@ function closePurchaseHolds(ctx: Ctx, requestId: string): void {
 
 const DONE_STATES = ['bought', 'rerouted', 'rejected', 'canceled'];
 
+type RequestRow = NonNullable<ReturnType<Ctx['db']['request']['id']['find']>>;
+
+/**
+ * The life of a request (T108): the researcher asks, the grant office
+ * approves or rejects, the researcher buys it and sends the invoice, the
+ * bookkeeping agent checks the invoice, the grant office approves it, and the
+ * cost is charged to the grant. Here the module runs the spending rules and
+ * puts the request in the Inbox; failing rules flag it, nothing blocks it.
+ */
+function sendToGrantOffice(ctx: Ctx, r: RequestRow, pushedBack?: string): void {
+  const gid = r.chargedGrantId ?? r.grantId;
+  const g = gid ? ctx.db.grant.id.find(gid) : undefined;
+  const verdicts = g ? spendingVerdicts(withSameDay(ctx, r), g, today(ctx)) : [];
+  const failed = verdicts.filter(v => !v.pass);
+  const explanation = !g
+    ? 'Waiting for the grant office. No grant was picked for it.'
+    : failed.length
+      ? `Flagged for the grant office: ${failed.map(v => `${v.rule} (${v.detail})`).join('; ')}.`
+      : `Every rule passes on ${gid}; waiting for the grant office to approve it.`;
+  ctx.db.request.id.update({ ...r, state: 'waiting_on_manager', chargedGrantId: gid, verdicts: vrows(verdicts), explanation });
+  raiseHoldRow(ctx, {
+    kind: 'purchase', refId: r.id, grantId: gid, raisedBy: 'system',
+    title: `${failed.length ? 'Flagged: approve' : 'Approve'} ${r.item} (${usd(r.price)})${gid ? ` on ${gid}` : ''}${r.requesterName ? ` for ${r.requesterName}` : ''}?`,
+    why: explanation,
+    evidence: [
+      ...(pushedBack ? [{ label: 'The researcher pushed back', value: pushedBack }] : []),
+      ...(failed.length ? failed : verdicts).map(v => ({ label: v.rule, value: v.detail })),
+    ],
+    options: ['approve', 'reject'],
+  });
+}
+
+/** A grant's freeze changed: refresh the verdicts of its requests still waiting. */
+function resendWaiting(ctx: Ctx, grantId: string): void {
+  for (const r of [...ctx.db.request.iter()]) {
+    if (r.state === 'waiting_on_manager' && (r.chargedGrantId ?? r.grantId) === grantId) sendToGrantOffice(ctx, r);
+  }
+}
+
 // ── Lifecycle ─────────────────────────────────────────────────────────────
 
 function seedWorld(ctx: Ctx, seed: Seed): void {
   loadSeed(ctx, seed);
   for (const g of [...ctx.db.grant.iter()]) recomputeGrant(ctx, g.id);
+  for (const r of [...ctx.db.request.iter()]) if (r.state === 'submitted') sendToGrantOffice(ctx, r);
 }
 
 export const init = spacetimedb.init(ctx => {
@@ -259,7 +300,7 @@ export const register_person = spacetimedb.reducer({ role: t.string(), name: t.s
 
 // ── Purchases (P2, P3) ────────────────────────────────────────────────────
 
-/** People only: ask to buy something. The purchasing agent picks it up. */
+/** People only: ask to buy something. It goes straight to the grant office. */
 export const submit_request = spacetimedb.reducer(
   {
     item: t.string(), category: t.string(), price: t.f64(), grantId: t.string().optional(),
@@ -282,6 +323,7 @@ export const submit_request = spacetimedb.reducer(
       oneGrantBasis: '',
     });
     writeLog(ctx, who, `${name} asked to buy ${a.item} (${usd(a.price)})`, a.purpose || 'No purpose given.', { refId: id });
+    sendToGrantOffice(ctx, ctx.db.request.id.find(id)!);
   }),
 );
 
@@ -303,13 +345,14 @@ function sendPlanLines(ctx: Ctx, p: PlanRow, actor: string): void {
       purpose: l.purpose, state: 'submitted', verdicts: [], explanation: '', requesterName: p.researcher, oneGrantBasis: '',
     });
     writeLog(ctx, actor, `${p.researcher} asked to buy ${l.item} (${usd(l.price)}), line ${l.line} of plan ${p.id}`, l.purpose, { refId: id });
+    sendToGrantOffice(ctx, ctx.db.request.id.find(id)!);
   }
 }
 
 /**
  * Researchers only: save a plan as a draft, submit it for the grant manager,
  * or send it (its report cleared every check), which makes one request per
- * purchasable line. The purchasing agent then checks each like any request.
+ * purchasable line. Each goes to the grant office like any request.
  */
 export const save_plan = spacetimedb.reducer(
   {
@@ -325,7 +368,7 @@ export const save_plan = spacetimedb.reducer(
     if (old && !old.ownedBy.isEqual(ctx.sender)) fail('Only the researcher who wrote a plan can change it.');
     if (old?.status === 'sent') fail('This plan\'s lines are already requests; push back on those instead.');
     if (status !== 'draft' && !a.report) fail('Assess the plan before submitting it.');
-    if (status === 'sent' && a.overall !== 'aligned') fail('Only a plan that clears every check goes straight to purchasing; submit it for review instead.');
+    if (status === 'sent' && a.overall !== 'aligned') fail('Only a plan that clears every check becomes requests right away; submit it for review instead.');
     const name = ctx.db.person.identity.find(ctx.sender)?.name ?? who;
     const row = {
       id: a.id, researcher: name, ownedBy: ctx.sender, status, grantId: a.grantId, experiment: a.experiment,
@@ -334,7 +377,7 @@ export const save_plan = spacetimedb.reducer(
       decisionChoice: '', decisionReason: '', decisionDay: '',
     };
     if (old) ctx.db.plan.id.update(row); else ctx.db.plan.insert(row);
-    const what = { draft: 'Saved a draft of', submitted: 'Submitted for review', sent: 'Sent to purchasing' }[status];
+    const what = { draft: 'Saved a draft of', submitted: 'Submitted for review', sent: 'Sent as requests' }[status];
     writeLog(ctx, who, `${what} plan ${a.id} (${usd(a.total)})`, a.experiment.slice(0, 200) || 'No experiment given.', { refId: a.id });
     if (status === 'sent') sendPlanLines(ctx, row, who);
   }),
@@ -370,19 +413,20 @@ export const decide_plan = spacetimedb.reducer({ id: t.string(), choice: t.strin
   if (choice === 'approve') sendPlanLines(ctx, row, who);
 }));
 
-/** The requester pushes back with new information; the agent looks again. */
+/** The requester pushes back with new information; it goes back to the grant office. */
 export const push_back = spacetimedb.reducer({ requestId: t.string(), message: t.string() }, (ctx, { requestId, message }) => guard(() => {
   const who = requirePerson(ctx);
   const r = ctx.db.request.id.find(requestId) ?? fail(`No request ${requestId}.`);
   if (!r.requestedBy || !r.requestedBy.isEqual(ctx.sender)) fail('Only the person who asked can push back.');
   if (!message.trim()) fail('Say what changed.');
   if (r.state === 'bought' || r.state === 'rerouted' || r.state === 'canceled') fail(`Already ${r.state}.`);
-  ctx.db.request.id.update({ ...r, state: 'submitted' });
   writeLog(ctx, who, `Pushed back on ${r.item}${r.requesterName ? ` (${r.requesterName})` : ''}`, message, { refId: requestId });
+  sendToGrantOffice(ctx, r, message.trim());
 }));
 
 /**
- * Purchasing agent: run every spending rule for a request against a grant
+ * Unused since T108 (the purchasing agent was cut); kept so deployed clients
+ * keep working. Purchasing agent: run every spending rule for a request against a grant
  * (default: the one asked for) and store the verdicts on the request. No
  * money moves; read the verdicts, then call act_on_request.
  */
@@ -405,7 +449,7 @@ export const evaluate_request = spacetimedb.reducer(
 );
 
 /**
- * Purchasing agent acts on a request:
+ * Unused since T108, kept for deployed clients. Purchasing agent acts on a request:
  * - buy: rules are rechecked now; refused unless every rule passes (incl. card limit);
  * - reroute: buy on `grantId` instead; same recheck there;
  * - hold: send to the grant manager's Inbox;
@@ -540,12 +584,15 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       if (!gid) return;
       const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx));
       const failing = verdicts.filter(v => !v.pass);
+      // The approval promises the money; the researcher buys it and sends the invoice.
       placeOrder(ctx, { ...r, chargedGrantId: gid }, 'Vendor', who);
+      const next = `The researcher buys it and sends the invoice; once the grant office approves the invoice, it is charged to ${gid}.`;
       const explanation = failing.length
-        ? `The grant manager approved it (${reason}) and it was bought on ${gid}, although it fails: ${failing.map(v => v.rule).join('; ')}.`
-        : `The grant manager approved it (${reason}); every rule passes and it was bought on ${gid}.`;
+        ? `The grant office approved it (${reason}), although it fails: ${failing.map(v => v.rule).join('; ')}. ${next}`
+        : `The grant office approved it (${reason}); every rule passes. ${next}`;
+      // 'bought' is the state name older clients and the eval read; since T108 it means approved to buy.
       ctx.db.request.id.update({ ...ctx.db.request.id.find(r.id)!, verdicts: vrows(verdicts), state: 'bought', chargedGrantId: gid, explanation });
-      writeLog(ctx, 'system', `Bought ${r.item} (${usd(r.price)}) on ${gid}`, failing.length ? `Approved by the grant manager despite: ${failing.map(v => v.rule).join('; ')}.` : 'Approved; every rule passes.', { rule: failing[0]?.rule, refId: r.id });
+      writeLog(ctx, 'system', `Approved buying ${r.item} (${usd(r.price)}) on ${gid}`, failing.length ? `Approved by the grant office despite: ${failing.map(v => v.rule).join('; ')}.` : 'Approved; every rule passes.', { rule: failing[0]?.rule, refId: r.id });
       return;
     }
     case 'invoice': {
@@ -553,7 +600,8 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       if (!inv) return;
       const decided = (what: string) => [...inv.timeline, { day: today(ctx), what: `${what}: ${reason}` }];
       if (c === 'approve') {
-        ctx.db.invoice.id.update({ ...inv, timeline: decided('Approved by the grant manager and paid') });
+        const o = ctx.db.order.id.find(inv.orderId);
+        ctx.db.invoice.id.update({ ...inv, timeline: [...decided('Approved by the grant office'), { day: today(ctx), what: `Charged to ${o?.grantId ?? 'the grant'}; the researcher is reimbursed` }] });
         payInvoice(ctx, inv.id);
       } else if (c === 'reject') ctx.db.invoice.id.update({ ...inv, state: 'rejected', timeline: decided('Rejected by the grant manager') });
       else if (c === 'ask_vendor') {
@@ -710,7 +758,7 @@ export const complete_check = spacetimedb.reducer({ id: t.u64() }, (ctx, { id })
 
 const ITEM_VERDICTS = ['fine', 'flag', 'unchecked'];
 
-/** A person: ask the purchasing agent whether an item is a research cost at all, before any grant. */
+/** A person: ask whether an item is a research cost at all, before any grant. The worker answers with Haiku. */
 export const ask_item_check = spacetimedb.reducer({ item: t.string(), purpose: t.string(), price: t.f64() }, (ctx, { item, purpose, price }) => guard(() => {
   const who = requirePerson(ctx);
   if (!item.trim()) fail('Say what you want to buy.');
@@ -718,9 +766,9 @@ export const ask_item_check = spacetimedb.reducer({ item: t.string(), purpose: t
   ctx.db.itemCheck.insert({ id: 0n, item: item.trim(), purpose: purpose.trim(), price, requestedBy: who, answered: false, verdict: '', why: '', category: '' });
 }));
 
-/** Purchasing agent: answer an item check. */
+/** The bookkeeping agent (the purchasing agent before T108): answer an item check. */
 export const answer_item_check = spacetimedb.reducer({ id: t.u64(), verdict: t.string(), why: t.string(), category: t.string() }, (ctx, { id, verdict, why, category }) => guard(() => {
-  requireAgent(ctx, 'purchasing');
+  requireAgent(ctx, 'bookkeeping', 'purchasing');
   oneOf('verdict', ITEM_VERDICTS, verdict);
   const c = ctx.db.itemCheck.id.find(id) ?? fail(`No item check ${id}.`);
   ctx.db.itemCheck.id.update({ ...c, answered: true, verdict, why, category });
@@ -741,8 +789,9 @@ function payInvoice(ctx: Ctx, invoiceId: string): void {
 
 /**
  * Bookkeeping agent: match an invoice to its order and approval. The module
- * applies the rule: a match is paid; a mismatch is held with its timeline
- * and goes to the Inbox.
+ * applies the rule: a match goes to the grant office to approve; a mismatch
+ * is held with its timeline. Either way the grant office decides in the
+ * Inbox, and an approved invoice is charged to the grant (T108).
  */
 export const check_invoice = spacetimedb.reducer({ invoiceId: t.string() }, (ctx, { invoiceId }) => guard(() => {
   const role = requireAgent(ctx, 'bookkeeping');
@@ -751,10 +800,17 @@ export const check_invoice = spacetimedb.reducer({ invoiceId: t.string() }, (ctx
   const o = ctx.db.order.id.find(inv.orderId);
   const others = [...ctx.db.invoice.iter()].filter(x => x.orderId === inv.orderId && x.id !== inv.id);
   const v = checkInvoice(inv, o ?? undefined, [...ctx.db.approval.orderId.filter(inv.orderId)], others);
+  if (v.matched && o?.grantId) getGrant(ctx, o.grantId); // a match must have a grant to charge
   ctx.db.invoice.id.update({ ...inv, state: v.matched ? 'matched' : 'held', mismatch: v.mismatch, timeline: v.timeline, checked: true });
   if (v.matched) {
-    writeLog(ctx, role, `Matched invoice ${inv.id}`, 'Order open and amount matches the approval; paid.', { rule: 'Invoice needs an open order and the approved amount', refId: inv.id });
-    payInvoice(ctx, inv.id);
+    writeLog(ctx, role, `Matched invoice ${inv.id}`, 'Order open and amount matches the approval; sent to the grant office to approve.', { rule: 'Invoice needs an open order and the approved amount', refId: inv.id });
+    raiseHoldRow(ctx, {
+      kind: 'invoice', refId: inv.id, grantId: o?.grantId, raisedBy: role,
+      title: `Approve ${inv.vendor}'s invoice ${inv.id} (${usd(inv.amount)})?`,
+      why: `It matches its order ${inv.orderId} and the approved amount. Approving charges it to ${o?.grantId ?? 'the grant'} and reimburses the researcher.`,
+      evidence: v.timeline.map(e => ({ label: e.day, value: e.what })),
+      options: ['approve', 'reject'],
+    });
   } else {
     writeLog(ctx, role, `Held invoice ${inv.id}`, v.mismatch!, { rule: 'Invoice needs an open order and the approved amount', refId: inv.id });
     raiseHoldRow(ctx, {

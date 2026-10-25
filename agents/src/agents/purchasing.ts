@@ -1,3 +1,5 @@
+// Unused since T108: the purchasing agent was cut and the worker no longer
+// starts it. Every request goes to the grant office instead (server/src/index.ts).
 // The purchasing agent (docs/MASTER-PLAN.md §3.2): picks a grant for each
 // request, has the module check its spending rules, then buys, reroutes,
 // holds or blocks, with an explanation that cites the rule. Track A's module

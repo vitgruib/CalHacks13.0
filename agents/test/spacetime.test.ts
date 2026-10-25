@@ -49,7 +49,7 @@ async function rejectsWithActionError(call: Promise<void>, action: string, messa
 describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIME_IT=1 to run against a local SpacetimeDB' }, () => {
   let db: Db;
   let published = false;
-  const agents: Record<'purchasing' | 'bookkeeping' | 'payment_report', Connection> = {} as never;
+  const agents: Record<'bookkeeping' | 'payment_report', Connection> = {} as never;
   let manager: Connection;
 
   before(
@@ -66,21 +66,21 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
     if (published) cli('delete', '--server', CLI_SERVER, '--no-config', '-y', NAME);
   });
 
-  test('three_agents_register_as_separate_identities', STEP, async () => {
-    for (const role of ['purchasing', 'bookkeeping', 'payment_report'] as const) {
+  test('two_agents_register_as_separate_identities', STEP, async () => {
+    for (const role of ['bookkeeping', 'payment_report'] as const) {
       agents[role] = await db.connect();
       await agents[role].call('register_agent', { role });
     }
     await db.settled();
 
     const identities = new Set(Object.values(agents).map((c) => c.identity));
-    assert.equal(identities.size, 3);
+    assert.equal(identities.size, 2);
     for (const conn of Object.values(agents)) {
       assert.match(conn.identity, /^[0-9a-f]{64}$/);
       assert.ok(conn.token.length > 0);
       // Every connection sees every registration, not only its own.
       const rows = conn.rows('agent');
-      assert.equal(rows.length, 3);
+      assert.equal(rows.length, 2);
       for (const [role, agent] of Object.entries(agents)) {
         const row = rows.find((r) => r.identity === agent.identity);
         assert.equal(row?.role, role);
@@ -91,14 +91,14 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
   });
 
   test('reconnecting_with_a_saved_token_keeps_the_identity', STEP, async () => {
-    const { identity, token } = agents.purchasing;
-    agents.purchasing.disconnect();
-    agents.purchasing = await db.connect({ token });
-    assert.equal(agents.purchasing.identity, identity);
-    assert.equal(agents.purchasing.token, token);
+    const { identity, token } = agents.payment_report;
+    agents.payment_report.disconnect();
+    agents.payment_report = await db.connect({ token });
+    assert.equal(agents.payment_report.identity, identity);
+    assert.equal(agents.payment_report.token, token);
     // Registering again with the same role is accepted, not a second agent.
-    await agents.purchasing.call('register_agent', { role: 'purchasing' });
-    assert.equal(agents.purchasing.rows('agent').filter((r) => r.role === 'purchasing').length, 1);
+    await agents.payment_report.call('register_agent', { role: 'payment_report' });
+    assert.equal(agents.payment_report.rows('agent').filter((r) => r.role === 'payment_report').length, 1);
   });
 
   test('a_person_cannot_register_as_an_agent', STEP, async () => {
@@ -108,9 +108,9 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
     await rejectsWithActionError(manager.call('register_agent', { role: 'bookkeeping' }), 'register_agent', /person/);
   });
 
-  test('the_purchasing_agent_cannot_post_source_readings', STEP, async () => {
+  test('the_payment_report_agent_cannot_post_source_readings', STEP, async () => {
     const reading = { grantId: 'R01GM061721', source: 'NIH RePORTER', status: 'active', url: 'https://reporter.nih.gov/' } as const;
-    await rejectsWithActionError(agents.purchasing.call('post_source_reading', reading), 'post_source_reading', /bookkeeping/);
+    await rejectsWithActionError(agents.payment_report.call('post_source_reading', reading), 'post_source_reading', /bookkeeping/);
     await rejectsWithActionError(agents.bookkeeping.call('no_such_action' as never, {} as never), 'no_such_action', /no action/);
   });
 
@@ -147,11 +147,11 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
       assert.ok(row.id > highWater);
       assert.equal(typeof row.at, 'number');
     }
-    const reading = agents.purchasing.rows('sourceReading').find((r) => r.status === 'restored_by_court');
+    const reading = agents.payment_report.rows('sourceReading').find((r) => r.status === 'restored_by_court');
     assert.equal(reading?.awarded, undefined);
     assert.equal(typeof reading?.id, 'bigint');
-    // One commit, seen by each of the four open connections.
-    assert.equal(db.version() - before, 4);
+    // One commit, seen by each of the three open connections.
+    assert.equal(db.version() - before, 3);
 
     // Unsubscribed callbacks stay quiet.
     await agents.bookkeeping.call('request_check', { reason: 'check_now' });
@@ -161,7 +161,7 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
 
   test('on_update_delivers_the_old_and_new_row', STEP, async () => {
     const updates: Array<[boolean, boolean]> = [];
-    const stop = agents.purchasing.onUpdate('checkRequest', (oldRow, newRow) => updates.push([oldRow.done, newRow.done]));
+    const stop = agents.payment_report.onUpdate('checkRequest', (oldRow, newRow) => updates.push([oldRow.done, newRow.done]));
     const open = agents.bookkeeping.rows('checkRequest').find((r) => !r.done);
     assert.ok(open, 'request_check left an open check');
     assert.equal(open.grantId, undefined);
@@ -187,12 +187,12 @@ describe('spacetime adapter (live server)', { skip: !enabled && 'set GG_SPACETIM
   // Last: it replaces the fixtures world.
   test('on_delete_delivers_the_rows_a_loaded_world_removed', STEP, async () => {
     const removed: string[] = [];
-    const stop = agents.purchasing.onDelete('grant', (row) => removed.push(row.id));
+    const stop = agents.payment_report.onDelete('grant', (row) => removed.push(row.id));
     await manager.call('load_seed', { json: oneGrantSeed() });
     await db.settled();
     stop();
     assert.deepEqual(removed.sort(), ['R01GM061721', 'R21AI182745']);
-    assert.deepEqual(agents.purchasing.rows('grant').map((g) => g.id), [TEST_GRANT]);
+    assert.deepEqual(agents.payment_report.rows('grant').map((g) => g.id), [TEST_GRANT]);
   });
 });
 

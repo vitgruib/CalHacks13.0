@@ -1,4 +1,4 @@
-// Ask's item check (T103), run by the purchasing agent: a researcher asks
+// Ask's item check (T103), run by the bookkeeping agent (T108): a researcher asks
 // whether an item is a research cost at all, before any grant is matched, and
 // Haiku answers fine or flag with a one-line reason and the kind of thing it
 // is. Nothing is bought or held; the request is checked again when it is sent.
@@ -11,7 +11,7 @@ import { CHECK_CATEGORIES } from '../prompts/purchasing.ts';
 import { ITEM_MODEL, ITEM_SYSTEM, ITEM_TASK, ItemAnswer } from '../prompts/item-check.ts';
 import { workQueue, type AgentContext, type AgentHandle } from './types.ts';
 
-const AGENT = 'purchasing';
+const AGENT = 'bookkeeping';
 
 const clip = (text: string, max = 160) => (text.length <= max ? text.trim() : `${text.slice(0, max - 1).trim()}…`);
 

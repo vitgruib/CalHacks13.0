@@ -100,22 +100,22 @@
       "feature": "purchases",
       "kind": "mistake",
       "refId": "rq-102",
-      "expected": "reroute or block",
-      "got": "block",
+      "expected": "hold",
+      "got": "hold",
       "outcome": "caught",
       "notRun": false,
-      "detail": "blocked; Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away."
+      "detail": "waiting_on_manager; Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away."
     },
     {
       "id": "pu-2",
       "feature": "purchases",
       "kind": "mistake",
       "refId": "rq-103",
-      "expected": "block",
-      "got": "block",
+      "expected": "hold",
+      "got": "hold",
       "outcome": "caught",
       "notRun": false,
-      "detail": "blocked; Category allowed: general office is not an allowable direct cost on a federal grant."
+      "detail": "waiting_on_manager; Category allowed: general office is not an allowable direct cost on a federal grant."
     },
     {
       "id": "pu-4",
@@ -214,7 +214,7 @@
       "got": "pass",
       "outcome": "correct pass",
       "notRun": false,
-      "detail": "Invoice paid."
+      "detail": "Invoice matched."
     },
     {
       "id": "in-d2",
@@ -225,7 +225,7 @@
       "got": "pass",
       "outcome": "correct pass",
       "notRun": false,
-      "detail": "Invoice paid."
+      "detail": "Invoice matched."
     }
   ],
   "unlistedFalseAlarms": [],
@@ -235,7 +235,7 @@
   "withStandIns": {
     "about": "The same run, then plain action calls stand in for agents not built yet. The module still decides.",
     "standIns": {
-      "purchases": "evaluate_request on each request still submitted; scores the module's rule verdicts (no hold / block / reroute choice).",
+      "purchases": "nothing: the module sends every request to the grant office with its rule verdicts (T108).",
       "invoices": "check_invoice on each unchecked invoice.",
       "payment_requests": "draft_payment_request for the month after each grant's latest request, once that month has ended.",
       "reports": "record_paper_facts with the facts already on each paper in the seed (no public-records lookup)."
@@ -304,14 +304,14 @@
         "detail": "waiting_on_manager; Grant is active and not frozen: Canceled 2026-03-10. A court restored it on 2026-04-20, but no payment has arrived since, so spending stays frozen."
       },
       "pu-1": {
-        "got": "block",
+        "got": "hold",
         "outcome": "caught",
-        "detail": "blocked; Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away."
+        "detail": "waiting_on_manager; Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away."
       },
       "pu-2": {
-        "got": "block",
+        "got": "hold",
         "outcome": "caught",
-        "detail": "blocked; Category allowed: general office is not an allowable direct cost on a federal grant."
+        "detail": "waiting_on_manager; Category allowed: general office is not an allowable direct cost on a federal grant."
       },
       "pu-4": {
         "got": "hold",
@@ -356,12 +356,12 @@
       "in-d1": {
         "got": "pass",
         "outcome": "correct pass",
-        "detail": "Invoice paid."
+        "detail": "Invoice matched."
       },
       "in-d2": {
         "got": "pass",
         "outcome": "correct pass",
-        "detail": "Invoice paid."
+        "detail": "Invoice matched."
       }
     },
     "unlistedFalseAlarms": [],
