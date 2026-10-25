@@ -36,7 +36,7 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
   return (
     <div className="iv-form">
       <div className="iv-bar">
-        <h2>{initial ? 'Revise invoice' : 'Submit an invoice'}</h2>
+        <h2>{initial ? 'Revise invoice' : 'Invoice for unexpected expenses or overhead'}</h2>
         <button type="button" className="iv-link" onClick={onCancel}>Cancel</button>
       </div>
 
