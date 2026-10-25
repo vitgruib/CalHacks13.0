@@ -242,11 +242,11 @@ back on it. The grant office uses this to know which researcher to answer.
 
 | Piece | Real or simulated |
 |---|---|
-| The two grants (IDs, titles, institutes, end dates) | Real NIH records, checked against NIH RePORTER on 2026-10-24: R01GM061721 "Biogenesis of the mitochondrial inner membrane" (NIGMS, ends 2027-07-31) and R21AI182745 "Investigating ploidy modulation as a strategy to improve antibiotic activity" (NIAID, ends 2026-08-31) |
+| The eight grants (IDs, titles, end dates) | Real NIH awards. The two demo-path grants were checked against NIH RePORTER on 2026-10-24: R01GM061721 "Biogenesis of the mitochondrial inner membrane" (NIGMS, ends 2027-07-31) and R21AI182745 "Investigating ploidy modulation as a strategy to improve antibiotic activity" (NIAID, ends 2026-08-31). The other six are real cuts taken from the live cancellation list for the cut scripts (T65) |
 | The lab, its people, purchases, invoices, approvals, payroll, amounts and start dates | Simulated. None of it describes the real investigators or their work |
 | The cancel, court order and payment timeline | Simulated (ready-made status events). The real R01GM061721 was terminated in 2025 and reinstated under *Thakur v. Trump*, which is why live government lookups stay off in the scripted demo (`GG_LIVE_SOURCES`) |
 | The cancellation list | Real: the Grant Witness NIH CSV, scraped by our Apify Actor (5,776 rows into 5,635 grants on 2026-10-24) [ours] |
-| Papers in the progress report | Simulated (12 papers). The report checker's live lookup was verified on 2026-10-24 on 12 real papers and their 8 correction and retraction notices, saved for offline use |
+| Papers in the progress report | Simulated (7 papers). The report checker's live lookup was verified on 2026-10-24 on 12 real papers and their 8 correction and retraction notices, saved for offline use |
 | Government payment system and follow-up questions | Simulated; the questions are pre-written in the seed |
 | Rules, money math and limits | Real code in the module, with a test for each planted case and decoy |
 | The audit cases the rules cite (WVU, Delaware, UC Davis, the NSF-OIG summary) | Real public audit findings ([pain point 08](docs/research/pain-points/08-unallowable-purchases-audits.md)) |
@@ -273,6 +273,18 @@ own planted cases, modeled on real audit findings, in a simulated lab, with
 saved Claude answers or code fallbacks (`GG_CLAUDE=offline`). So it tests
 the rules and the pipeline end to end, not live model judgment, and these
 are not field results. Every case: [sim/README.md](sim/README.md#planted-cases).
+
+### Real audit findings
+
+`eval/real-findings.mjs` (T80) takes 40 questioned costs from real audit
+reports saved in `docs/research/sources/docs/`, rebuilds each one as
+records in a fresh copy of the sim seed, and runs it through the same
+module and agents, scored by the scorecard's judge. Each case's quote is
+checked against its saved source. In
+[eval/real-findings.json](eval/real-findings.json) (`GG_CLAUDE=offline`):
+27 of the 40 findings are in scope, and 22 of the 27 are caught, with 5
+missed. All 3 decoys pass with 0 false alarms. The other 13 findings have
+no GrantGuard rule and are listed as out of scope.
 
 ## Run it locally
 
