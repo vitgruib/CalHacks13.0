@@ -504,6 +504,8 @@ const demoWorld = full => {
   const archivedOrders = full.orders.filter(o => !orders.has(o.id))
   const less = (g, state) => archivedOrders.filter(o => state(o.state)).reduce((t, o) => t + finalAmount(o) * shareOf(full.requests.find(r => r.id === o.requestId), g), 0)
   w.grants = w.grants.map(g => ({ ...g, spent: g.spent - less(g.id, s => s === 'paid'), promised: g.promised - less(g.id, s => s === 'open' || s === 'changed') }))
+  // Demo only, added last so it tops Requests: the demo video's trip (web/src/windows/Ask.tsx prefill).
+  w.requests.push({ id: 'rq-120', day: w.today, requester: 'scientist', requesterName: researcherFor(A), item: 'Trip to the Bahamas', category: 'travel', price: 9_500, grantId: A, purpose: "Study Alzheimer's disease", state: 'submitted', verdicts: [], explanation: 'Waiting for the grant office.' })
   return w
 }
 

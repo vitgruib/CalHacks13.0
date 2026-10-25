@@ -342,6 +342,20 @@
       "state": "bought",
       "verdicts": [],
       "explanation": "Charged directly on the department purchasing card on 2025-06-09, outside Grant Test Auto. Imported from the university ledger."
+    },
+    {
+      "id": "rq-120",
+      "day": "2026-06-15",
+      "requester": "scientist",
+      "requesterName": "Dr. Priya Nair",
+      "item": "Trip to the Bahamas",
+      "category": "travel",
+      "price": 9500,
+      "grantId": "R01GM061721",
+      "purpose": "Study Alzheimer's disease",
+      "state": "submitted",
+      "verdicts": [],
+      "explanation": "Waiting for the grant office."
     }
   ],
   "orders": [
