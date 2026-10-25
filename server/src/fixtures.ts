@@ -57,7 +57,7 @@ export const fixtures: Seed = {
   ],
 
   flags: [
-    { id: 'f1', grantId: A, day: '2026-06-15', kind: 'sources_disagree', summary: 'RePORTER says active; USAspending and the cancellation list say canceled.', open: true },
+    { id: 'f1', grantId: A, day: '2026-06-15', kind: 'sources_disagree', summary: 'Sources disagree: NIH RePORTER says active; USAspending says canceled; Cancellation list (Apify) says canceled.', open: true },
     { id: 'f2', grantId: A, day: '2026-04-20', kind: 'court_order_no_payment', summary: 'Court order received, but no payment has landed since the cancellation.', open: true },
   ],
 
@@ -228,7 +228,7 @@ export const fixtures: Seed = {
     {
       id: 'h4', kind: 'source_disagreement', refId: 'f1', grantId: A, raisedBy: 'bookkeeping', day: '2026-06-15',
       title: 'Which source is right about R01GM061721?',
-      why: 'RePORTER says active; USAspending and the cancellation list say canceled. Spending stays frozen until you decide.',
+      why: 'Sources disagree: NIH RePORTER says active; USAspending says canceled; Cancellation list (Apify) says canceled. Spending stays frozen until you decide.',
       evidence: [
         { label: 'NIH RePORTER', value: 'active (2026-06-15)' },
         { label: 'USAspending', value: 'canceled (2026-06-15)' },

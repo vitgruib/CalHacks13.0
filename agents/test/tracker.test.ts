@@ -451,3 +451,17 @@ test('an_award_missing_from_usaspending_raises_a_disagreement_flag', async () =>
   assert.match(flags[0].summary, /FY2024 NIH RePORTER lists \$429,221 awarded, USAspending shows \$0 obligated/);
   assert.equal(grant().frozen, true);
 });
+
+test('in_the_built_in_fixtures_a_decided_disagreement_is_not_raised_again', async () => {
+  world = await startWorld({ fixtures: true });
+  await world.worker.tracker.refresh();
+  await world.worker.idle();
+  const conn = world.worker.sessions.bookkeeping;
+  const lab = await world.person('grant_manager');
+  const hold = conn.rows('hold').find((h) => h.open && h.kind === 'source_disagreement' && h.grantId === 'R01GM061721');
+  assert.ok(hold, 'f1 is in the Inbox');
+  await lab.call('decide_hold', { holdId: hold.id, choice: 'pick_source', reason: 'NIH confirmed the award is live.' });
+  await lab.call('inject_status_event', { grantId: 'R01GM061721', kind: 'payment_received', source: 'Payment system', summary: 'Payment of $50,000 received.', amount: 50_000 });
+  await world.worker.idle();
+  assert.equal(disagreements(conn).filter((flag) => flag.open).length, 0, 'the decision was not undone');
+});
