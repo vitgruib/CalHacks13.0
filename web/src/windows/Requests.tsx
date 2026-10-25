@@ -274,8 +274,7 @@ function AllRequests() {
   const [who, setWho] = useState('all')
   const mine = db.requests.filter(r => who === 'all' || r.requesterName === who)
   // Requests with an open purchase hold come first, oldest first, each with its decision card.
-  const holds = openHolds(db, 'purchase')
-  const held = holds.map(h => mine.find(r => r.id === h.refId)).filter((r): r is PurchaseRequest => !!r)
+  const held = openHolds(db, 'purchase').map(h => mine.find(r => r.id === h.refId)).filter((r): r is PurchaseRequest => !!r)
   const list = newestFirst(mine.filter(r => !held.includes(r)))
   const count = (name: string) => db.requests.filter(r => r.requesterName === name).length
   const order: PlanStatus[] = ['submitted', 'returned', 'sent']

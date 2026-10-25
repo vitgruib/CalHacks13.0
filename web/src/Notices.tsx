@@ -21,7 +21,7 @@ function endPoint(g: Grant, today: string): string {
 
 function waiting(db: Db, grantId: string): string {
   const holds = db.holds.filter(h => h.grantId === grantId && !h.decision).length
-  return holds === 0 ? 'Nothing on this grant is waiting for the grant manager.' : `${holds} item${holds === 1 ? '' : 's'} on this grant ${holds === 1 ? 'is' : 'are'} waiting for the grant manager (held requests are under Requests, held bills under Invoices).`
+  return holds === 0 ? 'Nothing on this grant is waiting for the grant manager.' : `${holds} item${holds === 1 ? '' : 's'} on this grant ${holds === 1 ? 'is' : 'are'} waiting for the grant manager (see Requests, Invoices and Funds).`
 }
 
 function courtOrderNotice(db: Db, g: Grant, e: StatusEvent): Notice {
