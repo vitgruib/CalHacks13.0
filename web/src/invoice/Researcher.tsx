@@ -26,9 +26,9 @@ const NEXT: Record<Submission['status'], string> = {
 type InvoiceMenu = 'sent' | 'rejected' | 'approved'
 type Menu = 'requests' | InvoiceMenu
 const MENUS: [InvoiceMenu, string, string][] = [
-  ['sent', 'Sent', 'No invoices waiting on a decision.'],
-  ['rejected', 'Rejected', 'Nothing rejected.'],
-  ['approved', 'Approved', 'Nothing approved yet.'],
+  ['sent', 'In review', 'No invoices waiting on a decision.'],
+  ['rejected', 'Rejected/needs action', 'Nothing rejected.'],
+  ['approved', 'Approved invoices', 'Nothing approved yet.'],
 ]
 
 /** A held bill as a draft: the researcher corrects the amount or adds the missing proof and sends it for review. */
@@ -161,7 +161,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
         <p className="iv-lede">Send the invoice for anything you were approved to buy, then follow it until it's paid.</p>
       </div>
       <div className="iv-tabs" role="group" aria-label="Invoices">
-        {tab('requests', 'Approved requests', approvedReqs.length)}
+        {tab('requests', 'Submit invoices', approvedReqs.length)}
         {MENUS.map(([m, label]) => tab(m, label, subs[m].length + bills[m].length + fill(m).length))}
       </div>
 
