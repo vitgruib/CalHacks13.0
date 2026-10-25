@@ -18,7 +18,7 @@ export type Role = 'grant_manager' | 'scientist'
 // `home` is the window a role lands on.
 export const roles: { id: Role; label: string; home: string }[] = [
   { id: 'grant_manager', label: 'Grant office', home: 'funds' },
-  { id: 'scientist', label: 'Researcher', home: 'ask' },
+  { id: 'scientist', label: 'Researcher', home: 'grants' },
 ]
 
 /** The role the app is viewed as, for the few windows that differ by role. */
@@ -37,8 +37,8 @@ export const RoleContext = createContext<Role>('grant_manager')
 export interface WindowDef { id: string; label: string; job: string; Component: ComponentType; roles: Role[]; hidden?: boolean; badge?: (s: Store) => number }
 
 export const windows: WindowDef[] = [
-  { id: 'ask', label: 'Requests', job: 'Type what you need; see which grant can pay, in plain words', Component: Ask, roles: ['scientist'] },
   { id: 'grants', label: 'My grants', job: 'Each grant in plain words; a paused grant shows where its money is', Component: Grants, roles: ['scientist'] },
+  { id: 'ask', label: 'Requests', job: 'Type what you need; see which grant can pay, in plain words', Component: Ask, roles: ['scientist'] },
   { id: 'funds', label: 'Funds', job: 'How much money each grant really has, its status timeline, and any flags', Component: Funds, roles: ['grant_manager'], badge: s => openHolds(s.db, ...GRANT_HOLDS).length },
   { id: 'cases', label: 'Cases', job: 'Every problem on each grant in one place: the records that disagree, what happened, and what\'s missing', Component: Cases, roles: ['grant_manager'], hidden: true },
   { id: 'requests', label: 'Requests', job: 'Every purchase request and experiment plan from the lab\'s researchers: who asked, for what, the plan\'s funding-readiness report, and what the grant office decided', Component: Requests, roles: ['grant_manager'], badge: s => openHolds(s.db, 'purchase').length + s.plans.filter(p => p.status === 'submitted').length },
