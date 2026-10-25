@@ -242,7 +242,7 @@ const newestFirst = (requests: PurchaseRequest[]) => requests
   .map(x => x.r)
 
 /** A researcher's portal: their own plans and requests, tracked. Asking for one
- *  item happens on Ask; planning an experiment starts here. */
+ *  item happens on Ask. */
 function MyRequests() {
   const { db, plans: all, deletePlan } = useStore()
   const me = useResearcher()
@@ -254,14 +254,6 @@ function MyRequests() {
   }
   return (
     <>
-      <p className="rq-muted rq-plan-cta">
-        Need something new? <a href="#ask">Ask for it</a>, and we check which grant can pay first.
-      </p>
-      <p className="rq-muted rq-plan-cta">
-        Buying for a whole experiment?{' '}
-        <button type="button" onClick={() => setEditing('new')}>Plan an experiment</button>{' '}
-        Add every cost, get a funding-readiness report from the award's terms and your grant's real balance, then send it.
-      </p>
       {plans.length > 0 && (
         <Section title="Your experiment plans" aside={<span className="rq-muted">{plans.length} total</span>}>
           <div className="rq-list">{plans.map(p => <PlanCard key={p.id} p={p} onRevise={() => setEditing(p)} onDelete={() => deletePlan(p.id, me)} />)}</div>
