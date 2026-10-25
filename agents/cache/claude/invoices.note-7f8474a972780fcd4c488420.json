@@ -1,0 +1,44 @@
+{
+  "task": "invoices.note",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-25T01:29:44.771Z",
+  "input": {
+    "finding": "The order was already billed by inv-033 ($1,180, paid); paying this would pay it twice.",
+    "rule": "Invoice needs an open order and the approved amount",
+    "item": "Agar plates, 40 packs",
+    "invoice": {
+      "id": "inv-201",
+      "vendor": "MicroMedia",
+      "amount": 1180,
+      "received": "2026-06-10"
+    },
+    "order": {
+      "id": "o-033",
+      "requestId": "rq-033",
+      "grantId": "R21AI182745",
+      "amount": 1180,
+      "changedAmount": null,
+      "placed": "2026-04-14",
+      "state": "paid",
+      "canceledOn": null
+    },
+    "approvals": [],
+    "timeline": [
+      {
+        "day": "2026-04-14",
+        "what": "Order placed ($1,180)"
+      },
+      {
+        "day": "2026-04-20",
+        "what": "Invoice inv-033 billed this order ($1,180), paid"
+      },
+      {
+        "day": "2026-06-10",
+        "what": "Invoice arrived for $1,180, a second bill for the order"
+      }
+    ]
+  },
+  "answer": {
+    "note": "Invoice inv-201 conflicts with order o-033, which inv-033 already billed and which is marked paid; no approval record exists for either. Ask MicroMedia whether inv-201 is a duplicate or covers a separate shipment, and ask for the packing slip or delivery proof for the agar plates."
+  }
+}

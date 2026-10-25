@@ -232,9 +232,11 @@ function describe(conn: Connection, grant: GrantRow, period: Period, picks: Pick
       for (const invoice of invoices) if (invoice.orderId === order.id && notYetChecked(invoice)) unchecked.add(invoice.id);
       const request = requests.get(requestId);
       const share = request && request.split.length > 1 ? request.split.find((s) => s.grantId === grant.id)?.share : undefined;
-      // The bill that counts: a paid or matched one over a held second bill (a duplicate).
+      // The bill that counts: a paid or matched one over a held or not yet
+      // checked second bill (say, a duplicate).
       const bills = invoices.filter((row) => row.orderId === order.id && row.state !== 'rejected');
-      const invoice = bills.filter((row) => row.state !== 'held').at(-1) ?? bills.at(-1);
+      const settled = bills.filter((row) => row.state !== 'held' && !notYetChecked(row));
+      const invoice = (settled.length ? settled : bills).at(-1);
       return {
         requestId,
         item: request?.item ?? 'item',

@@ -1,0 +1,40 @@
+{
+  "task": "invoices.note",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-25T01:29:47.672Z",
+  "input": {
+    "finding": "The order was placed on 2026-06-10, after this invoice arrived on 2026-06-03, so the grant was never checked before the money was committed.",
+    "rule": "Invoice needs an open order and the approved amount",
+    "item": "Biosafety cabinet annual certification",
+    "invoice": {
+      "id": "inv-202",
+      "vendor": "CertiFlow",
+      "amount": 1240,
+      "received": "2026-06-03"
+    },
+    "order": {
+      "id": "o-202",
+      "requestId": "rq-202",
+      "grantId": "R21AI182745",
+      "amount": 1240,
+      "changedAmount": null,
+      "placed": "2026-06-10",
+      "state": "open",
+      "canceledOn": null
+    },
+    "approvals": [],
+    "timeline": [
+      {
+        "day": "2026-06-03",
+        "what": "Invoice arrived for $1,240, before the order existed"
+      },
+      {
+        "day": "2026-06-10",
+        "what": "Order placed ($1,240)"
+      }
+    ]
+  },
+  "answer": {
+    "note": "Invoice inv-202 (received 2026-06-03) conflicts with order o-202 (placed 2026-06-10, request rq-202), and no approval record exists for either. Ask CertiFlow when the service was requested and performed, and for any earlier quote or work order. Also look for grant R21AI182745 approval evidence dated before the work."
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-25T01:29:50.244Z",
+  "input": {
+    "request": {
+      "item": "Sequencing core: 48 isolates, run 1 of 2",
+      "category": "core facility services",
+      "price": 2900,
+      "purpose": "Resistance-gene survey of the clinical isolate panel",
+      "askedForGrant": "R21AI182745",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R21AI182745",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R21AI182745"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist asked for R21AI182745; purpose is a single-project isolate survey with no sharing or proportions stated."
+  }
+}

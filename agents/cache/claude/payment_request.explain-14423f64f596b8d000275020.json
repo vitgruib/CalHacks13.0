@@ -1,0 +1,85 @@
+{
+  "task": "payment_request.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-25T01:34:44.788Z",
+  "input": {
+    "grant": {
+      "id": "R21AI182745",
+      "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+      "agency": "NIH / NIAID"
+    },
+    "period": {
+      "from": "2026-05-01",
+      "to": "2026-05-31"
+    },
+    "total": "$7,060",
+    "personnelTotal": "$5,130",
+    "personnel": [
+      {
+        "role": "Research technician",
+        "effort": "60%",
+        "amount": "$2,880",
+        "payPeriods": 1
+      },
+      {
+        "role": "Graduate researcher",
+        "effort": "50%",
+        "amount": "$2,250",
+        "payPeriods": 1
+      }
+    ],
+    "categories": [
+      {
+        "category": "equipment service",
+        "subtotal": "$1,290",
+        "purchases": [
+          {
+            "requestId": "rq-036",
+            "item": "Ultra-low freezer service contract",
+            "aim": "Keeping isolate stocks at -80 C",
+            "vendor": "CoolChain",
+            "ordered": "2026-05-01",
+            "amount": "$1,290",
+            "changedFrom": "$1,150"
+          }
+        ]
+      },
+      {
+        "category": "core facility services",
+        "subtotal": "$640",
+        "purchases": [
+          {
+            "requestId": "rq-038",
+            "item": "Genomics core: sequencing run for 24 isolates",
+            "aim": "Confirming resistance genes",
+            "vendor": "Campus Genomics Core",
+            "ordered": "2026-05-20",
+            "amount": "$640"
+          }
+        ]
+      }
+    ],
+    "leftOut": [
+      {
+        "requestId": "rq-037",
+        "item": "Mueller-Hinton broth, 12 bottles",
+        "amount": "$1,460",
+        "why": "invoice inv-037 is on hold (Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460))"
+      },
+      {
+        "requestId": "pay-R21-2026-05-3",
+        "item": "Research associate salary (40% effort)",
+        "amount": "$2,600",
+        "why": "The same person is charged 110% effort for 2026-05-01 to 2026-05-31: 70% on R01GM061721, 40% on R21AI182745. Salary can't be claimed above 100% effort until the grant manager fixes the charges."
+      }
+    ],
+    "rule": "Held spending is left out",
+    "limits": {
+      "total": 1000
+    }
+  },
+  "answer": {
+    "claimed": "The lab requests repayment under NIH/NIAID grant R21AI182745 (Investigating ploidy modulation as a strategy to improve antibiotic activity) for 2026-05-01 to 2026-05-31, totaling $7,060. Personnel, $5,130: a research technician at 60% effort for 1 pay period, $2,880; a graduate researcher at 50% effort for 1 pay period, $2,250. Equipment service, $1,290: rq-036, ultra-low freezer service contract, $1,290, keeping isolate stocks at -80 C. Core facility services, $640: rq-038, genomics core sequencing run for 24 isolates, $640, confirming resistance genes.",
+    "leftOut": "Under the rule \"held spending is left out\", rq-037 (Mueller-Hinton broth, $1,460) is excluded because invoice inv-037 is on hold over a billing mismatch (24 bottles billed, 12 ordered). pay-R21-2026-05-3 (research associate salary, $2,600) is excluded because the person is charged 110% effort across two grants until the grant manager fixes it."
+  }
+}

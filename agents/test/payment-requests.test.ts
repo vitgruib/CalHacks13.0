@@ -239,6 +239,9 @@ test('the_seeded_follow_up_gets_an_answer_naming_only_its_requests_purchases', a
   assert.match(fu.answerDraft!, /MicroMedia, ordered 2026-04-14, \$1,180/);
   assert.ok(!fu.answerDraft!.includes('inv-201'), 'cites the paid bill, not the held second bill');
   assert.match(fu.answerDraft!, /ordered before the project end date \(2026-08-31\)/);
+  // o-033's paid bill, not inv-201, the planted second bill on it.
+  assert.match(fu.answerDraft!, /rq-033 [^\n]*invoiced 2026-04-20, paid/);
+  assert.doesNotMatch(fu.answerDraft!, /invoiced 2026-06-10/);
   assert.ok(fu.answerDraft!.includes(money(pr.amount)));
   for (const name of personNames(conn)) assert.ok(!fu.answerDraft!.includes(name), `no person names (${name})`);
   assert.equal(openHolds(conn, 'follow_up', fu.id).length, 1, 'the answer waits for the grant manager');
