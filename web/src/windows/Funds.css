@@ -22,8 +22,6 @@
 .funds-flags li { padding: 4px 0; }
 .funds-flags .day { color: var(--muted); font-variant-numeric: tabular-nums; margin-right: 4px; }
 .funds-flags.closed { color: var(--muted); }
-.funds-inbox { font-size: 14px; margin: 8px 0 0; }
-.funds-inbox a { color: var(--accent); font-weight: 600; }
 
 @media (max-width: 720px) {
   .funds-grid { grid-template-columns: minmax(0, 1fr); }

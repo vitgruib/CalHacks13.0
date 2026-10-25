@@ -37,7 +37,6 @@ export default function MoneyCharts({ db, g, details = false }: Props) {
           <button type="button" className="mc-open" onClick={() => openTab(detailUrl(g.id, 'all'))}>
             Detailed view <span aria-hidden="true">↗</span>
           </button>
-          <span className="mc-open-hint">The full breakdown, in a new tab</span>
         </div>
       )}
     </div>

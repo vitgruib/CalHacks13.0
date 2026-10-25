@@ -56,7 +56,6 @@ export default function Funds() {
 }
 
 function GrantCard({ g, db }: { g: Grant; db: Db }) {
-  const openHolds = db.holds.filter(h => h.grantId === g.id && !h.decision)
   const daysLeft = daysBetween(db.today, g.end)
 
   return (
@@ -74,13 +73,6 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
       </p>
 
       <MoneyCharts db={db} g={g} details />
-
-      {openHolds.length > 0 && (
-        <p className="funds-inbox">
-          {openHolds.length} {openHolds.length === 1 ? 'item is' : 'items are'} waiting for the grant manager on this grant.{' '}
-          <a href="#inbox">Open the Inbox</a>
-        </p>
-      )}
     </Section>
   )
 }
