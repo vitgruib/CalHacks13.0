@@ -7,6 +7,7 @@ import Notices from './Notices'
 import DemoDock from './DemoDock'
 import UserSwitch from './UserSwitch'
 import Landing from './landing/Landing'
+import { useCondensedNames } from './plain'
 import BrandLink from './landing/BrandLink'
 import './scientist.css'
 
@@ -48,6 +49,7 @@ const fromHash = (role: Role, hash: string) => allowed(role).find(w => w.id === 
 
 export default function App() {
   const { db } = useStore()
+  useCondensedNames() // grant headings read it; re-render everything when it flips
   const [href, setHref] = useState(() => location.href)
   useEffect(() => {
     const on = () => setHref(location.href)

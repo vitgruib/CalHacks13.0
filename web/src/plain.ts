@@ -3,6 +3,7 @@
 // tells a researcher matches what the purchasing agent will do.
 import { canBuyAlone, daysBetween, spendingVerdicts, trulyAvailable, type Verdict } from '../../server/src/rules'
 import { CARD_LIMIT } from '../../server/src/vocab'
+import { useSyncExternalStore } from 'react'
 import type { Db, Grant } from './data/types'
 import { money } from './ui'
 
@@ -27,8 +28,22 @@ const HEADINGS: Record<string, { title: string; short: string }> = {
   F31DC022138: { title: 'Smell circuits', short: 'Smell circuits' },
 }
 
+// Condensed headings (default) or each grant's full real title, switched in
+// Demo controls and remembered in this browser.
+const NAMES_KEY = 'grantguard.names'
+let condensed = (() => { try { return localStorage.getItem(NAMES_KEY) !== 'full' } catch { return true } })()
+const nameListeners = new Set<() => void>()
+const subscribeNames = (f: () => void) => { nameListeners.add(f); return () => { nameListeners.delete(f) } }
+export function setCondensedNames(on: boolean) {
+  condensed = on
+  try { localStorage.setItem(NAMES_KEY, on ? 'condensed' : 'full') } catch { /* just won't survive a reload */ }
+  nameListeners.forEach(f => f())
+}
+/** Re-renders the caller (App, so the whole page) when the naming switches. */
+export const useCondensedNames = () => useSyncExternalStore(subscribeNames, () => condensed)
+
 /** The heading shown for a grant. */
-export const grantHeading = (g: Grant) => HEADINGS[g.id]?.title ?? g.title
+export const grantHeading = (g: Grant) => (condensed && HEADINGS[g.id]?.title) || g.title
 
 const SMALL = new Set(['a', 'an', 'and', 'as', 'by', 'for', 'from', 'in', 'of', 'on', 'the', 'to', 'with'])
 
