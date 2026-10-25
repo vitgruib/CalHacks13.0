@@ -1,0 +1,60 @@
+{
+  "task": "purchasing.read",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-25T02:29:54.622Z",
+  "input": {
+    "request": {
+      "item": "Confocal microscope service contract, 12 months",
+      "category": "equipment service",
+      "price": 3600,
+      "purpose": "Annual service of the shared confocal microscope; imaging for both R01GM061721 (membrane folding) and R21AI182745 (assay imaging)",
+      "askedForGrant": "R01GM061721",
+      "declaredSharedWith": [],
+      "split": []
+    },
+    "pushBacks": [],
+    "grants": [
+      {
+        "id": "R01AI178875",
+        "title": "Susceptibility and resistance of multidrug-resistant gram-negative bacteria",
+        "end": "2028-07-31"
+      },
+      {
+        "id": "R01GM061721",
+        "title": "Biogenesis of the mitochondrial inner membrane",
+        "end": "2027-07-31"
+      },
+      {
+        "id": "R01GM105672",
+        "title": "The mechanism of ESCRT-mediated surveillance of the nuclear envelope",
+        "end": "2026-08-31"
+      },
+      {
+        "id": "R01GM155497",
+        "title": "PP2A/B55alpha substrate specificity and function in cell cycle progression",
+        "end": "2029-06-30"
+      },
+      {
+        "id": "R01HL176691",
+        "title": "Role of macrophages in regulating cardiac muscle metabolism",
+        "end": "2028-11-30"
+      },
+      {
+        "id": "R21AI182745",
+        "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+        "end": "2026-08-31"
+      }
+    ]
+  },
+  "answer": {
+    "grantId": "R01GM061721",
+    "grantIsClear": true,
+    "servesGrantIds": [
+      "R01GM061721",
+      "R21AI182745"
+    ],
+    "split": [],
+    "splitSource": "none",
+    "note": "Scientist asked for R01GM061721; purpose names two grants as users of the microscope but gives no proportions, so no split is set."
+  }
+}
