@@ -13,6 +13,8 @@ import { Badge, Section, grantStatus, money } from '../ui'
 import type { Tone } from '../ui'
 import scorecardJson from '../../../eval/scorecard.json'
 import { edgeCaseOf, isEdgeGrant } from '../people'
+import { openHolds } from './Inbox'
+import { GRANT_HOLDS, fundsHref } from './Funds'
 import './TestLab.css'
 import { grantHeading } from '../plain'
 
@@ -35,7 +37,10 @@ const outcomeTone: Record<string, Tone> = { caught: 'good', 'correct pass': 'goo
 // Remember the picked grant while switching windows (the window remounts).
 let lastGrantId: string | undefined
 
-interface Note { id: number; tone: 'good' | 'bad'; text: string }
+interface Note { id: number; tone: 'good' | 'bad'; text: string; link?: { href: string; label: string } }
+
+/** Open Inbox items about the grant itself; they are decided on its Funds card. */
+const waitingOn = (db: Db, grantId: string) => openHolds(db, ...GRANT_HOLDS).some(h => h.grantId === grantId)
 
 const paymentsOn = (db: Db, grantId: string) => db.statusEvents.filter(e => e.grantId === grantId && e.kind === 'payment_received').length
 
@@ -81,7 +86,7 @@ export default function TestLab() {
 
   const grant = db.grants.find(g => g.id === grantId)
 
-  const note = (tone: Note['tone'], text: string) => setNotes(n => [{ id: Date.now() + Math.random(), tone, text }, ...n].slice(0, 6))
+  const note = (tone: Note['tone'], text: string, link?: Note['link']) => setNotes(n => [{ id: Date.now() + Math.random(), tone, text, link }, ...n].slice(0, 6))
   /** Run an action; a returned string becomes a note now (undefined: the action writes its own later). */
   const run = (fn: () => string | undefined) => {
     try {
@@ -95,7 +100,8 @@ export default function TestLab() {
   useEffect(() => {
     if (!pendingPay || paymentsOn(db, pendingPay.grantId) <= pendingPay.seen) return
     setPendingPay(null)
-    note('good', paymentNote(db, pendingPay.grantId, pendingPay.amount, pendingPay.wasFrozen))
+    const id = pendingPay.grantId
+    note('good', paymentNote(db, id, pendingPay.amount, pendingPay.wasFrozen), waitingOn(db, id) ? { href: fundsHref(id), label: 'Decide it in Funds' } : undefined)
   }, [db, pendingPay])
 
   const cancel = () => run(() => {
@@ -127,12 +133,12 @@ export default function TestLab() {
     <div className="testlab">
       <p className="demo-banner" role="note">
         <strong>Demo only.</strong> This window is for us and the judges to drive the simulation. A real grant office
-        would not have it. Nothing here is a decision; decisions happen only in the Inbox.
+        would not have it. Nothing here is a decision; the grant office decides on Funds, Requests and Invoice.
       </p>
 
       {notes.length > 0 && (
         <ul className="tl-notes" aria-live="polite" aria-label="What just happened">
-          {notes.map((n, i) => <li key={n.id} className={`${n.tone}${i === 0 ? ' latest' : ''}`}>{n.text}</li>)}
+          {notes.map((n, i) => <li key={n.id} className={`${n.tone}${i === 0 ? ' latest' : ''}`}>{n.text}{n.link && <> <a href={n.link.href}>{n.link.label}</a></>}</li>)}
         </ul>
       )}
 
@@ -168,7 +174,7 @@ export default function TestLab() {
               {grant.frozen ? <Badge tone="bad">Frozen</Badge> : <Badge tone="good">Spending open</Badge>}
               <span className="muted">Received {money(grant.received)} of {money(grant.awarded)}</span>
             </span>
-            <p className="tl-next">{nextStep(db, grant)} <a href="#funds">See it in Funds</a></p>
+            <p className="tl-next">{nextStep(db, grant)} <a href={fundsHref(grant.id)}>{waitingOn(db, grant.id) ? 'Decide it in Funds' : 'See it in Funds'}</a></p>
           </div>
         )}
         <ol className="scenarios">

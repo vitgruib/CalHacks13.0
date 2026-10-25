@@ -8,6 +8,8 @@
 import { useStore } from './data/store'
 import { RESEARCHERS } from './people'
 import { Badge } from './ui'
+import { openHolds } from './windows/Inbox'
+import { GRANT_HOLDS, fundsHref } from './windows/Funds'
 import './FailureCases.css'
 
 type Event = { kind: 'canceled' | 'court_order' | 'payment_received'; source: 'Cancellation list (Apify)' | 'Court notice' | 'Payment system'; summary: string; amount?: number; day?: string }
@@ -52,7 +54,7 @@ export const CASES: FailureCase[] = [
       { label: 'The cut', event: cut('K01DK133670', '2025-06-30'), watch: 'Canceled, dated 2025-06-30. Spending freezes.' },
       {
         label: 'Money arrives', event: { kind: 'payment_received', source: 'Payment system', summary: 'Payment of $34,026 received (USAspending outlays, October to November 2025).', amount: 34_026, day: '2025-11-30' },
-        watch: 'Money landed, but nothing on record restored the grant. After a termination, money still comes in for costs incurred before it (2 CFR 200.343), so spending stays frozen and the grant manager decides in the Inbox.',
+        watch: 'Money landed, but nothing on record restored the grant. After a termination, money still comes in for costs incurred before it (2 CFR 200.343), so spending stays frozen and the grant manager decides on its Funds card.',
       },
     ],
   },
@@ -74,6 +76,7 @@ export default function FailureCases() {
           const at = s.steps.reduce((last, step, i) => (done(step) ? i : last), -1)
           const r = RESEARCHERS.find(x => x.id === s.researcher)
           const grant = db.grants.find(g => g.id === s.grantId)!
+          const waiting = openHolds(db, ...GRANT_HOLDS).some(h => h.grantId === s.grantId)
           return (
             <article key={s.grantId} className={`failure-case ${s.kind}`}>
               <div className="failure-case-head">
@@ -88,7 +91,7 @@ export default function FailureCases() {
                     <button type="button" disabled={i <= at || i > at + 1} onClick={() => injectStatusEvent({ grantId: s.grantId, ...step.event })} title={step.event.summary}>
                       {step.label}{step.event.day && <small>{step.event.day}</small>}
                     </button>
-                    {i === at && <p className="failure-case-watch">{step.watch}</p>}
+                    {i === at && <p className="failure-case-watch">{step.watch}{waiting && <> <a href={fundsHref(s.grantId)}>Decide it in Funds</a></>}</p>}
                   </li>
                 ))}
               </ol>

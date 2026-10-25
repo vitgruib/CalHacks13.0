@@ -24,7 +24,7 @@ export function whyFrozen(db: Db, g: Grant): FreezeCause[] {
   const after = events.slice(canceledAt + 1)
   const paidUnrestored = canceledAt >= 0 && g.status === 'canceled' && after.includes('payment_received') && !after.includes('unfrozen')
   if (paidUnrestored) {
-    out.push({ kind: 'other', text: 'money arrived, but nothing has restored the grant (it may be closeout money); the grant manager decides in the Inbox' })
+    out.push({ kind: 'other', text: 'money arrived, but nothing has restored the grant (it may be closeout money); the grant manager decides on its Funds card' })
   } else if (canceledAt >= 0 && !after.some(k => k === 'payment_received' || k === 'unfrozen')) {
     out.push({
       kind: 'payment',
@@ -35,7 +35,7 @@ export function whyFrozen(db: Db, g: Grant): FreezeCause[] {
   }
 
   const holds = db.holds.filter(h => h.grantId === g.id && h.kind === 'source_disagreement' && !h.decision)
-  for (const h of holds) out.push({ kind: 'source', text: `pick a source in the Inbox (${h.title})` })
+  for (const h of holds) out.push({ kind: 'source', text: `pick a source on its Funds card (${h.title})` })
   if (holds.length === 0 && db.flags.some(f => f.grantId === g.id && f.open && f.kind === 'sources_disagree')) {
     out.push({ kind: 'source', text: 'the sources disagree, and the grant manager has to decide' })
   }
