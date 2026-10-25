@@ -42,3 +42,4 @@ Unassigned, outside the tracks. Someone must own this. Prep is in
 | Apify token, usage | https://console.apify.com/settings/integrations, https://console.apify.com/billing |
 | SpacetimeDB install, docs | https://spacetimedb.com/install, https://spacetimedb.com/docs |
 - [x] @ethan: turn on the live cancellation list on the VM worker (T59 demo time buttons): add `GG_LIVE_SOURCES=list`, `GG_APIFY_ACTOR=nathanqiu~nih-grant-cancellation-list`, `GG_LAB_GRANTS=R01GM061721,R21AI182745` and `APIFY_TOKEN=` (from `.env.local`) to `/etc/grantguard/agents.env`, then `sudo systemctl restart grantguard-agents`.
+- [ ] @ethan: T65 cut scripts on the hosted demo: (1) add the four script grants to the VM worker's `GG_LAB_GRANTS` and restart it (the script in the T65 chat does it; setup.sh's template already has them); (2) on the live site, Load demo seed once so maincloud gets the script grants, researchers and their starting demo days.
