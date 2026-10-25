@@ -5,6 +5,7 @@ import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
 import { Badge, Empty, money } from '../ui'
 import { OpenInvoice, StatusBadge } from './Findings'
+import { Count } from './Stage'
 import { check, parseAmount, type Draft, type Submission } from './model'
 import { demoSubmissions } from './demo'
 import SubmitForm from './SubmitForm'
@@ -82,7 +83,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     const g = db.grants.find(x => x.id === s.grantId)
     const decision = [...s.audit].reverse().find(a => a.who === 'Grant manager')
     return (
-      <li key={s.id} className="iv-card">
+      <li key={s.id} className="iv-card" data-tilt="card" data-status={s.status}>
         <header>
           <strong>{s.vendor || 'Invoice'}</strong>
           <span className="iv-amt">{money(parseAmount(s.amount))}</span>
@@ -98,7 +99,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     )
   }
   const bill = (i: Db['invoices'][number]) => (
-    <li key={i.id} className="iv-card">
+    <li key={i.id} className="iv-card" data-tilt="card" data-status={i.state === 'held' ? 'exception' : 'approved'}>
       <header>
         <strong>{i.vendor}</strong>
         <span className="iv-amt">{money(i.amount)}</span>
@@ -119,12 +120,12 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   return (
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoices">
-        <button type="button" className={`iv-tab iv-tab-blue${view === 'submit' ? ' on' : ''}`} aria-pressed={view === 'submit'} onClick={() => { setForm({}); setView(v => (v === 'submit' ? null : 'submit')) }}>Submit an invoice</button>
-        <button type="button" className={`iv-tab iv-tab-orange${view === 'action' ? ' on' : ''}`} aria-pressed={view === 'action'} onClick={() => pick('action')}>
-          Need your action <span className="iv-count">{nAction}</span>
+        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-blue${view === 'submit' ? ' on' : ''}`} aria-pressed={view === 'submit'} onClick={() => { setForm({}); setView(v => (v === 'submit' ? null : 'submit')) }}>Submit an invoice</button>
+        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-orange${view === 'action' ? ' on' : ''}`} aria-pressed={view === 'action'} onClick={() => pick('action')}>
+          Need your action <span className="iv-count"><Count n={nAction} /></span>
         </button>
-        <button type="button" className={`iv-tab iv-tab-green${view === 'approved' ? ' on' : ''}`} aria-pressed={view === 'approved'} onClick={() => pick('approved')}>
-          Approved <span className="iv-count">{nApproved}</span>
+        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-green${view === 'approved' ? ' on' : ''}`} aria-pressed={view === 'approved'} onClick={() => pick('approved')}>
+          Approved <span className="iv-count"><Count n={nApproved} /></span>
         </button>
       </div>
 

@@ -1,0 +1,62 @@
+/* Research lab console: dark stage, glass cards, 3D tilt. */
+.iv-stage { position: relative; isolation: isolate; overflow: hidden; border-radius: 22px; padding: 28px; min-height: 560px; color: #e6f2ff;
+  background: radial-gradient(1100px 560px at 12% -8%, #17437f 0%, transparent 62%), radial-gradient(900px 520px at 105% 108%, #40207a 0%, transparent 58%), #050914;
+  box-shadow: 0 24px 60px rgb(3 8 22 / .45), inset 0 0 0 1px rgb(120 190 255 / .14); }
+.iv-stage::before { content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none; background-image: linear-gradient(rgb(120 200 255 / .06) 1px, transparent 1px), linear-gradient(90deg, rgb(120 200 255 / .06) 1px, transparent 1px); background-size: 44px 44px; -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 25%, transparent 78%); mask-image: radial-gradient(ellipse at 50% 40%, #000 25%, transparent 78%); }
+.iv-field-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; }
+.iv-stage-body { position: relative; z-index: 1; }
+
+.iv-stage .iv, .iv-stage .iv-form, .iv-stage .iv-page { --v-line: rgb(140 200 255 / .22); --v-muted: #8fb2d2; --v-text: #e6f2ff; --v-panel: rgb(10 20 42 / .78); --v-accent: #4dc3ff; --v-good: #4ade80; --v-warn: #fbbf24; --v-bad: #ff7a7a; --v-warn-bg: rgb(251 191 36 / .12); --v-bad-bg: rgb(255 107 107 / .13); --v-good-bg: rgb(74 222 128 / .12); color: var(--v-text); }
+.iv-stage .iv-lede, .iv-stage .iv-note { color: var(--v-muted); }
+.iv-stage input, .iv-stage select, .iv-stage textarea { background: rgb(255 255 255 / .06); color: #e6f2ff; border-color: rgb(140 200 255 / .28); }
+.iv-stage option { background: #0b1630; color: #e6f2ff; }
+.iv-stage .iv-form .iv-after { background: rgb(74 222 128 / .12); }
+.iv-stage .iv-hint .iv-tip { background: #e6f2ff; color: #07122a; }
+.iv-stage .iv-h2, .iv-stage h1, .iv-stage h2 { color: #f2f8ff; }
+.iv-stage a.iv-back { color: #7fd6ff; }
+
+/* 3D tilt: anything with data-tilt leans toward the cursor and catches a glare. */
+.iv-stage [data-tilt] { position: relative; transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transform-style: preserve-3d; transition: transform .16s ease-out, box-shadow .25s, filter .2s; will-change: transform; }
+.iv-stage [data-tilt]::after { content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / .30), transparent 62%); opacity: var(--glare, 0); transition: opacity .2s; }
+.iv-stage .iv-tab:hover, .iv-stage .iv-tab:focus-visible { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(18px); }
+
+/* The three tabs as glowing slabs that float. */
+.iv-stage .iv-tabs { gap: 20px; margin: 4px 0 26px; perspective: 1200px; }
+.iv-stage .iv-tab { min-height: 96px; border: 1px solid rgb(255 255 255 / .35); animation: iv-float 6s ease-in-out infinite; text-shadow: 0 1px 8px rgb(0 0 0 / .25); }
+.iv-stage .iv-tab:nth-child(2) { animation-delay: -2s; }
+.iv-stage .iv-tab:nth-child(3) { animation-delay: -4s; }
+.iv-stage .iv-tab-blue { background: linear-gradient(145deg, #2f7bff, #1b3fd0); box-shadow: 0 14px 34px rgb(47 123 255 / .45), 0 0 0 1px rgb(120 180 255 / .5), inset 0 1px 0 rgb(255 255 255 / .35); }
+.iv-stage .iv-tab-orange { background: linear-gradient(145deg, #ffe45a, #f4b400); box-shadow: 0 14px 34px rgb(251 191 36 / .4), 0 0 0 1px rgb(255 230 120 / .5), inset 0 1px 0 rgb(255 255 255 / .5); }
+.iv-stage .iv-tab-green { background: linear-gradient(145deg, #2ccf74, #12844a); box-shadow: 0 14px 34px rgb(34 197 94 / .4), 0 0 0 1px rgb(120 230 170 / .5), inset 0 1px 0 rgb(255 255 255 / .35); }
+.iv-stage .iv-tab.on { box-shadow: 0 0 0 3px rgb(255 255 255 / .85), 0 18px 44px rgb(120 200 255 / .4); }
+.iv-stage .iv-count { font-size: 26px; min-width: 52px; text-align: center; backdrop-filter: blur(6px); }
+@keyframes iv-float { 50% { translate: 0 -5px; } }
+
+/* Invoice cards: glass panels that cascade in; problems pulse and get scanned. */
+.iv-stage .iv-card { position: relative; overflow: hidden; background: linear-gradient(145deg, rgb(22 42 80 / .82), rgb(8 14 32 / .84)); backdrop-filter: blur(10px); border: 1px solid var(--v-line); box-shadow: 0 12px 30px rgb(0 0 0 / .4); animation: iv-in .6s cubic-bezier(.2, .8, .2, 1) backwards; }
+.iv-stage .iv-card:hover { border-color: rgb(120 210 255 / .6); box-shadow: 0 16px 40px rgb(0 0 0 / .5), 0 0 24px rgb(77 195 255 / .2); }
+.iv-stage .iv-list > .iv-card:nth-child(2) { animation-delay: .09s; }
+.iv-stage .iv-list > .iv-card:nth-child(3) { animation-delay: .18s; }
+.iv-stage .iv-card[data-status="exception"] { border-color: rgb(255 122 122 / .55); animation: iv-in .6s cubic-bezier(.2, .8, .2, 1) backwards, iv-alert 2.6s ease-in-out infinite; }
+.iv-stage .iv-card[data-status="exception"]::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 2; pointer-events: none; background: linear-gradient(90deg, transparent, #ff7a7a, transparent); animation: iv-scan 2.8s linear infinite; }
+.iv-stage .iv-card[data-status="approved"] { border-color: rgb(74 222 128 / .4); }
+@keyframes iv-in { from { opacity: 0; transform: perspective(900px) rotateX(-16deg) translateY(22px) scale(.97); } }
+@keyframes iv-alert { 50% { box-shadow: 0 12px 30px rgb(0 0 0 / .4), 0 0 28px rgb(255 107 107 / .35); } }
+@keyframes iv-scan { from { top: -2px; } to { top: 100%; } }
+.iv-stage .iv-card .iv-amt { font-size: 20px; text-shadow: 0 0 14px rgb(77 195 255 / .35); }
+.iv-stage a.iv-go { background: linear-gradient(145deg, #3aa8ff, #2447d8); box-shadow: 0 8px 22px rgb(58 168 255 / .45); }
+
+@media (prefers-reduced-motion: reduce) {
+  .iv-stage .iv-tab, .iv-stage .iv-card, .iv-stage .iv-card[data-status="exception"] { animation: none; }
+  .iv-stage .iv-card[data-status="exception"]::before { display: none; }
+}
+
+/* Colours that must win over the page-wide and researcher-portal text rules. */
+.iv-stage .iv-card, .iv-stage .iv-card header, .iv-stage .iv-card strong, .iv-stage .iv-card p, .iv-stage .iv-card li, .iv-stage .iv-card dt, .iv-stage .iv-card dd, .iv-stage .iv-next, .iv-stage .iv-f p, .iv-stage .iv-f strong { color: #e6f2ff; }
+.iv-stage .iv-card .iv-note, .iv-stage .iv-card .iv-muted, .iv-stage .iv-evidence, .iv-stage .iv-area, .iv-stage .iv-audit time, .iv-stage .iv-why { color: #8fb2d2; }
+.iv-stage .iv-card .iv-amt { color: #fff; }
+.iv-stage .iv-card button.iv-edit, .iv-stage button.iv-edit { background: #b45309; border: 1px solid #f59e0b; color: #fff; font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 8px; box-shadow: 0 4px 14px rgb(245 158 11 / .3); }
+.iv-stage button.iv-edit:hover { background: #d97706; }
+.iv-stage .iv-table th, .iv-stage .iv-table td, .iv-stage .iv-panel, .iv-stage .iv-facts dd, .iv-stage .iv-budget dd, .iv-stage .iv-budget dt, .iv-stage .iv-audit { color: #e6f2ff; }
+.iv-stage .iv-facts dt, .iv-stage .iv-lines { color: #8fb2d2; }
+.iv-stage .iv-stats > div { background: rgb(10 20 42 / .6); }

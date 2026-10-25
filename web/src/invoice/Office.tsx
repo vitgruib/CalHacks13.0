@@ -121,7 +121,7 @@ export default function Office({ db }: { db: Db }) {
       {subs.length === 0 ? <Empty>No submitted invoices yet. When a researcher submits one it appears here.</Empty> : (
         <ul className="iv-list">
           {subs.map(s => (
-            <li key={s.id} className="iv-card">
+            <li key={s.id} className="iv-card" data-tilt="card" data-status={s.status}>
               <header>
                 <strong>{s.vendor}</strong><span className="iv-amt">{money(parseAmount(s.amount))}</span><StatusBadge status={s.status} />
                 <OpenInvoice id={s.id} vendor={s.vendor} />
