@@ -1,13 +1,17 @@
 // The plan builder: an experiment, one funding source and a line-item budget,
 // with the report below it. Propose → assess → revise → assess again → save or
 // submit. Changing anything after an assessment marks the report out of date.
+// A submitted plan that clears all three checks goes straight to the
+// purchasing agent, one request per line; any other waits for the grant office.
 import { useMemo, useState, type ChangeEvent } from 'react'
+import { useStore } from '../data/store'
 import type { Db } from '../data/types'
+import type { Researcher } from '../people'
 import { grantHeading } from '../plain'
 import { Badge, money } from '../ui'
 import { assess, blankItem, CATEGORIES, planTotal, type Category, type Item, type Plan, type Report } from './assess'
 import ReportView from './ReportView'
-import { newPlanId, savePlan, type SavedPlan } from './store'
+import { newPlanId, planRequests, savePlan, type SavedPlan } from './store'
 
 /** The brief's demo plan: relevant science, an unapproved model, $8,400 of spending. */
 export function examplePlan(grantId: string): Plan {
@@ -25,7 +29,8 @@ export function examplePlan(grantId: string): Plan {
   }
 }
 
-export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; researcher: string; saved?: SavedPlan; onDone: () => void }) {
+export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; researcher: Researcher; saved?: SavedPlan; onDone: () => void }) {
+  const { submitRequest } = useStore()
   const firstGrant = db.grants[0]?.id ?? ''
   const [id] = useState(saved?.id ?? newPlanId())
   const [plan, setPlan] = useState<Plan>(saved?.plan ?? { experiment: '', grantId: firstGrant, completion: '', items: [blankItem()], uploaded: [] })
@@ -46,13 +51,19 @@ export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; 
     return r
   }
   const persist = (status: SavedPlan['status'], r: Report | undefined) => {
-    savePlan({ id, researcher, status, savedOn: db.today, submittedOn: status === 'submitted' ? db.today : undefined, plan, report: r })
+    const p: SavedPlan = { id, researcher: researcher.name, status, savedOn: db.today, plan, report: r }
+    if (status !== 'draft') p.submittedOn = db.today
+    if (status === 'sent') {
+      p.sentOn = db.today
+      for (const rq of planRequests(p)) submitRequest(rq, researcher)
+    }
+    savePlan(p)
   }
   const saveDraft = () => { persist('draft', report); setMessage('Saved as a draft.') }
   const submit = () => {
     const r = stale || !report ? run() : report
     if (!r) return
-    persist('submitted', r)
+    persist(r.overall === 'aligned' ? 'sent' : 'submitted', r)
     onDone()
   }
 
@@ -69,7 +80,7 @@ export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; 
     <div className="sg-editor">
       <div className="sg-bar">
         <h2>{saved ? 'Revise plan' : 'New experiment plan'}</h2>
-        <button type="button" onClick={onDone}>Back to my plans</button>
+        <button type="button" onClick={onDone}>Back to my requests</button>
       </div>
 
       <label className="sg-field">
@@ -191,10 +202,14 @@ export default function PlanEditor({ db, researcher, saved, onDone }: { db: Db; 
           <div className="sg-actions">
             <button type="button" onClick={saveDraft}>Save as draft</button>
             <button type="button" className="primary" onClick={submit}>Submit for review</button>
-            <a href="#spendguard" onClick={e => { e.preventDefault(); document.querySelector('.sg-editor')?.scrollIntoView({ behavior: 'smooth' }) }}>Revise the plan above</a>
+            <a href="#requests" onClick={e => { e.preventDefault(); document.querySelector('.sg-editor')?.scrollIntoView({ behavior: 'smooth' }) }}>Revise the plan above</a>
             {message && <Badge tone="good">{message}</Badge>}
           </div>
-          <p className="sg-note">Submitting sends the plan and this report to the grants office to review. It does not buy or reserve anything.</p>
+          <p className="sg-note">
+            {report.overall === 'aligned'
+              ? 'All three checks pass, so submitting sends each line to the purchasing agent as its own request. The spending rules still check every one.'
+              : 'Submitting sends the plan and this report to the grant office. Nothing is bought until they approve it.'}
+          </p>
         </>
       )}
     </div>

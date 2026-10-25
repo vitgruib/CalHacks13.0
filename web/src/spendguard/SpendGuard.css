@@ -56,3 +56,15 @@
 .sg-neg { color: var(--g-bad); }
 .sg-who h4 { margin: 8px 0 2px; font-size: 14px; }
 .sg-who ul { margin: 0; padding-left: 20px; font-size: 14px; }
+.sg-checkline { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 13px; color: var(--g-muted); margin-top: 4px; }
+.sg-checkline .badge { margin-right: 6px; }
+.sg-summary { max-width: 72ch; margin: 12px 0; }
+.sg-summary p { margin: 0 0 8px; font-size: 14px; line-height: 1.5; }
+.sg-scroll { overflow-x: auto; }
+.sg-table tfoot th, .sg-table tfoot td { border-bottom: 0; border-top: 2px solid var(--g-text); }
+.sg-needs { font-size: 13px; color: var(--g-warn); min-width: 16ch; }
+.sg-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sg-details { margin: 16px 0 8px; font-size: 14px; }
+.sg-details summary { cursor: pointer; font-weight: 600; }
+.sg-details h4 { margin: 12px 0 4px; font-size: 14px; }
+.sg-details p { margin: 0 0 4px; }

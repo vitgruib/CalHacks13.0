@@ -32,3 +32,8 @@
 .rq-who { margin: 2px 0 4px; font-size: 14px; }
 .rq-filter { font-size: 13px; color: var(--muted); }
 .rq-filter select { margin-left: 4px; font: inherit; }
+
+.rq-plan { margin: 2px 0 0; font-size: 13px; }
+.rq-plan a { font-weight: 600; }
+.rq-plan-cta { margin: 14px 0 0; font-size: 14px; }
+.rq-small { font-size: 12px; margin: 0; }

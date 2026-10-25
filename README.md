@@ -113,9 +113,8 @@ checklist and known edge cases: [docs/EDGE-TESTING.md](docs/EDGE-TESTING.md).
  +----------------------------------^----------------------------------+
                                     |  live subscriptions + actions
  +------------------------- web app (web/) ----------------------------+
- |  Grant office portal: 10 windows; only its Inbox decides            |
- |  2 researcher portals (Priya, Sofia): Ask, My grants, My requests,  |
- |  SpendGuard                                                         |
+ |  Grant office portal: 9 windows; only its Inbox decides             |
+ |  2 researcher portals (Priya, Sofia): Ask, My grants, My requests   |
  +---------------------------------------------------------------------+
 ```
 
@@ -216,18 +215,23 @@ nav, or the researcher header) moves between them. Each window has one job
 - **Grant office portal** (the grant manager): Funds (real money, status
   timeline, flags), Cases (every problem on each grant in one place: the
   records that disagree, what happened, what's missing), Requests (every researcher's requests, each saying
-  "Requested by" whom, with a researcher filter), Invoices (matched or held),
+  "Requested by" whom, with a researcher filter, plus the experiment plans
+  researchers submitted: each plan's funding-readiness report as a written
+  summary and one table of its lines, and Approve or Return with a reason), Invoices (matched or held),
   Payment requests, Reports (each paper's checks), Inbox (waiting for a
   human, with evidence; a purchase hold names the researcher who asked), Log
   (who did what, and why), Demo controls (demo only: start over, the cut
-  scripts, inject events, fast-forward, scorecard), SpendGuard (plan an experiment and its spending before any
-  money is committed; researchers have it too).
+  scripts, inject events, fast-forward, scorecard).
 - **Researcher portals**, one per researcher: **Dr. Priya Nair**
   (postdoctoral researcher, grant A, R01GM061721) and **Sofia Alvarez**
   (graduate researcher, grant B, R21AI182745). Each has Ask (which grant can
   pay, in plain words), My grants (a paused grant shows where its money is),
-  My requests and SpendGuard. A researcher sees only their own requests and can push
-  back only on those. They never see the grant office's windows.
+  My requests: ask for one item, or plan an experiment with a line-item
+  budget and get a funding-readiness report (scope, allowability, budget,
+  follow-ups) before sending it. A plan that clears all three checks sends
+  each line to the purchasing agent as its own request; any other waits for
+  the grant office. Plans live in the browser for now. A researcher sees
+  only their own requests and can push back only on those. They never see the grant office's windows.
 
 Each researcher is a separate identity on the server, so every request
 stores who asked (`request.requesterName`), and only that person can push

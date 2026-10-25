@@ -1,9 +1,20 @@
+// Requests: every purchase request, and the experiment plans they come from
+// (SpendGuard, merged in T67). A researcher asks for one item or plans an
+// experiment with a line-item budget; a plan's lines become requests once it
+// clears its checks or the grant office approves it, and from there each line
+// is an ordinary request: the purchasing agent, the spending rules, the Inbox.
 import { useContext, useState, type FormEvent } from 'react'
 import { useStore } from '../data/store'
 import type { Grant, PurchaseRequest, RequestState } from '../data/types'
 import { Badge, Empty, Section, money, type Tone } from '../ui'
 import { RoleContext } from './registry'
-import { RESEARCHERS, requesterLabel, useResearcher } from '../people'
+import { RESEARCHERS, requesterLabel, researcherNamed, useResearcher } from '../people'
+import { grantHeading } from '../plain'
+import { OVERALL_LABEL, planTotal, type Overall } from '../spendguard/assess'
+import PlanEditor from '../spendguard/PlanEditor'
+import ReportView from '../spendguard/ReportView'
+import { deletePlan, notBought, planRef, planRequests, savePlan, usePlans, type PlanStatus, type SavedPlan } from '../spendguard/store'
+import '../spendguard/SpendGuard.css'
 import './Requests.css'
 
 const stateLabel: Record<RequestState, string> = {
@@ -198,6 +209,8 @@ function PushBack({ r }: { r: PurchaseRequest }) {
 
 function RequestCard({ r }: { r: PurchaseRequest }) {
   const role = useContext(RoleContext)
+  const ref = planRef(r)
+  const plan = usePlans().find(p => p.id === ref?.planId)
   return (
     <article className="rq-card" aria-labelledby={`rq-${r.id}`}>
       <header>
@@ -206,7 +219,8 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
         <Badge tone={stateTone[r.state]}>{stateLabel[r.state]}</Badge>
       </header>
       {role === 'grant_manager' && <p className="rq-who">Requested by <strong>{requesterLabel(r.requesterName)}</strong></p>}
-      <p className="rq-muted rq-meta">{r.day} · {r.category} · {r.purpose}</p>
+      {ref && <p className="rq-plan">Line {ref.line} of {ref.of} in the plan <a href="#requests" onClick={e => { e.preventDefault(); document.getElementById(`plan-${ref.planId}`)?.scrollIntoView({ behavior: 'smooth' }) }}>{plan ? short(plan.plan.experiment, 70) : ref.planId}</a></p>}
+      <p className="rq-muted rq-meta">{r.day} · {r.category} · {ref ? ref.rest : r.purpose}</p>
       <GrantLine r={r} />
       <p className="rq-explain"><span className="rq-muted">Purchasing agent: </span>{r.explanation}</p>
       {r.state === 'waiting_on_manager' && (
@@ -237,22 +251,136 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
   )
 }
 
+// ── Experiment plans ───────────────────────────────────────────────────────
+
+const short = (s: string, n = 90) => (s.length > n ? `${s.slice(0, n - 1)}…` : s) || 'Untitled plan'
+const overallTone: Record<Overall, Tone> = { aligned: 'good', clarify: 'warn', outside: 'bad' }
+const planLabel: Record<PlanStatus, [Tone, string]> = {
+  draft: ['neutral', 'Draft'],
+  submitted: ['warn', 'Waiting for the grant office'],
+  sent: ['good', 'Sent to the purchasing agent'],
+  returned: ['bad', 'Returned to the researcher'],
+}
+
+/** Each line's request once the plan is sent, or why the line isn't one. */
+function useLineStatus(p: SavedPlan) {
+  const { db } = useStore()
+  if (p.status !== 'sent') return undefined
+  const sent = db.requests.filter(r => planRef(r)?.planId === p.id)
+  return (itemId: string) => {
+    const n = p.plan.items.findIndex(i => i.id === itemId)
+    const why = n < 0 ? 'Removed' : notBought(p.plan.items[n])
+    if (why) return <span className="rq-muted">{why}</span>
+    const rq = sent.find(r => planRef(r)?.line === n + 1)
+    return rq ? <Badge tone={stateTone[rq.state]}>{stateLabel[rq.state]}</Badge> : <span className="rq-muted">Sending…</span>
+  }
+}
+
+/** The grant office's call on a plan that didn't clear: approve sends its lines. */
+function PlanDecision({ p }: { p: SavedPlan }) {
+  const { db, submitRequest } = useStore()
+  const [reason, setReason] = useState('')
+  const [error, setError] = useState('')
+  const asker = researcherNamed(p.researcher)
+  const decide = (choice: 'approve' | 'return') => {
+    if (!reason.trim()) return setError('Give a reason; the researcher sees it.')
+    if (choice === 'approve' && !asker) return setError(`No portal for ${p.researcher}, so their lines can't be sent as their requests.`)
+    const next: SavedPlan = { ...p, decision: { choice, reason: reason.trim(), day: db.today }, status: choice === 'approve' ? 'sent' : 'returned' }
+    if (choice === 'approve') {
+      next.sentOn = db.today
+      for (const rq of planRequests(next)) submitRequest(rq, asker!)
+    }
+    savePlan(next)
+  }
+  return (
+    <div className="rq-push">
+      <label>
+        Your decision and why (the researcher sees it)
+        <textarea rows={2} value={reason} onChange={e => { setReason(e.target.value); setError('') }} placeholder="e.g. Organoids are covered by aim 2 per the PI's note; quote on file" />
+      </label>
+      <div className="rq-actions">
+        <button type="button" className="primary" onClick={() => decide('approve')}>Approve: send lines to purchasing</button>
+        <button type="button" onClick={() => decide('return')}>Return to the researcher</button>
+        <span role="status" className="rq-error">{error}</span>
+      </div>
+      <p className="rq-muted rq-small">Approving clears the plan's scope questions. Each line is still checked by the spending rules, and anything they hold comes to the Inbox.</p>
+    </div>
+  )
+}
+
+function PlanCard({ p, onRevise }: { p: SavedPlan; onRevise?: () => void }) {
+  const { db } = useStore()
+  const role = useContext(RoleContext)
+  const [open, setOpen] = useState(role === 'grant_manager' && p.status === 'submitted')
+  const lineStatus = useLineStatus(p)
+  const g = db.grants.find(x => x.id === p.plan.grantId)
+  const [tone, label] = planLabel[p.status]
+  return (
+    <article className="rq-card" id={`plan-${p.id}`} aria-labelledby={`plan-h-${p.id}`}>
+      <header>
+        <h3 id={`plan-h-${p.id}`}>{short(p.plan.experiment)}</h3>
+        <span className="rq-price">{money(planTotal(p.plan.items))}</span>
+        {p.report && <Badge tone={overallTone[p.report.overall]}>{OVERALL_LABEL[p.report.overall]}</Badge>}
+        <Badge tone={tone}>{label}</Badge>
+      </header>
+      {role === 'grant_manager' && <p className="rq-who">Planned by <strong>{requesterLabel(p.researcher)}</strong></p>}
+      <p className="rq-muted rq-meta">
+        Experiment plan · {p.plan.items.length} line{p.plan.items.length === 1 ? '' : 's'} · {g ? grantHeading(g) : p.plan.grantId} ·{' '}
+        {p.sentOn ? `sent ${p.sentOn}` : p.submittedOn ? `submitted ${p.submittedOn}` : `saved ${p.savedOn}`}
+      </p>
+      {p.decision && (
+        <p className={p.decision.choice === 'approve' ? 'rq-explain' : 'rq-wait'}>
+          <span className="rq-muted">Grant office, {p.decision.day}: </span>{p.decision.choice === 'approve' ? 'Approved' : 'Returned'}. {p.decision.reason}
+        </p>
+      )}
+      {role === 'scientist' && p.status === 'submitted' && <p className="rq-wait">Waiting for the grant office to review the report. Nothing is bought until they approve it.</p>}
+      <div className="rq-actions rq-push-row">
+        {p.report && <button type="button" onClick={() => setOpen(!open)}>{open ? 'Hide report' : 'Open report'}</button>}
+        {onRevise && p.status !== 'sent' && (
+          <button type="button" onClick={() => { if (p.status !== 'draft') savePlan({ ...p, status: 'draft', submittedOn: undefined, decision: undefined }); onRevise() }}>
+            {p.status === 'submitted' ? 'Withdraw and revise' : 'Revise'}
+          </button>
+        )}
+        {onRevise && p.status !== 'sent' && <button type="button" onClick={() => deletePlan(p.id)}>Delete</button>}
+      </div>
+      {open && p.report && <ReportView report={p.report} lineStatus={lineStatus} />}
+      {role === 'grant_manager' && p.status === 'submitted' && <PlanDecision p={p} />}
+    </article>
+  )
+}
+
 // Newest first; for the same day, later-added requests come first.
 const newestFirst = (requests: PurchaseRequest[]) => requests
   .map((r, i) => ({ r, i }))
   .sort((a, b) => b.r.day.localeCompare(a.r.day) || b.i - a.i)
   .map(x => x.r)
 
-/** A researcher's portal: ask to buy, and only their own requests. */
+/** A researcher's portal: ask for one item or plan an experiment, and only
+ *  their own plans and requests. */
 function MyRequests() {
   const { db } = useStore()
   const me = useResearcher()
+  const plans = usePlans().filter(p => p.researcher === me.name)
+  const [editing, setEditing] = useState<SavedPlan | 'new' | null>(null)
   const list = newestFirst(db.requests.filter(r => r.requesterName === me.name))
+  if (editing) {
+    return <PlanEditor key={editing === 'new' ? 'new' : editing.id} db={db} researcher={me} saved={editing === 'new' ? undefined : editing} onDone={() => setEditing(null)} />
+  }
   return (
     <>
       <Section title="Ask to buy something">
         <RequestForm grants={db.grants} />
+        <p className="rq-muted rq-plan-cta">
+          Buying for a whole experiment?{' '}
+          <button type="button" onClick={() => setEditing('new')}>Plan an experiment</button>{' '}
+          Add every cost, get a funding-readiness report from the award's terms and your grant's real balance, then send it.
+        </p>
       </Section>
+      {plans.length > 0 && (
+        <Section title="Your experiment plans" aside={<span className="rq-muted">{plans.length} total</span>}>
+          <div className="rq-list">{plans.map(p => <PlanCard key={p.id} p={p} onRevise={() => setEditing(p)} />)}</div>
+        </Section>
+      )}
       <Section title="Your requests" aside={<span className="rq-muted">{list.length} total</span>}>
         {list.length === 0 ? <Empty>No requests yet.</Empty> : (
           <div className="rq-list">{list.map(r => <RequestCard key={r.id} r={r} />)}</div>
@@ -268,7 +396,18 @@ function AllRequests() {
   const [who, setWho] = useState('all')
   const list = newestFirst(db.requests.filter(r => who === 'all' || r.requesterName === who))
   const count = (name: string) => db.requests.filter(r => r.requesterName === name).length
+  const order: PlanStatus[] = ['submitted', 'returned', 'sent']
+  const plans = usePlans()
+    .filter(p => p.status !== 'draft' && (who === 'all' || p.researcher === who))
+    .sort((a, b) => order.indexOf(a.status) - order.indexOf(b.status))
+  const waiting = plans.filter(p => p.status === 'submitted').length
   return (
+    <>
+    <Section title="Experiment plans" aside={<span className="rq-muted">{waiting} waiting for you · plans live in this browser for now</span>}>
+      {plans.length === 0 ? <Empty>No submitted plans. A researcher's plan that doesn't clear its checks waits here for your decision.</Empty> : (
+        <div className="rq-list">{plans.map(p => <PlanCard key={p.id} p={p} />)}</div>
+      )}
+    </Section>
     <Section
       title="Requests from researchers"
       aside={(
@@ -285,6 +424,7 @@ function AllRequests() {
         <div className="rq-list">{list.map(r => <RequestCard key={r.id} r={r} />)}</div>
       )}
     </Section>
+    </>
   )
 }
 

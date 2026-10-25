@@ -11,7 +11,6 @@ import TestLab from './TestLab'
 import Ask from './Ask'
 import Grants from './Grants'
 import Cases from './Cases'
-import SpendGuard from './SpendGuard'
 
 export type Role = 'grant_manager' | 'scientist'
 // `home` is the window a role lands on.
@@ -30,8 +29,7 @@ export const windows: WindowDef[] = [
   { id: 'grants', label: 'My grants', job: 'Each grant in plain words; a paused grant shows where its money is', Component: Grants, roles: ['scientist'] },
   { id: 'funds', label: 'Funds', job: 'How much money each grant really has, its status timeline, and any flags', Component: Funds, roles: ['grant_manager'] },
   { id: 'cases', label: 'Cases', job: 'Every problem on each grant in one place: the records that disagree, what happened, and what\'s missing', Component: Cases, roles: ['grant_manager'] },
-  { id: 'requests', label: 'Requests', job: 'Every purchase request from the lab\'s researchers: who asked, for what, and what the purchasing agent did', Component: Requests, roles: ['grant_manager', 'scientist'] },
-  { id: 'spendguard', label: 'SpendGuard', job: 'Plan an experiment and its spending; get a funding-readiness report before any money is committed', Component: SpendGuard, roles: ['scientist', 'grant_manager'] },
+  { id: 'requests', label: 'Requests', job: 'Every purchase request and experiment plan from the lab\'s researchers: who asked, for what, the plan\'s funding-readiness report, and what the purchasing agent did', Component: Requests, roles: ['grant_manager', 'scientist'] },
   { id: 'invoices', label: 'Invoices', job: 'Each bill: matched or held, with the mismatch spelled out', Component: Invoices, roles: ['grant_manager'] },
   { id: 'payment-requests', label: 'Payment requests', job: 'Drafted requests, follow-up questions, and their status', Component: PaymentRequests, roles: ['grant_manager'] },
   { id: 'reports', label: 'Reports', job: 'Each paper in the progress report, with its check results', Component: Reports, roles: ['grant_manager'] },
