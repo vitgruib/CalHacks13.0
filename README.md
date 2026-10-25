@@ -42,8 +42,8 @@ reporting to one human grant manager.
 
 | Their question | Where to look |
 |---|---|
-| Is it real enough? | Real NIH grant records and a real scrape of the public cancellation list. A simulated lab with 14 planted mistakes modeled on real audit findings, plus 5 decoys. Scorecard: 14 of 14 caught, 0 false alarms ([below](#whats-real-and-whats-simulated)). |
-| Would you hire it? | Each agent logs in as its own database identity. Limits live in the database code, not in prompts: agents cannot decide Inbox items, nobody approves their own request, and an agent buys alone only under the $5,000 card limit with every rule passing. Every action has a Log row with a "why?". |
+| Is it real enough? | Real NIH grant records and a real scrape of the public cancellation list. A simulated lab with 18 planted mistakes modeled on real audit findings, plus 7 decoys. Scorecard: 18 of 18 caught, 0 false alarms ([below](#whats-real-and-whats-simulated)). |
+| Would you hire it? | Each agent logs in as its own database identity. Limits live in the database code, not in prompts: agents cannot decide Inbox items, nobody approves their own request, and an agent buys alone only at or under the $5,000 card limit with every rule passing. Every action has a Log row with a "why?". |
 | Did we see something new? | The corner: the post-award grant office of a research lab during the 2025 to 2026 grant cancellations, where a grant's status is a timeline of dated events with sources, not one field. |
 | The moment | A court restores a canceled grant, and the agent still won't spend until the money arrives. Then it buys on its own. |
 
@@ -111,8 +111,9 @@ checklist and known edge cases: [docs/EDGE-TESTING.md](docs/EDGE-TESTING.md).
  +----------------------------------^----------------------------------+
                                     |  live subscriptions + actions
  +------------------------- web app (web/) ----------------------------+
- |  Grant office portal: 8 windows; only its Inbox decides            |
- |  2 researcher portals (Priya, Sofia): Ask, My grants, My requests  |
+ |  Grant office portal: 10 windows; only its Inbox decides            |
+ |  2 researcher portals (Priya, Sofia): Ask, My grants, My requests,  |
+ |  SpendGuard                                                         |
  +---------------------------------------------------------------------+
 ```
 
@@ -132,11 +133,17 @@ simulated clock ([schema.ts](server/src/schema.ts), actions in
   lands after it unfreezes the grant; a court order alone does not. A
   disagreement between sources about status also freezes spending and asks
   the grant manager.
-- **Six spending rules** ([rules.ts](server/src/rules.ts)): the grant is
-  active and not frozen; not in its last 90 days; the category is allowed;
-  at or under the $5,000 card limit; enough truly available money; a shared
-  cost is split across the grants it serves. The last-90-days, category and
+- **Seven spending rules** ([rules.ts](server/src/rules.ts)): the grant is
+  active and not frozen; supplies are not bought in its last 90 days; the
+  category is allowed; at or under the $5,000 card limit; the same person's
+  same-day purchases in one category add up to no more than that limit (a
+  split purchase); enough truly available money; a shared cost is split
+  across the grants it serves. The last-90-days, category, split-purchase and
   shared-cost rules cite a real audit case when they fail.
+- **Invoice and payroll checks:** a bill must match its order and approval,
+  and is held if its order was canceled, the order was already paid (a
+  duplicate), or it arrived before the order was placed. Salary for anyone over 100%
+  effort across grants is left out of a payment request until it's fixed.
 - **Hard limits in code:** each identity is bound to one role, once. Agents
   cannot decide Inbox items ("Agents cannot do this; only people can").
   Nobody approves their own request. A buy fails unless every rule passes,
@@ -171,7 +178,7 @@ before cost a call.
 ### The grant manager
 
 The Inbox is the only window with decision buttons (Approve, Reject,
-Override, Pick this source). Every decision needs a reason; the module
+Override, Ask vendor, Pick this source). Every decision needs a reason; the module
 rechecks the rules, then acts. Researchers are people using their own
 researcher portals; the agency's follow-up questions are pre-written in the seed.
 
@@ -180,7 +187,7 @@ researcher portals; the agency's follow-up questions are pre-written in the seed
 | Source | What it gives the tracker | Code |
 |---|---|---|
 | NIH RePORTER | Grant status and award by project number | `agents/src/sources/reporter.ts` |
-| USAspending | Whether the award still shows as active | `agents/src/sources/usaspending.ts` |
+| USAspending | Money obligated and paid out on the award (it reports no status; the seed's USAspending status readings are simulated) | `agents/src/sources/usaspending.ts` |
 | Grant Witness NIH list, through our Apify Actor | Canceled, reinstated or unfrozen | [scrapers/](scrapers/README.md), `agents/src/sources/cancellations.ts` |
 | Crossref, PubMed and PubMed Central | Funding credits, PMCIDs, corrections and retractions | `agents/src/sources/papers.ts` ([verified demo papers](agents/src/sources/papers.md)) |
 
@@ -205,17 +212,19 @@ nav, or the researcher header) moves between them. Each window has one job
 ([web/src/windows/registry.ts](web/src/windows/registry.ts)):
 
 - **Grant office portal** (the grant manager): Funds (real money, status
-  timeline, flags), Requests (every researcher's requests, each saying
+  timeline, flags), Cases (every problem on each grant in one place: the
+  records that disagree, what happened, what's missing), Requests (every researcher's requests, each saying
   "Requested by" whom, with a researcher filter), Invoices (matched or held),
   Payment requests, Reports (each paper's checks), Inbox (waiting for a
   human, with evidence; a purchase hold names the researcher who asked), Log
   (who did what, and why), Test lab (demo only: inject events, fast-forward,
-  scorecard).
+  scorecard), SpendGuard (plan an experiment and its spending before any
+  money is committed; researchers have it too).
 - **Researcher portals**, one per researcher: **Dr. Priya Nair**
   (postdoctoral researcher, grant A, R01GM061721) and **Sofia Alvarez**
   (graduate researcher, grant B, R21AI182745). Each has Ask (which grant can
-  pay, in plain words), My grants (a paused grant shows where its money is)
-  and My requests. A researcher sees only their own requests and can push
+  pay, in plain words), My grants (a paused grant shows where its money is),
+  My requests and SpendGuard. A researcher sees only their own requests and can push
   back only on those. They never see the grant office's windows.
 
 Each researcher is a separate identity on the server, so every request
@@ -245,13 +254,13 @@ Test lab shows it.
 | Area | Planted mistakes caught | Decoys passed (no false alarm) |
 |---|---|---|
 | Fund tracker | 3 of 3 | none planted |
-| Purchases | 5 of 5 | 2 of 2 |
-| Invoices | 2 of 2 | 1 of 1 |
-| Payment requests | 1 of 1 | none planted |
+| Purchases | 6 of 6 | 3 of 3 |
+| Invoices | 4 of 4 | 2 of 2 |
+| Payment requests | 2 of 2 | none planted |
 | Progress reports | 3 of 3 | 2 of 2 |
-| **Total** | **14 of 14, 0 missed** | **5 of 5, 0 false alarms** |
+| **Total** | **18 of 18, 0 missed** | **7 of 7, 0 false alarms** |
 
-From `node eval/score.mjs --no-write` on 2026-10-24 at commit c3aecac; same
+From `node eval/score.mjs --no-write` on 2026-10-24 at commit effee2a; same
 as the committed [eval/scorecard.json](eval/scorecard.json). It measures our
 own planted cases, modeled on real audit findings, in a simulated lab, with
 saved Claude answers or code fallbacks (`GG_CLAUDE=offline`). So it tests
@@ -291,8 +300,8 @@ with defaults: [agents/README.md#environment](agents/README.md#environment).
 ```
 
 Installs each package on a fresh clone, then runs typecheck and tests for
-`server/`, `agents/`, `eval/`, `web/` and `scrapers/`, and prints the
-scorecard. It rewrites `eval/scorecard.json`. A miss or false alarm is
+`server/`, `agents/`, `eval/` and `scrapers/`, a typecheck and production
+build for `web/` (it has no tests), and prints the scorecard. It rewrites `eval/scorecard.json`. A miss or false alarm is
 printed but does not fail the check; `node eval/score.mjs --strict` exits 1
 on either.
 
