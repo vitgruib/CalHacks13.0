@@ -1,6 +1,6 @@
 {
   "about": "Questioned costs from real audit reports, each rebuilt in a fresh copy of sim/seed.json and run through the real module and agents. Agents run on their deterministic fallbacks unless GG_CLAUDE says otherwise.",
-  "claude": "off",
+  "claude": "offline",
   "byDecision": {
     "disallowed": {
       "findings": 10,

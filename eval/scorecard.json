@@ -1,6 +1,6 @@
 {
-  "seed": "sim\\seed.json",
-  "key": "sim\\answer-key.json",
+  "seed": "sim/seed.json",
+  "key": "sim/answer-key.json",
   "today": "2026-06-15",
   "totals": {
     "caught": 18,
