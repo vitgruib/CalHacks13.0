@@ -1,4 +1,4 @@
-// The award is the budget (T117): we treat the whole award as the money the
+// The award is the budget (T119): we treat the whole award as the money the
 // lab can spend, and the funder's payments only as a signal of whether it is
 // paying on this grant: paying, no payment since a cut, or paying again since
 // a date. Real funders pay as costs come in, one budget year at a time; the

@@ -145,7 +145,7 @@ export default function TestLab() {
     injectStatusEvent({ grantId, kind: 'court_order', source: 'Court notice', summary: `Court order restores ${grantId}. No payment schedule is set.` })
     return `Court order restores ${grantId}. Spending stays frozen: a court order is not cash.`
   })
-  // The award is the budget (T117): a payment means the funder pays again, so
+  // The award is the budget (T119): a payment means the funder pays again, so
   // it sends the rest of the award; there is no amount to type.
   const pay = () => run(() => {
     if (!grant) return undefined

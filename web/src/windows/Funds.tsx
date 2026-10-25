@@ -1,5 +1,5 @@
 // Funds window (MASTER-PLAN §3.1, §4): how much money each grant really has,
-// whether the funder is paying on it (the award is the budget, T117), its status
+// whether the funder is paying on it (the award is the budget, T119), its status
 // timeline, and any flags. The Inbox items about a grant itself (sources
 // disagree, money on a canceled grant) are decided on its card with
 // the Inbox's own card (`HoldCard`), as Requests and Invoices do for theirs:
