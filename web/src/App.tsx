@@ -4,26 +4,24 @@ import { RoleContext, roles, windows, type Role } from './windows/registry'
 import { RESEARCHERS, ResearcherContext } from './people'
 import DetailPage from './DetailPage'
 import Notices from './Notices'
+import Entry from './Entry'
+import DemoDock from './DemoDock'
 import './scientist.css'
 
 // Two kinds of portal, kept apart (T39): the grant office (the grant manager's
 // windows, the only decision buttons) and one portal per researcher, who sees
 // only their own requests. A portal is 'grant_office' or a researcher id.
 type Portal = 'grant_office' | string
+// Asked on entry (T81): a new tab starts at "Who are you?"; a reload keeps the
+// answer. The only way to switch afterwards is the floating Demo controls.
 const PORTAL_KEY = 'grantguard.portal'
-const OLD_ROLE_KEY = 'grantguard.role'
-const savedPortal = (): Portal => {
+const savedPortal = (): Portal | null => {
   try {
-    const p = localStorage.getItem(PORTAL_KEY)
-    if (p && (p === 'grant_office' || RESEARCHERS.some(r => r.id === p))) return p
-    return localStorage.getItem(OLD_ROLE_KEY) === 'scientist' ? RESEARCHERS[0].id : 'grant_office'
-  } catch { return 'grant_office' }
+    const p = sessionStorage.getItem(PORTAL_KEY)
+    return p && (p === 'grant_office' || RESEARCHERS.some(r => r.id === p)) ? p : null
+  } catch { return null }
 }
-const roleOf = (p: Portal): Role => (p === 'grant_office' ? 'grant_manager' : 'scientist')
-const portals: { id: Portal; label: string; sub: string }[] = [
-  { id: 'grant_office', label: 'Grant office', sub: 'Grant manager' },
-  ...RESEARCHERS.map(r => ({ id: r.id, label: r.name, sub: r.title })),
-]
+const roleOf = (p: Portal | null): Role => (p === 'grant_office' || !p ? 'grant_manager' : 'scientist')
 
 const menu = (role: Role) => windows.filter(w => w.roles.includes(role))
 const home = (role: Role) => menu(role).find(w => w.id === roles.find(r => r.id === role)?.home) ?? menu(role)[0]
@@ -43,7 +41,7 @@ export default function App() {
     return () => removeEventListener('hashchange', on)
   }, [role])
   const switchPortal = (next: Portal) => {
-    try { localStorage.setItem(PORTAL_KEY, next) } catch { /* the choice just won't survive a reload */ }
+    try { sessionStorage.setItem(PORTAL_KEY, next) } catch { /* the choice just won't survive a reload */ }
     setPortal(next)
     const w = fromHash(roleOf(next))
     setCurrent(w)
@@ -53,6 +51,9 @@ export default function App() {
 
   // A donut color or the forecast, opened on its own page in a new tab.
   if (hash.startsWith('#detail/')) return <DetailPage role={role} />
+
+  if (!portal) return <Entry onPick={switchPortal} />
+  const dock = <DemoDock portal={portal} onSwitch={switchPortal} />
 
   if (researcher) {
     return (
@@ -69,12 +70,6 @@ export default function App() {
             </nav>
             <div className="sci-role">
               <span className="sci-me">{researcher.name}<small>{researcher.title}</small></span>
-              <label className="sci-switch">
-                <span className="sr-only">Switch portal</span>
-                <select value={portal} onChange={e => switchPortal(e.target.value)}>
-                  {portals.map(p => <option key={p.id} value={p.id}>{p.id === 'grant_office' ? 'Switch to the grant office' : p.id === portal ? `${p.label} (you)` : `Switch to ${p.label}`}</option>)}
-                </select>
-              </label>
             </div>
           </div>
         </header>
@@ -86,6 +81,7 @@ export default function App() {
             <ResearcherContext.Provider value={researcher}><current.Component key={researcher.id} /></ResearcherContext.Provider>
           </RoleContext.Provider>
         </main>
+        {dock}
       </div>
     )
   }
@@ -96,13 +92,6 @@ export default function App() {
         <div className="brand">GrantGuard</div>
         <div className="portal-name">Grant office portal</div>
         <div className="today">Today: {db.today}</div>
-        <div className="portals" role="group" aria-label="Portal">
-          {portals.map(p => (
-            <button key={p.id} type="button" className={p.id === portal ? 'active' : ''} aria-pressed={p.id === portal} onClick={() => switchPortal(p.id)}>
-              {p.label}<small>{p.sub}</small>
-            </button>
-          ))}
-        </div>
         {menu(role).map(w => (
           <a key={w.id} href={`#${w.id}`} className={w === current ? 'active' : ''}>
             {w.label}
@@ -116,6 +105,7 @@ export default function App() {
         <p className="job">{current.job}</p>
         <current.Component />
       </main>
+      {dock}
     </div>
   )
 }
