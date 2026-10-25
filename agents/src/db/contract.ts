@@ -162,7 +162,7 @@ export interface RequestRow {
   grantId?: string;
   /** The grant actually charged (set by evaluate_request / act_on_request). */
   chargedGrantId?: string;
-  /** Grants the item serves; two or more make it a shared cost. */
+  /** Unused since cost splitting was removed (T95); kept so older clients still load. */
   sharedWith: string[];
   split: Split[];
   purpose: string;
@@ -172,7 +172,7 @@ export interface RequestRow {
   explanation: string;
   /** The person who asked, e.g. "Dr. Priya Nair" ('' if unknown). */
   requesterName: string;
-  /** A shared cost to charge in full to one grant: why each grant's use can't be measured ('' = none stated). */
+  /** Unused since T95 (see sharedWith). */
   oneGrantBasis: string;
 }
 /** A purchasable line of an experiment plan: what becomes a request. */

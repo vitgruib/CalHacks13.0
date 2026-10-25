@@ -26,7 +26,6 @@ export const SOURCES_DIR = '../docs/research/sources/docs';
 
 const TODAY = '2026-06-15';
 const CLEAN = 'R01AI178875'; // active, ends 2028-07-31, $394,729 available
-const OTHER = 'R01HL176691'; // active, ends 2028-11-30
 const ENDING = 'R21AI182745'; // active, ends 2026-08-31: 77 days left
 
 let n = 0;
@@ -37,8 +36,6 @@ function request(seed, r) {
     item: r.item, category: r.category, price: r.price, grantId: r.grantId ?? CLEAN, purpose: r.purpose,
     state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.',
   };
-  if (r.sharedWith) row.sharedWith = r.sharedWith;
-  if (r.split) row.split = r.split;
   seed.requests.push(row);
   return row;
 }
@@ -77,71 +74,49 @@ const STOP = ['hold', 'block', 'reroute'];
 const FREEZE = 'Grant is active and not frozen';
 const END = "Not in the grant's last 90 days";
 const SAME_DAY = 'Under the card limit, counting same-day purchases';
-const SHARED = 'Shared cost split across the grants it serves';
 const CATEGORY = 'Category allowed';
 const BILLED = "An invoice is payable only if its order hasn't been billed already";
 const AMOUNT = 'An invoice is payable only if its amount matches the approval';
 const PLACED = 'An invoice is payable only if its order was placed before it';
 
 export const FINDINGS = [
-  // ---- Shared costs charged to one award ----
+  // ---- Shared costs charged to one award: out of scope since T95 ----
+  // GrantGuard charges each purchase to one grant and has no shared-cost rule.
   {
     id: 'rf-01', file: 'nsf-oig-15-1-014-uwm.txt', auditee: 'Univ. of Wisconsin-Madison', year: '2015', amount: 70189,
     what: 'An underwater vehicle serving two NSF awards and a NOAA project was charged 68% to one award and 0% to NOAA.',
     quote: 'The total cost of this equipment was $71,015. Of this amount, $48,301 (68 percent) was',
-    plant(seed) {
-      request(seed, { id: 'rf-01', item: 'Autonomous underwater vehicle', category: 'equipment', price: 71015, grantId: CLEAN,
-        purpose: 'Field surveys for both projects', sharedWith: [CLEAN, OTHER] });
-      return [purchase('rf-01-c', 'rf-01', CLEAN, 'hold', SHARED, 'Serves two grants, charged to one with no split.', { alsoAccept: ['block'] })];
-    },
+    outOfScope: 'Splitting a shared cost across grants is not modeled (removed in T95).',
   },
   {
     id: 'rf-02', file: 'nsf-oig-20-1-008-duke.txt', auditee: 'Duke University', year: '2020 (resolved 2023)', amount: 28719,
     what: 'Expenses benefiting several NSF awards were not allocated by benefit.',
     quote: 'NSF sustains the finding. The auditor questioned $28,719 on eight (8) NSF awards in Recommendations',
-    plant(seed) {
-      request(seed, { id: 'rf-02', item: 'Shared cluster service contract', category: 'equipment service', price: 4200, grantId: CLEAN,
-        purpose: 'Compute for three projects', sharedWith: [CLEAN, OTHER, 'R01GM155497'] });
-      return [purchase('rf-02-c', 'rf-02', CLEAN, 'hold', SHARED, 'Serves three grants, charged to one. Scaled: one $4,200 cost stands in for the $28,719 across eight awards.', { alsoAccept: ['block'] })];
-    },
+    outOfScope: 'Splitting a shared cost across grants is not modeled (removed in T95).',
   },
   {
     id: 'rf-03', file: 'nsf-oig-22-6-002-promising-practices.txt', auditee: 'NSF OIG compendium (6 audits)', year: '2022', amount: null,
     what: 'Publication costs were charged 100% to one award when the paper credited several.',
     quote: 'Common Findings: Award recipients charged a single NSF award for 100',
-    plant(seed) {
-      request(seed, { id: 'rf-03', item: 'Open-access publication fee', category: 'publication', price: 3200, grantId: CLEAN,
-        purpose: 'Paper acknowledging both projects', sharedWith: [CLEAN, OTHER] });
-      request(seed, { id: 'rf-03-d', item: 'Open-access publication fee', category: 'publication', price: 3200, grantId: CLEAN,
-        purpose: 'Paper acknowledging both projects', sharedWith: [CLEAN, OTHER], split: [{ grantId: CLEAN, share: 0.5 }, { grantId: OTHER, share: 0.5 }] });
-      return [
-        purchase('rf-03-c', 'rf-03', CLEAN, 'hold', SHARED, 'A two-grant paper\'s fee charged 100% to one.', { alsoAccept: ['block'] }),
-        purchaseDecoy('rf-03-d', 'rf-03-d', CLEAN, SHARED, 'The same fee split between the two grants the paper credits.'),
-      ];
-    },
+    outOfScope: 'Splitting a shared cost across grants is not modeled (removed in T95).',
   },
   {
     id: 'rf-04', file: 'nsf-oig-21-1-016-southcarolina.txt', auditee: 'Univ. of South Carolina', year: '2021', amount: 4271,
     what: '70% of digestion bombs shipped 7 days before award end was charged to it, with no support for the split.',
     quote: '1,460 days). UofSC could not provide support for the allocation methodology, and given',
-    plant(seed) {
-      request(seed, { id: 'rf-04', item: 'Six acid digestion bombs', category: 'lab equipment', price: 6101, grantId: ENDING,
-        purpose: 'Sample digestion for both projects', sharedWith: [ENDING, CLEAN], split: [{ grantId: ENDING, share: 0.7 }, { grantId: CLEAN, share: 0.3 }] });
-      return [purchase('rf-04-c', 'rf-04', ENDING, 'hold', SHARED, 'A 70/30 split with nothing behind it, on a grant near its end. GrantGuard takes a stated split at its word.', { alsoAccept: ['block', 'reroute'] })];
-    },
+    outOfScope: 'Splitting a shared cost across grants is not modeled (removed in T95).',
   },
+
+  // ---- Supplies near the end of an award ----
   {
     id: 'rf-05', file: 'nsf-oig-17-1-009-usc.txt', auditee: 'Univ. of Southern California', year: '2017', amount: 6434,
     what: 'Lab supplies ordered the month before expiration were charged to it while used on two other awards.',
     quote: 'Lab supplies, totaling $6,434, were ordered in August 2013, and',
     plant(seed) {
-      request(seed, { id: 'rf-05', item: 'Lab supplies', category: 'lab supplies', price: 6434, grantId: ENDING,
-        purpose: 'Stock for the lab', sharedWith: [ENDING, CLEAN] });
-      return [purchase('rf-05-c', 'rf-05', ENDING, 'reroute', END, 'Supplies on a grant 77 days from its end, also serving another grant.', { alsoAccept: ['hold', 'block'] })];
+      request(seed, { id: 'rf-05', item: 'Lab supplies', category: 'lab supplies', price: 6434, grantId: ENDING, purpose: 'Stock for the lab' });
+      return [purchase('rf-05-c', 'rf-05', ENDING, 'reroute', END, 'Supplies on a grant 77 days from its end.', { alsoAccept: ['hold', 'block'] })];
     },
   },
-
-  // ---- Supplies near the end of an award ----
   {
     id: 'rf-06', file: 'nsf-oig-21-1-016-southcarolina.txt', auditee: 'Univ. of South Carolina', year: '2021', amount: 4620,
     what: 'A tablet and phone ordered 43 days before award end were charged 100% to it.',

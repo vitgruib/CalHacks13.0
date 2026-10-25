@@ -47,7 +47,7 @@ const grantMeta = {
 // ---------------------------------------------------------------------------
 const background = [
   // n (keeps the record ids rq-0n, o-0n, inv-0n stable), grant, day, item, vendor, category, price, purpose
-  [11, A, '2025-09-09', 'Proteomics core: 10 hours of mass spec', 'Campus Proteomics Core', 'core facility services', 1_800, `Samples from both projects: 5 hours for ${A}, 5 hours for ${B}`], // correct split
+  [11, A, '2025-09-09', 'Proteomics core: 10 hours of mass spec', 'Campus Proteomics Core', 'core facility services', 1_800, 'Membrane folding samples, aim 1'],
   [12, A, '2025-10-14', 'Nitrile gloves, 10 cases', 'LabSource', 'lab supplies', 640, 'Membrane prep, aim 2'],
   [17, A, '2026-02-17', 'Detergent screening kit, 2 plates', 'MembraneChem', 'reagents', 2_300, 'BamA detergent screen'],
   [30, B, '2026-02-20', 'Ceftazidime-avibactam reference powder', 'BioReagents Inc', 'reagents', 2_400, 'Resistance panel'], // canceled order: planted invoice
@@ -82,14 +82,12 @@ const newHoldId = () => `h-${pad(++holdSeq)}`
 for (const [n, grantId, day, item, vendor, category, price, purpose] of background) {
   const id = `rq-${pad(n)}`, oid = `o-${pad(n)}`, iid = `inv-${pad(n)}`
   const overLimit = price > 5_000
-  const split = n === 11 ? [{ grantId: A, share: 0.5 }, { grantId: B, share: 0.5 }] : undefined
   db.requests.push({
-    id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, ...(split ? { split } : {}), purpose,
+    id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, purpose,
     state: 'bought', verdicts: passVerdicts(price, category),
     explanation: overLimit
       ? `Over the $5,000 card limit, so I paused it for the grant manager, who approved it at ${money(price)}. Then I ordered it.`
-      : split ? 'Every rule passed. A shared cost, so I split it 50/50 by the hours each project used.'
-        : 'Every rule passed and it is under the card limit, so I bought it.',
+      : 'Every rule passed and it is under the card limit, so I bought it.',
   })
   log(day, 'scientist', `${researcherFor(grantId)} asked to buy ${item} (${money(price)})`, purpose, id)
 
@@ -109,7 +107,7 @@ for (const [n, grantId, day, item, vendor, category, price, purpose] of backgrou
     log(day, 'purchasing', `Paused ${item.toLowerCase()} for the grant manager`, `${money(price)} is over the card limit.`, hid, 'Under the card limit ($5,000)')
     log(decided, 'grant_manager', `Decided ${hid}: approve`, 'Needed for the aims; quote checked against two vendors.', hid)
   }
-  log(placed, 'purchasing', `Bought ${item.toLowerCase()} (${money(price)}) on ${split ? `${A} and ${B}` : grantId}`, 'Every rule passed.', id, overLimit ? 'Approved by the grant manager' : 'All rules pass, under card limit')
+  log(placed, 'purchasing', `Bought ${item.toLowerCase()} (${money(price)}) on ${grantId}`, 'Every rule passed.', id, overLimit ? 'Approved by the grant manager' : 'All rules pass, under card limit')
 
   const order = { id: oid, requestId: id, vendor, amount: price, placed, state: 'paid' }
   const invoice = {
@@ -220,22 +218,20 @@ for (const [n, day, item, vendor, category, price, purpose, received] of [
 // Today's raw requests: submitted, no verdicts yet. Planted mistakes and decoys.
 // ---------------------------------------------------------------------------
 const raw = [
-  ['rq-101', '2026-06-14', 'Nitrile gloves, 10 cases', 'lab supplies', 640, A, undefined, 'Membrane prep for aim 2. The court restored the grant, so the money is coming.'],
-  ['rq-102', '2026-06-12', 'Agar plates, 40 packs', 'lab supplies', 1_180, B, undefined, 'Assay validation runs before the grant ends'],
-  ['rq-103', '2026-06-13', 'Espresso machine for the lab', 'general office', 890, B, undefined, 'Lab morale during the final push'],
-  ['rq-104', '2026-06-13', 'Confocal microscope service contract, 12 months', 'equipment service', 3_600, A, undefined, `Annual service of the shared confocal microscope; imaging for both ${A} (membrane folding) and ${B} (assay imaging)`],
-  ['rq-105', '2026-06-15', 'Peristaltic pump with controller', 'equipment', 6_850, A, undefined, 'Continuous-flow folding experiments, aim 3'],
-  ['rq-106', '2026-06-15', 'Membrane protein detergent screening kit, 4 plates', 'reagents', 5_000, A, undefined, 'BamA detergent screen, round 2'],
+  ['rq-101', '2026-06-14', 'Nitrile gloves, 10 cases', 'lab supplies', 640, A, 'Membrane prep for aim 2. The court restored the grant, so the money is coming.'],
+  ['rq-102', '2026-06-12', 'Agar plates, 40 packs', 'lab supplies', 1_180, B, 'Assay validation runs before the grant ends'],
+  ['rq-103', '2026-06-13', 'Espresso machine for the lab', 'general office', 890, B, 'Lab morale during the final push'],
+  ['rq-105', '2026-06-15', 'Peristaltic pump with controller', 'equipment', 6_850, A, 'Continuous-flow folding experiments, aim 3'],
+  ['rq-106', '2026-06-15', 'Membrane protein detergent screening kit, 4 plates', 'reagents', 5_000, A, 'BamA detergent screen, round 2'],
   // PLANTED (purchases, T57): two sequencing runs on the same day, each under
   // the card limit, $5,500 together: a split purchase.
-  ['rq-108', '2026-06-15', 'Sequencing core: 48 isolates, run 1 of 2', 'core facility services', 2_900, B, undefined, 'Resistance-gene survey of the clinical isolate panel'],
-  ['rq-109', '2026-06-15', 'Sequencing core: 48 isolates, run 2 of 2', 'core facility services', 2_600, B, undefined, 'Resistance-gene survey of the clinical isolate panel'],
+  ['rq-108', '2026-06-15', 'Sequencing core: 48 isolates, run 1 of 2', 'core facility services', 2_900, B, 'Resistance-gene survey of the clinical isolate panel'],
+  ['rq-109', '2026-06-15', 'Sequencing core: 48 isolates, run 2 of 2', 'core facility services', 2_600, B, 'Resistance-gene survey of the clinical isolate panel'],
   // DECOY (purchases, T57): same person and day, but another category.
-  ['rq-110', '2026-06-15', 'Biosafety cabinet filter replacement', 'equipment service', 2_400, B, undefined, 'HEPA filter replacement found at certification'],
-  ['rq-107', '2026-06-12', 'Proteomics core: 10 hours of mass spec', 'core facility services', 1_800, A, [{ grantId: A, share: 0.6 }, { grantId: B, share: 0.4 }], `Samples from both projects: 6 hours for ${A}, 4 hours for ${B}`],
+  ['rq-110', '2026-06-15', 'Biosafety cabinet filter replacement', 'equipment service', 2_400, B, 'HEPA filter replacement found at certification'],
 ]
-for (const [id, day, item, category, price, grantId, split, purpose] of raw) {
-  db.requests.push({ id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, ...(split ? { split } : {}), purpose, state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' })
+for (const [id, day, item, category, price, grantId, purpose] of raw) {
+  db.requests.push({ id, day, requester: 'scientist', requesterName: researcherFor(grantId), item, category, price, grantId, purpose, state: 'submitted', verdicts: [], explanation: 'Waiting for the purchasing agent.' })
   log(day, 'scientist', `${researcherFor(grantId)} asked to buy ${item} (${money(price)})`, purpose, id)
 }
 
@@ -278,7 +274,7 @@ db.payroll.push(
 // and paid. Amount = included purchase charges + included payroll.
 // ---------------------------------------------------------------------------
 const finalAmount = o => o.changedAmount ?? o.amount
-const shareOf = (r, g) => (r.split ? (r.split.find(s => s.grantId === g)?.share ?? 0) : (r.chargedGrantId ?? r.grantId) === g ? 1 : 0)
+const shareOf = (r, g) => ((r.chargedGrantId ?? r.grantId) === g ? 1 : 0)
 const charged = (r, g) => db.orders.filter(o => o.requestId === r.id && o.state !== 'canceled').reduce((s, o) => s + finalAmount(o) * shareOf(r, g), 0)
 
 // Trimmed for the demo to the last request on A and B's last two; ids keep

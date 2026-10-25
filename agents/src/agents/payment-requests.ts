@@ -125,7 +125,6 @@ interface Purchase {
   ordered: string;
   amount: number;
   changedFrom?: number;
-  sharePct?: number;
   invoice?: { state: string; amount: number; received: string };
   approvedAmounts: number[];
 }
@@ -240,7 +239,6 @@ function describe(conn: Connection, grant: GrantRow, period: Period, picks: Pick
     ordersOf(requestId).map((order) => {
       for (const invoice of invoices) if (invoice.orderId === order.id && notYetChecked(invoice)) unchecked.add(invoice.id);
       const request = requests.get(requestId);
-      const share = request && request.split.length > 1 ? request.split.find((s) => s.grantId === grant.id)?.share : undefined;
       // The bill that counts: a paid or matched one over a held or not yet
       // checked second bill (say, a duplicate).
       const bills = invoices.filter((row) => row.orderId === order.id && row.state !== 'rejected');
@@ -255,7 +253,6 @@ function describe(conn: Connection, grant: GrantRow, period: Period, picks: Pick
         ordered: order.placed,
         amount: order.changedAmount ?? order.amount,
         changedFrom: order.changedAmount !== undefined && order.changedAmount !== order.amount ? order.amount : undefined,
-        sharePct: share === undefined ? undefined : Math.round(share * 100),
         invoice: invoice && { state: invoice.state, amount: invoice.amount, received: invoice.received },
         approvedAmounts: approvals.filter((a) => a.orderId === order.id).map((a) => a.amount),
       };
@@ -360,7 +357,6 @@ function staffGroups(personnel: Personnel[]) {
 function purchaseLine(p: Purchase): string {
   const facts = [p.vendor, `ordered ${p.ordered}`, money(p.amount)];
   if (p.changedFrom !== undefined) facts.push(`changed from ${money(p.changedFrom)}`);
-  if (p.sharePct !== undefined) facts.push(`${p.sharePct}% share`);
   return `${p.requestId} ${p.item} (${facts.join(', ')})${p.aim ? `, purpose: ${sentence(p.aim)}` : ''}`;
 }
 
@@ -484,7 +480,6 @@ function explainFacts(claim: Claim) {
         ordered: p.ordered,
         amount: money(p.amount),
         ...(p.changedFrom === undefined ? {} : { changedFrom: money(p.changedFrom) }),
-        ...(p.sharePct === undefined ? {} : { share: `${p.sharePct}%` }),
       })),
     })),
     leftOut: claim.leftOut.map((l) => ({ requestId: l.requestId, item: l.item, ...(l.amount === undefined ? {} : { amount: money(l.amount) }), why: l.why })),
@@ -500,7 +495,6 @@ function answerLine(p: Purchase, grant: GrantRow, detail: Detail): string {
   if (detail === 'ids') return `${p.requestId} ${p.item}, ${p.vendor}, ordered ${p.ordered}, ${money(p.amount)}`;
   const facts = [p.category, p.vendor, `ordered ${p.ordered}`, money(p.amount)];
   if (p.changedFrom !== undefined) facts.push(`changed from ${money(p.changedFrom)}`);
-  if (p.sharePct !== undefined) facts.push(`${p.sharePct}% share charged to ${grant.id}`);
   if (p.invoice) facts.push(`invoiced ${p.invoice.received}, ${p.invoice.state}`);
   return `${p.requestId} ${p.item} (${facts.join(', ')})${p.aim ? `, purpose: ${sentence(p.aim)}` : ''}`;
 }
@@ -588,7 +582,6 @@ function answerFacts(question: string, pr: PaymentRequestRow, claim: Claim) {
       ordered: p.ordered,
       amount: money(p.amount),
       ...(p.changedFrom === undefined ? {} : { changedFrom: money(p.changedFrom) }),
-      ...(p.sharePct === undefined ? {} : { share: `${p.sharePct}%` }),
       ...(p.invoice ? { invoice: { state: p.invoice.state, amount: money(p.invoice.amount), received: p.invoice.received } } : {}),
       approvedAmounts: p.approvedAmounts.map(money),
     })),

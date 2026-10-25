@@ -4,9 +4,9 @@
   "byDecision": {
     "disallowed": {
       "findings": 10,
-      "outOfScope": 2,
-      "mistakes": 8,
-      "caught": 8,
+      "outOfScope": 4,
+      "mistakes": 6,
+      "caught": 6,
       "decoys": 0,
       "passed": 0
     },
@@ -28,29 +28,29 @@
     },
     "agreed": {
       "findings": 7,
-      "outOfScope": 2,
-      "mistakes": 5,
+      "outOfScope": 3,
+      "mistakes": 4,
       "caught": 2,
       "decoys": 0,
       "passed": 0
     },
     "auditor": {
       "findings": 17,
-      "outOfScope": 7,
-      "mistakes": 10,
-      "caught": 10,
-      "decoys": 3,
-      "passed": 3
+      "outOfScope": 8,
+      "mistakes": 9,
+      "caught": 9,
+      "decoys": 2,
+      "passed": 2
     }
   },
   "totals": {
     "findings": 42,
-    "inScope": 29,
-    "caught": 22,
-    "missed": 7,
-    "outOfScope": 13,
-    "decoys": 5,
-    "correctPasses": 5,
+    "inScope": 25,
+    "caught": 19,
+    "missed": 6,
+    "outOfScope": 17,
+    "decoys": 4,
+    "correctPasses": 4,
     "falseAlarms": 0
   },
   "findings": [
@@ -69,23 +69,8 @@
         "label": "disallowed",
         "quote": "Therefore, NSF has disallowed the entire $70,189 in questioned costs."
       },
-      "rule": "Shared cost split across the grants it serves",
-      "auditee": "Univ. of Wisconsin-Madison",
-      "outcome": "caught",
-      "cases": [
-        {
-          "id": "rf-01-c",
-          "kind": "mistake",
-          "refId": "rf-01",
-          "expected": "hold or block",
-          "got": "hold",
-          "outcome": "caught",
-          "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves R01AI178875 and R01HL176691 but is charged to one grant only."
-        }
-      ],
-      "falseAlarms": 0,
-      "extras": [],
-      "errors": []
+      "outcome": "out of scope",
+      "why": "Splitting a shared cost across grants is not modeled (removed in T95)."
     },
     {
       "id": "rf-02",
@@ -102,23 +87,8 @@
         "label": "disallowed",
         "quote": "Corrective Action: NSF requires Duke to repay disallowed questioned costs of $28,719."
       },
-      "rule": "Shared cost split across the grants it serves",
-      "auditee": "Duke University",
-      "outcome": "caught",
-      "cases": [
-        {
-          "id": "rf-02-c",
-          "kind": "mistake",
-          "refId": "rf-02",
-          "expected": "hold or block",
-          "got": "hold",
-          "outcome": "caught",
-          "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves R01AI178875 and R01HL176691 and R01GM155497 but is charged to one grant only."
-        }
-      ],
-      "falseAlarms": 0,
-      "extras": [],
-      "errors": []
+      "outcome": "out of scope",
+      "why": "Splitting a shared cost across grants is not modeled (removed in T95)."
     },
     {
       "id": "rf-03",
@@ -134,32 +104,8 @@
         "file": "nsf-oig-22-6-002-promising-practices.txt",
         "label": "auditor"
       },
-      "rule": "Shared cost split across the grants it serves",
-      "auditee": "NSF OIG compendium (6 audits)",
-      "outcome": "caught",
-      "cases": [
-        {
-          "id": "rf-03-c",
-          "kind": "mistake",
-          "refId": "rf-03",
-          "expected": "hold or block",
-          "got": "hold",
-          "outcome": "caught",
-          "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves R01AI178875 and R01HL176691 but is charged to one grant only."
-        },
-        {
-          "id": "rf-03-d",
-          "kind": "decoy",
-          "refId": "rf-03-d",
-          "expected": "pass",
-          "got": "pass",
-          "outcome": "correct pass",
-          "detail": "Split 50% R01AI178875, 50% R01HL176691."
-        }
-      ],
-      "falseAlarms": 0,
-      "extras": [],
-      "errors": []
+      "outcome": "out of scope",
+      "why": "Splitting a shared cost across grants is not modeled (removed in T95)."
     },
     {
       "id": "rf-04",
@@ -177,23 +123,8 @@
         "quote": "UofSC agreed with the findings in the report.",
         "note": "No NSF resolution letter for 21-1-016 is listed on nsf.gov/awards/audit-responses (checked 2026-10-24)."
       },
-      "rule": "Shared cost split across the grants it serves",
-      "auditee": "Univ. of South Carolina",
-      "outcome": "missed",
-      "cases": [
-        {
-          "id": "rf-04-c",
-          "kind": "mistake",
-          "refId": "rf-04",
-          "expected": "hold or block or reroute",
-          "got": "hold",
-          "outcome": "missed",
-          "detail": "waiting_on_manager; Shared cost split across the grants it serves: Split 70% R21AI182745, 30% R01AI178875."
-        }
-      ],
-      "falseAlarms": 0,
-      "extras": [],
-      "errors": []
+      "outcome": "out of scope",
+      "why": "Splitting a shared cost across grants is not modeled (removed in T95)."
     },
     {
       "id": "rf-05",

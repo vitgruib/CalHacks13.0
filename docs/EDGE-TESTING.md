@@ -18,7 +18,7 @@ What it covered:
 - the source decision plus a payment unfreezes A, in either order;
 - rq-101 is bought, rq-102 is rerouted to A and rq-106 ($5,000 exactly) is
   bought;
-- the rq-107 split puts 60% on A and 40% on B;
+- ~~the rq-107 split puts 60% on A and 40% on B~~ (cost splitting removed in T95);
 - inv-030 and inv-034 are held; so are inv-201 (a second bill on o-033) and
   inv-202 (its order was placed after the bill); inv-203 is paid;
 - rq-108 and rq-109 (same-day split, $5,500) wait on the grant manager;
@@ -61,13 +61,13 @@ judge can hit.
 | E9 | **Approving "…: move rq-035's $2,100?" moves no money.** The paper becomes `note`, but A's and B's `spent` and rq-035's charged grant are unchanged. The demo narrates this step. | `server/src/index.ts:454-457` | Confirmed (harness) | On approve, move the cost of `costRequestIds` with `adjustMoney` and log it. Or reword the hold as "approve to mark for transfer". | A |
 | E10 | **Funds can show "Payment since" while the grant is frozen again.** Steps: court order, then payment, then cancel, all on the same sim day. The banner says it stays frozen until a payment arrives after the cancellation, and also lists "Payment since 2026-06-15 ($25,000)". The chain is compared by day, not by event order. | `web/src/windows/Funds.tsx:65-68` | Confirmed (browser) | Compare by event order, as `web/src/frozen.ts` (`whyFrozen`) already does. | C |
 | E11 | **A rejected request can come back and be bought.** The grant manager rejects; the scientist pushes back; the request returns to `submitted`; the agent buys it if the rules pass. That breaks "agents never decide anything". | `server/src/index.ts:253` (`push_back`) | Confirmed (harness) | Refuse `rejected` in `push_back`, or send a pushed-back rejected request straight to a hold. | A |
-| E12 | **Broken sentence in Requests for rq-104:** "Serves  but is charged to R01GM061721 only." The agent passes `sharedWith: []` along with a split, so the grant list is empty. | `server/src/rules.ts:213` | Confirmed (replay) | Fall back to the split's grants, or say "several grants". | A |
+| ~~E12~~ moot: the shared-cost rule and rq-104 were removed in T95 | **Broken sentence in Requests for rq-104:** "Serves  but is charged to R01GM061721 only." The agent passes `sharedWith: []` along with a split, so the grant list is empty. | `server/src/rules.ts:213` | Confirmed (replay) | Fall back to the split's grants, or say "several grants". | A |
 
 ## The scorecard claim
 
 | ID | What happens | Where | Status | Suggested fix | Lane |
 | --- | --- | --- | --- | --- | --- |
-| E13 | **"14/14 caught, 0 false alarms" is weaker than it reads.** R01 starts frozen, so rq-101 and rq-104 through rq-107 are all held for the freeze, including the two decoys. pu-3 (rq-104, shared cost) and pu-4 (rq-105, card limit) count as caught because their rule also fails, but they would have been held anyway. The judge doesn't check that the hold cites the planted rule. The invoice and report judges ignore `c.rule`, so any hold counts. A decoy that is held still scores as a correct pass. The invoice and report catches do have the right reasons today (in-1, in-2, p-10, p-03, p-04). | `eval/judge.mjs:116-143` | Confirmed (replay) | Require the hold's reasons to cite `c.rule`, and report "held for the freeze" separately, then re-score. Or soften the pitch, e.g. "every planted mistake was stopped before money moved". **Needs a human call.** | C |
+| E13 | **"14/14 caught, 0 false alarms" is weaker than it reads.** R01 starts frozen, so rq-101 and rq-104 through rq-107 are all held for the freeze, including the two decoys. pu-3 (rq-104, shared cost; removed in T95) and pu-4 (rq-105, card limit) count as caught because their rule also fails, but they would have been held anyway. The judge doesn't check that the hold cites the planted rule. The invoice and report judges ignore `c.rule`, so any hold counts. A decoy that is held still scores as a correct pass. The invoice and report catches do have the right reasons today (in-1, in-2, p-10, p-03, p-04). | `eval/judge.mjs:116-143` | Confirmed (replay) | Require the hold's reasons to cite `c.rule`, and report "held for the freeze" separately, then re-score. Or soften the pitch, e.g. "every planted mistake was stopped before money moved". **Needs a human call.** | C |
 
 ## Lower risk
 
@@ -93,9 +93,9 @@ E27, in detail:
 - `evaluate_request` on a bought request overwrites `chargedGrantId`: rq-101
   shows B while its order is on A (`index.ts:273`). Guard it with
   `DONE_STATES`.
-- The shared-cost rule fires only when `sharedWith` was set at submit, so the
+- ~~The shared-cost rule fires only when `sharedWith` was set at submit, so the
   module alone can't stop a one-grant buy of rq-104; the agent catches it.
-  This is related to S6.
+  This is related to S6.~~ Moot: the shared-cost rule was removed in T95.
 - A `source_disagreement` hold with a non-numeric `refId` can never be
   decided, because `BigInt` throws (`index.ts:460`). Agents don't raise these
   today.

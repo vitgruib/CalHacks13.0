@@ -7,7 +7,6 @@ import Notices from './Notices'
 import DemoDock from './DemoDock'
 import UserSwitch from './UserSwitch'
 import Landing from './landing/Landing'
-import { useCondensedNames } from './plain'
 import BrandLink from './landing/BrandLink'
 import './scientist.css'
 
@@ -48,8 +47,8 @@ const home = (role: Role) => menu(role).find(w => w.id === roles.find(r => r.id 
 const fromHash = (role: Role, hash: string) => allowed(role).find(w => w.id === head(hash)) ?? home(role)
 
 export default function App() {
-  const { db } = useStore()
-  useCondensedNames() // grant headings read it; re-render everything when it flips
+  const store = useStore()
+  const { db } = store
   const [href, setHref] = useState(() => location.href)
   useEffect(() => {
     const on = () => setHref(location.href)
@@ -70,7 +69,6 @@ export default function App() {
     go(urlFor(next, head(hash) === w.id ? hash : `#${w.id}`))
   }
   const toLanding = () => go(location.pathname)
-  const openHolds = db.holds.filter(h => !h.decision).length
 
   // A donut color or the forecast, opened on its own page in a new tab.
   if (hash.startsWith('#detail/')) return <DetailPage role={role} />
@@ -119,7 +117,7 @@ export default function App() {
         {menu(role).map(w => (
           <a key={w.id} href={`#${w.id}`} className={w === current ? 'active' : ''}>
             {w.label}
-            {w.id === 'inbox' && openHolds > 0 && <span className="count">{openHolds}</span>}
+            {!!w.badge?.(store) && <span className="count">{w.badge(store)}</span>}
           </a>
         ))}
       </nav>

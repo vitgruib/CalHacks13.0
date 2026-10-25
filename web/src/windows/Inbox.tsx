@@ -1,9 +1,9 @@
-// Inbox: the grant manager's window, and the ONLY window with decision buttons.
-// Everything waiting for a human decision, with its evidence. A reason is
-// always required (MASTER-PLAN §2).
+// Inbox: everything waiting for a human decision, with its evidence. A reason
+// is always required (MASTER-PLAN §2). Its menu button is hidden; Requests and
+// Invoices show their own holds with these same decision cards (`HoldCard`).
 import { useId, useState } from 'react'
 import { useStore } from '../data/store'
-import type { AgentId, Decision, Hold, HoldKind } from '../data/types'
+import type { AgentId, Db, Decision, Hold, HoldKind } from '../data/types'
 import { Badge, Empty, Section } from '../ui'
 import { requesterLabel } from '../people'
 import './Inbox.css'
@@ -70,6 +70,10 @@ function latestPerSource(evidence: Hold['evidence']): Hold['evidence'] {
 
 const byDayThenId = (a: Hold, b: Hold) => a.day.localeCompare(b.day) || a.id.localeCompare(b.id)
 
+/** Open holds of these kinds, oldest first: what a window's menu badge counts. */
+export const openHolds = (db: Db, ...kinds: HoldKind[]) =>
+  db.holds.filter(h => !h.decision && kinds.includes(h.kind)).sort(byDayThenId)
+
 export default function Inbox() {
   const { db } = useStore()
   const open = db.holds.filter(h => !h.decision).sort(byDayThenId)
@@ -125,10 +129,11 @@ export default function Inbox() {
   )
 }
 
-function HoldCard({ hold }: { hold: Hold }) {
+/** One decision card. `embedded` drops what its request or invoice card already shows. */
+export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: boolean }) {
   const { db, decide } = useStore()
   // A purchase hold says which researcher asked, so the grant office knows who to answer.
-  const request = hold.kind === 'purchase' ? db.requests.find(r => r.id === hold.refId) : undefined
+  const request = hold.kind === 'purchase' && !embedded ? db.requests.find(r => r.id === hold.refId) : undefined
   const [reason, setReason] = useState('')
   const [source, setSource] = useState('')
   const reasonId = useId()
@@ -145,13 +150,13 @@ function HoldCard({ hold }: { hold: Hold }) {
   }
 
   return (
-    <article className="hold" aria-labelledby={`${reasonId}-title`}>
+    <article className={embedded ? 'hold hold-embedded' : 'hold'} aria-labelledby={`${reasonId}-title`}>
       <header>
         <h3 id={`${reasonId}-title`}>{hold.title}</h3>
-        <Badge tone="warn">{kindLabel[hold.kind]}</Badge>
+        <Badge tone="warn">{embedded ? 'Waiting for you' : kindLabel[hold.kind]}</Badge>
       </header>
       <p className="meta">
-        Grant {hold.grantId} · raised by {agentLabel[hold.raisedBy]} · {hold.day} · <a href={link.href}>Open in {link.label}</a>
+        Grant {hold.grantId} · raised by {agentLabel[hold.raisedBy]} · {hold.day}{!embedded && <> · <a href={link.href}>Open in {link.label}</a></>}
       </p>
       {request && <p className="requested-by">Requested by <strong>{requesterLabel(request.requesterName)}</strong> on {request.day}</p>}
       <p className="why"><strong>Why it's waiting:</strong> {hold.why}</p>

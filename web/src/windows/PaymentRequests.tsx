@@ -22,7 +22,7 @@ const followUpState: Record<FollowUp['state'], { label: string; tone: Tone }> = 
 }
 
 /** Plain description of a purchase, from the request if we have it, else from its order and invoice. */
-function describe(db: Db, requestId: string, grantId: string): { name: string; amount?: number; held: string | null } {
+function describe(db: Db, requestId: string): { name: string; amount?: number; held: string | null } {
   const rq = db.requests.find(r => r.id === requestId)
   const orders = db.orders.filter(o => o.requestId === requestId)
   // Each order's bill that counts: a paid or matched one over a held second bill (a duplicate).
@@ -39,10 +39,9 @@ function describe(db: Db, requestId: string, grantId: string): { name: string; a
   else if (heldInvoice) held = `invoice ${heldInvoice.id} is on hold`
   else if (openHold) held = `open hold ${openHold.id}`
 
-  const share = rq?.split?.find(s => s.grantId === grantId)?.share ?? 1
   // What was bought: the order's approved change if any, as the module claims it.
   const bought = orders.filter(o => o.state !== 'canceled').reduce((s, o) => s + (o.changedAmount ?? o.amount), 0)
-  if (rq) return { name: rq.item, amount: Math.round((bought || rq.price) * share), held }
+  if (rq) return { name: rq.item, amount: Math.round(bought || rq.price), held }
   // A salary row left out (for example, effort over 100% across grants).
   const pay = db.payroll.find(p => p.id === requestId)
   if (pay) return { name: `${pay.person}'s salary (${pay.role}, ${pay.effortPct}% effort, ${pay.period.from} to ${pay.period.to})`, amount: pay.amount, held }
@@ -71,8 +70,8 @@ function RequestCard({ pr }: { pr: PaymentRequest }) {
   const { db } = useStore()
   const grant = db.grants.find(g => g.id === pr.grantId)
   const st = requestState[pr.state]
-  const included = pr.includedRequestIds.map(id => ({ id, ...describe(db, id, pr.grantId) }))
-  const excluded = pr.excluded.map(x => ({ ...x, ...describe(db, x.requestId, pr.grantId) }))
+  const included = pr.includedRequestIds.map(id => ({ id, ...describe(db, id) }))
+  const excluded = pr.excluded.map(x => ({ ...x, ...describe(db, x.requestId) }))
   const heldIncluded = included.filter(i => i.held)
   const prHold = db.holds.find(h => h.kind === 'payment_request' && h.refId === pr.id && !h.decision)
   const waiting = pr.state === 'waiting_on_manager' || !!prHold

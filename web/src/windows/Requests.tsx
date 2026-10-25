@@ -3,6 +3,7 @@
 // experiment here with a line-item budget; a plan's lines become requests once it
 // clears its checks or the grant office approves it, and from there each line
 // is an ordinary request: the purchasing agent, the spending rules, the Inbox.
+// The grant office decides a held request right on its card (the Inbox's card).
 import { useContext, useState, type FormEvent } from 'react'
 import { useStore } from '../data/store'
 import type { PurchaseRequest, RequestState } from '../data/types'
@@ -14,6 +15,7 @@ import { OVERALL_LABEL, planTotal, type Overall } from '../spendguard/assess'
 import PlanEditor from '../spendguard/PlanEditor'
 import ReportView from '../spendguard/ReportView'
 import { notBought, planRef, type PlanStatus, type SavedPlan } from '../spendguard/store'
+import { HoldCard, openHolds } from './Inbox'
 import '../spendguard/SpendGuard.css'
 import './Requests.css'
 
@@ -49,14 +51,10 @@ function GrantLine({ r }: { r: PurchaseRequest }) {
       <dd>{r.grantId}</dd>
       <dt>Charged to</dt>
       <dd>
-        {r.split?.length
-          ? r.split.map(s => `${s.grantId} (${Math.round(s.share * 100)}%)`).join(', ')
-          : rerouted
-            ? <><strong>{r.chargedGrantId}</strong> <Badge tone="warn">moved from {r.grantId}</Badge></>
-            : r.state === 'bought' ? r.grantId : <span className="rq-muted">not charged yet</span>}
+        {rerouted
+          ? <><strong>{r.chargedGrantId}</strong> <Badge tone="warn">moved from {r.grantId}</Badge></>
+          : r.state === 'bought' ? r.grantId : <span className="rq-muted">not charged yet</span>}
       </dd>
-      {r.sharedWith && r.sharedWith.length > 1 && <><dt>Shared by</dt><dd>{r.sharedWith.join(', ')}</dd></>}
-      {r.oneGrantBasis && <><dt>All to one grant</dt><dd>{r.oneGrantBasis}</dd></>}
     </dl>
   )
 }
@@ -103,7 +101,9 @@ function PushBack({ r }: { r: PurchaseRequest }) {
 function RequestCard({ r }: { r: PurchaseRequest }) {
   const role = useContext(RoleContext)
   const ref = planRef(r)
-  const plan = useStore().plans.find(p => p.id === ref?.planId)
+  const { db, plans } = useStore()
+  const plan = plans.find(p => p.id === ref?.planId)
+  const hold = role === 'grant_manager' ? openHolds(db, 'purchase').find(h => h.refId === r.id) : undefined
   return (
     <article className="rq-card" aria-labelledby={`rq-${r.id}`}>
       <header>
@@ -116,11 +116,9 @@ function RequestCard({ r }: { r: PurchaseRequest }) {
       <p className="rq-muted rq-meta">{r.day} · {r.category} · {ref ? ref.rest : r.purpose}</p>
       <GrantLine r={r} />
       <p className="rq-explain"><span className="rq-muted">Purchasing agent: </span>{r.explanation}</p>
-      {r.state === 'waiting_on_manager' && (
-        role === 'grant_manager'
-          ? <p className="rq-wait">Waiting for the grant manager. See it in the <a href="#inbox">Inbox</a>.</p>
-          : <p className="rq-wait">Waiting for the grant manager to decide. Their answer will show up here.</p>
-      )}
+      {hold
+        ? <HoldCard hold={hold} embedded />
+        : r.state === 'waiting_on_manager' && role === 'scientist' && <p className="rq-wait">Waiting for the grant manager to decide. Their answer will show up here.</p>}
       {role === 'scientist' && canPushBack(r) && <PushBack r={r} />}
       {r.verdicts.length > 0 && (
         <table className="rq-verdicts">
@@ -191,7 +189,7 @@ function PlanDecision({ p }: { p: SavedPlan }) {
         <button type="button" onClick={() => decide('return')}>Return to the researcher</button>
         <span role="status" className="rq-error">{error}</span>
       </div>
-      <p className="rq-muted rq-small">Approving clears the plan's scope questions. Each line is still checked by the spending rules, and anything they hold comes to the Inbox.</p>
+      <p className="rq-muted rq-small">Approving clears the plan's scope questions. Each line is still checked by the spending rules, and anything they hold waits for you under Requests.</p>
     </div>
   )
 }
@@ -274,7 +272,11 @@ function MyRequests() {
 function AllRequests() {
   const { db } = useStore()
   const [who, setWho] = useState('all')
-  const list = newestFirst(db.requests.filter(r => who === 'all' || r.requesterName === who))
+  const mine = db.requests.filter(r => who === 'all' || r.requesterName === who)
+  // Requests with an open purchase hold come first, oldest first, each with its decision card.
+  const holds = openHolds(db, 'purchase')
+  const held = holds.map(h => mine.find(r => r.id === h.refId)).filter((r): r is PurchaseRequest => !!r)
+  const list = newestFirst(mine.filter(r => !held.includes(r)))
   const count = (name: string) => db.requests.filter(r => r.requesterName === name).length
   const order: PlanStatus[] = ['submitted', 'returned', 'sent']
   const plans = [...useStore().plans]
@@ -283,6 +285,11 @@ function AllRequests() {
   const waiting = plans.filter(p => p.status === 'submitted').length
   return (
     <>
+    {held.length > 0 && (
+      <Section title="Waiting for you" aside={<Badge tone="warn">{held.length} open</Badge>}>
+        <div className="rq-list">{held.map(r => <RequestCard key={r.id} r={r} />)}</div>
+      </Section>
+    )}
     <Section title="Experiment plans" aside={<span className="rq-muted">{waiting} waiting for you</span>}>
       {plans.length === 0 ? <Empty>No submitted plans. A researcher's plan that doesn't clear its checks waits here for your decision.</Empty> : (
         <div className="rq-list">{plans.map(p => <PlanCard key={p.id} p={p} />)}</div>
@@ -300,7 +307,7 @@ function AllRequests() {
         </label>
       )}
     >
-      {list.length === 0 ? <Empty>No requests from this researcher.</Empty> : (
+      {list.length === 0 ? <Empty>{held.length ? 'Nothing else from this researcher.' : 'No requests from this researcher.'}</Empty> : (
         <div className="rq-list">{list.map(r => <RequestCard key={r.id} r={r} />)}</div>
       )}
     </Section>

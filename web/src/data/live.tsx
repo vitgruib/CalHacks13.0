@@ -181,7 +181,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
     submitRequest: (r, by) => {
       call('Request', async () => {
         const c = await asResearcher(by)
-        await c.reducers.submitRequest({ item: r.item, category: r.category, price: r.price, grantId: r.grantId || undefined, purpose: r.purpose, sharedWith: r.sharedWith ?? [], oneGrantBasis: r.oneGrantBasis || undefined })
+        await c.reducers.submitRequest({ item: r.item, category: r.category, price: r.price, grantId: r.grantId || undefined, purpose: r.purpose, sharedWith: [] })
       })
     },
     pushBack: (requestId, message, by) => {

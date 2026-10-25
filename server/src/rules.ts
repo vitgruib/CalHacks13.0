@@ -147,14 +147,6 @@ export const UNALLOWABLE_CATEGORIES = [
 export interface RequestFacts {
   category: string;
   price: number;
-  sharedWith: string[];
-  split: { grantId: string; share: number }[];
-  /**
-   * Why a shared cost is charged in full to one grant: each grant's use can't
-   * be measured (2 CFR 200.405(d)). Never passes the rule alone; the grant
-   * manager confirms it.
-   */
-  oneGrantBasis?: string;
   /** The same person's other live requests that day: a split purchase adds up across them. */
   sameDay?: { id: string; category: string; price: number }[];
 }
@@ -165,49 +157,36 @@ export interface GrantForRules extends GrantFacts {
 }
 
 /**
- * Every spending rule's verdict for charging `req` to `g` (or, for a shared
- * cost, to each grant in its split). The purchase may go through on its own
+ * Every spending rule's verdict for charging `req` to `g`. The purchase may go through on its own
  * only if every verdict passes; see `canBuyAlone`.
  */
 export function spendingVerdicts(
   req: RequestFacts,
   g: GrantForRules,
   today: string,
-  grantsById: Map<string, GrantForRules> = new Map([[g.id, g]]),
 ): Verdict[] {
   const out: Verdict[] = [];
-  const charges = req.split.length > 0 ? req.split : [{ grantId: g.id, share: 1 }];
-
-  for (const c of charges) {
-    const cg = grantsById.get(c.grantId);
-    const amount = req.price * c.share;
-    const label = charges.length > 1 ? ` (${c.grantId})` : '';
-    if (!cg) {
-      out.push({ rule: `Grant exists${label}`, pass: false, detail: `No grant ${c.grantId}.` });
-      continue;
-    }
-    const usable = (cg.status === 'active' || cg.status === 'restored_by_court') && !cg.frozen;
+  const usable = (g.status === 'active' || g.status === 'restored_by_court') && !g.frozen;
+  out.push({
+    rule: 'Grant is active and not frozen',
+    pass: usable,
+    detail: usable ? `${g.id} is ${g.status === 'active' ? 'active' : 'restored and paid'}.` : (g.frozenReason ?? `${g.id} is ${g.status}.`),
+  });
+  if (SUPPLY_CATEGORIES.includes(req.category.toLowerCase())) {
+    const left = daysBetween(today, g.end);
     out.push({
-      rule: `Grant is active and not frozen${label}`,
-      pass: usable,
-      detail: usable ? `${cg.id} is ${cg.status === 'active' ? 'active' : 'restored and paid'}.` : (cg.frozenReason ?? `${cg.id} is ${cg.status}.`),
-    });
-    if (SUPPLY_CATEGORIES.includes(req.category.toLowerCase())) {
-      const left = daysBetween(today, cg.end);
-      out.push({
-        rule: `Not in the grant's last 90 days${label}`,
-        pass: left > 90,
-        detail: left > 90 ? `${cg.id} ends ${cg.end}, ${left} days away.` : `${cg.id} ends ${cg.end}, ${left} days away.`,
-        auditCase: left > 90 ? undefined : 'NSF OIG audits of WVU and Delaware: supplies bought in a grant\'s last months were disallowed',
-      });
-    }
-    const avail = trulyAvailable(cg);
-    out.push({
-      rule: `Enough truly available money${label}`,
-      pass: amount <= avail,
-      detail: `${usd(amount)} needed, ${usd(avail)} truly available.`,
+      rule: "Not in the grant's last 90 days",
+      pass: left > 90,
+      detail: `${g.id} ends ${g.end}, ${left} days away.`,
+      auditCase: left > 90 ? undefined : 'NSF OIG audits of WVU and Delaware: supplies bought in a grant\'s last months were disallowed',
     });
   }
+  const avail = trulyAvailable(g);
+  out.push({
+    rule: 'Enough truly available money',
+    pass: req.price <= avail,
+    detail: `${usd(req.price)} needed, ${usd(avail)} truly available.`,
+  });
 
   const unallowable = UNALLOWABLE_CATEGORIES.includes(req.category.toLowerCase());
   out.push({
@@ -239,29 +218,6 @@ export function spendingVerdicts(
     });
   }
 
-  if (req.sharedWith.length >= 2 || req.split.length > 0) {
-    const sum = req.split.reduce((s, c) => s + c.share, 0);
-    const charged = new Set(req.split.filter(c => c.share > 0).map(c => c.grantId));
-    const missing = req.sharedWith.filter(id => !charged.has(id));
-    const ok = req.split.length >= 2 && Math.abs(sum - 1) < 1e-9 && missing.length === 0;
-    const oneGrant = !ok && (missing.length > 0 || req.split.length < 2);
-    const basis = oneGrant ? req.oneGrantBasis?.trim() : undefined;
-    const onOne = `Serves ${req.sharedWith.join(' and ')} but is charged to ${req.split.length ? req.split.map(c => c.grantId).join(', ') : 'one grant'} only.`;
-    out.push({
-      rule: 'Shared cost split across the grants it serves',
-      pass: ok,
-      detail: ok
-        ? `Split ${req.split.map(c => `${Math.round(c.share * 100)}% ${c.grantId}`).join(', ')}.`
-        : basis
-          ? `${onOne} The requester says each grant's use can't be measured: "${basis}" The grant manager confirms that basis or asks for a split.`
-          : oneGrant
-            ? onOne
-            : `Shares add up to ${Math.round(sum * 100)}%, not 100%.`,
-      auditCase: ok ? undefined : basis
-        ? "2 CFR 200.405(d): when each project's share can't be determined, a cost may be charged on any reasonable documented basis"
-        : 'NSF OIG audit summary: shared costs charged 100% to one award',
-    });
-  }
   return out;
 }
 
@@ -277,7 +233,6 @@ export function rerouteTarget(
   today: string,
   grants: GrantForRules[],
 ): string | undefined {
-  if (req.split.length > 0) return undefined;
   const failed = spendingVerdicts(req, from, today).filter(v => !v.pass);
   if (failed.length === 0 || !failed.every(v => REROUTABLE.test(v.rule))) return undefined;
   return grants.find(g => g.id !== from.id && canBuyAlone(spendingVerdicts(req, g, today)))?.id;

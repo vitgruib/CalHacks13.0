@@ -378,7 +378,7 @@ for (const order of [['pick', 'pay'], ['pay', 'pick']] as const) {
     assert.equal(grantA().frozen, false, `still frozen: ${grantA().frozenReason}`);
     assert.equal(disagreements(conn).filter((flag) => flag.grantId === 'R01GM061721').length, 1, 'the decided disagreement was not raised again');
     const state = (id: string) => conn.rows('request').find((r) => r.id === id)?.state;
-    assert.deepEqual(['rq-101', 'rq-106', 'rq-107'].map(state), ['bought', 'bought', 'bought']);
+    assert.deepEqual(['rq-101', 'rq-106'].map(state), ['bought', 'bought']);
     assert.equal(state('rq-102'), 'rerouted');
   });
 }

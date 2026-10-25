@@ -86,10 +86,10 @@ today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
 7. **Demo controls: the scorecard.** Planted mistakes caught, missed, and false
    alarms on decoys. It is the run on the full seed (`sim/seed.json`), which
    has more cases than the app shows: a kit priced exactly at the card
-   limit, a cost split 60/40 across both grants, a paper with no PubMed
+   limit, a paper with no PubMed
    Central ID and a corrected paper listed without disclosure, among others.
 
-The app loads a smaller demo world (`sim/demo-seed.json`, 11 of the 24
+The app loads a smaller demo world (`sim/demo-seed.json`, 11 of the 22
 purchases and 2 of the 7 papers) so each step above is easy to find; see
 `sim/README.md`. On the live site, Demo controls → Start over → "Reset to
 the demo seed…" → "Yes, reset everything" resets the world to it. Demo controls also
@@ -140,9 +140,9 @@ simulated clock ([schema.ts](server/src/schema.ts), actions in
   active and not frozen; supplies are not bought in its last 90 days; the
   category is allowed; at or under the $5,000 card limit; the same person's
   same-day purchases in one category add up to no more than that limit (a
-  split purchase); enough truly available money; a shared cost is split
-  across the grants it serves. The last-90-days, category, split-purchase and
-  shared-cost rules cite a real audit case when they fail.
+  split purchase); enough truly available money. Each purchase is charged to
+  one grant. The last-90-days, category and split-purchase rules cite a real
+  audit case when they fail.
 - **Invoice and payroll checks:** a bill must match its order and approval,
   and is held if its order was canceled, the order was already paid (a
   duplicate), or it arrived before the order was placed. Salary for anyone over 100%

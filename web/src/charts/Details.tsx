@@ -10,9 +10,8 @@ import './charts.css'
 
 export type Segment = 'spent' | 'committed' | 'available'
 
-/** The part of a request's price charged to `g` (all of it, or its share of a split). */
+/** The part of a request's price charged to `g`: all of it, or none. */
 function share(r: PurchaseRequest, g: Grant, amount: number): number {
-  if (r.split?.length) return amount * (r.split.find(s => s.grantId === g.id)?.share ?? 0)
   return (r.chargedGrantId ?? r.grantId) === g.id ? amount : 0
 }
 
@@ -29,7 +28,7 @@ export function committedRows(db: Db, g: Grant): Row[] {
     if (!r) continue
     const amount = share(r, g, o.changedAmount ?? o.amount)
     if (amount <= 0) continue
-    rows.push({ key: o.id, day: o.placed, who: who(r), what: r.item, note: `${o.vendor}${r.split?.length ? ' · shared cost' : ''}`, amount })
+    rows.push({ key: o.id, day: o.placed, who: who(r), what: r.item, note: o.vendor, amount })
   }
   return rows.sort((a, b) => b.day.localeCompare(a.day))
 }

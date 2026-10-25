@@ -3,7 +3,6 @@
 // tells a researcher matches what the purchasing agent will do.
 import { canBuyAlone, daysBetween, spendingVerdicts, trulyAvailable, type Verdict } from '../../server/src/rules'
 import { CARD_LIMIT } from '../../server/src/vocab'
-import { useSyncExternalStore } from 'react'
 import type { Db, Grant } from './data/types'
 import { money } from './ui'
 
@@ -28,22 +27,8 @@ const HEADINGS: Record<string, { title: string; short: string }> = {
   F31DC022138: { title: 'Smell circuits', short: 'Smell circuits' },
 }
 
-// Condensed headings (default) or each grant's full real title, switched in
-// Demo controls and remembered in this browser.
-const NAMES_KEY = 'grantguard.names'
-let condensed = (() => { try { return localStorage.getItem(NAMES_KEY) !== 'full' } catch { return true } })()
-const nameListeners = new Set<() => void>()
-const subscribeNames = (f: () => void) => { nameListeners.add(f); return () => { nameListeners.delete(f) } }
-export function setCondensedNames(on: boolean) {
-  condensed = on
-  try { localStorage.setItem(NAMES_KEY, on ? 'condensed' : 'full') } catch { /* just won't survive a reload */ }
-  nameListeners.forEach(f => f())
-}
-/** Re-renders the caller (App, so the whole page) when the naming switches. */
-export const useCondensedNames = () => useSyncExternalStore(subscribeNames, () => condensed)
-
 /** The heading shown for a grant. */
-export const grantHeading = (g: Grant) => (condensed && HEADINGS[g.id]?.title) || g.title
+export const grantHeading = (g: Grant) => HEADINGS[g.id]?.title ?? g.title
 
 const SMALL = new Set(['a', 'an', 'and', 'as', 'by', 'for', 'from', 'in', 'of', 'on', 'the', 'to', 'with'])
 
@@ -128,14 +113,12 @@ export type Outcome =
 const isCardLimit = (v: Verdict) => v.rule.startsWith('Under the card limit')
 const isPause = (v: Verdict) => v.rule.startsWith('Grant is active and not frozen')
 
-/** What the researcher asked for. sharedWith: every grant a shared cost serves. */
-export interface AskFacts { category: string; price: number; sharedWith?: string[] }
+/** What the researcher asked for. */
+export interface AskFacts { category: string; price: number }
 
 /** Every rule's verdict on every grant, the grant with the most money first. */
 export function allChecks(db: Db, req: AskFacts) {
-  // submit_request takes the grants a shared cost serves but not its split,
-  // so a declared shared cost is checked the way the module will see it.
-  const facts = { category: req.category, price: req.price, sharedWith: req.sharedWith ?? [], split: [] }
+  const facts = { category: req.category, price: req.price }
   return [...db.grants]
     .sort((a, b) => trulyAvailable(b) - trulyAvailable(a))
     .map(g => ({ g, verdicts: spendingVerdicts(facts, g, db.today) }))
@@ -147,7 +130,6 @@ export function plainReasons(db: Db, g: Grant, verdicts: Verdict[]): string[] {
     if (isPause(v)) return `Your ${shortName(g)} grant is paused until its money arrives.`
     if (v.rule.startsWith("Not in the grant's last 90 days")) return `Your ${shortName(g)} grant ends ${inTime(daysLeft(db, g))}, and supplies bought this close to the end are often refused by auditors.`
     if (v.rule.startsWith('Enough truly available money')) return `Your ${shortName(g)} grant has only ${money(spendable(g))} left.`
-    if (v.rule.startsWith('Shared cost split')) return `It's shared between grants, so your grant manager decides how to split it.`
     return v.detail
   })
 }

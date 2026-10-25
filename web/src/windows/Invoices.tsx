@@ -1,6 +1,7 @@
 import { useStore } from '../data/store'
 import type { Approval, Hold, Invoice, Order } from '../data/types'
 import { Badge, Empty, Section, money, type Tone } from '../ui'
+import { HoldCard, openHolds } from './Inbox'
 import './Invoices.css'
 
 const stateLabel: Record<Invoice['state'], string> = { matched: 'Matched', held: 'Held', paid: 'Paid', rejected: 'Rejected' }
@@ -24,11 +25,9 @@ function InvoiceCard({ inv, order, approval, hold }: { inv: Invoice; order?: Ord
         ? <p className="inv-mismatch"><strong>Mismatch:</strong> {inv.mismatch}</p>
         : inv.state === 'matched' && <p className="inv-match">Matches its order and its approval, so it is ready to pay.</p>}
 
-      {held && (
-        hold?.decision
-          ? <p className="inv-muted">Decided by {people[hold.decision.by] ?? hold.decision.by} on {hold.decision.day}: {hold.decision.choice.replace('_', ' ')}. Reason: {hold.decision.reason}</p>
-          : <p className="inv-wait">Waiting for the grant manager. See it in the <a href="#inbox">Inbox</a>.</p>
-      )}
+      {hold && !hold.decision
+        ? <HoldCard hold={hold} embedded />
+        : held && hold?.decision && <p className="inv-muted">Decided by {people[hold.decision.by] ?? hold.decision.by} on {hold.decision.day}: {hold.decision.choice.replace('_', ' ')}. Reason: {hold.decision.reason}</p>}
 
       <dl className="inv-facts">
         <dt>Order</dt>
@@ -62,14 +61,17 @@ function InvoiceCard({ inv, order, approval, hold }: { inv: Invoice; order?: Ord
 
 export default function Invoices() {
   const { db } = useStore()
-  // Held first (they need attention), then newest received first.
-  const list = [...db.invoices].sort((a, b) => Number(b.state === 'held') - Number(a.state === 'held') || b.received.localeCompare(a.received))
+  const holds = openHolds(db, 'invoice')
+  const waiting = (i: Invoice) => holds.some(h => h.refId === i.id)
+  // Waiting for a decision first, then held, then newest received first.
+  const list = [...db.invoices].sort((a, b) => Number(waiting(b)) - Number(waiting(a)) || Number(b.state === 'held') - Number(a.state === 'held') || b.received.localeCompare(a.received))
   const heldCount = list.filter(i => i.state === 'held').length
+  const waitingCount = list.filter(waiting).length
 
   return (
     <Section
       title="Bills"
-      aside={<span className="inv-muted">{list.length} invoices, {heldCount} held</span>}
+      aside={<span className="inv-muted">{list.length} invoices, {heldCount} held{waitingCount > 0 && <>, <Badge tone="warn">{waitingCount} waiting for you</Badge></>}</span>}
     >
       {list.length === 0 ? <Empty>No invoices yet.</Empty> : (
         <div className="inv-list">
@@ -79,7 +81,7 @@ export default function Invoices() {
               inv={inv}
               order={db.orders.find(o => o.id === inv.orderId)}
               approval={db.approvals.find(a => a.orderId === inv.orderId)}
-              hold={db.holds.find(h => h.kind === 'invoice' && h.refId === inv.id)}
+              hold={holds.find(h => h.refId === inv.id) ?? db.holds.find(h => h.kind === 'invoice' && h.refId === inv.id)}
             />
           ))}
         </div>

@@ -10,7 +10,7 @@
 // - payroll from/to → period {from, to}; follow_up rows nest under their
 //   payment request; reportPaper → papers.
 // - Module-only columns are not shown: grant.available (windows compute it),
-//   request.sharedWith/requestedBy, order.grantId, sourceReading
+//   request.sharedWith/split/oneGrantBasis (unused since T95)/requestedBy, order.grantId, sourceReading
 //   awarded/paid/endDate/url, flag.raisedBy, all `at` timestamps, plus the
 //   agent, person and counter tables. checkRequest + the check log rows'
 //   `at` become SourceCheck (toSourceCheck), not part of Db.
@@ -95,11 +95,8 @@ export function toDb(db: DbConnection['db']): T.Db {
         explanation: r.explanation,
       }
       if (r.chargedGrantId !== undefined) out.chargedGrantId = r.chargedGrantId
-      if (r.split.length) out.split = r.split
-      if (r.sharedWith.length) out.sharedWith = r.sharedWith
       if (r.requestedBy) out.requestedBy = r.requestedBy.toHexString()
       if (r.requesterName) out.requesterName = r.requesterName
-      if (r.oneGrantBasis) out.oneGrantBasis = r.oneGrantBasis
       return out
     })),
     orders: sorted(rows(db.order).map(o => {

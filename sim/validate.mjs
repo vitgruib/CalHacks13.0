@@ -24,10 +24,8 @@ const REQUIRED = [
   ['fund_tracker', 'mistake', 'a court order with no payment yet'],
   ['purchases', 'mistake', 'supplies bought in the last 90 days'],
   ['purchases', 'mistake', 'an unallowable item'],
-  ['purchases', 'mistake', 'a shared cost charged 100% to one grant'],
   ['purchases', 'mistake', 'a buy over the card limit'],
   ['purchases', 'decoy', 'a buy exactly at the limit'],
-  ['purchases', 'decoy', 'a correct shared-cost split'],
   ['invoices', 'mistake', 'an invoice for a canceled order'],
   ['invoices', 'mistake', 'an approval for a different amount'],
   ['invoices', 'decoy', 'an invoice matching an approved change to the order'],
@@ -148,7 +146,6 @@ const undecidedHoldOn = id => db.holds.find(h => !h.decision && h.refId === id)
 const isRawRequest = r => r.state === 'submitted' && r.verdicts.length === 0
 const isRawInvoice = i => i.checked === false && !i.mismatch && !undecidedHoldOn(i.id)
 const isRawPaper = p => p.checked === false && p.checks.length === 0 && !undecidedHoldOn(p.id)
-const mentionsAllGrants = text => db.grants.every(g => text.includes(g.id))
 
 const CHECKS = {
   'a grant active in one source and canceled in another': (r) => {
@@ -177,10 +174,8 @@ const CHECKS = {
       || 'must be a raw supplies request on a grant ending within 90 days, with another grant to reroute to'
   },
   'an unallowable item': (r) => (isRawRequest(r) && UNALLOWABLE.has(r.category)) || 'must be a raw request in an unallowable category',
-  'a shared cost charged 100% to one grant': (r) => (isRawRequest(r) && !r.split && mentionsAllGrants(r.purpose)) || 'must be a raw request with no split whose purpose names every grant',
   'a buy over the card limit': (r) => (isRawRequest(r) && r.price > CARD_LIMIT) || `must be a raw request over $${CARD_LIMIT}`,
   'a buy exactly at the limit': (r) => (isRawRequest(r) && r.price === CARD_LIMIT) || `must be a raw request of exactly $${CARD_LIMIT}`,
-  'a correct shared-cost split': (r) => (isRawRequest(r) && (r.split?.length ?? 0) >= 2 && mentionsAllGrants(r.purpose)) || 'must be a raw request split across the grants it names',
   'an invoice for a canceled order': (i) => {
     const o = get('orders', i.orderId)
     return (isRawInvoice(i) && o.state === 'canceled' && !!o.canceledOn && o.canceledOn < i.received) || 'must be an unchecked invoice for an order canceled before it arrived'

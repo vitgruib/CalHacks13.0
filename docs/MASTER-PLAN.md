@@ -107,9 +107,9 @@ last 90 days; the category is allowed; under the card limit; enough truly
 available money; shared items split across grants.
 
 **Planted mistakes:** supplies bought in the last 90 days (audits at WVU and
-Delaware); an unallowable item (UC Davis); a shared cost charged 100% to one
-grant (NSF audit summary); a buy over the card limit. **Decoys** (must not
-be flagged): a buy exactly at the limit; a correct shared-cost split.
+Delaware); an unallowable item (UC Davis); a buy over the card limit. **Decoys** (must not
+be flagged): a buy exactly at the limit. (The shared-cost mistake and decoy
+were dropped with cost splitting in T95.)
 
 ### 3.3 Invoice check (P4)
 
@@ -263,10 +263,8 @@ Tasks and commits cite these IDs.
 - **Reading messy text (S5):** paste a court notice or agency letter into
   the Test lab; Claude works out which grant and what changed and posts it
   as a status event. Until then, court orders arrive as ready-made events.
-- **Grant splits (S6):** the researcher states how a shared cost divides
-  across grants when submitting (optional `split` on `submit_request`); the
-  purchasing agent checks it instead of proposing one. Until then the split
-  rides in the purpose text and the grant manager decides it in the Inbox.
+- ~~**Grant splits (S6)**~~: cut (T95). Cost splitting across grants was
+  removed as bloat; each purchase is charged to one grant.
 
 ## 9. Cut and future
 

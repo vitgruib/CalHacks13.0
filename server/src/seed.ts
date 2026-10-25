@@ -132,7 +132,7 @@ export function loadSeed(ctx: Ctx, seed: Seed): void {
       id: r.id, day: r.day, requester: r.requester, requestedBy: undefined,
       item: r.item, category: r.category, price: r.price,
       grantId: opt(r.grantId), chargedGrantId: r.chargedGrantId,
-      sharedWith: r.sharedWith ?? [], split: r.split ?? [], purpose: r.purpose,
+      sharedWith: [], split: [], purpose: r.purpose,
       state: r.state, verdicts: (r.verdicts ?? []).map(v => ({ ...v, auditCase: v.auditCase })), explanation: r.explanation ?? '',
       requesterName: r.requesterName ?? '',
       oneGrantBasis: '',

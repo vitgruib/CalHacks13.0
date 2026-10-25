@@ -8,7 +8,7 @@
       "agency": "NIH / NIGMS",
       "awarded": 420000,
       "received": 13700,
-      "spent": 20680,
+      "spent": 21580,
       "promised": 0,
       "start": "2025-01-01",
       "end": "2027-07-31",
@@ -23,7 +23,7 @@
       "agency": "NIH / NIAID",
       "awarded": 275000,
       "received": 5130,
-      "spent": 22170,
+      "spent": 21270,
       "promised": 11470,
       "start": "2024-08-01",
       "end": "2026-08-31",
@@ -256,17 +256,7 @@
       "category": "core facility services",
       "price": 1800,
       "grantId": "R01GM061721",
-      "split": [
-        {
-          "grantId": "R01GM061721",
-          "share": 0.5
-        },
-        {
-          "grantId": "R21AI182745",
-          "share": 0.5
-        }
-      ],
-      "purpose": "Samples from both projects: 5 hours for R01GM061721, 5 hours for R21AI182745",
+      "purpose": "Membrane folding samples, aim 1",
       "state": "bought",
       "verdicts": [
         {
@@ -295,7 +285,7 @@
           "detail": "Enough money left."
         }
       ],
-      "explanation": "Every rule passed. A shared cost, so I split it 50/50 by the hours each project used."
+      "explanation": "Every rule passed and it is under the card limit, so I bought it."
     },
     {
       "id": "rq-012",
@@ -794,20 +784,6 @@
       "explanation": "Waiting for the purchasing agent."
     },
     {
-      "id": "rq-104",
-      "day": "2026-06-13",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Confocal microscope service contract, 12 months",
-      "category": "equipment service",
-      "price": 3600,
-      "grantId": "R01GM061721",
-      "purpose": "Annual service of the shared confocal microscope; imaging for both R01GM061721 (membrane folding) and R21AI182745 (assay imaging)",
-      "state": "submitted",
-      "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
-    },
-    {
       "id": "rq-105",
       "day": "2026-06-15",
       "requester": "scientist",
@@ -873,30 +849,6 @@
       "price": 2400,
       "grantId": "R21AI182745",
       "purpose": "HEPA filter replacement found at certification",
-      "state": "submitted",
-      "verdicts": [],
-      "explanation": "Waiting for the purchasing agent."
-    },
-    {
-      "id": "rq-107",
-      "day": "2026-06-12",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Proteomics core: 10 hours of mass spec",
-      "category": "core facility services",
-      "price": 1800,
-      "grantId": "R01GM061721",
-      "split": [
-        {
-          "grantId": "R01GM061721",
-          "share": 0.6
-        },
-        {
-          "grantId": "R21AI182745",
-          "share": 0.4
-        }
-      ],
-      "purpose": "Samples from both projects: 6 hours for R01GM061721, 4 hours for R21AI182745",
       "state": "submitted",
       "verdicts": [],
       "explanation": "Waiting for the purchasing agent."
@@ -1699,14 +1651,14 @@
       "day": "2025-09-09",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Proteomics core: 10 hours of mass spec ($1,800)",
-      "reason": "Samples from both projects: 5 hours for R01GM061721, 5 hours for R21AI182745",
+      "reason": "Membrane folding samples, aim 1",
       "refId": "rq-011"
     },
     {
       "id": "l-0003",
       "day": "2025-09-09",
       "actor": "purchasing",
-      "action": "Bought proteomics core: 10 hours of mass spec ($1,800) on R01GM061721 and R21AI182745",
+      "action": "Bought proteomics core: 10 hours of mass spec ($1,800) on R01GM061721",
       "rule": "All rules pass, under card limit",
       "reason": "Every rule passed.",
       "refId": "rq-011"
@@ -2093,14 +2045,6 @@
     },
     {
       "id": "l-0049",
-      "day": "2026-06-12",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Proteomics core: 10 hours of mass spec ($1,800)",
-      "reason": "Samples from both projects: 6 hours for R01GM061721, 4 hours for R21AI182745",
-      "refId": "rq-107"
-    },
-    {
-      "id": "l-0050",
       "day": "2026-06-13",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Espresso machine for the lab ($890)",
@@ -2108,15 +2052,7 @@
       "refId": "rq-103"
     },
     {
-      "id": "l-0051",
-      "day": "2026-06-13",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Confocal microscope service contract, 12 months ($3,600)",
-      "reason": "Annual service of the shared confocal microscope; imaging for both R01GM061721 (membrane folding) and R21AI182745 (assay imaging)",
-      "refId": "rq-104"
-    },
-    {
-      "id": "l-0052",
+      "id": "l-0050",
       "day": "2026-06-14",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",
@@ -2124,7 +2060,7 @@
       "refId": "rq-101"
     },
     {
-      "id": "l-0053",
+      "id": "l-0051",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Peristaltic pump with controller ($6,850)",
@@ -2132,7 +2068,7 @@
       "refId": "rq-105"
     },
     {
-      "id": "l-0054",
+      "id": "l-0052",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Membrane protein detergent screening kit, 4 plates ($5,000)",
@@ -2140,7 +2076,7 @@
       "refId": "rq-106"
     },
     {
-      "id": "l-0055",
+      "id": "l-0053",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 1 of 2 ($2,900)",
@@ -2148,7 +2084,7 @@
       "refId": "rq-108"
     },
     {
-      "id": "l-0056",
+      "id": "l-0054",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 2 of 2 ($2,600)",
@@ -2156,7 +2092,7 @@
       "refId": "rq-109"
     },
     {
-      "id": "l-0057",
+      "id": "l-0055",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Biosafety cabinet filter replacement ($2,400)",

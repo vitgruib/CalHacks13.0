@@ -156,14 +156,14 @@ const request = table(
     price: t.f64(),
     grantId: t.string().optional(), // grant asked for (agent picks if none)
     chargedGrantId: t.string().optional(), // grant actually charged
-    sharedWith: t.array(t.string()), // grants the item serves; 2+ = a shared cost
-    split: t.array(Split), // how a shared cost is charged; shares sum to 1
+    sharedWith: t.array(t.string()), // unused: grant splitting was removed (T95)
+    split: t.array(Split), // unused (T95)
     purpose: t.string(),
     state: t.string(), // submitted | bought | blocked | rerouted | waiting_on_manager | rejected | canceled
     verdicts: t.array(Verdict), // written by the module's rules (T6)
     explanation: t.string(), // purchasing agent's plain-language reason
     requesterName: t.string().default(''), // the person who asked, e.g. Dr. Priya Nair ('' if unknown); added T39
-    oneGrantBasis: t.string().default(''), // a shared cost charged in full to one grant: why each grant's use can't be measured ('' = none stated); added T63
+    oneGrantBasis: t.string().default(''), // unused (T95); added T63
   }
 );
 

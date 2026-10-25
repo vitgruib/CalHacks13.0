@@ -22,7 +22,6 @@ import {
   isRealDay,
   spendingVerdicts,
   usd,
-  type GrantForRules,
   type Verdict,
 } from './rules';
 import {
@@ -195,7 +194,6 @@ function adjustMoney(ctx: Ctx, id: string, d: { spent?: number; promised?: numbe
 /** Verdicts as table rows (optional columns need an explicit key). */
 const vrows = (vs: Verdict[]) => vs.map(v => ({ rule: v.rule, pass: v.pass, detail: v.detail, auditCase: v.auditCase }));
 
-const grantsForRules = (ctx: Ctx): GrantForRules[] => [...ctx.db.grant.iter()];
 
 function raiseHoldRow(
   ctx: Ctx,
@@ -265,8 +263,9 @@ export const register_person = spacetimedb.reducer({ role: t.string(), name: t.s
 export const submit_request = spacetimedb.reducer(
   {
     item: t.string(), category: t.string(), price: t.f64(), grantId: t.string().optional(),
+    // sharedWith and oneGrantBasis are ignored: grant splitting was removed
+    // (T95); the args stay so deployed clients keep working.
     purpose: t.string(), sharedWith: t.array(t.string()),
-    // A shared cost to charge in full to one grant: why each grant's use can't be measured.
     oneGrantBasis: t.string().optional(),
   },
   (ctx, a) => guard(() => {
@@ -278,9 +277,9 @@ export const submit_request = spacetimedb.reducer(
     const name = ctx.db.person.identity.find(ctx.sender)?.name ?? who;
     ctx.db.request.insert({
       id, day: today(ctx), requester: who, requestedBy: ctx.sender, item: a.item, category: a.category,
-      price: a.price, grantId: a.grantId, chargedGrantId: undefined, sharedWith: a.sharedWith, split: [],
+      price: a.price, grantId: a.grantId, chargedGrantId: undefined, sharedWith: [], split: [],
       purpose: a.purpose, state: 'submitted', verdicts: [], explanation: '', requesterName: name,
-      oneGrantBasis: a.sharedWith.length >= 2 ? (a.oneGrantBasis ?? '').trim() : '',
+      oneGrantBasis: '',
     });
     writeLog(ctx, who, `${name} asked to buy ${a.item} (${usd(a.price)})`, a.purpose || 'No purpose given.', { refId: id });
   }),
@@ -388,16 +387,16 @@ export const push_back = spacetimedb.reducer({ requestId: t.string(), message: t
  * money moves; read the verdicts, then call act_on_request.
  */
 export const evaluate_request = spacetimedb.reducer(
+  // split is ignored (T95); the arg stays so deployed workers keep working.
   { requestId: t.string(), grantId: t.string().optional(), split: t.array(Split) },
-  (ctx, { requestId, grantId, split }) => guard(() => {
+  (ctx, { requestId, grantId }) => guard(() => {
     const role = requireAgent(ctx, 'purchasing');
     const r = ctx.db.request.id.find(requestId) ?? fail(`No request ${requestId}.`);
     const gid = grantId ?? r.grantId ?? fail('Pick a grant to check against.');
     const g = getGrant(ctx, gid);
-    const grants = grantsForRules(ctx);
-    const req = withSameDay(ctx, { ...r, split });
-    const verdicts = spendingVerdicts(req, g, today(ctx), new Map(grants.map(x => [x.id, x])));
-    ctx.db.request.id.update({ ...r, chargedGrantId: gid, split, verdicts: vrows(verdicts) });
+    const req = withSameDay(ctx, r);
+    const verdicts = spendingVerdicts(req, g, today(ctx));
+    ctx.db.request.id.update({ ...r, chargedGrantId: gid, verdicts: vrows(verdicts) });
     const failed = verdicts.filter(v => !v.pass);
     writeLog(ctx, role, `Checked ${r.item} against ${gid}`, failed.length ? `Failed: ${failed.map(v => v.rule).join('; ')}.` : 'Every rule passes.', {
       rule: failed[0]?.rule, refId: requestId,
@@ -421,9 +420,7 @@ export const act_on_request = spacetimedb.reducer(
     if (!a.explanation.trim()) fail('Explain the decision.');
     const action = oneOf('action', ['buy', 'reroute', 'hold', 'block'] as const, a.action);
     const gid = a.grantId ?? r.chargedGrantId ?? r.grantId ?? fail('Pick a grant.');
-    const grants = grantsForRules(ctx);
-    const byId = new Map(grants.map(x => [x.id, x]));
-    const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx), byId);
+    const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx));
 
     if (action === 'buy' || action === 'reroute') {
       if (!canBuyAlone(verdicts)) {
@@ -532,11 +529,8 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       }
       const gid = r.chargedGrantId ?? r.grantId;
       if (!gid) return;
-      const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx), new Map(grantsForRules(ctx).map(x => [x.id, x])));
-      // Approving a shared cost the requester asked to charge to one grant, with
-      // a reason, confirms that documented basis (2 CFR 200.405(d)).
-      const blocking = verdicts.filter(v => !v.pass && !v.rule.startsWith('Under the card limit')
-        && !(r.oneGrantBasis && v.rule.startsWith('Shared cost split')));
+      const verdicts = spendingVerdicts(withSameDay(ctx, r), getGrant(ctx, gid), today(ctx));
+      const blocking = verdicts.filter(v => !v.pass && !v.rule.startsWith('Under the card limit'));
       if (c === 'approve' && blocking.length) {
         ctx.db.request.id.update({ ...r, verdicts: vrows(verdicts), state: 'blocked' });
         writeLog(ctx, 'system', `Recheck failed, did not buy ${r.item}`, blocking.map(v => v.detail).join(' '), { rule: blocking[0].rule, refId: r.id });
@@ -545,8 +539,7 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
       placeOrder(ctx, { ...r, chargedGrantId: gid }, 'Vendor', who);
       const explanation = c === 'override'
         ? `The grant manager overrode the rules and bought it on ${gid}: ${reason}`
-        : `The grant manager approved it (${reason}); the rules were rechecked and it was bought on ${gid}.${
-          r.oneGrantBasis && r.sharedWith.length >= 2 ? ` It serves ${r.sharedWith.join(' and ')}; charged in full to ${gid} on the documented basis: ${r.oneGrantBasis}` : ''}`;
+        : `The grant manager approved it (${reason}); the rules were rechecked and it was bought on ${gid}.`;
       ctx.db.request.id.update({ ...ctx.db.request.id.find(r.id)!, verdicts: vrows(verdicts), state: 'bought', chargedGrantId: gid, explanation });
       writeLog(ctx, 'system', `Bought ${r.item} (${usd(r.price)}) on ${gid}`, c === 'override' ? `Overridden by the grant manager: ${reason}` : 'Approved; rules rechecked.', { refId: r.id });
       return;

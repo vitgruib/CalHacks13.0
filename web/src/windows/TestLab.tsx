@@ -15,7 +15,7 @@ import type { Tone } from '../ui'
 import scorecardJson from '../../../eval/scorecard.json'
 import { edgeCaseOf, isEdgeGrant } from '../people'
 import './TestLab.css'
-import { grantHeading, setCondensedNames, useCondensedNames } from '../plain'
+import { grantHeading } from '../plain'
 
 interface Score { caught: number; missed: number; falseAlarms: number; correctPasses: number; notRun: number; mistakes: number; decoys: number }
 interface Scorecard {
@@ -124,7 +124,6 @@ export default function TestLab() {
     return `Invoice for ${oid} (${money(amount)}) arrived, not checked yet.` + (p ? ` It should be held: ${p.expect}.` : '')
   })
 
-  const condensedNames = useCondensedNames()
   return (
     <div className="testlab">
       <p className="demo-banner" role="note">
@@ -137,11 +136,6 @@ export default function TestLab() {
           {notes.map((n, i) => <li key={n.id} className={`${n.tone}${i === 0 ? ' latest' : ''}`}>{n.text}</li>)}
         </ul>
       )}
-
-      <label className="tl-inline">
-        <input type="checkbox" checked={condensedNames} onChange={e => setCondensedNames(e.target.checked)} />
-        Condensed grant names (off: each grant's full NIH title)
-      </label>
 
       <Section title="Demo script (3 min)">
         <DemoRunSheet />

@@ -9,16 +9,12 @@ import {
   DEFAULT_VENDOR,
   explanationOr,
   finishExplanation,
-  frozenGrantOf,
   loadRules,
   planFor,
   readFallback,
   sanitizeRead,
-  sharedCostStep,
-  splitFor,
   startPurchasing,
   vendorFor,
-  type Reading,
 } from '../src/agents/purchasing.ts';
 import type { Actions, ActionName, Connection, GrantRow, OrderRow, RequestRow, RuleVerdict, Source } from '../src/db/contract.ts';
 import { createLocalDb } from '../src/db/local.ts';
@@ -191,17 +187,6 @@ test('pu_2_rq_103_is_blocked_citing_the_category_rule', async () => {
   assert.equal(purchaseHolds('rq-103').length, 0);
 });
 
-test('pu_3_rq_104_is_held_for_a_split_citing_the_shared_cost_rule', async () => {
-  await startSim();
-  const row = request('rq-104');
-  assert.equal(row.state, 'waiting_on_manager');
-  assert.ok(failedRules(row).includes('Shared cost split across the grants it serves'), failedRules(row).join('; '));
-  const [hold] = openPurchaseHolds('rq-104');
-  assert.ok(hold.evidence.some((e) => e.label === 'Shared cost split across the grants it serves'));
-  assert.match(row.explanation, /Serves R01GM061721 and R21AI182745 but is charged to R01GM061721 only/);
-  assert.equal(ordersFor('rq-104').length, 0);
-});
-
 test('pu_4_rq_105_waits_on_the_manager_citing_the_card_limit', async () => {
   await startSim();
   const row = request('rq-105');
@@ -220,27 +205,18 @@ test('pu_d1_rq_106_passes_the_card_limit_and_waits_only_for_the_freeze', async (
   assert.ok(!hold.evidence.some((e) => e.label.startsWith('Under the card limit')), 'held for the freeze, not the limit');
 });
 
-test('pu_d2_rq_107_keeps_its_60_40_split_and_passes_the_shared_cost_rule', async () => {
-  await startSim();
-  const row = request('rq-107');
-  assert.deepEqual(row.split, [{ grantId: GRANT_A, share: 0.6 }, { grantId: GRANT_B, share: 0.4 }]);
-  assert.equal(verdict(row, 'Shared cost split')?.pass, true);
-  assert.deepEqual(failedRules(row), ['Grant is active and not frozen (R01GM061721)']);
-});
-
 test('once_grant_a_is_paid_and_its_sources_agree_the_waiting_purchases_go_through', async () => {
   const catchUp = await startSim();
   const { frozenAfterPaymentAlone } = await payGrantA(catchUp);
   assert.equal(frozenAfterPaymentAlone, true, 'while sources disagree (ft-1) a payment alone does not unfreeze grant A');
   assert.equal(conn().rows('grant').find((grant) => grant.id === GRANT_A)?.frozen, false);
 
-  for (const id of ['rq-101', 'rq-106', 'rq-107']) {
+  for (const id of ['rq-101', 'rq-106']) {
     assert.equal(request(id).state, 'bought', id);
     assert.ok(request(id).verdicts.every((v) => v.pass), id);
   }
   assert.deepEqual(ordersFor('rq-101').map((o) => [o.grantId, o.amount, o.vendor]), [[GRANT_A, 640, 'LabSource']]);
   assert.deepEqual(ordersFor('rq-106').map((o) => [o.grantId, o.amount, o.vendor]), [[GRANT_A, 5000, 'MembraneChem']]);
-  assert.deepEqual(ordersFor('rq-107').map((o) => [o.grantId, o.amount]), [[GRANT_A, 1080], [GRANT_B, 720]]);
   assert.match(request('rq-101').explanation, /held only for the freeze/);
 
   const rerouted = request('rq-102');
@@ -251,23 +227,21 @@ test('once_grant_a_is_paid_and_its_sources_agree_the_waiting_purchases_go_throug
   assert.match(rerouted.explanation, /Not in the grant's last 90 days/);
 
   // Still waiting on what only a person can fix, and not bought; the Inbox
-  // says what still holds them, no longer the freeze.
-  for (const [id, rule] of [['rq-104', 'Shared cost split'], ['rq-105', 'Under the card limit']]) {
-    assert.equal(request(id).state, 'waiting_on_manager', id);
-    assert.equal(ordersFor(id).length, 0, id);
-    const holds = openPurchaseHolds(id);
-    assert.equal(holds.length, 1, id);
-    assert.ok(holds[0].why.includes(rule), id);
-    assert.ok(!holds[0].why.includes('Grant is active and not frozen'), `${id}: ${holds[0].why}`);
-    assert.ok(holds[0].evidence.every((row) => !row.label.startsWith('Grant is active')), id);
-  }
+  // says what still holds it, no longer the freeze.
+  assert.equal(request('rq-105').state, 'waiting_on_manager');
+  assert.equal(ordersFor('rq-105').length, 0);
+  const holds = openPurchaseHolds('rq-105');
+  assert.equal(holds.length, 1);
+  assert.ok(holds[0].why.includes('Under the card limit'));
+  assert.ok(!holds[0].why.includes('Grant is active and not frozen'), holds[0].why);
+  assert.ok(holds[0].evidence.every((row) => !row.label.startsWith('Grant is active')));
   assert.equal(request('rq-103').state, 'blocked');
 });
 
 // The grant manager decides a held item while the agent is checking it again
 // after the unfreeze (QA's race): the decision stands, and the rest of the
 // rechecks still happen.
-for (const [id, choice, other] of [['rq-104', 'approve', 'rq-105'], ['rq-104', 'reject', 'rq-105']] as const) {
+for (const [id, choice] of [['rq-105', 'approve'], ['rq-105', 'reject']] as const) {
   test(`a_${choice}_of_${id}_while_its_hold_is_checked_again_is_not_undone`, async () => {
     const catchUp = await startSim();
     const grantManager = await world!.person('grant_manager');
@@ -286,8 +260,7 @@ for (const [id, choice, other] of [['rq-104', 'approve', 'rq-105'], ['rq-104', '
     await payGrantA(catchUp);
     assert.ok(decided);
     assert.deepEqual(openPurchaseHolds(id), [], `${id} was decided; it must not come back to the Inbox`);
-    const [rest] = openPurchaseHolds(other);
-    assert.ok(rest && !rest.why.includes('Grant is active and not frozen'), `${other} is still checked again`);
+    assert.equal(request('rq-101').state, 'bought', 'the other waiting purchases are still checked again');
   });
 }
 
@@ -328,13 +301,11 @@ for (const order of [['pay', 'pick'], ['pick', 'pay']] as const) {
     const decide = (id: string, choice: 'approve' | 'reject', reason: string) =>
       grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice, reason });
     await decide('rq-101', 'approve', 'Yes, buy the gloves.');
-    await decide('rq-104', 'approve', 'Charge the service to R01GM061721.');
     await decide('rq-105', 'approve', 'The pump is needed for aim 3.');
     await decide('rq-106', 'reject', 'Use the kit left from round 1.');
     await world.worker.idle();
     assert.equal(request('rq-101').state, 'blocked', "the module's recheck fails on the freeze");
     assert.equal(ordersFor('rq-101').length, 0);
-    assert.ok(failedRules(request('rq-104')).includes('Shared cost split across the grants it serves'), 'blocked for more than the freeze');
 
     await unfreezeGrantA(grantManager, order);
     assert.equal(conn().rows('grant').find((grant) => grant.id === GRANT_A)?.frozen, false);
@@ -344,17 +315,13 @@ for (const order of [['pay', 'pick'], ['pick', 'pay']] as const) {
     assert.equal(openPurchaseHolds('rq-101').length, 0);
     assert.match(row.explanation, /The grant manager approved it on 2026-06-15 while R01GM061721 was frozen, so it was bought once R01GM061721 unfroze/);
 
-    // A rejection stands, and so does an approval blocked for another rule.
-    // The module never lets the agent buy over the card limit, so that
-    // approval goes back to the grant manager.
+    // A rejection stands. The module never lets the agent buy over the card
+    // limit, so that approval goes back to the grant manager.
     assert.equal(request('rq-106').state, 'rejected');
     assert.equal(ordersFor('rq-106').length, 0);
-    assert.equal(request('rq-104').state, 'blocked');
-    assert.equal(ordersFor('rq-104').length, 0);
     assert.equal(request('rq-105').state, 'waiting_on_manager');
     assert.equal(openPurchaseHolds('rq-105').length, 1);
     assert.equal(ordersFor('rq-105').length, 0);
-    assert.equal(request('rq-107').state, 'bought', 'nobody decided it, so it goes through as before');
 
     const before = [conn().rows('order').length, conn().rows('log').length];
     await world.worker.idle();
@@ -445,9 +412,8 @@ test('a_freeze_hold_whose_grant_unfreezes_in_its_last_90_days_with_no_other_gran
   assert.match(hold.why, /No other grant can take it/);
 });
 
-// A judge fast-forwards the Test lab clock past grant B's end before paying
-// grant A: rq-107's 40% share can no longer go on B.
-test('after_a_fast_forward_past_grant_b_s_end_rq_107_is_held_without_its_promise_and_the_rest_go_through', async () => {
+// A judge fast-forwards the Test lab clock past grant B's end before paying grant A.
+test('after_a_fast_forward_past_grant_b_s_end_the_waiting_purchases_go_through', async () => {
   const catchUp = await startSim();
   const grantManager = await world!.person('grant_manager');
   await grantManager.call('advance_days', { days: 80 });
@@ -455,12 +421,6 @@ test('after_a_fast_forward_past_grant_b_s_end_rq_107_is_held_without_its_promise
   await payGrantA(catchUp);
   assert.equal(conn().rows('grant').find((grant) => grant.id === GRANT_A)?.frozen, false);
   for (const id of ['rq-101', 'rq-106']) assert.equal(request(id).state, 'bought', id);
-  const split = request('rq-107');
-  assert.equal(split.state, 'waiting_on_manager');
-  assert.equal(ordersFor('rq-107').length, 0);
-  const [hold] = openPurchaseHolds('rq-107');
-  assert.doesNotMatch(hold.why, PROMISE);
-  assert.match(hold.why, /The grant has ended/);
   // Rerouted on the rules as they stand now, not as on the day it was blocked.
   assert.equal(request('rq-102').state, 'rerouted');
   assert.match(request('rq-102').explanation, /The grant has ended/);
@@ -516,62 +476,6 @@ test('a_clean_typed_request_under_the_limit_is_bought_alone', async () => {
   assert.equal(row.state, 'bought');
   assert.equal(purchaseHolds(row.id).length, 0);
   assert.deepEqual(ordersFor(row.id).map((o) => [o.grantId, o.amount]), [[TEST_GRANT, 240]]);
-});
-
-test('a_declared_shared_cost_without_a_split_is_held_and_looked_at_again_after_a_push_back', async () => {
-  world = await startWorld({ seedJson: twoGrantSeed() });
-  const scientist = await world.person('scientist');
-  await scientist.call('submit_request', {
-    item: 'Freezer service visit', category: 'equipment service', price: 1_200, grantId: TEST_GRANT,
-    purpose: 'The -80 freezer both projects use', sharedWith: [TEST_GRANT, SECOND_GRANT],
-  });
-  await world.worker.idle();
-  const row = newestRequest();
-  assert.equal(row.state, 'waiting_on_manager');
-  assert.equal(verdict(row, 'Shared cost split')?.pass, false);
-  assert.match(row.explanation, /Serves R01TEST000001 and R21TEST000002 but is charged to one grant only/);
-
-  await scientist.call('push_back', { requestId: row.id, message: 'Both projects use it equally.' });
-  await world.worker.idle();
-  // No proportions the agent may use without Claude, so it asks again: one open item, not two.
-  assert.equal(request(row.id).state, 'waiting_on_manager');
-  assert.equal(openPurchaseHolds(row.id).length, 1);
-  assert.equal(purchaseHolds(row.id).length, 2);
-});
-
-test('a_shared_cost_the_requester_asks_to_charge_to_one_grant_waits_for_the_grant_manager_who_can_approve_it_there', async () => {
-  world = await startWorld({ seedJson: twoGrantSeed() });
-  const scientist = await world.person('scientist');
-  const grantManager = await world.person('grant_manager');
-  await scientist.call('submit_request', {
-    item: 'Freezer service visit', category: 'equipment service', price: 1_200, grantId: TEST_GRANT,
-    purpose: 'The -80 freezer both projects use', sharedWith: [TEST_GRANT, SECOND_GRANT],
-    oneGrantBasis: 'Both projects store the same shared samples in it.',
-  });
-  await world.worker.idle();
-  const row = newestRequest();
-  assert.equal(row.state, 'waiting_on_manager', 'never bought on the reason alone');
-  assert.match(row.explanation, /Both projects store the same shared samples in it\./);
-  assert.match(row.explanation, /grant manager can approve it on R01TEST000001/);
-
-  await grantManager.call('decide_hold', { holdId: openPurchaseHolds(row.id)[0].id, choice: 'approve', reason: 'Agreed, one pool of samples.' });
-  await world.worker.idle();
-  assert.equal(request(row.id).state, 'bought');
-  assert.deepEqual(ordersFor(row.id).map((o) => [o.grantId, o.amount]), [[TEST_GRANT, 1_200]]);
-});
-
-test('the_shared_cost_hold_says_a_split_looks_needed_when_claude_thinks_each_grants_use_is_measurable', () => {
-  const serves = ['G-A', 'G-B'];
-  const measurable = { measurable: 'yes' as const, how: 'The microscope booking log records hours per project.' };
-  const step = sharedCostStep(serves, 'G-A', 'Both projects use it.', measurable);
-  assert.match(step, /asked to charge it all to G-A/);
-  assert.match(step, /booking log records hours per project\)/);
-  assert.match(step, /split by use looks needed/);
-  assert.doesNotMatch(step, /can approve it on G-A/, 'no offer to approve the claim it doubts');
-
-  const inseparable = sharedCostStep(serves, 'G-A', '', { measurable: 'no', how: 'One experiment answers both aims at once.' });
-  assert.match(inseparable, /hard to separate \(One experiment answers both aims at once\)/);
-  assert.equal(sharedCostStep(serves, 'G-A'), sharedCostStep(serves, 'G-A', '', { measurable: 'unclear', how: '' }), 'no view: the plain ask for a split');
 });
 
 test('a_push_back_on_a_rerouted_request_never_buys_it_twice', async () => {
@@ -956,19 +860,12 @@ test('plan_for_puts_the_category_rule_first_and_the_freeze_last', () => {
   assert.deepEqual(planFor(PASSING), { action: 'buy' });
   assert.deepEqual(planFor(failing('Category allowed', 'Grant is active and not frozen')), { action: 'block', reason: 'category' });
   assert.deepEqual(planFor(failing('Under the card limit ($5,000)', 'Grant is active and not frozen')), { action: 'hold', reason: 'card_limit' });
-  assert.deepEqual(planFor([...PASSING, v('Shared cost split across the grants it serves', false)]), { action: 'hold', reason: 'shared_cost' });
   assert.deepEqual(planFor(failing('Grant is active and not frozen')), { action: 'hold', reason: 'freeze' });
   assert.deepEqual(planFor(failing('Grant is active and not frozen'), () => true), { action: 'try_reroute' }, 'an ended grant never unfreezes');
   assert.deepEqual(planFor(failing("Not in the grant's last 90 days")), { action: 'try_reroute' });
   assert.deepEqual(planFor(failing('Enough truly available money', 'Grant is active and not frozen')), { action: 'try_reroute' });
   assert.deepEqual(planFor([...PASSING, v('A rule nobody told the agent about', false)]), { action: 'hold', reason: 'unplaced' });
   assert.deepEqual(planFor([]), { action: 'hold', reason: 'unplaced' }, 'no verdicts is never a buy');
-});
-
-test('frozen_grant_of_reads_the_grant_named_on_a_split_charge', () => {
-  assert.equal(frozenGrantOf(v('Grant is active and not frozen (R01GM061721)', false), GRANT_B), GRANT_A);
-  assert.equal(frozenGrantOf(v('Grant is active and not frozen', false), GRANT_B), GRANT_B);
-  assert.equal(frozenGrantOf(v('Under the card limit ($5,000)', false), GRANT_B), GRANT_B);
 });
 
 const grantRow = (id: string, extra: Partial<GrantRow> = {}): GrantRow => ({
@@ -990,65 +887,27 @@ test('the_fallback_reading_takes_the_only_grant_that_can_pay_and_calls_two_uncle
   );
   const two = readFallback(requestRow(), [grantRow('G-A'), grantRow('G-B')], rules, '2026-06-15');
   assert.equal(two.grantIsClear, false);
-  const named = readFallback(requestRow({ purpose: 'Imaging for G-A and G-B' }), [grantRow('G-A'), grantRow('G-B')], rules, '2026-06-15');
-  assert.deepEqual(named.servesGrantIds, ['G-A', 'G-B']);
-  assert.deepEqual(named.split, [], 'the fallback never invents a split');
 });
 
-const answer = (extra: Partial<Parameters<typeof sanitizeRead>[0]> = {}) => ({
-  grantId: 'G-B', grantIsClear: true, servesGrantIds: ['G-B'], split: [], splitSource: 'none' as const, note: '', ...extra,
-});
+const answer = (extra: Partial<Parameters<typeof sanitizeRead>[0]> = {}) => ({ grantId: 'G-B', grantIsClear: true, note: '', ...extra });
 
 test('sanitize_read_keeps_the_scientist_s_grant_and_drops_ids_outside_the_lab', () => {
   const grants = [grantRow('G-A'), grantRow('G-B')];
   const fallback = answer({ grantId: 'G-A', grantIsClear: false });
   const asked = sanitizeRead(answer({ grantId: 'G-B' }), requestRow({ grantId: 'G-A' }), grants, fallback);
   assert.deepEqual([asked.grantId, asked.grantIsClear], ['G-A', true]);
-  const outside = sanitizeRead(answer({ grantId: 'R01-NOT-OURS', servesGrantIds: ['R01-NOT-OURS', 'G-B'] }), requestRow(), grants, fallback);
-  assert.deepEqual([outside.grantId, outside.grantIsClear, outside.serves], ['G-A', false, ['G-B']]);
-});
-
-test('sanitize_read_counts_every_grant_the_text_names_even_if_claude_misses_one', () => {
-  const grants = [grantRow('G-A'), grantRow('G-B')];
-  const shared = requestRow({ grantId: 'G-A', purpose: 'Service of the shared microscope; imaging for both G-A and G-B' });
-  const read = sanitizeRead(answer({ grantId: 'G-A', servesGrantIds: ['G-A'] }), shared, grants, answer());
-  assert.deepEqual(read.serves, ['G-A', 'G-B']);
-  assert.deepEqual(splitFor(shared, read), [{ grantId: 'G-A', share: 1 }], 'so the module checks the shared-cost rule');
+  const outside = sanitizeRead(answer({ grantId: 'R01-NOT-OURS' }), requestRow(), grants, fallback);
+  assert.deepEqual([outside.grantId, outside.grantIsClear], ['G-A', false]);
 });
 
 test('explanation_or_uses_the_template_when_claude_returns_nothing', () => {
   const facts = {
     request: { id: 'rq-1', item: 'Pipette tips', category: 'lab supplies', price: 380, purpose: 'Bench use' },
-    action: 'hold' as const, grantId: 'G-A', split: [], passed: [],
+    action: 'hold' as const, grantId: 'G-A', passed: [],
     failed: [{ rule: 'Under the card limit ($5,000)', detail: '$7,200 is over the limit.' }], next: 'The grant manager decides.',
   };
   assert.match(explanationOr('  ', facts), /^Held Pipette tips \(\$380\) on G-A .*Under the card limit \(\$5,000\): \$7,200 is over the limit/);
   assert.equal(explanationOr('Held for the card limit.', facts), 'Held for the card limit.');
-});
-
-test('sanitize_read_uses_only_a_split_a_person_stated_across_two_grants', () => {
-  const grants = [grantRow('G-A'), grantRow('G-B')];
-  const stated = sanitizeRead(
-    answer({ split: [{ grantId: 'G-A', share: 0.6 }, { grantId: 'G-B', share: 0.4 }], splitSource: 'request' }), requestRow(), grants, answer(),
-  );
-  assert.deepEqual(stated.split, [{ grantId: 'G-A', share: 0.6 }, { grantId: 'G-B', share: 0.4 }]);
-  const unstated = sanitizeRead(answer({ split: [{ grantId: 'G-A', share: 0.5 }, { grantId: 'G-B', share: 0.5 }] }), requestRow(), grants, answer());
-  assert.deepEqual(unstated.split, [], 'splitSource none means no split, whatever the shares say');
-  const single = sanitizeRead(answer({ split: [{ grantId: 'G-A', share: 1 }], splitSource: 'request' }), requestRow(), grants, answer());
-  assert.deepEqual(single.split, []);
-});
-
-test('split_for_checks_an_undeclared_shared_cost_as_charged_so_the_rule_runs', () => {
-  const reading = (extra: Partial<Reading> = {}): Reading => ({
-    grantId: 'G-A', grantIsClear: true, serves: ['G-A'], split: [], splitSource: 'none', note: '', ...extra,
-  });
-  assert.deepEqual(splitFor(requestRow(), reading()), []);
-  assert.deepEqual(splitFor(requestRow(), reading({ serves: ['G-A', 'G-B'] })), [{ grantId: 'G-A', share: 1 }]);
-  assert.deepEqual(splitFor(requestRow({ sharedWith: ['G-A', 'G-B'] }), reading({ serves: ['G-A', 'G-B'] })), [], 'the module checks a declared one itself');
-  const given = [{ grantId: 'G-A', share: 0.6 }, { grantId: 'G-B', share: 0.4 }];
-  assert.deepEqual(splitFor(requestRow({ split: given }), reading({ serves: ['G-A', 'G-B'] })), given);
-  const pushedBack = [{ grantId: 'G-A', share: 0.5 }, { grantId: 'G-B', share: 0.5 }];
-  assert.deepEqual(splitFor(requestRow({ split: given }), reading({ split: pushedBack, splitSource: 'push_back' })), pushedBack, 'a push back is newer');
 });
 
 test('finish_explanation_names_a_rule_claude_left_out', () => {

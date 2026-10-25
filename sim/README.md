@@ -58,11 +58,11 @@ records. Settled history is already filled in: past purchases, paid invoices,
 payment events, decided holds and log rows.
 
 **In the full seed, after the demo payment lands on R01GM061721:** the gloves (rq-101), the
-at-limit kit (rq-106), the 60/40 split (rq-107) and the rerouted agar plates
-(rq-102) go through. The over-limit pump (rq-105) and the unsplit shared
-contract (rq-104) still wait for the grant manager.
+at-limit kit (rq-106) and the rerouted agar plates (rq-102) go through. The
+over-limit pump (rq-105) still waits for the grant manager. (rq-104 and rq-107,
+the shared-cost cases, were removed with cost splitting in T95.)
 
-**The demo world** (`demo-seed.json`) keeps 11 of the 24 purchases: today's
+**The demo world** (`demo-seed.json`) keeps 11 of the 22 purchases: today's
 gloves on the frozen grant (rq-101), the agar plates in grant B's last 90 days
 (rq-102) and the espresso machine (rq-103); past orders rq-012, rq-017 and
 rq-033 as ordinary examples (rq-101 and rq-102 also take their vendor from
@@ -84,10 +84,8 @@ add its id to `DEMO_REQUESTS` and regenerate.
 | pu-0 | purchases | mistake | demo path: buy on the restored, unpaid grant | `rq-101` | hold |
 | pu-1 | purchases | mistake | supplies in the last 90 days (WVU, Delaware) | `rq-102` | reroute (or block) |
 | pu-2 | purchases | mistake | an unallowable item (UC Davis) | `rq-103` | block |
-| pu-3 | purchases | mistake | a shared cost charged 100% to one grant | `rq-104` | hold (or block) |
 | pu-4 | purchases | mistake | a buy over the card limit | `rq-105` ($6,850) | hold |
 | pu-d1 | purchases | decoy | a buy exactly at the limit | `rq-106` ($5,000) | pass |
-| pu-d2 | purchases | decoy | a correct shared-cost split | `rq-107` (60/40) | pass |
 | in-1 | invoices | mistake | an invoice for a canceled order | `inv-030` | hold |
 | in-2 | invoices | mistake | an approval for a different amount | `inv-034` ($6,200 vs `ap-034` $5,800) | hold |
 | in-d1 | invoices | decoy | matches an approved change to the order | `inv-036` ($1,290) | pass |

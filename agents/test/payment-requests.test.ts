@@ -900,7 +900,7 @@ test('a_fast_forward_past_two_month_ends_drafts_june_for_each_grant_that_spent_i
     assert.deepEqual(sorted(june[0].includedRequestIds), sorted([...new Set(claimable(grantId).map((o) => o.requestId))]));
     assert.deepEqual(requestsFor(conn, grantId, JULY), [], `July is empty on ${grantId}`);
   }
-  assert.equal(requestsFor(conn, R01, JUNE)[0].amount + requestsFor(conn, R21, JUNE)[0].amount, 11_660, 'every June purchase but the held o-202 is claimed');
+  assert.equal(requestsFor(conn, R01, JUNE)[0].amount + requestsFor(conn, R21, JUNE)[0].amount, 9_860, 'every June purchase but the held o-202 is claimed');
 
   const before = world.db.version();
   await world.worker.idle();

@@ -15,17 +15,12 @@ export const addMonths = (ms: number, months: number) => ms + months * MONTH_DAY
 
 export interface Spend { day: string; amount: number }
 
-/** Every dollar charged to `g`: payroll (on its period's last day) and bought purchases (its share when split). */
+/** Every dollar charged to `g`: payroll (on its period's last day) and bought purchases. */
 export function spendingRows(db: Db, g: Grant): Spend[] {
   const rows: Spend[] = db.payroll.filter(p => p.grantId === g.id).map(p => ({ day: p.period.to, amount: p.amount }))
   for (const r of db.requests) {
     if (r.state !== 'bought') continue
-    if (r.split?.length) {
-      const share = r.split.find(s => s.grantId === g.id)?.share ?? 0
-      if (share > 0) rows.push({ day: r.day, amount: r.price * share })
-    } else if ((r.chargedGrantId ?? r.grantId) === g.id) {
-      rows.push({ day: r.day, amount: r.price })
-    }
+    if ((r.chargedGrantId ?? r.grantId) === g.id) rows.push({ day: r.day, amount: r.price })
   }
   return rows.filter(r => r.day <= db.today).sort((a, b) => a.day.localeCompare(b.day))
 }

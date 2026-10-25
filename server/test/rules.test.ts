@@ -18,7 +18,7 @@ const grant = (over: Partial<GrantForRules> = {}): GrantForRules => ({
   id: 'G1', status: 'active', end: '2027-12-31', awarded: 100_000, spent: 40_000, promised: 10_000,
   frozen: false, ...over,
 });
-const supplies = (price: number) => ({ category: 'lab supplies', price, sharedWith: [], split: [] });
+const supplies = (price: number) => ({ category: 'lab supplies', price });
 const failed = (vs: { rule: string; pass: boolean }[]) => vs.filter(v => !v.pass).map(v => v.rule);
 
 describe('fund tracker', () => {
@@ -103,26 +103,6 @@ describe('spending rules', () => {
 
   test('decoy: a buy exactly at the card limit passes', () => {
     expect(canBuyAlone(spendingVerdicts(supplies(5_000), grant(), TODAY))).toBe(true);
-  });
-
-  test('planted: a shared cost charged 100% to one grant is flagged', () => {
-    const req = { category: 'equipment', price: 3_000, sharedWith: ['G1', 'G2'], split: [] };
-    expect(failed(spendingVerdicts(req, grant(), TODAY))).toEqual(['Shared cost split across the grants it serves']);
-  });
-
-  test('a shared cost charged in full to one grant on a stated basis still waits for the grant manager, and says why', () => {
-    const req = { category: 'equipment', price: 3_000, sharedWith: ['G1', 'G2'], split: [], oneGrantBasis: 'Both aims run on the same samples.' };
-    const [v] = spendingVerdicts(req, grant(), TODAY).filter(x => !x.pass);
-    expect(v.rule).toBe('Shared cost split across the grants it serves');
-    expect(v.detail).toContain('Both aims run on the same samples.');
-    expect(v.auditCase).toMatch(/200\.405\(d\)/);
-  });
-
-  test('decoy: a correct shared-cost split passes', () => {
-    const g1 = grant();
-    const g2 = grant({ id: 'G2' });
-    const req = { category: 'equipment', price: 3_000, sharedWith: ['G1', 'G2'], split: [{ grantId: 'G1', share: 0.6 }, { grantId: 'G2', share: 0.4 }] };
-    expect(canBuyAlone(spendingVerdicts(req, g1, TODAY, new Map([['G1', g1], ['G2', g2]])))).toBe(true);
   });
 
   test('a frozen grant fails, and the reason is the freeze reason', () => {

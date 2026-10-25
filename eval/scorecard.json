@@ -3,13 +3,13 @@
   "key": "sim/answer-key.json",
   "today": "2026-06-15",
   "totals": {
-    "caught": 18,
+    "caught": 17,
     "missed": 0,
     "falseAlarms": 0,
-    "correctPasses": 7,
+    "correctPasses": 6,
     "notRun": 0,
-    "mistakes": 18,
-    "decoys": 7,
+    "mistakes": 17,
+    "decoys": 6,
     "unlistedFalseAlarms": 0
   },
   "features": [
@@ -28,13 +28,13 @@
     {
       "feature": "purchases",
       "label": "Purchases",
-      "caught": 6,
+      "caught": 5,
       "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 3,
+      "correctPasses": 2,
       "notRun": 0,
-      "mistakes": 6,
-      "decoys": 3,
+      "mistakes": 5,
+      "decoys": 2,
       "unlistedFalseAlarms": 0
     },
     {
@@ -142,17 +142,6 @@
       "detail": "blocked; Category allowed: general office is not an allowable direct cost on a federal grant."
     },
     {
-      "id": "pu-3",
-      "feature": "purchases",
-      "kind": "mistake",
-      "refId": "rq-104",
-      "expected": "hold or block",
-      "got": "hold",
-      "outcome": "caught",
-      "notRun": false,
-      "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves  but is charged to R01GM061721 only."
-    },
-    {
       "id": "pu-4",
       "feature": "purchases",
       "kind": "mistake",
@@ -184,17 +173,6 @@
       "outcome": "correct pass",
       "notRun": false,
       "detail": "$5,000."
-    },
-    {
-      "id": "pu-d2",
-      "feature": "purchases",
-      "kind": "decoy",
-      "refId": "rq-107",
-      "expected": "pass",
-      "got": "pass",
-      "outcome": "correct pass",
-      "notRun": false,
-      "detail": "Split 60% R01GM061721, 40% R21AI182745."
     },
     {
       "id": "pu-d3",
@@ -364,13 +342,13 @@
       "reports": "record_paper_facts with the facts already on each paper in the seed (no public-records lookup)."
     },
     "totals": {
-      "caught": 18,
+      "caught": 17,
       "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 7,
+      "correctPasses": 6,
       "notRun": 0,
-      "mistakes": 18,
-      "decoys": 7,
+      "mistakes": 17,
+      "decoys": 6,
       "unlistedFalseAlarms": 0
     },
     "features": [
@@ -386,13 +364,13 @@
       },
       {
         "feature": "purchases",
-        "caught": 6,
+        "caught": 5,
         "missed": 0,
         "falseAlarms": 0,
-        "correctPasses": 3,
+        "correctPasses": 2,
         "notRun": 0,
-        "mistakes": 6,
-        "decoys": 3
+        "mistakes": 5,
+        "decoys": 2
       },
       {
         "feature": "invoices",
@@ -456,11 +434,6 @@
         "outcome": "caught",
         "detail": "blocked; Category allowed: general office is not an allowable direct cost on a federal grant."
       },
-      "pu-3": {
-        "got": "hold",
-        "outcome": "caught",
-        "detail": "waiting_on_manager; Shared cost split across the grants it serves: Serves  but is charged to R01GM061721 only."
-      },
       "pu-4": {
         "got": "hold",
         "outcome": "caught",
@@ -475,11 +448,6 @@
         "got": "pass",
         "outcome": "correct pass",
         "detail": "$5,000."
-      },
-      "pu-d2": {
-        "got": "pass",
-        "outcome": "correct pass",
-        "detail": "Split 60% R01GM061721, 40% R21AI182745."
       },
       "pu-d3": {
         "got": "pass",
