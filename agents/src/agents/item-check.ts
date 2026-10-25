@@ -39,7 +39,15 @@ async function priceWithin(lookup: Promise<PriceCheck | undefined>, ms: number):
   }
 }
 
-const clip = (text: string, max = 160) => (text.length <= max ? text.trim() : `${text.slice(0, max - 1).trim()}…`);
+// Haiku often runs past the length its prompt asks for; cutting it mid-word
+// left the researcher a reason ending in "…". Keep it whole, and only a
+// runaway answer is cut back, at its last full sentence.
+const clip = (text: string, max = 400) => {
+  const trimmed = text.trim();
+  if (trimmed.length <= max) return trimmed;
+  const sentences = trimmed.slice(0, max).match(/^.*[.!?]\)?(?=\s)/s)?.[0];
+  return sentences ?? `${trimmed.slice(0, max - 1).trim()}…`;
+};
 
 export function startItemChecks({
   conn,

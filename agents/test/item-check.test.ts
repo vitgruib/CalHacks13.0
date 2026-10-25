@@ -102,3 +102,10 @@ test('only_a_person_can_ask_and_only_an_agent_can_answer', async () => {
   const id = scientist.rows('itemCheck').at(-1)!.id;
   await assert.rejects(scientist.call('answer_item_check', { id, verdict: 'fine', why: '', category: 'lab supplies' }), /Only a registered agent/);
 });
+
+test('a_reason_longer_than_asked_comes_back_whole', async () => {
+  const why = 'Video game consoles and their games are entertainment, which federal grants cannot pay for under 2 CFR 200.438, even when the purpose says they will be used to study attention in the lab.';
+  const { askAndWait } = await start(() => ({ verdict: 'flag', why, category: 'entertainment' }));
+  const row = await askAndWait('PS5');
+  assert.equal(row.why, why);
+});
