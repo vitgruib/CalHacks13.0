@@ -154,7 +154,7 @@ export function HoldCard({ hold, embedded = false }: { hold: Hold; embedded?: bo
         <Badge tone="warn">{embedded ? 'Waiting for you' : kindLabel[hold.kind]}</Badge>
       </header>
       <p className="meta">
-        Grant {hold.grantId} · raised by {agentLabel[hold.raisedBy]} · {hold.day}{!embedded && <> · <a href={link.href}>Open in {link.label}</a></>}
+        Grant {hold.grantId} · raised by {agentLabel[hold.raisedBy] ?? 'Spending rules'} · {hold.day}{!embedded && <> · <a href={link.href}>Open in {link.label}</a></>}
       </p>
       {request && <p className="requested-by">Requested by <strong>{requesterLabel(request.requesterName)}</strong> on {request.day}</p>}
       <p className="why"><strong>Why it's waiting:</strong> {hold.why}</p>
