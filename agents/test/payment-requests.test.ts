@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { afterEach, test } from 'node:test';
 
 import type { Tracker } from '../src/agents/bookkeeping.ts';
@@ -19,7 +21,9 @@ import {
 import type { AgentHandle } from '../src/agents/types.ts';
 import type { ActionName, Actions, Connection, Db, PaymentRequestRow, PersonRole } from '../src/db/contract.ts';
 import { createLocalDb } from '../src/db/local.ts';
+import { fileDay, memoryDay, memoryTokens, type DayStore } from '../src/identity.ts';
 import { createPaperLookup } from '../src/sources/papers.ts';
+import { startWorker } from '../src/worker.ts';
 import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
 
 const R21 = 'R21AI182745';
@@ -28,11 +32,14 @@ const MAY = { from: '2026-05-01', to: '2026-05-31' };
 
 let world: TestWorld | undefined;
 let alone: Alone | undefined;
+let restartable: { stop(): void } | undefined;
 afterEach(() => {
   world?.stop();
   world = undefined;
   alone?.stop();
   alone = undefined;
+  restartable?.stop();
+  restartable = undefined;
 });
 
 const requestsFor = (conn: Connection, grantId: string, period = MAY) =>
@@ -366,6 +373,80 @@ test('an_ended_grant_s_months_are_not_claimed_once_closeout_is_over', async () =
   await lab.call('advance_days', { days: 200 }); // 2027-01-01: 154 days after the end
   await world.worker.idle();
   assert.deepEqual(requestsFor(world.worker.sessions.payment_report, TEST_GRANT, JULY), []);
+});
+
+// ── After a restart: the months that ended while the worker was down ──────
+
+// A one-grant world whose worker can be stopped and started again with the
+// same identities and the same kept day, as on the VM.
+async function startRestartable(seedJson: string, lastDay: DayStore = memoryDay()) {
+  const db = await createLocalDb({ world: { seedJson } });
+  const tokens = memoryTokens();
+  const papers = createPaperLookup({ mode: 'offline', throttle: false });
+  let worker = await startWorker(db, { tokens, papers, lastDay });
+  await worker.idle();
+  restartable = { stop: () => (worker.stop(), db.close()) };
+  const lab = await db.connect();
+  await lab.call('register_person', { role: 'grant_manager', name: 'gm' });
+  return {
+    lab,
+    stopWorker: () => worker.stop(),
+    async startWorker(day: DayStore = lastDay) {
+      worker = await startWorker(db, { tokens, papers, lastDay: day });
+      await worker.idle();
+    },
+  };
+}
+const juneOnly = (today: string) => {
+  const seed = JSON.parse(oneGrantSeed({
+    payroll: [{ id: 'pay-T-2026-06-1', grantId: TEST_GRANT, person: 'staff-1', role: 'Research technician', period: { from: '2026-06-01', to: '2026-06-30' }, effortPct: 25, amount: 1_200 }],
+  }));
+  seed.today = today;
+  return JSON.stringify(seed);
+};
+const JUNE_2026 = { from: '2026-06-01', to: '2026-06-30' };
+
+test('a_month_that_ended_while_the_worker_was_down_is_claimed_after_it_restarts', async () => {
+  const lastDay = memoryDay();
+  const w = await startRestartable(juneOnly('2026-06-25'), lastDay);
+  assert.equal(lastDay.load(), '2026-06-25');
+  w.stopWorker(); // a deploy, or a dropped connection
+  await w.lab.call('advance_days', { days: 37 }); // 2026-08-01: June and July ended
+  await w.startWorker();
+  assert.deepEqual(requestsFor(w.lab, TEST_GRANT, JUNE_2026).map((pr) => pr.amount), [1_200]);
+  assert.equal(lastDay.load(), '2026-08-01');
+});
+
+test('a_worker_with_no_day_kept_claims_only_the_last_full_month_on_startup', async () => {
+  const w = await startRestartable(juneOnly('2026-06-25'));
+  w.stopWorker();
+  await w.lab.call('advance_days', { days: 37 });
+  await w.startWorker(memoryDay()); // a first start on this database
+  assert.deepEqual(requestsFor(w.lab, TEST_GRANT, JUNE_2026), []);
+});
+
+test('a_kept_day_after_today_claims_the_last_full_month_as_a_clock_moved_back_does', async () => {
+  const lastDay = memoryDay();
+  lastDay.save('2026-09-03'); // the world was loaded again while the worker was down
+  const w = await startRestartable(juneOnly('2026-07-02'), lastDay);
+  assert.deepEqual(requestsFor(w.lab, TEST_GRANT, JUNE_2026).map((pr) => pr.amount), [1_200]);
+  assert.equal(lastDay.load(), '2026-07-02');
+});
+
+test('the_kept_day_survives_in_its_own_file_per_database', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'gg-state-'));
+  const before = process.env.GG_STATE_DIR;
+  process.env.GG_STATE_DIR = dir;
+  try {
+    assert.equal(fileDay('server-a').load(), undefined);
+    fileDay('server-a').save('2026-06-25');
+    assert.equal(fileDay('server-a').load(), '2026-06-25');
+    assert.equal(fileDay('server-b').load(), undefined);
+  } finally {
+    if (before === undefined) delete process.env.GG_STATE_DIR;
+    else process.env.GG_STATE_DIR = before;
+    rmSync(dir, { recursive: true, force: true });
+  }
 });
 
 test('the_tracker_refreshes_the_grant_right_before_the_draft', async () => {

@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 import type { HoldRow, LogRow } from './db/contract.ts';
 import { openDb } from './db/index.ts';
-import { fileTokens, memoryTokens } from './identity.ts';
+import { fileDay, fileTokens, memoryDay, memoryTokens } from './identity.ts';
 import { SEATS, type Role } from './roles.ts';
 import { runSim } from './sim.ts';
 import { createCancellationListSource } from './sources/cancellations.ts';
@@ -52,7 +52,9 @@ if (demo && kind === 'local') {
   // ignored): local and maincloud both call theirs grantguard, and a token
   // only works on the server that issued it.
   const server = new URL(process.env.GG_SPACETIME_URI ?? 'ws://127.0.0.1:3000').host.replace(/[^a-z0-9.-]/gi, '_');
-  const tokens = kind === 'local' ? memoryTokens() : fileTokens(`${server}-${process.env.GG_SPACETIME_DB ?? 'grantguard'}`);
+  const database = `${server}-${process.env.GG_SPACETIME_DB ?? 'grantguard'}`;
+  const tokens = kind === 'local' ? memoryTokens() : fileTokens(database);
+  const lastDay = kind === 'local' ? memoryDay() : fileDay(database);
   // The sim world's grant IDs are real NIH grants, but its cancel/court/payment
   // timeline is simulated, so the government sources (which would report the
   // real status) stay off unless asked for (GG_LIVE_SOURCES=1).
@@ -63,7 +65,7 @@ if (demo && kind === 'local') {
   const peek = await db.connect();
   const before = new Set(peek.rows('log').map((row) => row.id));
   peek.disconnect();
-  const worker = await startWorker(db, { tokens, sources });
+  const worker = await startWorker(db, { tokens, lastDay, sources });
   for (const [role, conn] of Object.entries(worker.sessions)) {
     console.log(`${role} agent (${SEATS[role as Role]}): ${conn.identity.slice(0, 16)}…`);
   }

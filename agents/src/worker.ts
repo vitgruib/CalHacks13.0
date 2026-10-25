@@ -9,7 +9,7 @@ import { startPurchasing } from './agents/purchasing.ts';
 import { startReportChecker } from './agents/report-checker.ts';
 import type { AgentHandle } from './agents/types.ts';
 import type { Connection, Db } from './db/contract.ts';
-import { memoryTokens, type TokenStore } from './identity.ts';
+import { memoryDay, memoryTokens, type DayStore, type TokenStore } from './identity.ts';
 import { ROLES, type Role } from './roles.ts';
 import { createPaperLookup, type PaperLookup } from './sources/papers.ts';
 import type { SourceClient } from './sources/types.ts';
@@ -21,6 +21,8 @@ export interface WorkerOptions {
   papers?: PaperLookup;
   // Where agent tokens are kept (fileTokens for a real server); in memory by default.
   tokens?: TokenStore;
+  // The last clock day the worker saw, kept like the tokens (fileDay for a real server).
+  lastDay?: DayStore;
 }
 
 export interface Worker {
@@ -34,7 +36,7 @@ export interface Worker {
 
 export async function startWorker(
   db: Db,
-  { sources = [], papers, tokens = memoryTokens() }: WorkerOptions = {},
+  { sources = [], papers, tokens = memoryTokens(), lastDay = memoryDay() }: WorkerOptions = {},
 ): Promise<Worker> {
   const sessions = {} as Record<Role, Connection>;
   for (const role of ROLES) {
@@ -49,7 +51,7 @@ export async function startWorker(
   const agents: AgentHandle[] = [
     startPurchasing({ conn: sessions.purchasing, tracker, papers: lookup }),
     startInvoices({ conn: sessions.bookkeeping, tracker, papers: lookup }),
-    startPaymentRequests({ conn: sessions.payment_report, tracker, papers: lookup }),
+    startPaymentRequests({ conn: sessions.payment_report, tracker, papers: lookup, lastDay }),
     startReportChecker({ conn: sessions.payment_report, tracker, papers: lookup }),
   ];
 

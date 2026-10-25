@@ -42,3 +42,32 @@ export function memoryTokens(): TokenStore {
   const tokens = new Map<Role, string>();
   return { load: (role) => tokens.get(role), save: (role, token) => void tokens.set(role, token) };
 }
+
+// The last day on the clock the worker saw, kept beside the tokens, so a
+// restarted worker can claim the months that ended while it was down.
+export interface DayStore {
+  load(): string | undefined;
+  save(day: string): void;
+}
+
+export function fileDay(database = 'default'): DayStore {
+  const file = () => join(stateDir(), database, 'last-day');
+  return {
+    load() {
+      try {
+        return readFileSync(file(), 'utf8').trim() || undefined;
+      } catch {
+        return undefined; // first run: no day saved yet
+      }
+    },
+    save(day) {
+      mkdirSync(join(stateDir(), database), { recursive: true });
+      writeFileSync(file(), day);
+    },
+  };
+}
+
+export function memoryDay(): DayStore {
+  let day: string | undefined;
+  return { load: () => day, save: (next) => void (day = next) };
+}

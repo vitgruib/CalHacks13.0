@@ -22,6 +22,7 @@
 import { PAYMENT_EXPLANATION_MAX } from '../../../server/src/vocab.ts';
 import { ask } from '../claude.ts';
 import type { Connection, FollowUpRow, GrantRow, InvoiceRow, PaymentRequestRow } from '../db/contract.ts';
+import { memoryDay, type DayStore } from '../identity.ts';
 import { loadRules, type SpendingRules } from './purchasing.ts';
 import {
   ANSWER_MAX,
@@ -580,7 +581,7 @@ function answerFacts(question: string, pr: PaymentRequestRow, claim: Claim) {
 // with its answer kept, and that one is a person's decision to leave alone.
 const needsAnswer = (fu: FollowUpRow) => fu.state === 'asked' || (fu.state === 'drafted' && !fu.answerDraft);
 
-export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHandle {
+export function startPaymentRequests({ conn, tracker, lastDay = memoryDay() }: AgentContext & { lastDay?: DayStore }): AgentHandle {
   const queue = workQueue(AGENT);
   // A grant id (its last full month) or "grant id, month start" (that month).
   const queuedDrafts = new Set<string>();
@@ -808,29 +809,36 @@ export function startPaymentRequests({ conn, tracker }: AgentContext): AgentHand
     checkGrant(waiting.grantId, waiting.period);
   };
 
+  // A new month on the clock means a new month to claim, and a jump past
+  // several month ends means each of them, oldest first. Only the clock
+  // moving forward claims past months, whether the worker watched it move or
+  // was down (the last day it saw is kept); an unfreeze and a request that
+  // went away claim the last one, since a grant's frozen months can't be
+  // claimed. (The sim world and the fixtures both start on 2026-06-15, so
+  // loading either after a fast-forward moves the clock back.)
+  const claimSince = (from: string, to: string) => {
+    const periods = monthsEnded(from, to);
+    // Within a month or back in time: the last full month, as always.
+    if (!periods.length) checkAllGrants();
+    else {
+      if (lastFullMonth(periods[0].from).to >= from) {
+        note(`clock ${from} ${to}`, `the clock jumped from ${from} to ${to}; only the last ${MONTHS_PER_MOVE} months, from ${periods[0].from}, are claimed.`);
+      }
+      for (const period of periods) for (const grant of conn.rows('grant')) checkGrant(grant.id, period);
+    }
+    // Kept once those months are drafted, so a crash before then claims them again.
+    void queue.push(`the day ${to}`, async () => {
+      if (!stopped) lastDay.save(to);
+    });
+  };
+
   for (const fu of conn.rows('followUp')) takeFollowUp(fu);
-  checkAllGrants();
+  claimSince(lastDay.load() ?? conn.today(), conn.today());
   const stops = [
     conn.onInsert('followUp', takeFollowUp),
     conn.onUpdate('followUp', (_before, after) => takeFollowUp(after)),
-    // A new month on the clock means a new month to claim, and a jump past
-    // several month ends means each of them, oldest first. Only the clock
-    // moving forward claims past months; startup, an unfreeze and a request
-    // that went away claim the last one, since a grant's frozen months can't
-    // be claimed. (The sim world and the fixtures both start on 2026-06-15,
-    // so loading either after a fast-forward moves the clock back.)
     conn.onUpdate('clock', (before, after) => {
-      if (before.today === after.today) return;
-      const periods = monthsEnded(before.today, after.today);
-      // Within a month or back in time: the last full month, as always.
-      if (!periods.length) {
-        checkAllGrants();
-        return;
-      }
-      if (lastFullMonth(periods[0].from).to >= before.today) {
-        note(`clock ${before.today} ${after.today}`, `the clock jumped from ${before.today} to ${after.today}; only the last ${MONTHS_PER_MOVE} months, from ${periods[0].from}, are claimed.`);
-      }
-      for (const period of periods) for (const grant of conn.rows('grant')) checkGrant(grant.id, period);
+      if (before.today !== after.today) claimSince(before.today, after.today);
     }),
     conn.onInsert('grant', (grant) => checkGrant(grant.id)),
     // A request that went away (the Test lab loaded a world) leaves its month
