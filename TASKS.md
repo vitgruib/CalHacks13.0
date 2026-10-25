@@ -23,6 +23,7 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
+- [ ] T61 [app] Grants tracker donut + grant forecast on Funds and My grants: donut (spent, committed, available), runway chart, plain grant headings, double-click a color or the forecast opens its list on its own page in a new tab — needs: — — done when: `npm --prefix web run check` passes and the details pages show on a real browser — @sara/claude — owns: `web/src/charts/`, `web/src/DetailPage.*`, `web/src/windows/Funds.*`, `web/src/windows/Grants.*`, `web/src/Notices.*`, `web/src/plain.ts` (headings), `web/src/App.tsx` (one route)
 - [ ] T41 [docs] Submission facts: DEMO-SCRIPT.md and DEVPOST-DRAFT.md say only what the code does (real grant IDs, reroute direction, the "Pick this source" step, simulated papers, no court-notice reading, scorecard numbers); no new marketing copy; `[TBD]`s that need a human stay marked — needs: — — done when: every claim checked against the code or README, Nathan reviews the diff — @nathan/claude-docs — owns: `docs/submission/DEMO-SCRIPT.md`, `docs/submission/DEVPOST-DRAFT.md`
 - [ ] T42 [qa] Integration check through the real UI: the README's 3-minute demo, clicked in the web app on a throwaway local database with the real worker — needs: — — done when: each demo step logged pass/fail with screenshots in PROGRESS; breakages become ★ tasks — @nathan/claude-qa — owns: nothing in the repo (scratch only)
 
