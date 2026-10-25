@@ -6,7 +6,10 @@ import { afterEach, mock, test } from 'node:test';
 
 import { dollars, explainedHold } from '../src/agents/invoices.ts';
 import type { Connection, HoldRow, InvoiceRow } from '../src/db/contract.ts';
-import { SIM_SEED } from '../src/db/local.ts';
+import { createLocalDb, SIM_SEED } from '../src/db/local.ts';
+import { memoryTokens } from '../src/identity.ts';
+import { createPaperLookup } from '../src/sources/papers.ts';
+import { startWorker } from '../src/worker.ts';
 import { noteOnHeldInvoice, noteProblem, type HeldInvoice } from '../src/prompts/invoices.ts';
 import { oneGrantSeed, startWorld, TEST_GRANT, type TestWorld } from './helpers.ts';
 
@@ -439,4 +442,78 @@ test('a_claude_note_with_a_computed_amount_is_dropped', async () => {
 
 test('with_claude_off_there_is_no_note', async () => {
   assert.equal(await noteOnHeldInvoice(heldInvoice034(), { mode: 'off' }), undefined);
+});
+
+// ── After a restart: what happened while the worker was down ──────────────
+
+// A one-order world whose worker can be stopped and started again with the
+// same identities, as on the VM (every deploy, every dropped connection).
+async function restartableOrderWorld() {
+  const db = await createLocalDb({ world: { seedJson: oneGrantSeed({ requests: [request('rq-1', 'Agar plates', 700)], orders: [order('o-1', 'rq-1', 700)] }) } });
+  const tokens = memoryTokens();
+  const papers = createPaperLookup({ mode: 'offline', throttle: false });
+  let worker = await startWorker(db, { tokens, papers });
+  await worker.idle();
+  world = { db, worker, person: async () => { throw new Error('unused'); }, stop: () => (worker.stop(), db.close()) };
+  const lab = await db.connect();
+  await lab.call('register_person', { role: 'grant_manager', name: 'gm' });
+  return {
+    db, tokens, lab,
+    idle: () => worker.idle(),
+    stopWorker: () => worker.stop(),
+    async startWorker() {
+      worker = await startWorker(db, { tokens, papers });
+      await worker.idle();
+    },
+  };
+}
+
+test('a_held_invoice_whose_order_is_canceled_while_the_worker_is_down_is_checked_again_after_restart', async () => {
+  const w = await restartableOrderWorld();
+  await w.lab.call('inject_invoice', { orderId: 'o-1', amount: 750 });
+  await w.idle();
+  const id = invoicesFor(w.lab, 'o-1')[0].id;
+  assert.match(invoice(w.lab, id).mismatch!, /approved amount is \$700/);
+  w.stopWorker(); // a deploy
+  await w.lab.call('cancel_order', { orderId: 'o-1' });
+  await w.startWorker();
+  assert.equal(invoice(w.lab, id).state, 'held');
+  assert.match(invoice(w.lab, id).mismatch!, /canceled/);
+  assert.match(openHold(w.lab, id).why, /canceled/);
+  assert.ok(evidence(openHold(w.lab, id), `Invoice ${id}`), 'the new hold has its records');
+});
+
+test('a_hold_the_module_raised_just_before_a_restart_gets_its_records_after_it', async () => {
+  const w = await restartableOrderWorld();
+  w.stopWorker();
+  await w.lab.call('inject_invoice', { orderId: 'o-1', amount: 750 });
+  // The module holds the invoice; the worker dies before it adds the records.
+  const bookkeeping = await w.db.connect({ token: w.tokens.load('bookkeeping')! });
+  const id = invoicesFor(bookkeeping, 'o-1')[0].id;
+  await bookkeeping.call('check_invoice', { invoiceId: id });
+  bookkeeping.disconnect();
+  await w.startWorker();
+  const hold = openHold(w.lab, id);
+  assert.equal(evidence(hold, `Invoice ${id}`), '$750 from Test Vendor, received 2026-06-15');
+  assert.ok(evidence(hold, 'Order o-1'));
+  assert.equal(heldLogs(w.lab, id).length, 1, 'added to, not checked again');
+});
+
+test('a_restart_on_the_sim_seed_changes_no_invoice_or_invoice_hold', async () => {
+  const db = await createLocalDb({ world: 'sim' });
+  const tokens = memoryTokens();
+  const papers = createPaperLookup({ mode: 'offline', throttle: false });
+  let worker = await startWorker(db, { tokens, papers });
+  world = { db, worker, person: async () => { throw new Error('unused'); }, stop: () => (worker.stop(), db.close()) };
+  await worker.idle();
+  const lab = await db.connect();
+  const snapshot = () => JSON.stringify([
+    lab.rows('invoice').map(({ id, state, mismatch, checked }) => [id, state, mismatch, checked]),
+    lab.rows('hold').filter((hold) => hold.kind === 'invoice').map(({ id, refId, open, why, evidence }) => [String(id), refId, open, why, evidence]),
+  ]);
+  const before = snapshot();
+  worker.stop();
+  worker = await startWorker(db, { tokens, papers });
+  await worker.idle();
+  assert.equal(snapshot(), before);
 });

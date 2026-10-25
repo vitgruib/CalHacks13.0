@@ -96,6 +96,7 @@ export function startInvoices({ conn, tracker }: AgentContext): AgentHandle {
   const orderById = (id: string) => conn.rows('order').find((row) => row.id === id);
   const approvalsFor = (orderId: string) => conn.rows('approval').filter((row) => row.orderId === orderId);
   const latestHoldId = () => conn.rows('hold').reduce((max, hold) => (hold.id > max ? hold.id : max), 0n);
+  const latestLogId = (refId: string) => conn.rows('log').reduce((max, row) => (row.refId === refId && row.id > max ? row.id : max), -1n);
 
   async function check(invoiceId: string): Promise<void> {
     const invoice = invoiceById(invoiceId);
@@ -167,8 +168,35 @@ export function startInvoices({ conn, tracker }: AgentContext): AgentHandle {
     void queue.push(`re-check invoices for ${orderId}`, () => recheckOrder(orderId));
   };
 
-  // The world is loaded before agents start: check what's already waiting.
-  for (const invoice of conn.rows('invoice')) onArrival(invoice);
+  // What happened while the worker was down, read from the rows: its order
+  // was logged (canceled) after anything about the invoice itself, so it was
+  // never checked against that.
+  const orderChangedSinceCheck = (invoice: InvoiceRow) => {
+    const checked = latestLogId(invoice.id);
+    return recheckable(invoice) && checked >= 0n && latestLogId(invoice.orderId) > checked;
+  };
+  // Raised by the module just before the worker went down, before this agent
+  // added its records: its evidence is still only the invoice's timeline.
+  const unexplainedHold = (invoice: InvoiceRow) => {
+    if (invoice.state !== 'held') return undefined;
+    const hold = conn.rows('hold').findLast((row) => row.kind === 'invoice' && row.refId === invoice.id && row.open);
+    const asRaised = JSON.stringify(invoice.timeline.map((entry) => [entry.day, entry.what]));
+    return hold && JSON.stringify(hold.evidence.map((line) => [line.label, line.value])) === asRaised ? hold : undefined;
+  };
+
+  // The world is loaded before agents start: check what's already waiting,
+  // and catch up on what the worker missed while it was down.
+  for (const invoice of conn.rows('invoice')) {
+    onArrival(invoice);
+    if (orderChangedSinceCheck(invoice)) void queue.push(`re-check ${invoice.id}`, () => check(invoice.id));
+    else if (unexplainedHold(invoice)) {
+      void queue.push(`records for ${invoice.id}`, async () => {
+        const now = invoiceById(invoice.id);
+        const hold = now && unexplainedHold(now);
+        if (now && hold) await explain(now, hold);
+      });
+    }
+  }
   const stops = [
     conn.onInsert('invoice', onArrival),
     // A reloaded world brings invoices back unchecked under the same ids.
