@@ -2,7 +2,7 @@
 import { createContext, type ComponentType } from 'react'
 import Funds from './Funds'
 import Requests from './Requests'
-import Invoices from './Invoices'
+import Invoice from './Invoice'
 import PaymentRequests from './PaymentRequests'
 import Reports from './Reports'
 import Inbox from './Inbox'
@@ -35,7 +35,7 @@ export const windows: WindowDef[] = [
   { id: 'funds', label: 'Funds', job: 'How much money each grant really has, its status timeline, and any flags', Component: Funds, roles: ['grant_manager'] },
   { id: 'cases', label: 'Cases', job: 'Every problem on each grant in one place: the records that disagree, what happened, and what\'s missing', Component: Cases, roles: ['grant_manager'], hidden: true },
   { id: 'requests', label: 'Requests', job: 'Every purchase request and experiment plan from the lab\'s researchers: who asked, for what, the plan\'s funding-readiness report, and what the purchasing agent did', Component: Requests, roles: ['grant_manager', 'scientist'] },
-  { id: 'invoices', label: 'Invoices', job: 'Each bill: matched or held, with the mismatch spelled out', Component: Invoices, roles: ['grant_manager'] },
+  { id: 'invoices', label: 'Invoice', job: 'Submit and track invoices (researcher); verify them against the purchase order and the grant, decide exceptions and keep the audit trail (grant office)', Component: Invoice, roles: ['scientist', 'grant_manager'] },
   { id: 'payment-requests', label: 'Payment requests', job: 'Drafted requests, follow-up questions, and their status', Component: PaymentRequests, roles: ['grant_manager'], hidden: true },
   { id: 'reports', label: 'Reports', job: 'Each paper in the progress report, with its check results', Component: Reports, roles: ['grant_manager'], hidden: true },
   { id: 'inbox', label: 'Inbox', job: 'Everything waiting for a human decision, with its evidence', Component: Inbox, roles: ['grant_manager'], hidden: true },

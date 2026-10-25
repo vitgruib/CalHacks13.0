@@ -1,0 +1,81 @@
+.iv, .iv-form { --v-line: var(--line); --v-muted: var(--muted); --v-text: var(--text); --v-panel: var(--panel); --v-accent: var(--accent); --v-good: var(--good); --v-warn: var(--warn); --v-bad: var(--bad); --v-warn-bg: var(--warn-bg); --v-bad-bg: var(--bad-bg); --v-good-bg: var(--good-bg); color: var(--v-text); }
+.sci .iv, .sci .iv-form { --v-line: var(--s-line); --v-muted: var(--s-muted); --v-text: var(--s-text); --v-panel: var(--s-bg); --v-accent: var(--s-blue); --v-good: var(--s-green); --v-warn: var(--s-amber-text); --v-bad: var(--s-red); --v-warn-bg: var(--s-amber-soft); --v-bad-bg: var(--s-orange-soft); --v-good-bg: var(--s-blue-soft); }
+
+.iv-lede { max-width: 64ch; color: var(--v-muted); margin: 0 0 12px; }
+.iv-h2 { font-size: 16px; margin: 22px 0 8px; }
+.iv-h3 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--v-muted); margin: 18px 0 6px; }
+.iv-note { font-size: 13px; color: var(--v-muted); margin: 4px 0; }
+.iv-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 10px 0; }
+.iv-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.iv-bar h2 { margin: 0; font-size: 18px; }
+
+.iv-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 8px 0; }
+.iv-stats > div { border: 1px solid var(--v-line); border-radius: 10px; padding: 8px 12px; display: flex; flex-direction: column; }
+.iv-stats strong { font-size: 24px; font-variant-numeric: tabular-nums; }
+.iv-stats span { font-size: 12px; color: var(--v-muted); }
+.iv-stats .iv-hot { border-color: var(--v-bad); background: var(--v-bad-bg); }
+
+.iv-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.iv-card { border: 1px solid var(--v-line); border-radius: 10px; padding: 12px 14px; background: var(--v-panel); }
+.iv-card header { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.iv-amt { font-weight: 700; font-variant-numeric: tabular-nums; }
+.iv-next { margin: 6px 0; font-size: 14px; }
+
+.iv-field { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; margin: 8px 0; min-width: 0; }
+.iv-field input, .iv-field select, .iv-field textarea { font-weight: 400; font-size: 14px; width: 100%; box-sizing: border-box; }
+.iv-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: flex-end; }
+.iv-row > .iv-field { flex: 1 1 150px; }
+.iv-row > .iv-grow { flex: 2 1 240px; }
+.iv-remove { align-self: center; font-size: 13px; }
+.iv-check { display: flex; gap: 8px; align-items: center; font-size: 14px; margin: 8px 0; }
+.iv-drop { border: 1px dashed var(--v-line); border-radius: 10px; padding: 8px 12px 10px; margin: 10px 0; }
+.iv-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--v-line); border-radius: 999px; padding: 2px 10px; font-size: 13px; margin: 4px 6px 0 0; }
+.iv-chip button { border: 0; background: none; padding: 0 2px; cursor: pointer; }
+
+.iv-findings { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.iv-f { border: 1px solid var(--v-line); border-left-width: 4px; border-radius: 8px; padding: 8px 12px; }
+.iv-f-ok { border-left-color: var(--v-good); }
+.iv-f-warn { border-left-color: var(--v-warn); background: var(--v-warn-bg); }
+.iv-f-block { border-left-color: var(--v-bad); background: var(--v-bad-bg); }
+.iv-f-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.iv-area { font-size: 12px; color: var(--v-muted); }
+.iv-f p { margin: 4px 0 0; font-size: 14px; }
+.iv-evidence { margin: 6px 0 0; padding-left: 18px; font-size: 13px; color: var(--v-muted); }
+
+.iv-budget { display: grid; gap: 4px; max-width: 420px; margin: 0; }
+.iv-budget > div { display: flex; justify-content: space-between; gap: 16px; }
+.iv-budget dt, .iv-budget dd { margin: 0; font-variant-numeric: tabular-nums; }
+.iv-eq { border-top: 2px solid var(--v-text); padding-top: 4px; font-weight: 700; }
+.iv-neg { color: var(--v-bad); }
+
+.iv-sbs { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.iv-panel { border: 1px solid var(--v-line); border-radius: 10px; padding: 4px 12px 10px; }
+.iv-facts { display: grid; grid-template-columns: auto 1fr; gap: 3px 12px; margin: 0; font-size: 14px; }
+.iv-facts dt { color: var(--v-muted); }
+.iv-facts dd { margin: 0; }
+.iv-lines { list-style: none; margin: 8px 0 0; padding: 0; font-size: 13px; color: var(--v-muted); }
+.iv-lines li { display: flex; justify-content: space-between; gap: 12px; }
+
+.iv-audit { list-style: none; margin: 0; padding: 0; font-size: 14px; display: flex; flex-direction: column; gap: 6px; border-left: 2px solid var(--v-line); padding-left: 12px; }
+.iv-audit time { color: var(--v-muted); font-variant-numeric: tabular-nums; margin-right: 6px; }
+.iv-why { display: block; color: var(--v-muted); font-size: 13px; }
+
+.iv-decide { margin-top: 8px; border-top: 1px solid var(--v-line); }
+.iv-warnbox { background: var(--v-warn-bg); color: var(--v-warn); border-radius: 8px; padding: 8px 12px; font-size: 14px; margin: 6px 0; }
+.iv-esc { display: inline-flex; gap: 6px; align-items: center; }
+.iv-table { border-collapse: collapse; font-size: 14px; min-width: 320px; }
+.iv-table th, .iv-table td { text-align: left; padding: 4px 10px; border-bottom: 1px solid var(--v-line); }
+.iv-num { text-align: right !important; font-variant-numeric: tabular-nums; }
+
+/* Field hints: a small "?" that explains what to enter. */
+.iv-label { display: inline-flex; align-items: center; gap: 6px; }
+.iv-hint { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 16px; height: 16px; border-radius: 50%; border: 1px solid var(--v-muted); color: var(--v-muted); font-size: 11px; font-weight: 700; cursor: help; outline: none; }
+.iv-hint:hover, .iv-hint:focus-visible { border-color: var(--v-accent); color: var(--v-accent); }
+.iv-tip { display: none; position: absolute; left: 22px; top: -6px; z-index: 5; width: 240px; padding: 8px 10px; border-radius: 8px; background: var(--v-text); color: var(--v-panel); font-size: 12.5px; font-weight: 400; line-height: 1.35; text-transform: none; letter-spacing: 0; }
+.iv-hint:hover .iv-tip, .iv-hint:focus .iv-tip, .iv-hint:focus-visible .iv-tip { display: block; }
+.iv-link { border: 0; background: none; color: var(--v-accent); padding: 0; cursor: pointer; font-size: 13px; text-decoration: underline; }
+.iv-line { margin: 4px 0; align-items: center; }
+.iv-line input { flex: 1 1 120px; }
+.iv-line .iv-grow { flex: 3 1 240px; }
+.iv-after { font-size: 14px; margin: 10px 0 0; color: var(--v-muted); }
+.iv-after strong { color: var(--v-text); }
