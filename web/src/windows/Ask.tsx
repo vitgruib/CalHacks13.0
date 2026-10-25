@@ -1,10 +1,11 @@
-// The researcher's home: type what you need, get a plain answer from the
-// module's spending rules, send it to the purchasing agent in one click.
+// The researcher's home. It does two things, and says so: ask to buy
+// something (a plain answer from the module's spending rules, sent to the
+// purchasing agent in one click), or one of four questions about the grants.
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { useStore } from '../data/store'
 import type { Db, PurchaseRequest } from '../data/types'
 import {
-  CARD_LIMIT, CATEGORIES, allChecks, checkAsk, daysLeft, guessCategory, inTime, longDate, parseAsk, paused,
+  CARD_LIMIT, CATEGORIES, allChecks, checkAsk, daysLeft, guessCategory, inTime, longDate, paused,
   plainReasons, shortName, spendable, type Outcome,
 } from '../plain'
 import { money } from '../ui'
@@ -73,7 +74,9 @@ const headline: Record<Outcome['kind'], string> = {
   not_now: 'Not right now.',
 }
 
-function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: string; price: number; category: string; shared: boolean }; onSent: (msg: string) => void }) {
+type BuyAsk = { item: string; price: number; purpose: string; category: string; shared: boolean }
+
+function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: string) => void }) {
   const { submitRequest } = useStore()
   const me = useResearcher()
   const [why, setWhy] = useState(false)
@@ -113,8 +116,8 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: strin
 
   const onSend = () => {
     if (!g) return
-    submitRequest({ item: ask.item || ask.text, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.text, sharedWith: facts.sharedWith }, me)
-    onSent(`Sent: ${ask.item || ask.text}. The purchasing agent has it now.`)
+    submitRequest({ item: ask.item, category: ask.category, price: ask.price, grantId: g.id, purpose: ask.purpose, sharedWith: facts.sharedWith }, me)
+    onSent(`Sent: ${ask.item}. The purchasing agent has it now.`)
   }
 
   return (
@@ -143,33 +146,29 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: strin
 export default function Ask() {
   const me = useResearcher()
   const db = forResearcher(useStore().db, me)
-  const [text, setText] = useState('')
-  const [ask, setAsk] = useState<{ text: string; item: string; price?: number; category: string; shared: boolean } | null>(null)
+  const [item, setItem] = useState('')
+  const [price, setPrice] = useState('')
+  const [purpose, setPurpose] = useState('')
+  const [ask, setAsk] = useState<BuyAsk | null>(null)
   const [topic, setTopic] = useState<Topic | null>(null)
   const [sent, setSent] = useState('')
-  const [price, setPrice] = useState('')
 
-  const onAsk = (e: FormEvent) => {
-    e.preventDefault()
-    const t = text.trim()
-    if (!t) return
-    const { item, price } = parseAsk(t)
-    setAsk({ text: t, item, price, category: guessCategory(t), shared: false })
-    setTopic(null)
-    setSent('')
-  }
-  const onPrice = (e: FormEvent) => {
+  const onCheck = (e: FormEvent) => {
     e.preventDefault()
     const n = Math.round(Number(price))
-    if (ask && n > 0) setAsk({ ...ask, price: n })
+    if (!item.trim() || !purpose.trim() || !(n > 0)) return
+    const what = item.trim()
+    setAsk({ item: what.charAt(0).toUpperCase() + what.slice(1), price: n, purpose: purpose.trim(), category: guessCategory(`${what} ${purpose}`), shared: false })
+    setTopic(null)
+    setSent('')
   }
   const pausedGrants = db.grants.filter(paused)
 
   return (
     <div className="ask">
       <div>
-        <h1>Hi {firstNameOf(me)}. What do you need?</h1>
-        <p className="ask-lede">Type it the way you'd say it. We'll check which grant can pay and tell you in plain words.</p>
+        <h1>Hi {firstNameOf(me)}. What would you like to do?</h1>
+        <p className="ask-lede">Here you can ask to buy something for your research, or check on your grants. For anything else, ask your grant manager.</p>
       </div>
       {pausedGrants.length > 0 && (
         <p className="ask-banner">
@@ -177,28 +176,32 @@ export default function Ask() {
           <a href={`#grants/${pausedGrants[0].id}`}>Where's my money?</a>
         </p>
       )}
-      <form className="ask-form" onSubmit={onAsk}>
-        <label htmlFor="ask-input" className="ask-sr">What do you need?</label>
-        <input id="ask-input" value={text} onChange={e => setText(e.target.value)} placeholder="e.g. 10 cases of nitrile gloves, about $640" autoComplete="off" />
-        <button type="submit" className="ask-primary">Check</button>
-      </form>
+
+      <section aria-labelledby="ask-buy">
+        <h2 id="ask-buy" className="ask-also">Buy something</h2>
+        <form className="ask-buy" onSubmit={onCheck}>
+          <label>What do you want to buy?
+            <input value={item} onChange={e => setItem(e.target.value)} placeholder="e.g. Nitrile gloves, 10 cases" autoComplete="off" required />
+          </label>
+          <label>About how much?
+            <span className="ask-dollar"><span aria-hidden="true">$</span>
+              <input type="number" inputMode="numeric" min={1} value={price} onChange={e => setPrice(e.target.value)} placeholder="640" required />
+            </span>
+          </label>
+          <label className="ask-wide">What is it for?
+            <input value={purpose} onChange={e => setPurpose(e.target.value)} placeholder="e.g. Membrane prep for aim 2" autoComplete="off" required />
+          </label>
+          <button type="submit" className="ask-primary">Check</button>
+        </form>
+      </section>
 
       {sent && <p role="status" className="ask-sent">{sent} <a href="#requests">See my requests</a></p>}
 
-      {ask && !sent && (ask.price == null ? (
-        <section aria-label="Answer" className="ask-answer">
-          <h2>About how much does it cost?</h2>
-          <form className="ask-form" onSubmit={onPrice}>
-            <label htmlFor="ask-price" className="ask-sr">Price in dollars</label>
-            <input id="ask-price" type="number" inputMode="numeric" min={1} value={price} onChange={e => setPrice(e.target.value)} placeholder="Price in dollars" />
-            <button type="submit" className="ask-primary">Check</button>
-          </form>
-        </section>
-      ) : (
+      {ask && !sent && (
         <>
-          <Verdict key={`${ask.text}|${ask.price}|${ask.category}|${ask.shared}`} db={db} ask={{ ...ask, price: ask.price }} onSent={m => { setSent(m); setAsk(null); setText('') }} />
+          <Verdict key={`${ask.item}|${ask.price}|${ask.purpose}|${ask.category}|${ask.shared}`} db={db} ask={ask} onSent={m => { setSent(m); setAsk(null); setItem(''); setPrice(''); setPurpose('') }} />
           <p className="ask-read">
-            We read this as <strong>{ask.item || ask.text}</strong>, {money(ask.price)}, and the kind of thing as{' '}
+            We read the kind of thing as{' '}
             <label className="ask-sr" htmlFor="ask-cat">Kind of thing</label>
             <select id="ask-cat" value={ask.category} onChange={e => setAsk({ ...ask, category: e.target.value })}>
               {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
@@ -211,7 +214,16 @@ export default function Ask() {
             </p>
           )}
         </>
-      ))}
+      )}
+
+      <section aria-labelledby="ask-questions">
+        <h2 id="ask-questions" className="ask-also">Check on your grants</h2>
+        <div className="ask-chips">
+          {TOPICS.map(t => (
+            <button key={t.id} type="button" aria-pressed={topic === t.id && !ask} onClick={() => { setTopic(t.id); setAsk(null); setSent('') }}>{t.label}</button>
+          ))}
+        </div>
+      </section>
 
       {topic && !ask && (
         <section aria-label="Answer" className="ask-answer">
@@ -219,15 +231,6 @@ export default function Ask() {
           <TopicAnswer db={db} topic={topic} me={me} />
         </section>
       )}
-
-      <div>
-        <h3 className="ask-also">You can also ask</h3>
-        <div className="ask-chips">
-          {TOPICS.map(t => (
-            <button key={t.id} type="button" aria-pressed={topic === t.id && !ask} onClick={() => { setTopic(t.id); setAsk(null); setSent('') }}>{t.label}</button>
-          ))}
-        </div>
-      </div>
     </div>
   )
 }
