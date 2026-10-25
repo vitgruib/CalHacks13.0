@@ -34,7 +34,7 @@ Node 22.4 or later.
 | `src/worker.ts` | Connects the three agents and starts their loops; `idle()` waits until nobody has anything left to do |
 | `src/sim.ts` | `runSim()`: the sim world played to quiet, every table returned (for the T19 scorecard) |
 | `src/agents/bookkeeping.ts` | Fund tracker: reads sources on "check now" and before money moves (no timer; demo time via `request_check` asOf); flags disagreements, spending while canceled, and court orders without money |
-| `src/agents/purchasing.ts` | Purchasing agent (T11) |
+| `src/agents/purchasing.ts` | Purchasing agent (T11); cut in T108, not started by the worker |
 | `src/agents/invoices.ts` | Invoice check (T12), bookkeeping identity |
 | `src/agents/payment-requests.ts` | Payment request writer (T13), payment and report identity |
 | `src/agents/report-checker.ts` | Report checker (T14), payment and report identity |

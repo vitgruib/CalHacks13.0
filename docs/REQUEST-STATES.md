@@ -1,59 +1,37 @@
 # Purchase request states
 
 Every state a purchase request (`request.state`, `server/src/schema.ts`) can
-be in, and who moves it. Read from the code: `act_on_request`, `decide_hold`
-(`applyDecision`), `push_back` and `cancel_order` in `server/src/index.ts`,
-and the purchasing agent (`agents/src/agents/purchasing.ts`).
+be in, and who moves it. Read from the code: `submit_request`,
+`sendToGrantOffice`, `decide_hold` (`applyDecision`), `push_back` and
+`cancel_order` in `server/src/index.ts`. There is no purchasing agent (T108):
+nothing is bought without the grant office.
 
 ```mermaid
 stateDiagram-v2
-    [*] --> submitted: submitted, or sent by an approved plan
+    [*] --> waiting_on_manager: submitted, or sent by an approved plan
 
-    submitted --> bought: agent buys
-    submitted --> rerouted: agent buys on another grant
-    submitted --> waiting_on_manager: agent holds
-    submitted --> blocked: agent blocks
+    waiting_on_manager --> bought: grant office approves
+    waiting_on_manager --> rejected: grant office rejects
 
-    waiting_on_manager --> bought: manager approves / overrides,<br/>or agent buys after the freeze
-    waiting_on_manager --> rerouted: agent moves it
-    waiting_on_manager --> blocked: approved, recheck fails
-    waiting_on_manager --> rejected: manager rejects
-
-    blocked --> rerouted: agent finds a grant
-    blocked --> bought: held-up approval, grant unfreezes
-    blocked --> waiting_on_manager: agent sends to Inbox
-
-    waiting_on_manager --> submitted: push back
-    blocked --> submitted: push back
-    rejected --> submitted: push back
+    waiting_on_manager --> waiting_on_manager: push back, or a freeze changes
+    rejected --> waiting_on_manager: push back
 
     bought --> canceled: all orders canceled
-    rerouted --> canceled: all orders canceled
 ```
 
 | State | Means | Money | Who acts next |
 | --- | --- | --- | --- |
-| `submitted` | New, or pushed back with new information. | Nothing spent. | The purchasing agent, right away. |
-| `waiting_on_manager` | **Held**: an open purchase hold in the grant manager's Inbox says why (freeze, card limit, shared cost without a split, unclear grant, price far above list, ...). | Nothing spent. | The grant manager: approve (buys it, whatever fails) or reject. The agent may still buy it alone if the hold only waited for a freeze. |
-| `blocked` | **Flagged**: a rule fails that only a person can wave through; the explanation cites it and an open purchase hold puts it in the grant manager's Inbox. The agent never rejects. | Nothing spent. | The grant manager: approve or reject. Meanwhile the agent reroutes it if another grant can take it once a freeze lifts. |
-| `bought` | Ordered on the grant asked for. | Orders placed; money promised. | Nobody (an order can still be canceled). |
-| `rerouted` | Ordered on a different grant than the one asked for. | Orders placed on that grant. | Nobody (as above). |
-| `rejected` | The grant manager said no. | Nothing spent. | The scientist may push back. |
-| `canceled` | Bought, then every order was canceled. | Promised money released. | Nobody. |
+| `waiting_on_manager` | In the grant office's Inbox with the spending rules' verdicts: "Approve …" when every rule passes, "Flagged: approve …" when one fails, with the failed rules as evidence. | Nothing spent. | The grant office: approve or reject, with a reason. |
+| `bought` | **Approved**: the order is placed on the grant and the researcher buys it and sends the invoice. | Money promised. Spent once the grant office approves the invoice; then the researcher is reimbursed. | The researcher (buy, send the invoice), then the grant office (approve the invoice). |
+| `rejected` | The grant office said no. | Nothing spent. | The researcher may push back. |
+| `canceled` | Approved, then every order was canceled. | Promised money released. | Nobody. |
+| `submitted`, `blocked`, `rerouted` | Not reached since T108; kept for old rows and deployed clients. | | |
 
 Notes:
 
-- Not drawn: a push back on a `submitted` request (it stays `submitted`), and
-  the agent re-holding a `waiting_on_manager` request with what fails now.
-- "Agent buys" means every rule passes, it's under the card limit and the
-  price check (T69) finds nothing far above list.
-- `bought`, `rerouted`, `rejected` and `canceled` are final for the agent:
-  `act_on_request` refuses them. Only a push back reopens a `rejected` one.
-- The agent's buy is rechecked by the module at that moment; if the module
-  refuses (something changed), the agent holds or blocks on what fails now
-  instead of retrying.
-- A person's decision stands and is final: approve buys at once (even on a
+- A push back, or a freeze starting or lifting, refreshes the Inbox item with
+  what fails now (a request on a frozen grant turns from "Flagged" to
+  "Approve" once the payment lands).
+- A person's decision stands: approve places the order at once (even on a
   frozen grant or over the card limit, with what fails logged), reject
-  refuses. The agent never buys a decided request alone again.
-- The price check (T69) only applies to the agent buying alone; an approval
-  is never price-checked.
+  refuses.

@@ -124,7 +124,7 @@ How GrantGuard answers each requirement (details in `docs/MASTER-PLAN.md`).
 | Their requirement | GrantGuard |
 | --- | --- |
 | Build the company too | A simulated university lab on two real NIH grant records: orders, invoices, approvals, payroll, papers, a simulated clock, and the grant manager and researchers it answers to (§1, §2) |
-| Several seats, not one | Purchasing agent, grant accountant (bookkeeping), payment and report preparer, each its own database identity (§2) |
+| Several seats, not one | Grant accountant (bookkeeping agent) and the grant manager who approves every request and invoice, each its own database identity (§2; the purchasing agent was cut in T108) |
 | Picks up work on its own | Agents react to new rows (a request, an invoice, a status change, a month end) and to the daily source check; no chat prompt needed |
 | Sources disagree | RePORTER, USAspending and the cancellation list are compared; a disagreement freezes spending and asks the grant manager which source is right (§3.1) |
 | Time | A cancellation in March freezes June's purchases until a payment lands; the last-90-days rule; the 90-day cost-transfer limit (§3.1, §3.2, §3.5) |

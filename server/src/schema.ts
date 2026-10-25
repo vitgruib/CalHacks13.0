@@ -144,7 +144,7 @@ const checkRequest = table(
 
 /**
  * Ask's look at an item before any grant (T103): a researcher asks, the
- * purchasing agent answers with Claude. A preview only: nothing is bought or
+ * bookkeeping agent answers with Claude. A preview only: nothing is bought or
  * held, and the request itself is checked again when it is sent.
  */
 const itemCheck = table(
@@ -181,7 +181,7 @@ const request = table(
     purpose: t.string(),
     state: t.string(), // submitted | bought | blocked | rerouted | waiting_on_manager | rejected | canceled
     verdicts: t.array(Verdict), // written by the module's rules (T6)
-    explanation: t.string(), // purchasing agent's plain-language reason
+    explanation: t.string(), // plain-language status (sendToGrantOffice)
     requesterName: t.string().default(''), // the person who asked, e.g. Dr. Priya Nair ('' if unknown); added T39
     oneGrantBasis: t.string().default(''), // unused (T95); added T63
   }
