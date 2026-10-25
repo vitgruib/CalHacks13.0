@@ -52,6 +52,7 @@ test('rp_1_a_paper_crediting_the_wrong_grant_is_held_with_the_cost_move_and_the_
 
   const hold = openHold('p-10');
   assert.equal(hold.grantId, 'R21AI182745');
+  assert.equal(hold.title, "Paper p-10 credits R01GM061721, not R21AI182745: rq-035's $2,100 is charged to the wrong grant");
   assert.match(hold.why, /move rq-035's \$2,100 from R21AI182745 to R01GM061721; 38 days left on the 90-day limit \(fix by 2026-07-23\)/);
   assert.match(hold.why, /"Credits this grant" failed: Listed in R21AI182745's report, but its acknowledgments name R01GM061721\./);
   const evidence = new Map(hold.evidence.map((e) => [e.label, e.value]));

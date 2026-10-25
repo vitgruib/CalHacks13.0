@@ -132,8 +132,9 @@ export function asksFor(paper: HeldPaper): string[] {
 export function holdTitle(paper: HeldPaper): string {
   const parts = paper.failed.map(({ check }) => {
     if (check === 'Credits this grant') {
+      // Not "move …?": the Approve button beside it moves no money.
       const moves = paper.costMoves.map((move) => `${move.requestId}'s ${usd(move.amount)}`).join(' and ');
-      return `credits ${paper.creditsGrantId}, not ${paper.reportGrantId}${moves ? `: move ${moves}?` : ''}`;
+      return `credits ${paper.creditsGrantId}, not ${paper.reportGrantId}${moves ? `: ${moves} ${paper.costMoves.length === 1 ? 'is' : 'are'} charged to the wrong grant` : ''}`;
     }
     if (check === 'Has a PubMed Central ID') return 'has no PubMed Central ID';
     if (check === 'No undisclosed correction') return `lists a ${paper.correctionKind === 'retraction' ? 'retraction' : 'correction'} the report doesn't disclose`;
