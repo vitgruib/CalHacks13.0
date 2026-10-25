@@ -9,10 +9,8 @@
 // - a grant's freeze lifting (frozen true -> false): requests held only for
 //   that freeze are bought, and requests blocked by grant-specific rules are
 //   rerouted when a grant can now take them.
-// A request a person decided in the Inbox is never bought alone afterwards,
-// except an approval the module's recheck blocked only for a freeze: the
-// approval stands, so it is bought once that grant unfreezes (or, over the
-// card limit, put back in the Inbox for the grant manager to buy).
+// A request a person decided in the Inbox is never bought alone afterwards:
+// the grant manager's approve buys it at once and reject refuses it (T101).
 
 import { ask, type AskOptions } from '../claude.ts';
 import {
@@ -89,14 +87,14 @@ export const grantEnded = (grant: Pick<GrantRow, 'status' | 'end'> | undefined, 
 export const endedFreezeOf = (checked: string | undefined, grants: GrantFacts[], today: string) => (verdict: RuleVerdict): boolean =>
   ruleKind(verdict.rule) === 'freeze' && grantEnded(grants.find((grant) => grant.id === checked), today);
 
-/** Every rule the module last failed for the request (apart from `besides`) is this grant's freeze. */
-const failsOnlyOnFreezeOf = (request: RequestRow, grantId: string, besides?: RuleKind): boolean => {
-  const failed = request.verdicts.filter((v) => !v.pass && ruleKind(v.rule) !== besides);
+/** Every rule the module last failed for the request is this grant's freeze. */
+const failsOnlyOnFreezeOf = (request: RequestRow, grantId: string): boolean => {
+  const failed = request.verdicts.filter((v) => !v.pass);
   return failed.length > 0 && failed.every((v) => ruleKind(v.rule) === 'freeze') && (request.chargedGrantId ?? request.grantId) === grantId;
 };
 
 export type HoldReason =
-  | 'freeze' | 'card_limit' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused' | 'approved_over_limit'
+  | 'freeze' | 'card_limit' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused'
   | 'price_high' | 'price_check' | 'purpose' | 'category_check';
 export type BlockReason = 'category' | 'grant_rules' | 'already_ordered';
 
@@ -131,7 +129,7 @@ const keptInInbox = (decision: Decision): Decision => (decision.action === 'bloc
 
 export interface Decision {
   action: 'buy' | 'reroute' | 'hold' | 'block';
-  reason?: HoldReason | BlockReason | 'unfrozen' | 'approved';
+  reason?: HoldReason | BlockReason | 'unfrozen';
   // The grant checked; for a reroute, the one it moves away from.
   grantId: string;
   to?: string;
@@ -142,9 +140,6 @@ export interface Decision {
   note?: string;
   // The module's message when it refused to buy at its own last check.
   refusal?: string;
-  // The grant manager's approval this buy (or hold) carries out, which the
-  // module blocked while `unfrozen` was frozen.
-  approval?: { id: bigint; day: string; unfrozen: string };
 }
 
 // ── Reading the request ────────────────────────────────────────────────────
@@ -321,10 +316,6 @@ function reasonStep(decision: Decision, facts: StepFacts): string {
         : 'No other grant can take it right now.';
     case 'unfrozen':
       return `It was held only for the freeze, which has lifted. Ordered from ${facts.vendor}.`;
-    case 'approved':
-      return `The grant manager approved it on ${decision.approval?.day} while ${decision.approval?.unfrozen} was frozen, so it was bought once ${decision.approval?.unfrozen} unfroze. Ordered from ${facts.vendor}.`;
-    case 'approved_over_limit':
-      return `The grant manager approved it on ${decision.approval?.day} while ${decision.approval?.unfrozen} was frozen. ${decision.approval?.unfrozen} has unfrozen, but it is over the card limit, so only the grant manager can approve the buy.`;
     default:
       return decision.action === 'reroute' ? `Every rule passes on ${decision.to}. Ordered from ${facts.vendor}.` : `Ordered from ${facts.vendor}.`;
   }
@@ -521,15 +512,14 @@ export function startPurchasing({
     const explanation = await explain(request, decision, vendor);
     const grantId = decision.action === 'reroute' ? decision.to! : decision.grantId;
     // Looked at again after the wait for Claude: a person may have decided,
-    // or the module may have ordered it, in the meantime. An approval being
-    // carried out still stands unless a newer decision replaced it.
-    const decidedMeanwhile = decision.approval ? lastDecision(requestId)?.id !== decision.approval.id : personDecided(requestId);
+    // or the module may have ordered it, in the meantime.
+    const decidedMeanwhile = personDecided(requestId);
     if ((decision.action === 'buy' || decision.action === 'reroute') && (decidedMeanwhile || ordersOf(requestId).length)) {
       console.warn(`${AGENT}: not buying ${requestId}: ${decidedMeanwhile ? 'a person decided it meanwhile' : 'it already has an order'}`);
       return;
     }
     // A hold or block planned before a person decided it would undo that
-    // decision (an approval the module blocked would come back to the Inbox).
+    // decision.
     if (lastDecision(requestId)?.id !== decisionBefore) {
       console.warn(`${AGENT}: not changing ${requestId}: a person decided it meanwhile`);
       return;
@@ -542,9 +532,9 @@ export function startPurchasing({
   // or block on what it says now, never retry the buy.
   async function moveMoney(requestId: string, decision: Decision): Promise<void> {
     // Bought by the agent alone (new, after its freeze, or rerouted): one last
-    // look at the price. A grant manager's approval already settled it.
+    // look at the price.
     const request = findRequest(requestId);
-    const price = request && !decision.approval ? await checkPrice(request) : undefined;
+    const price = request ? await checkPrice(request) : undefined;
     if (request && price?.tooHigh) {
       const held: Decision = { ...decision, action: 'hold', reason: 'price_high', to: undefined, pendingTo: undefined, note: priceStep(request.price, price.entry) };
       await act(requestId, held);
@@ -708,38 +698,19 @@ export function startPurchasing({
     return failsOnlyOnFreezeOf(request, grantId) && hold !== undefined && promisesBuy(hold.why);
   }
 
-  // Approved by the grant manager, then blocked by the module's recheck only
-  // for this grant's freeze (the recheck ignores the card limit on an
-  // approval, so this does too), and nothing decided since.
-  function approvalWaitingOn(request: RequestRow, grantId: string): DecisionRow | undefined {
-    const approval = lastDecision(request.id);
-    return approval?.choice === 'approve' && request.state === 'blocked' && failsOnlyOnFreezeOf(request, grantId, 'card_limit') ? approval : undefined;
-  }
-
   // Bought on the grant it was checked on, once every rule passes there now.
-  // An approval failing only on the card limit goes back to the Inbox
-  // instead: act_on_request never lets the agent buy past the limit, but the
-  // module's recheck of a second approval does. The agent's own freeze hold
-  // failing on another rule now (the grant reached its last 90 days while
-  // frozen) is planned again, so its Inbox item
-  // stops promising a buy that can't happen.
-  async function buyUnfrozen(requestId: string, state: RequestRow['state'], why: Pick<Decision, 'reason' | 'approval'>): Promise<void> {
+  // The agent's own freeze hold failing on another rule now (the grant
+  // reached its last 90 days while frozen) is planned again, so its Inbox
+  // item stops promising a buy that can't happen.
+  async function buyUnfrozen(requestId: string): Promise<void> {
     const request = findRequest(requestId);
     const grantId = request?.chargedGrantId ?? request?.grantId;
-    if (!request || request.state !== state || !grantId || ordersOf(requestId).length) return;
+    if (!request || request.state !== 'waiting_on_manager' || !grantId || ordersOf(requestId).length) return;
     if (!(await refreshAll([grantId]))) return;
     const verdicts = await evaluate(requestId, grantId);
     const failed = verdicts.filter((v) => !v.pass);
-    if (failed.length === 0) {
-      await moveMoney(requestId, { action: 'buy', ...why, grantId, failed: [], passed: verdicts });
-    } else if (why.approval) {
-      if (failed.every((v) => ruleKind(v.rule) === 'card_limit')) {
-        await act(requestId, { action: 'hold', reason: 'approved_over_limit', approval: why.approval, grantId, failed, passed: verdicts });
-      }
-      // Otherwise the approval waits on something else: the request stays as it is.
-    } else {
-      await planAgain(request, grantId, verdicts);
-    }
+    if (failed.length === 0) await moveMoney(requestId, { action: 'buy', reason: 'unfrozen', grantId, failed: [], passed: verdicts });
+    else await planAgain(request, grantId, verdicts);
   }
 
   // A request the agent held for a freeze that has lifted, failing other rules
@@ -799,14 +770,9 @@ export function startPurchasing({
     if (findGrant(grantId)?.frozen !== false) return;
     const recheck: string[] = [];
     for (const request of conn.rows('request')) {
-      // A person's decision stands: the agent never buys those alone again,
-      // unless it carries out an approval the freeze held up.
-      if (personDecided(request.id)) {
-        const approval = approvalWaitingOn(request, grantId);
-        if (approval) await buyUnfrozen(request.id, 'blocked', { reason: 'approved', approval: { id: approval.id, day: approval.day, unfrozen: grantId } });
-        continue;
-      }
-      if (request.state === 'waiting_on_manager' && waitsOnlyForFreeze(request, grantId)) await buyUnfrozen(request.id, 'waiting_on_manager', { reason: 'unfrozen' });
+      // A person's decision stands: the agent never buys those alone again.
+      if (personDecided(request.id)) continue;
+      if (request.state === 'waiting_on_manager' && waitsOnlyForFreeze(request, grantId)) await buyUnfrozen(request.id);
       else if (request.state === 'blocked') await rerouteBlocked(request.id);
       else if (heldAlsoForFreezeOf(request, grantId)) recheck.push(request.id);
     }
