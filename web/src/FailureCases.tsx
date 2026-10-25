@@ -7,7 +7,7 @@
 // agent can't take back what it posted. Start over (Demo controls) runs them again.
 import { useStore } from './data/store'
 import { RESEARCHERS } from './people'
-import { Badge, money } from './ui'
+import { Badge } from './ui'
 import { openHolds } from './windows/Inbox'
 import { GRANT_HOLDS, fundsHref } from './windows/Funds'
 import './FailureCases.css'
@@ -42,9 +42,9 @@ export const CASES: FailureCase[] = [
       { label: 'The cut', event: cut('R01HL176691', '2025-07-31'), watch: 'Canceled, dated 2025-07-31. Spending freezes.' },
       {
         label: 'The court', event: { kind: 'court_order', source: 'Court notice', summary: 'Thakur v. Trump: a federal court reinstated R01HL176691.', day: '2026-02-23' },
-        watch: 'Restored by a court: the award is back, but received money is not. The agent keeps spending frozen and raises a flag: nothing has been received since the cut.',
+        watch: 'Restored by a court, but the agent keeps spending frozen and raises a flag: the funder has paid nothing since the cut.',
       },
-      { label: 'Payment arrives', event: { kind: 'payment_received', source: 'Payment system', summary: 'Payment of $64,300 received (simulated).', amount: 64_300 }, watch: 'Simulated payment of $64,300: received goes up by that, the award stays the same. Money landed after the court order, so spending unfreezes.' },
+      { label: 'Payment arrives', event: { kind: 'payment_received', source: 'Payment system', summary: 'Payment of $64,300 received (simulated).', amount: 64_300 }, watch: 'Simulated: the funder pays again after the court order, so the whole award is the budget again and spending unfreezes.' },
     ],
   },
   {
@@ -85,7 +85,6 @@ export default function FailureCases() {
               </div>
               <p className="failure-case-who">{r?.title ?? ''} · {grant.pi} · <b>{s.grantId}</b></p>
               <p>{s.story}</p>
-              <p className="failure-case-money">Awarded <b>{money(grant.awarded)}</b> · received from the funder <b>{money(grant.received)}</b> · not received yet <b>{money(Math.max(0, grant.awarded - grant.received))}</b></p>
               <ol className="failure-case-steps">
                 {s.steps.map((step, i) => (
                   <li key={step.label} className={i <= at ? 'done' : ''}>

@@ -108,7 +108,6 @@ export default function TestLab() {
   const [confirmReset, setConfirmReset] = useState(false)
   const [grantId, setGrantIdState] = useState(lastGrantId ?? db.grants[0]?.id ?? '')
   const setGrantId = (id: string) => { lastGrantId = id; setGrantIdState(id) }
-  const [payment, setPayment] = useState('25000')
   const presets = badInvoicePresets(db)
   const [presetKey, setPresetKey] = useState(presets[0]?.key ?? 'custom')
   const [orderId, setOrderId] = useState(db.orders[0]?.id ?? '')
@@ -146,11 +145,13 @@ export default function TestLab() {
     injectStatusEvent({ grantId, kind: 'court_order', source: 'Court notice', summary: `Court order restores ${grantId}. No payment schedule is set.` })
     return `Court order restores ${grantId}. Spending stays frozen: a court order is not cash.`
   })
+  // The award is the budget (T117): a payment means the funder pays again, so
+  // it sends the rest of the award; there is no amount to type.
   const pay = () => run(() => {
-    const amount = Number(payment)
-    if (!Number.isInteger(amount) || amount <= 0) throw new Error('Enter a payment in whole dollars above zero.')
+    if (!grant) return undefined
+    const amount = Math.max(1, Math.round(grant.awarded - grant.received))
     const seen = paymentsOn(db, grantId)
-    injectStatusEvent({ grantId, kind: 'payment_received', source: 'Payment system', summary: `Payment of ${money(amount)} received.`, amount })
+    injectStatusEvent({ grantId, kind: 'payment_received', source: 'Payment system', summary: `The funder pays again: ${money(amount)}, the rest of the award (simulated).`, amount })
     setPendingPay({ grantId, amount, wasFrozen: !!grant?.frozen, seen })
     return undefined
   })
@@ -206,7 +207,7 @@ export default function TestLab() {
             <span className="tl-badges">
               <Badge tone={grantStatus(grant).tone}>{grantStatus(grant).label}</Badge>
               {grant.frozen ? <Badge tone="bad">Frozen</Badge> : <Badge tone="good">Spending open</Badge>}
-              <span className="muted">Received {money(grant.received)} of {money(grant.awarded)}</span>
+              <span className="muted">Budget: the award, {money(grant.awarded)}</span>
             </span>
             <p className="tl-next">{nextStep(db, grant)} <a href={fundsHref(grant.id)}>{waitingOn(db, grant.id) ? 'Decide it in Funds' : 'See it in Funds'}</a></p>
           </div>
@@ -222,10 +223,7 @@ export default function TestLab() {
           </li>
           <li>
             <button type="button" onClick={pay} disabled={!grant}>Payment arrives</button>
-            <label className="tl-inline">Amount ($)
-              <input type="number" min={1} step={1} value={payment} onChange={e => setPayment(e.target.value)} />
-            </label>
-            <span className="muted">Money actually lands. Spending unfreezes, unless something else still holds it.</span>
+            <span className="muted">The funder pays again, so the whole award is the budget. Spending unfreezes, unless something else still holds it.</span>
           </li>
         </ol>
       </Section>

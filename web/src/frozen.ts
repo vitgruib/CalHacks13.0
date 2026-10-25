@@ -69,7 +69,7 @@ export function nextStep(db: Db, g: Grant): string {
 /** What a payment did, read from the state after it landed. */
 export function paymentNote(db: Db, grantId: string, amount: number, wasFrozen: boolean): string {
   const g = db.grants.find(x => x.id === grantId)
-  const head = `${money(amount)} arrived for ${grantId}.`
+  const head = `The funder paid ${money(amount)} on ${grantId}.`
   if (!g) return head
   if (!g.frozen) return head + (wasFrozen ? ' Spending is unfrozen.' : ' Spending was already open.')
   return `${head} Still frozen: ${list(whyFrozen(db, g))}.`

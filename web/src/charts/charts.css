@@ -54,16 +54,7 @@
 
 
 
-/* Awarded vs received (Received.tsx) */
-.rc { margin: 0 0 12px; display: flex; flex-direction: column; gap: 6px; }
-.rc-nums { display: flex; flex-wrap: wrap; gap: 4px 20px; margin: 0; font-size: 14px; }
-.rc-nums div { display: flex; flex-direction: column; min-width: 0; }
-.rc-nums dt { color: var(--c-muted); font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
-.rc-nums dd { margin: 0; font-weight: 600; color: var(--c-text); font-variant-numeric: tabular-nums; }
-.rc-swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
-.rc-in .rc-swatch { background: var(--c-accent); }
-.rc-out .rc-swatch { background: var(--c-line); }
-.rc-bar { height: 8px; border-radius: 4px; background: var(--c-line); overflow: hidden; }
-.rc-bar span { display: block; height: 100%; background: var(--c-accent); }
-.rc-text { font-size: 13px; color: var(--c-muted); }
-.rc-text strong { color: var(--c-text); }
+/* The award is the budget; is the funder paying (FunderPaying.tsx) */
+.rc { margin: 0 0 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; font-size: 14px; color: var(--c-text); }
+.rc strong { font-variant-numeric: tabular-nums; }
+.rc-note { color: var(--c-muted); font-size: 13px; }

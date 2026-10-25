@@ -73,7 +73,7 @@ function GrantDetails({ db, g, role }: { db: Db; g: Grant; role: Role }) {
         <Stat label="Total award" value={money(g.awarded)} />
         <Stat label="Spent" value={money(g.spent)} kind="spent" />
         <Stat label="Committed" value={money(g.promised)} kind="committed" note="ordered, not yet paid" />
-        <Stat label="Available" value={money(available)} kind="available" note={`${money(g.received)} received from the funder`} />
+        <Stat label="Available" value={money(available)} kind="available" note="the award is the budget" />
       </dl>
 
       <Card title="Where the money stands"><MoneyCharts db={db} g={g} /></Card>
