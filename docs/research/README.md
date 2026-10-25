@@ -13,6 +13,7 @@ Researched 2026-10-23 and 2026-10-24. Re-check anything time-sensitive
 ```
 docs/research/
   README.md            ← you are here: index, planted-error precedents, rules
+  money-cycle.md       ← gaps between award, obligation, payment, books and lab; how sources combine
   pain-points/NN-*.md  ← one file per pain point
   sources/
     docs/*.txt         ← text extracted from primary PDFs (audits, surveys, letters)

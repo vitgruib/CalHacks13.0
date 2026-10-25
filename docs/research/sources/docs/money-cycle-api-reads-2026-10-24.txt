@@ -1,0 +1,49 @@
+Public-source reads for the sim's two real NIH grant IDs, 2026-10-24 ~17:45 PT
+(@ethan/claude). Read with the agent worker's own source clients
+(agents/src/sources/*.ts, live mode) plus two USAspending endpoints by hand.
+
+== NIH RePORTER  POST https://api.reporter.nih.gov/v2/projects/search {"criteria":{"project_nums":[...]}}
+R01GM061721 (27 fiscal-year records, FY2000-FY2025; ProjectInfo: no termination flag on latest record, appl 11190833)
+  FY2000 285,210 | 2001 261,124 | 2002 276,439 + S1 7,477 | 2003 260,304 + S1 119,015 | 2004 260,304
+  FY2006 328,363 + S1 14,648 | 2007 328,409 | 2008 328,450 | 2009 338,303 | 2010 401,486 | 2011 377,720
+  FY2012 377,716 | 2013 364,493 | 2015 459,727 | 2016-2018 414,285 each
+  FY2022 429,221 (-18A1) + S1 37,763 | 2023 429,221 + S1 332,594 + S2 10,789 | 2024 429,221
+  FY2025 429,221 (5R01GM061721-21, award notice 2025-08-07, project end 2027-07-31)
+  Sum of all records = 8,130,073 (what the worker reports as "awarded")
+R21AI182745: FY2024 204,375 (notice 2024-03-25) + FY2025 246,000 (notice 2025-01-22) = 450,375; end 2026-08-31 (worker: status "ended")
+
+== USAspending  GET https://api.usaspending.gov/api/v2/awards/ASST_NON_<id>_075/
+R01GM061721: total_obligation 5,912,827.46; total_outlay 1,595,913.46; end 2027-07-31
+R21AI182745: total_obligation 450,375; total_outlay 369,060.38; end 2026-08-31
+
+Reconciling R01GM061721: RePORTER FY2008-FY2025 = 5,988,780; minus the USAspending
+deobligation of -75,911.54 on 2022-03-01 = 5,912,868.46; USAspending says
+5,912,827.46 (off by $41). The remaining 2,141,293 is RePORTER's FY2000-FY2007
+records, which USAspending's award does not include.
+
+== USAspending transactions  POST https://api.usaspending.gov/api/v2/transactions/ {"award_id":"ASST_NON_R01GM061721_075"}
+2026-05-04  $0  Other Action, Non-Financial (mod 001)
+2025-12-02  $0  Other Action, Non-Financial (mod 000)
+2025-08-07  $429,221  Continuation
+2024-09-10  $429,221  Continuation
+2022-03-01  -$75,911.54  Other Action, Non-Financial
+(no FY2026 continuation listed as of 2026-10-24)
+
+== USAspending outlays by month  POST https://api.usaspending.gov/api/v2/awards/funding/ (same award_id)
+gross_outlay_amount, fiscal-year-to-date per account line; fiscal month 1 = October.
+Two federal accounts: 075-0851 (NIGMS) and 075-0843 (NIA).
+FY2025 (0851 main line), by fiscal month: m2 51,580 | m3 82,561 | m4 92,522 | m5 108,236
+  | m6 132,052 | m7 156,339 | m8 171,405 | m9 (Jun 2025) 190,156 | m10 (Jul) 206,309
+  | m11 (Aug) 206,309 | m12 (Sep) 206,309
+  NIA line 0843: ... m9 147,348 | m10 159,864 | m11 159,864 | m12 159,864
+  i.e. still rising in July 2025, flat in August and September 2025.
+  Fiscal m11 (Aug 2025): new obligation 429,221 on 0851.
+FY2026: m2 (Nov 2025) 65,611 (0851) and 50,841 (0843) paid since Oct 1.
+  New 429,221 line: m3 22,080 | m4 50,439 | m5 133,625 | m6 187,090 | m7 244,868
+  | m8 325,939 | m9 387,673 | m10 429,221 (fully paid out) | m11 429,221
+  Another 0851 line appears m10: 38,279 -> m11 81,447 (no matching obligation in the transaction list yet).
+  Latest reporting period: fiscal m11 = August 2026.
+
+== Grant Witness NIH CSV via our Apify Actor (scrapers/out/cancellations.json, fetched 2026-10-24T08:24Z)
+R01GM061721: Reinstated (confirmed); terminated 2025-07-31; reinstated 2025-09-22; Thakur v. Trump (Sep 2025)
+R21AI182745: not listed
