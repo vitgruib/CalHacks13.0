@@ -1,6 +1,6 @@
 // The researcher's side of Invoice: every approved request, with a button to
-// send its invoice; then the invoices in progress (who has to review each one
-// and what you need to do next) and the approved ones.
+// send its invoice; then the invoices sent, rejected for revision, rejected
+// and approved, each with what you need to do next.
 import { useState } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
@@ -23,6 +23,15 @@ const NEXT: Record<Submission['status'], string> = {
   rejected: 'Rejected. See the reason below; submit a corrected invoice if needed.',
 }
 
+type InvoiceMenu = 'sent' | 'revision' | 'rejected' | 'approved'
+type Menu = 'requests' | InvoiceMenu
+const MENUS: [InvoiceMenu, string, string][] = [
+  ['sent', 'Sent', 'No invoices waiting on a decision.'],
+  ['revision', 'Rejected for revision', 'Nothing to revise.'],
+  ['rejected', 'Rejected', 'Nothing rejected.'],
+  ['approved', 'Approved', 'Nothing approved yet.'],
+]
+
 /** A held bill as a draft: the researcher corrects the amount or adds the missing proof and sends it for review. */
 function draftFromBill(db: Db, i: Db['invoices'][number]): Draft {
   const order = db.orders.find(o => o.id === i.orderId)
@@ -40,7 +49,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const all = useSubmissions()
   const mine = all.filter(s => s.researcher === name)
   const [form, setForm] = useState<{ edit?: Submission; seed?: Draft; seedKey?: string; title?: string } | null>(null)
-  const [view, setView] = useState<'requests' | 'progress' | 'approved' | 'submit'>('requests')
+  const [view, setView] = useState<Menu | 'submit'>('requests')
 
   const submit = (d: Draft, r: ReturnType<typeof check>) => {
     const prior = form?.edit
@@ -56,28 +65,38 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     ]
     saveSubmission(base)
     setForm(null)
-    setView('progress')
+    setView('sent')
   }
 
   const mineOrders = new Set(db.orders.filter(o => db.requests.find(r => r.id === o.requestId)?.requesterName === name).map(o => o.id))
   const agentBills = db.invoices.filter(i => mineOrders.has(i.orderId))
 
-  // In progress: anything not approved yet, what you can fix first. Approved: approved submissions and bills paid or ready to pay.
-  const progressSubs = mine.filter(s => s.status === 'exception' || s.status === 'clarification' || s.status === 'rejected')
-    .concat(mine.filter(s => s.status === 'ready' || s.status === 'escalated'))
-  const progressBills = agentBills.filter(i => i.state === 'held')
-  const approvedSubs = mine.filter(s => s.status === 'approved')
-  const approvedBills = agentBills.filter(i => i.state === 'paid' || i.state === 'matched')
+  // Sent: waiting on the invoice agent, the grant office or a higher approver. Rejected for revision: the grant
+  // office asked a question or a bill was held, so you fix and resubmit. Approved: paid or ready to pay.
+  const subs: Record<InvoiceMenu, Submission[]> = {
+    sent: mine.filter(s => s.status === 'ready' || s.status === 'exception' || s.status === 'escalated'),
+    revision: mine.filter(s => s.status === 'clarification'),
+    rejected: mine.filter(s => s.status === 'rejected'),
+    approved: mine.filter(s => s.status === 'approved'),
+  }
+  const bills: Record<InvoiceMenu, Db['invoices']> = {
+    sent: [],
+    revision: agentBills.filter(i => i.state === 'held'),
+    rejected: agentBills.filter(i => i.state === 'rejected'),
+    approved: agentBills.filter(i => i.state === 'paid' || i.state === 'matched'),
+  }
   // A short list is topped up with sample invoices (up to MIN items) so each menu has something to open.
   const MIN = 2
   const demo = demoSubmissions(db, name)
   const have = new Set(all.map(s => s.id))
-  const fill = (real: number, samples: Submission[]) => samples.filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - real))
-  const progressDemo = fill(progressSubs.length + progressBills.length, demo.action)
-  const approvedDemo = fill(approvedSubs.length + approvedBills.length, demo.approved)
+  const samples: Record<InvoiceMenu, Submission[]> = {
+    sent: [...demo.action.filter(s => s.status !== 'clarification'), ...demo.escalated],
+    revision: demo.action.filter(s => s.status === 'clarification'),
+    rejected: demo.denied,
+    approved: demo.approved,
+  }
+  const fill = (m: InvoiceMenu) => samples[m].filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - subs[m].length - bills[m].length))
   const approvedReqs = approvedRequests(db, name, all)
-  const nProgress = progressSubs.length + progressBills.length + progressDemo.length
-  const nApproved = approvedSubs.length + approvedBills.length + approvedDemo.length
 
   const card = (s: Submission) => {
     const g = db.grants.find(x => x.id === s.grantId)
@@ -132,7 +151,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     </li>
   )
 
-  const tab = (v: 'requests' | 'progress' | 'approved', label: string, n: number) => (
+  const tab = (v: Menu, label: string, n: number) => (
     <button type="button" className={`iv-tab${view === v ? ' on' : ''}`} aria-pressed={view === v} onClick={() => { setForm(null); setView(v) }}>
       {label} <span className="iv-count">{n}</span>
     </button>
@@ -145,8 +164,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
       </div>
       <div className="iv-tabs" role="group" aria-label="Invoices">
         {tab('requests', 'Approved requests', approvedReqs.length)}
-        {tab('progress', 'In progress', nProgress)}
-        {tab('approved', 'Approved invoices', nApproved)}
+        {MENUS.map(([m, label]) => tab(m, label, subs[m].length + bills[m].length + fill(m).length))}
       </div>
 
       {view === 'submit' && <SubmitForm key={form?.edit?.id ?? form?.seedKey ?? 'new'} db={db} others={all} initial={form?.edit ? draftOf(form.edit) : form?.seed} title={form?.title} onSubmit={submit} onCancel={() => { setForm(null); setView('requests') }} />}
@@ -158,8 +176,11 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
           </p>
         </>
       )}
-      {view === 'progress' && (nProgress === 0 ? <Empty>No invoices in progress.</Empty> : <ul className="iv-list">{[...progressSubs.map(card), ...progressBills.map(bill), ...progressDemo.map(card)]}</ul>)}
-      {view === 'approved' && (nApproved === 0 ? <Empty>Nothing approved yet.</Empty> : <ul className="iv-list">{[...approvedSubs.map(card), ...approvedBills.map(bill), ...approvedDemo.map(card)]}</ul>)}
+      {MENUS.map(([m, , empty]) => view === m && (
+        subs[m].length + bills[m].length + fill(m).length === 0
+          ? <Empty key={m}>{empty}</Empty>
+          : <ul key={m} className="iv-list">{[...subs[m].map(card), ...bills[m].map(bill), ...fill(m).map(card)]}</ul>
+      ))}
     </div>
   )
 }
