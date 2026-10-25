@@ -28,7 +28,7 @@ function courtOrderNotice(db: Db, g: Grant, e: StatusEvent): Notice {
   return {
     id: e.id,
     tone: 'warn',
-    title: `${g.id} restored by court on ${e.day}. Spending stays frozen until money arrives.`,
+    title: `${g.id} restored by court on ${e.day}. No spending until the money arrives.`,
     points: [
       'A court order restores the status, not the cash. No payment has arrived, so agents will not buy, pay invoices or promise money on this grant yet.',
       `New purchases on this grant are held for the grant manager instead of bought. ${waiting(db, g.id)}`,
@@ -91,8 +91,11 @@ export default function Notices() {
             <strong>{n.title}</strong>
             <button onClick={() => dismiss(n.id)} aria-label="Dismiss notification">Dismiss</button>
           </header>
-          <ul>{n.points.map(p => <li key={p}>{p}</li>)}</ul>
-          <a href="#funds">See it in Funds →</a>
+          <details>
+            <summary>What this means</summary>
+            <ul>{n.points.map(p => <li key={p}>{p}</li>)}</ul>
+            <a href="#funds">See it in Funds →</a>
+          </details>
         </article>
       ))}
     </div>

@@ -1,0 +1,60 @@
+/* Grants tracker: hourglass and donut, plus the layout of both panels. */
+.dn { margin: 0; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.tr-text { font-size: 14px; color: var(--c-muted); }
+.tr-text strong { color: var(--c-left); font-size: 15px; }
+.tr-text .tr-over { color: var(--c-bad); }
+.tr-text .tr-committed { color: var(--c-promised); }
+
+/* Donut */
+.dn-row { display: flex; align-items: center; gap: 16px; }
+.dn-svg { flex: 0 0 auto; width: 170px; height: 170px; overflow: visible; }
+.dn-track { fill: none; stroke: var(--c-line); stroke-width: 22; }
+.dn-arc { fill: none; stroke-width: 22; transition: stroke-width .15s, opacity .15s; cursor: default; }
+.dn-arc.dn-spent { stroke: var(--c-spent); opacity: .6; }
+.dn-arc.dn-committed { stroke: var(--c-promised); stroke-width: 28; }
+.dn-stripe-bg { fill: var(--c-promised); }
+.dn-stripe-line { stroke: #fff; stroke-width: 2.5; opacity: .55; }
+.dn-arc.dn-available { stroke: var(--c-left); }
+.dn-arc.dn-on { stroke-width: 28; opacity: 1; }
+.dn-arc.dn-off { opacity: .3; }
+.dn-pct { font-size: 28px; font-weight: 700; fill: var(--c-left); font-variant-numeric: tabular-nums; }
+.dn-sub { font-size: 11px; fill: var(--c-muted); }
+.dn-legend { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.dn-item { display: flex; flex-direction: column; padding: 2px 4px; border-radius: 6px; outline: none; cursor: default; transition: opacity .15s; }
+.dn-item:focus-visible { box-shadow: 0 0 0 2px var(--c-accent); }
+.dn-name { font-size: 11px; color: var(--c-muted); display: inline-flex; align-items: center; gap: 5px; transition: font-size .15s; }
+.dn-swatch { width: 10px; height: 10px; border-radius: 3px; }
+.dn-spent .dn-swatch { background: var(--c-spent); opacity: .6; }
+.dn-committed .dn-swatch { background: var(--c-promised); }
+.dn-available .dn-swatch { background: var(--c-left); }
+.dn-value { font-size: 12px; font-weight: 600; color: var(--c-text); font-variant-numeric: tabular-nums; white-space: nowrap; transition: font-size .15s; }
+.dn-item.dn-on .dn-name { font-size: 12px; color: var(--c-text); }
+.dn-item.dn-on .dn-value { font-size: 17px; }
+.dn-item.dn-off { opacity: .4; }
+.dn-total .dn-value { font-weight: 500; color: var(--c-muted); }
+
+/* Two panels side by side when the card is wide enough, stacked when narrow. */
+.mc { container-type: inline-size; margin: 16px 0 4px; }
+.money-charts { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@container (min-width: 640px) { .money-charts { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; } }
+.mc-panel { min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.mc-title { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--c-muted); }
+.mc-panel > .chart-open, .mc-panel > .dn { flex: 1; }
+
+/* Details under the donut (double-click a color). */
+.sd { margin-top: 12px; border-top: 1px solid var(--c-line); padding-top: 8px; color: var(--c-text); }
+.sd-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 6px; }
+.sd-table th { font-size: 11px; text-transform: uppercase; letter-spacing: .03em; color: var(--c-muted); text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--c-line); }
+.sd-table td { padding: 6px; border-bottom: 1px solid var(--c-line); vertical-align: top; }
+.sd-table td small { display: block; color: var(--c-muted); font-size: 12px; }
+.sd-day { white-space: nowrap; color: var(--c-muted); }
+.sd-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sd-total, .sd-empty { margin: 8px 0 0; font-size: 13px; color: var(--c-muted); }
+.sd-sum { margin: 8px 0 0; display: grid; gap: 4px; max-width: 360px; }
+.sd-sum > div { display: flex; justify-content: space-between; gap: 16px; }
+.sd-sum dt, .sd-sum dd { margin: 0; font-variant-numeric: tabular-nums; }
+.sd-eq { border-top: 2px solid var(--c-text); padding-top: 4px; font-weight: 700; }
+.sd-aside { color: var(--c-muted); font-size: 13px; }
+.dn-strong { border-left: 4px solid var(--c-promised); padding-left: 8px; background: color-mix(in srgb, var(--c-promised) 10%, transparent); }
+.dn-strong .dn-value { font-size: 15px; font-weight: 700; color: var(--c-promised); }
+.dn-name small { font-size: 10.5px; opacity: .85; }

@@ -35,8 +35,6 @@
 .gr-tag { flex: none; font-size: 14px; font-weight: 700; padding: 3px 12px; border-radius: 999px; }
 .gr-tag-paused { background: var(--s-orange-soft); color: var(--s-orange-text); }
 .gr-tag-soon { background: var(--s-amber-soft); color: var(--s-amber-text); }
-.gr-amount { font-size: 34px; font-weight: 700; line-height: 1.1; }
-.gr-zero { color: var(--s-muted); }
 .gr-bar { height: 12px; border-radius: 999px; background: var(--s-soft); overflow: hidden; margin: 4px 0; }
 .gr-bar span { display: block; height: 100%; background: var(--s-blue); border-radius: 999px; }
 .gr-bar-paused { background: repeating-linear-gradient(45deg, var(--s-soft) 0 8px, var(--s-line) 8px 16px); }

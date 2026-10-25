@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useStore } from './data/store'
 import { RoleContext, roles, windows, type Role } from './windows/registry'
 import { RESEARCHERS, ResearcherContext } from './people'
+import DetailPage from './DetailPage'
 import Notices from './Notices'
 import './scientist.css'
 
@@ -35,8 +36,9 @@ export default function App() {
   const role = roleOf(portal)
   const researcher = RESEARCHERS.find(r => r.id === portal) ?? null
   const [current, setCurrent] = useState(() => fromHash(role))
+  const [hash, setHash] = useState(location.hash)
   useEffect(() => {
-    const on = () => setCurrent(fromHash(role))
+    const on = () => { setCurrent(fromHash(role)); setHash(location.hash) }
     addEventListener('hashchange', on)
     return () => removeEventListener('hashchange', on)
   }, [role])
@@ -48,6 +50,9 @@ export default function App() {
     if (location.hash.split('/')[0] !== `#${w.id}`) location.hash = w.id
   }
   const openHolds = db.holds.filter(h => !h.decision).length
+
+  // A donut color or the forecast, opened on its own page in a new tab.
+  if (hash.startsWith('#detail/')) return <DetailPage role={role} />
 
   if (researcher) {
     return (

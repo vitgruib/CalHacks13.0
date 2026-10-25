@@ -1,5 +1,9 @@
 .notices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-.notice { border: 1px solid var(--line); border-left-width: 4px; border-radius: 10px; padding: 12px 16px; background: var(--panel); }
+.notice { border: 1px solid var(--line); border-left-width: 4px; border-radius: 10px; padding: 8px 12px; background: var(--panel); font-size: 14px; }
+.notice header { align-items: center; }
+.notice header button { padding: 2px 10px; font-size: 13px; }
+.notice details { margin-top: 2px; }
+.notice summary { cursor: pointer; color: var(--muted); font-size: 13px; }
 .notice-warn { border-left-color: var(--warn); }
 .notice-good { border-left-color: var(--good); }
 .notice header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }

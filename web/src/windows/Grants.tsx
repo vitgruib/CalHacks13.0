@@ -3,8 +3,9 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../data/store'
 import type { Db, Grant, StatusEvent } from '../data/types'
-import { SIM_NOTE, daysLeft, inTime, longDate, monthYear, paused, shortName, spendable } from '../plain'
+import { SIM_NOTE, daysLeft, grantHeading, inTime, longDate, monthYear, paused, shortName, spendable } from '../plain'
 import { money } from '../ui'
+import MoneyCharts from '../charts/MoneyCharts'
 import './Grants.css'
 
 const useSubId = () => {
@@ -62,7 +63,7 @@ function Tracker({ db, g, steps }: { db: Db; g: Grant; steps: Step[] }) {
     <div className="gr-page">
       <section className="gr-story">
         <div>
-          <p className="gr-kicker">{g.title}</p>
+          <p className="gr-kicker">{grantHeading(g)}</p>
           <h1>{headline}</h1>
           <p className="gr-lede">Like tracking a parcel: here's every step, and what happens next.</p>
         </div>
@@ -107,19 +108,14 @@ function Tracker({ db, g, steps }: { db: Db; g: Grant; steps: Step[] }) {
 
 function GrantCard({ db, g }: { db: Db; g: Grant }) {
   const left = daysLeft(db, g)
-  const pct = g.awarded > 0 ? Math.round((spendable(g) / g.awarded) * 100) : 0
   return (
     <article className="gr-card">
       <header>
-        <h2>{g.title}</h2>
+        <h2>{grantHeading(g)}</h2>
         {paused(g) ? <span className="gr-tag gr-tag-paused">Paused</span> : left <= 90 && <span className="gr-tag gr-tag-soon">Ends {inTime(left)}</span>}
       </header>
-      <p className="gr-muted">You can spend</p>
-      <p className={`gr-amount${paused(g) ? ' gr-zero' : ''}`}>{paused(g) ? '$0 for now' : money(spendable(g))}</p>
-      <div className={`gr-bar${paused(g) ? ' gr-bar-paused' : ''}`} role="img" aria-label={paused(g) ? 'Paused' : `${pct} percent of the grant is left to spend`}>
-        {!paused(g) && <span style={{ width: `${pct}%` }} />}
-      </div>
       <p className="gr-muted">{money(g.awarded)} grant, until {longDate(g.end)}.{!paused(g) && g.promised > 0 && ` ${money(g.promised)} is set aside for orders on the way.`}</p>
+      <MoneyCharts db={db} g={g} details />
       {paused(g)
         ? <a href={`#grants/${g.id}`} className="gr-button">Where's my money?</a>
         : left <= 90 && <p className="gr-note-box">This grant stops on {longDate(g.end)}. Money not spent by then goes back.</p>}

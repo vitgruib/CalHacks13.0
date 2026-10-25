@@ -1,10 +1,11 @@
 // Funds window (MASTER-PLAN §3.1, §4): how much money each grant really has,
 // its status timeline, and any flags. Information only; decisions live in the Inbox.
 import SourceCheck from '../SourceCheck'
+import MoneyCharts from '../charts/MoneyCharts'
 import { useStore } from '../data/store'
-import { trulyAvailable, type Db, type Grant, type GrantStatus, type SourceReading, type StatusEvent } from '../data/types'
+import { type Db, type Grant, type GrantStatus, type SourceReading, type StatusEvent } from '../data/types'
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
-import { SIM_NOTE } from '../plain'
+import { SIM_NOTE, grantHeading } from '../plain'
 import './Funds.css'
 
 const statusLabel: Record<GrantStatus, string> = {
@@ -50,79 +51,47 @@ export default function Funds() {
 }
 
 function GrantCard({ g, db }: { g: Grant; db: Db }) {
+  const openHolds = db.holds.filter(h => h.grantId === g.id && !h.decision)
+  const daysLeft = daysBetween(db.today, g.end)
+
+  return (
+    <Section
+      title={grantHeading(g)}
+      aside={
+        <span className="funds-badges">
+          <Badge tone={grantStatus(g).tone}>{grantStatus(g).label}</Badge>
+        </span>
+      }
+    >
+      <p className="funds-meta">
+        {g.id} · {g.pi} · {g.agency} · {g.start} to {g.end}
+        {daysLeft >= 0 && daysLeft <= 90 && <> <Badge tone="warn">last 90 days</Badge></>}
+      </p>
+
+      <MoneyCharts db={db} g={g} details forecastDetails />
+      <p className="funds-hint">Double-click a color for its list in a new tab, or the forecast for the status timeline.</p>
+
+      {openHolds.length > 0 && (
+        <p className="funds-inbox">
+          {openHolds.length} {openHolds.length === 1 ? 'item is' : 'items are'} waiting for the grant manager on this grant.{' '}
+          <a href="#inbox">Open the Inbox</a>
+        </p>
+      )}
+    </Section>
+  )
+}
+
+/** A grant's status timeline, what each source says, and its flags (the forecast's details page). */
+export function StatusHistory({ g, db }: { g: Grant; db: Db }) {
   const events = db.statusEvents.filter(e => e.grantId === g.id).sort(byDay)
   const readings = latestReadings(db.sourceReadings.filter(r => r.grantId === g.id))
   const flags = db.flags.filter(f => f.grantId === g.id).sort(byDay)
   const openFlags = flags.filter(f => f.open)
   const closedFlags = flags.filter(f => !f.open)
-  const openHolds = db.holds.filter(h => h.grantId === g.id && !h.decision)
   const disagree = new Set(readings.map(r => r.status)).size > 1
-  const daysLeft = daysBetween(db.today, g.end)
-  const available = trulyAvailable(g)
-
-  // "Court order isn't cash": the first cancellation since the grant was last
-  // unfrozen, plus any court order and payment after it.
-  const lastUnfreeze = [...events].reverse().find(e => e.kind === 'unfrozen')
-  const lastCancel = events.find(e => e.kind === 'canceled' && (!lastUnfreeze || e.day >= lastUnfreeze.day))
-  const courtOrder = lastCancel && events.find(e => e.kind === 'court_order' && e.day >= lastCancel.day)
-  const paymentSince = lastCancel && events.find(e => e.kind === 'payment_received' && e.day >= lastCancel.day)
 
   return (
-    <Section
-      title={`${g.id} · ${g.title}`}
-      aside={
-        <span className="funds-badges">
-          <Badge tone={grantStatus(g).tone}>{grantStatus(g).label}</Badge>
-          {g.frozen ? <Badge tone="bad">Frozen</Badge> : <Badge tone="good">Spending open</Badge>}
-        </span>
-      }
-    >
-      <p className="funds-meta">{g.pi} · {g.agency} · {g.start} to {g.end}</p>
-
-      {g.frozen && (
-        <div className="funds-frozen" role="note">
-          <strong>Spending is frozen.</strong> {g.frozenReason}
-          {lastCancel && (
-            <ol className="funds-chain" aria-label="Why it is still frozen">
-              <li className="bad">Canceled <span>{lastCancel.day}</span></li>
-              <li className={courtOrder ? 'warn' : 'muted'}>
-                Court order <span>{courtOrder ? courtOrder.day : 'none'}</span>
-              </li>
-              <li className={paymentSince ? 'good' : 'bad'}>
-                Payment since <span>{paymentSince ? `${paymentSince.day} (${money(paymentSince.amount ?? 0)})` : 'none'}</span>
-              </li>
-            </ol>
-          )}
-          {courtOrder && !paymentSince && (
-            <p className="funds-frozen-note">A court order is not cash. Spending reopens when a payment actually arrives.</p>
-          )}
-        </div>
-      )}
-
-      <div className="funds-money">
-        <div className={`funds-available ${g.frozen ? 'frozen' : available < 0 ? 'negative' : ''}`}>
-          <div className="label">Truly available</div>
-          <div className="value">{money(available)}</div>
-          <div className="hint">
-            {g.frozen ? 'On paper only: frozen, so none of it can be spent.' : 'Awarded − spent − promised'}
-          </div>
-        </div>
-        <dl className="funds-figures">
-          <div><dt>Awarded</dt><dd>{money(g.awarded)}</dd></div>
-          <div><dt>Received</dt><dd>{money(g.received)}</dd></div>
-          <div><dt>Spent</dt><dd>{money(g.spent)}</dd></div>
-          <div><dt>Promised</dt><dd>{money(g.promised)}</dd><small>orders not yet paid</small></div>
-          <div>
-            <dt>Ends</dt>
-            <dd>{g.end}</dd>
-            <small>
-              {daysLeft < 0 ? 'ended' : `${daysLeft} days left`}
-              {daysLeft >= 0 && daysLeft <= 90 && <> · <Badge tone="warn">last 90 days</Badge></>}
-            </small>
-          </div>
-        </dl>
-      </div>
-
+    <>
       <div className="funds-cols">
         <div>
           <h3 className="funds-h3">Status timeline</h3>
@@ -183,12 +152,6 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
           ))}
         </ul>
       )}
-      {openHolds.length > 0 && (
-        <p className="funds-inbox">
-          {openHolds.length} {openHolds.length === 1 ? 'item is' : 'items are'} waiting for the grant manager on this grant.{' '}
-          <a href="#inbox">Open the Inbox</a>
-        </p>
-      )}
-    </Section>
+    </>
   )
 }

@@ -1,0 +1,60 @@
+@import './tracker.css';
+/* Grant forecast chart and chart tokens. Colors come from the grant office tokens
+   (styles.css); the Scientist screens swap in theirs below. */
+.mc, .rw, .sd {
+  --c-left: var(--good); --c-spent: var(--muted); --c-promised: #d97706; --c-bad: var(--bad);
+  --c-line: var(--line); --c-text: var(--text); --c-muted: var(--muted); --c-panel: var(--panel);
+  --c-accent: var(--accent); --c-bad-bg: var(--bad-bg);
+}
+.sci .mc, .sci .rw, .sci .sd {
+  --c-left: var(--s-blue); --c-spent: var(--s-muted); --c-promised: var(--s-orange); --c-bad: var(--s-red);
+  --c-line: var(--s-line); --c-text: var(--s-text); --c-muted: var(--s-muted); --c-panel: var(--s-bg);
+  --c-accent: var(--s-blue); --c-bad-bg: var(--s-orange-soft);
+}
+.rw { margin: 0; }
+
+/* Runway */
+.rw { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.rw figcaption { border-left: 4px solid var(--c-muted); padding: 2px 0 2px 10px; }
+.rw-good figcaption { border-color: var(--c-left); }
+.rw-warn figcaption { border-color: var(--c-promised); }
+.rw-bad figcaption { border-color: var(--c-bad); }
+.rw-headline { margin: 0; font-weight: 600; font-size: 15px; color: var(--c-text); }
+.rw-advice { margin: 2px 0 0; font-size: 14px; color: var(--c-muted); }
+.rw-plot { position: relative; width: 100%; min-width: 0; overflow: hidden; contain: inline-size; }
+.rw-plot svg { display: block; overflow: visible; }
+.rw-grid line { stroke: var(--c-line); }
+.rw-grid text, .rw-tick { font-size: 11px; fill: var(--c-muted); font-variant-numeric: tabular-nums; }
+.rw-short { fill: var(--c-bad-bg); }
+.rw-mark { stroke: var(--c-text); stroke-width: 1.5; opacity: .6; }
+.rw-today { stroke: var(--c-muted); stroke-dasharray: 2 3; }
+.rw-mark-label { font-size: 11px; fill: var(--c-muted); }
+.rw-actual { fill: none; stroke: var(--c-accent); stroke-width: 2.5; stroke-linejoin: round; }
+.rw-proj { fill: none; stroke: var(--c-left); stroke-width: 2.5; stroke-dasharray: 6 5; }
+.rw-warn .rw-proj { stroke: var(--c-promised); }
+.rw-bad .rw-proj { stroke: var(--c-bad); }
+.rw-now { fill: var(--c-panel); stroke: var(--c-accent); stroke-width: 2.5; }
+.rw-out circle { fill: var(--c-bad); }
+.rw-out text { font-size: 12px; font-weight: 600; fill: var(--c-bad); }
+.rw-end circle { fill: var(--c-panel); stroke: var(--c-left); stroke-width: 2.5; }
+.rw-warn .rw-end circle { stroke: var(--c-promised); }
+.rw-end text { font-size: 12px; font-weight: 600; fill: var(--c-text); }
+.rw-hover line { stroke: var(--c-text); opacity: .35; }
+.rw-hover circle { fill: var(--c-text); }
+.rw-hit { fill: transparent; cursor: crosshair; }
+.rw-tip { position: absolute; top: 0; width: 150px; pointer-events: none; background: var(--c-panel); border: 1px solid var(--c-line); border-radius: 6px; padding: 4px 8px; font-size: 13px; color: var(--c-text); box-shadow: 0 2px 8px rgb(0 0 0 / .12); }
+.rw-tip strong { font-size: 15px; font-variant-numeric: tabular-nums; }
+.rw-tip span { display: block; color: var(--c-muted); font-size: 12px; }
+.rw-basis { margin: 0; font-size: 12px; color: var(--c-muted); display: flex; align-items: center; gap: 4px 14px; flex-wrap: wrap; }
+.rw-item { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+.rw-key { display: inline-block; width: 18px; height: 0; border-top: 2.5px solid var(--c-accent); margin-left: 2px; }
+.rw-key-proj { border-top: 2.5px dashed var(--c-left); }
+.rw-warn .rw-key-proj { border-top-color: var(--c-promised); }
+.rw-bad .rw-key-proj { border-top-color: var(--c-bad); }
+
+
+/* Charts that open details on double-click (Funds). */
+.chart-open { border-radius: 10px; padding: 6px; margin: -6px; cursor: zoom-in; outline: none; transition: background .15s; user-select: none; }
+.chart-open:hover { background: color-mix(in srgb, var(--c-accent) 5%, transparent); }
+.chart-open:focus-visible { box-shadow: 0 0 0 2px var(--c-accent); }
+.chart-opened { background: color-mix(in srgb, var(--c-accent) 8%, transparent); cursor: zoom-out; }

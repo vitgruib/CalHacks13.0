@@ -8,6 +8,21 @@ import { money } from './ui'
 
 export { CARD_LIMIT, trulyAvailable }
 
+/**
+ * Plain headings for the demo, so judges aren't put off by NIH titles. Display
+ * only: the grant's real title stays in the data. Two more are ready for the
+ * climate researcher personas:
+ *   "BP - Developing Sustainable Biofuels for Clean Energy Transition"
+ *   "Stereolithographic Micro-Manufacturing of Crystalline Frameworks for Carbon Capture"
+ */
+const HEADINGS: Record<string, { title: string; short: string }> = {
+  R01GM061721: { title: "NIH grant - Imaging Brain Interventions Against Alzheimer's Disease", short: "Alzheimer's imaging" },
+  R21AI182745: { title: 'Designing Novel RNA Therapeutics Against Neurological Diseases', short: 'RNA therapeutics' },
+}
+
+/** The heading shown for a grant. */
+export const grantHeading = (g: Grant) => HEADINGS[g.id]?.title ?? g.title
+
 const SMALL = new Set(['a', 'an', 'and', 'as', 'by', 'for', 'from', 'in', 'of', 'on', 'the', 'to', 'with'])
 
 /**
@@ -16,6 +31,8 @@ const SMALL = new Set(['a', 'an', 'and', 'as', 'by', 'for', 'from', 'in', 'of', 
  * "Investigating ploidy modulation as a strategy to …" → "Ploidy modulation".
  */
 export function shortName(g: Grant) {
+  const named = HEADINGS[g.id]
+  if (named) return named.short
   let words = g.title.split(/\s+/).filter(Boolean)
   if (words.length > 1 && /ing$/i.test(words[0])) words = words.slice(1) // "Investigating …"
   if (words.length > 2 && words[1].toLowerCase() === 'of') words = words.slice(words[2].toLowerCase() === 'the' ? 3 : 2) // "Biogenesis of the …"
@@ -25,7 +42,7 @@ export function shortName(g: Grant) {
 }
 
 /** Shown wherever grants are described: the IDs are real, the lab is not. */
-export const SIM_NOTE = 'Grant IDs, titles, institutes and end dates are real NIH records (R01GM061721, UCLA; R21AI182745, Princeton). The lab, people, purchases, invoices, papers, amounts and the cancel, court and payment timeline are simulated (today in the sim is June 15, 2026).'
+export const SIM_NOTE = 'Grant IDs, institutes and end dates are real NIH records (R01GM061721, UCLA; R21AI182745, Princeton); the headings shown are simplified stand-ins for their titles. The lab, people, purchases, invoices, papers, amounts and the cancel, court and payment timeline are simulated (today in the sim is June 15, 2026).'
 
 export const firstName = (db: Db) => (db.grants[0]?.pi ?? '').replace(/^Dr\.?\s*/, '').split(' ')[0]
 
