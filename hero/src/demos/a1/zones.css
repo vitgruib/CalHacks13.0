@@ -91,6 +91,14 @@
   outline-offset: 2px;
 }
 
+/* Entering a portal: the page's background fades in over the whole demo (zones.tsx go). */
+.demo-a1 .a1-zone-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  opacity: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .demo-a1 .a1-zone .a1-zone-card,
   .demo-a1 .a1-zone[data-on] .a1-zone-card {

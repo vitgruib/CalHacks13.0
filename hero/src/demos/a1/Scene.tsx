@@ -21,7 +21,7 @@ import { OfficePlinth } from './Office'
 import { NET, OPENING, PAL, haloSize, heroFor, netAnchor, netFloor, type Framing } from './layout'
 import { fx, pinnedQuality, pointer, reducedMotion, ui } from './store'
 import { grantStatus, nodeName, nodeNow } from './words'
-import { ZoneCard } from './zones'
+import { ZoneCard, onZoneGo } from './zones'
 import './scene.css'
 
 function Backdrop() {
@@ -202,10 +202,17 @@ function Rig() {
       if (f) glide(f.pos, f.target, 1400, 0.6)
       else if (!s) glide(h.pos.clone(), h.target.clone(), 1500, 0.6)
     })
+    // Entering a zone's portal (zones.tsx): glide halfway in toward it; null snaps back to the hero framing.
+    const offZone = onZoneGo(to => {
+      const h = heroRef.current
+      if (to) glide(to.clone().add(off.subVectors(camera.position, c.target).multiplyScalar(0.5)), to.clone(), 550)
+      else glide(h.pos.clone(), h.target.clone(), 0)
+    })
     return () => {
       c.removeEventListener('start', stop)
       c.removeEventListener('end', end)
       unsub()
+      offZone()
     }
   }, [])
 

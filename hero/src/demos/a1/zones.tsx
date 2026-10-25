@@ -17,11 +17,13 @@ import {
   OneMinusSrcAlphaFactor,
   PlaneGeometry,
   ShaderMaterial,
+  Vector3,
   type BufferGeometry,
   type Mesh,
 } from 'three'
 import { embed, useEmbed, type Role } from './embed'
 import { LAB_BOX, LAB_X, NET_BOX, NET_X } from './layout'
+import { reducedMotion } from './ui'
 import './zones.css'
 
 export type ZoneId = 'lab' | 'net'
@@ -73,12 +75,14 @@ interface ZoneState {
   hover: ZoneId | null
   /** Touch: the zone whose card is open with its button. */
   open: ZoneId | null
+  /** The zone being entered: the camera glides in, the card is gone, clicks wait. */
+  going: ZoneId | null
 }
-let zs: ZoneState = { hover: null, open: null }
+let zs: ZoneState = { hover: null, open: null, going: null }
 const subs = new Set<() => void>()
 const setZone = (p: Partial<ZoneState>) => {
   const n = { ...zs, ...p }
-  if (n.hover === zs.hover && n.open === zs.open) return
+  if (n.hover === zs.hover && n.open === zs.open && n.going === zs.going) return
   zs = n
   subs.forEach(f => f())
 }
@@ -89,12 +93,68 @@ const subscribe = (f: () => void) => {
   }
 }
 const getZone = () => zs
-const litZone = () => zs.open ?? zs.hover
+const litZone = () => zs.going ?? zs.open ?? zs.hover
 
-/** The pointer on the stage, px. The hit boxes write it; the card reads it. */
-const at = { x: 0, y: 0, el: null as HTMLDivElement | null, tapped: false }
+interface Box {
+  x: number
+  y: number
+  w: number
+  h: number
+}
+/** The pointer on the stage, px, and the boxes the card keeps clear of. The hit boxes write it; the card reads it. */
+const at = { x: 0, y: 0, el: null as HTMLDivElement | null, tapped: false, avoid: [] as Box[] }
 
-/** Puts the card beside the pointer, never under it: below-right for a mouse, above a finger. */
+/**
+ * DOM laid over the canvas that takes the pointer (the landing's copy, a phone's bar), in stage px.
+ * Read when a hover or tap starts, never per move: the stage's, the demo's and its host's children,
+ * plus anything marked [data-zone-avoid].
+ */
+function findAvoid() {
+  at.avoid.length = 0
+  const el = at.el
+  const stage = el?.parentElement
+  const root = el?.closest('.demo-a1')
+  if (!el || !stage || !root) return
+  const s = stage.getBoundingClientRect()
+  const pool = new Set<Element>([...stage.children, ...root.children, ...(root.parentElement?.children ?? []), ...root.querySelectorAll('[data-zone-avoid]')])
+  for (const n of pool) {
+    if (n === el || n.contains(el) || n.querySelector('canvas') || n.classList.contains('a1-card') || n.classList.contains('a1-zone-veil')) continue
+    const r = n.getBoundingClientRect()
+    const x0 = Math.max(r.left, s.left)
+    const y0 = Math.max(r.top, s.top)
+    const x1 = Math.min(r.right, s.right)
+    const y1 = Math.min(r.bottom, s.bottom)
+    if (x1 - x0 < 4 || y1 - y0 < 4 || (x1 - x0) * (y1 - y0) > 0.6 * s.width * s.height) continue
+    const cs = getComputedStyle(n)
+    if (cs.display === 'none' || cs.visibility === 'hidden' || cs.pointerEvents === 'none' || cs.opacity === '0') continue
+    at.avoid.push({ x: x0 - s.left - 8, y: y0 - s.top - 8, w: x1 - x0 + 16, h: y1 - y0 + 16 })
+  }
+}
+
+const overlap = (a: Box, b: Box) => Math.max(0, Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x)) * Math.max(0, Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y))
+const cand: Box = { x: 0, y: 0, w: 0, h: 0 }
+const me: Box = { x: 0, y: 0, w: 12, h: 12 }
+const spots = new Float64Array(12)
+/** Six candidate spots as x, y pairs. */
+function put(x0: number, y0: number, x1: number, y1: number, x2: number, y2: number, x3: number, y3: number, x4: number, y4: number, x5: number, y5: number) {
+  spots[0] = x0
+  spots[1] = y0
+  spots[2] = x1
+  spots[3] = y1
+  spots[4] = x2
+  spots[5] = y2
+  spots[6] = x3
+  spots[7] = y3
+  spots[8] = x4
+  spots[9] = y4
+  spots[10] = x5
+  spots[11] = y5
+}
+
+/**
+ * Puts the card beside the pointer (below-right for a mouse, above a finger), inside the canvas,
+ * never over the pointer and clear of the DOM laid over the canvas; the first spot that fits wins.
+ */
 function placeCard() {
   const el = at.el
   if (!el) return
@@ -103,21 +163,89 @@ function placeCard() {
   const H = box?.clientHeight ?? innerHeight
   const w = el.offsetWidth
   const h = el.offsetHeight
-  let x: number
-  let y: number
-  if (zs.open) {
-    x = at.x - w / 2
-    y = at.y - h - 20
-    if (y < 8) y = at.y + 28
-  } else {
-    x = at.x + 16
-    y = at.y + 20
-    if (x + w > W - 8) x = at.x - w - 14
-    if (y + h > H - 8) y = at.y - h - 14
+  const { x, y } = at
+  // Six spots in order of preference: a finger's card goes above it, a mouse's below-right.
+  const L = x - w - 14
+  const R = x + 16
+  const C = x - w / 2
+  if (zs.open) put(C, y - h - 20, C, y + 28, R, y - h / 2, L, y - h / 2, R, y - h - 20, L, y + 28)
+  else put(R, y + 20, L, y + 20, R, y - h - 14, L, y - h - 14, C, y - h - 18, C, y + 24)
+  me.x = x - 6
+  me.y = y - 6
+  cand.w = w
+  cand.h = h
+  let bx = 8
+  let by = 8
+  let bestScore = Infinity
+  for (let i = 0; i < 12; i += 2) {
+    cand.x = Math.max(8, Math.min(W - w - 8, spots[i]))
+    cand.y = Math.max(8, Math.min(H - h - 8, spots[i + 1]))
+    let score = overlap(cand, me) > 0 ? 1e7 : 0
+    for (const a of at.avoid) score += overlap(cand, a)
+    if (score < bestScore) {
+      bx = cand.x
+      by = cand.y
+      bestScore = score
+      if (score === 0) break
+    }
   }
-  x = Math.max(8, Math.min(W - w - 8, x))
-  y = Math.max(8, Math.min(H - h - 8, y))
-  el.style.transform = `translate(${Math.round(x)}px, ${Math.round(y)}px)`
+  el.style.transform = `translate(${Math.round(bx)}px, ${Math.round(by)}px)`
+}
+
+// ── Entering: a short glide toward the zone, a fade to the page, then the portal ──
+
+const GLIDE_MS = 550
+const FADE_MS = 250
+/** Where the camera heads when a zone is entered. */
+const CENTRE: Record<ZoneId, Vector3> = { lab: new Vector3(LAB_X, 0.4, 0), net: new Vector3(NET_X, 0.4, 0) }
+const goFns = new Set<(to: Vector3 | null) => void>()
+/** For the camera rig: a point to glide toward, or null to return to the hero framing at once. */
+export const onZoneGo = (f: (to: Vector3 | null) => void) => {
+  goFns.add(f)
+  return () => {
+    goFns.delete(f)
+  }
+}
+
+/** The host page's own background, for the fade. */
+function pageBg() {
+  for (const el of [document.body, document.documentElement]) {
+    const c = getComputedStyle(el).backgroundColor
+    if (c && c !== 'transparent' && !/^rgba\(.*,\s*0\)$/.test(c)) return c
+  }
+  return '#f7f5f0'
+}
+
+/** Glide toward the zone and fade to the page over GLIDE_MS, then open its portal. Clicks meanwhile are ignored. */
+function go(id: ZoneId, from: Element | null) {
+  if (zs.going) return
+  const role = ROLE[id]
+  const root = from?.closest<HTMLElement>('.demo-a1') ?? null
+  root?.removeAttribute('data-zone')
+  document.body.style.cursor = ''
+  if (reducedMotion() || !root) {
+    setZone({ hover: null, open: null })
+    enter(role)
+    return
+  }
+  setZone({ going: id, hover: null, open: null })
+  goFns.forEach(f => f(CENTRE[id]))
+  const veil = document.createElement('div')
+  veil.className = 'a1-zone-veil'
+  veil.style.background = pageBg()
+  root.appendChild(veil)
+  const fade = veil.animate([{ opacity: 0 }, { opacity: 1 }], { duration: FADE_MS, delay: GLIDE_MS - FADE_MS, easing: 'ease-in', fill: 'forwards' })
+  window.setTimeout(() => {
+    enter(role)
+    // Still on this page (the landing scrolls to its researcher list): back to the hero framing under the veil, then lift it.
+    window.setTimeout(() => {
+      setZone({ going: null })
+      if (!veil.isConnected) return
+      goFns.forEach(f => f(null))
+      fade.cancel()
+      veil.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, easing: 'ease-out', fill: 'forwards' }).onfinish = () => veil.remove()
+    }, 200)
+  }, GLIDE_MS)
 }
 
 // ── In the scene: one hit box and one highlight per plinth ───────────────
@@ -242,7 +370,8 @@ export function Zone({ id, geo }: { id: ZoneId; geo: BufferGeometry }) {
   useEffect(() => {
     if (!on) return
     return () => {
-      if (zs.hover === id || zs.open === id) setZone({ hover: null, open: null })
+      if (zs.hover === id) document.body.style.cursor = ''
+      if (zs.hover === id || zs.open === id || zs.going === id) setZone({ hover: null, open: null, going: null })
     }
   }, [on, id])
 
@@ -255,8 +384,9 @@ export function Zone({ id, geo }: { id: ZoneId; geo: BufferGeometry }) {
   }
   const over = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation()
-    if (e.nativeEvent.pointerType === 'touch') return
+    if (e.nativeEvent.pointerType === 'touch' || zs.going) return
     point(e)
+    findAvoid()
     setZone({ hover: id })
     placeCard()
     root()?.setAttribute('data-zone', id)
@@ -264,12 +394,13 @@ export function Zone({ id, geo }: { id: ZoneId; geo: BufferGeometry }) {
   }
   const move = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation()
-    if (e.nativeEvent.pointerType === 'touch' || zs.hover !== id) return
+    if (e.nativeEvent.pointerType === 'touch' || zs.hover !== id || zs.going) return
     point(e)
     placeCard()
   }
   const out = (e: ThreeEvent<PointerEvent>) => {
     e.stopPropagation()
+    if (zs.going) return
     if (zs.hover === id) setZone({ hover: null })
     const r = root()
     if (r?.getAttribute('data-zone') === id) r.removeAttribute('data-zone')
@@ -280,16 +411,17 @@ export function Zone({ id, geo }: { id: ZoneId; geo: BufferGeometry }) {
   }
   const click = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation()
-    if (e.delta > 6) return
+    if (e.delta > 6 || zs.going) return
     if (down.current === 'touch') {
       // First tap opens the card with a real button; the document listener in ZoneCard closes it.
       point(e)
+      findAvoid()
       at.tapped = true
       setZone({ open: id, hover: null })
       placeCard()
       return
     }
-    enter(ROLE[id])
+    go(id, gl.domElement)
   }
 
   return (
@@ -326,7 +458,7 @@ export function ZoneCard() {
   const on = useZones()
   const s = useSyncExternalStore(subscribe, getZone)
   const last = useRef<ZoneId>('lab')
-  const id = s.open ?? s.hover
+  const id = s.going ? null : (s.open ?? s.hover)
   if (id) last.current = id
   const shown = id ?? last.current
   const touch = !!s.open
@@ -379,9 +511,7 @@ export function ZoneCard() {
             type="button"
             className="a1-zone-go"
             onClick={() => {
-              const z = s.open
-              setZone({ open: null })
-              if (z) enter(ROLE[z])
+              if (s.open) go(s.open, at.el)
             }}
           >
             {w.button}&nbsp;<span aria-hidden="true">→</span>
