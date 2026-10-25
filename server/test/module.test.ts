@@ -467,3 +467,29 @@ test('an invoice submission must name a known status and match its id', () => {
   expect(() => call('sci', mod.save_invoice_submission, { id: 'sub-3', body: JSON.stringify({ ...sub, status: 'ready' }) })).toThrow(/id does not match/);
   expect(() => call('bk', mod.save_invoice_submission, { id: 'sub-2', body: JSON.stringify({ ...sub, status: 'ready' }) })).toThrow(/only people/i);
 });
+
+test('the grant office sets an active grant reinstated by a court with no money yet, and spending pauses', () => {
+  call('gm', mod.set_grant_status, { grantId: B, status: 'restored_by_court', reason: 'Court order on file; NIH has not paid since.' });
+  expect(db().grant.id.find(B)).toMatchObject({ status: 'restored_by_court', frozen: true });
+});
+
+test('the grant office sets a grant inactive, and spending pauses', () => {
+  call('gm', mod.set_grant_status, { grantId: B, status: 'canceled', reason: 'Termination letter received.' });
+  expect(db().grant.id.find(B)).toMatchObject({ status: 'canceled', frozen: true });
+});
+
+test('setting the status decides the grant\'s open source disagreement', () => {
+  call('bk', mod.raise_flag, { grantId: B, kind: 'sources_disagree', summary: 'They disagree.' });
+  expect(db().grant.id.find(B).frozen).toBe(true);
+  call('gm', mod.set_grant_status, { grantId: B, status: 'active', reason: 'NIH confirmed by phone.' });
+  expect(db().grant.id.find(B)).toMatchObject({ status: 'active', frozen: false });
+  const hold = rows('hold').find(x => x.kind === 'source_disagreement' && x.grantId === B);
+  expect(hold.open).toBe(false);
+  expect(rows('decision').find(d => d.holdId === hold.id).choice).toBe('set_status');
+});
+
+test('the grant office can only set active, reinstated or inactive, and only as a change', () => {
+  expect(() => call('gm', mod.set_grant_status, { grantId: B, status: 'ended', reason: 'x' })).toThrow(/status must be one of/);
+  expect(() => call('gm', mod.set_grant_status, { grantId: B, status: 'active', reason: 'x' })).toThrow(/already active/);
+  expect(() => call('sci', mod.set_grant_status, { grantId: B, status: 'canceled', reason: 'x' })).toThrow();
+});

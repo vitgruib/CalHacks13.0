@@ -9,14 +9,14 @@ import { useEffect, useId, useState } from 'react'
 import SourceCheck from '../SourceCheck'
 import MoneyCharts from '../charts/MoneyCharts'
 import Received from '../charts/Received'
-import { useStore } from '../data/store'
-import { type Db, type Decision, type Grant, type GrantStatus, type HoldKind, type SourceReading, type StatusEvent } from '../data/types'
+import { STATUS_WORDS, useStore } from '../data/store'
+import { type Db, type Decision, type Grant, type GrantStatus, type Hold, type HoldKind, type SettableStatus, type SourceReading, type StatusEvent } from '../data/types'
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
 import { SIM_NOTE, grantHeading } from '../plain'
 import EdgeGroup from '../EdgeGroup'
 import { edgeCaseOf, isEdgeGrant } from '../people'
 import { whyFrozen } from '../frozen'
-import { HoldCard, openHolds } from './Inbox'
+import { latestPerSource, openHolds } from './Inbox'
 import './Funds.css'
 
 /** Inbox items about a grant itself, not one request or invoice: decided on the grant's Funds card. */
@@ -41,6 +41,7 @@ const decidedLabel: Record<Decision['choice'], string> = {
   reject: 'Rejected.',
   ask_vendor: 'Asked the vendor.',
   pick_source: '', // its reason already starts "Source picked: …"
+  set_status: '', // its reason already starts "Status set: …"
 }
 const personLabel: Record<string, string> = { grant_manager: 'Grant manager', scientist: 'Researcher', funder: 'Government funder' }
 
@@ -134,8 +135,9 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
         {daysLeft >= 0 && daysLeft <= 90 && <> <Badge tone="warn">last 90 days</Badge></>}
       </p>
 
-      {(g.status === 'canceled' || g.status === 'restored_by_court') && <MarkActive db={db} g={g} />}
-      {holds.map(h => <HoldCard key={h.id} hold={h} embedded />)}
+      {g.status !== 'ended' && (g.frozen || g.status !== 'active' || holds.length > 0
+        ? <GrantStatusPanel key={`${g.status}-${g.frozen}`} db={db} g={g} holds={holds} />
+        : <details className="funds-status-change"><summary>Change status</summary><GrantStatusPanel key={g.status} db={db} g={g} holds={holds} /></details>)}
       {decided.map(h => (
         <p key={h.id} className="funds-decided">
           <span className="funds-muted">{personLabel[h.decision!.by] ?? h.decision!.by}, {h.decision!.day}, on “{h.title}”: </span>
@@ -149,29 +151,63 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
   )
 }
 
-/** A canceled or court-restored grant: why spending is paused, and the grant
- *  manager confirming it is live (unfreeze_grant). Its status becomes active,
- *  which is what opens spending in every portal (T112). */
-function MarkActive({ db, g }: { db: Db; g: Grant }) {
-  const { markGrantActive } = useStore()
+const SETTABLE: SettableStatus[] = ['active', 'restored_by_court', 'canceled']
+const statusEffect: Record<SettableStatus, string> = {
+  active: 'Spending open for researchers.',
+  restored_by_court: 'Spending paused until the money arrives.',
+  canceled: 'Spending paused.',
+}
+
+/** The grant office sets the grant's status (set_grant_status): active,
+ *  reinstated by a court with no money yet, or inactive. Spending follows the
+ *  status in every portal (T112). It also answers the grant's open items
+ *  (sources disagreeing, money arriving while canceled), shown above it. */
+function GrantStatusPanel({ db, g, holds }: { db: Db; g: Grant; holds: Hold[] }) {
+  const { setGrantStatus } = useStore()
+  const current = SETTABLE.find(s => s === g.status)
+  const [status, setStatus] = useState<SettableStatus | ''>(current ?? '')
   const [reason, setReason] = useState('')
   const id = useId()
-  const ok = reason.trim() !== ''
+  const disputed = db.flags.some(f => f.grantId === g.id && f.open && f.kind === 'sources_disagree')
+  const changes = status !== '' && (status !== current || (status === 'active' && g.frozen) || holds.length > 0 || disputed)
+  const ok = changes && reason.trim() !== ''
+  const save = () => {
+    if (status === '') return
+    setGrantStatus(g.id, status, reason)
+    setReason('')
+  }
   return (
-    <div className="hold hold-embedded">
-      <header>
-        <h3 id={`${id}-title`}>Spending is paused for researchers</h3>
-      </header>
-      <p className="why"><strong>Why:</strong> {whyFrozen(db, g).map(c => c.text).join('; ')}.</p>
+    <fieldset className="hold hold-embedded funds-status" aria-labelledby={`${id}-title`}>
+      <header><h3 id={`${id}-title`}>{holds.length > 0 ? 'What is this grant\'s status?' : 'Grant status'}</h3></header>
+      {holds.map(h => (
+        <div key={h.id} className="funds-status-item">
+          <p className="why"><strong>{h.title}</strong> {h.why}</p>
+          {h.evidence.length > 0 && (
+            <dl className="evidence">
+              {(h.kind === 'source_disagreement' ? latestPerSource(h.evidence) : h.evidence).map((e, i) => <div key={`${i}-${e.label}`}><dt>{e.label}</dt><dd>{e.value}</dd></div>)}
+            </dl>
+          )}
+        </div>
+      ))}
+      {g.frozen && holds.length === 0 && <p className="why"><strong>Spending is paused:</strong> {whyFrozen(db, g).map(c => c.text).join('; ')}.</p>}
+      <div className="funds-status-options" role="radiogroup" aria-labelledby={`${id}-title`}>
+        {SETTABLE.map(s => (
+          <label key={s} className={`funds-status-option${status === s ? ' on' : ''}`}>
+            <input type="radio" name={id} value={s} checked={status === s} onChange={() => setStatus(s)} />
+            <span><strong>{STATUS_WORDS[s]}</strong>{s === current && <span className="funds-muted"> (now)</span>}<br /><span className="funds-muted">{statusEffect[s]}</span></span>
+          </label>
+        ))}
+      </div>
       <div className="field">
-        <label htmlFor={id}>Confirmed it's live? Mark it active. Your reason (required, goes in the log)</label>
-        <textarea id={id} rows={2} value={reason} onChange={e => setReason(e.target.value)} placeholder="e.g. NIH confirmed the award is live and payments resume this month" />
+        <label htmlFor={`${id}-reason`}>Your reason (required, goes in the log)</label>
+        <textarea id={`${id}-reason`} rows={2} value={reason} onChange={e => setReason(e.target.value)} placeholder="e.g. NIH confirmed the award is live and payments resume this month" />
       </div>
       <div className="actions">
-        <button type="button" className="primary" disabled={!ok} onClick={() => { markGrantActive(g.id, reason); setReason('') }}>Mark grant active</button>
-        {!ok && <span className="hint">Type a reason to enable the button.</span>}
+        <button type="button" className="primary" disabled={!ok} onClick={save}>Save status</button>
+        {!changes && <span className="hint">Pick a different status to change it.</span>}
+        {changes && !ok && <span className="hint">Type a reason to save.</span>}
       </div>
-    </div>
+    </fieldset>
   )
 }
 

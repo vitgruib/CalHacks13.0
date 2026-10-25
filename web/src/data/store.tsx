@@ -7,7 +7,7 @@ import { clearLocalSubmissions, saveLocalSubmission, useLocalSubmissions } from 
 import type { Submission } from '../invoice/model'
 import type { Researcher } from '../people'
 import { planLines, type SavedPlan } from '../spendguard/store'
-import type { Db, Decision, Invoice, PurchaseRequest, SourceCheck, StatusEvent } from './types'
+import type { Db, Decision, Invoice, PurchaseRequest, SettableStatus, SourceCheck, StatusEvent } from './types'
 
 /** The item check's look at an item, before any grant (T103). category: the kind of thing it is ('' = not read). */
 export interface ItemCheck { verdict: 'fine' | 'flag' | 'unchecked'; why: string; category: string }
@@ -49,10 +49,10 @@ export interface Store {
   /** Grant manager: approve a submitted plan (its lines become requests in the
    *  researcher's name) or return it, always with a reason. */
   decidePlan: (id: string, choice: 'approve' | 'return', reason: string) => void
-  /** Grant manager: confirm a canceled or court-restored grant is live, with a
-   *  reason for the log (unfreeze_grant). Its status becomes active, so every
-   *  portal sees spending open again. */
-  markGrantActive: (grantId: string, reason: string) => void
+  /** Grant manager: set a grant's status (active, reinstated by a court with no
+   *  money yet, or inactive), with a reason for the log (set_grant_status).
+   *  Spending follows the status in every portal. */
+  setGrantStatus: (grantId: string, status: SettableStatus, reason: string) => void
   /** Invoice submissions (T112): what researchers sent and the grant office's decisions on them. */
   submissions: Submission[]
   /** A researcher submits or resubmits an invoice, or the grant office records a decision on one. */
@@ -114,20 +114,38 @@ export function applyStatusEvent(d: Db, a: InjectStatusEventArgs): Db {
   }
 }
 
-/** The grant manager marks a grant active again (as the module's unfreeze_grant). */
-export function applyMarkActive(d: Db, grantId: string, reason: string): Db {
+export const STATUS_WORDS: Record<SettableStatus, string> = {
+  active: 'Active',
+  restored_by_court: 'Reinstated by a court, money not sent yet',
+  canceled: 'Inactive (canceled)',
+}
+
+/** The grant manager sets a grant's status (as the module's set_grant_status):
+ *  recorded as the matching status event; it settles the grant's open items. */
+export function applySetStatus(d: Db, grantId: string, status: SettableStatus, reason: string): Db {
   const g = d.grants.find(x => x.id === grantId)
   if (!g) throw new Error(`No grant ${grantId}`)
   if (!reason.trim()) throw new Error('A reason is required.')
-  if (!g.frozen) throw new Error(`${grantId} is already active.`)
-  const ev: StatusEvent = { id: nextId('se'), grantId, day: d.today, kind: 'unfrozen', source: 'Payment system', summary: `Marked active by the grant manager: ${reason}` }
-  const settles = (f: Db['flags'][number]) => f.grantId === grantId && f.open && (f.kind === 'sources_disagree' || f.kind === 'court_order_no_payment')
+  if (g.status === 'ended') throw new Error(`${grantId} has ended.`)
+  const holds = d.holds.filter(h => !h.decision && h.grantId === grantId && (h.kind === 'source_disagreement' || h.kind === 'paid_while_canceled'))
+  const disputed = d.flags.some(f => f.grantId === grantId && f.open && f.kind === 'sources_disagree')
+  const kinds: StatusEvent['kind'][] =
+    status === 'active' ? (g.frozen || g.status !== 'active' ? ['unfrozen'] : [])
+    : status === 'restored_by_court' ? (g.status === 'restored_by_court' ? [] : g.status === 'canceled' ? ['court_order'] : ['canceled', 'court_order'])
+    : g.status !== 'canceled' || holds.some(h => h.kind === 'paid_while_canceled') ? ['canceled'] : []
+  if (kinds.length === 0 && holds.length === 0 && !disputed) throw new Error(`${grantId} is already ${STATUS_WORDS[status].toLowerCase()}.`)
+  const summary = `Set by the grant manager: ${STATUS_WORDS[status]}. ${reason.trim()}`
+  const events: StatusEvent[] = kinds.map(kind => ({ id: nextId('se'), grantId, day: d.today, kind, source: 'Grant office', summary }))
+  const frozenReason = status === 'active' ? undefined : status === 'canceled' ? 'Inactive: the grant office set it canceled.' : 'A court reinstated it, but no money has been sent yet.'
+  const settles = (f: Db['flags'][number]) => f.grantId === grantId && f.open && (f.kind === 'sources_disagree' || (f.kind === 'court_order_no_payment' && status !== 'restored_by_court'))
+  const decision: Decision = { choice: 'set_status', reason: `Status set: ${STATUS_WORDS[status]}. ${reason.trim()}`, by: 'grant_manager', day: d.today }
   return {
     ...d,
-    grants: d.grants.map(x => (x.id === grantId ? { ...x, status: 'active', frozen: false, frozenReason: undefined } : x)),
+    grants: d.grants.map(x => (x.id === grantId ? { ...x, status, frozen: status !== 'active', frozenReason } : x)),
     flags: d.flags.map(f => (settles(f) ? { ...f, open: false } : f)),
-    statusEvents: [...d.statusEvents, ev],
-    log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: `Marked ${grantId} active`, reason, refId: grantId }],
+    holds: d.holds.map(h => (holds.includes(h) ? { ...h, decision } : h)),
+    statusEvents: [...d.statusEvents, ...events],
+    log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: `Set ${grantId} to ${STATUS_WORDS[status]}`, reason, refId: grantId }],
   }
 }
 
@@ -267,7 +285,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     if (choice === 'approve') sendLines(row, p.by)
   }
 
-  const markGrantActive: Store['markGrantActive'] = (grantId, reason) => { applyMarkActive(db, grantId, reason); setDb(d => applyMarkActive(d, grantId, reason)) }
+  const setGrantStatus: Store['setGrantStatus'] = (grantId, status, reason) => { applySetStatus(db, grantId, status, reason); setDb(d => applySetStatus(d, grantId, status, reason)) }
   const submissions = useLocalSubmissions()
 
   const loadDemoSeed: Store['loadDemoSeed'] = () => {
@@ -277,7 +295,7 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     setSourceCheck(seedCheck())
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, markGrantActive, submissions, saveSubmission: saveLocalSubmission, loadDemoSeed }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, setGrantStatus, submissions, saveSubmission: saveLocalSubmission, loadDemoSeed }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {

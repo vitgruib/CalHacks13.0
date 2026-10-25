@@ -64,6 +64,7 @@ import RequestCheckReducer from "./request_check_reducer";
 import ResetWorldReducer from "./reset_world_reducer";
 import SaveInvoiceSubmissionReducer from "./save_invoice_submission_reducer";
 import SavePlanReducer from "./save_plan_reducer";
+import SetGrantStatusReducer from "./set_grant_status_reducer";
 import SetTodayReducer from "./set_today_reducer";
 import SubmitRequestReducer from "./submit_request_reducer";
 import UnfreezeGrantReducer from "./unfreeze_grant_reducer";
@@ -402,6 +403,7 @@ const reducersSchema = __reducers(
   __reducerSchema("reset_world", ResetWorldReducer),
   __reducerSchema("save_invoice_submission", SaveInvoiceSubmissionReducer),
   __reducerSchema("save_plan", SavePlanReducer),
+  __reducerSchema("set_grant_status", SetGrantStatusReducer),
   __reducerSchema("set_today", SetTodayReducer),
   __reducerSchema("submit_request", SubmitRequestReducer),
   __reducerSchema("unfreeze_grant", UnfreezeGrantReducer),

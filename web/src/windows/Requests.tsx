@@ -40,7 +40,7 @@ const stateTone: Record<RequestState, Tone> = {
 }
 
 const decisionLabel: Record<Decision['choice'], string> = {
-  approve: 'Approved', reject: 'Rejected', ask_vendor: 'Asked the vendor', pick_source: 'Picked a source',
+  approve: 'Approved', reject: 'Rejected', ask_vendor: 'Asked the vendor', pick_source: 'Picked a source', set_status: 'Set the status',
 }
 
 /** Requests the researcher asked for in the app (seed ones have no asker), in a

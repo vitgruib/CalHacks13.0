@@ -33,6 +33,7 @@ import {
   HOLD_KINDS,
   PAYMENT_EXPLANATION_MAX,
   PERSON_ROLES,
+  SETTABLE_STATUSES,
   SOURCES,
   STATUS_EVENT_KINDS,
   SUBMISSION_STATUSES,
@@ -676,21 +677,55 @@ function applyDecision(ctx: Ctx, h: { kind: string; refId: string; grantId?: str
   }
 }
 
-/** Grant manager only: confirm a canceled or court-restored grant is live
- *  again, with a reason that goes in the log. Its status becomes active, which
- *  is what opens spending; it also settles a source disagreement about it. */
-export const unfreeze_grant = spacetimedb.reducer({ grantId: t.string(), reason: t.string() }, (ctx, { grantId, reason }) => guard(() => {
-  const who = requirePerson(ctx, 'grant_manager');
+const STATUS_WORDS: Record<(typeof SETTABLE_STATUSES)[number], string> = {
+  active: 'Active',
+  restored_by_court: 'Reinstated by a court, money not sent yet',
+  canceled: 'Inactive (canceled)',
+};
+
+/**
+ * The grant manager sets a grant's status (Funds card). It is recorded as the
+ * status event that means that status, so freezeState derives the status and
+ * the freeze from the timeline as for any source: active → `unfrozen`;
+ * reinstated, money not sent → `court_order` (after a `canceled` if the grant
+ * wasn't canceled); inactive → `canceled`. It also settles the grant's open
+ * items: a source disagreement and money that arrived while canceled.
+ */
+function setGrantStatus(ctx: Ctx, who: string, grantId: string, status: string, reason: string): void {
+  const s = oneOf('status', SETTABLE_STATUSES, status);
   if (!reason.trim()) fail('A reason is required.');
   const g = getGrant(ctx, grantId);
   if (g.status === 'ended' || today(ctx) > g.end) fail(`${grantId} has ended.`);
-  if (!g.frozen) fail(`${grantId} is already active.`);
-  ctx.db.statusEvent.insert({ id: 0n, grantId, day: today(ctx), kind: 'unfrozen', source: 'Payment system', summary: `Marked active by the grant manager: ${reason}`, amount: undefined, at: ctx.timestamp });
-  for (const f of [...ctx.db.flag.grantId.filter(grantId)]) {
-    if (f.open && f.kind === 'sources_disagree') ctx.db.flag.id.update({ ...f, open: false });
+  const holds = [...ctx.db.hold.iter()].filter(h => h.open && h.grantId === grantId && (h.kind === 'source_disagreement' || h.kind === 'paid_while_canceled'));
+  const disputes = [...ctx.db.flag.grantId.filter(grantId)].filter(f => f.open && f.kind === 'sources_disagree');
+  const kinds: string[] =
+    s === 'active' ? (g.frozen || g.status !== 'active' ? ['unfrozen'] : [])
+    : s === 'restored_by_court' ? (g.status === 'restored_by_court' ? [] : g.status === 'canceled' ? ['court_order'] : ['canceled', 'court_order'])
+    : g.status !== 'canceled' || holds.some(h => h.kind === 'paid_while_canceled') ? ['canceled'] : [];
+  if (kinds.length === 0 && holds.length === 0 && disputes.length === 0) fail(`${grantId} is already ${STATUS_WORDS[s].toLowerCase()}.`);
+
+  const summary = `Set by the grant manager: ${STATUS_WORDS[s]}. ${reason.trim()}`;
+  for (const kind of kinds) {
+    ctx.db.statusEvent.insert({ id: 0n, grantId, day: today(ctx), kind, source: 'Grant office', summary, amount: undefined, at: ctx.timestamp });
   }
-  writeLog(ctx, who, `Marked ${grantId} active`, reason, { refId: grantId });
+  for (const f of disputes) ctx.db.flag.id.update({ ...f, open: false });
+  for (const h of holds) {
+    ctx.db.hold.id.update({ ...h, open: false });
+    ctx.db.decision.insert({ id: 0n, holdId: h.id, choice: 'set_status', reason: `Status set: ${STATUS_WORDS[s]}. ${reason.trim()}`, by: who, byIdentity: ctx.sender, day: today(ctx), at: ctx.timestamp });
+  }
+  writeLog(ctx, who, `Set ${grantId} to ${STATUS_WORDS[s]}`, reason, { refId: grantId });
   recomputeGrant(ctx, grantId, who);
+}
+
+/** Grant manager only: set a grant's status (active, reinstated by a court
+ *  with no money yet, or inactive), with a reason that goes in the log. */
+export const set_grant_status = spacetimedb.reducer({ grantId: t.string(), status: t.string(), reason: t.string() }, (ctx, { grantId, status, reason }) => guard(() => {
+  setGrantStatus(ctx, requirePerson(ctx, 'grant_manager'), grantId, status, reason);
+}));
+
+/** Kept for web builds from before set_grant_status: sets the grant active. */
+export const unfreeze_grant = spacetimedb.reducer({ grantId: t.string(), reason: t.string() }, (ctx, { grantId, reason }) => guard(() => {
+  setGrantStatus(ctx, requirePerson(ctx, 'grant_manager'), grantId, 'active', reason);
 }));
 
 // ── Fund tracker (P1, P6, B7) ─────────────────────────────────────────────

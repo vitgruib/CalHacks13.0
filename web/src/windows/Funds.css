@@ -34,3 +34,11 @@
 .funds-waiting a { color: var(--accent); overflow-wrap: anywhere; }
 .funds-decided { margin: 8px 0; font-size: 14px; overflow-wrap: anywhere; }
 .funds-muted { color: var(--muted); }
+.funds-status { margin: 8px 0 16px; min-width: 0; }
+.funds-status-item { margin-bottom: 8px; }
+.funds-status-options { display: flex; flex-direction: column; gap: 6px; margin: 4px 0 12px; }
+.funds-status-option { display: flex; align-items: flex-start; gap: 8px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); font-size: 14px; cursor: pointer; }
+.funds-status-option.on { border-color: var(--accent); }
+.funds-status-option input { margin-top: 3px; }
+.funds-status-change { margin: 0 0 12px; font-size: 14px; }
+.funds-status-change > summary { color: var(--accent); cursor: pointer; }

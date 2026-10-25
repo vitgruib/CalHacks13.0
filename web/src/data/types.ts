@@ -31,7 +31,9 @@ export interface Grant {
 /** truly available = awarded − spent − promised (MASTER-PLAN §3.1). */
 export const trulyAvailable = (g: Grant): Money => g.awarded - g.spent - g.promised
 
-export type Source = 'NIH RePORTER' | 'USAspending' | 'Cancellation list (Apify)' | 'Court notice' | 'Payment system'
+export type Source = 'NIH RePORTER' | 'USAspending' | 'Cancellation list (Apify)' | 'Court notice' | 'Payment system' | 'Grant office'
+/** The statuses the grant office can set on a grant (set_grant_status). */
+export type SettableStatus = 'active' | 'restored_by_court' | 'canceled'
 
 export interface StatusEvent {
   id: string
@@ -176,7 +178,7 @@ export interface Hold {
 }
 
 export interface Decision {
-  choice: 'approve' | 'reject' | 'ask_vendor' | 'pick_source'
+  choice: 'approve' | 'reject' | 'ask_vendor' | 'pick_source' | 'set_status'
   reason: string // required, never empty
   by: PersonId
   day: Day

@@ -280,9 +280,9 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
       if (!reason.trim()) throw new Error('A reason is required.')
       call('Plan decision', () => conn().reducers.decidePlan({ id, choice, reason }))
     },
-    markGrantActive: (grantId, reason) => {
+    setGrantStatus: (grantId, status, reason) => {
       if (!reason.trim()) throw new Error('A reason is required.')
-      call('Marking the grant active', () => conn().reducers.unfreezeGrant({ grantId, reason }))
+      call('Setting the grant status', () => conn().reducers.setGrantStatus({ grantId, status, reason }))
     },
     submissions,
     saveSubmission: s => call('Saving the invoice', () => conn().reducers.saveInvoiceSubmission({ id: s.id, body: JSON.stringify(s) })),

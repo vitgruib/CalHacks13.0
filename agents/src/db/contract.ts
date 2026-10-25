@@ -20,12 +20,13 @@ export type Source =
   | 'USAspending'
   | 'Cancellation list (Apify)'
   | 'Court notice'
-  | 'Payment system';
+  | 'Payment system'
+  | 'Grant office';
 export type StatusEventKind = 'canceled' | 'court_order' | 'payment_received' | 'reading_changed' | 'unfrozen';
 export type FlagKind = 'sources_disagree' | 'spend_while_canceled' | 'court_order_no_payment';
 export type CheckReason = 'check_now' | 'before_money_moves';
 export type HoldKind = 'purchase' | 'invoice' | 'payment_request' | 'follow_up' | 'report' | 'source_disagreement' | 'paid_while_canceled';
-export type Choice = 'approve' | 'reject' | 'ask_vendor' | 'pick_source';
+export type Choice = 'approve' | 'reject' | 'ask_vendor' | 'pick_source' | 'set_status';
 export type RequestState = 'submitted' | 'bought' | 'blocked' | 'rerouted' | 'waiting_on_manager' | 'rejected' | 'canceled';
 export type OrderState = 'open' | 'canceled' | 'changed' | 'paid';
 export type InvoiceState = 'matched' | 'held' | 'paid' | 'rejected';
@@ -423,6 +424,8 @@ export interface Actions {
   raise_hold: { kind: HoldKind; refId: string; grantId?: string; title: string; why: string; evidence: Evidence[]; options: Choice[] };
   decide_hold: { holdId: bigint; choice: Choice; reason: string };
   unfreeze_grant: { grantId: string; reason: string };
+  /** The grant office sets a grant's status; the module records it as the matching status event. */
+  set_grant_status: { grantId: string; status: 'active' | 'restored_by_court' | 'canceled'; reason: string };
   /** A person saves an invoice submission (the whole JSON, with its audit trail); researcher and grant office share it (T112). */
   save_invoice_submission: { id: string; body: string };
 

@@ -13,6 +13,7 @@ export const SOURCES = [
   'Cancellation list (Apify)',
   'Court notice',
   'Payment system',
+  'Grant office', // the grant manager setting a grant's status (set_grant_status)
 ] as const;
 export const STATUS_EVENT_KINDS = [
   'canceled',
@@ -33,7 +34,9 @@ export const HOLD_KINDS = [
   'source_disagreement',
   'paid_while_canceled',
 ] as const;
-export const CHOICES = ['approve', 'reject', 'ask_vendor', 'pick_source'] as const;
+export const CHOICES = ['approve', 'reject', 'ask_vendor', 'pick_source', 'set_status'] as const;
+/** The statuses the grant office can set on a grant's Funds card (set_grant_status). */
+export const SETTABLE_STATUSES = ['active', 'restored_by_court', 'canceled'] as const;
 export type Choice = (typeof CHOICES)[number];
 
 /** Purchases at or under this go through without the grant manager. */

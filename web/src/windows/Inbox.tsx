@@ -13,6 +13,7 @@ const choiceLabel: Record<Decision['choice'], string> = {
   reject: 'Reject',
   ask_vendor: 'Ask vendor',
   pick_source: 'Pick this source',
+  set_status: 'Set status',
 }
 
 const decidedLabel: Record<Decision['choice'], string> = {
@@ -20,6 +21,7 @@ const decidedLabel: Record<Decision['choice'], string> = {
   reject: 'Rejected',
   ask_vendor: 'Asked vendor',
   pick_source: 'Picked a source',
+  set_status: 'Set the status',
 }
 
 const kindLabel: Record<HoldKind, string> = {
@@ -56,7 +58,7 @@ const kindLink: Record<HoldKind, { href: string; label: string }> = {
 }
 
 /** Each source once, its newest reading ("canceled (2026-06-15)"); later rows win a tie. */
-function latestPerSource(evidence: Hold['evidence']): Hold['evidence'] {
+export function latestPerSource(evidence: Hold['evidence']): Hold['evidence'] {
   const dayOf = (v: string) => v.match(/\((\d{4}-\d{2}-\d{2})\)\s*$/)?.[1] ?? ''
   const best = new Map<string, Hold['evidence'][number]>()
   for (const e of evidence) {
