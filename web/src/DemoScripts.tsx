@@ -126,7 +126,7 @@ export default function DemoScripts() {
                 <Badge tone={kindBadge[s.kind].tone}>{kindBadge[s.kind].label}</Badge>
                 <h3>{s.title}</h3>
               </div>
-              <p className="demo-script-who">{r ? `${r.name}, ${r.title}` : ''} · {grant.pi} · <b>{s.grantId}</b></p>
+              <p className="demo-script-who">{r?.title ?? ''} · {grant.pi} · <b>{s.grantId}</b></p>
               <p>{s.story}</p>
               <ol className="demo-script-steps">
                 {s.steps.map((step, i) => (

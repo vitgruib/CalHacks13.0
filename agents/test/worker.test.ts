@@ -99,7 +99,7 @@ test('the_sim_world_loads_with_grant_a_frozen_by_a_court_order_without_payment',
   assert.equal(grantA?.status, 'restored_by_court');
   assert.equal(grantA?.frozen, true);
   assert.equal(conn.today(), '2026-06-15');
-  assert.equal(conn.rows('request').length, 52);
+  assert.equal(conn.rows('request').length, 24);
 });
 
 test('run_sim_returns_every_table_once_the_agents_are_quiet', async () => {

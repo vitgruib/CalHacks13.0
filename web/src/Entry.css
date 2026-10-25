@@ -10,3 +10,5 @@
 .entry-office { border-color: var(--accent); }
 .entry-office strong { font-size: 18px; }
 .entry-people { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.entry-edge { margin-top: 24px; }
+.entry-edge summary { cursor: pointer; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 8px; }

@@ -2,7 +2,7 @@
 // portal. App shows it for an empty hash or #start; every other hash skips it,
 // so deep links like #inbox open the portal directly.
 import { useLayoutEffect, useRef } from 'react'
-import { RESEARCHERS } from '../people'
+import { EDGE_CASES, MAIN_RESEARCHERS, displayName, type Researcher } from '../people'
 import HeroSlot from './HeroSlot'
 import './Landing.css'
 
@@ -56,17 +56,11 @@ export default function Landing({ onPick }: { onPick: (portal: string) => void }
           <section className="landing-seat" aria-labelledby="seat-researcher">
             <h3 id="seat-researcher">Researcher</h3>
             <p>Ask for what you need, then follow your grants and your requests. Pick your name to open your portal.</p>
-            <ul className="landing-people">
-              {RESEARCHERS.map(r => (
-                <li key={r.id}>
-                  <button type="button" onClick={() => onPick(r.id)}>
-                    <span className="landing-name">{r.name}</span>
-                    <span className="landing-meta">{r.title} on {r.grantId}</span>
-                    <Arrow />
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <People list={MAIN_RESEARCHERS} onPick={onPick} />
+            <details className="landing-edge">
+              <summary>Edge cases ({EDGE_CASES.length})</summary>
+              <People list={EDGE_CASES} onPick={onPick} />
+            </details>
           </section>
         </div>
       </main>
@@ -75,5 +69,21 @@ export default function Landing({ onPick }: { onPick: (portal: string) => void }
         A simulated lab on real NIH grant IDs and the public cancellation list. Built at Cal Hacks 13.0.
       </footer>
     </div>
+  )
+}
+
+function People({ list, onPick }: { list: Researcher[]; onPick: (portal: string) => void }) {
+  return (
+    <ul className="landing-people">
+      {list.map(r => (
+        <li key={r.id}>
+          <button type="button" onClick={() => onPick(r.id)}>
+            <span className="landing-name">{displayName(r)}</span>
+            <span className="landing-meta">{r.title} on {r.grantId}</span>
+            <Arrow />
+          </button>
+        </li>
+      ))}
+    </ul>
   )
 }

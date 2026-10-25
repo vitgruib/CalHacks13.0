@@ -7,8 +7,8 @@
       "pi": "Dr. Lena Ortiz",
       "agency": "NIH / NIGMS",
       "awarded": 420000,
-      "received": 104415,
-      "spent": 109855,
+      "received": 13700,
+      "spent": 20680,
       "promised": 0,
       "start": "2025-01-01",
       "end": "2027-07-31",
@@ -22,8 +22,8 @@
       "pi": "Dr. Lena Ortiz",
       "agency": "NIH / NIAID",
       "awarded": 275000,
-      "received": 119070,
-      "spent": 135210,
+      "received": 5130,
+      "spent": 22170,
       "promised": 11470,
       "start": "2024-08-01",
       "end": "2026-08-31",
@@ -117,121 +117,13 @@
   ],
   "statusEvents": [
     {
-      "id": "se-006",
-      "grantId": "R21AI182745",
-      "day": "2024-10-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $13,250 received for pr-006.",
-      "amount": 13250
-    },
-    {
-      "id": "se-007",
-      "grantId": "R21AI182745",
-      "day": "2025-01-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $17,120 received for pr-007.",
-      "amount": 17120
-    },
-    {
       "id": "se-001",
-      "grantId": "R01GM061721",
-      "day": "2025-04-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $22,445 received for pr-001.",
-      "amount": 22445
-    },
-    {
-      "id": "se-008",
-      "grantId": "R21AI182745",
-      "day": "2025-04-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $16,490 received for pr-008.",
-      "amount": 16490
-    },
-    {
-      "id": "se-002",
-      "grantId": "R01GM061721",
-      "day": "2025-07-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $26,050 received for pr-002.",
-      "amount": 26050
-    },
-    {
-      "id": "se-009",
-      "grantId": "R21AI182745",
-      "day": "2025-07-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $17,830 received for pr-009.",
-      "amount": 17830
-    },
-    {
-      "id": "se-003",
-      "grantId": "R01GM061721",
-      "day": "2025-10-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $20,800 received for pr-003.",
-      "amount": 20800
-    },
-    {
-      "id": "se-010",
-      "grantId": "R21AI182745",
-      "day": "2025-10-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $17,470 received for pr-010.",
-      "amount": 17470
-    },
-    {
-      "id": "se-004",
-      "grantId": "R01GM061721",
-      "day": "2026-01-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $19,420 received for pr-004.",
-      "amount": 19420
-    },
-    {
-      "id": "se-011",
-      "grantId": "R21AI182745",
-      "day": "2026-01-12",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $18,170 received for pr-011.",
-      "amount": 18170
-    },
-    {
-      "id": "se-012",
-      "grantId": "R21AI182745",
-      "day": "2026-02-10",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $5,820 received for pr-012.",
-      "amount": 5820
-    },
-    {
-      "id": "se-005",
       "grantId": "R01GM061721",
       "day": "2026-03-07",
       "kind": "payment_received",
       "source": "Payment system",
-      "summary": "Payment of $15,700 received for pr-005.",
-      "amount": 15700
-    },
-    {
-      "id": "se-013",
-      "grantId": "R21AI182745",
-      "day": "2026-03-10",
-      "kind": "payment_received",
-      "source": "Payment system",
-      "summary": "Payment of $5,130 received for pr-013.",
-      "amount": 5130
+      "summary": "Payment of $13,700 received for pr-005.",
+      "amount": 13700
     },
     {
       "id": "se-a-canceled-list",
@@ -250,13 +142,13 @@
       "summary": "RePORTER shows the project as terminated."
     },
     {
-      "id": "se-014",
+      "id": "se-002",
       "grantId": "R21AI182745",
       "day": "2026-04-11",
       "kind": "payment_received",
       "source": "Payment system",
-      "summary": "Payment of $7,790 received for pr-014.",
-      "amount": 7790
+      "summary": "Payment of $5,130 received for pr-014.",
+      "amount": 5130
     },
     {
       "id": "se-a-court-order",
@@ -356,406 +248,6 @@
   "flags": [],
   "requests": [
     {
-      "id": "rq-001",
-      "day": "2025-01-14",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Nitrile gloves, 10 cases",
-      "category": "lab supplies",
-      "price": 640,
-      "grantId": "R01GM061721",
-      "purpose": "Membrane prep, aim 1",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$640."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-002",
-      "day": "2025-01-22",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "BL21(DE3) competent cells, 10 vials",
-      "category": "reagents",
-      "price": 485,
-      "grantId": "R01GM061721",
-      "purpose": "Expression of OmpA mutants",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$485."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-003",
-      "day": "2025-02-10",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "DDM detergent, 5 g",
-      "category": "reagents",
-      "price": 890,
-      "grantId": "R01GM061721",
-      "purpose": "Solubilizing outer membrane proteins",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$890."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-004",
-      "day": "2025-03-05",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Pipette tips, 20 racks",
-      "category": "lab supplies",
-      "price": 380,
-      "grantId": "R01GM061721",
-      "purpose": "Folding assays",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$380."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-005",
-      "day": "2025-03-27",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Size-exclusion column",
-      "category": "lab supplies",
-      "price": 2950,
-      "grantId": "R01GM061721",
-      "purpose": "Purifying folded OmpA",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$2,950."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-006",
-      "day": "2025-04-16",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "HEPES buffer, 1 kg",
-      "category": "reagents",
-      "price": 310,
-      "grantId": "R01GM061721",
-      "purpose": "Buffers for folding kinetics",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$310."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-007",
-      "day": "2025-05-08",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Liposome extrusion kit",
-      "category": "lab supplies",
-      "price": 1240,
-      "grantId": "R01GM061721",
-      "purpose": "Making liposomes for aim 2",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$1,240."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-008",
-      "day": "2025-06-10",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Benchtop refrigerated centrifuge",
-      "category": "equipment",
-      "price": 7400,
-      "grantId": "R01GM061721",
-      "purpose": "Membrane fractionation, aims 1 and 2",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Equipment are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": false,
-          "detail": "$7,400 is over the limit; approved by the grant manager."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Over the $5,000 card limit, so I paused it for the grant manager, who approved it at $7,400. Then I ordered it."
-    },
-    {
-      "id": "rq-009",
-      "day": "2025-07-02",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Ni-NTA resin, 100 mL",
-      "category": "reagents",
-      "price": 1620,
-      "grantId": "R01GM061721",
-      "purpose": "His-tag purification",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$1,620."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-010",
-      "day": "2025-08-19",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Cryo-EM grids, 2 boxes",
-      "category": "lab supplies",
-      "price": 1180,
-      "grantId": "R01GM061721",
-      "purpose": "Chaperone complex imaging",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$1,180."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
       "id": "rq-011",
       "day": "2025-09-09",
       "requester": "scientist",
@@ -846,166 +338,6 @@
       "explanation": "Every rule passed and it is under the card limit, so I bought it."
     },
     {
-      "id": "rq-013",
-      "day": "2025-11-04",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "POPC lipid, 1 g",
-      "category": "reagents",
-      "price": 1460,
-      "grantId": "R01GM061721",
-      "purpose": "Liposome folding assays",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$1,460."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-014",
-      "day": "2025-12-02",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Dry ice shipping to the cryo-EM center",
-      "category": "shipping",
-      "price": 220,
-      "grantId": "R01GM061721",
-      "purpose": "Shipping grids for imaging",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Shipping are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$220."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-015",
-      "day": "2026-01-13",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Pipette tips, 20 racks",
-      "category": "lab supplies",
-      "price": 380,
-      "grantId": "R01GM061721",
-      "purpose": "Folding assays",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$380."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-016",
-      "day": "2026-02-03",
-      "requester": "scientist",
-      "requesterName": "Dr. Priya Nair",
-      "item": "Ni-NTA resin, 100 mL",
-      "category": "reagents",
-      "price": 1620,
-      "grantId": "R01GM061721",
-      "purpose": "His-tag purification",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$1,620."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
       "id": "rq-017",
       "day": "2026-02-17",
       "requester": "scientist",
@@ -1036,486 +368,6 @@
           "rule": "Under the card limit ($5,000)",
           "pass": true,
           "detail": "$2,300."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-018",
-      "day": "2024-08-20",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Mueller-Hinton agar, 20 packs",
-      "category": "lab supplies",
-      "price": 590,
-      "grantId": "R21AI182745",
-      "purpose": "Reference susceptibility plates",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$590."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-019",
-      "day": "2024-09-17",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Microfluidic chips, 50",
-      "category": "lab supplies",
-      "price": 2400,
-      "grantId": "R21AI182745",
-      "purpose": "Assay prototype runs",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$2,400."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-020",
-      "day": "2024-10-22",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Pipette tips, 20 racks",
-      "category": "lab supplies",
-      "price": 380,
-      "grantId": "R21AI182745",
-      "purpose": "Assay plates",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$380."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-021",
-      "day": "2024-12-03",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Antibiotic reference panel",
-      "category": "reagents",
-      "price": 1350,
-      "grantId": "R21AI182745",
-      "purpose": "MIC calibration",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$1,350."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-022",
-      "day": "2025-01-28",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "PDMS casting kit",
-      "category": "lab supplies",
-      "price": 760,
-      "grantId": "R21AI182745",
-      "purpose": "Chip fabrication",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$760."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-023",
-      "day": "2025-03-11",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Syringe pump tubing set",
-      "category": "lab supplies",
-      "price": 340,
-      "grantId": "R21AI182745",
-      "purpose": "Chip perfusion",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$340."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-024",
-      "day": "2025-04-29",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Incubator shaker service visit",
-      "category": "equipment service",
-      "price": 980,
-      "grantId": "R21AI182745",
-      "purpose": "Annual service of the assay incubator",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Equipment service are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$980."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-025",
-      "day": "2025-06-24",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Mueller-Hinton broth, 12 bottles",
-      "category": "reagents",
-      "price": 1460,
-      "grantId": "R21AI182745",
-      "purpose": "Broth microdilution controls",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$1,460."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-026",
-      "day": "2025-08-12",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Agar plates, 40 packs",
-      "category": "lab supplies",
-      "price": 1180,
-      "grantId": "R21AI182745",
-      "purpose": "Assay validation runs",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$1,180."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-027",
-      "day": "2025-10-07",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Microfluidic chips, 50",
-      "category": "lab supplies",
-      "price": 2400,
-      "grantId": "R21AI182745",
-      "purpose": "Clinical isolate runs",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$2,400."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-028",
-      "day": "2025-12-09",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Pipette tips, 20 racks",
-      "category": "lab supplies",
-      "price": 380,
-      "grantId": "R21AI182745",
-      "purpose": "Assay plates",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$380."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-029",
-      "day": "2026-01-20",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Antibiotic disks, 10 cartridges",
-      "category": "reagents",
-      "price": 690,
-      "grantId": "R21AI182745",
-      "purpose": "Disk diffusion comparison",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Reagents are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$690."
         },
         {
           "rule": "Enough truly available money",
@@ -1564,86 +416,6 @@
         }
       ],
       "explanation": "Every rule passed, so I bought it. The lab canceled the order on 2026-03-02 (back-ordered for 10 weeks)."
-    },
-    {
-      "id": "rq-031",
-      "day": "2026-03-10",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Glass slides and coverslips",
-      "category": "lab supplies",
-      "price": 260,
-      "grantId": "R21AI182745",
-      "purpose": "Imaging controls",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$260."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
-    },
-    {
-      "id": "rq-032",
-      "day": "2026-03-24",
-      "requester": "scientist",
-      "requesterName": "Sofia Alvarez",
-      "item": "Microfluidic chips, 50",
-      "category": "lab supplies",
-      "price": 2400,
-      "grantId": "R21AI182745",
-      "purpose": "Clinical isolate runs",
-      "state": "bought",
-      "verdicts": [
-        {
-          "rule": "Grant is active and not frozen",
-          "pass": true,
-          "detail": "Active."
-        },
-        {
-          "rule": "Category allowed",
-          "pass": true,
-          "detail": "Lab supplies are allowed on this grant."
-        },
-        {
-          "rule": "Not in the grant's last 90 days",
-          "pass": true,
-          "detail": "More than 90 days left."
-        },
-        {
-          "rule": "Under the card limit ($5,000)",
-          "pass": true,
-          "detail": "$2,400."
-        },
-        {
-          "rule": "Enough truly available money",
-          "pass": true,
-          "detail": "Enough money left."
-        }
-      ],
-      "explanation": "Every rule passed and it is under the card limit, so I bought it."
     },
     {
       "id": "rq-033",
@@ -2146,86 +918,6 @@
   ],
   "orders": [
     {
-      "id": "o-001",
-      "requestId": "rq-001",
-      "vendor": "LabSource",
-      "amount": 640,
-      "placed": "2025-01-14",
-      "state": "paid"
-    },
-    {
-      "id": "o-002",
-      "requestId": "rq-002",
-      "vendor": "BioReagents Inc",
-      "amount": 485,
-      "placed": "2025-01-22",
-      "state": "paid"
-    },
-    {
-      "id": "o-003",
-      "requestId": "rq-003",
-      "vendor": "MembraneChem",
-      "amount": 890,
-      "placed": "2025-02-10",
-      "state": "paid"
-    },
-    {
-      "id": "o-004",
-      "requestId": "rq-004",
-      "vendor": "LabSource",
-      "amount": 380,
-      "placed": "2025-03-05",
-      "state": "paid"
-    },
-    {
-      "id": "o-005",
-      "requestId": "rq-005",
-      "vendor": "ChromaTech",
-      "amount": 2950,
-      "placed": "2025-03-27",
-      "state": "paid"
-    },
-    {
-      "id": "o-006",
-      "requestId": "rq-006",
-      "vendor": "BioReagents Inc",
-      "amount": 310,
-      "placed": "2025-04-16",
-      "state": "paid"
-    },
-    {
-      "id": "o-007",
-      "requestId": "rq-007",
-      "vendor": "MembraneChem",
-      "amount": 1240,
-      "placed": "2025-05-08",
-      "state": "paid"
-    },
-    {
-      "id": "o-008",
-      "requestId": "rq-008",
-      "vendor": "SpinWorks",
-      "amount": 7400,
-      "placed": "2025-06-12",
-      "state": "paid"
-    },
-    {
-      "id": "o-009",
-      "requestId": "rq-009",
-      "vendor": "ChromaTech",
-      "amount": 1620,
-      "placed": "2025-07-02",
-      "state": "paid"
-    },
-    {
-      "id": "o-010",
-      "requestId": "rq-010",
-      "vendor": "GridLab",
-      "amount": 1180,
-      "placed": "2025-08-19",
-      "state": "paid"
-    },
-    {
       "id": "o-011",
       "requestId": "rq-011",
       "vendor": "Campus Proteomics Core",
@@ -2242,139 +934,11 @@
       "state": "paid"
     },
     {
-      "id": "o-013",
-      "requestId": "rq-013",
-      "vendor": "MembraneChem",
-      "amount": 1460,
-      "placed": "2025-11-04",
-      "state": "paid"
-    },
-    {
-      "id": "o-014",
-      "requestId": "rq-014",
-      "vendor": "CoolChain",
-      "amount": 220,
-      "placed": "2025-12-02",
-      "state": "paid"
-    },
-    {
-      "id": "o-015",
-      "requestId": "rq-015",
-      "vendor": "LabSource",
-      "amount": 380,
-      "placed": "2026-01-13",
-      "state": "paid"
-    },
-    {
-      "id": "o-016",
-      "requestId": "rq-016",
-      "vendor": "ChromaTech",
-      "amount": 1620,
-      "placed": "2026-02-03",
-      "state": "paid"
-    },
-    {
       "id": "o-017",
       "requestId": "rq-017",
       "vendor": "MembraneChem",
       "amount": 2300,
       "placed": "2026-02-17",
-      "state": "paid"
-    },
-    {
-      "id": "o-018",
-      "requestId": "rq-018",
-      "vendor": "MicroMedia",
-      "amount": 590,
-      "placed": "2024-08-20",
-      "state": "paid"
-    },
-    {
-      "id": "o-019",
-      "requestId": "rq-019",
-      "vendor": "FlowChip Co",
-      "amount": 2400,
-      "placed": "2024-09-17",
-      "state": "paid"
-    },
-    {
-      "id": "o-020",
-      "requestId": "rq-020",
-      "vendor": "LabSource",
-      "amount": 380,
-      "placed": "2024-10-22",
-      "state": "paid"
-    },
-    {
-      "id": "o-021",
-      "requestId": "rq-021",
-      "vendor": "BioReagents Inc",
-      "amount": 1350,
-      "placed": "2024-12-03",
-      "state": "paid"
-    },
-    {
-      "id": "o-022",
-      "requestId": "rq-022",
-      "vendor": "FlowChip Co",
-      "amount": 760,
-      "placed": "2025-01-28",
-      "state": "paid"
-    },
-    {
-      "id": "o-023",
-      "requestId": "rq-023",
-      "vendor": "FlowChip Co",
-      "amount": 340,
-      "placed": "2025-03-11",
-      "state": "paid"
-    },
-    {
-      "id": "o-024",
-      "requestId": "rq-024",
-      "vendor": "CoolChain",
-      "amount": 980,
-      "placed": "2025-04-29",
-      "state": "paid"
-    },
-    {
-      "id": "o-025",
-      "requestId": "rq-025",
-      "vendor": "MicroMedia",
-      "amount": 1460,
-      "placed": "2025-06-24",
-      "state": "paid"
-    },
-    {
-      "id": "o-026",
-      "requestId": "rq-026",
-      "vendor": "MicroMedia",
-      "amount": 1180,
-      "placed": "2025-08-12",
-      "state": "paid"
-    },
-    {
-      "id": "o-027",
-      "requestId": "rq-027",
-      "vendor": "FlowChip Co",
-      "amount": 2400,
-      "placed": "2025-10-07",
-      "state": "paid"
-    },
-    {
-      "id": "o-028",
-      "requestId": "rq-028",
-      "vendor": "LabSource",
-      "amount": 380,
-      "placed": "2025-12-09",
-      "state": "paid"
-    },
-    {
-      "id": "o-029",
-      "requestId": "rq-029",
-      "vendor": "BioReagents Inc",
-      "amount": 690,
-      "placed": "2026-01-20",
       "state": "paid"
     },
     {
@@ -2385,22 +949,6 @@
       "placed": "2026-02-20",
       "state": "canceled",
       "canceledOn": "2026-03-02"
-    },
-    {
-      "id": "o-031",
-      "requestId": "rq-031",
-      "vendor": "LabSource",
-      "amount": 260,
-      "placed": "2026-03-10",
-      "state": "paid"
-    },
-    {
-      "id": "o-032",
-      "requestId": "rq-032",
-      "vendor": "FlowChip Co",
-      "amount": 2400,
-      "placed": "2026-03-24",
-      "state": "paid"
     },
     {
       "id": "o-033",
@@ -2486,13 +1034,6 @@
   ],
   "approvals": [
     {
-      "id": "ap-008",
-      "orderId": "o-008",
-      "amount": 7400,
-      "by": "grant_manager",
-      "day": "2025-06-11"
-    },
-    {
       "id": "ap-034",
       "orderId": "o-034",
       "amount": 5800,
@@ -2508,226 +1049,6 @@
     }
   ],
   "invoices": [
-    {
-      "id": "inv-001",
-      "orderId": "o-001",
-      "vendor": "LabSource",
-      "amount": 640,
-      "received": "2025-01-20",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-01-14",
-          "what": "Order placed ($640)"
-        },
-        {
-          "day": "2025-01-20",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-01-26",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-002",
-      "orderId": "o-002",
-      "vendor": "BioReagents Inc",
-      "amount": 485,
-      "received": "2025-01-28",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-01-22",
-          "what": "Order placed ($485)"
-        },
-        {
-          "day": "2025-01-28",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-02-03",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-003",
-      "orderId": "o-003",
-      "vendor": "MembraneChem",
-      "amount": 890,
-      "received": "2025-02-16",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-02-10",
-          "what": "Order placed ($890)"
-        },
-        {
-          "day": "2025-02-16",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-02-22",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-004",
-      "orderId": "o-004",
-      "vendor": "LabSource",
-      "amount": 380,
-      "received": "2025-03-11",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-03-05",
-          "what": "Order placed ($380)"
-        },
-        {
-          "day": "2025-03-11",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-03-17",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-005",
-      "orderId": "o-005",
-      "vendor": "ChromaTech",
-      "amount": 2950,
-      "received": "2025-04-02",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-03-27",
-          "what": "Order placed ($2,950)"
-        },
-        {
-          "day": "2025-04-02",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-04-08",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-006",
-      "orderId": "o-006",
-      "vendor": "BioReagents Inc",
-      "amount": 310,
-      "received": "2025-04-22",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-04-16",
-          "what": "Order placed ($310)"
-        },
-        {
-          "day": "2025-04-22",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-04-28",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-007",
-      "orderId": "o-007",
-      "vendor": "MembraneChem",
-      "amount": 1240,
-      "received": "2025-05-14",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-05-08",
-          "what": "Order placed ($1,240)"
-        },
-        {
-          "day": "2025-05-14",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-05-20",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-008",
-      "orderId": "o-008",
-      "vendor": "SpinWorks",
-      "amount": 7400,
-      "received": "2025-06-18",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-06-12",
-          "what": "Order placed ($7,400)"
-        },
-        {
-          "day": "2025-06-18",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-06-24",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-009",
-      "orderId": "o-009",
-      "vendor": "ChromaTech",
-      "amount": 1620,
-      "received": "2025-07-08",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-07-02",
-          "what": "Order placed ($1,620)"
-        },
-        {
-          "day": "2025-07-08",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-07-14",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-010",
-      "orderId": "o-010",
-      "vendor": "GridLab",
-      "amount": 1180,
-      "received": "2025-08-25",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-08-19",
-          "what": "Order placed ($1,180)"
-        },
-        {
-          "day": "2025-08-25",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-08-31",
-          "what": "Paid"
-        }
-      ]
-    },
     {
       "id": "inv-011",
       "orderId": "o-011",
@@ -2773,94 +1094,6 @@
       ]
     },
     {
-      "id": "inv-013",
-      "orderId": "o-013",
-      "vendor": "MembraneChem",
-      "amount": 1460,
-      "received": "2025-11-10",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-11-04",
-          "what": "Order placed ($1,460)"
-        },
-        {
-          "day": "2025-11-10",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-11-16",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-014",
-      "orderId": "o-014",
-      "vendor": "CoolChain",
-      "amount": 220,
-      "received": "2025-12-08",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-12-02",
-          "what": "Order placed ($220)"
-        },
-        {
-          "day": "2025-12-08",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-12-14",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-015",
-      "orderId": "o-015",
-      "vendor": "LabSource",
-      "amount": 380,
-      "received": "2026-01-19",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2026-01-13",
-          "what": "Order placed ($380)"
-        },
-        {
-          "day": "2026-01-19",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2026-01-25",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-016",
-      "orderId": "o-016",
-      "vendor": "ChromaTech",
-      "amount": 1620,
-      "received": "2026-02-09",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2026-02-03",
-          "what": "Order placed ($1,620)"
-        },
-        {
-          "day": "2026-02-09",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2026-02-15",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
       "id": "inv-017",
       "orderId": "o-017",
       "vendor": "MembraneChem",
@@ -2883,270 +1116,6 @@
       ]
     },
     {
-      "id": "inv-018",
-      "orderId": "o-018",
-      "vendor": "MicroMedia",
-      "amount": 590,
-      "received": "2024-08-26",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2024-08-20",
-          "what": "Order placed ($590)"
-        },
-        {
-          "day": "2024-08-26",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2024-09-01",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-019",
-      "orderId": "o-019",
-      "vendor": "FlowChip Co",
-      "amount": 2400,
-      "received": "2024-09-23",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2024-09-17",
-          "what": "Order placed ($2,400)"
-        },
-        {
-          "day": "2024-09-23",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2024-09-29",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-020",
-      "orderId": "o-020",
-      "vendor": "LabSource",
-      "amount": 380,
-      "received": "2024-10-28",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2024-10-22",
-          "what": "Order placed ($380)"
-        },
-        {
-          "day": "2024-10-28",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2024-11-03",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-021",
-      "orderId": "o-021",
-      "vendor": "BioReagents Inc",
-      "amount": 1350,
-      "received": "2024-12-09",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2024-12-03",
-          "what": "Order placed ($1,350)"
-        },
-        {
-          "day": "2024-12-09",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2024-12-15",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-022",
-      "orderId": "o-022",
-      "vendor": "FlowChip Co",
-      "amount": 760,
-      "received": "2025-02-03",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-01-28",
-          "what": "Order placed ($760)"
-        },
-        {
-          "day": "2025-02-03",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-02-09",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-023",
-      "orderId": "o-023",
-      "vendor": "FlowChip Co",
-      "amount": 340,
-      "received": "2025-03-17",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-03-11",
-          "what": "Order placed ($340)"
-        },
-        {
-          "day": "2025-03-17",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-03-23",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-024",
-      "orderId": "o-024",
-      "vendor": "CoolChain",
-      "amount": 980,
-      "received": "2025-05-05",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-04-29",
-          "what": "Order placed ($980)"
-        },
-        {
-          "day": "2025-05-05",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-05-11",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-025",
-      "orderId": "o-025",
-      "vendor": "MicroMedia",
-      "amount": 1460,
-      "received": "2025-06-30",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-06-24",
-          "what": "Order placed ($1,460)"
-        },
-        {
-          "day": "2025-06-30",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-07-06",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-026",
-      "orderId": "o-026",
-      "vendor": "MicroMedia",
-      "amount": 1180,
-      "received": "2025-08-18",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-08-12",
-          "what": "Order placed ($1,180)"
-        },
-        {
-          "day": "2025-08-18",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-08-24",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-027",
-      "orderId": "o-027",
-      "vendor": "FlowChip Co",
-      "amount": 2400,
-      "received": "2025-10-13",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-10-07",
-          "what": "Order placed ($2,400)"
-        },
-        {
-          "day": "2025-10-13",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-10-19",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-028",
-      "orderId": "o-028",
-      "vendor": "LabSource",
-      "amount": 380,
-      "received": "2025-12-15",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2025-12-09",
-          "what": "Order placed ($380)"
-        },
-        {
-          "day": "2025-12-15",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2025-12-21",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-029",
-      "orderId": "o-029",
-      "vendor": "BioReagents Inc",
-      "amount": 690,
-      "received": "2026-01-26",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2026-01-20",
-          "what": "Order placed ($690)"
-        },
-        {
-          "day": "2026-01-26",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2026-02-01",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
       "id": "inv-030",
       "orderId": "o-030",
       "vendor": "BioReagents Inc",
@@ -3160,50 +1129,6 @@
         }
       ],
       "checked": false
-    },
-    {
-      "id": "inv-031",
-      "orderId": "o-031",
-      "vendor": "LabSource",
-      "amount": 260,
-      "received": "2026-03-16",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2026-03-10",
-          "what": "Order placed ($260)"
-        },
-        {
-          "day": "2026-03-16",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2026-03-22",
-          "what": "Paid"
-        }
-      ]
-    },
-    {
-      "id": "inv-032",
-      "orderId": "o-032",
-      "vendor": "FlowChip Co",
-      "amount": 2400,
-      "received": "2026-03-30",
-      "state": "paid",
-      "timeline": [
-        {
-          "day": "2026-03-24",
-          "what": "Order placed ($2,400)"
-        },
-        {
-          "day": "2026-03-30",
-          "what": "Invoice arrived; matches the order and its approval"
-        },
-        {
-          "day": "2026-04-05",
-          "what": "Paid"
-        }
-      ]
     },
     {
       "id": "inv-033",
@@ -3365,294 +1290,6 @@
   ],
   "payroll": [
     {
-      "id": "pay-R01-2025-01-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-01-01",
-        "to": "2025-01-31"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-01-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-01-01",
-        "to": "2025-01-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-02-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-02-01",
-        "to": "2025-02-28"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-02-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-02-01",
-        "to": "2025-02-28"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-03-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-03-01",
-        "to": "2025-03-31"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-03-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-03-01",
-        "to": "2025-03-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-04-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-04-01",
-        "to": "2025-04-30"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-04-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-04-01",
-        "to": "2025-04-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-05-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-05-01",
-        "to": "2025-05-31"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-05-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-05-01",
-        "to": "2025-05-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-06-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-06-01",
-        "to": "2025-06-30"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-06-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-06-01",
-        "to": "2025-06-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-07-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-07-01",
-        "to": "2025-07-31"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-07-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-07-01",
-        "to": "2025-07-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-08-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-08-01",
-        "to": "2025-08-31"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-08-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-08-01",
-        "to": "2025-08-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-09-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-09-01",
-        "to": "2025-09-30"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-09-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-09-01",
-        "to": "2025-09-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-10-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-10-01",
-        "to": "2025-10-31"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-10-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-10-01",
-        "to": "2025-10-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-11-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-11-01",
-        "to": "2025-11-30"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-11-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-11-01",
-        "to": "2025-11-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R01-2025-12-1",
-      "grantId": "R01GM061721",
-      "person": "Dr. Priya Nair",
-      "role": "Postdoctoral researcher",
-      "period": {
-        "from": "2025-12-01",
-        "to": "2025-12-31"
-      },
-      "effortPct": 50,
-      "amount": 3450
-    },
-    {
-      "id": "pay-R01-2025-12-2",
-      "grantId": "R01GM061721",
-      "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-12-01",
-        "to": "2025-12-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
       "id": "pay-R01-2026-01-1",
       "grantId": "R01GM061721",
       "person": "Dr. Priya Nair",
@@ -3692,462 +1329,6 @@
       "id": "pay-R01-2026-02-2",
       "grantId": "R01GM061721",
       "person": "Marcus Webb",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2026-02-01",
-        "to": "2026-02-28"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2024-08-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2024-08-01",
-        "to": "2024-08-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2024-08-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2024-08-01",
-        "to": "2024-08-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2024-09-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2024-09-01",
-        "to": "2024-09-30"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2024-09-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2024-09-01",
-        "to": "2024-09-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2024-10-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2024-10-01",
-        "to": "2024-10-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2024-10-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2024-10-01",
-        "to": "2024-10-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2024-11-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2024-11-01",
-        "to": "2024-11-30"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2024-11-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2024-11-01",
-        "to": "2024-11-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2024-12-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2024-12-01",
-        "to": "2024-12-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2024-12-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2024-12-01",
-        "to": "2024-12-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-01-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-01-01",
-        "to": "2025-01-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-01-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-01-01",
-        "to": "2025-01-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-02-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-02-01",
-        "to": "2025-02-28"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-02-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-02-01",
-        "to": "2025-02-28"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-03-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-03-01",
-        "to": "2025-03-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-03-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-03-01",
-        "to": "2025-03-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-04-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-04-01",
-        "to": "2025-04-30"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-04-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-04-01",
-        "to": "2025-04-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-05-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-05-01",
-        "to": "2025-05-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-05-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-05-01",
-        "to": "2025-05-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-06-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-06-01",
-        "to": "2025-06-30"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-06-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-06-01",
-        "to": "2025-06-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-07-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-07-01",
-        "to": "2025-07-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-07-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-07-01",
-        "to": "2025-07-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-08-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-08-01",
-        "to": "2025-08-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-08-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-08-01",
-        "to": "2025-08-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-09-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-09-01",
-        "to": "2025-09-30"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-09-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-09-01",
-        "to": "2025-09-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-10-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-10-01",
-        "to": "2025-10-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-10-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-10-01",
-        "to": "2025-10-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-11-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-11-01",
-        "to": "2025-11-30"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-11-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-11-01",
-        "to": "2025-11-30"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2025-12-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2025-12-01",
-        "to": "2025-12-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2025-12-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2025-12-01",
-        "to": "2025-12-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2026-01-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2026-01-01",
-        "to": "2026-01-31"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2026-01-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
-      "role": "Graduate researcher",
-      "period": {
-        "from": "2026-01-01",
-        "to": "2026-01-31"
-      },
-      "effortPct": 50,
-      "amount": 2250
-    },
-    {
-      "id": "pay-R21-2026-02-1",
-      "grantId": "R21AI182745",
-      "person": "Jordan Kim",
-      "role": "Research technician",
-      "period": {
-        "from": "2026-02-01",
-        "to": "2026-02-28"
-      },
-      "effortPct": 60,
-      "amount": 2880
-    },
-    {
-      "id": "pay-R21-2026-02-2",
-      "grantId": "R21AI182745",
-      "person": "Sofia Alvarez",
       "role": "Graduate researcher",
       "period": {
         "from": "2026-02-01",
@@ -4255,113 +1436,13 @@
   ],
   "paymentRequests": [
     {
-      "id": "pr-001",
-      "grantId": "R01GM061721",
-      "from": "2025-01-01",
-      "to": "2025-03-31",
-      "amount": 22445,
-      "explanation": "Reimbursement of direct costs on R01GM061721 for 2025-01-01 to 2025-03-31, $22,445 in total: personnel $17,100 (postdoctoral researcher, 50% effort; graduate researcher, 50% effort); lab supplies $3,970 (3 orders), reagents $1,375 (2 orders). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-001",
-        "rq-002",
-        "rq-003",
-        "rq-004",
-        "rq-005"
-      ],
-      "includedPayrollIds": [
-        "pay-R01-2025-01-1",
-        "pay-R01-2025-01-2",
-        "pay-R01-2025-02-1",
-        "pay-R01-2025-02-2",
-        "pay-R01-2025-03-1",
-        "pay-R01-2025-03-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-002",
-      "grantId": "R01GM061721",
-      "from": "2025-04-01",
-      "to": "2025-06-30",
-      "amount": 26050,
-      "explanation": "Reimbursement of direct costs on R01GM061721 for 2025-04-01 to 2025-06-30, $26,050 in total: personnel $17,100 (postdoctoral researcher, 50% effort; graduate researcher, 50% effort); reagents $310 (1 order), lab supplies $1,240 (1 order), equipment $7,400 (1 order). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-006",
-        "rq-007",
-        "rq-008"
-      ],
-      "includedPayrollIds": [
-        "pay-R01-2025-04-1",
-        "pay-R01-2025-04-2",
-        "pay-R01-2025-05-1",
-        "pay-R01-2025-05-2",
-        "pay-R01-2025-06-1",
-        "pay-R01-2025-06-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-003",
-      "grantId": "R01GM061721",
-      "from": "2025-07-01",
-      "to": "2025-09-30",
-      "amount": 20800,
-      "explanation": "Reimbursement of direct costs on R01GM061721 for 2025-07-01 to 2025-09-30, $20,800 in total: personnel $17,100 (postdoctoral researcher, 50% effort; graduate researcher, 50% effort); reagents $1,620 (1 order), lab supplies $1,180 (1 order), core facility services $900 (1 order). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-009",
-        "rq-010",
-        "rq-011"
-      ],
-      "includedPayrollIds": [
-        "pay-R01-2025-07-1",
-        "pay-R01-2025-07-2",
-        "pay-R01-2025-08-1",
-        "pay-R01-2025-08-2",
-        "pay-R01-2025-09-1",
-        "pay-R01-2025-09-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-004",
-      "grantId": "R01GM061721",
-      "from": "2025-10-01",
-      "to": "2025-12-31",
-      "amount": 19420,
-      "explanation": "Reimbursement of direct costs on R01GM061721 for 2025-10-01 to 2025-12-31, $19,420 in total: personnel $17,100 (postdoctoral researcher, 50% effort; graduate researcher, 50% effort); lab supplies $640 (1 order), reagents $1,460 (1 order), shipping $220 (1 order). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-012",
-        "rq-013",
-        "rq-014"
-      ],
-      "includedPayrollIds": [
-        "pay-R01-2025-10-1",
-        "pay-R01-2025-10-2",
-        "pay-R01-2025-11-1",
-        "pay-R01-2025-11-2",
-        "pay-R01-2025-12-1",
-        "pay-R01-2025-12-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
       "id": "pr-005",
       "grantId": "R01GM061721",
       "from": "2026-01-01",
       "to": "2026-02-28",
-      "amount": 15700,
-      "explanation": "Reimbursement of direct costs on R01GM061721 for 2026-01-01 to 2026-02-28, $15,700 in total: personnel $11,400 (postdoctoral researcher, 50% effort; graduate researcher, 50% effort); lab supplies $380 (1 order), reagents $3,920 (2 orders). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
+      "amount": 13700,
+      "explanation": "Reimbursement of direct costs on R01GM061721 for 2026-01-01 to 2026-02-28, $13,700 in total: personnel $11,400 (postdoctoral researcher, 50% effort; graduate researcher, 50% effort); reagents $2,300 (1 order). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
       "includedRequestIds": [
-        "rq-015",
-        "rq-016",
         "rq-017"
       ],
       "includedPayrollIds": [
@@ -4375,186 +1456,13 @@
       "followUps": []
     },
     {
-      "id": "pr-006",
-      "grantId": "R21AI182745",
-      "from": "2024-08-01",
-      "to": "2024-09-30",
-      "amount": 13250,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2024-08-01 to 2024-09-30, $13,250 in total: personnel $10,260 (research technician, 60% effort; graduate researcher, 50% effort); lab supplies $2,990 (2 orders). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-018",
-        "rq-019"
-      ],
-      "includedPayrollIds": [
-        "pay-R21-2024-08-1",
-        "pay-R21-2024-08-2",
-        "pay-R21-2024-09-1",
-        "pay-R21-2024-09-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-007",
-      "grantId": "R21AI182745",
-      "from": "2024-10-01",
-      "to": "2024-12-31",
-      "amount": 17120,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2024-10-01 to 2024-12-31, $17,120 in total: personnel $15,390 (research technician, 60% effort; graduate researcher, 50% effort); lab supplies $380 (1 order), reagents $1,350 (1 order). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-020",
-        "rq-021"
-      ],
-      "includedPayrollIds": [
-        "pay-R21-2024-10-1",
-        "pay-R21-2024-10-2",
-        "pay-R21-2024-11-1",
-        "pay-R21-2024-11-2",
-        "pay-R21-2024-12-1",
-        "pay-R21-2024-12-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-008",
-      "grantId": "R21AI182745",
-      "from": "2025-01-01",
-      "to": "2025-03-31",
-      "amount": 16490,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2025-01-01 to 2025-03-31, $16,490 in total: personnel $15,390 (research technician, 60% effort; graduate researcher, 50% effort); lab supplies $1,100 (2 orders). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-022",
-        "rq-023"
-      ],
-      "includedPayrollIds": [
-        "pay-R21-2025-01-1",
-        "pay-R21-2025-01-2",
-        "pay-R21-2025-02-1",
-        "pay-R21-2025-02-2",
-        "pay-R21-2025-03-1",
-        "pay-R21-2025-03-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-009",
-      "grantId": "R21AI182745",
-      "from": "2025-04-01",
-      "to": "2025-06-30",
-      "amount": 17830,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2025-04-01 to 2025-06-30, $17,830 in total: personnel $15,390 (research technician, 60% effort; graduate researcher, 50% effort); equipment service $980 (1 order), reagents $1,460 (1 order). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-024",
-        "rq-025"
-      ],
-      "includedPayrollIds": [
-        "pay-R21-2025-04-1",
-        "pay-R21-2025-04-2",
-        "pay-R21-2025-05-1",
-        "pay-R21-2025-05-2",
-        "pay-R21-2025-06-1",
-        "pay-R21-2025-06-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-010",
-      "grantId": "R21AI182745",
-      "from": "2025-07-01",
-      "to": "2025-09-30",
-      "amount": 17470,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2025-07-01 to 2025-09-30, $17,470 in total: personnel $15,390 (research technician, 60% effort; graduate researcher, 50% effort); core facility services $900 (1 order), lab supplies $1,180 (1 order). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-011",
-        "rq-026"
-      ],
-      "includedPayrollIds": [
-        "pay-R21-2025-07-1",
-        "pay-R21-2025-07-2",
-        "pay-R21-2025-08-1",
-        "pay-R21-2025-08-2",
-        "pay-R21-2025-09-1",
-        "pay-R21-2025-09-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-011",
-      "grantId": "R21AI182745",
-      "from": "2025-10-01",
-      "to": "2025-12-31",
-      "amount": 18170,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2025-10-01 to 2025-12-31, $18,170 in total: personnel $15,390 (research technician, 60% effort; graduate researcher, 50% effort); lab supplies $2,780 (2 orders). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-027",
-        "rq-028"
-      ],
-      "includedPayrollIds": [
-        "pay-R21-2025-10-1",
-        "pay-R21-2025-10-2",
-        "pay-R21-2025-11-1",
-        "pay-R21-2025-11-2",
-        "pay-R21-2025-12-1",
-        "pay-R21-2025-12-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-012",
-      "grantId": "R21AI182745",
-      "from": "2026-01-01",
-      "to": "2026-01-31",
-      "amount": 5820,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2026-01-01 to 2026-01-31, $5,820 in total: personnel $5,130 (research technician, 60% effort; graduate researcher, 50% effort); reagents $690 (1 order). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-029"
-      ],
-      "includedPayrollIds": [
-        "pay-R21-2026-01-1",
-        "pay-R21-2026-01-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
-      "id": "pr-013",
-      "grantId": "R21AI182745",
-      "from": "2026-02-01",
-      "to": "2026-02-28",
-      "amount": 5130,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2026-02-01 to 2026-02-28, $5,130 in total: personnel $5,130 (research technician, 60% effort; graduate researcher, 50% effort). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [],
-      "includedPayrollIds": [
-        "pay-R21-2026-02-1",
-        "pay-R21-2026-02-2"
-      ],
-      "excluded": [],
-      "state": "paid",
-      "followUps": []
-    },
-    {
       "id": "pr-014",
       "grantId": "R21AI182745",
       "from": "2026-03-01",
       "to": "2026-03-31",
-      "amount": 7790,
-      "explanation": "Reimbursement of direct costs on R21AI182745 for 2026-03-01 to 2026-03-31, $7,790 in total: personnel $5,130 (research technician, 60% effort; graduate researcher, 50% effort); lab supplies $2,660 (2 orders). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
-      "includedRequestIds": [
-        "rq-031",
-        "rq-032"
-      ],
+      "amount": 5130,
+      "explanation": "Reimbursement of direct costs on R21AI182745 for 2026-03-01 to 2026-03-31, $5,130 in total: personnel $5,130 (research technician, 60% effort; graduate researcher, 50% effort). Every purchase matches an approved order and a paid invoice, and was placed in this period.",
+      "includedRequestIds": [],
       "includedPayrollIds": [
         "pay-R21-2026-03-1",
         "pay-R21-2026-03-2"
@@ -4607,17 +1515,6 @@
       "checked": false
     },
     {
-      "id": "p-02",
-      "grantId": "R01GM061721",
-      "title": "Detergent selection shapes the folding landscape of BamA",
-      "doi": "10.5555/gg.2025.0002",
-      "pmcid": "PMC11000002",
-      "creditsGrantId": "R01GM061721",
-      "checks": [],
-      "result": "ok",
-      "checked": false
-    },
-    {
       "id": "p-03",
       "grantId": "R01GM061721",
       "title": "Cryo-EM of a membrane chaperone complex",
@@ -4660,17 +1557,6 @@
       }
     },
     {
-      "id": "p-06",
-      "grantId": "R01GM061721",
-      "title": "Membrane thickness tunes insertion of beta-barrel proteins",
-      "doi": "10.5555/gg.2026.0006",
-      "pmcid": "PMC11000006",
-      "creditsGrantId": "R01GM061721",
-      "checks": [],
-      "result": "ok",
-      "checked": false
-    },
-    {
       "id": "p-07",
       "grantId": "R01GM061721",
       "title": "SurA accelerates folding of outer membrane proteins in vitro",
@@ -4698,17 +1584,6 @@
       "checked": false
     },
     {
-      "id": "p-09",
-      "grantId": "R21AI182745",
-      "title": "Four-hour susceptibility calls for Enterobacterales",
-      "doi": "10.5555/gg.2025.0009",
-      "pmcid": "PMC11000009",
-      "creditsGrantId": "R21AI182745",
-      "checks": [],
-      "result": "ok",
-      "checked": false
-    },
-    {
       "id": "p-10",
       "grantId": "R21AI182745",
       "title": "Membrane permeability limits beta-lactam uptake in a microfluidic assay",
@@ -4721,61 +1596,9 @@
       "costRequestIds": [
         "rq-035"
       ]
-    },
-    {
-      "id": "p-11",
-      "grantId": "R21AI182745",
-      "title": "Benchmarking rapid susceptibility testing against broth microdilution",
-      "doi": "10.5555/gg.2026.0011",
-      "pmcid": "PMC11000011",
-      "creditsGrantId": "R21AI182745",
-      "checks": [],
-      "result": "ok",
-      "checked": false
-    },
-    {
-      "id": "p-12",
-      "grantId": "R21AI182745",
-      "title": "Single-cell growth imaging in antibiotic gradients",
-      "doi": "10.5555/gg.2026.0012",
-      "pmcid": "PMC11000012",
-      "creditsGrantId": "R21AI182745",
-      "checks": [],
-      "result": "ok",
-      "checked": false
     }
   ],
   "holds": [
-    {
-      "id": "h-001",
-      "kind": "purchase",
-      "refId": "rq-008",
-      "grantId": "R01GM061721",
-      "raisedBy": "purchasing",
-      "day": "2025-06-10",
-      "title": "Buy benchtop refrigerated centrifuge ($7,400), over the card limit?",
-      "why": "Over the $5,000 card limit, so the grant manager has to approve it.",
-      "evidence": [
-        {
-          "label": "Price",
-          "value": "$7,400"
-        },
-        {
-          "label": "Card limit",
-          "value": "$5,000"
-        }
-      ],
-      "options": [
-        "approve",
-        "reject"
-      ],
-      "decision": {
-        "choice": "approve",
-        "reason": "Needed for the aims; quote checked against two vendors.",
-        "by": "grant_manager",
-        "day": "2025-06-11"
-      }
-    },
     {
       "id": "h-002",
       "kind": "purchase",
@@ -4865,491 +1688,6 @@
   "log": [
     {
       "id": "l-0001",
-      "day": "2024-08-20",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Mueller-Hinton agar, 20 packs ($590)",
-      "reason": "Reference susceptibility plates",
-      "refId": "rq-018"
-    },
-    {
-      "id": "l-0002",
-      "day": "2024-08-20",
-      "actor": "purchasing",
-      "action": "Bought mueller-hinton agar, 20 packs ($590) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-018"
-    },
-    {
-      "id": "l-0003",
-      "day": "2024-08-26",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-018 to order o-018",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-018"
-    },
-    {
-      "id": "l-0004",
-      "day": "2024-09-17",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Microfluidic chips, 50 ($2,400)",
-      "reason": "Assay prototype runs",
-      "refId": "rq-019"
-    },
-    {
-      "id": "l-0005",
-      "day": "2024-09-17",
-      "actor": "purchasing",
-      "action": "Bought microfluidic chips, 50 ($2,400) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-019"
-    },
-    {
-      "id": "l-0006",
-      "day": "2024-09-23",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-019 to order o-019",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-019"
-    },
-    {
-      "id": "l-0007",
-      "day": "2024-10-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-006 ($13,250)",
-      "reason": "Direct costs on R21AI182745, 2024-08-01 to 2024-09-30.",
-      "refId": "pr-006"
-    },
-    {
-      "id": "l-0008",
-      "day": "2024-10-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-006",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-006"
-    },
-    {
-      "id": "l-0009",
-      "day": "2024-10-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $13,250 on R21AI182745",
-      "reason": "Payment for pr-006 landed.",
-      "refId": "se-006"
-    },
-    {
-      "id": "l-0010",
-      "day": "2024-10-22",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Pipette tips, 20 racks ($380)",
-      "reason": "Assay plates",
-      "refId": "rq-020"
-    },
-    {
-      "id": "l-0011",
-      "day": "2024-10-22",
-      "actor": "purchasing",
-      "action": "Bought pipette tips, 20 racks ($380) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-020"
-    },
-    {
-      "id": "l-0012",
-      "day": "2024-10-28",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-020 to order o-020",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-020"
-    },
-    {
-      "id": "l-0013",
-      "day": "2024-12-03",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Antibiotic reference panel ($1,350)",
-      "reason": "MIC calibration",
-      "refId": "rq-021"
-    },
-    {
-      "id": "l-0014",
-      "day": "2024-12-03",
-      "actor": "purchasing",
-      "action": "Bought antibiotic reference panel ($1,350) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-021"
-    },
-    {
-      "id": "l-0015",
-      "day": "2024-12-09",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-021 to order o-021",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-021"
-    },
-    {
-      "id": "l-0016",
-      "day": "2025-01-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-007 ($17,120)",
-      "reason": "Direct costs on R21AI182745, 2024-10-01 to 2024-12-31.",
-      "refId": "pr-007"
-    },
-    {
-      "id": "l-0017",
-      "day": "2025-01-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-007",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-007"
-    },
-    {
-      "id": "l-0018",
-      "day": "2025-01-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $17,120 on R21AI182745",
-      "reason": "Payment for pr-007 landed.",
-      "refId": "se-007"
-    },
-    {
-      "id": "l-0019",
-      "day": "2025-01-14",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",
-      "reason": "Membrane prep, aim 1",
-      "refId": "rq-001"
-    },
-    {
-      "id": "l-0020",
-      "day": "2025-01-14",
-      "actor": "purchasing",
-      "action": "Bought nitrile gloves, 10 cases ($640) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-001"
-    },
-    {
-      "id": "l-0021",
-      "day": "2025-01-20",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-001 to order o-001",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-001"
-    },
-    {
-      "id": "l-0022",
-      "day": "2025-01-22",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy BL21(DE3) competent cells, 10 vials ($485)",
-      "reason": "Expression of OmpA mutants",
-      "refId": "rq-002"
-    },
-    {
-      "id": "l-0023",
-      "day": "2025-01-22",
-      "actor": "purchasing",
-      "action": "Bought bl21(de3) competent cells, 10 vials ($485) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-002"
-    },
-    {
-      "id": "l-0024",
-      "day": "2025-01-28",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-002 to order o-002",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-002"
-    },
-    {
-      "id": "l-0025",
-      "day": "2025-01-28",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy PDMS casting kit ($760)",
-      "reason": "Chip fabrication",
-      "refId": "rq-022"
-    },
-    {
-      "id": "l-0026",
-      "day": "2025-01-28",
-      "actor": "purchasing",
-      "action": "Bought pdms casting kit ($760) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-022"
-    },
-    {
-      "id": "l-0027",
-      "day": "2025-02-03",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-022 to order o-022",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-022"
-    },
-    {
-      "id": "l-0028",
-      "day": "2025-02-10",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy DDM detergent, 5 g ($890)",
-      "reason": "Solubilizing outer membrane proteins",
-      "refId": "rq-003"
-    },
-    {
-      "id": "l-0029",
-      "day": "2025-02-10",
-      "actor": "purchasing",
-      "action": "Bought ddm detergent, 5 g ($890) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-003"
-    },
-    {
-      "id": "l-0030",
-      "day": "2025-02-16",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-003 to order o-003",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-003"
-    },
-    {
-      "id": "l-0031",
-      "day": "2025-03-05",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Pipette tips, 20 racks ($380)",
-      "reason": "Folding assays",
-      "refId": "rq-004"
-    },
-    {
-      "id": "l-0032",
-      "day": "2025-03-05",
-      "actor": "purchasing",
-      "action": "Bought pipette tips, 20 racks ($380) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-004"
-    },
-    {
-      "id": "l-0033",
-      "day": "2025-03-11",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-004 to order o-004",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-004"
-    },
-    {
-      "id": "l-0034",
-      "day": "2025-03-11",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Syringe pump tubing set ($340)",
-      "reason": "Chip perfusion",
-      "refId": "rq-023"
-    },
-    {
-      "id": "l-0035",
-      "day": "2025-03-11",
-      "actor": "purchasing",
-      "action": "Bought syringe pump tubing set ($340) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-023"
-    },
-    {
-      "id": "l-0036",
-      "day": "2025-03-17",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-023 to order o-023",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-023"
-    },
-    {
-      "id": "l-0037",
-      "day": "2025-03-27",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Size-exclusion column ($2,950)",
-      "reason": "Purifying folded OmpA",
-      "refId": "rq-005"
-    },
-    {
-      "id": "l-0038",
-      "day": "2025-03-27",
-      "actor": "purchasing",
-      "action": "Bought size-exclusion column ($2,950) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-005"
-    },
-    {
-      "id": "l-0039",
-      "day": "2025-04-02",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-005 to order o-005",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-005"
-    },
-    {
-      "id": "l-0040",
-      "day": "2025-04-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-001 ($22,445)",
-      "reason": "Direct costs on R01GM061721, 2025-01-01 to 2025-03-31.",
-      "refId": "pr-001"
-    },
-    {
-      "id": "l-0041",
-      "day": "2025-04-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-008 ($16,490)",
-      "reason": "Direct costs on R21AI182745, 2025-01-01 to 2025-03-31.",
-      "refId": "pr-008"
-    },
-    {
-      "id": "l-0042",
-      "day": "2025-04-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-001",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-001"
-    },
-    {
-      "id": "l-0043",
-      "day": "2025-04-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-008",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-008"
-    },
-    {
-      "id": "l-0044",
-      "day": "2025-04-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $22,445 on R01GM061721",
-      "reason": "Payment for pr-001 landed.",
-      "refId": "se-001"
-    },
-    {
-      "id": "l-0045",
-      "day": "2025-04-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $16,490 on R21AI182745",
-      "reason": "Payment for pr-008 landed.",
-      "refId": "se-008"
-    },
-    {
-      "id": "l-0046",
-      "day": "2025-04-16",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy HEPES buffer, 1 kg ($310)",
-      "reason": "Buffers for folding kinetics",
-      "refId": "rq-006"
-    },
-    {
-      "id": "l-0047",
-      "day": "2025-04-16",
-      "actor": "purchasing",
-      "action": "Bought hepes buffer, 1 kg ($310) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-006"
-    },
-    {
-      "id": "l-0048",
-      "day": "2025-04-22",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-006 to order o-006",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-006"
-    },
-    {
-      "id": "l-0049",
-      "day": "2025-04-29",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Incubator shaker service visit ($980)",
-      "reason": "Annual service of the assay incubator",
-      "refId": "rq-024"
-    },
-    {
-      "id": "l-0050",
-      "day": "2025-04-29",
-      "actor": "purchasing",
-      "action": "Bought incubator shaker service visit ($980) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-024"
-    },
-    {
-      "id": "l-0051",
-      "day": "2025-05-05",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-024 to order o-024",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-024"
-    },
-    {
-      "id": "l-0052",
-      "day": "2025-05-08",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Liposome extrusion kit ($1,240)",
-      "reason": "Making liposomes for aim 2",
-      "refId": "rq-007"
-    },
-    {
-      "id": "l-0053",
-      "day": "2025-05-08",
-      "actor": "purchasing",
-      "action": "Bought liposome extrusion kit ($1,240) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-007"
-    },
-    {
-      "id": "l-0054",
-      "day": "2025-05-14",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-007 to order o-007",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-007"
-    },
-    {
-      "id": "l-0055",
-      "day": "2025-06-10",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Benchtop refrigerated centrifuge ($7,400)",
-      "reason": "Membrane fractionation, aims 1 and 2",
-      "refId": "rq-008"
-    },
-    {
-      "id": "l-0056",
-      "day": "2025-06-10",
-      "actor": "purchasing",
-      "action": "Paused benchtop refrigerated centrifuge for the grant manager",
-      "rule": "Under the card limit ($5,000)",
-      "reason": "$7,400 is over the card limit.",
-      "refId": "h-001"
-    },
-    {
-      "id": "l-0057",
-      "day": "2025-06-11",
-      "actor": "grant_manager",
-      "action": "Decided h-001: approve",
-      "reason": "Needed for the aims; quote checked against two vendors.",
-      "refId": "h-001"
-    },
-    {
-      "id": "l-0058",
       "day": "2025-06-11",
       "actor": "system",
       "action": "Imported a card charge from the university ledger",
@@ -5357,177 +1695,7 @@
       "refId": "rq-060"
     },
     {
-      "id": "l-0059",
-      "day": "2025-06-12",
-      "actor": "purchasing",
-      "action": "Bought benchtop refrigerated centrifuge ($7,400) on R01GM061721",
-      "rule": "Approved by the grant manager",
-      "reason": "Every rule passed.",
-      "refId": "rq-008"
-    },
-    {
-      "id": "l-0060",
-      "day": "2025-06-18",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-008 to order o-008",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-008"
-    },
-    {
-      "id": "l-0061",
-      "day": "2025-06-24",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Mueller-Hinton broth, 12 bottles ($1,460)",
-      "reason": "Broth microdilution controls",
-      "refId": "rq-025"
-    },
-    {
-      "id": "l-0062",
-      "day": "2025-06-24",
-      "actor": "purchasing",
-      "action": "Bought mueller-hinton broth, 12 bottles ($1,460) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-025"
-    },
-    {
-      "id": "l-0063",
-      "day": "2025-06-30",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-025 to order o-025",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-025"
-    },
-    {
-      "id": "l-0064",
-      "day": "2025-07-02",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Ni-NTA resin, 100 mL ($1,620)",
-      "reason": "His-tag purification",
-      "refId": "rq-009"
-    },
-    {
-      "id": "l-0065",
-      "day": "2025-07-02",
-      "actor": "purchasing",
-      "action": "Bought ni-nta resin, 100 ml ($1,620) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-009"
-    },
-    {
-      "id": "l-0066",
-      "day": "2025-07-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-002 ($26,050)",
-      "reason": "Direct costs on R01GM061721, 2025-04-01 to 2025-06-30.",
-      "refId": "pr-002"
-    },
-    {
-      "id": "l-0067",
-      "day": "2025-07-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-009 ($17,830)",
-      "reason": "Direct costs on R21AI182745, 2025-04-01 to 2025-06-30.",
-      "refId": "pr-009"
-    },
-    {
-      "id": "l-0068",
-      "day": "2025-07-08",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-009 to order o-009",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-009"
-    },
-    {
-      "id": "l-0069",
-      "day": "2025-07-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-002",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-002"
-    },
-    {
-      "id": "l-0070",
-      "day": "2025-07-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-009",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-009"
-    },
-    {
-      "id": "l-0071",
-      "day": "2025-07-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $26,050 on R01GM061721",
-      "reason": "Payment for pr-002 landed.",
-      "refId": "se-002"
-    },
-    {
-      "id": "l-0072",
-      "day": "2025-07-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $17,830 on R21AI182745",
-      "reason": "Payment for pr-009 landed.",
-      "refId": "se-009"
-    },
-    {
-      "id": "l-0073",
-      "day": "2025-08-12",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Agar plates, 40 packs ($1,180)",
-      "reason": "Assay validation runs",
-      "refId": "rq-026"
-    },
-    {
-      "id": "l-0074",
-      "day": "2025-08-12",
-      "actor": "purchasing",
-      "action": "Bought agar plates, 40 packs ($1,180) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-026"
-    },
-    {
-      "id": "l-0075",
-      "day": "2025-08-18",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-026 to order o-026",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-026"
-    },
-    {
-      "id": "l-0076",
-      "day": "2025-08-19",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Cryo-EM grids, 2 boxes ($1,180)",
-      "reason": "Chaperone complex imaging",
-      "refId": "rq-010"
-    },
-    {
-      "id": "l-0077",
-      "day": "2025-08-19",
-      "actor": "purchasing",
-      "action": "Bought cryo-em grids, 2 boxes ($1,180) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-010"
-    },
-    {
-      "id": "l-0078",
-      "day": "2025-08-25",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-010 to order o-010",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-010"
-    },
-    {
-      "id": "l-0079",
+      "id": "l-0002",
       "day": "2025-09-09",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Proteomics core: 10 hours of mass spec ($1,800)",
@@ -5535,7 +1703,7 @@
       "refId": "rq-011"
     },
     {
-      "id": "l-0080",
+      "id": "l-0003",
       "day": "2025-09-09",
       "actor": "purchasing",
       "action": "Bought proteomics core: 10 hours of mass spec ($1,800) on R01GM061721 and R21AI182745",
@@ -5544,7 +1712,7 @@
       "refId": "rq-011"
     },
     {
-      "id": "l-0081",
+      "id": "l-0004",
       "day": "2025-09-15",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-011 to order o-011",
@@ -5553,81 +1721,7 @@
       "refId": "inv-011"
     },
     {
-      "id": "l-0082",
-      "day": "2025-10-07",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Microfluidic chips, 50 ($2,400)",
-      "reason": "Clinical isolate runs",
-      "refId": "rq-027"
-    },
-    {
-      "id": "l-0083",
-      "day": "2025-10-07",
-      "actor": "purchasing",
-      "action": "Bought microfluidic chips, 50 ($2,400) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-027"
-    },
-    {
-      "id": "l-0084",
-      "day": "2025-10-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-003 ($20,800)",
-      "reason": "Direct costs on R01GM061721, 2025-07-01 to 2025-09-30.",
-      "refId": "pr-003"
-    },
-    {
-      "id": "l-0085",
-      "day": "2025-10-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-010 ($17,470)",
-      "reason": "Direct costs on R21AI182745, 2025-07-01 to 2025-09-30.",
-      "refId": "pr-010"
-    },
-    {
-      "id": "l-0086",
-      "day": "2025-10-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-003",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-003"
-    },
-    {
-      "id": "l-0087",
-      "day": "2025-10-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-010",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-010"
-    },
-    {
-      "id": "l-0088",
-      "day": "2025-10-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $20,800 on R01GM061721",
-      "reason": "Payment for pr-003 landed.",
-      "refId": "se-003"
-    },
-    {
-      "id": "l-0089",
-      "day": "2025-10-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $17,470 on R21AI182745",
-      "reason": "Payment for pr-010 landed.",
-      "refId": "se-010"
-    },
-    {
-      "id": "l-0090",
-      "day": "2025-10-13",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-027 to order o-027",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-027"
-    },
-    {
-      "id": "l-0091",
+      "id": "l-0005",
       "day": "2025-10-14",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",
@@ -5635,7 +1729,7 @@
       "refId": "rq-012"
     },
     {
-      "id": "l-0092",
+      "id": "l-0006",
       "day": "2025-10-14",
       "actor": "purchasing",
       "action": "Bought nitrile gloves, 10 cases ($640) on R01GM061721",
@@ -5644,7 +1738,7 @@
       "refId": "rq-012"
     },
     {
-      "id": "l-0093",
+      "id": "l-0007",
       "day": "2025-10-20",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-012 to order o-012",
@@ -5653,235 +1747,7 @@
       "refId": "inv-012"
     },
     {
-      "id": "l-0094",
-      "day": "2025-11-04",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy POPC lipid, 1 g ($1,460)",
-      "reason": "Liposome folding assays",
-      "refId": "rq-013"
-    },
-    {
-      "id": "l-0095",
-      "day": "2025-11-04",
-      "actor": "purchasing",
-      "action": "Bought popc lipid, 1 g ($1,460) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-013"
-    },
-    {
-      "id": "l-0096",
-      "day": "2025-11-10",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-013 to order o-013",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-013"
-    },
-    {
-      "id": "l-0097",
-      "day": "2025-12-02",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Dry ice shipping to the cryo-EM center ($220)",
-      "reason": "Shipping grids for imaging",
-      "refId": "rq-014"
-    },
-    {
-      "id": "l-0098",
-      "day": "2025-12-02",
-      "actor": "purchasing",
-      "action": "Bought dry ice shipping to the cryo-em center ($220) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-014"
-    },
-    {
-      "id": "l-0099",
-      "day": "2025-12-08",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-014 to order o-014",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-014"
-    },
-    {
-      "id": "l-0100",
-      "day": "2025-12-09",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Pipette tips, 20 racks ($380)",
-      "reason": "Assay plates",
-      "refId": "rq-028"
-    },
-    {
-      "id": "l-0101",
-      "day": "2025-12-09",
-      "actor": "purchasing",
-      "action": "Bought pipette tips, 20 racks ($380) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-028"
-    },
-    {
-      "id": "l-0102",
-      "day": "2025-12-15",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-028 to order o-028",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-028"
-    },
-    {
-      "id": "l-0103",
-      "day": "2026-01-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-004 ($19,420)",
-      "reason": "Direct costs on R01GM061721, 2025-10-01 to 2025-12-31.",
-      "refId": "pr-004"
-    },
-    {
-      "id": "l-0104",
-      "day": "2026-01-07",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-011 ($18,170)",
-      "reason": "Direct costs on R21AI182745, 2025-10-01 to 2025-12-31.",
-      "refId": "pr-011"
-    },
-    {
-      "id": "l-0105",
-      "day": "2026-01-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-004",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-004"
-    },
-    {
-      "id": "l-0106",
-      "day": "2026-01-08",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-011",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-011"
-    },
-    {
-      "id": "l-0107",
-      "day": "2026-01-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $19,420 on R01GM061721",
-      "reason": "Payment for pr-004 landed.",
-      "refId": "se-004"
-    },
-    {
-      "id": "l-0108",
-      "day": "2026-01-12",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $18,170 on R21AI182745",
-      "reason": "Payment for pr-011 landed.",
-      "refId": "se-011"
-    },
-    {
-      "id": "l-0109",
-      "day": "2026-01-13",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Pipette tips, 20 racks ($380)",
-      "reason": "Folding assays",
-      "refId": "rq-015"
-    },
-    {
-      "id": "l-0110",
-      "day": "2026-01-13",
-      "actor": "purchasing",
-      "action": "Bought pipette tips, 20 racks ($380) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-015"
-    },
-    {
-      "id": "l-0111",
-      "day": "2026-01-19",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-015 to order o-015",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-015"
-    },
-    {
-      "id": "l-0112",
-      "day": "2026-01-20",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Antibiotic disks, 10 cartridges ($690)",
-      "reason": "Disk diffusion comparison",
-      "refId": "rq-029"
-    },
-    {
-      "id": "l-0113",
-      "day": "2026-01-20",
-      "actor": "purchasing",
-      "action": "Bought antibiotic disks, 10 cartridges ($690) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-029"
-    },
-    {
-      "id": "l-0114",
-      "day": "2026-01-26",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-029 to order o-029",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-029"
-    },
-    {
-      "id": "l-0115",
-      "day": "2026-02-03",
-      "actor": "scientist",
-      "action": "Dr. Priya Nair asked to buy Ni-NTA resin, 100 mL ($1,620)",
-      "reason": "His-tag purification",
-      "refId": "rq-016"
-    },
-    {
-      "id": "l-0116",
-      "day": "2026-02-03",
-      "actor": "purchasing",
-      "action": "Bought ni-nta resin, 100 ml ($1,620) on R01GM061721",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-016"
-    },
-    {
-      "id": "l-0117",
-      "day": "2026-02-05",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-012 ($5,820)",
-      "reason": "Direct costs on R21AI182745, 2026-01-01 to 2026-01-31.",
-      "refId": "pr-012"
-    },
-    {
-      "id": "l-0118",
-      "day": "2026-02-06",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-012",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-012"
-    },
-    {
-      "id": "l-0119",
-      "day": "2026-02-09",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-016 to order o-016",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-016"
-    },
-    {
-      "id": "l-0120",
-      "day": "2026-02-10",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $5,820 on R21AI182745",
-      "reason": "Payment for pr-012 landed.",
-      "refId": "se-012"
-    },
-    {
-      "id": "l-0121",
+      "id": "l-0008",
       "day": "2026-02-17",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Detergent screening kit, 2 plates ($2,300)",
@@ -5889,7 +1755,7 @@
       "refId": "rq-017"
     },
     {
-      "id": "l-0122",
+      "id": "l-0009",
       "day": "2026-02-17",
       "actor": "purchasing",
       "action": "Bought detergent screening kit, 2 plates ($2,300) on R01GM061721",
@@ -5898,7 +1764,7 @@
       "refId": "rq-017"
     },
     {
-      "id": "l-0123",
+      "id": "l-0010",
       "day": "2026-02-20",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Ceftazidime-avibactam reference powder ($2,400)",
@@ -5906,7 +1772,7 @@
       "refId": "rq-030"
     },
     {
-      "id": "l-0124",
+      "id": "l-0011",
       "day": "2026-02-20",
       "actor": "purchasing",
       "action": "Bought ceftazidime-avibactam reference powder ($2,400) on R21AI182745",
@@ -5915,7 +1781,7 @@
       "refId": "rq-030"
     },
     {
-      "id": "l-0125",
+      "id": "l-0012",
       "day": "2026-02-23",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-017 to order o-017",
@@ -5924,7 +1790,7 @@
       "refId": "inv-017"
     },
     {
-      "id": "l-0126",
+      "id": "l-0013",
       "day": "2026-03-02",
       "actor": "scientist",
       "action": "Canceled order o-030",
@@ -5932,15 +1798,15 @@
       "refId": "o-030"
     },
     {
-      "id": "l-0127",
+      "id": "l-0014",
       "day": "2026-03-02",
       "actor": "payment_report",
-      "action": "Drafted payment request pr-005 ($15,700)",
+      "action": "Drafted payment request pr-005 ($13,700)",
       "reason": "Direct costs on R01GM061721, 2026-01-01 to 2026-02-28.",
       "refId": "pr-005"
     },
     {
-      "id": "l-0128",
+      "id": "l-0015",
       "day": "2026-03-03",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-005",
@@ -5948,56 +1814,15 @@
       "refId": "pr-005"
     },
     {
-      "id": "l-0129",
-      "day": "2026-03-05",
-      "actor": "payment_report",
-      "action": "Drafted payment request pr-013 ($5,130)",
-      "reason": "Direct costs on R21AI182745, 2026-02-01 to 2026-02-28.",
-      "refId": "pr-013"
-    },
-    {
-      "id": "l-0130",
-      "day": "2026-03-06",
-      "actor": "grant_manager",
-      "action": "Approved and sent payment request pr-013",
-      "reason": "Checked against the purchase records.",
-      "refId": "pr-013"
-    },
-    {
-      "id": "l-0131",
+      "id": "l-0016",
       "day": "2026-03-07",
       "actor": "bookkeeping",
-      "action": "Recorded payment of $15,700 on R01GM061721",
+      "action": "Recorded payment of $13,700 on R01GM061721",
       "reason": "Payment for pr-005 landed.",
-      "refId": "se-005"
+      "refId": "se-001"
     },
     {
-      "id": "l-0132",
-      "day": "2026-03-10",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Glass slides and coverslips ($260)",
-      "reason": "Imaging controls",
-      "refId": "rq-031"
-    },
-    {
-      "id": "l-0133",
-      "day": "2026-03-10",
-      "actor": "purchasing",
-      "action": "Bought glass slides and coverslips ($260) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-031"
-    },
-    {
-      "id": "l-0134",
-      "day": "2026-03-10",
-      "actor": "bookkeeping",
-      "action": "Recorded payment of $5,130 on R21AI182745",
-      "reason": "Payment for pr-013 landed.",
-      "refId": "se-013"
-    },
-    {
-      "id": "l-0135",
+      "id": "l-0017",
       "day": "2026-03-10",
       "actor": "bookkeeping",
       "action": "Froze R01GM061721",
@@ -6006,16 +1831,7 @@
       "refId": "se-a-canceled-list"
     },
     {
-      "id": "l-0136",
-      "day": "2026-03-16",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-031 to order o-031",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-031"
-    },
-    {
-      "id": "l-0137",
+      "id": "l-0018",
       "day": "2026-03-20",
       "actor": "system",
       "action": "Imported a card charge from the university ledger",
@@ -6023,41 +1839,15 @@
       "refId": "rq-050"
     },
     {
-      "id": "l-0138",
-      "day": "2026-03-24",
-      "actor": "scientist",
-      "action": "Sofia Alvarez asked to buy Microfluidic chips, 50 ($2,400)",
-      "reason": "Clinical isolate runs",
-      "refId": "rq-032"
-    },
-    {
-      "id": "l-0139",
-      "day": "2026-03-24",
-      "actor": "purchasing",
-      "action": "Bought microfluidic chips, 50 ($2,400) on R21AI182745",
-      "rule": "All rules pass, under card limit",
-      "reason": "Every rule passed.",
-      "refId": "rq-032"
-    },
-    {
-      "id": "l-0140",
-      "day": "2026-03-30",
-      "actor": "bookkeeping",
-      "action": "Matched invoice inv-032 to order o-032",
-      "rule": "Invoice needs an open order and a matching amount",
-      "reason": "Order open; amount matches.",
-      "refId": "inv-032"
-    },
-    {
-      "id": "l-0141",
+      "id": "l-0019",
       "day": "2026-04-06",
       "actor": "payment_report",
-      "action": "Drafted payment request pr-014 ($7,790)",
+      "action": "Drafted payment request pr-014 ($5,130)",
       "reason": "Direct costs on R21AI182745, 2026-03-01 to 2026-03-31.",
       "refId": "pr-014"
     },
     {
-      "id": "l-0142",
+      "id": "l-0020",
       "day": "2026-04-07",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-014",
@@ -6065,15 +1855,15 @@
       "refId": "pr-014"
     },
     {
-      "id": "l-0143",
+      "id": "l-0021",
       "day": "2026-04-11",
       "actor": "bookkeeping",
-      "action": "Recorded payment of $7,790 on R21AI182745",
+      "action": "Recorded payment of $5,130 on R21AI182745",
       "reason": "Payment for pr-014 landed.",
-      "refId": "se-014"
+      "refId": "se-002"
     },
     {
-      "id": "l-0144",
+      "id": "l-0022",
       "day": "2026-04-14",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Agar plates, 40 packs ($1,180)",
@@ -6081,7 +1871,7 @@
       "refId": "rq-033"
     },
     {
-      "id": "l-0145",
+      "id": "l-0023",
       "day": "2026-04-14",
       "actor": "purchasing",
       "action": "Bought agar plates, 40 packs ($1,180) on R21AI182745",
@@ -6090,7 +1880,7 @@
       "refId": "rq-033"
     },
     {
-      "id": "l-0146",
+      "id": "l-0024",
       "day": "2026-04-20",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-033 to order o-033",
@@ -6099,7 +1889,7 @@
       "refId": "inv-033"
     },
     {
-      "id": "l-0147",
+      "id": "l-0025",
       "day": "2026-04-20",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Orbital plate shaker ($5,800)",
@@ -6107,7 +1897,7 @@
       "refId": "rq-034"
     },
     {
-      "id": "l-0148",
+      "id": "l-0026",
       "day": "2026-04-20",
       "actor": "purchasing",
       "action": "Paused orbital plate shaker for the grant manager",
@@ -6116,7 +1906,7 @@
       "refId": "h-002"
     },
     {
-      "id": "l-0149",
+      "id": "l-0027",
       "day": "2026-04-21",
       "actor": "grant_manager",
       "action": "Decided h-002: approve",
@@ -6124,7 +1914,7 @@
       "refId": "h-002"
     },
     {
-      "id": "l-0150",
+      "id": "l-0028",
       "day": "2026-04-22",
       "actor": "purchasing",
       "action": "Order for orbital plate shaker placed by the department purchasing office",
@@ -6133,7 +1923,7 @@
       "refId": "rq-034"
     },
     {
-      "id": "l-0151",
+      "id": "l-0029",
       "day": "2026-04-24",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Open-access publication fee, J. Appl. Microb. Methods ($2,100)",
@@ -6141,7 +1931,7 @@
       "refId": "rq-035"
     },
     {
-      "id": "l-0152",
+      "id": "l-0030",
       "day": "2026-04-24",
       "actor": "purchasing",
       "action": "Bought open-access publication fee, j. appl. microb. methods ($2,100) on R21AI182745",
@@ -6150,7 +1940,7 @@
       "refId": "rq-035"
     },
     {
-      "id": "l-0153",
+      "id": "l-0031",
       "day": "2026-04-30",
       "actor": "bookkeeping",
       "action": "Matched invoice inv-035 to order o-035",
@@ -6159,7 +1949,7 @@
       "refId": "inv-035"
     },
     {
-      "id": "l-0154",
+      "id": "l-0032",
       "day": "2026-05-01",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Ultra-low freezer service contract ($1,150)",
@@ -6167,7 +1957,7 @@
       "refId": "rq-036"
     },
     {
-      "id": "l-0155",
+      "id": "l-0033",
       "day": "2026-05-01",
       "actor": "purchasing",
       "action": "Bought ultra-low freezer service contract ($1,150) on R21AI182745",
@@ -6176,7 +1966,7 @@
       "refId": "rq-036"
     },
     {
-      "id": "l-0156",
+      "id": "l-0034",
       "day": "2026-05-01",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Mueller-Hinton broth, 12 bottles ($1,460)",
@@ -6184,7 +1974,7 @@
       "refId": "rq-037"
     },
     {
-      "id": "l-0157",
+      "id": "l-0035",
       "day": "2026-05-01",
       "actor": "purchasing",
       "action": "Bought mueller-hinton broth, 12 bottles ($1,460) on R21AI182745",
@@ -6193,7 +1983,7 @@
       "refId": "rq-037"
     },
     {
-      "id": "l-0158",
+      "id": "l-0036",
       "day": "2026-05-03",
       "actor": "purchasing",
       "action": "Paused a change to order o-036 for the grant manager",
@@ -6202,7 +1992,7 @@
       "refId": "h-003"
     },
     {
-      "id": "l-0159",
+      "id": "l-0037",
       "day": "2026-05-04",
       "actor": "grant_manager",
       "action": "Decided h-003: approve",
@@ -6210,7 +2000,7 @@
       "refId": "h-003"
     },
     {
-      "id": "l-0160",
+      "id": "l-0038",
       "day": "2026-05-07",
       "actor": "payment_report",
       "action": "Drafted payment request pr-015 ($8,410)",
@@ -6218,7 +2008,7 @@
       "refId": "pr-015"
     },
     {
-      "id": "l-0161",
+      "id": "l-0039",
       "day": "2026-05-08",
       "actor": "grant_manager",
       "action": "Approved and sent payment request pr-015",
@@ -6226,7 +2016,7 @@
       "refId": "pr-015"
     },
     {
-      "id": "l-0162",
+      "id": "l-0040",
       "day": "2026-05-20",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Genomics core: sequencing run for 24 isolates ($640)",
@@ -6234,7 +2024,7 @@
       "refId": "rq-038"
     },
     {
-      "id": "l-0163",
+      "id": "l-0041",
       "day": "2026-05-20",
       "actor": "purchasing",
       "action": "Bought genomics core: sequencing run for 24 isolates ($640) on R21AI182745",
@@ -6243,7 +2033,7 @@
       "refId": "rq-038"
     },
     {
-      "id": "l-0164",
+      "id": "l-0042",
       "day": "2026-05-27",
       "actor": "bookkeeping",
       "action": "Held invoice inv-037",
@@ -6252,7 +2042,7 @@
       "refId": "inv-037"
     },
     {
-      "id": "l-0165",
+      "id": "l-0043",
       "day": "2026-05-28",
       "actor": "funder",
       "action": "Asked a follow-up on pr-015",
@@ -6260,7 +2050,7 @@
       "refId": "fu-001"
     },
     {
-      "id": "l-0166",
+      "id": "l-0044",
       "day": "2026-06-02",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Genomics core: sequencing run for 24 isolates, second batch ($640)",
@@ -6268,7 +2058,7 @@
       "refId": "rq-203"
     },
     {
-      "id": "l-0167",
+      "id": "l-0045",
       "day": "2026-06-02",
       "actor": "purchasing",
       "action": "Bought genomics core: sequencing run for 24 isolates, second batch ($640) on R21AI182745",
@@ -6277,7 +2067,7 @@
       "refId": "rq-203"
     },
     {
-      "id": "l-0168",
+      "id": "l-0046",
       "day": "2026-06-10",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Biosafety cabinet annual certification ($1,240)",
@@ -6285,7 +2075,7 @@
       "refId": "rq-202"
     },
     {
-      "id": "l-0169",
+      "id": "l-0047",
       "day": "2026-06-10",
       "actor": "purchasing",
       "action": "Bought biosafety cabinet annual certification ($1,240) on R21AI182745",
@@ -6294,7 +2084,7 @@
       "refId": "rq-202"
     },
     {
-      "id": "l-0170",
+      "id": "l-0048",
       "day": "2026-06-12",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Agar plates, 40 packs ($1,180)",
@@ -6302,7 +2092,7 @@
       "refId": "rq-102"
     },
     {
-      "id": "l-0171",
+      "id": "l-0049",
       "day": "2026-06-12",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Proteomics core: 10 hours of mass spec ($1,800)",
@@ -6310,7 +2100,7 @@
       "refId": "rq-107"
     },
     {
-      "id": "l-0172",
+      "id": "l-0050",
       "day": "2026-06-13",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Espresso machine for the lab ($890)",
@@ -6318,7 +2108,7 @@
       "refId": "rq-103"
     },
     {
-      "id": "l-0173",
+      "id": "l-0051",
       "day": "2026-06-13",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Confocal microscope service contract, 12 months ($3,600)",
@@ -6326,7 +2116,7 @@
       "refId": "rq-104"
     },
     {
-      "id": "l-0174",
+      "id": "l-0052",
       "day": "2026-06-14",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Nitrile gloves, 10 cases ($640)",
@@ -6334,7 +2124,7 @@
       "refId": "rq-101"
     },
     {
-      "id": "l-0175",
+      "id": "l-0053",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Peristaltic pump with controller ($6,850)",
@@ -6342,7 +2132,7 @@
       "refId": "rq-105"
     },
     {
-      "id": "l-0176",
+      "id": "l-0054",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Dr. Priya Nair asked to buy Membrane protein detergent screening kit, 4 plates ($5,000)",
@@ -6350,7 +2140,7 @@
       "refId": "rq-106"
     },
     {
-      "id": "l-0177",
+      "id": "l-0055",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 1 of 2 ($2,900)",
@@ -6358,7 +2148,7 @@
       "refId": "rq-108"
     },
     {
-      "id": "l-0178",
+      "id": "l-0056",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Sequencing core: 48 isolates, run 2 of 2 ($2,600)",
@@ -6366,7 +2156,7 @@
       "refId": "rq-109"
     },
     {
-      "id": "l-0179",
+      "id": "l-0057",
       "day": "2026-06-15",
       "actor": "scientist",
       "action": "Sofia Alvarez asked to buy Biosafety cabinet filter replacement ($2,400)",

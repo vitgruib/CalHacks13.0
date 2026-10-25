@@ -42,9 +42,11 @@ payment timeline. None of it describes the real investigators or their work.
 - **R21AI182745** "Investigating ploidy modulation as a strategy to improve
   antibiotic activity" (NIH/NIAID; really Princeton, to 2026-08-31, not on any
   cancellation list): active, **ends 2026-08-31**, 77 days away.
-- 38 ordinary purchases since 2024-08 (bought, ordered, invoiced, mostly paid),
-  72 monthly payroll rows, 15 payment requests (14 paid, April's sent with a
-  funder follow-up still unanswered), 12 progress-report papers, and 171 log rows.
+- Trimmed to the bare minimum for the demo (T82): 10 settled purchases (only
+  those the planted cases need, plus the past orders today's requests take
+  their vendor from), 12 monthly payroll rows, 3 payment requests (2 paid,
+  April's sent with a funder follow-up still unanswered), 7 progress-report
+  papers, and 57 log rows. Record ids keep their original numbers.
 
 **Raw, pre-agent state.** The agents and rules still have to find the planted
 cases. Today's requests are `submitted` with no verdicts. Invoices waiting to

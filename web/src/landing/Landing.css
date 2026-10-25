@@ -89,4 +89,5 @@
 nav a.back-start { margin-top: 12px; color: var(--muted); font-size: 13px; }
 nav a.back-start:hover { color: var(--text); }
 .sci a.sci-back { color: var(--s-muted); font-size: 15px; text-decoration: none; white-space: nowrap; }
-.sci a.sci-back:hover { color: var(--s-text); text-decoration: underline; text-underline-offset: 3px; }
+.sci a.sci-back:hover { color: var(--s-text); text-decoration: underline; text-underline-offset: 3px; }.landing-edge { margin-top: 16px; }
+.landing-edge summary { cursor: pointer; padding: 8px 0; color: var(--muted); font-size: 14px; font-weight: 600; }

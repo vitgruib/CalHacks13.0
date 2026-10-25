@@ -113,7 +113,7 @@ test('rp_d2_a_disclosed_retraction_is_ok_never_a_hold', async () => {
 test('every_sim_paper_is_checked_and_only_the_three_planted_ones_are_held', async () => {
   world = await startWorld();
   const rows = conn().rows('reportPaper');
-  assert.equal(rows.length, 12);
+  assert.equal(rows.length, 7);
   assert.ok(rows.every((row) => row.checked));
   assert.deepEqual(rows.filter((row) => row.result === 'held').map((row) => row.id), ['p-03', 'p-04', 'p-10']);
   const open = conn().rows('hold').filter((h) => h.kind === 'report' && h.open);
@@ -328,7 +328,7 @@ test('the_module_refuses_paper_facts_from_another_agent_and_the_checker_keeps_go
   assert.ok(purchasing.rows('reportPaper').every((row) => !row.checked), 'nothing was recorded');
   assert.deepEqual(purchasing.rows('hold').filter((h) => h.kind === 'report'), []);
   const refusals = errors.mock.calls.filter((call) => /Only the payment_report agent can do this/.test(String(call.arguments[1])));
-  assert.equal(refusals.length, 12, 'every paper was tried; one refusal did not stop the others');
+  assert.equal(refusals.length, 7, 'every paper was tried; one refusal did not stop the others');
   db.close();
 });
 
