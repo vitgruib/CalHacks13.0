@@ -6,10 +6,10 @@ export default function Overview() {
   return (
     <main className="overview">
       <header>
-        <h1>GrantGuard hero: five directions</h1>
+        <h1>GrantGuard hero: Clay lab, round 2</h1>
         <p>
-          Each mockup plays the same scripted story through the database module's real spending rules. Open one, or
-          press 1 to 5. Pick one to port into the app.
+          Five versions of the round 1 pick, each playing the same scripted story through the database module's real
+          spending rules. Open one, or press 1 to 5; press 6 for round 1's Clay lab.
         </p>
       </header>
       <ol>

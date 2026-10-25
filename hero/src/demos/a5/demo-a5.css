@@ -1,0 +1,1392 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Public+Sans:wght@300..800&display=swap');
+
+/* Clay lab round 2, version 5. Every rule is scoped under .demo-a5. */
+
+.demo-a5 {
+  --void: #c7ccd2;
+  --void-hi: #e6e8eb;
+  --porcelain: #f3f5f7;
+  --porcelain-2: #e6eaef;
+  --porcelain-3: #d8dee5;
+  --line: #c9d1da;
+  --ink: #1c232c;
+  --ink-2: #3c4753;
+  --ink-3: #526070;
+  --slate: #5e6b7a;
+  --slate-deep: #26303b;
+  --on-slate: #f3f5f7;
+  --on-slate-2: #c9d3de;
+  --celadon: #4f9c80;
+  --celadon-ink: #1d5a45;
+  --ochre: #c98b2e;
+  --ochre-ink: #6b4408;
+  --oxblood: #9c2e2a;
+  --oxblood-ink: #7a1f1c;
+  --cobalt: #2e5ba6;
+  --cobalt-ink: #1e3f7a;
+  --ice: #dde7f0;
+  --display: 'Archivo', 'Public Sans', sans-serif;
+  --text: 'Public Sans', 'Archivo', sans-serif;
+  --lift: 0 10px 30px -12px rgb(28 35 44 / 0.38), 0 2px 6px -2px rgb(28 35 44 / 0.18);
+  --lift-sm: 0 6px 16px -8px rgb(28 35 44 / 0.4), 0 1px 3px rgb(28 35 44 / 0.14);
+
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 50% 18%, var(--void-hi), var(--void) 70%);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 15px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--cobalt);
+  accent-color: var(--slate-deep);
+}
+
+.demo-a5 *,
+.demo-a5 *::before,
+.demo-a5 *::after {
+  box-sizing: border-box;
+}
+.demo-a5 * {
+  scrollbar-width: thin;
+  scrollbar-color: #a3aebb transparent;
+}
+.demo-a5 ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.demo-a5 ::-webkit-scrollbar-thumb {
+  background: #a3aebb;
+  border-radius: 10px;
+  border: 3px solid var(--porcelain);
+}
+.demo-a5 ::-webkit-scrollbar-track {
+  background: transparent;
+}
+.demo-a5 ::selection {
+  background: var(--cobalt);
+  color: #ffffff;
+}
+.demo-a5 :focus-visible {
+  outline: 2px solid var(--cobalt-ink);
+  outline-offset: 2px;
+}
+.demo-a5 h1,
+.demo-a5 h2,
+.demo-a5 h3,
+.demo-a5 p,
+.demo-a5 ol,
+.demo-a5 ul,
+.demo-a5 dl,
+.demo-a5 dd,
+.demo-a5 fieldset {
+  margin: 0;
+  padding: 0;
+}
+.demo-a5 ol,
+.demo-a5 ul {
+  list-style: none;
+}
+.demo-a5 button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.demo-a5 .a-num,
+.demo-a5 time,
+.demo-a5 .a-ledger-rows,
+.demo-a5 .a-gauge-money,
+.demo-a5 .a-money {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Stage ─────────────────────────────────────────────────────────────── */
+
+.demo-a5 .a-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.demo-a5 .a-canvas {
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+.demo-a5[data-hover] .a-canvas {
+  cursor: pointer;
+}
+
+/* ── HUD frame ─────────────────────────────────────────────────────────── */
+
+.demo-a5 .a-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+.demo-a5 .a-hud > * {
+  pointer-events: auto;
+}
+.demo-a5 .a-hud > .a-top,
+.demo-a5 .a-hud > .a-tr,
+.demo-a5 .a-hud > .a-caption {
+  pointer-events: none;
+}
+.demo-a5 .a-top > *,
+.demo-a5 .a-tr > *,
+.demo-a5 .a-caption > * {
+  pointer-events: auto;
+}
+.demo-a5 .a-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.demo-a5 .a-top {
+  position: absolute;
+  top: 26px;
+  left: 32px;
+  width: min(600px, 44vw);
+}
+.demo-a5 .a-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 700;
+  font-stretch: 112%;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+.demo-a5 .a-brand svg {
+  color: var(--slate-deep);
+}
+
+.demo-a5 .a-hero {
+  margin-top: 30px;
+  transition: opacity 240ms ease, visibility 0s linear 0s;
+}
+/* Once someone opens a panel they are exploring; the copy steps aside for the scene. */
+.demo-a5[data-panel] .a-hero {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 240ms ease, visibility 0s linear 240ms;
+}
+.demo-a5 .a-hero h1 {
+  font-family: var(--display);
+  font-stretch: 112%;
+  font-weight: 660;
+  font-size: clamp(32px, 3.3vw, 48px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.demo-a5 .a-hero p {
+  margin-top: 16px;
+  max-width: 440px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+.demo-a5 .a-hero .a-btn--primary {
+  margin-top: 22px;
+}
+
+/* ── Top right: date, play, replay, one menu; the pill only when needed ─ */
+
+.demo-a5 .a-tr {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.demo-a5 .a-ctl {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px 4px 4px 14px;
+  border-radius: 12px;
+  background: var(--porcelain);
+  box-shadow: var(--lift-sm);
+}
+.demo-a5 .a-date {
+  margin-right: 8px;
+  font-size: 13.5px;
+  white-space: nowrap;
+  color: var(--ink-3);
+}
+.demo-a5 .a-date time {
+  font-weight: 650;
+  color: var(--ink);
+}
+.demo-a5 .a-ctl .a-iconbtn {
+  background: transparent;
+}
+.demo-a5 .a-ctl .a-iconbtn:hover,
+.demo-a5 .a-ctl .a-iconbtn[aria-expanded='true'] {
+  background: var(--porcelain-2);
+}
+.demo-a5 .a-more {
+  position: relative;
+}
+.demo-a5 .a-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: -4px;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  width: 248px;
+  padding: 6px;
+  border-radius: 12px;
+  background: var(--porcelain);
+  box-shadow: var(--lift);
+  animation: a5-rise 180ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.demo-a5 .a-menu-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 4px 6px 10px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid var(--porcelain-3);
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.demo-a5 .a-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 560;
+  color: var(--ink);
+}
+.demo-a5 .a-menu-item:hover {
+  background: var(--porcelain-2);
+}
+.demo-a5 .a-narrow-only {
+  display: none;
+}
+.demo-a5 .a-seg {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 9px;
+  background: var(--porcelain-2);
+}
+.demo-a5 .a-seg button {
+  min-width: 36px;
+  height: 30px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 620;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+}
+.demo-a5 .a-seg button:hover {
+  background: var(--porcelain-3);
+}
+.demo-a5 .a-seg button[aria-pressed='true'] {
+  background: var(--slate-deep);
+  color: var(--on-slate);
+}
+
+.demo-a5 .a-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 42px;
+  padding: 0 17px 0 14px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--cobalt);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 650;
+  white-space: nowrap;
+  box-shadow: var(--lift-sm);
+  animation: a5-pill-in 520ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transition: background-color 160ms ease;
+}
+.demo-a5 .a-pill:hover {
+  background: var(--cobalt-ink);
+}
+.demo-a5 .a-pill[aria-pressed='true'] {
+  background: var(--slate-deep);
+}
+.demo-a5 .a-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: a5-beat 1.9s ease-in-out infinite;
+}
+.demo-a5 .a-pill[aria-pressed='true'] .a-pill-dot {
+  animation: none;
+}
+@keyframes a5-pill-in {
+  from {
+    opacity: 0;
+    transform: translateX(14px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes a5-beat {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.45);
+    opacity: 0.55;
+  }
+}
+
+/* ── Caption, straight on the scene (bottom left) ──────────────────────── */
+
+.demo-a5 .a-caption {
+  position: absolute;
+  left: 32px;
+  bottom: 30px;
+  width: min(428px, calc(50vw - 300px));
+  transition: opacity 240ms ease, visibility 0s linear 0s;
+}
+/* A panel brings the camera in close; the caption steps aside rather than sit over the scene. */
+.demo-a5[data-panel] .a-caption {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease, visibility 0s linear 200ms;
+}
+.demo-a5 .a-caption .a-date {
+  display: none;
+}
+.demo-a5 .a-caption-body {
+  animation: a5-rise 360ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.demo-a5 .a-caption h2 {
+  font-family: var(--display);
+  font-stretch: 108%;
+  font-weight: 650;
+  font-size: 18px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.demo-a5 .a-caption p {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.demo-a5 .a-caption p.a-sr {
+  display: block;
+}
+.demo-a5 .a-progress {
+  height: 2px;
+  margin-top: 14px;
+  border-radius: 2px;
+  background: rgb(28 35 44 / 0.14);
+  overflow: hidden;
+}
+.demo-a5 .a-progress span {
+  display: block;
+  height: 100%;
+  background: var(--ink-2);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+.demo-a5 .a-tracker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding: 2px 0;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  text-align: left;
+  font-size: 13.5px;
+  font-weight: 620;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: rgb(28 35 44 / 0.3);
+  text-underline-offset: 4px;
+}
+.demo-a5 .a-tracker:hover {
+  text-decoration-color: var(--ink);
+}
+.demo-a5 .a-tracker-dot {
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--slate);
+}
+.demo-a5 .a-tracker-dot--accept {
+  background: var(--celadon);
+}
+.demo-a5 .a-tracker-dot--refine {
+  background: var(--ochre);
+}
+.demo-a5 .a-tracker-dot--reject {
+  background: var(--oxblood);
+}
+.demo-a5 .a-tracker-dot--hold {
+  background: var(--cobalt);
+}
+
+
+/* ── Buttons and fields ────────────────────────────────────────────────── */
+
+.demo-a5 .a-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--porcelain);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 14.5px;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+.demo-a5 .a-btn:hover {
+  background: var(--porcelain-2);
+}
+.demo-a5 .a-btn:active {
+  transform: translateY(1px);
+}
+.demo-a5 .a-btn--primary {
+  background: var(--slate-deep);
+  border-color: var(--slate-deep);
+  color: var(--on-slate);
+  box-shadow: var(--lift-sm);
+}
+.demo-a5 .a-btn--primary:hover {
+  background: var(--ink);
+}
+.demo-a5 .a-btn--wide {
+  width: 100%;
+}
+.demo-a5 .a-hero .a-btn--primary {
+  min-height: 46px;
+  padding: 12px 20px;
+  font-size: 15.5px;
+}
+
+.demo-a5 .a-iconbtn {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 9px;
+  background: var(--porcelain-2);
+  color: var(--ink);
+}
+.demo-a5 .a-iconbtn:hover {
+  background: var(--porcelain-3);
+}
+.demo-a5 .a-iconbtn[aria-pressed='true'] {
+  background: var(--slate-deep);
+  color: var(--on-slate);
+}
+
+.demo-a5 .a-field {
+  display: grid;
+  gap: 6px;
+  border: 0;
+  margin: 0 0 14px;
+  min-width: 0;
+}
+.demo-a5 .a-field legend,
+.demo-a5 .a-field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+.demo-a5 select,
+.demo-a5 textarea,
+.demo-a5 input[type='text'] {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid #b4bfca;
+  border-radius: 9px;
+  background: #ffffff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 14.5px;
+}
+.demo-a5 textarea {
+  resize: vertical;
+  min-height: 58px;
+}
+.demo-a5 select:focus-visible,
+.demo-a5 textarea:focus-visible {
+  outline: 2px solid var(--cobalt-ink);
+  outline-offset: 1px;
+  border-color: var(--cobalt-ink);
+}
+.demo-a5 textarea[aria-invalid='true'] {
+  border-color: var(--oxblood-ink);
+}
+
+/* Outcome words: glaze-tinted chips with the glaze's own dark ink. */
+.demo-a5 .a-word {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 650;
+  white-space: nowrap;
+  background: var(--porcelain-2);
+  color: var(--ink-2);
+}
+.demo-a5 .a-word--accept {
+  background: #dcebe5;
+  color: var(--celadon-ink);
+}
+.demo-a5 .a-word--refine {
+  background: #f1e5d1;
+  color: var(--ochre-ink);
+}
+.demo-a5 .a-word--reject {
+  background: #f1dcda;
+  color: var(--oxblood-ink);
+}
+.demo-a5 .a-word--hold {
+  background: #dce4f2;
+  color: var(--cobalt-ink);
+}
+
+.demo-a5 .a-ico {
+  flex: none;
+}
+.demo-a5 .a-ico--accept {
+  fill: var(--celadon);
+}
+.demo-a5 .a-ico--refine {
+  stroke: var(--ochre);
+}
+.demo-a5 .a-ico--reject {
+  fill: var(--oxblood);
+}
+.demo-a5 .a-ico--hold {
+  fill: var(--cobalt);
+}
+.demo-a5 .a-ico--pending {
+  fill: #ffffff;
+  stroke: #8d99a6;
+  stroke-width: 1.2;
+}
+
+.demo-a5 .a-muted {
+  color: var(--ink-3);
+  font-size: 12.5px;
+}
+
+
+@keyframes a5-rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Ledger rows (inside the ledger panel) ─────────────────────────────── */
+
+.demo-a5 .a-ledger-rows li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1px 8px;
+  padding: 7px 0;
+  border-top: 1px solid var(--porcelain-3);
+}
+.demo-a5 .a-ledger-rows li:first-child {
+  border-top: 0;
+}
+.demo-a5 .a-ledger-who {
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--ink);
+}
+.demo-a5 .a-ledger-what {
+  font-size: 12px;
+  color: var(--ink-3);
+  align-self: center;
+}
+.demo-a5 .a-ledger-why {
+  grid-column: 1 / -1;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.demo-a5 .a-panel .a-ledger-why {
+  -webkit-line-clamp: unset;
+  display: block;
+}
+
+/* ── Panel ─────────────────────────────────────────────────────────────── */
+
+.demo-a5 .a-panel {
+  position: absolute;
+  top: 84px;
+  right: 24px;
+  bottom: 24px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  background: var(--porcelain);
+  box-shadow: var(--lift);
+  animation: a5-rise 260ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.demo-a5 .a-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 16px 12px 18px;
+  border-bottom: 1px solid var(--porcelain-3);
+}
+.demo-a5 .a-panel-head h2 {
+  font-family: var(--display);
+  font-stretch: 108%;
+  font-weight: 660;
+  font-size: 20px;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  border-radius: 4px;
+}
+.demo-a5 .a-panel-head h2:focus {
+  outline: none;
+}
+.demo-a5 .a-panel-head p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--ink-3);
+}
+.demo-a5 .a-panel-body {
+  flex: 1;
+  overflow: auto;
+  padding: 14px 18px 18px;
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.demo-a5 .a-sub {
+  margin-top: 6px;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--ink-3);
+}
+.demo-a5 .a-empty {
+  font-size: 13.5px;
+  color: var(--ink-3);
+}
+.demo-a5 .a-now {
+  display: grid;
+  gap: 2px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.demo-a5 .a-presets {
+  display: grid;
+  gap: 8px;
+}
+.demo-a5 .a-preset {
+  position: relative;
+  display: grid;
+  gap: 3px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #ffffff;
+  cursor: pointer;
+}
+.demo-a5 .a-preset input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.demo-a5 .a-preset:has(input:focus-visible) {
+  outline: 2px solid var(--cobalt-ink);
+  outline-offset: 2px;
+}
+.demo-a5 .a-preset.is-on {
+  border-color: var(--slate-deep);
+  box-shadow: inset 0 0 0 1px var(--slate-deep);
+}
+.demo-a5 .a-preset-name {
+  font-weight: 650;
+  color: var(--ink);
+}
+.demo-a5 .a-preset-meta {
+  font-size: 12.5px;
+  color: var(--ink-3);
+}
+.demo-a5 .a-preset .a-word {
+  justify-self: start;
+  margin-top: 3px;
+}
+
+.demo-a5 .a-hold {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+}
+.demo-a5 .a-hold h3 {
+  font-size: 15px;
+  font-weight: 650;
+  color: var(--ink);
+}
+.demo-a5 .a-hold-why {
+  font-size: 13.5px;
+}
+.demo-a5 .a-hold .a-field {
+  margin: 0;
+}
+.demo-a5 .a-hold-actions {
+  display: flex;
+  gap: 8px;
+}
+.demo-a5 .a-hold-actions .a-btn {
+  flex: 1;
+}
+.demo-a5 .a-err {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--oxblood-ink);
+}
+.demo-a5 .a-facts {
+  display: grid;
+  gap: 4px;
+  font-size: 12.5px;
+}
+.demo-a5 .a-facts div {
+  display: grid;
+  grid-template-columns: 112px 1fr;
+  gap: 8px;
+}
+.demo-a5 .a-facts dt {
+  color: var(--ink-3);
+}
+.demo-a5 .a-facts dd {
+  color: var(--ink);
+}
+.demo-a5 .a-decided {
+  display: grid;
+  gap: 10px;
+}
+.demo-a5 .a-decided li {
+  display: grid;
+  gap: 3px;
+  font-size: 13px;
+}
+.demo-a5 .a-decided .a-word {
+  justify-self: start;
+}
+
+.demo-a5 .a-index ul {
+  display: grid;
+  gap: 4px;
+  margin-top: 6px;
+}
+.demo-a5 .a-index button {
+  display: grid;
+  width: 100%;
+  gap: 1px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.demo-a5 .a-index button:hover {
+  background: var(--porcelain-2);
+}
+
+.demo-a5 .a-reqs {
+  display: grid;
+  gap: 6px;
+}
+.demo-a5 .a-req > button {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 4px 8px;
+  width: 100%;
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #ffffff;
+  text-align: left;
+  font-size: 13.5px;
+}
+.demo-a5 .a-req > button .a-word {
+  grid-column: 2 / -1;
+  justify-self: start;
+}
+.demo-a5 .a-req-item {
+  font-weight: 600;
+  color: var(--ink);
+}
+.demo-a5 .a-req-why {
+  display: grid;
+  gap: 6px;
+  padding: 8px 4px 2px 10px;
+  font-size: 13.5px;
+}
+.demo-a5 .a-verdicts {
+  display: grid;
+  gap: 5px;
+}
+.demo-a5 .a-verdicts li {
+  display: grid;
+  gap: 1px;
+  padding-left: 16px;
+  position: relative;
+  font-size: 12.5px;
+  color: var(--ink);
+}
+.demo-a5 .a-verdicts li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 5px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--celadon);
+}
+.demo-a5 .a-verdicts li.is-fail::before {
+  background: var(--oxblood);
+  border-radius: 2px;
+}
+
+.demo-a5 .a-status {
+  justify-self: start;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: #dcebe5;
+  color: var(--celadon-ink);
+  font-weight: 650;
+  font-size: 13px;
+}
+.demo-a5 .a-status.is-frozen {
+  background: var(--ice);
+  color: var(--cobalt-ink);
+}
+.demo-a5 .a-money {
+  display: grid;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid var(--line);
+}
+.demo-a5 .a-money div {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+}
+.demo-a5 .a-money dt {
+  color: var(--ink-3);
+}
+.demo-a5 .a-money dd {
+  color: var(--ink);
+  font-weight: 600;
+}
+.demo-a5 .a-money .a-money-total {
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px solid var(--porcelain-3);
+  font-size: 15px;
+}
+.demo-a5 .a-money .a-money-total dt {
+  color: var(--ink);
+  font-weight: 650;
+}
+.demo-a5 .a-events {
+  display: grid;
+  gap: 8px;
+}
+.demo-a5 .a-events li {
+  display: grid;
+  gap: 2px;
+  font-size: 13px;
+}
+
+
+/* ── In-scene chips (drei Html) ────────────────────────────────────────── */
+
+.demo-a5 .a-html {
+  pointer-events: none;
+}
+.demo-a5 .a-html--live,
+.demo-a5 .a-html--live * {
+  pointer-events: auto;
+}
+.demo-a5 .a-chip {
+  display: grid;
+  justify-items: center;
+  gap: 0;
+  translate: -50% -100%;
+  transform-origin: 50% 100%;
+  padding: 4px 9px 5px;
+  border-radius: 9px;
+  background: var(--porcelain);
+  color: var(--ink);
+  box-shadow: var(--lift-sm);
+  white-space: nowrap;
+  text-align: center;
+  transition: opacity 220ms ease, scale 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.demo-a5 .a-chip.is-hidden {
+  opacity: 0;
+  scale: 0.92;
+  visibility: hidden;
+  transition: opacity 260ms ease, scale 260ms ease, visibility 0s linear 260ms;
+}
+.demo-a5 .a-chip-title {
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.25;
+}
+.demo-a5 .a-chip-sub {
+  font-size: 11px;
+  line-height: 1.25;
+  color: var(--ink-3);
+}
+.demo-a5 .a-chip--dark {
+  background: var(--slate-deep);
+  color: var(--on-slate);
+}
+.demo-a5 .a-chip--dark .a-chip-sub {
+  color: var(--on-slate-2);
+}
+.demo-a5 .a-chip.is-on {
+  outline: 2px solid var(--slate-deep);
+  outline-offset: 1px;
+}
+.demo-a5 .a-chip--dark.is-on {
+  outline-color: var(--porcelain);
+}
+.demo-a5 .a-chip-task {
+  display: block;
+  width: max-content;
+  max-width: 190px;
+  margin-top: 2px;
+  font-size: 11.5px;
+  line-height: 1.3;
+  color: var(--ink-2);
+  white-space: normal;
+}
+
+/* The two grants: money large, id small, status only when it isn't plainly active. */
+.demo-a5 .a-gauge {
+  display: grid;
+  justify-items: start;
+  width: max-content;
+  padding: 6px 11px 7px;
+  border-radius: 10px;
+  background: var(--porcelain);
+  color: var(--ink);
+  box-shadow: var(--lift-sm);
+  translate: -50% -100%;
+  transition: background-color 500ms ease;
+}
+.demo-a5 .a-gauge[data-side='l'] {
+  translate: -72% -100%;
+}
+.demo-a5 .a-gauge[data-side='r'] {
+  translate: -28% -100%;
+}
+.demo-a5 .a-gauge.is-on {
+  outline: 2px solid var(--slate-deep);
+  outline-offset: 1px;
+}
+.demo-a5 .a-gauge-id {
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  color: var(--ink-3);
+}
+.demo-a5 .a-gauge-money {
+  font-family: var(--display);
+  font-stretch: 104%;
+  font-weight: 680;
+  font-size: 22px;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.demo-a5 .a-gauge-sub {
+  font-size: 11px;
+  color: var(--ink-3);
+}
+.demo-a5 .a-gauge-state {
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--cobalt-ink);
+}
+.demo-a5 .a-gauge.is-frozen {
+  background: var(--ice);
+}
+
+/* A failed rule, said once near the purchasing agent. */
+.demo-a5 .a-fail {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: max-content;
+  translate: -100% -50%;
+  padding: 5px 10px 6px 8px;
+  border-radius: 8px;
+  background: var(--porcelain);
+  color: var(--oxblood-ink);
+  font-size: 12.5px;
+  font-weight: 650;
+  box-shadow: var(--lift-sm);
+  transition: opacity 220ms ease, translate 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.demo-a5 .a-fail.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  translate: calc(-100% + 8px) -50%;
+  transition: opacity 320ms ease, translate 320ms ease, visibility 0s linear 320ms;
+}
+
+/* The spending rules, on hover or focus of the purchasing agent. */
+.demo-a5 .a-rules {
+  width: 272px;
+  translate: -100% -55%;
+  padding: 10px 12px 11px;
+  border-radius: 12px;
+  background: var(--porcelain);
+  box-shadow: var(--lift);
+  transition: opacity 200ms ease;
+}
+.demo-a5 .a-rules.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 220ms ease, visibility 0s linear 220ms;
+}
+.demo-a5 .a-rules-head {
+  margin-bottom: 7px;
+  font-family: var(--display);
+  font-stretch: 108%;
+  font-weight: 680;
+  font-size: 13px;
+}
+.demo-a5 .a-rules ol {
+  display: grid;
+  gap: 4px;
+}
+.demo-a5 .a-rules li {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 12px;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.demo-a5 .a-rules li.is-wait {
+  color: var(--ink-2);
+}
+.demo-a5 .a-rules-mark {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1.5px solid #9aa6b3;
+}
+.demo-a5 .a-rules li.is-pass .a-rules-mark {
+  border: 0;
+  background: #dcebe5;
+  color: var(--celadon-ink);
+}
+.demo-a5 .a-rules li.is-fail .a-rules-mark {
+  border: 0;
+  background: #f1dcda;
+  color: var(--oxblood-ink);
+}
+
+/* The researcher's stack, opened in the scene. */
+.demo-a5 .a-stack.is-hidden {
+  display: none;
+}
+.demo-a5 .a-stack {
+  width: 260px;
+  transform: translate(10px, -50%);
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--porcelain);
+  box-shadow: var(--lift);
+}
+.demo-a5 .a-stack-head {
+  margin: 0 4px 6px;
+  font-family: var(--display);
+  font-stretch: 108%;
+  font-weight: 680;
+  font-size: 13px;
+}
+.demo-a5 .a-stack ul {
+  display: grid;
+  gap: 4px;
+}
+.demo-a5 .a-stack button {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 2px 8px;
+  width: 100%;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: #ffffff;
+  text-align: left;
+  font-size: 12.5px;
+}
+.demo-a5 .a-stack button:hover {
+  background: var(--porcelain-2);
+}
+.demo-a5 .a-stack button .a-word {
+  grid-column: 2;
+  justify-self: start;
+  font-size: 11.5px;
+}
+.demo-a5 .a-stack-item {
+  font-weight: 600;
+  color: var(--ink);
+}
+.demo-a5 .a-stack-why {
+  padding: 6px 8px 4px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+
+/* ── Narrower desktops: lift the caption over the gallery strip ────────── */
+
+@media (max-width: 1359px) {
+  .demo-a5 .a-caption {
+    bottom: 84px;
+    width: 400px;
+  }
+}
+@media (max-width: 1239px) {
+  .demo-a5 .a-top {
+    width: min(540px, 50vw);
+  }
+}
+
+/* ── Phone: the scene fills the screen; brand, headline, a caption ─────── */
+
+@media (max-width: 720px) {
+  .demo-a5 .a-top {
+    top: 14px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+  .demo-a5 .a-brand {
+    font-size: 17px;
+  }
+  .demo-a5 .a-hero {
+    margin-top: 14px;
+  }
+  .demo-a5 .a-hero h1 {
+    font-size: 25px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+  }
+  .demo-a5 .a-hero p {
+    margin-top: 8px;
+    font-size: 13.5px;
+    line-height: 1.4;
+  }
+  .demo-a5 .a-hero .a-btn--primary {
+    margin-top: 12px;
+    min-height: 40px;
+    padding: 8px 15px;
+    font-size: 14.5px;
+  }
+  .demo-a5 .a-tr {
+    top: 9px;
+    right: 10px;
+  }
+  .demo-a5 .a-ctl {
+    padding: 3px;
+    background: transparent;
+    box-shadow: none;
+  }
+  .demo-a5 .a-ctl .a-date,
+  .demo-a5 .a-ctl > [aria-label='Replay the story from the start'] {
+    display: none;
+  }
+  .demo-a5 .a-ctl .a-iconbtn {
+    background: var(--porcelain);
+    box-shadow: var(--lift-sm);
+  }
+  .demo-a5 .a-narrow-only {
+    display: flex;
+  }
+  .demo-a5 .a-waiting {
+    position: fixed;
+    left: 16px;
+    bottom: 182px;
+  }
+  .demo-a5 .a-pill {
+    height: 38px;
+    font-size: 13.5px;
+  }
+  .demo-a5 .a-caption {
+    left: 16px;
+    right: 16px;
+    bottom: 76px;
+    width: auto;
+  }
+  .demo-a5 .a-caption .a-date {
+    display: block;
+    margin: 0 0 4px;
+    font-size: 12.5px;
+  }
+  .demo-a5 .a-caption h2 {
+    font-size: 16px;
+  }
+  .demo-a5 .a-caption p {
+    margin-top: 2px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .demo-a5 .a-progress {
+    margin-top: 10px;
+  }
+  .demo-a5 .a-tracker {
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  .demo-a5 .a-panel {
+    top: auto;
+    left: 8px;
+    right: 8px;
+    bottom: 76px;
+    width: auto;
+    max-height: 52vh;
+  }
+  .demo-a5 .a-chip--source {
+    display: none;
+  }
+  .demo-a5 .a-chip-sub {
+    display: none;
+  }
+  .demo-a5 .a-chip-title {
+    font-size: 11px;
+  }
+  .demo-a5 .a-gauge {
+    padding: 4px 8px 5px;
+  }
+  /* The tall camera lines the reservoirs up; R21's gauge steps up clear of R01's. */
+  .demo-a5 .a-gauge[data-side='r'] {
+    translate: -28% calc(-100% - 36px);
+  }
+  .demo-a5 .a-gauge-id,
+  .demo-a5 .a-gauge-state {
+    font-size: 10.5px;
+  }
+  .demo-a5 .a-gauge-money {
+    font-size: 15px;
+  }
+  .demo-a5 .a-fail {
+    font-size: 11.5px;
+  }
+  .demo-a5 .a-rules {
+    width: 224px;
+    padding: 8px 9px;
+  }
+  .demo-a5 .a-rules li {
+    font-size: 11px;
+  }
+  .demo-a5 .a-stack {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-a5 .a-caption-body,
+  .demo-a5 .a-panel,
+  .demo-a5 .a-menu,
+  .demo-a5 .a-pill,
+  .demo-a5 .a-pill-dot {
+    animation: none;
+  }
+  .demo-a5 .a-chip,
+  .demo-a5 .a-fail,
+  .demo-a5 .a-gauge,
+  .demo-a5 .a-rules {
+    transition: none;
+  }
+}

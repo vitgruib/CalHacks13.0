@@ -30,7 +30,8 @@ export interface Verdict {
 }
 
 export interface Grant {
-  id: string
+  id: string // the award number; never shown on screen
+  name: string // hero-only: the plain name every scene shows instead of the award number
   title: string
   pi: string
   agency: string
@@ -56,6 +57,7 @@ export interface Request {
   day: Day
   researcherId: string // hero-only: which lab member sent it (the backend stores the person role)
   item: string
+  kind: ItemKind // hero-only: what the thing physically is, so a scene can show it (see items.ts)
   category: string
   price: Money
   grantId: string
@@ -125,6 +127,22 @@ export interface FinanceAgent {
   job: string
 }
 
+/** What a requested thing physically is. `kindOf` in items.ts picks one from the item text. */
+export type ItemKind =
+  | 'gloves'
+  | 'plates'
+  | 'tips'
+  | 'bottle'
+  | 'kit'
+  | 'dishes'
+  | 'pump'
+  | 'rotor'
+  | 'espresso'
+  | 'service'
+  | 'food'
+  | 'chair'
+  | 'carton'
+
 /** Every place a packet can travel between. Scenes map ids to positions. */
 export type NodeKind = 'researcher' | 'agent' | 'person' | 'source' | 'grant' | 'vendor'
 export interface FlowNode {
@@ -149,6 +167,14 @@ export type PacketKind =
   | 'invoice' // vendors → bookkeeping agent
   | 'payment_request' // payment & report agent → funder
   | 'follow_up' // funder → payment & report agent
+
+/** A line in the finance network: every packet route, plus who watches or spends from each grant. */
+export interface Edge {
+  from: string // FlowNode id
+  to: string // FlowNode id
+  kinds: PacketKind[] // packets that travel it (either way); empty for a standing relationship
+  what: string // a few words for a hover card, e.g. "Requests and answers"
+}
 
 export interface Packet {
   id: string

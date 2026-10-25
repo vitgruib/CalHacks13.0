@@ -7,6 +7,8 @@
 // - feed.getWorld()       read inside useFrame without re-rendering
 // - progress(packet)      0..1 along its route, in feed time (pauses and speeds up with the feed)
 // - feed.submit / preview / pushback / decide / inject / play / pause / setSpeed
+// - feed.storyProgress()  0..1 through the scripted story (restarts with it)
+// - EDGES                 the finance network's lines; ITEM_LOOKS / kindOf what a requested thing looks like
 
 import { useEffect, useRef, useSyncExternalStore } from 'react'
 import { Feed } from './engine'
@@ -27,5 +29,6 @@ export function useFlow(fn: (e: FlowEvent) => void) {
 export const progress = (p: Packet, now = feed.now()) => Math.min(1, Math.max(0, (now - p.sentAt) / p.ms))
 
 export { PACE, usd } from './engine'
-export { PRESETS, R01, R21 } from './world'
+export { EDGES, PRESETS, R01, R21 } from './world'
+export { ITEM_LOOKS, kindOf } from './items'
 export * from './types'

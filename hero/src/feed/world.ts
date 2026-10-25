@@ -2,7 +2,7 @@
 // sim/seed.json (Track C's fake university data); the lab members are
 // invented for the hero and are demo data, like everything else here.
 
-import type { FinanceAgent, FlowNode, Grant, Preset, Researcher, RequestInput } from './types'
+import type { Edge, FinanceAgent, FlowNode, Grant, Preset, Researcher, RequestInput } from './types'
 
 export const R01 = 'R01GM061721'
 export const R21 = 'R21AI182745'
@@ -11,6 +11,7 @@ export const R21 = 'R21AI182745'
 export const startGrants = (): Grant[] => [
   {
     id: R01,
+    name: 'Mitochondria grant',
     title: 'Biogenesis of the mitochondrial inner membrane',
     pi: 'Dr. Lena Ortiz',
     agency: 'NIH / NIGMS',
@@ -26,6 +27,7 @@ export const startGrants = (): Grant[] => [
   },
   {
     id: R21,
+    name: 'Antibiotic grant',
     title: 'Investigating ploidy modulation as a strategy to improve antibiotic activity',
     pi: 'Dr. Lena Ortiz',
     agency: 'NIH / NIAID',
@@ -48,7 +50,7 @@ export const startResearchers = (): Researcher[] => [
     role: 'PI',
     station: 'PI office and whiteboard',
     grantIds: [R01, R21],
-    tasks: ['Drafting the R01 progress report', 'Reviewing gel images with Sam', 'Sketching aim 3 on the whiteboard', 'Reading reviewer comments'],
+    tasks: ['Drafting the mitochondria progress report', 'Reviewing gel images with Sam', 'Sketching aim 3 on the whiteboard', 'Reading reviewer comments'],
     task: 'Sketching aim 3 on the whiteboard',
   },
   {
@@ -116,8 +118,8 @@ export const NODES: FlowNode[] = [
   { id: 'a:bookkeeping', kind: 'agent', side: 'finance', label: 'Bookkeeping agent', sub: 'Fund tracker and invoices' },
   { id: 'a:payment_report', kind: 'agent', side: 'finance', label: 'Payment & report agent', sub: 'Payment requests and papers' },
   { id: 'p:grant_manager', kind: 'person', side: 'finance', label: 'Grant manager', sub: 'The only human who approves' },
-  { id: `g:${R01}`, kind: 'grant', side: 'finance', label: R01, sub: 'Protein folding (NIH / NIGMS)' },
-  { id: `g:${R21}`, kind: 'grant', side: 'finance', label: R21, sub: 'Susceptibility assay (NIH / NIAID)' },
+  { id: `g:${R01}`, kind: 'grant', side: 'finance', label: 'Mitochondria grant', sub: 'NIH / NIGMS' },
+  { id: `g:${R21}`, kind: 'grant', side: 'finance', label: 'Antibiotic grant', sub: 'NIH / NIAID' },
   { id: 's:reporter', kind: 'source', side: 'outside', label: 'NIH RePORTER' },
   { id: 's:usaspending', kind: 'source', side: 'outside', label: 'USAspending' },
   { id: 's:cancellations', kind: 'source', side: 'outside', label: 'Cancellation list', sub: 'Apify scraper' },
@@ -125,6 +127,28 @@ export const NODES: FlowNode[] = [
   { id: 's:payments', kind: 'source', side: 'outside', label: 'Payment system' },
   { id: 'p:funder', kind: 'person', side: 'outside', label: 'NIH funder', sub: 'Asks follow-up questions' },
   { id: 'v:vendors', kind: 'vendor', side: 'outside', label: 'Vendors', sub: 'Orders and invoices' },
+]
+
+const LAB = startResearchers().map(r => `r:${r.id}`)
+const AGENT_IDS = ['a:purchasing', 'a:bookkeeping', 'a:payment_report']
+const GRANT_IDS = [`g:${R01}`, `g:${R21}`]
+
+/** The finance network's lines: every route a packet takes in engine.ts, plus who watches or spends each grant. */
+export const EDGES: Edge[] = [
+  ...LAB.map(id => ({ from: id, to: 'a:purchasing', kinds: ['request', 'pushback', 'verdict'], what: 'Requests and answers' }) satisfies Edge),
+  ...LAB.map(id => ({ from: id, to: 'a:payment_report', kinds: ['paper'], what: 'Papers for the progress report' }) satisfies Edge),
+  { from: 'a:purchasing', to: 'a:bookkeeping', kinds: ['recheck'], what: 'Check again before money moves' },
+  ...AGENT_IDS.map(id => ({ from: id, to: 'p:grant_manager', kinds: ['hold', 'decision'], what: 'Asks the grant manager' }) satisfies Edge),
+  { from: 's:reporter', to: 'a:bookkeeping', kinds: ['reading'], what: 'Project status' },
+  { from: 's:usaspending', to: 'a:bookkeeping', kinds: ['reading'], what: 'Obligations and payments' },
+  { from: 's:cancellations', to: 'a:bookkeeping', kinds: ['reading'], what: 'Terminated grants' },
+  { from: 's:court', to: 'a:bookkeeping', kinds: ['reading'], what: 'Court orders' },
+  { from: 's:payments', to: 'a:bookkeeping', kinds: ['payment'], what: 'Money arriving' },
+  ...GRANT_IDS.map(id => ({ from: 'a:bookkeeping', to: id, kinds: [], what: 'Keeps its books and freeze' }) satisfies Edge),
+  ...GRANT_IDS.map(id => ({ from: 'a:purchasing', to: id, kinds: [], what: 'Spends from it under the rules' }) satisfies Edge),
+  ...GRANT_IDS.map(id => ({ from: id, to: 'v:vendors', kinds: ['charge'], what: 'Orders paid' }) satisfies Edge),
+  { from: 'v:vendors', to: 'a:bookkeeping', kinds: ['invoice'], what: 'Invoices to check' },
+  { from: 'a:payment_report', to: 'p:funder', kinds: ['payment_request', 'follow_up'], what: 'Payment requests and questions' },
 ]
 
 export const SOURCE_NODE: Record<string, string> = {
@@ -143,7 +167,7 @@ export const SEED_REQUESTS: Record<string, RequestInput & { id: string }> = {
   confocal: { id: 'rq-104', researcherId: 'silva', item: 'Confocal microscope service contract, 12 months', category: 'equipment service', price: 3600, grantId: R01, sharedWith: [R01, R21], purpose: 'Annual service of the shared confocal; imaging for both grants' },
   pump: { id: 'rq-105', researcherId: 'okafor', item: 'Peristaltic pump with controller', category: 'equipment', price: 6850, grantId: R01, purpose: 'Continuous-flow folding experiments, aim 3' },
   detergent: { id: 'rq-106', researcherId: 'okafor', item: 'Membrane protein detergent screening kit, 4 plates', category: 'reagents', price: 5000, grantId: R01, purpose: 'BamA detergent screen, round 2' },
-  proteomics: { id: 'rq-107', researcherId: 'ortiz', item: 'Proteomics core: 10 hours of mass spec', category: 'core facility services', price: 1800, grantId: R01, sharedWith: [R01, R21], split: [{ grantId: R01, share: 0.6 }, { grantId: R21, share: 0.4 }], purpose: 'Samples from both projects: 6 hours R01, 4 hours R21' },
+  proteomics: { id: 'rq-107', researcherId: 'ortiz', item: 'Proteomics core: 10 hours of mass spec', category: 'core facility services', price: 1800, grantId: R01, sharedWith: [R01, R21], split: [{ grantId: R01, share: 0.6 }, { grantId: R21, share: 0.4 }], purpose: 'Samples from both projects: 6 hours mitochondria, 4 hours antibiotic' },
 }
 
 /** Buttons a viewer can press to send their own request through the real rules. */

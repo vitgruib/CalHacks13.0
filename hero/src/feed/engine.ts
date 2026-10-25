@@ -35,6 +35,7 @@ import type {
   Verdict,
   World,
 } from './types'
+import { kindOf } from './items'
 import { AGENTS, CANCELED_ORDER_INVOICE, NODES, PAPERS, ROUTINE, SEED_REQUESTS as SEED, SOURCE_NODE, startGrants, startResearchers } from './world'
 
 /** Feed-time durations at 1x speed (ms). Scenes can read these to size their animations. */
@@ -134,6 +135,7 @@ export class Feed {
       day: this.w.today,
       researcherId: input.researcherId,
       item: input.item,
+      kind: kindOf(input.item, input.category),
       category: input.category,
       price: input.price,
       grantId: input.grantId,
@@ -173,6 +175,7 @@ export class Feed {
     const hold = this.w.holds.find(h => h.id === holdId)
     if (!hold || !hold.open) return 'That item is no longer waiting for a decision.'
     if (!reason.trim()) return 'Give a reason. Every decision goes in the log with one.'
+    reason = this.plain(reason)
     const closed: Hold = { ...hold, open: false, decision: { choice, reason: reason.trim(), by, day: this.w.today } }
     this.patch({ holds: this.w.holds.map(h => (h.id === holdId ? closed : h)) })
     this.emit({ type: 'hold', hold: closed })
@@ -202,6 +205,7 @@ export class Feed {
   private story() {
     const R01 = 'R01GM061721'
     const R21 = 'R21AI182745'
+    // Captions name grants plainly; award numbers never reach the screen.
     const steps: [number, () => void][] = [
       [400, () => this.beat('A normal week in the Ortiz Lab', 'Five researchers, two NIH grants, three AI agents keeping the books. Every request runs through the same spending rules the database enforces.')],
       [1200, () => this.dailyReading()],
@@ -209,7 +213,7 @@ export class Feed {
       [3200, () => this.submit(ROUTINE[2])],
       [13000, () => {
         this.setToday('2026-03-10')
-        this.beat('The grant is canceled', `${R01} shows up on the terminated-grants list. The bookkeeping agent freezes its spending the moment it reads it.`)
+        this.beat('The grant is canceled', 'The mitochondria grant shows up on the terminated-grants list. The bookkeeping agent freezes its spending the moment it reads it.')
         this.statusEvent(R01, 'canceled', 'Cancellation list (Apify)', 'Grant appears on the terminated-grants list.')
       }],
       [5000, () => {
@@ -219,7 +223,7 @@ export class Feed {
       [6000, () => {
         this.setToday('2026-04-20')
         this.beat('A court restores it', 'A preliminary injunction restores the grant on paper. A court order isn’t cash, so spending stays frozen until money actually arrives.')
-        this.statusEvent(R01, 'court_order', 'Court notice', `Preliminary injunction restores the terminated grants in this class, including ${R01}. No payment schedule is set.`)
+        this.statusEvent(R01, 'court_order', 'Court notice', 'Preliminary injunction restores the terminated grants in this class, including the mitochondria grant. No payment schedule is set.')
       }],
       [8000, () => {
         this.setToday('2026-06-15')
@@ -232,11 +236,11 @@ export class Feed {
       }],
       [10500, () => {
         this.setToday('2026-06-17')
-        this.beat('The money lands', `NIH pays $18,600 against ${R01}. The freeze lifts, the agent checks the sources once more, and the gloves go through on their own.`)
+        this.beat('The money lands', `NIH pays $18,600 into the mitochondria grant. The freeze lifts, the agent checks the sources once more, and the gloves go through on their own.`)
         this.statusEvent(R01, 'payment_received', 'Payment system', 'Payment of $18,600 received.', 18600)
       }],
       [12500, () => {
-        this.beat('Rerouted to a grant with time left', `Priya’s agar plates are supplies on a grant that ends in ${daysBetween(this.w.today, this.grantMap().get(R21)?.end ?? this.w.today)} days. Auditors disallowed exactly that at WVU and Delaware, so the agent charges ${R01} instead.`)
+        this.beat('Rerouted to a grant with time left', `Priya’s agar plates are supplies on a grant that ends in ${daysBetween(this.w.today, this.grantMap().get(R21)?.end ?? this.w.today)} days. Auditors disallowed exactly that at WVU and Delaware, so the agent charges the mitochondria grant instead.`)
         this.submit(SEED.agar, { id: SEED.agar.id })
       }],
       [10500, () => {
@@ -256,7 +260,7 @@ export class Feed {
         this.submit(SEED.pump, { id: SEED.pump.id })
       }],
       [21000, () => {
-        this.beat('A paper credits the wrong grant', `The payment & report agent checks every paper in the progress report. Priya’s paper is listed under ${R21}, but its acknowledgments name ${R01}.`)
+        this.beat('A paper credits the wrong grant', 'The payment & report agent checks every paper in the progress report. Priya’s paper is listed under the antibiotic grant, but its acknowledgments name the mitochondria grant.')
         this.sendPaper(PAPERS[0])
       }],
       [1600, () => this.sendPaper(PAPERS[2])],
@@ -265,7 +269,7 @@ export class Feed {
         this.sendInvoice()
       }],
       [11000, () => {
-        this.beat('Payment request, drafted and defended', `The payment & report agent drafts ${R01}’s payment request from exact purchases, leaves out anything on hold, and answers NIH’s follow-up with the receipts.`)
+        this.beat('Payment request, drafted and defended', `The payment & report agent drafts the mitochondria grant’s payment request from exact purchases, leaves out anything on hold, and answers NIH’s follow-up with the receipts.`)
         this.draftPaymentRequest(R01)
       }],
       [22000, () => {
@@ -316,7 +320,7 @@ export class Feed {
     if (!req) return
     const g = this.grant(req.grantId)
     const facts = { category: req.category, price: req.price, sharedWith: req.sharedWith, split: req.split }
-    const verdicts = spendingVerdicts(facts, g, this.w.today, this.grantMap())
+    const verdicts = spendingVerdicts(facts, g, this.w.today, this.grantMap()).map(v => ({ ...v, rule: this.plain(v.rule), detail: this.plain(v.detail) }))
     this.upsert({ ...req, verdicts, outcome: undefined, holdFor: undefined, explanation: 'Checking the spending rules.' })
     verdicts.forEach((v, i) =>
       this.after(PACE.rule * (i + 1), () => this.emit({ type: 'rule', requestId: id, index: i, total: verdicts.length, verdict: v })),
@@ -368,7 +372,7 @@ export class Feed {
       this.log('purchasing', 'raise_hold', text, id)
       const hold = this.raiseHold('purchase', id, req.grantId, 'purchasing', `${short(req.item)} (${usd(req.price)}) is over the card limit`, card.detail, [
         { label: 'Requested by', value: this.researcher(req.researcherId).name },
-        { label: 'Grant', value: req.grantId },
+        { label: 'Grant', value: g.name },
         { label: 'Truly available', value: usd(g.available) },
         { label: 'Rules', value: `${verdicts.length - failed.length} of ${verdicts.length} passed` },
       ])
@@ -391,7 +395,7 @@ export class Feed {
             category: req.category,
             price: req.price,
             grantId: req.grantId,
-            purpose: `${req.purpose} (split ${req.sharedWith.map(gid => `${Math.round(share * 100)}% ${gid}`).join(', ')})`,
+            purpose: `${req.purpose} (split evenly: ${req.sharedWith.map(gid => this.grant(gid).name.toLowerCase()).join(' and ')})`,
             sharedWith: req.sharedWith,
             split: req.sharedWith.map(gid => ({ grantId: gid, share })),
           },
@@ -444,7 +448,7 @@ export class Feed {
   private reply(id: string, state: Request['state'], outcome: Outcome, explanation: string, holdFor?: Request['holdFor'], chargedGrantId?: string) {
     const req = this.req(id)
     if (!req) return
-    explanation = explanation.charAt(0).toUpperCase() + explanation.slice(1)
+    explanation = this.plain(explanation.charAt(0).toUpperCase() + explanation.slice(1))
     const next: Request = { ...req, state, outcome, explanation, holdFor, chargedGrantId: chargedGrantId ?? req.chargedGrantId }
     this.upsert(next)
     const word = { accept: 'Bought', refine: chargedGrantId ? `Rerouted to ${chargedGrantId}` : 'Sent back: split it', reject: 'Blocked', hold: holdFor === 'grant_manager' ? 'Waiting on the grant manager' : 'Held until money lands' }[outcome]
@@ -458,7 +462,7 @@ export class Feed {
     const pk: PacketKind = kind === 'payment_received' ? 'payment' : 'reading'
     const label = kind === 'payment_received' ? `${usd(amount ?? 0)} arrives` : kind === 'canceled' ? `${grantId}: terminated` : kind === 'court_order' ? `${grantId}: restored by court` : `${grantId}: changed`
     this.send(pk, from, 'a:bookkeeping', label, PACE.source, { amount }, () => {
-      const ev: StatusEvent = { id: `se-${this.n.se++}`, grantId, day: this.w.today, kind, source, summary, amount }
+      const ev: StatusEvent = { id: `se-${this.n.se++}`, grantId, day: this.w.today, kind, source, summary: this.plain(summary), amount }
       this.patch({ statusEvents: [ev, ...this.w.statusEvents].slice(0, 30) })
       const before = this.grant(grantId)
       if (kind === 'payment_received' && amount) this.bump(grantId, { received: amount })
@@ -484,7 +488,7 @@ export class Feed {
     const g = this.grant(grantId)
     const events = this.w.statusEvents.filter(e => e.grantId === grantId).slice().reverse()
     const f = freezeState(g.status === 'ended' ? 'ended' : 'active', events, false)
-    this.setGrant({ ...g, status: f.status as Grant['status'], frozen: f.frozen, frozenReason: f.frozenReason })
+    this.setGrant({ ...g, status: f.status as Grant['status'], frozen: f.frozen, frozenReason: f.frozenReason && this.plain(f.frozenReason) })
   }
 
   private dailyReading() {
@@ -516,11 +520,12 @@ export class Feed {
     this.send('paper', `r:${p.researcherId}`, 'a:payment_report', short(p.title), PACE.travel, { refId: p.id }, () => {
       const c = checkPaper(p)
       const result = c.result as 'ok' | 'note' | 'held'
-      this.emit({ type: 'paper', researcherId: p.researcherId, paperId: p.id, title: p.title, result, checks: c.checks })
-      const failed = c.checks.find(x => !x.pass)
+      const checks = c.checks.map(x => ({ ...x, detail: this.plain(x.detail) }))
+      this.emit({ type: 'paper', researcherId: p.researcherId, paperId: p.id, title: p.title, result, checks })
+      const failed = checks.find(x => !x.pass)
       this.log('payment_report', `check_paper: ${result}`, failed?.detail ?? 'Credits the right grant and has a PMCID.', p.id)
       if (result === 'held') {
-        const hold = this.raiseHold('report', p.id, p.grantId, 'payment_report', `Paper credits the wrong grant: ${short(p.title)}`, failed?.detail ?? '', c.checks.map(x => ({ label: x.check, value: x.detail })))
+        const hold = this.raiseHold('report', p.id, p.grantId, 'payment_report', `Paper credits the wrong grant: ${short(p.title)}`, failed?.detail ?? '', checks.map(x => ({ label: x.check, value: x.detail })))
         this.after(PACE.autoDecide, () => {
           if (this.w.holds.find(h => h.id === hold.id)?.open) this.decide(hold.id, 'approve', `Moved the paper to the ${p.creditsGrantId} report, where its acknowledgments point.`, 'grant_manager')
         })
@@ -533,16 +538,16 @@ export class Feed {
     const heldOut = this.w.requests.filter(r => r.grantId === grantId && (r.state === 'waiting_on_manager' || r.state === 'submitted'))
     const amount = included.reduce((s, r) => s + r.price, 0)
     const id = 'pr-016'
-    const hold = this.raiseHold('payment_request', id, grantId, 'payment_report', `Payment request ${id}: ${usd(amount)} for ${grantId}`, `Drafted from ${included.length} exact purchase records. ${heldOut.length ? `Left out ${heldOut.length} item(s) still on hold.` : 'Nothing on hold was included.'}`, included.slice(0, 5).map(r => ({ label: r.id, value: `${short(r.item)} · ${usd(r.price)}` })))
-    this.log('payment_report', 'draft_payment_request', `Drafted ${id} for ${usd(amount)} from ${included.length} purchases.`, id)
+    const hold = this.raiseHold('payment_request', id, grantId, 'payment_report', `Payment request: ${usd(amount)} for ${grantId}`, `Drafted from ${included.length} exact purchase records. ${heldOut.length ? `Left out ${heldOut.length} item(s) still on hold.` : 'Nothing on hold was included.'}`, included.slice(0, 5).map(r => ({ label: short(r.item), value: `${usd(r.price)} · ${r.day}` })))
+    this.log('payment_report', 'draft_payment_request', `Drafted a payment request for ${usd(amount)} from ${included.length} purchases.`, id)
     this.after(5000, () => {
       if (this.w.holds.find(h => h.id === hold.id)?.open) this.decide(hold.id, 'approve', 'Totals match the purchase records.', 'grant_manager')
       if (this.w.holds.find(h => h.id === hold.id)?.decision?.choice !== 'approve') return
       this.after(PACE.hop + 400, () =>
-        this.send('payment_request', 'a:payment_report', 'p:funder', `${id} · ${usd(amount)}`, PACE.source, { refId: id, amount }, () => {
+        this.send('payment_request', 'a:payment_report', 'p:funder', `Payment request · ${usd(amount)}`, PACE.source, { refId: id, amount }, () => {
           this.send('follow_up', 'p:funder', 'a:payment_report', 'What were the reagent costs?', PACE.source, { refId: id }, () => {
             const reagents = included.filter(r => r.category === 'reagents' || r.category === 'lab supplies')
-            const answer = reagents.map(r => `${r.id} ${short(r.item)} ${usd(r.price)} (${r.day})`).join('; ') || 'No reagent purchases in this period.'
+            const answer = reagents.map(r => `${short(r.item)} ${usd(r.price)} (${r.day})`).join('; ') || 'No reagent purchases in this period.'
             this.log('payment_report', 'answer_follow_up', answer, id)
             this.send('payment_request', 'a:payment_report', 'p:funder', 'Answer: exact purchases', PACE.source, { refId: id })
           })
@@ -554,6 +559,9 @@ export class Feed {
   // ── Holds, log, beats ──────────────────────────────────────────────────
 
   private raiseHold(kind: HoldKind, refId: string, grantId: string | undefined, raisedBy: AgentRole, title: string, why: string, evidence: Hold['evidence']): Hold {
+    title = this.plain(title)
+    why = this.plain(why)
+    evidence = evidence.map(e => ({ label: this.plain(e.label), value: this.plain(e.value) }))
     const hold: Hold = { id: `h-${this.n.hold++}`, kind, refId, grantId, raisedBy, day: this.w.today, title, why, evidence, options: ['approve', 'reject'], open: true }
     // It reaches the grant manager's Inbox when the packet lands.
     this.send('hold', `a:${raisedBy}`, 'p:grant_manager', title, PACE.hop, { refId }, () => {
@@ -564,13 +572,24 @@ export class Feed {
   }
 
   private log(actor: LogRow['actor'], action: string, reason: string, refId?: string, rule?: string) {
-    const row: LogRow = { id: `l-${this.n.log++}`, day: this.w.today, actor, action, reason, refId, rule }
+    const row: LogRow = { id: `l-${this.n.log++}`, day: this.w.today, actor, action, reason: this.plain(reason), refId, rule: rule && this.plain(rule) }
     this.patch({ log: [row, ...this.w.log].slice(0, 80) })
     this.emit({ type: 'log', row })
   }
 
+  /** Award numbers never reach the screen: each becomes "the <plain name>", capitalised where a sentence starts. */
+  private plain(text: string) {
+    for (const g of this.w.grants) {
+      const name = g.name.toLowerCase()
+      text = text.replace(new RegExp(`([.!?:]\\s+)?(?:the )?${g.id}`, 'g'), (_m, stop: string | undefined, at: number) =>
+        stop !== undefined || at === 0 ? `${stop ?? ''}The ${name}` : `the ${name}`,
+      )
+    }
+    return text
+  }
+
   private beat(title: string, caption: string) {
-    const beat: Beat = { id: title.toLowerCase().replace(/[^a-z0-9]+/g, '-'), title, caption }
+    const beat: Beat = { id: title.toLowerCase().replace(/[^a-z0-9]+/g, '-'), title, caption: this.plain(caption) }
     this.patch({ beat })
     this.emit({ type: 'beat', beat })
   }
@@ -600,7 +619,7 @@ export class Feed {
   }
 
   private send(kind: PacketKind, from: string, to: string, label: string, ms: number, extra: Partial<Packet> = {}, onArrive?: () => void) {
-    const packet: Packet = { id: `pk-${this.n.pk++}`, kind, from, to, label, ms, sentAt: this.t, ...extra }
+    const packet: Packet = { id: `pk-${this.n.pk++}`, kind, from, to, label: this.plain(label), ms, sentAt: this.t, ...extra }
     this.patch({ packets: [...this.w.packets, packet] })
     this.emit({ type: 'packet', packet })
     this.after(ms, () => {
