@@ -135,7 +135,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoices">
         <button type="button" data-tilt="tab" className={`iv-tab iv-tab-blue${view === 'submit' ? ' on' : ''}`} aria-pressed={view === 'submit'} onClick={() => { setForm({}); setView(v => (v === 'submit' ? null : 'submit')) }}>Invoice for unexpected expenses or Overhead</button>
-        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-teal${view === 'requests' ? ' on' : ''}`} aria-pressed={view === 'requests'} onClick={() => pick('requests')}>
+        <button type="button" data-tilt="tab" className={`iv-tab iv-tab-pink${view === 'requests' ? ' on' : ''}`} aria-pressed={view === 'requests'} onClick={() => pick('requests')}>
           Invoices for approved requests <span className="iv-count"><Count n={approvedReqs.length} /></span>
         </button>
         <button type="button" data-tilt="tab" className={`iv-tab iv-tab-orange${view === 'action' ? ' on' : ''}`} aria-pressed={view === 'action'} onClick={() => pick('action')}>
