@@ -278,8 +278,7 @@ export function EmbedHud({ root }: { root: RefObject<HTMLDivElement | null> }) {
           <span className="a-verb-mouse">Hover over</span>
           <span className="a-verb-touch">Tap</span> the <Way id="lab" label="Research lab: open the research portal">research lab</Way> or the{' '}
           <Way id="net" label="Grant manager network: open the grant manager portal">grant manager network</Way>
-          <span className="a-verb-mouse">, then click to enter</span>
-          <span className="a-verb-touch"> to enter</span>.
+          <span className="a-verb-mouse">, then click</span>.
         </p>
       </header>
       <RootSync root={root} phone={false} />
