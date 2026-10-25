@@ -58,7 +58,7 @@ const ASK: AgentCheck[] = [
   },
   {
     check: 'The price is near the list price',
-    checks: 'For lab supplies, reagents and equipment, the same check looks up the item\'s public list price: a saved price first, else Claude (Haiku) searches lab suppliers\' sites. Flagged when the asked price is more than twice the list price for the same quantity and at least $100 over it. No list price found (or none in time for the check\'s answer) means no price flag; a price found late is saved for the next request.',
+    checks: 'For lab supplies, reagents and equipment, the same check looks up the item\'s public list price: a saved price first, else Claude (Haiku) searches lab suppliers\' sites. Only a new price from the maker or a major lab supplier counts (never a reseller, used or refurbished listing), and code works out the price for the asked quantity from the listing\'s pack size. Flagged when the asked price is more than twice the list price for the same quantity and at least $100 over it. No list price found (or none in time for the check\'s answer) means no price flag; a price found late is saved for the next request.',
     fails: 'The researcher sees the vendor\'s list price. They can still send it, and then it comes to you like any request.',
   },
 ]

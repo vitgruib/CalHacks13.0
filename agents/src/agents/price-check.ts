@@ -42,9 +42,15 @@ export interface PriceEntry {
   found: boolean;
   vendor: string;
   product: string;
-  listPrice: number;
+  listPrice: number; // for the requested quantity
   sameQuantity: boolean;
   url: string;
+  // From T117 on: what the page sells and the counts listPrice was worked out
+  // from (packPrice × packs needed). Older saved entries don't have them.
+  packPrice?: number;
+  unit?: string;
+  perPack?: number;
+  requested?: number;
   checkedOn: string; // the real day it was looked up
   by: string; // the model that found it
 }
@@ -142,7 +148,48 @@ function searchedUrls(message: unknown): Set<string> {
   return urls;
 }
 
-const NOT_FOUND: PriceAnswer = { found: false, vendor: '', product: '', listPrice: 0, sameQuantity: false, url: '' };
+// Whose prices count as list prices: the makers and the big lab suppliers.
+// Resellers, used-equipment dealers and marketplaces often don't say a unit
+// is refurbished, so a price from anyone else is never compared (T117).
+export const LIST_PRICE_SITES = [
+  'fishersci.com', 'thermofisher.com', 'sigmaaldrich.com', 'emdmillipore.com', 'vwr.com', 'avantorsciences.com',
+  'bio-rad.com', 'neb.com', 'corning.com', 'eppendorf.com', 'qiagen.com', 'agilent.com', 'promega.com',
+  'idtdna.com', 'coleparmer.com', 'grainger.com', 'mcmaster.com', 'stemcell.com', 'gilson.com', 'mt.com',
+];
+function fromListPriceSite(url: string): boolean {
+  let host: string;
+  try {
+    host = new URL(url).hostname.toLowerCase();
+  } catch {
+    return false;
+  }
+  return LIST_PRICE_SITES.some((site) => host === site || host.endsWith(`.${site}`));
+}
+
+type Found = Pick<PriceEntry, 'found' | 'vendor' | 'product' | 'listPrice' | 'sameQuantity' | 'url'>;
+const NOT_FOUND: Found = { found: false, vendor: '', product: '', listPrice: 0, sameQuantity: false, url: '' };
+const NO_ANSWER: PriceAnswer = { found: false, vendor: '', product: '', condition: 'unknown', packPrice: 0, unit: '', perPack: 0, requested: 0, url: '' };
+
+/**
+ * The list price for the requested quantity, worked out in code: the page's
+ * price for one listing times the listings needed. Only a maker's or major
+ * supplier's new price is a list price, and unclear counts give no comparison.
+ */
+export function listPriceFrom(answer: PriceAnswer): Found & Pick<PriceEntry, 'packPrice' | 'unit' | 'perPack' | 'requested'> {
+  if (!answer.found || answer.condition === 'used' || !fromListPriceSite(answer.url)) return NOT_FOUND;
+  const counts = { packPrice: answer.packPrice, unit: answer.unit, perPack: answer.perPack, requested: answer.requested };
+  const known = answer.packPrice > 0 && answer.perPack > 0 && answer.requested > 0;
+  const packs = known ? Math.ceil(answer.requested / answer.perPack) : 0;
+  return {
+    found: true,
+    vendor: answer.vendor,
+    product: answer.product,
+    listPrice: known ? Math.round(answer.packPrice * packs * 100) / 100 : answer.packPrice,
+    sameQuantity: known,
+    url: answer.url,
+    ...counts,
+  };
+}
 
 /**
  * The list price for a request, from the saved list or a fresh lookup. None
@@ -165,10 +212,10 @@ export async function checkPrice(
     system: PRICE_SYSTEM,
     input: { item: request.item, category: request.category },
     schema: PriceAnswer,
-    fallback: () => NOT_FOUND,
+    fallback: () => NO_ANSWER,
     model: PRICE_MODEL,
     tools: SEARCH,
-    accept: (answer, message) => !answer.found || (answer.listPrice > 0 && searchedUrls(message).has(answer.url)),
+    accept: (answer, message) => !answer.found || (answer.packPrice > 0 && searchedUrls(message).has(answer.url)),
     effort: 'low',
     maxTokens: 2_000,
     mode: options.mode,
@@ -179,7 +226,7 @@ export async function checkPrice(
   const entry: PriceEntry = {
     item: request.item,
     category: request.category,
-    ...(value.found ? value : NOT_FOUND),
+    ...listPriceFrom(value),
     checkedOn: new Date().toISOString().slice(0, 10),
     by: model ?? PRICE_MODEL,
   };
