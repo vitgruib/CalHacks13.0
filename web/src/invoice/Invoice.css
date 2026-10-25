@@ -118,9 +118,12 @@
 .iv-count { background: rgb(255 255 255 / .25); border-radius: 999px; padding: 2px 14px; font-size: 20px; font-variant-numeric: tabular-nums; }
 
 /* The arrow on each card opens the full invoice. */
-.iv-go { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--v-line); color: var(--v-accent); font-size: 20px; text-decoration: none; transition: transform .15s, background .15s, border-color .15s; }
-.iv-go:hover, .iv-go:focus-visible { background: var(--v-accent); color: #fff; border-color: var(--v-accent); transform: translateX(3px); outline: none; }
+.iv-go { margin-left: auto; display: inline-flex; align-items: center; justify-content: center; width: 76px; height: 48px; border-radius: 14px; background: var(--v-accent); color: #fff; text-decoration: none; box-shadow: 0 4px 12px color-mix(in srgb, var(--v-accent) 35%, transparent); transition: transform .15s, box-shadow .15s, filter .15s; }
+.iv-go:hover, .iv-go:focus-visible { transform: translateX(5px); filter: brightness(1.1); box-shadow: 0 8px 18px color-mix(in srgb, var(--v-accent) 45%, transparent); outline: none; }
+.iv-go svg { display: block; }
 .iv-back { display: inline-block; margin-bottom: 8px; color: var(--v-accent); text-decoration: none; font-size: 15px; }
 .iv-back:hover { text-decoration: underline; }
 .iv-page-head { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .iv-page-head h1 { margin: 0; font-size: 26px; }
+.iv a.iv-go, .iv a.iv-go:hover, .iv a.iv-go:visited { color: #fff; }
+.iv a.iv-go svg { stroke: #fff; }

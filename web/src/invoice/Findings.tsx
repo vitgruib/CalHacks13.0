@@ -55,3 +55,12 @@ export function AuditTrail({ audit }: { audit: AuditEntry[] }) {
     </ol>
   )
 }
+
+/** The big arrow on each invoice card: opens the full invoice page. */
+export function OpenInvoice({ id, vendor }: { id: string; vendor: string }) {
+  return (
+    <a className="iv-go" href={`#invoices/${id}`} aria-label={`Open the full invoice from ${vendor}`} title="Open the full invoice">
+      <svg viewBox="0 0 40 24" width="40" height="24" aria-hidden="true"><path d="M3 12h31M24 3l11 9-11 9" fill="none" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+    </a>
+  )
+}

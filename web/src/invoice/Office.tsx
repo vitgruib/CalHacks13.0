@@ -7,7 +7,7 @@ import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
 import Bills from '../windows/Invoices'
 import { Empty, money } from '../ui'
-import { AuditTrail, BudgetCard, FindingList, StatusBadge } from './Findings'
+import { AuditTrail, BudgetCard, FindingList, OpenInvoice, StatusBadge } from './Findings'
 import { ledgerEntry, parseAmount, purchaseOrders, type Status, type Submission } from './model'
 import { record, useSubmissions } from './store'
 
@@ -124,7 +124,7 @@ export default function Office({ db }: { db: Db }) {
             <li key={s.id} className="iv-card">
               <header>
                 <strong>{s.vendor}</strong><span className="iv-amt">{money(parseAmount(s.amount))}</span><StatusBadge status={s.status} />
-                <a className="iv-go" href={`#invoices/${s.id}`} aria-label={`Open the full invoice from ${s.vendor}`} title="Open the full invoice">→</a>
+                <OpenInvoice id={s.id} vendor={s.vendor} />
               </header>
               <p className="iv-note">{s.researcher} · {s.grantId}{s.poId && ` · ${s.poId}`} · submitted {s.submittedOn}{s.findings.some(f => f.level === 'block') && ` · ${s.findings.filter(f => f.level === 'block').length} problems`}</p>
               <div className="iv-actions"><button type="button" onClick={() => setOpen(open === s.id ? null : s.id)}>{open === s.id ? 'Close review' : 'Review'}</button></div>
