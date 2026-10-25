@@ -13,14 +13,18 @@ numbering.
 
 ## 1. The product
 
-GrantGuard is an AI grant office for a university research lab. It tracks
-every grant's money and status all the time, keeps purchases within the
-grant's rules, checks invoices, writes the lab's payment requests to the
-government, and checks the lab's progress reports. It asks a human manager
-whenever it should, and logs every decision with its reason.
+GrantGuard is the interface between a university lab's researchers and its
+grant office. Researchers ask to buy things and send in invoices; agents
+check each against every grant's money, status and rules, act when they
+may, and otherwise put it in front of the human grant manager with the
+reason. Every decision is logged with its reason.
 
-- **Seats:** purchasing agent, grant accountant, and payment and report
-  preparer for a university research lab.
+**Scope (T105, Sun 10/25):** payment requests to the government (§3.4) and
+progress-report checks (§3.5) are cut. Their code stays in the repo, unused
+and out of the menu and scorecard.
+
+- **Seats:** purchasing agent and grant accountant for a university
+  research lab.
 - **Company:** a fictional lab, seeded with real public NIH grant records.
 - **The core behavior:** a court restores a canceled grant, and GrantGuard
   still won't spend until the money actually arrives.
@@ -37,7 +41,7 @@ did what):
 |---|---|---|
 | Purchasing agent | purchasing | Turns requests into allowed purchases |
 | Bookkeeping agent | grant accountant | Keeps the fund tracker current; checks invoices |
-| Payment and report agent | payment and report preparer | Writes payment requests; checks progress reports |
+| ~~Payment and report agent~~ | cut (T105) | Writes payment requests; checks progress reports |
 
 **People:**
 
@@ -129,7 +133,7 @@ amount matches the approval.
 different amount. **Decoy:** an invoice matching an approved change to the
 order.
 
-### 3.4 Payment request writer (P5)
+### 3.4 Payment request writer (P5) — CUT (T105)
 
 The lab spends first, then asks the government to pay it back. Each request
 needs a short written explanation, and the government can ask follow-up
@@ -152,7 +156,7 @@ purchasing agent can't approve it.
 
 **Planted mistake:** a held purchase that must be left out of the request.
 
-### 3.5 Report checker (P7, new)
+### 3.5 Report checker (P7, new) — CUT (T105)
 
 Each year the lab sends a progress report that lists the papers the grant
 paid for.
@@ -198,8 +202,6 @@ windows show information. The app has separate portals
 | Funds | How much money each grant really has, its status timeline, and any flags |
 | Requests | Every researcher's requests and their status, each naming who asked |
 | Invoices | Each bill: matched (green) or held (red), with the mismatch spelled out |
-| Payment requests | Drafted requests, follow-up questions, and their status |
-| Reports | Each paper in the progress report, with its check results |
 | Inbox | Everything waiting for a human decision, with its evidence |
 | Log | Who did what, and why |
 | Test lab | Demo only: drop in events, fast-forward the clock, see the scorecard |
@@ -216,10 +218,9 @@ where its money is) and My requests (only their own, with push back).
    by itself. One item is still blocked (supplies in the last 90 days) and
    rerouted to another grant.
 2. An invoice for a canceled order is held, with its timeline.
-3. A payment request is drafted, and the government's follow-up is answered
-   with the exact purchases.
-4. The progress report catches a paper crediting the wrong grant.
-5. The scorecard shows results on the planted mistakes.
+3. The scorecard shows results on the planted mistakes.
+
+(Steps for payment requests and the progress report were cut in T105.)
 
 It must also work unscripted: anyone can submit requests from the Requests
 window and inject events from the Test lab.
@@ -269,7 +270,9 @@ Tasks and commits cite these IDs.
 ## 9. Cut and future
 
 **Cut:** purchase cards through Stripe or Visa (B3); cloud computing rules;
-a separate sources-disagree view (now part of the tracker); the AI rule
+a separate sources-disagree view (now part of the tracker); the payment
+request writer (P5, §3.4) and report checker (P7, §3.5), cut in T105 to keep
+GrantGuard to the grant office ↔ researcher interface; the AI rule
 writer (Factory Droid, S3); the replacement-funder finder (S1); clinical
 trial rescue (S2); the voice and "ask why" agent (S4); Nessie; an AI
 scientist persona.

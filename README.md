@@ -10,13 +10,12 @@ to the hosted database and the always-on agent worker)
 
 ## What it is
 
-GrantGuard runs the money side of a lab's federal grants. Three AI agents
-fill three seats in the lab's grant office and answer to one human grant
-manager. They track each grant's real balance and status, keep purchases
-inside the grant's rules, check invoices against orders, draft the lab's
-payment requests to the government, and check the papers listed in progress
-reports. Anything unclear or over a limit waits in the grant manager's
-Inbox. Every action is logged with the rule and the reason behind it.
+GrantGuard is the go-between for a lab's researchers and its grant office.
+Researchers ask to buy things and send in invoices; AI agents check each one
+against the grant's real balance, status and rules, and either act or pass
+it to the one human grant manager with the reason. Anything unclear or over a limit waits for the
+grant manager on the request or bill itself. Every action is logged with the
+rule and the reason behind it.
 
 **The problem in one sentence:** since 2025 a lab's grant can be canceled,
 restored by a court, and still not pay a cent, while the official sources
@@ -34,15 +33,14 @@ disagree about which of those is true.
 
 Sources, dates and caveats: [docs/submission/IMPACT-EVIDENCE.md](docs/submission/IMPACT-EVIDENCE.md).
 
-**The seats it fills:** the purchasing agent, the grant accountant, and the
-payment and report preparer in a university lab's grant office, all
-reporting to one human grant manager.
+**The seats it fills:** the purchasing agent and the grant accountant in a
+university lab's grant office, both reporting to one human grant manager.
 
 ### For Hyphenate judges
 
 | Their question | Where to look |
 |---|---|
-| Is it real enough? | Real NIH grant records and a real scrape of the public cancellation list. A simulated lab with 18 planted mistakes modeled on real audit findings, plus 7 decoys. Scorecard: 18 of 18 caught, 0 false alarms ([below](#whats-real-and-whats-simulated)). |
+| Is it real enough? | Real NIH grant records and a real scrape of the public cancellation list. A simulated lab with 12 planted mistakes modeled on real audit findings, plus 4 decoys. Scorecard: 12 of 12 caught, 0 false alarms ([below](#whats-real-and-whats-simulated)). |
 | Would you hire it? | Each agent logs in as its own database identity. Limits live in the database code, not in prompts: agents cannot decide Inbox items, nobody approves their own request, and an agent buys alone only at or under the $5,000 card limit with every rule passing. Every action has a Log row with a "why?". |
 | Did we see something new? | The corner: the post-award grant office of a research lab during the 2025 to 2026 grant cancellations, where a grant's status is a timeline of dated events with sources, not one field. |
 | The moment | A court restores a canceled grant, and the agent still won't spend until the money arrives. Then it buys on its own. |
@@ -75,22 +73,17 @@ today 2026-06-15). Grant A is R01GM061721. Grant B is R21AI182745, which ends
 4. **Invoices.** An invoice for an order canceled on 2026-03-02 is held, with
    the timeline of what happened. The judge decides it in the Inbox. The
    reason field is required.
-5. **Payment requests.** The agent drafts May's payment request for grant B
-   from the purchase records (up to 1,000 characters), leaves out a purchase
-   whose invoice is on hold, and drafts an answer to the agency's follow-up
-   question that quotes the exact purchases. Both wait for the grant
-   manager.
-6. **Reports.** The progress-report check holds a paper that credits the
-   wrong grant and proposes moving its cost, with the days left on the
-   90-day limit.
-7. **Demo controls: the scorecard.** Planted mistakes caught, missed, and false
+5. **Demo controls: the scorecard.** Planted mistakes caught, missed, and false
    alarms on decoys. It is the run on the full seed (`sim/seed.json`), which
-   has more cases than the app shows: a kit priced exactly at the card
-   limit, a paper with no PubMed
-   Central ID and a corrected paper listed without disclosure, among others.
+   has more cases than the app shows, such as a kit priced exactly at the
+   card limit.
+
+Payment requests to the government and progress-report checks are out of
+scope (T105): GrantGuard is the interface between the grant office and the
+lab's researchers. Their code is still in the repo, unused.
 
 The app loads a smaller demo world (`sim/demo-seed.json`, 11 of the 22
-purchases and 2 of the 7 papers) so each step above is easy to find; see
+purchases) so each step above is easy to find; see
 `sim/README.md`. On the live site, Demo controls → Start over → "Reset to
 the demo seed…" → "Yes, reset everything" resets the world to it. Demo controls also
 holds the real failure cases. The live site is one shared world: anyone with
@@ -164,7 +157,7 @@ identity ([agents/README.md](agents/README.md)).
 |---|---|---|
 | Bookkeeping (`bookkeeping`) | Grant accountant | Fund tracker: reads the sources on "Check now" and right before money moves (never on a timer); posts only changes, each with its source and date; flags sources that disagree, spending while canceled, and a court order with no payment. Also checks every invoice against its order and approval. |
 | Purchasing (`purchasing`) | Purchasing agent | Reads each request, picks the grant, asks the module for its verdicts, then buys, reroutes, or holds or flags it for the grant manager, explaining the failed rule. It never rejects a request; only the grant manager does. A request held only by a freeze is bought once the grant unfreezes. |
-| Payment and report (`payment_report`) | Payment and report preparer | Drafts each month's payment request (up to 1,000 characters) and answers to follow-up questions, both approved by a person. Checks each progress-report paper's grant credit, PubMed Central ID and corrections. |
+| Payment and report (`payment_report`) | Out of scope (T105); still runs, nothing shows it | Drafts each month's payment request (up to 1,000 characters) and answers to follow-up questions, both approved by a person. Checks each progress-report paper's grant credit, PubMed Central ID and corrections. |
 
 **Claude's role.** Claude reads requests (which grant, shared use, a stated
 split), writes explanations, payment justifications and follow-up answers,
@@ -216,14 +209,11 @@ nav, or the researcher header) moves between them. Each window has one job
 ([web/src/windows/registry.ts](web/src/windows/registry.ts)):
 
 - **Grant office portal** (the grant manager): Funds (real money, status
-  timeline, flags), Cases (every problem on each grant in one place: the
-  records that disagree, what happened, what's missing), Requests (every researcher's requests, each saying
+  timeline, flags), Requests (every researcher's requests, each saying
   "Requested by" whom, with a researcher filter, plus the experiment plans
   researchers submitted: each plan's funding-readiness report as a written
-  summary and one table of its lines, and Approve or Return with a reason), Invoices (matched or held),
-  Payment requests, Reports (each paper's checks), Inbox (waiting for a
-  human, with evidence; a purchase hold names the researcher who asked), Log
-  (who did what, and why), Demo controls (demo only: start over, the real
+  summary and one table of its lines, and Approve or Return with a reason; a held request is decided on its card), Invoice (matched or held bills, decided on their card), Rules
+  (every check a purchase request goes through), Demo controls (demo only: start over, the real
   failure cases, inject events, scorecard).
 - **Researcher portals**, one per researcher: **Dr. Priya Nair**
   (postdoctoral researcher, grant A, R01GM061721) and **Sofia Alvarez**
@@ -264,13 +254,12 @@ controls shows it.
 | Area | Planted mistakes caught | Decoys passed (no false alarm) |
 |---|---|---|
 | Fund tracker | 3 of 3 | none planted |
-| Purchases | 6 of 6 | 3 of 3 |
+| Purchases | 5 of 5 | 2 of 2 |
 | Invoices | 4 of 4 | 2 of 2 |
-| Payment requests | 2 of 2 | none planted |
-| Progress reports | 3 of 3 | 2 of 2 |
-| **Total** | **18 of 18, 0 missed** | **7 of 7, 0 false alarms** |
+| **Total** | **12 of 12, 0 missed** | **4 of 4, 0 false alarms** |
 
-From `node eval/score.mjs --no-write` on 2026-10-24 at commit effee2a; same
+Payment request and progress report cases stay in the key but aren't scored
+(out of scope, T105). From `node eval/score.mjs` on 2026-10-25 (T105); same
 as the committed [eval/scorecard.json](eval/scorecard.json). It measures our
 own planted cases, modeled on real audit findings, in a simulated lab, with
 saved Claude answers or code fallbacks (`GG_CLAUDE=offline`). So it tests

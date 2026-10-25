@@ -10,17 +10,16 @@ file wins inside this repo**.
 
 ## 0. Project facts (fill in at kickoff, keep current)
 
-- **What we're building (one sentence):** GrantGuard, an AI grant office
-  for a university research lab: agents track every grant's money and
-  status, keep purchases within grant rules, check invoices, write payment
-  requests and check progress reports, asking a human grant manager when
-  they should. Full scope, owners and kickoff prompts: `docs/MASTER-PLAN.md`.
+- **What we're building (one sentence):** GrantGuard, the interface
+  between a university lab's researchers and its grant office: agents track
+  every grant's money and status, keep purchases within grant rules and
+  check invoices, asking a human grant manager when they should. Payment
+  requests and progress reports are out of scope (T105). Full scope, owners and kickoff prompts: `docs/MASTER-PLAN.md`.
 - **The demo path (the 3-minute story judges see):** a grant is canceled
   and spending freezes; a court restores it, but the agent won't spend
   until the money actually arrives, then does. Then an invoice for a
-  canceled order is held, a payment request is drafted and defended, a
-  progress report catches a paper crediting the wrong grant, and the
-  scorecard shows results on planted mistakes (`docs/MASTER-PLAN.md` §5).
+  canceled order is held, and the scorecard shows results on planted
+  mistakes (`docs/MASTER-PLAN.md` §5).
 - **Stack:** backend = **SpacetimeDB** (see `DECISIONS.md`); pinned
   at **2.13.0** (npm `spacetimedb` and the CLI);
   module language **TypeScript** (`server/src/`). The agent loop runs in a separate worker that

@@ -48,3 +48,11 @@ test('a malformed key is rejected', async () => {
 
   await assert.rejects(scoreSeed(seed(), bad), /duplicate id/);
 });
+
+test('payment requests and progress reports are out of scope, so the card neither lists nor counts them', async () => {
+  const card = await scoreSeed(seed(), key);
+
+  assert.deepEqual(card.features.map(f => f.feature), ['fund_tracker', 'purchases', 'invoices']);
+  assert.equal(card.cases.filter(c => c.feature === 'payment_requests' || c.feature === 'reports').length, 0);
+  assert.equal(card.totals.mistakes + card.totals.decoys, card.cases.length);
+});

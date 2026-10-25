@@ -47,7 +47,6 @@ function reopenedNotice(db: Db, g: Grant, e: StatusEvent): Notice {
     points: [
       `Truly available is now ${money(trulyAvailable(g))} (awarded minus spent minus promised).`,
       `Purchases held during the freeze are checked against every rule again before anything is bought. ${waiting(db, g.id)}`,
-      'The next payment request should cover the allowable costs held during the freeze, with each one explained.',
       'If the court order is reversed, the grant freezes again and agents stop spending.',
       endPoint(g, db.today),
     ],

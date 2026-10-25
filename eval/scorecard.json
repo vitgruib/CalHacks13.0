@@ -3,13 +3,13 @@
   "key": "sim/answer-key.json",
   "today": "2026-06-15",
   "totals": {
-    "caught": 17,
+    "caught": 12,
     "missed": 0,
     "falseAlarms": 0,
-    "correctPasses": 6,
+    "correctPasses": 4,
     "notRun": 0,
-    "mistakes": 17,
-    "decoys": 6,
+    "mistakes": 12,
+    "decoys": 4,
     "unlistedFalseAlarms": 0
   },
   "features": [
@@ -46,30 +46,6 @@
       "correctPasses": 2,
       "notRun": 0,
       "mistakes": 4,
-      "decoys": 2,
-      "unlistedFalseAlarms": 0
-    },
-    {
-      "feature": "payment_requests",
-      "label": "Payment requests",
-      "caught": 2,
-      "missed": 0,
-      "falseAlarms": 0,
-      "correctPasses": 0,
-      "notRun": 0,
-      "mistakes": 2,
-      "decoys": 0,
-      "unlistedFalseAlarms": 0
-    },
-    {
-      "feature": "reports",
-      "label": "Progress reports",
-      "caught": 3,
-      "missed": 0,
-      "falseAlarms": 0,
-      "correctPasses": 2,
-      "notRun": 0,
-      "mistakes": 3,
       "decoys": 2,
       "unlistedFalseAlarms": 0
     }
@@ -250,83 +226,6 @@
       "outcome": "correct pass",
       "notRun": false,
       "detail": "Invoice paid."
-    },
-    {
-      "id": "pr-1",
-      "feature": "payment_requests",
-      "kind": "mistake",
-      "refId": "rq-037",
-      "expected": "exclude",
-      "got": "exclude",
-      "outcome": "caught",
-      "notRun": false,
-      "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): Invoice inv-037 is on hold: Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460)."
-    },
-    {
-      "id": "pr-2",
-      "feature": "payment_requests",
-      "kind": "mistake",
-      "refId": "pay-R21-2026-05-3",
-      "expected": "exclude",
-      "got": "exclude",
-      "outcome": "caught",
-      "notRun": false,
-      "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): The same person is charged 110% effort for 2026-05-01 to 2026-05-31: 40% on R21AI182745, 70% on R01GM061721. Salary can't be claimed above 100% effort until the grant manager fixes the charges."
-    },
-    {
-      "id": "rp-1",
-      "feature": "reports",
-      "kind": "mistake",
-      "refId": "p-10",
-      "expected": "hold",
-      "got": "hold",
-      "outcome": "caught",
-      "notRun": false,
-      "detail": "Listed in R21AI182745's report, but its acknowledgments name R01GM061721."
-    },
-    {
-      "id": "rp-2",
-      "feature": "reports",
-      "kind": "mistake",
-      "refId": "p-03",
-      "expected": "hold",
-      "got": "hold",
-      "outcome": "caught",
-      "notRun": false,
-      "detail": "No PMCID found; NIH public access policy requires one."
-    },
-    {
-      "id": "rp-3",
-      "feature": "reports",
-      "kind": "mistake",
-      "refId": "p-04",
-      "expected": "hold",
-      "got": "hold",
-      "outcome": "caught",
-      "notRun": false,
-      "detail": "Correction (2026-03-02): the Figure 3 rate constants were re-measured; the folding rate changes by about 40% and one conclusion in the abstract is revised. Not disclosed in the report."
-    },
-    {
-      "id": "rp-d1",
-      "feature": "reports",
-      "kind": "decoy",
-      "refId": "p-05",
-      "expected": "note or pass",
-      "got": "note",
-      "outcome": "correct pass",
-      "notRun": false,
-      "detail": "Result: note."
-    },
-    {
-      "id": "rp-d2",
-      "feature": "reports",
-      "kind": "decoy",
-      "refId": "p-07",
-      "expected": "pass or note",
-      "got": "pass",
-      "outcome": "correct pass",
-      "notRun": false,
-      "detail": "Result: ok."
     }
   ],
   "unlistedFalseAlarms": [],
@@ -342,13 +241,13 @@
       "reports": "record_paper_facts with the facts already on each paper in the seed (no public-records lookup)."
     },
     "totals": {
-      "caught": 17,
+      "caught": 12,
       "missed": 0,
       "falseAlarms": 0,
-      "correctPasses": 6,
+      "correctPasses": 4,
       "notRun": 0,
-      "mistakes": 17,
-      "decoys": 6,
+      "mistakes": 12,
+      "decoys": 4,
       "unlistedFalseAlarms": 0
     },
     "features": [
@@ -380,26 +279,6 @@
         "correctPasses": 2,
         "notRun": 0,
         "mistakes": 4,
-        "decoys": 2
-      },
-      {
-        "feature": "payment_requests",
-        "caught": 2,
-        "missed": 0,
-        "falseAlarms": 0,
-        "correctPasses": 0,
-        "notRun": 0,
-        "mistakes": 2,
-        "decoys": 0
-      },
-      {
-        "feature": "reports",
-        "caught": 3,
-        "missed": 0,
-        "falseAlarms": 0,
-        "correctPasses": 2,
-        "notRun": 0,
-        "mistakes": 3,
         "decoys": 2
       }
     ],
@@ -483,41 +362,6 @@
         "got": "pass",
         "outcome": "correct pass",
         "detail": "Invoice paid."
-      },
-      "pr-1": {
-        "got": "exclude",
-        "outcome": "caught",
-        "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): Invoice inv-037 is on hold: Billed for 24 bottles ($2,920); the order was for 12 bottles ($1,460)."
-      },
-      "pr-2": {
-        "got": "exclude",
-        "outcome": "caught",
-        "detail": "Left out of pr1 (2026-05-01 to 2026-05-31): The same person is charged 110% effort for 2026-05-01 to 2026-05-31: 40% on R21AI182745, 70% on R01GM061721. Salary can't be claimed above 100% effort until the grant manager fixes the charges."
-      },
-      "rp-1": {
-        "got": "hold",
-        "outcome": "caught",
-        "detail": "Listed in R21AI182745's report, but its acknowledgments name R01GM061721."
-      },
-      "rp-2": {
-        "got": "hold",
-        "outcome": "caught",
-        "detail": "No PMCID found; NIH public access policy requires one."
-      },
-      "rp-3": {
-        "got": "hold",
-        "outcome": "caught",
-        "detail": "Correction (2026-03-02): the Figure 3 rate constants were re-measured; the folding rate changes by about 40% and one conclusion in the abstract is revised. Not disclosed in the report."
-      },
-      "rp-d1": {
-        "got": "note",
-        "outcome": "correct pass",
-        "detail": "Result: note."
-      },
-      "rp-d2": {
-        "got": "pass",
-        "outcome": "correct pass",
-        "detail": "Result: ok."
       }
     },
     "unlistedFalseAlarms": [],

@@ -16,6 +16,11 @@ export const FEATURES = {
   reports: 'Progress reports',
 };
 
+// Out of scope since T105: GrantGuard is the grant office ↔ researcher
+// interface. Their cases stay in the key (and their judges below) but are
+// neither scored nor listed.
+const CUT = new Set(['payment_requests', 'reports']);
+
 const FREEZE_RULE = 'Grant is active and not frozen';
 
 // A purchasing agent's action, as the request's state shows it.
@@ -174,7 +179,7 @@ export function judge({ tables, key, seed }) {
     },
   };
 
-  const cases = key.cases.map(c => {
+  const cases = key.cases.filter(c => !CUT.has(c.feature)).map(c => {
     const j = judges[c.feature](c);
     const hit = j.caught ?? accepted(c).includes(j.got);
     let outcome;
@@ -218,7 +223,8 @@ export function judge({ tables, key, seed }) {
     mistakes: list.filter(x => x.kind === 'mistake').length,
     decoys: list.filter(x => x.kind === 'decoy').length,
   });
-  const features = Object.entries(FEATURES).map(([feature, label]) => {
+  for (let i = extras.length - 1; i >= 0; i--) if (CUT.has(extras[i].feature)) extras.splice(i, 1);
+  const features = Object.entries(FEATURES).filter(([feature]) => !CUT.has(feature)).map(([feature, label]) => {
     const n = count(cases.filter(x => x.feature === feature));
     const extra = extras.filter(x => x.feature === feature).length;
     return { feature, label, ...n, falseAlarms: n.falseAlarms + extra, unlistedFalseAlarms: extra };
