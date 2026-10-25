@@ -59,13 +59,13 @@ The demo runs on the sim world (`sim/seed.json`, simulated today
 
 1. **Funds.** Grant A was canceled on 2026-03-10 and restored by a court
    order on 2026-04-20. No payment has arrived since, so it is still frozen.
-   The Test lab buttons "Cancel grant", "Court order restores it" and
+   The Demo controls buttons "Cancel grant", "Court order restores it" and
    "Payment arrives" replay this sequence on either grant.
 2. **A scientist asks to buy** nitrile gloves ($640) on grant A, noting that
    the court restored it. A rule engine reading "restored" would say yes.
    The purchasing agent holds the request and explains: no money has
    arrived since the court order. Click "why?" on its Log row.
-3. **The money lands.** In the Test lab, press "Payment arrives". In the
+3. **The money lands.** In Demo controls, press "Payment arrives". In the
    Inbox, settle "Which source is right about R01GM061721?" (RePORTER says
    active; USAspending and the cancellation list say canceled) with "Pick
    this source" and a reason. Both steps are needed, in either order. Grant A
@@ -86,12 +86,14 @@ The demo runs on the sim world (`sim/seed.json`, simulated today
    wrong grant and proposes moving its cost, with the days left on the
    90-day limit. It also holds a paper with no PubMed Central ID and a
    corrected paper listed without disclosure.
-7. **Test lab: the scorecard.** Planted mistakes caught, missed, and false
+7. **Demo controls: the scorecard.** Planted mistakes caught, missed, and false
    alarms on decoys.
 
-On the live site, "Load demo seed" in the status bar resets the world to the
-sim seed. The live site is one shared world: anyone with the link acts as the
-grant manager, and the Test lab changes the world for everyone. Presenter
+On the live site, Demo controls → Start over → "Reset to the demo seed…" →
+"Yes, reset everything" resets the world to the sim seed. Demo controls also
+holds the four cut scripts. The live site is one shared world: anyone with
+the link acts as the grant manager, and Demo controls changes the world for
+everyone. Presenter
 checklist and known edge cases: [docs/EDGE-TESTING.md](docs/EDGE-TESTING.md).
 
 ## How it works
@@ -217,8 +219,8 @@ nav, or the researcher header) moves between them. Each window has one job
   "Requested by" whom, with a researcher filter), Invoices (matched or held),
   Payment requests, Reports (each paper's checks), Inbox (waiting for a
   human, with evidence; a purchase hold names the researcher who asked), Log
-  (who did what, and why), Test lab (demo only: inject events, fast-forward,
-  scorecard), SpendGuard (plan an experiment and its spending before any
+  (who did what, and why), Demo controls (demo only: start over, the cut
+  scripts, inject events, fast-forward, scorecard), SpendGuard (plan an experiment and its spending before any
   money is committed; researchers have it too).
 - **Researcher portals**, one per researcher: **Dr. Priya Nair**
   (postdoctoral researcher, grant A, R01GM061721) and **Sofia Alvarez**
@@ -248,8 +250,8 @@ back on it. The grant office uses this to know which researcher to answer.
 
 `eval/` ([score.mjs](eval/score.mjs)) replays the sim seed through the real
 module and agents and scores the result against
-[sim/answer-key.json](sim/answer-key.json). It runs in `./check.sh`; the
-Test lab shows it.
+[sim/answer-key.json](sim/answer-key.json). It runs in `./check.sh`; Demo
+controls shows it.
 
 | Area | Planted mistakes caught | Decoys passed (no false alarm) |
 |---|---|---|
@@ -324,8 +326,8 @@ GG_DB=spacetime npm --prefix agents start   # the three agents against local gra
 npm --prefix web run dev                    # connects to ws://localhost:3000, database grantguard
 ```
 
-Open the URL Vite prints and click "Load demo seed" in the status bar to
-load the sim world. `npm --prefix server run dev -- --reset` wipes local
+Open the URL Vite prints, then Demo controls → Start over → "Reset to the
+demo seed…" → "Yes, reset everything" to load the sim world. `npm --prefix server run dev -- --reset` wipes local
 data. After pulling a change to `server/`, run `npm --prefix server run
 generate` (or `dev`) to regenerate the client bindings.
 
