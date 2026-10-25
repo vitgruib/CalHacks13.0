@@ -1,6 +1,6 @@
 // The researcher's side of Invoice: every approved request, with a button to
-// send its invoice; then the invoices sent, rejected for revision, rejected
-// and approved, each with what you need to do next.
+// send its invoice; then the invoices sent, rejected (always revisable) and
+// approved, each with what you need to do next.
 import { useState } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
@@ -20,14 +20,13 @@ const NEXT: Record<Submission['status'], string> = {
   clarification: 'The grant office asked you a question. Edit and resubmit.',
   escalated: 'It went to a higher approver. Nothing for you to do yet.',
   approved: 'Approved. Payment can go ahead.',
-  rejected: 'Rejected. See the reason below; submit a corrected invoice if needed.',
+  rejected: 'Rejected. See the reason below, then edit and resubmit.',
 }
 
-type InvoiceMenu = 'sent' | 'revision' | 'rejected' | 'approved'
+type InvoiceMenu = 'sent' | 'rejected' | 'approved'
 type Menu = 'requests' | InvoiceMenu
 const MENUS: [InvoiceMenu, string, string][] = [
   ['sent', 'Sent', 'No invoices waiting on a decision.'],
-  ['revision', 'Rejected for revision', 'Nothing to revise.'],
   ['rejected', 'Rejected', 'Nothing rejected.'],
   ['approved', 'Approved', 'Nothing approved yet.'],
 ]
@@ -71,18 +70,17 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const mineOrders = new Set(db.orders.filter(o => db.requests.find(r => r.id === o.requestId)?.requesterName === name).map(o => o.id))
   const agentBills = db.invoices.filter(i => mineOrders.has(i.orderId))
 
-  // Sent: waiting on the invoice agent, the grant office or a higher approver. Rejected for revision: the grant
-  // office asked a question or a bill was held, so you fix and resubmit. Approved: paid or ready to pay.
+  // Sent: waiting on the invoice agent, the grant office or a higher approver. Rejected: the grant office
+  // rejected it or asked a question, or a bill was held; every one can be edited and resubmitted.
+  // Approved: paid or ready to pay.
   const subs: Record<InvoiceMenu, Submission[]> = {
     sent: mine.filter(s => s.status === 'ready' || s.status === 'exception' || s.status === 'escalated'),
-    revision: mine.filter(s => s.status === 'clarification'),
-    rejected: mine.filter(s => s.status === 'rejected'),
+    rejected: mine.filter(s => s.status === 'rejected' || s.status === 'clarification'),
     approved: mine.filter(s => s.status === 'approved'),
   }
   const bills: Record<InvoiceMenu, Db['invoices']> = {
     sent: [],
-    revision: agentBills.filter(i => i.state === 'held'),
-    rejected: agentBills.filter(i => i.state === 'rejected'),
+    rejected: agentBills.filter(i => i.state === 'held' || i.state === 'rejected'),
     approved: agentBills.filter(i => i.state === 'paid' || i.state === 'matched'),
   }
   // A short list is topped up with sample invoices (up to MIN items) so each menu has something to open.
@@ -91,8 +89,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const have = new Set(all.map(s => s.id))
   const samples: Record<InvoiceMenu, Submission[]> = {
     sent: [...demo.action.filter(s => s.status !== 'clarification'), ...demo.escalated],
-    revision: demo.action.filter(s => s.status === 'clarification'),
-    rejected: demo.denied,
+    rejected: [...demo.denied, ...demo.action.filter(s => s.status === 'clarification')],
     approved: demo.approved,
   }
   const fill = (m: InvoiceMenu) => samples[m].filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - subs[m].length - bills[m].length))
@@ -134,16 +131,16 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     )
   }
   const bill = (i: Db['invoices'][number]) => (
-    <li key={i.id} className="iv-card" data-status={i.state === 'held' ? 'exception' : 'approved'}>
+    <li key={i.id} className="iv-card" data-status={i.state === 'held' ? 'exception' : i.state === 'rejected' ? 'rejected' : 'approved'}>
       <header>
         <strong>{i.vendor}</strong>
         <span className="iv-amt">{money(i.amount)}</span>
-        <Badge tone={i.state === 'held' ? 'bad' : 'good'}>{i.state === 'held' ? 'Held for review' : i.state === 'paid' ? 'Paid' : i.state === 'matched' ? 'Matched, ready to pay' : 'Rejected'}</Badge>
+        <Badge tone={i.state === 'held' || i.state === 'rejected' ? 'bad' : 'good'}>{i.state === 'held' ? 'Held for review' : i.state === 'paid' ? 'Paid' : i.state === 'matched' ? 'Matched, ready to pay' : 'Rejected'}</Badge>
         <OpenInvoice id={i.id} vendor={i.vendor} />
       </header>
       <p className="iv-note">Received {i.received}</p>
       {i.mismatch && <p className="iv-next"><strong>Why:</strong> {i.mismatch}</p>}
-      {i.state === 'held' && (
+      {(i.state === 'held' || i.state === 'rejected') && (
         <div className="iv-actions">
           <button type="button" className="iv-edit" onClick={() => { setForm({ seed: draftFromBill(db, i), seedKey: i.id }); setView('submit') }}>Edit and resubmit</button>
         </div>

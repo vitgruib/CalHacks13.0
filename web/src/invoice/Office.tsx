@@ -105,7 +105,7 @@ export function Review({ db, s, decide = true }: { db: Db; s: Submission; decide
   )
 }
 
-type View = 'sent' | 'revision' | 'rejected' | 'approved'
+type View = 'sent' | 'rejected' | 'approved'
 const MIN = 2 // a list is topped up with sample invoices to this many, and shows at most MAX
 const MAX = 3
 
@@ -124,19 +124,17 @@ export default function Office({ db }: { db: Db }) {
   const have = new Set(stored.map(s => s.id))
   const top = (real: number, samples: Submission[]) => samples.filter(s => !have.has(s.id)).slice(0, Math.max(0, MIN - real))
 
-  // Sent: waiting on a decision (new, paused by the invoice agent, or with a higher approver). Rejected for
-  // revision: sent back to the researcher with a question, or a bill the bookkeeping agent held.
+  // Sent: waiting on a decision (new, paused by the invoice agent, or with a higher approver). Rejected:
+  // rejected, sent back with a question, or held by the bookkeeping agent; the researcher can revise any of them.
   const sentReal = stored.filter(s => s.status === 'ready' || s.status === 'exception' || s.status === 'escalated')
-  const revisionReal = stored.filter(s => s.status === 'clarification')
-  const rejectedReal = stored.filter(s => s.status === 'rejected')
+  const rejectedReal = stored.filter(s => s.status === 'rejected' || s.status === 'clarification')
   const approvedReal = stored.filter(s => s.status === 'approved')
   const bills = (...states: Db['invoices'][number]['state'][]) => db.invoices.filter(i => states.includes(i.state))
-  const heldBills = bills('held'), rejectedBills = bills('rejected'), approvedBills = bills('matched', 'paid')
+  const rejectedBills = bills('held', 'rejected'), approvedBills = bills('matched', 'paid')
 
   const lists: Record<View, { subs: Submission[]; bills: Db['invoices'] }> = {
     sent: { subs: [...sentReal, ...top(sentReal.length, [...demo.action.filter(s => s.status === 'exception'), ...demo.escalated])], bills: [] },
-    revision: { subs: [...revisionReal, ...top(revisionReal.length + heldBills.length, demo.action.filter(s => s.status === 'clarification'))], bills: heldBills },
-    rejected: { subs: [...rejectedReal, ...top(rejectedReal.length + rejectedBills.length, demo.denied)], bills: rejectedBills },
+    rejected: { subs: [...rejectedReal, ...top(rejectedReal.length + rejectedBills.length, [...demo.denied, ...demo.action.filter(s => s.status === 'clarification')])], bills: rejectedBills },
     approved: { subs: [...approvedReal, ...top(approvedReal.length + approvedBills.length, demo.approved)], bills: approvedBills },
   }
   const count = (v: View) => Math.min(MAX, lists[v].subs.length + lists[v].bills.length)
@@ -172,13 +170,12 @@ export default function Office({ db }: { db: Db }) {
     </button>
   )
   const shown = [...lists[view].subs.map(row), ...lists[view].bills.map(billRow)].slice(0, MAX)
-  const empty: Record<View, string> = { sent: 'Nothing is waiting for approval.', revision: 'Nothing sent back for revision.', rejected: 'Nothing rejected.', approved: 'Nothing approved yet.' }
+  const empty: Record<View, string> = { sent: 'Nothing is waiting for approval.', rejected: 'Nothing rejected.', approved: 'Nothing approved yet.' }
 
   return (
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoice requests">
         {tab('sent', 'Waiting for approval')}
-        {tab('revision', 'Rejected for revision')}
         {tab('rejected', 'Rejected')}
         {tab('approved', 'Approved')}
       </div>
