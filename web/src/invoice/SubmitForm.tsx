@@ -6,7 +6,7 @@ import { useMemo, useState, type ChangeEvent, type ReactNode } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
 import { money } from '../ui'
-import { blankDraft, check, sampleDraft, type Draft, type Submission } from './model'
+import { check, sampleDraft, type Draft, type Submission } from './model'
 
 /** A field label with a "?" that explains what to enter. */
 function Field({ label, hint, grow, children }: { label: string; hint: string; grow?: boolean; children: ReactNode }) {
@@ -21,7 +21,7 @@ function Field({ label, hint, grow, children }: { label: string; hint: string; g
 export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: {
   db: Db; others: Submission[]; initial?: Draft; onSubmit: (d: Draft, r: ReturnType<typeof check>) => void; onCancel: () => void
 }) {
-  const [d, setD] = useState<Draft>(initial ?? blankDraft(db.grants[0]?.id ?? ''))
+  const [d, setD] = useState<Draft>(initial ?? sampleDraft())
   const set = (patch: Partial<Draft>) => setD(x => ({ ...x, ...patch }))
   const result = useMemo(() => check(d, db, others), [d, db, others])
   const grant = db.grants.find(g => g.id === d.grantId)
@@ -37,10 +37,7 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
     <div className="iv-form">
       <div className="iv-bar">
         <h2>{initial ? 'Revise invoice' : 'Submit an invoice'}</h2>
-        <span className="iv-bar-links">
-          <button type="button" className="iv-link" onClick={() => setD(sampleDraft())}>Try the sample</button>
-          <button type="button" className="iv-link" onClick={onCancel}>Cancel</button>
-        </span>
+        <button type="button" className="iv-link" onClick={onCancel}>Cancel</button>
       </div>
 
       <div className="iv-row">
