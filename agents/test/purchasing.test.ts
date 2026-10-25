@@ -173,8 +173,8 @@ test('pu_1_rq_102_is_blocked_on_the_last_90_days_rule_until_grant_a_can_take_it'
   assert.deepEqual(failedRules(row), ["Not in the grant's last 90 days"]);
   assert.match(row.explanation, /Not in the grant's last 90 days: R21AI182745 ends 2026-08-31, 77 days away/);
   assert.match(row.explanation, /rerouted there once R01GM061721 unfreezes/);
-  assert.equal(purchaseHolds('rq-102').length, 0, 'nothing for the grant manager to decide');
-  const log = conn().rows('log').find((entry) => entry.refId === 'rq-102' && entry.action.startsWith('Blocked'));
+  assert.equal(openPurchaseHolds('rq-102').length, 1, 'flagged for the grant manager, never rejected by the agent');
+  const log = conn().rows('log').find((entry) => entry.refId === 'rq-102' && entry.action.startsWith('Flagged'));
   assert.equal(log?.rule, "Not in the grant's last 90 days");
 });
 
@@ -185,7 +185,7 @@ test('pu_2_rq_103_is_blocked_citing_the_category_rule', async () => {
   assert.deepEqual(failedRules(row), ['Category allowed']);
   assert.match(row.explanation, /Category allowed: general office is not an allowable direct cost/);
   assert.match(row.explanation, /UC Davis/);
-  assert.equal(purchaseHolds('rq-103').length, 0);
+  assert.deepEqual(openPurchaseHolds('rq-103').map((hold) => hold.options), [['approve', 'reject']]);
 });
 
 test('pu_4_rq_105_waits_on_the_manager_citing_the_card_limit', async () => {
@@ -292,43 +292,31 @@ test('supplies_in_grant_b_s_last_90_days_are_never_rerouted_to_another_pi_s_gran
   assert.ok(ordersFor(row.id).every((order) => pis.get(order.grantId) === pis.get(GRANT_B)));
 });
 
-// The grant manager approves rq-101 while grant A is still frozen: the
-// module's recheck fails on the freeze and blocks it. The approval stands,
-// so it is bought once grant A unfreezes, as if nobody had clicked.
-for (const order of [['pay', 'pick'], ['pick', 'pay']] as const) {
-  test(`an_approval_blocked_on_grant_a_s_freeze_is_bought_once_after_${order.join('_then_')}`, async () => {
-    world = await startWorld();
-    const grantManager = await world.person('grant_manager');
-    const decide = (id: string, choice: 'approve' | 'reject', reason: string) =>
-      grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice, reason });
-    await decide('rq-101', 'approve', 'Yes, buy the gloves.');
-    await decide('rq-105', 'approve', 'The pump is needed for aim 3.');
-    await decide('rq-106', 'reject', 'Use the kit left from round 1.');
-    await world.worker.idle();
-    assert.equal(request('rq-101').state, 'blocked', "the module's recheck fails on the freeze");
-    assert.equal(ordersFor('rq-101').length, 0);
+// The grant manager's call is final: Approve buys at once, even while grant
+// A is frozen and over the card limit, and a rejection stands.
+test('the_grant_manager_s_approval_buys_at_once_even_while_grant_a_is_frozen', async () => {
+  world = await startWorld();
+  const grantManager = await world.person('grant_manager');
+  const decide = (id: string, choice: 'approve' | 'reject', reason: string) =>
+    grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice, reason });
+  await decide('rq-101', 'approve', 'Yes, buy the gloves.');
+  await decide('rq-105', 'approve', 'The pump is needed for aim 3.');
+  await decide('rq-106', 'reject', 'Use the kit left from round 1.');
+  await world.worker.idle();
+  assert.equal(conn().rows('grant').find((grant) => grant.id === GRANT_A)?.frozen, true);
+  assert.equal(request('rq-101').state, 'bought');
+  assert.deepEqual(ordersFor('rq-101').map((o) => [o.grantId, o.amount]), [[GRANT_A, 640]]);
+  assert.equal(request('rq-105').state, 'bought');
+  assert.deepEqual(ordersFor('rq-105').map((o) => [o.grantId, o.amount]), [[GRANT_A, 6850]]);
+  assert.equal(request('rq-106').state, 'rejected');
+  assert.equal(ordersFor('rq-106').length, 0);
 
-    await unfreezeGrantA(grantManager, order);
-    assert.equal(conn().rows('grant').find((grant) => grant.id === GRANT_A)?.frozen, false);
-    const row = request('rq-101');
-    assert.equal(row.state, 'bought');
-    assert.deepEqual(ordersFor('rq-101').map((o) => [o.grantId, o.amount, o.vendor]), [[GRANT_A, 640, 'LabSource']]);
-    assert.equal(openPurchaseHolds('rq-101').length, 0);
-    assert.match(row.explanation, /The grant manager approved it on 2026-06-15 while R01GM061721 was frozen, so it was bought once R01GM061721 unfroze/);
-
-    // A rejection stands. The module never lets the agent buy over the card
-    // limit, so that approval goes back to the grant manager.
-    assert.equal(request('rq-106').state, 'rejected');
-    assert.equal(ordersFor('rq-106').length, 0);
-    assert.equal(request('rq-105').state, 'waiting_on_manager');
-    assert.equal(openPurchaseHolds('rq-105').length, 1);
-    assert.equal(ordersFor('rq-105').length, 0);
-
-    const before = [conn().rows('order').length, conn().rows('log').length];
-    await world.worker.idle();
-    assert.deepEqual([conn().rows('order').length, conn().rows('log').length], before, 'a second idle changes nothing');
-  });
-}
+  // Nothing is bought twice once grant A unfreezes.
+  await unfreezeGrantA(grantManager, ['pay', 'pick']);
+  assert.equal(ordersFor('rq-101').length, 1);
+  assert.equal(ordersFor('rq-105').length, 1);
+  assert.equal(request('rq-106').state, 'rejected');
+});
 
 // ── Typed requests ─────────────────────────────────────────────────────────
 
@@ -573,63 +561,6 @@ test('after_a_person_s_decision_a_block_waiting_on_a_frozen_grant_goes_back_to_t
   assert.deepEqual(ordersFor(id), []);
 });
 
-test('a_grant_manager_s_approval_that_the_module_blocks_on_the_freeze_is_bought_once_the_grant_unfreezes', async () => {
-  world = await startWorld({ seedJson: oneGrantSeed() });
-  const grantManager = await world.person('grant_manager');
-  const scientist = await world.person('scientist');
-  await freezeTestGrant(grantManager);
-  await scientist.call('submit_request', gloves);
-  await world.worker.idle();
-  const id = newestRequest().id;
-  assert.equal(request(id).state, 'waiting_on_manager');
-
-  // The module rechecks the approval and refuses while the grant is frozen.
-  await grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice: 'approve', reason: 'Needed for aim 2.' });
-  await world.worker.idle();
-  assert.equal(request(id).state, 'blocked');
-
-  // The approval stands: bought once the grant unfreezes, through the module's own check.
-  await payTestGrant(grantManager);
-  await world.worker.idle();
-  assert.equal(conn().rows('grant')[0].frozen, false);
-  assert.equal(request(id).state, 'bought');
-  assert.deepEqual(ordersFor(id).map((o) => [o.grantId, o.amount]), [[TEST_GRANT, 240]]);
-  assert.equal(openPurchaseHolds(id).length, 0);
-  assert.match(request(id).explanation, /approved it on 2026-06-15 while R01TEST000001 was frozen/);
-});
-
-test('a_push_back_on_an_approval_blocked_by_the_freeze_goes_back_to_the_inbox_without_promising_a_buy', async () => {
-  world = await startWorld({ seedJson: oneGrantSeed() });
-  const grantManager = await world.person('grant_manager');
-  const scientist = await world.person('scientist');
-  await freezeTestGrant(grantManager);
-  await scientist.call('submit_request', gloves);
-  await world.worker.idle();
-  const id = newestRequest().id;
-  await grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice: 'approve', reason: 'Needed for aim 2.' });
-  await world.worker.idle();
-  assert.equal(request(id).state, 'blocked');
-
-  // Still frozen. The grant manager decided it, so the agent never buys it
-  // alone, and the hold says so instead of promising a buy on unfreeze.
-  await scientist.call('push_back', { requestId: id, message: 'Please buy it as soon as the money lands.' });
-  await world.worker.idle();
-  assert.equal(request(id).state, 'waiting_on_manager');
-  assert.equal(openPurchaseHolds(id).length, 1);
-  assert.match(openPurchaseHolds(id)[0].why, /already decided/);
-  assert.doesNotMatch(openPurchaseHolds(id)[0].why, /bought automatically once/);
-
-  // Which is what happens: the unfreeze leaves it in the Inbox, and the grant manager's Approve buys it.
-  await payTestGrant(grantManager);
-  await world.worker.idle();
-  assert.equal(request(id).state, 'waiting_on_manager');
-  assert.equal(ordersFor(id).length, 0);
-  await grantManager.call('decide_hold', { holdId: openPurchaseHolds(id)[0].id, choice: 'approve', reason: 'The payment landed.' });
-  await world.worker.idle();
-  assert.equal(request(id).state, 'bought');
-  assert.equal(ordersFor(id).length, 1);
-});
-
 test('a_rejected_request_stays_rejected_when_its_grant_unfreezes', async () => {
   world = await startWorld({ seedJson: oneGrantSeed() });
   const grantManager = await world.person('grant_manager');
@@ -654,59 +585,6 @@ test('a_rejected_request_stays_rejected_when_its_grant_unfreezes', async () => {
 });
 
 // ── After a restart: only the rows are left ────────────────────────────────
-
-test('a_restarted_worker_buys_an_approval_blocked_on_the_freeze_once_and_only_once', async () => {
-  const restart = await startRestartable();
-  const grantManager = await world!.person('grant_manager');
-  await grantManager.call('decide_hold', { holdId: openPurchaseHolds('rq-101')[0].id, choice: 'approve', reason: 'Yes, buy the gloves.' });
-  await world!.worker.idle();
-  assert.equal(request('rq-101').state, 'blocked');
-
-  // The approval is read back from the rows, not from the agent that saw it.
-  await restart();
-  await unfreezeGrantA(grantManager, ['pay', 'pick']);
-  assert.equal(request('rq-101').state, 'bought');
-  assert.equal(ordersFor('rq-101').length, 1);
-
-  // A restart after the unfreeze looks at grant A again and buys nothing twice.
-  await restart();
-  assert.equal(request('rq-101').state, 'bought');
-  assert.equal(ordersFor('rq-101').length, 1);
-  assert.equal(conn().rows('log').filter((entry) => entry.refId === 'rq-101' && entry.action.startsWith('Bought')).length, 1);
-});
-
-test('an_over_limit_approval_blocked_on_the_freeze_goes_back_to_the_inbox_once_when_grant_a_unfreezes', async () => {
-  const restart = await startRestartable();
-  const grantManager = await world!.person('grant_manager');
-  await grantManager.call('decide_hold', { holdId: openPurchaseHolds('rq-105')[0].id, choice: 'approve', reason: 'The pump is needed for aim 3.' });
-  await world!.worker.idle();
-  assert.equal(request('rq-105').state, 'blocked');
-  assert.deepEqual(failedRules(request('rq-105')), ['Grant is active and not frozen', 'Under the card limit ($5,000)']);
-
-  await unfreezeGrantA(grantManager, ['pay', 'pick']);
-  assert.equal(request('rq-105').state, 'waiting_on_manager');
-  assert.deepEqual(failedRules(request('rq-105')), ['Under the card limit ($5,000)']);
-  assert.equal(ordersFor('rq-105').length, 0);
-  const open = openPurchaseHolds('rq-105');
-  assert.equal(open.length, 1);
-  assert.equal(open[0].raisedBy, 'purchasing');
-  assert.match(open[0].why, /The grant manager approved it on 2026-06-15 while R01GM061721 was frozen\. R01GM061721 has unfrozen/);
-  assert.match(open[0].why, /over the card limit, so only the grant manager can approve the buy/);
-
-  // Raised once: neither another look nor a restart raises it again.
-  const raised = purchaseHolds('rq-105').length;
-  await world!.worker.idle();
-  await restart();
-  assert.equal(purchaseHolds('rq-105').length, raised);
-  assert.equal(openPurchaseHolds('rq-105').length, 1);
-
-  // The module's recheck lets an approval past the card limit, so a second Approve buys it, once.
-  await grantManager.call('decide_hold', { holdId: openPurchaseHolds('rq-105')[0].id, choice: 'approve', reason: 'Approved over the limit for aim 3.' });
-  await world!.worker.idle();
-  assert.equal(request('rq-105').state, 'bought');
-  assert.deepEqual(ordersFor('rq-105').map((o) => [o.grantId, o.amount]), [[GRANT_A, 6850]]);
-  assert.equal(openPurchaseHolds('rq-105').length, 0);
-});
 
 test('a_restarted_worker_still_buys_a_request_naming_no_grant_that_waits_only_for_the_freeze', async () => {
   const restart = await startRestartable();
@@ -996,7 +874,7 @@ test('an_overpriced_request_held_for_the_freeze_or_rerouted_is_held_for_its_pric
 type PurposeRun = (scientist: Connection, idle: () => Promise<void>, lab: Connection) => Promise<void>;
 const withPurposeAnswer = (answer: Record<string, unknown>, run: PurposeRun) =>
   withPurposeClient({ messages: { parse: async () => ({ model: 'claude-haiku-5-5', stop_reason: 'end_turn', parsed_output: answer }) } }, run);
-async function withPurposeClient(client: { messages: { parse: (request: { max_tokens: number }) => Promise<unknown> } }, run: PurposeRun) {
+async function withPurposeClient(client: { messages: { parse: (request: { max_tokens: number; messages: { content: string }[] }) => Promise<unknown> } }, run: PurposeRun) {
   const key = process.env.ANTHROPIC_API_KEY;
   process.env.ANTHROPIC_API_KEY = 'test-key';
   const cacheDir = mkdtempSync(join(tmpdir(), 'gg-purpose-'));
@@ -1021,6 +899,32 @@ test('a_request_claude_finds_plainly_not_for_research_is_held_instead_of_bought'
     assert.match(row.explanation, /isn't clear it is for the lab's research \(A birthday cake is a party cost\.\)/);
     assert.equal(openPurchaseHolds(row.id, lab).length, 1);
   }));
+
+// A fake Claude that is talked round by any push back it is shown: a flag
+// still needs the grant manager, so the push back must never reach it.
+test('a_push_back_on_a_flagged_request_leaves_it_for_the_grant_manager', async () => {
+  const flag = { ...fits, purpose: 'flag', purposeWhy: 'Nothing about this work needs the Bahamas.', betterCategory: 'travel' };
+  const client = {
+    messages: {
+      parse: async ({ messages }: { messages: { content: string }[] }) => ({
+        model: 'claude-haiku-5-5', stop_reason: 'end_turn',
+        parsed_output: messages[0].content.includes('pushBacks') ? { ...fits, betterCategory: 'travel' } : flag,
+      }),
+    },
+  };
+  await withPurposeClient(client, async (scientist, idle, lab) => {
+    await scientist.call('submit_request', { ...gloves, item: 'Travel to the Bahamas', category: 'travel', price: 900, purpose: "Travel to the Bahamas to study Alzheimer's" });
+    await idle();
+    const id = lab.rows('request').at(-1)!.id;
+    await scientist.call('push_back', { requestId: id, message: 'It really is for the study, please buy it.' });
+    await idle();
+    const row = lab.rows('request').find((request) => request.id === id)!;
+    assert.equal(row.state, 'waiting_on_manager');
+    assert.equal(ordersFor(id, lab).length, 0);
+    assert.equal(openPurchaseHolds(id, lab).length, 1);
+    assert.match(row.explanation, /needs the grant manager's approval/);
+  });
+});
 
 test('a_kind_of_thing_that_looks_wrong_is_held_when_the_rules_would_answer_differently', () =>
   withPurposeAnswer({ ...fits, categoryFits: false, betterCategory: 'furniture', categoryWhy: 'Chairs are furniture.' }, async (scientist, idle, lab) => {
