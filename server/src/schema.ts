@@ -138,6 +138,7 @@ const checkRequest = table(
     requestedBy: t.string(),
     day: t.string(),
     done: t.bool(),
+    asOf: t.string().default(''), // demo time: read the cancellation list as it stood this real day (YYYY-MM-DD), '' = today; added T59
   }
 );
 

@@ -557,12 +557,15 @@ export const raise_flag = spacetimedb.reducer(
 );
 
 /** Anyone: "check now" (person) or a recheck before money moves (agent). */
-export const request_check = spacetimedb.reducer({ grantId: t.string().optional(), reason: t.string() }, (ctx, { grantId, reason }) => guard(() => {
+// asOf (demo time buttons, T59): the real day the cancellation list is read
+// as of, for this and later checks until another check_now changes it.
+export const request_check = spacetimedb.reducer({ grantId: t.string().optional(), reason: t.string(), asOf: t.string().optional() }, (ctx, { grantId, reason, asOf }) => guard(() => {
   const who = requireAnyone(ctx);
   oneOf('reason', CHECK_REASONS, reason);
   if (grantId) getGrant(ctx, grantId);
-  const row = ctx.db.checkRequest.insert({ id: 0n, grantId, reason, requestedBy: who, day: today(ctx), done: false });
-  writeLog(ctx, who, `Asked for a source check${grantId ? ` of ${grantId}` : ''}`, reason.replace(/_/g, ' '), { refId: row.id.toString() });
+  if (asOf && !isRealDay(asOf)) fail(`asOf must be a real date written YYYY-MM-DD; got "${asOf}".`);
+  const row = ctx.db.checkRequest.insert({ id: 0n, grantId, reason, requestedBy: who, day: today(ctx), done: false, asOf: asOf ?? '' });
+  writeLog(ctx, who, `Asked for a source check${grantId ? ` of ${grantId}` : ''}`, `${reason.replace(/_/g, ' ')}${asOf ? `, cancellation list as of ${asOf}` : ''}`, { refId: row.id.toString() });
 }));
 
 /** Bookkeeping agent: mark a check request done. */

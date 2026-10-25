@@ -33,7 +33,7 @@ Node 22.4 or later.
 | `src/identity.ts` | Agent tokens: on disk for a server (roles bind to identities once), in memory for the local world |
 | `src/worker.ts` | Connects the three agents and starts their loops; `idle()` waits until nobody has anything left to do |
 | `src/sim.ts` | `runSim()`: the sim world played to quiet, every table returned (for the T19 scorecard) |
-| `src/agents/bookkeeping.ts` | Fund tracker: reads sources daily, on "check now" and before money moves; flags disagreements, spending while canceled, and court orders without money |
+| `src/agents/bookkeeping.ts` | Fund tracker: reads sources on "check now" and before money moves (no timer; demo time via `request_check` asOf); flags disagreements, spending while canceled, and court orders without money |
 | `src/agents/purchasing.ts` | Purchasing agent (T11) |
 | `src/agents/invoices.ts` | Invoice check (T12), bookkeeping identity |
 | `src/agents/payment-requests.ts` | Payment request writer (T13), payment and report identity |

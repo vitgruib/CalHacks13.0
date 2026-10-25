@@ -17,4 +17,5 @@ export default __t.row({
   requestedBy: __t.string().name("requested_by"),
   day: __t.string(),
   done: __t.bool(),
+  asOf: __t.string().name("as_of"),
 });

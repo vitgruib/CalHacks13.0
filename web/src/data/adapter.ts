@@ -138,7 +138,8 @@ export function toDb(db: DbConnection['db']): T.Db {
 
 /** Last checked = the newest 'Finished a source check' log row (complete_check
  *  writes it); pending = the newest check_now request, while not done, timed
- *  from its 'Asked for a source check' log row (request_check writes it). */
+ *  from its 'Asked for a source check' log row (request_check writes it);
+ *  asOf = that request's demo time. */
 export function toSourceCheck(db: DbConnection['db']): T.SourceCheck {
   let last: T.SourceCheck['last'] = null
   const asked = new Map<string, Date>()
@@ -152,7 +153,7 @@ export function toSourceCheck(db: DbConnection['db']): T.SourceCheck {
   }
   const newest = rows(db.checkRequest).filter(c => c.reason === 'check_now').sort((a, b) => Number(b.id - a.id))[0]
   const pendingSince = newest && !newest.done ? asked.get(newest.id.toString()) ?? new Date() : null
-  return { last, pendingSince }
+  return { last, pendingSince, asOf: newest?.asOf || null }
 }
 
 const usd = (n: number) => n.toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })

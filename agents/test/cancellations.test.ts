@@ -29,8 +29,8 @@ test('list_words_map_to_our_statuses_and_unreadable_rows_are_dropped', () => {
     { grantId: 'R01GM000009', status: 'under review', url: 'https://list.test/4' },
   ]);
   assert.deepEqual(rows, [
-    { grantId: 'R01GM061721', status: 'canceled', url: 'https://list.test/1', listedOn: '2026-03-10' },
-    { grantId: 'R21AI182745', status: 'restored_by_court', url: 'https://list.test/2', listedOn: null },
+    { grantId: 'R01GM061721', status: 'canceled', url: 'https://list.test/1', listedOn: '2026-03-10', terminatedOn: null, restoredOn: null },
+    { grantId: 'R21AI182745', status: 'restored_by_court', url: 'https://list.test/2', listedOn: null, terminatedOn: null, restoredOn: null },
   ]);
 });
 
@@ -91,7 +91,7 @@ test('reads_only_the_needed_fields_of_the_actor_s_latest_run_once_per_check', as
   const url = new URL(urls[0]);
   assert.equal(url.pathname, '/v2/acts/someone~cancellation-list/runs/last/dataset/items');
   assert.equal(url.searchParams.get('status'), 'SUCCEEDED');
-  assert.equal(url.searchParams.get('fields'), 'grantId,status,url,listedOn');
+  assert.equal(url.searchParams.get('fields'), 'grantId,status,url,listedOn,terminatedOn,restoredOn');
 });
 
 test('the_saved_copy_keeps_only_the_lab_s_grants', async () => {
@@ -114,6 +114,8 @@ test('the_scraper_s_cancellation_disagreeing_with_reporter_raises_a_flag', async
   };
   const list = createCancellationListSource({ file: listFile([{ grantId: TEST_GRANT, status: 'Terminated', url: 'https://list.test/t' }]) });
   world = await startWorld({ seedJson: oneGrantSeed(), sources: [reporter, list] });
+  await world.worker.tracker.refresh();
+  await world.worker.idle();
   const conn = world.worker.sessions.bookkeeping;
   const flags = conn.rows('flag').filter((flag) => flag.kind === 'sources_disagree');
   assert.equal(flags.length, 1);
@@ -149,8 +151,8 @@ test('check_now_starts_a_fresh_actor_run_and_reads_its_dataset', async () => {
   const { source, posts } = apifyWithFreshRun();
   world = await startWorld({ seedJson: oneGrantSeed(), sources: [source] });
   const conn = world.worker.sessions.bookkeeping;
-  assert.deepEqual(listReadings(conn), ['active'], 'the scheduled check reads the latest run');
-  assert.equal(posts.length, 0, 'the scheduled check starts no run');
+  assert.deepEqual(listReadings(conn), [], 'nothing is read until someone asks');
+  assert.equal(posts.length, 0);
 
   const grantManager = await world.person('grant_manager');
   await grantManager.call('request_check', { reason: 'check_now' });
@@ -162,7 +164,7 @@ test('check_now_starts_a_fresh_actor_run_and_reads_its_dataset', async () => {
   assert.equal(run.searchParams.get('waitForFinish'), '60');
   assert.equal(posts[0].auth, 'Bearer secret-token');
   assert.doesNotMatch(posts[0].url, /secret-token/);
-  assert.deepEqual(listReadings(conn), ['active', 'canceled'], 'check now read the fresh run, not the memo');
+  assert.deepEqual(listReadings(conn), ['canceled'], 'check now read the fresh run, not the latest one');
   assert.equal(conn.rows('checkRequest')[0].done, true);
 });
 
@@ -185,4 +187,37 @@ test('a_recheck_before_money_moves_starts_no_actor_run', async () => {
   await world.worker.sessions.bookkeeping.call('request_check', { grantId: TEST_GRANT, reason: 'before_money_moves' });
   await world.worker.idle();
   assert.equal(posts.length, 0);
+});
+
+// Demo time buttons (T59). The real list's row for R01GM061721: terminated
+// 2025-07-31, reinstated 2025-09-22 (Thakur v. Trump).
+const realRow = { grantId: TEST_GRANT, status: 'restored_by_court', url: 'https://list.test/gw', listedOn: '2025-09-22', terminatedOn: '2025-07-31', restoredOn: '2025-09-22' };
+const checkAsOf = async (asOf?: string, reason: 'check_now' | 'before_money_moves' = 'check_now') => {
+  const grantManager = await world!.person('grant_manager');
+  await grantManager.call('request_check', { reason, asOf });
+  await world!.worker.idle();
+};
+
+test('check_now_as_of_a_day_reads_the_list_as_it_stood_that_day', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed(), sources: [createCancellationListSource({ file: listFile([realRow]) })] });
+  const conn = world.worker.sessions.bookkeeping;
+  await checkAsOf('2025-07-30');
+  assert.deepEqual(listReadings(conn), [], 'not listed before the cut');
+  await checkAsOf('2025-08-15');
+  assert.deepEqual(listReadings(conn), ['canceled']);
+  await checkAsOf('2025-09-22');
+  assert.deepEqual(listReadings(conn), ['canceled', 'restored_by_court']);
+});
+
+test('the_demo_time_holds_for_a_recheck_before_money_moves', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed(), sources: [createCancellationListSource({ file: listFile([realRow]) })] });
+  await checkAsOf('2025-08-15');
+  await checkAsOf(undefined, 'before_money_moves');
+  assert.deepEqual(listReadings(world.worker.sessions.bookkeeping), ['canceled'], 'still as of 2025-08-15, not today');
+});
+
+test('a_demo_time_that_is_not_a_real_day_is_refused', async () => {
+  world = await startWorld({ seedJson: oneGrantSeed() });
+  const grantManager = await world.person('grant_manager');
+  await assert.rejects(grantManager.call('request_check', { reason: 'check_now', asOf: '2025-02-30' }), /real date/);
 });

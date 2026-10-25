@@ -75,7 +75,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
   renderStatus: (info: LiveInfo) => ReactNode
 }) {
   const [db, setDb] = useState<Db | null>(null)
-  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null })
+  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null, asOf: null })
   const [status, setStatus] = useState<LiveInfo['status']>('live')
   const [notices, setNotices] = useState<LiveInfo['notices']>([])
   const manager = useRef<DbConnection | null>(null)
@@ -193,9 +193,9 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
     },
     sourceCheck,
     // The worker's bookkeeping agent picks the request up and calls complete_check.
-    checkNow: async () => {
+    checkNow: async asOf => {
       if (!manager.current || status !== 'live') throw new Error('not connected to the server; reload to reconnect')
-      await conn().reducers.requestCheck({ grantId: undefined, reason: 'check_now' })
+      await conn().reducers.requestCheck({ grantId: undefined, reason: 'check_now', asOf })
     },
   }
 

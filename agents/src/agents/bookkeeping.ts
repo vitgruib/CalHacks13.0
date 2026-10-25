@@ -1,7 +1,7 @@
 // The bookkeeping agent's fund tracker loop (docs/MASTER-PLAN.md §3.1). It
-// reads every source for the lab's own grants once a day, on "check now", and
-// right before money moves; posts only what changed; and raises a flag when
-// sources disagree, when money was spent while a grant was canceled, or when
+// reads every source for the lab's own grants on "check now" and right before
+// money moves, never on a timer (T59); posts only what changed; and raises a
+// flag when sources disagree, when money was spent while a grant was canceled, or when
 // a court restored a grant but no money has come. Track A's module decides
 // what a flag or event freezes, and puts a disagreement in the Inbox.
 
@@ -66,13 +66,8 @@ const loggedAt = (conn: Connection, order: OrderRow) =>
     .filter((row) => row.refId === order.requestId && row.day === order.placed && /^(Bought|Rerouted)\b/.test(row.action))
     .reduce<number | undefined>((first, row) => (first === undefined || row.at < first ? row.at : first), undefined);
 
-export function startTracker(
-  conn: Connection,
-  sources: SourceClient[],
-  { intervalMs = DAY_MS }: { intervalMs?: number } = {},
-): Tracker {
-  // One refresh at a time, so a daily run and a "check now" can't post the
-  // same change twice.
+export function startTracker(conn: Connection, sources: SourceClient[]): Tracker {
+  // One refresh at a time, so two checks can't post the same change twice.
   let queue: Promise<void> = Promise.resolve();
   const enqueue = (work: () => Promise<void>): Promise<void> => {
     const run = queue.then(work);
@@ -194,9 +189,20 @@ export function startTracker(
     for (const grant of grants) await refreshGrant(grant.id);
   }
 
+  // Demo time (T59): the newest check_now's asOf stays in force for every
+  // read after it (rechecks before money moves too), across restarts, until
+  // another check_now changes it.
+  const demoDay = () =>
+    conn.rows('checkRequest').filter((c) => c.reason === 'check_now').reduce<CheckRequestRow | undefined>((a, b) => (!a || b.id > a.id ? b : a), undefined)?.asOf || null;
+  const showDemoDay = () => {
+    for (const source of sources) source.viewAsOf?.(demoDay());
+  };
+  showDemoDay();
+
   const handleCheck = (check: CheckRequestRow) => {
     if (check.done) return;
     enqueue(async () => {
+      showDemoDay();
       const notes = await Promise.all(sources.map((source) => source.beforeCheck?.(check.reason).catch((error: unknown) => `${source.source}: ${error}`)));
       const said = notes.filter((note) => note !== undefined);
       if (said.length) console.log(`tracker: check request ${check.id} (${check.reason}): ${said.join('; ')}`);
@@ -224,19 +230,10 @@ export function startTracker(
     }),
   ];
 
-  const daily = () =>
-    enqueue(() => refreshNow()).catch((error: unknown) => {
-      console.error('tracker: scheduled refresh failed', error);
-    });
-  void daily();
-  const timer = setInterval(daily, intervalMs);
-  timer.unref();
-
   return {
     refresh: (grantId) => enqueue(() => refreshNow(grantId)),
     idle: () => queue,
     stop() {
-      clearInterval(timer);
       for (const stop of stops) stop();
     },
   };

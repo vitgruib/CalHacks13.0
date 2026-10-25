@@ -152,7 +152,7 @@ identity ([agents/README.md](agents/README.md)).
 
 | Agent (role) | Seat | What it does |
 |---|---|---|
-| Bookkeeping (`bookkeeping`) | Grant accountant | Fund tracker: reads the sources daily, on "Check now" and right before money moves; posts only changes, each with its source and date; flags sources that disagree, spending while canceled, and a court order with no payment. Also checks every invoice against its order and approval. |
+| Bookkeeping (`bookkeeping`) | Grant accountant | Fund tracker: reads the sources on "Check now" and right before money moves (never on a timer); posts only changes, each with its source and date; flags sources that disagree, spending while canceled, and a court order with no payment. Also checks every invoice against its order and approval. |
 | Purchasing (`purchasing`) | Purchasing agent | Reads each request, picks the grant, asks the module for its verdicts, then buys, blocks, reroutes or holds for the grant manager, explaining the failed rule. A request held only by a freeze is bought once the grant unfreezes. |
 | Payment and report (`payment_report`) | Payment and report preparer | Drafts each month's payment request (up to 1,000 characters) and answers to follow-up questions, both approved by a person. Checks each progress-report paper's grant credit, PubMed Central ID and corrections. |
 
@@ -190,6 +190,10 @@ window shows "Sources last checked X ago" and a "Check now" button that runs
 a tracker check. With the government sources switched on
 (`GG_LIVE_SOURCES=1` and an Apify token), it also starts a fresh Apify run;
 the hosted worker keeps them off, because the demo's timeline is simulated.
+Demo time buttons under Check now (Before the cut 2025-07-30, After the cut
+2025-08-15, After the court 2025-09-22, Today) run the same check with the
+real cancellation list read as it stood that day. The pick stays in force
+for later checks until another is pressed.
 
 ### The web app (`web/`, Track C)
 

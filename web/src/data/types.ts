@@ -229,4 +229,7 @@ export interface SourceCheck {
   last: { at: Date; what: string } | null
   /** When the newest "check now" was asked for, while it hasn't finished. */
   pendingSince: Date | null
+  /** Demo time (T59): the real day the cancellation list is read as of,
+   *  set by the newest "check now"; null = today. */
+  asOf: string | null
 }

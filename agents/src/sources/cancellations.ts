@@ -16,9 +16,14 @@
 //   whole list), and is downloaded once per check, not once per grant.
 //   Check now (beforeCheck 'check_now') first starts a fresh run of the Actor
 //   (waits up to 60 s; a run takes ~8 s) and reads that run's dataset instead
-//   of the memo; scheduled checks and rechecks before money moves don't. A
+//   of the memo; rechecks before money moves don't. A
 //   run that fails falls back to the latest run and says so in the check's
 //   log line. Needs the token and live mode (GG_SOURCES isn't offline).
+// Demo time (T59, viewAsOf): read the list as it stood on a past real day,
+//   from each row's own dates (scrapers/ T57 does the same in the Actor):
+//   before terminatedOn the grant isn't listed, until restoredOn it's
+//   canceled, from restoredOn on it has its current status. A row without
+//   terminatedOn (an older saved copy) can't be placed, so it isn't listed.
 // GG_LAB_GRANTS (comma-separated): the saved copy keeps only these grants, so
 //   agents/cache/ doesn't hold the whole list.
 // GG_CANCELLATIONS_FILE: read a local file instead (default
@@ -39,6 +44,8 @@ export interface ListedGrant {
   status: GrantStatus;
   url: string;
   listedOn: string | null;
+  terminatedOn: string | null;
+  restoredOn: string | null;
 }
 
 const STATUS_WORDS: Array<[RegExp, GrantStatus]> = [
@@ -59,6 +66,17 @@ function grantIdOf(raw: unknown): string | null {
   return normalizeGrantNumber(raw) ?? (/^[A-Z0-9-]{6,}$/i.test(raw.trim()) ? raw.trim().toUpperCase() : null);
 }
 
+const dayOf = (value: unknown): string | null =>
+  typeof value === 'string' && /^\d{4}-\d{2}-\d{2}/.test(value) ? value.slice(0, 10) : null;
+
+/** A row as the list showed it on `day` (demo time), or null if it wasn't listed yet. */
+export function asListedOn(row: ListedGrant, day: string | null): ListedGrant | null {
+  if (!day) return row;
+  if (!row.terminatedOn || row.terminatedOn > day) return null;
+  if (row.restoredOn && row.restoredOn > day) return { ...row, status: 'canceled', listedOn: row.terminatedOn, restoredOn: null };
+  return row;
+}
+
 // Rows that can't be read (no grant number, an unknown status) are dropped,
 // not guessed at.
 export function parseList(raw: unknown): ListedGrant[] {
@@ -68,8 +86,7 @@ export function parseList(raw: unknown): ListedGrant[] {
     const grantId = grantIdOf(item?.grantId);
     const status = statusOf(item?.status);
     if (!grantId || !status || typeof item.url !== 'string') continue;
-    const listedOn = typeof item.listedOn === 'string' && /^\d{4}-\d{2}-\d{2}/.test(item.listedOn) ? item.listedOn.slice(0, 10) : null;
-    rows.push({ grantId, status, url: item.url, listedOn });
+    rows.push({ grantId, status, url: item.url, listedOn: dayOf(item.listedOn), terminatedOn: dayOf(item.terminatedOn), restoredOn: dayOf(item.restoredOn) });
   }
   return rows;
 }
@@ -101,11 +118,12 @@ export function createCancellationListSource(options: CancellationListOptions = 
 
   const mode = options.mode ?? (process.env.GG_SOURCES === 'offline' ? 'offline' : 'live');
   const canRun = !dataset && actor && token && mode === 'live';
-  const FIELDS = 'clean=true&format=json&fields=grantId,status,url,listedOn';
+  const FIELDS = 'clean=true&format=json&fields=grantId,status,url,listedOn,terminatedOn,restoredOn';
 
   // A check reads every grant within moments; the list changes at most daily.
   const FRESH_MS = 10 * 60_000;
   let loaded: { at: number; rows: Promise<ListedGrant[]> } | undefined;
+  let viewDay: string | null = null;
 
   async function fetchList(): Promise<ListedGrant[]> {
     const url = `https://api.apify.com/v2/${items}${FIELDS}`;
@@ -121,7 +139,7 @@ export function createCancellationListSource(options: CancellationListOptions = 
   }
 
   // A fresh Actor run and its dataset. Not saved to agents/cache/: each run
-  // has its own dataset id, and the next scheduled read saves the same rows.
+  // has its own dataset id, and the next plain read saves the same rows.
   async function freshRun(): Promise<{ runId: string; rows: ListedGrant[] }> {
     const doFetch = options.fetchImpl ?? fetch;
     const headers = { authorization: `Bearer ${token}`, accept: 'application/json' };
@@ -162,6 +180,9 @@ export function createCancellationListSource(options: CancellationListOptions = 
 
   return {
     source: 'Cancellation list (Apify)',
+    viewAsOf(day) {
+      viewDay = day;
+    },
     async beforeCheck(reason) {
       if (reason !== 'check_now' || !canRun) return undefined;
       try {
@@ -174,7 +195,10 @@ export function createCancellationListSource(options: CancellationListOptions = 
     },
     async read(grantId): Promise<Reading | null> {
       const wanted = grantIdOf(grantId) ?? grantId;
-      const listed = (await load()).filter((row) => row.grantId === wanted);
+      const listed = (await load())
+        .filter((row) => row.grantId === wanted)
+        .map((row) => asListedOn(row, viewDay))
+        .filter((row) => row !== null);
       if (listed.length === 0) return null;
       // The newest listing wins; undated rows count as oldest.
       const latest = listed.reduce((a, b) => ((b.listedOn ?? '') >= (a.listedOn ?? '') ? b : a));

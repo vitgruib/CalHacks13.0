@@ -1,6 +1,8 @@
 // "Sources last checked 3 min ago" + Check now (T31). Check now asks the
 // bookkeeping agent to read every outside source (and, with live sources, to
 // start a fresh scraper run first); the line updates when the agent finishes.
+// Demo time buttons (T59) run the same check with the cancellation list read
+// as it stood on a past real day; the time stays until another is picked.
 import { useEffect, useState } from 'react'
 import { useStore } from './data/store'
 import './SourceCheck.css'
@@ -21,11 +23,20 @@ export function ago(ms: number): string {
   return `${d} day${d === 1 ? '' : 's'} ago`
 }
 
+/** R01GM061721 on the real Grant Witness list: terminated 2025-07-31,
+ *  reinstated 2025-09-22 (Thakur v. Trump). */
+const DEMO_TIMES: Array<{ label: string; asOf: string | null }> = [
+  { label: 'Before the cut', asOf: '2025-07-30' },
+  { label: 'After the cut', asOf: '2025-08-15' },
+  { label: 'After the court', asOf: '2025-09-22' },
+  { label: 'Today', asOf: null },
+]
+
 const fullTime = (d: Date) => d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'medium' })
 
 export default function SourceCheck() {
   const { sourceCheck, checkNow } = useStore()
-  const { last, pendingSince } = sourceCheck
+  const { last, pendingSince, asOf } = sourceCheck
   const [now, setNow] = useState(() => Date.now())
   const [sending, setSending] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -38,10 +49,10 @@ export default function SourceCheck() {
   const checking = sending || (pendingSince !== null && !timedOut)
   const failed = error ?? (timedOut ? `The check didn't finish within ${GIVE_UP_MS / 1000} s. Is the agent worker running?` : null)
 
-  const press = () => {
+  const press = (day: string | null) => {
     setError(null)
     setSending(true)
-    checkNow()
+    checkNow(day ?? undefined)
       .catch(e => setError(`Check failed: ${e instanceof Error ? e.message : String(e)}`))
       .finally(() => setSending(false))
   }
@@ -55,9 +66,18 @@ export default function SourceCheck() {
       </span>
       {checking && <span className="source-check-note">Reading every source…</span>}
       {!checking && failed && <span className="source-check-error">{failed}</span>}
-      <button type="button" onClick={press} disabled={checking}>
+      <button type="button" onClick={() => press(asOf)} disabled={checking}>
         {checking ? 'Checking…' : failed ? 'Try again' : 'Check now'}
       </button>
+      <div className="source-check-times" role="group" aria-label="Demo time: check the cancellation list as of">
+        <span>Demo time</span>
+        {DEMO_TIMES.map(t => (
+          <button key={t.label} type="button" aria-pressed={asOf === t.asOf} disabled={checking} onClick={() => press(t.asOf)}
+            title={t.asOf ? `Check now, reading the real cancellation list as it stood on ${t.asOf}` : 'Check now, reading today\'s cancellation list'}>
+            {t.label}{t.asOf && <small>{t.asOf}</small>}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

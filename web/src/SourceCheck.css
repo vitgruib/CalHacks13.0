@@ -5,3 +5,8 @@
 .source-check-note { font-style: italic; }
 .source-check-error { color: var(--bad); }
 .source-check button { white-space: nowrap; }
+.source-check-times { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; }
+.source-check-times > span { margin-right: 4px; }
+.source-check-times button { display: inline-flex; flex-direction: column; align-items: center; line-height: 1.2; }
+.source-check-times button small { font-size: 11px; color: var(--muted); }
+.source-check-times button[aria-pressed="true"] { border-color: var(--text); font-weight: 600; }

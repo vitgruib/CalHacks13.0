@@ -34,4 +34,8 @@ export interface SourceClient {
   // for (reason 'check_now' or 'before_money_moves'), e.g. to start a fresh
   // scraper run. Never throws; resolves to a note for the check's log line.
   beforeCheck?(reason: string): Promise<string | undefined>;
+  // Optional: the demo time buttons (T59). Read as the source stood on this
+  // real day (YYYY-MM-DD) from now on; null = today. Only sources that keep
+  // dated history (the cancellation list) implement it.
+  viewAsOf?(day: string | null): void;
 }

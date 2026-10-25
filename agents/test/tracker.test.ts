@@ -33,8 +33,12 @@ function fakeSource(source: Source, answers: Array<Partial<Reading> | null | Err
 }
 
 // The one-grant world, its sources read once at startup.
+// The tracker reads nothing until asked (no scheduled reads), so each test
+// starts with one check.
 async function startWith(sources: SourceClient[], extra?: Record<string, unknown[]>) {
   world = await startWorld({ seedJson: oneGrantSeed(extra), sources });
+  await world.worker.tracker.refresh();
+  await world.worker.idle();
   return world.worker.sessions.bookkeeping;
 }
 
@@ -150,6 +154,7 @@ test('a_restarted_worker_keeps_a_decided_disagreement_decided', async () => {
   const db = await createLocalDb({ world: { seedJson: oneGrantSeed() } });
   const tokens = memoryTokens();
   const first = await startWorker(db, { sources: sources(), tokens });
+  await first.tracker.refresh();
   await first.idle();
   const lab = await db.connect();
   await lab.call('register_person', { role: 'grant_manager', name: 'grant_manager' });
@@ -159,6 +164,7 @@ test('a_restarted_worker_keeps_a_decided_disagreement_decided', async () => {
   first.stop();
   const again = await startWorker(db, { sources: sources(), tokens });
   try {
+    await again.tracker.refresh();
     await again.idle();
     assert.equal(disagreements(lab).length, 1, 'the restart read the same readings and raised nothing');
   } finally {
@@ -286,6 +292,8 @@ test('an_order_whose_id_is_part_of_another_s_is_flagged_on_its_own', async () =>
       }],
     }),
   });
+  await world.worker.tracker.refresh();
+  await world.worker.idle();
   const summaries = world.worker.sessions.bookkeeping
     .rows('flag')
     .filter((flag) => flag.kind === 'spend_while_canceled' && flag.open)

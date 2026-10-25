@@ -33,6 +33,7 @@ export const CheckRequest = __t.object("CheckRequest", {
   requestedBy: __t.string(),
   day: __t.string(),
   done: __t.bool(),
+  asOf: __t.string(),
 });
 export type CheckRequest = __Infer<typeof CheckRequest>;
 

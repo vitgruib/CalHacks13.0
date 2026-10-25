@@ -13,4 +13,5 @@ import {
 export default {
   grantId: __t.option(__t.string()),
   reason: __t.string(),
+  asOf: __t.option(__t.string()),
 };

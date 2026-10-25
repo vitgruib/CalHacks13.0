@@ -145,6 +145,7 @@ export interface CheckRequestRow {
   requestedBy: string;
   day: string;
   done: boolean;
+  asOf: string; // demo time (T59): the real day the cancellation list is read as of; '' = today
 }
 
 // ── Purchases, orders, invoices ────────────────────────────────────────────
@@ -364,7 +365,7 @@ export interface Actions {
   post_status_event: { grantId: string; kind: StatusEventKind; source: Source; summary: string; amount?: number };
   /** A sources_disagree flag freezes the grant and the module puts it in the Inbox. */
   raise_flag: { grantId: string; kind: FlagKind; summary: string };
-  request_check: { grantId?: string; reason: CheckReason };
+  request_check: { grantId?: string; reason: CheckReason; asOf?: string };
   complete_check: { id: bigint };
 
   // Invoices (bookkeeping agent). The module applies the match rule: paid, or held with a timeline and an Inbox item.

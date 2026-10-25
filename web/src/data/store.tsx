@@ -25,8 +25,9 @@ export interface Store {
   /** When the sources were last checked, and whether a check now is running (T31). */
   sourceCheck: SourceCheck
   /** Ask the bookkeeping agent to check every source now (request_check
-   *  'check_now'). Rejects if the request couldn't be sent. */
-  checkNow: () => Promise<void>
+   *  'check_now'), with the cancellation list read as of `asOf` (a real day,
+   *  YYYY-MM-DD; none = today). Rejects if the request couldn't be sent. */
+  checkNow: (asOf?: string) => Promise<void>
 }
 
 export type InjectStatusEventArgs = Pick<StatusEvent, 'grantId' | 'kind' | 'source' | 'summary'> & { amount?: number }
@@ -152,13 +153,13 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
 
   // Offline demo data has no agents, so Check now here is SIMULATED: a short
   // pause, then "finished". Nothing outside this tab is read.
-  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null })
-  const checkNow: Store['checkNow'] = async () => {
+  const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null, asOf: null })
+  const checkNow: Store['checkNow'] = async asOf => {
     const id = nextId('check')
-    setSourceCheck(c => ({ ...c, pendingSince: new Date() }))
-    setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: 'Asked for a source check', reason: 'check now', refId: id }] }))
+    setSourceCheck(c => ({ ...c, pendingSince: new Date(), asOf: asOf ?? null }))
+    setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: 'Asked for a source check', reason: `check now${asOf ? `, cancellation list as of ${asOf}` : ''}`, refId: id }] }))
     setTimeout(() => {
-      setSourceCheck({ last: { at: new Date(), what: 'all grants (simulated: offline demo data, no sources read)' }, pendingSince: null })
+      setSourceCheck({ last: { at: new Date(), what: 'all grants (simulated: offline demo data, no sources read)' }, pendingSince: null, asOf: asOf ?? null })
       setDb(d => ({ ...d, log: [...d.log, { id: nextId('l'), day: d.today, actor: 'bookkeeping', action: 'Finished a source check', reason: 'all grants (simulated offline)', refId: id }] }))
     }, SIMULATED_CHECK_MS)
   }

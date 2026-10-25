@@ -17,7 +17,7 @@ const COLUMNS: Record<TableName, string[]> = {
   statusEvent: ['id', 'grantId', 'day', 'kind', 'source', 'summary', 'amount', 'at'],
   sourceReading: ['id', 'grantId', 'source', 'status', 'awarded', 'paid', 'endDate', 'url', 'day', 'at'],
   flag: ['id', 'grantId', 'day', 'kind', 'summary', 'open', 'raisedBy'],
-  checkRequest: ['id', 'grantId', 'reason', 'requestedBy', 'day', 'done'],
+  checkRequest: ['id', 'grantId', 'reason', 'requestedBy', 'day', 'done', 'asOf'],
   request: ['id', 'day', 'requester', 'requestedBy', 'item', 'category', 'price', 'grantId', 'chargedGrantId', 'sharedWith', 'split', 'purpose', 'state', 'verdicts', 'explanation', 'requesterName'],
   order: ['id', 'requestId', 'grantId', 'vendor', 'amount', 'placed', 'state', 'canceledOn', 'changedAmount'],
   approval: ['id', 'orderId', 'amount', 'by', 'day'],
