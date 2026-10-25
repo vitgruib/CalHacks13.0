@@ -274,10 +274,10 @@ const _u = new Vector3()
 const _q = new Vector3()
 const _f = new Vector3()
 
-/** Distance and target so every FIT point lands inside the view with a margin. */
-function fit(dir: Vector3, fov: number, aspect: number, margin: number): Framing {
+/** Distance and target so every FIT point lands inside the view with a margin, or inside `share` of its height. */
+function fit(dir: Vector3, fov: number, aspect: number, margin: number, share = 1): Framing {
   const target = new Vector3(0.4, 0, -0.6)
-  const ty = Math.tan(((fov / 2) * Math.PI) / 180) * margin
+  const ty = Math.tan(((fov / 2) * Math.PI) / 180) * margin * share
   const tx = ty * aspect
   _f.copy(dir).negate()
   _r.crossVectors(_f, new Vector3(0, 1, 0)).normalize()
@@ -308,14 +308,30 @@ function fit(dir: Vector3, fov: number, aspect: number, margin: number): Framing
 const WIDE_DIR = new Vector3(-0.47, 0.72, 0.6).normalize()
 const TALL_DIR = new Vector3(-0.66, 0.74, 0.12).normalize()
 let lastAspect = -1
+let lastLeft = -1
+let lastTop = -1
 let lastFraming: Framing | null = null
 
-/** The hero framing for a stage of this aspect (width / height). Cached until the aspect changes. */
+/**
+ * Embedded (embed.ts), the copy sits over one side of the stage, and the scene
+ * fits in the room it leaves: beside a column on the left, or under a band on
+ * a phone. Px of the stage; Scene.tsx measures it and slides the picture over.
+ */
+export const clearing = { w: 1, h: 1, left: 0, top: 0 }
+
+/** The hero framing for a stage of this aspect (width / height). Cached until the aspect or the clearing changes. */
 export function heroFor(aspect: number): Framing {
   const a = Math.round(aspect * 50) / 50
-  if (lastFraming && a === lastAspect) return lastFraming
+  const { w, h, left, top } = clearing
+  if (lastFraming && a === lastAspect && left === lastLeft && top === lastTop) return lastFraming
   lastAspect = a
-  lastFraming = a < 0.85 ? fit(TALL_DIR, 30, a, 0.94) : fit(WIDE_DIR, 24, a, 0.93)
+  lastLeft = left
+  lastTop = top
+  // The scene's share of the stage once the copy's room is taken out.
+  const sw = 1 - Math.min(0.7, left / w)
+  const sh = 1 - Math.min(0.7, top / h)
+  const ra = (a * sw) / sh
+  lastFraming = ra < 0.85 ? fit(TALL_DIR, 30, ra, 0.94, sh) : fit(WIDE_DIR, 24, ra, 0.93, sh)
   return lastFraming
 }
 

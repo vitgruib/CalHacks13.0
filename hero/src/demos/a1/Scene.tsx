@@ -18,7 +18,7 @@ import { embed, useEmbed } from './embed'
 import { Flow } from './Flow'
 import { LabPlinth } from './Lab'
 import { OfficePlinth } from './Office'
-import { NET, OPENING, PAL, haloSize, heroFor, netAnchor, netFloor, type Framing } from './layout'
+import { NET, OPENING, PAL, clearing, haloSize, heroFor, netAnchor, netFloor, type Framing } from './layout'
 import { fx, pinnedQuality, pointer, reducedMotion, ui } from './store'
 import { grantStatus, nodeName, nodeNow } from './words'
 import { ZoneCard, onZoneGo } from './zones'
@@ -506,6 +506,55 @@ function Warm() {
   return null
 }
 
+/**
+ * Embedded, the copy sits over the stage's empty side (Hud.tsx EmbedHud). This
+ * measures the room it takes into layout's `clearing` before the Rig reads its
+ * first framing, so the scene opens already fitted beside the copy, then slides
+ * the picture over by half that room so the scene fills the rest of the stage.
+ */
+const CLEAR_GAP = 24
+function Clearing() {
+  const { gl, camera } = useThree()
+  const on = useEmbed(s => s.on)
+  const measure = () => {
+    const head = gl.domElement.closest('.demo-a1')?.querySelector('.a-embed-head')
+    const c = gl.domElement.getBoundingClientRect()
+    if (!head || c.width < 1 || c.height < 1) return
+    const r = head.getBoundingClientRect()
+    // A column beside the scene on a wide stage; a band above it when the copy spans the stage (a phone).
+    const band = r.width > c.width * 0.6
+    clearing.w = Math.round(c.width)
+    clearing.h = Math.round(c.height)
+    clearing.left = band ? 0 : Math.round(r.right - c.left + CLEAR_GAP)
+    clearing.top = band ? Math.round(r.bottom - c.top + CLEAR_GAP / 2) : 0
+  }
+  useState(() => on && measure())
+  useEffect(() => {
+    if (!on) return
+    const head = gl.domElement.closest('.demo-a1')?.querySelector('.a-embed-head')
+    const ro = new ResizeObserver(measure)
+    ro.observe(gl.domElement)
+    if (head) ro.observe(head)
+    return () => {
+      ro.disconnect()
+      clearing.left = 0
+      clearing.top = 0
+    }
+  }, [on, gl])
+  const applied = useRef({ w: 0, h: 0, x: 0, y: 0 })
+  useFrame(({ size }) => {
+    const a = applied.current
+    const x = Math.round(clearing.left / 2)
+    const y = Math.round(clearing.top / 2)
+    if (a.w === size.width && a.h === size.height && a.x === x && a.y === y) return
+    Object.assign(a, { w: size.width, h: size.height, x, y })
+    const cam = camera as PerspectiveCamera
+    if (x || y) cam.setViewOffset(size.width, size.height, -x, -y, size.width, size.height)
+    else cam.clearViewOffset()
+  })
+  return null
+}
+
 /** Stops drawing while an embedded demo is off screen or its tab is hidden. */
 function Sleep() {
   const setFrameloop = useThree(s => s.setFrameloop)
@@ -558,7 +607,7 @@ export default function Scene() {
         camera={{ fov: 24, near: 0.5, far: 300, position: OPENING.pos.toArray() }}
         gl={{ antialias: false, powerPreference: 'high-performance' }}
         role="img"
-        aria-label="A 3D clay model of the Ortiz Lab, a wet lab where five researchers walk between benches, and beside it the grant office as a network of agents. When a researcher asks to buy something, the thing itself flies to the purchasing agent, the spending rules light up, and it comes back bought, rerouted, blocked or held. Everything in the scene is also listed in the sidebar."
+        aria-label={`A 3D clay model of the Ortiz Lab, a wet lab where five researchers walk between benches, and beside it the grant office as a network of agents. When a researcher asks to buy something, the thing itself flies to the purchasing agent, the spending rules light up, and it comes back bought, rerouted, blocked or held.${embed.get().on ? '' : ' Everything in the scene is also listed in the sidebar.'}`}
       >
         <Backdrop />
         <Ground />
@@ -568,6 +617,7 @@ export default function Scene() {
         <Flow />
         <Halo />
         <ContactShadows position={[0, -3.1, 0]} scale={[40, 20]} blur={3} far={4.5} opacity={0.3} resolution={512} frames={1} color="#3A3530" />
+        <Clearing />
         <Rig />
         <CardTracker />
         <DrawCalls />

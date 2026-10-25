@@ -1,21 +1,9 @@
-// Only inside another page (embed.ts). On a phone the sidebar gives the stage
-// all the room, so this strip carries what the sidebar's head would: that the
-// lab is simulated, and the way in. StageStill stands in for a scene that fails.
+// Only inside another page (embed.ts): a still of the scene, under the canvas
+// until it fades in, in place of a scene that fails, and behind the landing's
+// own still view (hero/src/embed.tsx).
 
 import stillTall from '../../stills/lab-floor-tall.webp'
 import stillWide from '../../stills/lab-floor-wide.webp'
-import { embed } from './embed'
-
-export function EmbedBar() {
-  return (
-    <div className="a-embed-bar" data-float="embed-bar">
-      <p>Simulated lab, scripted replay. The spending rules are the real ones.</p>
-      <button type="button" className="a-btn a-btn--primary" onClick={() => embed.get().onEnter?.()}>
-        Choose a portal
-      </button>
-    </div>
-  )
-}
 
 export function StageStill() {
   return (

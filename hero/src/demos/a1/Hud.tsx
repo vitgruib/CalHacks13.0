@@ -7,7 +7,8 @@
 import { useEffect, useRef, useSyncExternalStore, type RefObject } from 'react'
 import { APP_URL } from '../../chrome'
 import { feed } from '../../feed'
-import { CHAPTERS, SECTIONS, STORY_MS, Waiting, useChapter } from './Panels'
+import type { World } from '../../feed'
+import { CHAPTERS, Composer, SECTIONS, STORY_MS, Waiting, useChapter } from './Panels'
 import { embed, useEmbed } from './embed'
 import { IconChevron, IconPause, IconPlay, IconReplay, Mark, outcomeWord } from './icons'
 import { act, jumpTo, selectNode, ui, useFeed, useUi, type Section } from './ui'
@@ -25,22 +26,6 @@ const focusEl = (sel: string) => requestAnimationFrame(() => document.querySelec
 
 function Head() {
   const compose = () => ui.set({ section: 'requests', composing: true })
-  // Inside another page its own bar carries the wordmark, and the way in is a portal, not a link away.
-  if (embed.get().on)
-    return (
-      <header className="a-head">
-        <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
-        <p className="a-lede">A simulated lab, replaying a scripted story; the spending rules are the real ones. Three AI agents check every request, and the grant manager decides the exceptions.</p>
-        <div className="a-head-acts">
-          <button type="button" className="a-btn a-btn--primary" onClick={() => embed.get().onEnter?.()}>
-            Choose a portal
-          </button>
-          <button type="button" className="a-btn" onClick={compose}>
-            Send a request
-          </button>
-        </div>
-      </header>
-    )
   return (
     <header className="a-head">
       <p className="a-brand">
@@ -169,6 +154,13 @@ function Player() {
   )
 }
 
+/** Where the viewer's own request is now, in a few words. */
+const mineLine = (r: World['requests'][number], w: World) => {
+  const how = requestStatus(r, w.packets)
+  return `Your ${shortItem(r.item).toLowerCase()}: ${r.outcome ? outcomeWord(r).toLowerCase() : how}${r.outcome && how ? `, ${how}` : ''}`
+}
+const findMine = (id: string, w: World) => w.requests.find(q => q.revisionOf === id) ?? w.requests.find(q => q.id === id)
+
 /** The phone peek's one line: what most needs the viewer, else what is selected, else the story. */
 function usePeekLine(): { tone: string; text: string } {
   const w = useFeed(x => x)
@@ -182,11 +174,8 @@ function usePeekLine(): { tone: string; text: string } {
     return { tone: nodeNow(selected, w).state, text: `${nodeName(selected, w)}: ${nodeNow(selected, w).line}` }
   }
   if (mine) {
-    const r = w.requests.find(q => q.revisionOf === mine) ?? w.requests.find(q => q.id === mine)
-    if (r) {
-      const how = requestStatus(r, w.packets)
-      return { tone: r.outcome ?? 'pending', text: `Your ${shortItem(r.item).toLowerCase()}: ${r.outcome ? outcomeWord(r).toLowerCase() : how}${r.outcome && how ? `, ${how}` : ''}` }
-    }
+    const r = findMine(mine, w)
+    if (r) return { tone: r.outcome ?? 'pending', text: mineLine(r, w) }
   }
   return { tone: 'story', text: w.beat?.title ?? 'GrantGuard' }
 }
@@ -267,5 +256,57 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
       </div>
       <RootSync root={root} phone={phone} />
     </aside>
+  )
+}
+
+/**
+ * Inside another page (embed.ts) the dashboard steps aside and the scene takes
+ * the whole box: the headline, one line and the two ways in sit over the
+ * stage's empty side (Scene.tsx fits the scene beside them), the request form
+ * opens under them, and one line follows what the visitor sent.
+ */
+export function EmbedHud({ root }: { root: RefObject<HTMLDivElement | null> }) {
+  const composing = useUi(s => s.composing)
+  return (
+    <div className="a-embed-copy" data-float="embed-copy">
+      <header className="a-embed-head">
+        <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
+        <p className="a-lede">A simulated lab, replaying a scripted story; the spending rules are the real ones. Three AI agents check every request, and the grant manager decides the exceptions.</p>
+        <div className="a-head-acts">
+          <button type="button" className="a-btn a-btn--primary" onClick={() => embed.get().onEnter?.()}>
+            Choose a portal
+          </button>
+          <button
+            type="button"
+            className="a-btn a-compose-toggle"
+            aria-expanded={composing}
+            onClick={() => ui.set({ composing: !composing, composeFor: null })}
+          >
+            Send a request
+          </button>
+        </div>
+      </header>
+      {composing ? <Composer /> : <MineLine />}
+      <RootSync root={root} phone={false} />
+    </div>
+  )
+}
+
+function MineLine() {
+  const id = useUi(s => s.mine[0])
+  const line = useFeed(w => {
+    const r = id ? findMine(id, w) : undefined
+    return r ? `${r.outcome ?? 'pending'}|${mineLine(r, w)}` : ''
+  })
+  const [tone, text] = line.split('|')
+  return (
+    <p className="a-embed-mine" aria-live="polite">
+      {text && (
+        <>
+          <span className={`a-peek-dot a-peek-dot--${tone}`} aria-hidden="true" />
+          {text}
+        </>
+      )}
+    </p>
   )
 }

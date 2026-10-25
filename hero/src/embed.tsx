@@ -11,11 +11,10 @@
 
 import { Component, useEffect, useRef, useState, type ReactNode } from 'react'
 import Demo from './demos/a1'
+import { StageStill } from './demos/a1/EmbedBar'
 import { embed, type Role } from './demos/a1/embed'
 import './embed.css'
 import { feed } from './feed'
-import stillTall from './stills/lab-floor-tall.webp'
-import stillWide from './stills/lab-floor-wide.webp'
 
 export interface HeroEmbedProps {
   /** The landing's way in: no role scrolls to "Who are you?", a role goes to that side. */
@@ -60,23 +59,27 @@ export default function HeroEmbed({ onEnter }: HeroEmbedProps) {
   )
 }
 
+/** The live demo's layout (demo-a1.css, loaded with it): the scene's picture filling the box, the copy over its empty side. */
 function Still({ go }: { go: (role?: Role) => void }) {
   return (
-    <div className="hero-embed hero-embed-still">
-      <picture>
-        <source media="(max-width: 759px)" srcSet={stillTall} />
-        <img src={stillWide} alt="" decoding="async" />
-      </picture>
-      <div className="hero-embed-copy">
-        <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
-        <p>A still of the simulated lab. Three AI agents check every request against the real spending rules, and the grant manager decides the exceptions.</p>
-        <div className="hero-embed-acts">
-          <button type="button" onClick={() => go('researcher')}>
-            Go to the research portal
-          </button>
-          <button type="button" onClick={() => go('grant_office')}>
-            Go to the grant manager portal
-          </button>
+    <div className="hero-embed">
+      <div className="demo-a1 is-embed">
+        <div className="a-stage">
+          <StageStill />
+        </div>
+        <div className="a-embed-copy">
+          <header className="a-embed-head">
+            <h1>An AI grant office that keeps a lab’s spending inside its grants’ rules.</h1>
+            <p className="a-lede">A still of the simulated lab. Three AI agents check every request against the real spending rules, and the grant manager decides the exceptions.</p>
+            <div className="a-head-acts">
+              <button type="button" className="a-btn a-btn--primary" onClick={() => go('researcher')}>
+                Go to the research portal
+              </button>
+              <button type="button" className="a-btn" onClick={() => go('grant_office')}>
+                Go to the grant manager portal
+              </button>
+            </div>
+          </header>
         </div>
       </div>
     </div>

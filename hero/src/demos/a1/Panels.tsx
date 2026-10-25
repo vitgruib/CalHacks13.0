@@ -282,7 +282,7 @@ function GrantsSummary() {
 
 // ── Requests ──────────────────────────────────────────────────────────────
 
-function Composer() {
+export function Composer() {
   const researchers = useFeed(w => w.researchers)
   const grants = useFeed(w => w.grants) // previews change when a grant freezes or thaws
   useFeed(w => w.today)

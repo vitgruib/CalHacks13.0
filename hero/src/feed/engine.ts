@@ -614,7 +614,7 @@ export class Feed {
       packets: [],
       storyDone: false,
       playing: true,
-      speed: 1,
+      speed: 4,
     }
   }
 
