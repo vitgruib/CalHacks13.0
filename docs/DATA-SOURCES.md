@@ -156,3 +156,65 @@ real records would contradict it, so the three sources stay off unless
 `GG_LIVE_SOURCES=1`. `scrapers/fixtures/demo-list.csv` is a list in Grant
 Witness's format with R01GM061721 changed to the demo timeline (terminated
 2026-03-10). It's our data, not Grant Witness's; say so whenever it's shown.
+
+## 7. Field by field: exactly what we pull
+
+Everything else in each answer is dropped before saving (people's names
+included). The database stores only the four totals of a reading (`status`,
+`awarded`, `paid`, `endDate`) plus a link; the dated money actions stay in
+memory for the award-gap check.
+
+| Source | Field we request | Becomes | Used for |
+| --- | --- | --- | --- |
+| RePORTER search | `appl_id` | the ID for the second request | finding the termination code |
+| | `core_project_num`, `project_num` | exact-match filter; award-notice label | ignoring other grants; telling new/competing awards (type 1 or 2) from continuations |
+| | `fiscal_year` | picks the latest record | status and end date come from the latest year |
+| | `award_amount` | `awarded` (sum) and one award action per record | amount awarded; award-gap check |
+| | `award_notice_date` | award action date | award-gap check (by fiscal year) |
+| | `project_end_date` | `endDate`; `ended` once passed | status; "end date moved earlier" |
+| RePORTER ProjectInfo | `post_award_action_type.revision_type_code` | `canceled` when it is `TERMINATED_DEPT_AUTH` | the only NIH-side cancellation signal |
+| USAspending award | `total_obligation` | `awarded` | amount committed |
+| | `total_outlay` | `paid` | **`payment_received` when it rises: the only unfreeze signal** |
+| | `period_of_performance.end_date` | `endDate` | end date |
+| USAspending transactions | `action_date`, `federal_action_obligation`, `modification_number` | one award action per non-$0 row | award-gap check |
+| Grant Witness list | `Award ID` / `Most Recent Full Award Number` | `grantId` (core number) | matching |
+| | `Detailed Status` | `status` (table in §4) | `canceled`, `court_order` |
+| | `Earliest Disruption`, `Latest Restoration` | `terminatedOn`, `restoredOn`, `listedOn` | event dates; the demo time buttons |
+| | `Restoration Indicators` | `restoredBy` (e.g. "Thakur v. Trump") | shown to people only; not used by rules |
+| | `Grant Title`, `Grantee Organization`, `RePORTER` link, supplement | saved with the Actor's output | shown to people only |
+
+## 8. Sources that would help
+
+None of these are built. Ranked by how much each would close a gap above.
+Adding one is a scope call for the team, and the client code is in
+`agents/` (@nathan's lane).
+
+| Source | What it adds | Who can see it | Fills which gap | Effort |
+| --- | --- | --- | --- | --- |
+| **HHS Payment Management System (PMS)** | Each drawdown and payment as it happens, plus holds on the account | **Only the university** (its PMS account; ID.me login). Not public | The biggest one: "money arrived" today instead of 1–2 months late from USAspending, and holds become visible instead of inferred | For a real customer: export or reports from the university's PMS account. For the demo: a fixture in PMS's shape |
+| **University's own ledger** (sponsored-programs / ERP system) | What the lab actually spent, by grant | Only the university | Real spending to check against `available`; the sim stands in for it today | Per-university integration; out of scope for the hackathon |
+| **NIH eRA Commons** (Notice of Award) | The official award letter: amount, budget period, terms, and termination notices | Only the university | NIH's own word on status and terms, without the undocumented ProjectInfo service | Grantee login; no simple public API |
+| **CourtListener (RECAP)** | Court dockets and orders, by case | Public, free API (token for some endpoints) | A second, primary source for `court_order`, instead of relying only on Grant Witness's `Restoration Indicators` | Small: watch the few cases Grant Witness already names (e.g. Thakur v. Trump). Matching an order to a specific grant still needs the case's grant list |
+| **SAM.gov Exclusions API** | Whether a vendor is barred from being paid with federal money | Public; free API key | A new purchase/invoice rule: hold payments to an excluded vendor | Small: one lookup per vendor, by UEI. Name-only matches need a person to confirm |
+| **HHS TAGGS** | HHS award actions, updated daily | Public | Faster notice of new or reduced obligations than USAspending | Medium. Records obligations, not payments, so it can't replace USAspending outlays; its termination signals are unreliable (§ caveat in the Grant Witness methodology) |
+| **NSF / other agencies' award data** (and Grant Witness's NSF list) | The same three questions for non-NIH grants | Public | Labs with NSF grants | Medium: another client per agency |
+
+Notes on how sure we are:
+- PMS: a 2022 HRSA training deck describes PMS reports showing a recipient's
+  payment transactions and its award authorizations, downloadable to Excel
+  (https://Hrsa.gov/sites/default/files/hrsa/rural-health/grants/manage/june-2022-session-4-managing-award.pdf).
+  Read through a search summary, not checked word for word. Access needs a
+  PMS account (https://pms.psc.gov/grant-recipients/welcome.html).
+- TAGGS "tracks obligated grant funds … at the transaction level" (HHS data
+  quality document,
+  https://www.hhs.gov/sites/default/files/os_tracking_accountability_in_government_grants_system_dqdar.pdf).
+  Read through a search summary.
+- CourtListener RECAP API: https://www.courtlistener.com/help/api/rest/v4/recap/
+- SAM.gov Exclusions API (GSA, v4): https://open.gsa.gov/api/exclusions-api/
+
+**Recommendation.** For the demo, none are needed. For the pitch, PMS is the
+answer to "what about the 1–2 month lag?": a real university already has
+this data for its own grants, so GrantGuard would read it and drop the lag.
+CourtListener and SAM.gov are the two that could actually be built in a few
+hours: CourtListener strengthens the court-order story, and SAM.gov adds a
+rule judges would recognize.
