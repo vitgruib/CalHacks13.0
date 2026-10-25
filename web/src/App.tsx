@@ -6,6 +6,7 @@ import DetailPage from './DetailPage'
 import Notices from './Notices'
 import Entry from './Entry'
 import DemoDock from './DemoDock'
+import Landing from './landing/Landing'
 import './scientist.css'
 
 // Two kinds of portal, kept apart (T39): the grant office (the grant manager's
@@ -27,6 +28,9 @@ const menu = (role: Role) => windows.filter(w => w.roles.includes(role))
 const home = (role: Role) => menu(role).find(w => w.id === roles.find(r => r.id === role)?.home) ?? menu(role)[0]
 // `#grants/R01GM061721` opens the grants window on one grant.
 const fromHash = (role: Role) => menu(role).find(w => `#${w.id}` === location.hash.split('/')[0]) ?? home(role)
+// No hash, or #start, opens the landing (T75): the hero, then its own "Who are
+// you?" picker. Any other hash skips it (a new tab still gets Entry first).
+const atStart = (hash: string) => hash === '' || hash === '#' || hash === '#start'
 
 export default function App() {
   const { db } = useStore()
@@ -51,6 +55,7 @@ export default function App() {
 
   // A donut color or the forecast, opened on its own page in a new tab.
   if (hash.startsWith('#detail/')) return <DetailPage role={role} />
+  if (atStart(hash)) return <Landing onPick={switchPortal} />
 
   if (!portal) return <Entry onPick={switchPortal} />
   const dock = <DemoDock portal={portal} onSwitch={switchPortal} />
@@ -69,6 +74,7 @@ export default function App() {
               ))}
             </nav>
             <div className="sci-role">
+              <a href="#start" className="sci-back">Back to start</a>
               <span className="sci-me">{researcher.name}<small>{researcher.title}</small></span>
             </div>
           </div>
@@ -98,6 +104,7 @@ export default function App() {
             {w.id === 'inbox' && openHolds > 0 && <span className="count">{openHolds}</span>}
           </a>
         ))}
+        <a href="#start" className="back-start">Back to start</a>
       </nav>
       <main>
         <Notices />

@@ -1,0 +1,92 @@
+/* The landing (T75). Built on the app's tokens in styles.css; the hero's own
+   world (always light, like hero a1) is only inside .hero-stub. */
+
+.landing { min-height: 100vh; background: var(--bg); color: var(--text); line-height: 1.5; }
+.landing ::selection { background: color-mix(in srgb, var(--accent) 30%, transparent); color: var(--text); }
+.landing :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* First screen: a slim bar, the hero, a scroll cue. */
+.landing-hero { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; height: 100vh; height: 100svh; min-height: 520px; }
+.landing-bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 56px; padding: 0 24px; border-bottom: 1px solid var(--line); }
+.landing-mark { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; }
+.landing-jump { color: var(--accent); font-weight: 600; text-decoration: none; padding: 6px 4px; border-radius: 6px; }
+.landing-jump:hover { text-decoration: underline; text-underline-offset: 3px; }
+.landing-jump:active { opacity: .7; }
+.landing-stage { position: relative; overflow: hidden; background: #c9ced5; }
+.landing-embed { position: absolute; inset: 0; }
+.landing-cue { display: flex; align-items: center; justify-content: center; gap: 6px; height: 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; text-decoration: none; }
+.landing-cue:hover { color: var(--text); }
+.landing-cue svg { display: block; }
+@media (prefers-reduced-motion: no-preference) {
+  .landing-cue svg { animation: landing-nudge 2.4s ease-in-out 1.2s 3; }
+}
+@keyframes landing-nudge { 50% { transform: translateY(3px); } }
+
+/* Who are you? */
+.landing-who { max-width: 1040px; margin: 0 auto; padding: 96px 24px 80px; }
+.landing-who h2 { margin: 0 0 12px; font-size: clamp(30px, 4.2vw, 42px); line-height: 1.1; letter-spacing: -0.02em; scroll-margin-top: 32px; }
+.landing-who h2:focus:not(:focus-visible) { outline: none; }
+.landing-lede { margin: 0 0 56px; max-width: 68ch; color: var(--muted); font-size: 17px; }
+.landing-seats { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 72px; align-items: start; }
+.landing-seat h3 { margin: 0 0 8px; font-size: 20px; line-height: 1.25; }
+.landing-seat > p { margin: 0 0 20px; max-width: 65ch; color: var(--muted); }
+
+.landing-go { display: inline-flex; align-items: center; gap: 10px; padding: 11px 18px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent); color: #fff; font-weight: 600; }
+.landing-go:hover { background: color-mix(in srgb, var(--accent) 86%, #000); border-color: color-mix(in srgb, var(--accent) 86%, #000); }
+.landing-go:active { transform: translateY(1px); }
+.landing-go:disabled, .landing-people button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+
+.landing-people { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.landing-people button {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name arrow" "meta arrow";
+  align-items: center; column-gap: 16px; width: 100%; padding: 12px 10px; text-align: left;
+  border: 0; border-bottom: 1px solid var(--line); border-radius: 0; background: transparent; color: var(--text);
+}
+.landing-people button:hover { background: var(--neutral-bg); }
+.landing-people button:hover .landing-arrow { color: var(--accent); }
+.landing-people button:active { background: color-mix(in srgb, var(--neutral-bg) 80%, var(--text)); }
+.landing-people button:focus-visible { outline-offset: -2px; }
+.landing-name { grid-area: name; font-weight: 600; }
+.landing-meta { grid-area: meta; color: var(--muted); font-size: 14px; }
+.landing-people .landing-arrow { grid-area: arrow; color: var(--muted); }
+
+.landing-foot { max-width: 1040px; margin: 0 auto; padding: 24px 24px 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+
+@media (prefers-color-scheme: dark) {
+  .landing-go, .landing-go:hover { color: var(--bg); }
+  .landing-go:hover { background: color-mix(in srgb, var(--accent) 86%, #fff); border-color: color-mix(in srgb, var(--accent) 86%, #fff); }
+}
+
+@media (max-width: 720px) {
+  .landing-bar { padding: 0 16px; }
+  .landing-who { padding: 64px 16px 56px; }
+  .landing-lede { margin-bottom: 40px; }
+  .landing-seats { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  .landing-foot { padding: 20px 16px 32px; }
+}
+
+/* The stand-in hero: hero a1's palette, light in both color schemes. */
+.hero-still { position: absolute; inset: 0; display: block; }
+.hero-still img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.hero-stub { position: absolute; inset: 0; color: #1c232c; }
+.hero-stub ::selection { background: #2e5ba6; color: #fff; }
+.hero-stub :focus-visible { outline-color: #1e3f7a; }
+.hero-stub-copy { position: absolute; top: clamp(24px, 6vh, 56px); left: clamp(16px, 2.4vw, 40px); max-width: min(36rem, calc(100% - 32px)); }
+.hero-stub h1 { margin: 0 0 16px; font-size: clamp(28px, 3.6vw, 52px); line-height: 1.04; letter-spacing: -0.025em; font-weight: 700; text-wrap: balance; }
+.hero-stub-copy p { margin: 0 0 24px; max-width: 44ch; color: #3c4753; font-size: clamp(15px, 1.25vw, 17px); }
+.hero-stub button { padding: 12px 20px; border: 0; border-radius: 8px; background: #1c232c; color: #f3f5f7; font-weight: 600; }
+.hero-stub button:hover { background: #26303b; }
+.hero-stub button:active { transform: translateY(1px); }
+.hero-stub-note { position: absolute; left: clamp(16px, 2.4vw, 40px); bottom: 14px; margin: 0; color: #3c4753; font-size: 13px; }
+@media (max-width: 640px) {
+  .hero-still img { object-position: 50% 0%; }
+  .hero-stub-copy { top: 20px; }
+  .hero-stub h1 { font-size: 27px; margin-bottom: 12px; }
+  .hero-stub-copy p { margin-bottom: 18px; font-size: 15px; }
+}
+
+/* "Back to start" in both portals' headers. */
+nav a.back-start { margin-top: 12px; color: var(--muted); font-size: 13px; }
+nav a.back-start:hover { color: var(--text); }
+.sci a.sci-back { color: var(--s-muted); font-size: 15px; text-decoration: none; white-space: nowrap; }
+.sci a.sci-back:hover { color: var(--s-text); text-decoration: underline; text-underline-offset: 3px; }
