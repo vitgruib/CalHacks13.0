@@ -6,7 +6,7 @@ import { useMemo, useState, type ChangeEvent, type ReactNode } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
 import { money } from '../ui'
-import { blankDraft, check, readInvoiceText, sampleDraft, type Draft, type Submission } from './model'
+import { blankDraft, check, sampleDraft, type Draft, type Submission } from './model'
 
 /** A field label with a "?" that explains what to enter. */
 function Field({ label, hint, grow, children }: { label: string; hint: string; grow?: boolean; children: ReactNode }) {
@@ -26,14 +26,6 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
   const result = useMemo(() => check(d, db, others), [d, db, others])
   const grant = db.grants.find(g => g.id === d.grantId)
 
-  const upload = async (e: ChangeEvent<HTMLInputElement>) => {
-    const files = [...(e.target.files ?? [])]
-    e.target.value = ''
-    if (!files.length) return
-    const textual = files.find(f => /\.(txt|csv|md)$/i.test(f.name) || f.type.startsWith('text/'))
-    set({ files: [...d.files, ...files.map(f => f.name)], ...(textual ? readInvoiceText(await textual.text()) : {}) })
-  }
-
   const addReceipt = (e: ChangeEvent<HTMLInputElement>) => {
     const names = [...(e.target.files ?? [])].map(f => f.name)
     e.target.value = ''
@@ -45,15 +37,10 @@ export default function SubmitForm({ db, others, initial, onSubmit, onCancel }: 
     <div className="iv-form">
       <div className="iv-bar">
         <h2>{initial ? 'Revise invoice' : 'Submit an invoice'}</h2>
-        <button type="button" className="iv-link" onClick={onCancel}>Cancel</button>
-      </div>
-
-      <div className="iv-drop">
-        <Field label="Invoice" hint="Upload the vendor invoice. Text files are read automatically in this demo; for other files, type the details below.">
-          <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.txt,.csv,.md" onChange={upload} />
-        </Field>
-        {d.files.map(n => <span key={n} className="iv-chip">{n}<button type="button" aria-label={`Remove ${n}`} onClick={() => set({ files: d.files.filter(x => x !== n) })}>×</button></span>)}
-        <button type="button" className="iv-link" onClick={() => setD(sampleDraft())}>Try the sample invoice</button>
+        <span className="iv-bar-links">
+          <button type="button" className="iv-link" onClick={() => setD(sampleDraft())}>Try the sample</button>
+          <button type="button" className="iv-link" onClick={onCancel}>Cancel</button>
+        </span>
       </div>
 
       <div className="iv-row">
