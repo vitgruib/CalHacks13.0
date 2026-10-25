@@ -76,6 +76,10 @@ export const ruleKind = (rule: string): RuleKind => RULE_NAMES.find(([name]) => 
 
 // Rules another grant can fix: the same three Track A's rerouteTarget accepts.
 const GRANT_SPECIFIC = new Set<RuleKind>(['freeze', 'last_90_days', 'money']);
+const blockedOnGrantRules = (verdicts: RuleVerdict[]): boolean => {
+  const failed = verdicts.filter((v) => !v.pass);
+  return failed.length > 0 && failed.every((v) => GRANT_SPECIFIC.has(ruleKind(v.rule)));
+};
 
 /** The grant a freeze verdict is about: named in the rule on a split charge, else the grant checked. */
 export const frozenGrantOf = (verdict: RuleVerdict, checked: string | undefined): string | undefined =>
@@ -683,10 +687,14 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const request = findRequest(requestId);
     const from = request?.chargedGrantId ?? request?.grantId;
     if (!request || request.state !== 'blocked' || request.split.length || !from || ordersOf(requestId).length) return;
-    const failed = request.verdicts.filter((v) => !v.pass);
-    if (failed.length === 0 || !failed.every((v) => GRANT_SPECIFIC.has(ruleKind(v.rule)))) return;
+    if (!blockedOnGrantRules(request.verdicts)) return;
     const { to } = await rerouteOptions(request, from, []);
     if (!to) return;
+    // Checked again where it was blocked, so the explanation quotes the rules
+    // as they stand today, not on the day it was blocked (unless they no
+    // longer block it there: then what blocked it is still why it moves).
+    const now = await evaluate(requestId, from, []);
+    const failed = (blockedOnGrantRules(now) ? now : request.verdicts).filter((v) => !v.pass);
     await reroute(requestId, { action: 'reroute', grantId: from, to, failed, passed: [] }, request.sharedWith, 'leave');
   }
 

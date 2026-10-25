@@ -443,6 +443,10 @@ test('after_a_fast_forward_past_grant_b_s_end_rq_107_is_held_without_its_promise
   const [hold] = openPurchaseHolds('rq-107');
   assert.doesNotMatch(hold.why, PROMISE);
   assert.match(hold.why, /The grant has ended/);
+  // Rerouted on the rules as they stand now, not as on the day it was blocked.
+  assert.equal(request('rq-102').state, 'rerouted');
+  assert.match(request('rq-102').explanation, /The grant has ended/);
+  assert.doesNotMatch(request('rq-102').explanation, /77 days away/);
 });
 
 test('a_typed_request_without_a_grant_gets_one_a_verdict_and_an_explanation', async () => {
