@@ -473,6 +473,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const request = findRequest(requestId);
     if (!request) return;
     const vendor = vendorFor(request, conn.rows('request'), conn.rows('order'));
+    const decisionBefore = lastDecision(requestId)?.id;
     const explanation = await explain(request, decision, serves, vendor);
     const grantId = decision.action === 'reroute' ? decision.to! : decision.grantId;
     // Looked at again after the wait for Claude: a person may have decided,
@@ -481,6 +482,12 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const decidedMeanwhile = decision.approval ? lastDecision(requestId)?.id !== decision.approval.id : personDecided(requestId);
     if ((decision.action === 'buy' || decision.action === 'reroute') && (decidedMeanwhile || ordersOf(requestId).length)) {
       console.warn(`${AGENT}: not buying ${requestId}: ${decidedMeanwhile ? 'a person decided it meanwhile' : 'it already has an order'}`);
+      return;
+    }
+    // A hold or block planned before a person decided it would undo that
+    // decision (an approval the module blocked would come back to the Inbox).
+    if (lastDecision(requestId)?.id !== decisionBefore) {
+      console.warn(`${AGENT}: not changing ${requestId}: a person decided it meanwhile`);
       return;
     }
     await conn.call('act_on_request', { requestId, action: decision.action, grantId, vendor, explanation });
@@ -700,7 +707,7 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
     const split = request.split.map(({ grantId: id, share }) => ({ grantId: id, share }));
     const verdicts = await evaluate(requestId, grantId, split);
     const plan = planFor(verdicts, endedFreeze(grantId));
-    if (plan.action !== 'hold') return;
+    if (plan.action !== 'hold' || personDecided(requestId)) return;
     const named = namedGrants(request, conn.rows('grant').map((grant) => grant.id));
     const serves = unique([...request.sharedWith, ...split.map((share) => share.grantId), ...named]);
     await act(requestId, { action: 'hold', reason: plan.reason, grantId, failed: verdicts.filter((v) => !v.pass), passed: verdicts }, serves);
@@ -721,8 +728,16 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       else if (request.state === 'blocked') await rerouteBlocked(request.id);
       else if (heldAlsoForFreezeOf(request, grantId)) recheck.push(request.id);
     }
-    // After the buys, so the purchases people are waiting for land first.
-    for (const requestId of recheck) await recheckHold(requestId);
+    // After the buys, so the purchases people are waiting for land first. One
+    // the module refuses (a person decided it at that moment) skips only itself.
+    for (const requestId of recheck) {
+      try {
+        await recheckHold(requestId);
+      } catch (error) {
+        if (!(error instanceof ActionError)) throw error;
+        console.warn(`${AGENT}: kept ${requestId}'s hold as it was: ${error.message}`);
+      }
+    }
   }
 
   const push = (label: string, work: () => Promise<void>) =>

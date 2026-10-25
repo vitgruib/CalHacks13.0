@@ -260,6 +260,33 @@ test('once_grant_a_is_paid_and_its_sources_agree_the_waiting_purchases_go_throug
   assert.equal(request('rq-103').state, 'blocked');
 });
 
+// The grant manager decides a held item while the agent is checking it again
+// after the unfreeze (QA's race): the decision stands, and the rest of the
+// rechecks still happen.
+for (const [id, choice, other] of [['rq-104', 'approve', 'rq-105'], ['rq-104', 'reject', 'rq-105']] as const) {
+  test(`a_${choice}_of_${id}_while_its_hold_is_checked_again_is_not_undone`, async () => {
+    const catchUp = await startSim();
+    const grantManager = await world!.person('grant_manager');
+    const agent = conn();
+    const call = agent.call.bind(agent);
+    let decided = false;
+    agent.call = (async (action: ActionName, args: never) => {
+      const out = await call(action, args);
+      if (!decided && action === 'evaluate_request' && (args as { requestId: string }).requestId === id && !conn().rows('grant').find((g) => g.id === GRANT_A)!.frozen) {
+        decided = true;
+        const [hold] = openPurchaseHolds(id);
+        await grantManager.call('decide_hold', { holdId: hold.id, choice, reason: 'Decided while the agent checks it again.' });
+      }
+      return out;
+    }) as typeof agent.call;
+    await payGrantA(catchUp);
+    assert.ok(decided);
+    assert.deepEqual(openPurchaseHolds(id), [], `${id} was decided; it must not come back to the Inbox`);
+    const [rest] = openPurchaseHolds(other);
+    assert.ok(rest && !rest.why.includes('Grant is active and not frozen'), `${other} is still checked again`);
+  });
+}
+
 test('after_grant_a_reopens_new_supplies_asked_for_on_grant_b_are_rerouted_to_it', async () => {
   const catchUp = await startSim();
   await payGrantA(catchUp);
