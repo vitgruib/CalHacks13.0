@@ -104,3 +104,14 @@
 .iv-form .iv-actions button.primary { font-size: 17px; padding: 12px 28px; border-radius: 12px; transition: transform .1s, box-shadow .15s; }
 .iv-form .iv-actions button.primary:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 6px 16px color-mix(in srgb, var(--v-accent) 35%, transparent); }
 .iv-form .iv-actions button.primary:disabled { opacity: .5; cursor: not-allowed; }
+
+/* The researcher's landing: three buttons, nothing else. */
+.iv-tabs { display: flex; flex-wrap: wrap; gap: 14px; margin: 8px 0 20px; }
+.iv-tab { flex: 1 1 200px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 18px; font-weight: 700; padding: 18px 22px; border-radius: 14px; border: 2px solid transparent; color: #fff; cursor: pointer; transition: transform .12s, box-shadow .15s, filter .15s; }
+.iv-tab:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgb(0 0 0 / .16); filter: brightness(1.05); }
+.iv-tab.on { box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 0%, transparent), inset 0 0 0 3px rgb(255 255 255 / .55); }
+.iv-tab-green { background: #1f8a4c; border-color: #1f8a4c; }
+.iv-tab-orange { background: #e2740f; border-color: #e2740f; }
+.iv-tab-blue { background: var(--accent, #2f5bd3); border-color: var(--accent, #2f5bd3); justify-content: center; }
+.sci .iv-tab-blue { background: var(--s-blue); border-color: var(--s-blue); }
+.iv-count { background: rgb(255 255 255 / .25); border-radius: 999px; padding: 2px 14px; font-size: 20px; font-variant-numeric: tabular-nums; }
