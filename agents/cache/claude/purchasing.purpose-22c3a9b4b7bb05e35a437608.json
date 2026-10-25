@@ -1,0 +1,43 @@
+{
+  "task": "purchasing.purpose",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T06:26:10.314Z",
+  "input": {
+    "request": {
+      "item": "Biosafety cabinet filter replacement",
+      "category": "equipment service",
+      "price": 2400,
+      "purpose": "HEPA filter replacement found at certification"
+    },
+    "pushBacks": [],
+    "grant": {
+      "id": "R21AI182745",
+      "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity"
+    },
+    "categories": [
+      "lab supplies",
+      "reagents",
+      "equipment",
+      "equipment service",
+      "core facility services",
+      "publication costs",
+      "shipping",
+      "software",
+      "travel",
+      "general office",
+      "food",
+      "alcohol",
+      "entertainment",
+      "personal",
+      "furniture",
+      "other"
+    ]
+  },
+  "answer": {
+    "purpose": "fine",
+    "purposeWhy": "",
+    "categoryFits": true,
+    "betterCategory": "equipment service",
+    "categoryWhy": ""
+  }
+}
