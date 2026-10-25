@@ -1,11 +1,10 @@
 // Demo controls (was "Test lab"): demo only, for us and the judges. Every demo
-// action lives here: the run sheet (T79), start over from the demo seed, the real failure cases (T65),
+// action lives here: start over from the demo seed, the real failure cases (T65),
 // drop events into the raw world (T18); the agents react to what lands here.
 // Demos change grants directly (cancel, restore, pay); nothing moves the clock. The
 // scorecard is eval/scorecard.json, written by the check command (T19) and
 // imported at build time: it scores the seed run, not the live database.
 import { useEffect, useState } from 'react'
-import DemoRunSheet from '../DemoRunSheet'
 import FailureCases from '../FailureCases'
 import { useStore } from '../data/store'
 import type { Db } from '../data/types'
@@ -136,10 +135,6 @@ export default function TestLab() {
           {notes.map((n, i) => <li key={n.id} className={`${n.tone}${i === 0 ? ' latest' : ''}`}>{n.text}</li>)}
         </ul>
       )}
-
-      <Section title="Demo script (3 min)">
-        <DemoRunSheet />
-      </Section>
 
       <Section title="Start over">
         <p className="muted">Replace the whole world with the demo seed: grant A frozen by a court order with no payment yet, the planted mistakes, and each real failure case back at its first step. Live, this resets the shared world for everyone, and nothing done since can be brought back.</p>

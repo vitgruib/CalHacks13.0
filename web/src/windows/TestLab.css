@@ -26,8 +26,3 @@
 .testlab .tl-cases summary { cursor: pointer; font-size: 13px; font-weight: 600; }
 .testlab .tl-cases table { margin-top: 6px; }
 .testlab .tl-scroll { overflow-x: auto; }
-/* Run sheet (T79): time, then the window, the click and the line to say. */
-.testlab .run-sheet { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 14px; }
-.testlab .run-sheet li { display: grid; grid-template-columns: 3.2em 1fr; gap: 8px; }
-.testlab .run-sheet-at { color: var(--muted); font-variant-numeric: tabular-nums; }
-.testlab .run-sheet q { display: block; color: var(--muted); font-style: italic; }
