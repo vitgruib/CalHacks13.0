@@ -9,12 +9,13 @@ system's decisions with it: caught, missed, and false alarms.
 | File | What it is |
 |---|---|
 | `build-seed.mjs` | Generates `seed.json`. Edit this, not the JSON, then regenerate. |
-| `seed.json` | The world as a `Db` (`web/src/data/types.ts`). The web app loads it. |
+| `seed.json` | The full world as a `Db` (`web/src/data/types.ts`): the archive. The scorecard, eval and tests run on it. |
+| `demo-seed.json` | The demo world the web app loads (T83): a few ordinary examples and the cases the demo shows, cut from `seed.json` by `build-seed.mjs` (`DEMO_REQUESTS`, `DEMO_PAPERS`). Same ids. |
 | `answer-key.json` | One case per planted mistake and decoy, plus the rules' assumptions (card limit, 90-day categories). |
 | `validate.mjs` | Checks the seed and key against each other. |
 
 ```sh
-node sim/build-seed.mjs   # regenerate seed.json
+node sim/build-seed.mjs   # regenerate seed.json and demo-seed.json
 node sim/validate.mjs     # exit 1 with every problem listed, or print a summary
 ```
 
@@ -60,6 +61,18 @@ payment events, decided holds and log rows.
 at-limit kit (rq-106), the 60/40 split (rq-107) and the rerouted agar plates
 (rq-102) go through. The over-limit pump (rq-105) and the unsplit shared
 contract (rq-104) still wait for the grant manager.
+
+**The demo world** (`demo-seed.json`) keeps 11 of the 24 purchases: today's
+gloves on the frozen grant (rq-101), the agar plates in grant B's last 90 days
+(rq-102) and the espresso machine (rq-103); past orders rq-012, rq-017 and
+rq-033 as ordinary examples (rq-101 and rq-102 also take their vendor from
+them); the canceled-order invoice (rq-030), the shaker billed above its
+approval (rq-034, also in April's payment request), the fee behind paper p-10
+(rq-035), the held broth invoice left out of May's request (rq-037), and
+Kenji's card charge for the "Bought after the cut" edge case (rq-060). Papers
+p-01 and p-10, all payroll, all three payment requests and all eight grants
+stay. Everything else is archived in `seed.json` only. To show another case,
+add its id to `DEMO_REQUESTS` and regenerate.
 
 ## Planted cases
 

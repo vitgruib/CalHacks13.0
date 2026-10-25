@@ -3,7 +3,7 @@
 // insert/update/delete, so every open window and tab updates live. Actions
 // call the module's reducers; failures come back as notices.
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import seed from '../../../sim/seed.json'
+import seed from '../../../sim/demo-seed.json'
 import { DbConnection } from '../module_bindings'
 import { toDb, toSourceCheck, WORLD_TABLES } from './adapter'
 import { applyAdvanceDays, applyInvoice, applyStatusEvent, Ctx, type Store } from './store'

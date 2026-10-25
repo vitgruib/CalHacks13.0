@@ -1,8 +1,8 @@
 // The store every window reads (useStore). Two backends fill it: this local
-// in-memory one (sim/seed.json, no server) and the live SpacetimeDB one in
+// in-memory one (sim/demo-seed.json, no server) and the live SpacetimeDB one in
 // live.tsx; backend.tsx picks between them (T17).
 import { createContext, useContext, useState, type ReactNode } from 'react'
-import seed from '../../../sim/seed.json'
+import seed from '../../../sim/demo-seed.json'
 import type { Researcher } from '../people'
 import { planLines, type SavedPlan } from '../spendguard/store'
 import type { Db, Decision, Invoice, PurchaseRequest, SourceCheck, StatusEvent } from './types'
@@ -40,7 +40,7 @@ export interface Store {
   /** Grant manager: approve a submitted plan (its lines become requests in the
    *  researcher's name) or return it, always with a reason. */
   decidePlan: (id: string, choice: 'approve' | 'return', reason: string) => void
-  /** Demo controls: replace the whole world with the demo seed (sim/seed.json). Live, every open window sees it. */
+  /** Demo controls: replace the whole world with the demo seed (sim/demo-seed.json). Live, every open window sees it. */
   loadDemoSeed: () => void
 }
 

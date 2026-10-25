@@ -458,5 +458,55 @@ for (const { before, ...g } of scriptGrants) {
 db.log.sort((x, y) => x.day.localeCompare(y.day) || x.id.localeCompare(y.id))
 db.log.forEach((row, i) => { row.id = `l-${pad(i + 1, 4)}` })
 
-writeFileSync(join(HERE, 'seed.json'), JSON.stringify(db, null, 2) + '\n')
-console.log(`wrote sim/seed.json: ${db.requests.length} requests, ${db.orders.length} orders, ${db.invoices.length} invoices, ${db.payroll.length} payroll rows, ${db.paymentRequests.length} payment requests, ${db.papers.length} papers, ${db.log.length} log rows`)
+// ---------------------------------------------------------------------------
+// The demo world (sim/demo-seed.json): what the web app loads. The full world
+// above stays as the archive the scorecard, eval and tests run on. The demo
+// keeps a few ordinary examples and the cases the 3-minute demo shows; every
+// record keeps its id, and anything that points at an archived record goes too.
+// ---------------------------------------------------------------------------
+const DEMO_REQUESTS = new Set([
+  'rq-101', // demo path: buy on the restored, unpaid grant
+  'rq-102', // supplies in the last 90 days: rerouted
+  'rq-103', // an unallowable item: blocked
+  'rq-012', 'rq-033', // ordinary past orders, and the vendors rq-101 and rq-102 reuse
+  'rq-017', // ordinary past order, in A's paid payment request pr-005
+  'rq-030', // an invoice for a canceled order
+  'rq-034', // in April's request pr-015 (and its invoice bills a different amount)
+  'rq-035', // the fee behind the paper crediting the wrong grant (p-10)
+  'rq-037', // the held invoice left out of May's payment request
+  'rq-060', // the "Bought after the cut" edge case
+])
+const DEMO_PAPERS = new Set(['p-01', 'p-10'])
+const DEMO_DROP = new Set(['inv-201']) // a second bill for o-033: archive only
+
+const writeWorld = (file, w) => {
+  writeFileSync(join(HERE, file), JSON.stringify(w, null, 2) + '\n')
+  console.log(`wrote sim/${file}: ${w.requests.length} requests, ${w.orders.length} orders, ${w.invoices.length} invoices, ${w.payroll.length} payroll rows, ${w.paymentRequests.length} payment requests, ${w.papers.length} papers, ${w.log.length} log rows`)
+}
+
+const demoWorld = full => {
+  const w = structuredClone(full)
+  w.requests = w.requests.filter(r => DEMO_REQUESTS.has(r.id))
+  w.orders = w.orders.filter(o => DEMO_REQUESTS.has(o.requestId))
+  const orders = new Set(w.orders.map(o => o.id))
+  w.approvals = w.approvals.filter(a => orders.has(a.orderId))
+  w.invoices = w.invoices.filter(i => orders.has(i.orderId) && !DEMO_DROP.has(i.id))
+  w.papers = w.papers.filter(p => DEMO_PAPERS.has(p.id))
+  const kept = new Set([...DEMO_REQUESTS, ...orders, ...w.invoices.map(i => i.id), ...w.papers.map(p => p.id)])
+  w.holds = w.holds.filter(h => kept.has(h.refId))
+  // Every payment request's purchases are kept, so its amount and payment stand.
+  const prIds = pr => [...pr.includedRequestIds, ...pr.excluded.map(x => x.requestId)]
+  if (!w.paymentRequests.every(pr => prIds(pr).every(id => DEMO_REQUESTS.has(id)))) throw new Error('demo world: keep every purchase a payment request lists')
+  for (const h of w.holds) kept.add(h.id)
+  const archived = new Set([...full.requests, ...full.orders, ...full.invoices, ...full.papers, ...full.holds].map(x => x.id).filter(id => !kept.has(id)))
+  w.log = w.log.filter(row => !archived.has(row.refId))
+  w.log.forEach((row, i) => { row.id = `l-${pad(i + 1, 4)}` })
+  // Totals less what the archived records added (payroll and payments all stay).
+  const archivedOrders = full.orders.filter(o => !orders.has(o.id))
+  const less = (g, state) => archivedOrders.filter(o => state(o.state)).reduce((t, o) => t + finalAmount(o) * shareOf(full.requests.find(r => r.id === o.requestId), g), 0)
+  w.grants = w.grants.map(g => ({ ...g, spent: g.spent - less(g.id, s => s === 'paid'), promised: g.promised - less(g.id, s => s === 'open' || s === 'changed') }))
+  return w
+}
+
+writeWorld('seed.json', db)
+writeWorld('demo-seed.json', demoWorld(db))
