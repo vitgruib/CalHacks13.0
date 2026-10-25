@@ -24,7 +24,12 @@ const followUpState: Record<FollowUp['state'], { label: string; tone: Tone }> = 
 function describe(db: Db, requestId: string, grantId: string): { name: string; amount?: number; held: string | null } {
   const rq = db.requests.find(r => r.id === requestId)
   const orders = db.orders.filter(o => o.requestId === requestId)
-  const invoices = db.invoices.filter(i => orders.some(o => o.id === i.orderId))
+  // Each order's bill that counts: a paid or matched one over a held second bill (a duplicate).
+  const invoices = orders.flatMap(o => {
+    const bills = db.invoices.filter(i => i.orderId === o.id && i.state !== 'rejected')
+    const bill = bills.filter(i => i.state !== 'held').at(-1) ?? bills.at(-1)
+    return bill ? [bill] : []
+  })
   const heldInvoice = invoices.find(i => i.state === 'held')
   const openHold = db.holds.find(h => !h.decision && (h.refId === requestId || invoices.some(i => i.id === h.refId)))
 
