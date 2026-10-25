@@ -8,7 +8,7 @@ import {
   plainReasons, shortName, spendable, type Outcome,
 } from '../plain'
 import { money } from '../ui'
-import { firstNameOf, useResearcher, type Researcher } from '../people'
+import { firstNameOf, forResearcher, useResearcher, type Researcher } from '../people'
 import './Ask.css'
 
 type Topic = 'left' | 'end' | 'order' | 'paused'
@@ -141,8 +141,8 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: { text: string; item: strin
 }
 
 export default function Ask() {
-  const { db } = useStore()
   const me = useResearcher()
+  const db = forResearcher(useStore().db, me)
   const [text, setText] = useState('')
   const [ask, setAsk] = useState<{ text: string; item: string; price?: number; category: string; shared: boolean } | null>(null)
   const [topic, setTopic] = useState<Topic | null>(null)

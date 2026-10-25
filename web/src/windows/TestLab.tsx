@@ -13,6 +13,7 @@ import { nextStep, paymentNote } from '../frozen'
 import { Badge, Section, grantStatus, money } from '../ui'
 import type { Tone } from '../ui'
 import scorecardJson from '../../../eval/scorecard.json'
+import { isEdgeGrant } from '../people'
 import './TestLab.css'
 
 interface Score { caught: number; missed: number; falseAlarms: number; correctPasses: number; notRun: number; mistakes: number; decoys: number }
@@ -175,7 +176,10 @@ export default function TestLab() {
         <div className="tl-row">
           <label className="tl-field">Grant
             <select value={grantId} onChange={e => setGrantId(e.target.value)}>
-              {db.grants.map(g => <option key={g.id} value={g.id}>{g.id} · {g.title}</option>)}
+              {db.grants.filter(g => !isEdgeGrant(g)).map(g => <option key={g.id} value={g.id}>{g.id} · {g.title}</option>)}
+              <optgroup label="Edge cases">
+                {db.grants.filter(isEdgeGrant).map(g => <option key={g.id} value={g.id}>{g.id} · {g.title}</option>)}
+              </optgroup>
             </select>
           </label>
         </div>

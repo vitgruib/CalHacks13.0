@@ -1,0 +1,2 @@
+.edge-group { margin-top: 24px; }
+.edge-group summary { cursor: pointer; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); margin-bottom: 12px; }

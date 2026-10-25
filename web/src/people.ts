@@ -32,6 +32,15 @@ export const EDGE_CASES = RESEARCHERS.filter(r => r.failure)
 /** What the app calls a researcher: the failure for an edge case, else the name. */
 export const displayName = (r: Researcher) => r.failure ?? r.name
 
+const EDGE_GRANTS = new Set(EDGE_CASES.map(r => r.grantId))
+/** A grant that only backs an edge-case user (a cut script's grant), not the lab's own. */
+export const isEdgeGrant = (g: { id: string }) => EDGE_GRANTS.has(g.id)
+/** The grants a researcher works with: an edge-case user only their own; everyone else the lab's. */
+export const grantsOf = <G extends { id: string }>(r: Researcher, grants: G[]) =>
+  grants.filter(g => (r.failure ? g.id === r.grantId : !isEdgeGrant(g)))
+/** The world as a researcher's portal sees it: only their grants. */
+export const forResearcher = <D extends { grants: { id: string }[] }>(db: D, r: Researcher): D => ({ ...db, grants: grantsOf(r, db.grants) })
+
 export const researcherNamed = (name: string | undefined) => RESEARCHERS.find(r => r.name === name)
 
 /** "Dr. Priya Nair, Postdoctoral researcher"; "a researcher" when unknown. */

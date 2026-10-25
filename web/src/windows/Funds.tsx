@@ -6,6 +6,8 @@ import { useStore } from '../data/store'
 import { type Db, type Grant, type GrantStatus, type SourceReading, type StatusEvent } from '../data/types'
 import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
 import { SIM_NOTE, grantHeading } from '../plain'
+import EdgeGroup from '../EdgeGroup'
+import { isEdgeGrant } from '../people'
 import './Funds.css'
 
 const statusLabel: Record<GrantStatus, string> = {
@@ -44,7 +46,10 @@ export default function Funds() {
   return (
     <>
       <SourceCheck />
-      {db.grants.map(g => <GrantCard key={g.id} g={g} db={db} />)}
+      {db.grants.filter(g => !isEdgeGrant(g)).map(g => <GrantCard key={g.id} g={g} db={db} />)}
+      <EdgeGroup count={db.grants.filter(isEdgeGrant).length}>
+        {db.grants.filter(isEdgeGrant).map(g => <GrantCard key={g.id} g={g} db={db} />)}
+      </EdgeGroup>
       <p className="funds-sim-note">{SIM_NOTE}</p>
     </>
   )

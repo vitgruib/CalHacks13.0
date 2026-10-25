@@ -6,6 +6,7 @@ import type { Db, Grant, SourceReading, StatusEvent } from '../data/types'
 import { SIM_NOTE, daysLeft, grantHeading, inTime, longDate, monthYear, paused, shortName, spendable } from '../plain'
 import { money } from '../ui'
 import MoneyCharts from '../charts/MoneyCharts'
+import { forResearcher, useResearcher } from '../people'
 import './Grants.css'
 
 const useSubId = () => {
@@ -147,7 +148,7 @@ function GrantCard({ db, g }: { db: Db; g: Grant }) {
 }
 
 export default function Grants() {
-  const { db } = useStore()
+  const db = forResearcher(useStore().db, useResearcher())
   const sub = useSubId()
   const g = db.grants.find(x => x.id === sub)
   if (g) {

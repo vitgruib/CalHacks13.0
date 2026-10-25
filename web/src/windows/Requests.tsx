@@ -8,7 +8,7 @@ import { useStore } from '../data/store'
 import type { Grant, PurchaseRequest, RequestState } from '../data/types'
 import { Badge, Empty, Section, money, type Tone } from '../ui'
 import { RoleContext } from './registry'
-import { RESEARCHERS, requesterLabel, useResearcher } from '../people'
+import { RESEARCHERS, forResearcher, grantsOf, requesterLabel, useResearcher } from '../people'
 import { grantHeading } from '../plain'
 import { OVERALL_LABEL, planTotal, type Overall } from '../spendguard/assess'
 import PlanEditor from '../spendguard/PlanEditor'
@@ -357,12 +357,12 @@ function MyRequests() {
   const [editing, setEditing] = useState<SavedPlan | 'new' | null>(null)
   const list = newestFirst(db.requests.filter(r => r.requesterName === me.name))
   if (editing) {
-    return <PlanEditor key={editing === 'new' ? 'new' : editing.id} db={db} researcher={me} saved={editing === 'new' ? undefined : editing} onDone={() => setEditing(null)} />
+    return <PlanEditor key={editing === 'new' ? 'new' : editing.id} db={forResearcher(db, me)} researcher={me} saved={editing === 'new' ? undefined : editing} onDone={() => setEditing(null)} />
   }
   return (
     <>
       <Section title="Ask to buy something">
-        <RequestForm grants={db.grants} />
+        <RequestForm grants={grantsOf(me, db.grants)} />
         <p className="rq-muted rq-plan-cta">
           Buying for a whole experiment?{' '}
           <button type="button" onClick={() => setEditing('new')}>Plan an experiment</button>{' '}
