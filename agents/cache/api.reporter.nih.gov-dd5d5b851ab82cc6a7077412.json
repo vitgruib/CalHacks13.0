@@ -1,0 +1,274 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://api.reporter.nih.gov/v2/projects/search",
+    "body": {
+      "criteria": {
+        "project_nums": [
+          "R01GM061721"
+        ]
+      },
+      "include_fields": [
+        "ApplId",
+        "CoreProjectNum",
+        "ProjectNum",
+        "FiscalYear",
+        "AwardAmount",
+        "AwardNoticeDate",
+        "ProjectEndDate"
+      ],
+      "limit": 500
+    }
+  },
+  "savedAt": "2026-10-25T06:46:42.996Z",
+  "response": {
+    "meta": {
+      "total": 27
+    },
+    "results": [
+      {
+        "appl_id": 11190833,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-21",
+        "fiscal_year": 2025,
+        "award_amount": 429221,
+        "award_notice_date": "2025-08-07T00:00:00",
+        "project_end_date": "2027-07-31T00:00:00"
+      },
+      {
+        "appl_id": 10890132,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-20",
+        "fiscal_year": 2024,
+        "award_amount": 429221,
+        "award_notice_date": "2024-09-10T00:00:00",
+        "project_end_date": "2026-07-31T00:00:00"
+      },
+      {
+        "appl_id": 10672280,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-19",
+        "fiscal_year": 2023,
+        "award_amount": 429221,
+        "award_notice_date": "2023-07-18T00:00:00",
+        "project_end_date": "2026-07-31T00:00:00"
+      },
+      {
+        "appl_id": 10712701,
+        "core_project_num": "R01GM061721",
+        "project_num": "3R01GM061721-19S1",
+        "fiscal_year": 2023,
+        "award_amount": 332594,
+        "award_notice_date": "2023-07-19T00:00:00",
+        "project_end_date": "2026-07-31T00:00:00"
+      },
+      {
+        "appl_id": 10882138,
+        "core_project_num": "R01GM061721",
+        "project_num": "3R01GM061721-19S2",
+        "fiscal_year": 2023,
+        "award_amount": 10789,
+        "award_notice_date": "2023-07-24T00:00:00",
+        "project_end_date": "2026-07-31T00:00:00"
+      },
+      {
+        "appl_id": 10711425,
+        "core_project_num": "R01GM061721",
+        "project_num": "3R01GM061721-18A1S1",
+        "fiscal_year": 2023,
+        "award_amount": 37763,
+        "award_notice_date": "2023-02-23T00:00:00",
+        "project_end_date": "2026-07-31T00:00:00"
+      },
+      {
+        "appl_id": 10521919,
+        "core_project_num": "R01GM061721",
+        "project_num": "2R01GM061721-18A1",
+        "fiscal_year": 2022,
+        "award_amount": 429221,
+        "award_notice_date": "2022-07-27T00:00:00",
+        "project_end_date": "2026-07-31T00:00:00"
+      },
+      {
+        "appl_id": 9533622,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-17",
+        "fiscal_year": 2018,
+        "award_amount": 414285,
+        "award_notice_date": "2018-07-27T00:00:00",
+        "project_end_date": "2021-07-31T00:00:00"
+      },
+      {
+        "appl_id": 9329457,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-16",
+        "fiscal_year": 2017,
+        "award_amount": 414285,
+        "award_notice_date": "2017-07-24T00:00:00",
+        "project_end_date": "2019-07-31T00:00:00"
+      },
+      {
+        "appl_id": 9134156,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-15",
+        "fiscal_year": 2016,
+        "award_amount": 414285,
+        "award_notice_date": "2016-08-09T00:00:00",
+        "project_end_date": "2019-07-31T00:00:00"
+      },
+      {
+        "appl_id": 8920370,
+        "core_project_num": "R01GM061721",
+        "project_num": "2R01GM061721-14",
+        "fiscal_year": 2015,
+        "award_amount": 459727,
+        "award_notice_date": "2015-08-28T00:00:00",
+        "project_end_date": "2019-07-31T00:00:00"
+      },
+      {
+        "appl_id": 8541025,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-13",
+        "fiscal_year": 2013,
+        "award_amount": 364493,
+        "award_notice_date": "2013-08-29T00:00:00",
+        "project_end_date": "2015-08-31T00:00:00"
+      },
+      {
+        "appl_id": 8327221,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-12",
+        "fiscal_year": 2012,
+        "award_amount": 377716,
+        "award_notice_date": "2012-09-06T00:00:00",
+        "project_end_date": "2014-08-31T00:00:00"
+      },
+      {
+        "appl_id": 8136720,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-11",
+        "fiscal_year": 2011,
+        "award_amount": 377720,
+        "award_notice_date": "2011-09-01T00:00:00",
+        "project_end_date": "2014-08-31T00:00:00"
+      },
+      {
+        "appl_id": 7889306,
+        "core_project_num": "R01GM061721",
+        "project_num": "2R01GM061721-10",
+        "fiscal_year": 2010,
+        "award_amount": 401486,
+        "award_notice_date": "2010-08-31T00:00:00",
+        "project_end_date": "2014-08-31T00:00:00"
+      },
+      {
+        "appl_id": 7617990,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-09",
+        "fiscal_year": 2009,
+        "award_amount": 338303,
+        "award_notice_date": "2009-04-17T00:00:00",
+        "project_end_date": "2010-08-31T00:00:00"
+      },
+      {
+        "appl_id": 7426846,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-08",
+        "fiscal_year": 2008,
+        "award_amount": 328450,
+        "award_notice_date": "2008-04-25T00:00:00",
+        "project_end_date": "2010-03-31T00:00:00"
+      },
+      {
+        "appl_id": 7216747,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-07",
+        "fiscal_year": 2007,
+        "award_amount": 328409,
+        "award_notice_date": "2007-05-18T00:00:00",
+        "project_end_date": "2010-03-31T00:00:00"
+      },
+      {
+        "appl_id": 7090994,
+        "core_project_num": "R01GM061721",
+        "project_num": "2R01GM061721-06A1",
+        "fiscal_year": 2006,
+        "award_amount": 328363,
+        "award_notice_date": "2006-03-31T00:00:00",
+        "project_end_date": "2010-03-31T00:00:00"
+      },
+      {
+        "appl_id": 7287603,
+        "core_project_num": "R01GM061721",
+        "project_num": "3R01GM061721-06A1S1",
+        "fiscal_year": 2006,
+        "award_amount": 14648,
+        "award_notice_date": "2006-09-21T00:00:00",
+        "project_end_date": "2010-03-31T00:00:00"
+      },
+      {
+        "appl_id": 6797391,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-05",
+        "fiscal_year": 2004,
+        "award_amount": 260304,
+        "award_notice_date": "2004-08-30T00:00:00",
+        "project_end_date": "2006-02-28T00:00:00"
+      },
+      {
+        "appl_id": 6655055,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-04",
+        "fiscal_year": 2003,
+        "award_amount": 260304,
+        "award_notice_date": "2003-08-29T00:00:00",
+        "project_end_date": "2005-08-31T00:00:00"
+      },
+      {
+        "appl_id": 6802104,
+        "core_project_num": "R01GM061721",
+        "project_num": "3R01GM061721-04S1",
+        "fiscal_year": 2003,
+        "award_amount": 119015,
+        "award_notice_date": "2003-09-19T00:00:00",
+        "project_end_date": "2005-08-31T00:00:00"
+      },
+      {
+        "appl_id": 6525932,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-03",
+        "fiscal_year": 2002,
+        "award_amount": 276439,
+        "award_notice_date": "2002-09-02T00:00:00",
+        "project_end_date": "2005-08-31T00:00:00"
+      },
+      {
+        "appl_id": 6603494,
+        "core_project_num": "R01GM061721",
+        "project_num": "3R01GM061721-02S1",
+        "fiscal_year": 2002,
+        "award_amount": 7477,
+        "award_notice_date": "2002-07-01T00:00:00",
+        "project_end_date": "2005-08-31T00:00:00"
+      },
+      {
+        "appl_id": 6387216,
+        "core_project_num": "R01GM061721",
+        "project_num": "5R01GM061721-02",
+        "fiscal_year": 2001,
+        "award_amount": 261124,
+        "award_notice_date": "2001-08-30T00:00:00",
+        "project_end_date": "2005-08-31T00:00:00"
+      },
+      {
+        "appl_id": 6167240,
+        "core_project_num": "R01GM061721",
+        "project_num": "1R01GM061721-01",
+        "fiscal_year": 2000,
+        "award_amount": 285210,
+        "award_notice_date": "2000-08-14T00:00:00",
+        "project_end_date": "2005-08-31T00:00:00"
+      }
+    ]
+  }
+}
