@@ -54,6 +54,17 @@ Row shape (the tracker reads the first four fields; the rest are for people):
   the whole award's row. A grant whose only listing is a supplement is kept,
   with `supplement` set, because part of its money is affected.
 
+## Demo list (simulated, Grant Witness format)
+
+`fixtures/demo-list.csv` is a list in Grant Witness's exact download format
+(all 36 columns) for the demo: its R01GM061721 row is changed to the demo's
+timeline (terminated 2026-03-10, not restored yet); the other 23 rows are
+real. Point the Actor at it with the `csvUrl` input,
+`https://raw.githubusercontent.com/vitgruib/CalHacks13.0/main/scrapers/fixtures/demo-list.csv`,
+and the run gives R01GM061721 `canceled`, listed 2026-03-10. It is our data,
+not Grant Witness's: say so whenever it's shown. Details in
+`fixtures/demo-list.meta.json`.
+
 ## Run locally (no Apify token needed)
 
 ```bash
