@@ -1,0 +1,49 @@
+{
+  "task": "payment_request.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-25T08:57:09.315Z",
+  "input": {
+    "grant": {
+      "id": "R21AI182745",
+      "title": "Investigating ploidy modulation as a strategy to improve antibiotic activity",
+      "agency": "NIH / NIAID"
+    },
+    "period": {
+      "from": "2026-05-01",
+      "to": "2026-05-31"
+    },
+    "total": "$5,130",
+    "personnelTotal": "$5,130",
+    "personnel": [
+      {
+        "role": "Research technician",
+        "effort": "60%",
+        "amount": "$2,880",
+        "payPeriods": 1
+      },
+      {
+        "role": "Graduate researcher",
+        "effort": "50%",
+        "amount": "$2,250",
+        "payPeriods": 1
+      }
+    ],
+    "categories": [],
+    "leftOut": [
+      {
+        "requestId": "pay-R21-2026-05-3",
+        "item": "Research associate salary (40% effort)",
+        "amount": "$2,600",
+        "why": "The same person is charged 110% effort for 2026-05-01 to 2026-05-31: 70% on R01GM061721, 40% on R21AI182745. Salary can't be claimed above 100% effort until the grant manager fixes the charges."
+      }
+    ],
+    "rule": "Held spending is left out",
+    "limits": {
+      "total": 1000
+    }
+  },
+  "answer": {
+    "claimed": "The lab requests repayment under NIH/NIAID grant R21AI182745, \"Investigating ploidy modulation as a strategy to improve antibiotic activity,\" for 2026-05-01 to 2026-05-31, in the total amount of $5,130. The entire amount is personnel cost (personnel subtotal $5,130) and no purchases are claimed in any other category. Personnel: a research technician at 60% effort for 1 pay period, $2,880; and a graduate researcher at 50% effort for 1 pay period, $2,250. Both roles supported the aim of investigating ploidy modulation as a strategy to improve antibiotic activity.",
+    "leftOut": "Request pay-R21-2026-05-3 (research associate salary, 40% effort, $2,600) is left out because held spending is left out: the same person is charged 110% effort for the period (70% on R01GM061721, 40% on R21AI182745), and salary cannot be claimed above 100% effort until the grant manager fixes the charges."
+  }
+}
