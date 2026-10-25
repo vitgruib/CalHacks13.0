@@ -1,0 +1,17 @@
+{
+  "task": "purchasing.price",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T02:42:03.684Z",
+  "input": {
+    "item": "Peristaltic pump with controller",
+    "category": "equipment"
+  },
+  "answer": {
+    "found": true,
+    "vendor": "Across International",
+    "product": "Ai P6A 6L/min SST Peristaltic Pump Touchscreen controller ETL",
+    "listPrice": 1990,
+    "sameQuantity": false,
+    "url": "https://www.acrossinternational.com/ai-p6a-6l-min-sst-peristaltic-pump-touchscreen-controller-etl.html"
+  }
+}

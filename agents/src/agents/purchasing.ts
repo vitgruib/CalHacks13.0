@@ -27,6 +27,7 @@ import {
 import {
   EXPLAIN_SYSTEM, EXPLAIN_TASK, ExplainAnswer, READ_SYSTEM, READ_TASK, ReadAnswer, SHARED_USE_SYSTEM, SHARED_USE_TASK, SharedUseAnswer,
 } from '../prompts/purchasing.ts';
+import { checkPrice, type PriceEntry } from './price-check.ts';
 import { workQueue, type AgentContext, type AgentHandle } from './types.ts';
 
 const AGENT = 'purchasing';
@@ -102,7 +103,8 @@ const failsOnlyOnFreezeOf = (request: RequestRow, grantId: string, besides?: Rul
 };
 
 export type HoldReason =
-  | 'freeze' | 'card_limit' | 'shared_cost' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused' | 'approved_over_limit';
+  | 'freeze' | 'card_limit' | 'shared_cost' | 'unplaced' | 'unclear_grant' | 'decided_before' | 'unchecked' | 'refused' | 'approved_over_limit'
+  | 'price_high';
 export type BlockReason = 'category' | 'grant_rules' | 'already_ordered';
 
 export type Plan =
@@ -283,6 +285,13 @@ export function vendorFor(request: RequestRow, requests: RequestRow[], orders: O
   return (exact ?? close)?.order.vendor ?? DEFAULT_VENDOR;
 }
 
+// ── Price check ────────────────────────────────────────────────────────────
+
+/** What a hold for a price far above the list price says (T69). */
+export function priceStep(price: number, entry: PriceEntry): string {
+  return `Its price, ${usd(price)}, is more than twice the list price found for it: ${usd(entry.listPrice)} for "${entry.product}" at ${entry.vendor} (${entry.url}, checked ${entry.checkedOn}). The grant manager confirms the quote or asks for a cheaper source.`;
+}
+
 // ── Explanations ───────────────────────────────────────────────────────────
 
 export interface ExplanationFacts {
@@ -360,6 +369,8 @@ function reasonStep(decision: Decision, facts: StepFacts): string {
       return "The grant's status couldn't be refreshed right before buying, so no money moves until it is.";
     case 'refused':
       return 'The grant manager decides.';
+    case 'price_high':
+      return decision.note ?? 'Its price is far above the list price found for it, so the grant manager decides.';
     case 'unplaced':
       return 'A rule failed that the agent cannot place, so the grant manager decides.';
     case 'category':
@@ -695,6 +706,11 @@ export function startPurchasing({ conn, tracker }: AgentContext): AgentHandle {
       decision = asHold('decided_before', elsewhere || undefined);
     }
     else if (movesMoney && !fresh) decision = asHold('unchecked');
+    // Every rule passes and it would be bought alone: one last look at the price.
+    if (decision.action === 'buy') {
+      const price = await checkPrice(request);
+      if (price?.tooHigh) decision = asHold('price_high', priceStep(request.price, price.entry));
+    }
 
     if (decision.action === 'reroute') await reroute(requestId, decision, reading.serves, 'block');
     else if (decision.action === 'buy') await moveMoney(requestId, decision, split, reading.serves);

@@ -1,0 +1,14 @@
+[
+  {
+    "item": "Nitrile exam gloves, medium, box of 100",
+    "category": "lab supplies",
+    "found": true,
+    "vendor": "Example Lab Supply",
+    "product": "Nitrile exam gloves, medium, 100/box",
+    "listPrice": 18,
+    "sameQuantity": true,
+    "url": "https://example.test/gloves-100",
+    "checkedOn": "2026-10-24",
+    "by": "claude-haiku-5-5"
+  }
+]

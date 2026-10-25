@@ -1,0 +1,50 @@
+[
+  {
+    "item": "Nitrile gloves, 10 cases",
+    "category": "lab supplies",
+    "found": true,
+    "vendor": "Fisher Scientific",
+    "product": "Fisherbrand Powder Free Nitrile Gloves Medium, Case of 10 PK (100 gloves per pack)",
+    "listPrice": 2410,
+    "sameQuantity": true,
+    "url": "https://www.fishersci.com/shop/products/powder-free-nitrile-gloves-1/191301597C",
+    "checkedOn": "2026-10-25",
+    "by": "claude-haiku-5-5"
+  },
+  {
+    "item": "Agar plates, 40 packs",
+    "category": "lab supplies",
+    "found": false,
+    "vendor": "",
+    "product": "",
+    "listPrice": 0,
+    "sameQuantity": false,
+    "url": "",
+    "checkedOn": "2026-10-25",
+    "by": "claude-haiku-5-5"
+  },
+  {
+    "item": "Peristaltic pump with controller",
+    "category": "equipment",
+    "found": true,
+    "vendor": "Across International",
+    "product": "Ai P6A 6L/min SST Peristaltic Pump Touchscreen controller ETL",
+    "listPrice": 1990,
+    "sameQuantity": false,
+    "url": "https://www.acrossinternational.com/ai-p6a-6l-min-sst-peristaltic-pump-touchscreen-controller-etl.html",
+    "checkedOn": "2026-10-25",
+    "by": "claude-haiku-5-5"
+  },
+  {
+    "item": "Membrane protein detergent screening kit, 4 plates",
+    "category": "reagents",
+    "found": false,
+    "vendor": "",
+    "product": "",
+    "listPrice": 0,
+    "sameQuantity": false,
+    "url": "",
+    "checkedOn": "2026-10-25",
+    "by": "claude-haiku-5-5"
+  }
+]

@@ -1,0 +1,17 @@
+{
+  "task": "purchasing.price",
+  "model": "claude-haiku-5-5",
+  "savedAt": "2026-10-25T02:41:53.223Z",
+  "input": {
+    "item": "Nitrile gloves, 10 cases",
+    "category": "lab supplies"
+  },
+  "answer": {
+    "found": true,
+    "vendor": "Fisher Scientific",
+    "product": "Fisherbrand Powder Free Nitrile Gloves Medium, Case of 10 PK (100 gloves per pack)",
+    "listPrice": 2410,
+    "sameQuantity": true,
+    "url": "https://www.fishersci.com/shop/products/powder-free-nitrile-gloves-1/191301597C"
+  }
+}

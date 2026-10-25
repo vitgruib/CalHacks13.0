@@ -39,6 +39,14 @@ export interface AskOptions<T> {
   fallback: () => T; // the deterministic answer when Claude can't be used
   effort?: 'low' | 'medium' | 'high';
   maxTokens?: number;
+  // A task that always runs on one model (e.g. the price check on Haiku).
+  // GG_MODEL and GG_REUSE_SAVED don't apply to it.
+  model?: string;
+  // Server tools Claude may use for this question (e.g. web search).
+  tools?: Anthropic.ToolUnion[];
+  // A last check on Claude's answer against the whole reply (e.g. the link it
+  // gives came from its own search results); false makes it an invalid answer.
+  accept?: (value: T, message: unknown) => boolean;
   client?: ClaudeClient;
   cacheDir?: string;
   mode?: ClaudeMode;
@@ -165,12 +173,13 @@ export async function ask<T>(options: AskOptions<T>): Promise<Answer<T>> {
   const schemaJson = JSON.stringify(z.toJSONSchema(schema));
   if (mode === 'off') return fromFallback(options, 'off');
 
-  const model = claudeModel();
+  const model = options.model ?? claudeModel();
   const cacheDir = options.cacheDir ?? process.env.GG_CLAUDE_CACHE_DIR ?? DEFAULT_CACHE;
-  const path = cachePath(cacheDir, task, [model, system, JSON.stringify(input ?? null), schemaJson]);
+  // Tools join the key only when given, so every other task keeps its saved answers.
+  const path = cachePath(cacheDir, task, [model, system, JSON.stringify(input ?? null), schemaJson, ...(options.tools ? [JSON.stringify(options.tools)] : [])]);
   const saved =
     readSaved(path, schema) ??
-    (mode !== 'live' && process.env.GG_REUSE_SAVED === '1' && model !== DEFAULT_MODEL
+    (mode !== 'live' && !options.model && process.env.GG_REUSE_SAVED === '1' && model !== DEFAULT_MODEL
       ? readSaved(cachePath(cacheDir, task, [DEFAULT_MODEL, system, JSON.stringify(input ?? null), schemaJson]), schema)
       : undefined);
 
@@ -186,6 +195,7 @@ export async function ask<T>(options: AskOptions<T>): Promise<Answer<T>> {
     system: [{ type: 'text' as const, text: system, cache_control: { type: 'ephemeral' as const } }],
     messages: [{ role: 'user' as const, content: JSON.stringify(input ?? null, null, 2) }],
     output_config: { format: zodOutputFormat(schema), effort },
+    ...(options.tools ? { tools: options.tools } : {}),
   } satisfies Anthropic.MessageCreateParamsNonStreaming;
 
   let message: { stop_reason?: string | null; model?: unknown; parsed_output?: unknown };
@@ -196,7 +206,7 @@ export async function ask<T>(options: AskOptions<T>): Promise<Answer<T>> {
   }
   if (message.stop_reason === 'refusal') return whenClaudeFails(options, 'refusal', saved);
   const parsed = message.parsed_output == null ? undefined : schema.safeParse(message.parsed_output);
-  if (!parsed?.success) return whenClaudeFails(options, 'invalid answer', saved);
+  if (!parsed?.success || (options.accept && !options.accept(parsed.data, message))) return whenClaudeFails(options, 'invalid answer', saved);
 
   const answeredBy = typeof message.model === 'string' ? message.model : model;
   save(path, { task, model: answeredBy, input, answer: parsed.data });
