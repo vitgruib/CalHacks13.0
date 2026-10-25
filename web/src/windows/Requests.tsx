@@ -1,14 +1,14 @@
 // Requests: every purchase request, and the experiment plans they come from
-// (SpendGuard, merged in T67). A researcher asks for one item or plans an
-// experiment with a line-item budget; a plan's lines become requests once it
+// (SpendGuard, merged in T67). A researcher asks for one item on Ask or plans an
+// experiment here with a line-item budget; a plan's lines become requests once it
 // clears its checks or the grant office approves it, and from there each line
 // is an ordinary request: the purchasing agent, the spending rules, the Inbox.
 import { useContext, useState, type FormEvent } from 'react'
 import { useStore } from '../data/store'
-import type { Grant, PurchaseRequest, RequestState } from '../data/types'
+import type { PurchaseRequest, RequestState } from '../data/types'
 import { Badge, Empty, Section, money, type Tone } from '../ui'
 import { RoleContext } from './registry'
-import { RESEARCHERS, forResearcher, grantsOf, requesterLabel, useResearcher } from '../people'
+import { RESEARCHERS, forResearcher, requesterLabel, useResearcher } from '../people'
 import { grantHeading } from '../plain'
 import { OVERALL_LABEL, planTotal, type Overall } from '../spendguard/assess'
 import PlanEditor from '../spendguard/PlanEditor'
@@ -37,116 +37,9 @@ const stateTone: Record<RequestState, Tone> = {
   canceled: 'neutral',
 }
 
-const CATEGORIES = ['lab supplies', 'equipment', 'equipment service', 'reagents', 'software', 'travel', 'general office', 'other']
-
-const empty = { item: '', category: CATEGORIES[0], price: '', grantId: '', purpose: '', sharedWith: '', splitBy: 'use', share: '50', basis: '' }
-
 /** Requests the researcher asked for in the app (seed ones have no asker), in a
  *  state worth pushing back on (the module refuses bought and rerouted). */
 const canPushBack = (r: PurchaseRequest) => !!r.requestedBy && (r.state === 'blocked' || r.state === 'waiting_on_manager' || r.state === 'rejected')
-
-function RequestForm({ grants }: { grants: Grant[] }) {
-  const { submitRequest } = useStore()
-  const me = useResearcher()
-  const [form, setForm] = useState({ ...empty, grantId: grants.find(g => g.id === me.grantId)?.id ?? grants[0]?.id ?? '' })
-  const [error, setError] = useState('')
-  const [sent, setSent] = useState('')
-
-  const set = (k: keyof typeof form) => (e: { target: { value: string } }) => {
-    setForm(f => ({ ...f, [k]: e.target.value }))
-    setError('')
-    setSent('')
-  }
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    const price = Number(form.price)
-    const item = form.item.trim()
-    const purpose = form.purpose.trim()
-    if (!item || !purpose || !form.grantId || !form.category) return setError('Fill in every field.')
-    if (!Number.isFinite(price) || price <= 0) return setError('The price must be more than $0.')
-    const other = form.sharedWith && form.sharedWith !== form.grantId ? form.sharedWith : ''
-    const share = Number(form.share)
-    const oneGrant = other && form.splitBy === 'one'
-    const basis = form.basis.trim()
-    if (other && !oneGrant && !(Number.isInteger(share) && share > 0 && share < 100)) return setError('The share on the grant to charge must be a whole percent between 1 and 99.')
-    if (oneGrant && !basis) return setError(`Say why each grant's use can't be measured.`)
-    // submit_request takes the grants a shared cost serves but not the split,
-    // so the split the scientist states goes in the purpose for the agent to read.
-    // Charging it all to one grant instead needs a reason the grant manager confirms.
-    submitRequest({
-      item, category: form.category, price: Math.round(price), grantId: form.grantId,
-      purpose: other && !oneGrant ? `${purpose} Shared cost: ${share}% ${form.grantId}, ${100 - share}% ${other}.` : purpose,
-      sharedWith: other ? [form.grantId, other] : [],
-      ...(oneGrant ? { oneGrantBasis: basis } : {}),
-    }, me)
-    setForm({ ...empty, grantId: form.grantId })
-    setSent(`Sent "${item}" to the purchasing agent as ${me.name}.`)
-  }
-
-  return (
-    <form className="rq-form" onSubmit={onSubmit} noValidate>
-      <label>
-        What do you want to buy?
-        <input value={form.item} onChange={set('item')} required placeholder="e.g. Pipette tips, 20 racks" />
-      </label>
-      <label>
-        Category
-        <select value={form.category} onChange={set('category')} required>
-          {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-        </select>
-      </label>
-      <label>
-        Price (US dollars)
-        <input type="number" inputMode="numeric" min={1} step={1} value={form.price} onChange={set('price')} required placeholder="380" />
-      </label>
-      <label>
-        Grant to charge
-        <select value={form.grantId} onChange={set('grantId')} required>
-          {grants.map(g => <option key={g.id} value={g.id}>{g.id}: {g.title}</option>)}
-        </select>
-      </label>
-      {grants.length > 1 && (
-        <label>
-          Shared with another grant?
-          <select value={form.sharedWith} onChange={set('sharedWith')}>
-            <option value="">No, only the grant to charge</option>
-            {grants.filter(g => g.id !== form.grantId).map(g => <option key={g.id} value={g.id}>Yes, with {g.id}</option>)}
-          </select>
-        </label>
-      )}
-      {form.sharedWith && form.sharedWith !== form.grantId && (
-        <label>
-          How should it be charged?
-          <select value={form.splitBy} onChange={set('splitBy')}>
-            <option value="use">Split by how much each grant uses it</option>
-            <option value="one">All to {form.grantId}: each grant's use can't be measured</option>
-          </select>
-        </label>
-      )}
-      {form.sharedWith && form.sharedWith !== form.grantId && form.splitBy === 'use' && (
-        <label>
-          Share on {form.grantId} (%)
-          <input type="number" inputMode="numeric" min={1} max={99} step={1} value={form.share} onChange={set('share')} />
-        </label>
-      )}
-      {form.sharedWith && form.sharedWith !== form.grantId && form.splitBy === 'one' && (
-        <label className="wide">
-          Why can't each grant's use be measured? (the grant manager confirms it)
-          <textarea value={form.basis} onChange={set('basis')} required rows={2} placeholder="e.g. Both aims image the same slides in one session" />
-        </label>
-      )}
-      <label className="wide">
-        What is it for?
-        <textarea value={form.purpose} onChange={set('purpose')} required rows={2} placeholder="e.g. Assay validation runs for aim 2" />
-      </label>
-      <div className="wide rq-actions">
-        <button type="submit" className="primary">Send request</button>
-        <span role="status" aria-live="polite" className={error ? 'rq-error' : 'rq-sent'}>{error || sent}</span>
-      </div>
-    </form>
-  )
-}
 
 function GrantLine({ r }: { r: PurchaseRequest }) {
   const rerouted = r.chargedGrantId && r.chargedGrantId !== r.grantId
@@ -348,8 +241,8 @@ const newestFirst = (requests: PurchaseRequest[]) => requests
   .sort((a, b) => b.r.day.localeCompare(a.r.day) || b.i - a.i)
   .map(x => x.r)
 
-/** A researcher's portal: ask for one item or plan an experiment, and only
- *  their own plans and requests. */
+/** A researcher's portal: their own plans and requests, tracked. Asking for one
+ *  item happens on Ask; planning an experiment starts here. */
 function MyRequests() {
   const { db, plans: all, deletePlan } = useStore()
   const me = useResearcher()
@@ -361,14 +254,14 @@ function MyRequests() {
   }
   return (
     <>
-      <Section title="Ask to buy something">
-        <RequestForm grants={grantsOf(me, db.grants)} />
-        <p className="rq-muted rq-plan-cta">
-          Buying for a whole experiment?{' '}
-          <button type="button" onClick={() => setEditing('new')}>Plan an experiment</button>{' '}
-          Add every cost, get a funding-readiness report from the award's terms and your grant's real balance, then send it.
-        </p>
-      </Section>
+      <p className="rq-muted rq-plan-cta">
+        Need something new? <a href="#ask">Ask for it</a>, and we check which grant can pay first.
+      </p>
+      <p className="rq-muted rq-plan-cta">
+        Buying for a whole experiment?{' '}
+        <button type="button" onClick={() => setEditing('new')}>Plan an experiment</button>{' '}
+        Add every cost, get a funding-readiness report from the award's terms and your grant's real balance, then send it.
+      </p>
       {plans.length > 0 && (
         <Section title="Your experiment plans" aside={<span className="rq-muted">{plans.length} total</span>}>
           <div className="rq-list">{plans.map(p => <PlanCard key={p.id} p={p} onRevise={() => setEditing(p)} onDelete={() => deletePlan(p.id, me)} />)}</div>

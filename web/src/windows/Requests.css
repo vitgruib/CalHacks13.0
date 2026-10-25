@@ -1,10 +1,6 @@
 .rq-muted { color: var(--muted); }
 .rq-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-.rq-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.rq-form label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; font-weight: 600; }
-.rq-form .wide { grid-column: 1 / -1; }
-.rq-form textarea { resize: vertical; }
 .rq-actions { display: flex; align-items: center; gap: 12px; }
 .rq-error { color: var(--bad); font-size: 14px; }
 .rq-sent { color: var(--good); font-size: 14px; }
