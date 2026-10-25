@@ -5,7 +5,7 @@ import { useState, type FormEvent, type ReactNode } from 'react'
 import { useStore } from '../data/store'
 import type { Db, PurchaseRequest } from '../data/types'
 import {
-  CARD_LIMIT, CATEGORIES, allChecks, checkAsk, daysLeft, guessCategory, inTime, longDate, paused,
+  CARD_LIMIT, CATEGORIES, NOT_ALLOWED, allChecks, checkAsk, daysLeft, guessCategory, inTime, longDate, paused,
   plainReasons, shortName, spendable, type Outcome,
 } from '../plain'
 import { money } from '../ui'
@@ -111,7 +111,11 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
     </>
     send = out.needsManager ? 'Send it, ask my grant manager when the money arrives' : 'Send it, buy when the money arrives'
   } else if (out.kind === 'not_allowed') {
-    body = <p className="ask-big">Federal grants can't pay for {ask.category} things like this. If it's really for your research, change the kind of thing below and check again.</p>
+    const no = NOT_ALLOWED[ask.category]
+    body = <>
+      <p className="ask-big">Federal grants can't pay for {no?.what ?? `${ask.category} things`}. {no?.why}</p>
+      <p className="ask-sub">So we didn't check your grants. If it's really for your research, change the kind of thing below and check again.</p>
+    </>
   } else {
     body = <>
       <ul className="ask-lines">{[...new Set(checks.flatMap(c => plainReasons(db, c.g, c.verdicts)))].map(r => <li key={r}>{r}</li>)}</ul>
@@ -138,7 +142,15 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
         {send && <button type="button" className="ask-primary" onClick={onSend}>{send}</button>}
         <button type="button" className="ask-secondary" aria-expanded={why} onClick={() => setWhy(w => !w)}>{why ? 'Hide the checks' : 'See the checks'}</button>
       </div>
-      {why && checks.map(c => (
+      {why && out.kind === 'not_allowed' && (
+        <div className="ask-checks">
+          <h3>The thing itself</h3>
+          <ul>
+            {checks[0]?.verdicts.filter(v => v.rule === 'Category allowed').map(v => <li key={v.rule}><Check ok={v.pass} /><span><strong>{v.rule}.</strong> {v.detail}</span></li>)}
+          </ul>
+        </div>
+      )}
+      {why && out.kind !== 'not_allowed' && checks.map(c => (
         <div key={c.g.id} className="ask-checks">
           <h3>Your {shortName(c.g)} grant</h3>
           <ul>

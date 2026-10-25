@@ -74,11 +74,29 @@ export const spendable = (g: Grant) => (g.frozen ? 0 : Math.max(0, trulyAvailabl
 
 export const CATEGORIES = [
   'lab supplies', 'reagents', 'equipment', 'equipment service', 'core facility services',
-  'publication costs', 'shipping', 'software', 'travel', 'general office', 'other',
+  'publication costs', 'shipping', 'software', 'travel', 'general office',
+  'food', 'alcohol', 'entertainment', 'personal', 'furniture', 'other',
 ]
 
+/** The kinds a federal grant never pays for: words for "Federal grants can't pay for …", and why in one line. */
+export const NOT_ALLOWED: Record<string, { what: string; why: string }> = {
+  'general office': { what: 'general office things', why: "Office supplies are the university's overhead, which the grant already pays through its indirect costs." },
+  food: { what: 'food or drinks', why: "Meals and snacks don't do the funded research work, so auditors disallow them." },
+  alcohol: { what: 'alcohol', why: 'Federal cost rules bar alcohol outright (2 CFR 200.423).' },
+  entertainment: { what: 'entertainment', why: 'Federal cost rules bar entertainment and amusement (2 CFR 200.438).' },
+  personal: { what: 'personal things', why: "It benefits you, not the funded research, so it isn't a cost of the project (2 CFR 200.403)." },
+  furniture: { what: 'furniture or decor', why: "Furniture and decor are the university's overhead, not a cost of the research." },
+}
+
+// The item is read before any grant is: the not-allowed kinds come first, so
+// "pizza for the lab meeting" is food, not lab supplies on a paused grant.
 const GUESSES: [string, RegExp][] = [
-  ['general office', /coffee|espresso|snack|food|pizza|party|chair|desk|sofa|couch|decor|stationery/i],
+  ['alcohol', /\b(?:beer|wine|champagne|prosecco|liquor|vodka|whiske?y|tequila|rum|gin|cocktails?|booze)\b/i],
+  ['food', /coffee|espresso|snack|\bfood|pizza|lunch|dinner|breakfast|catering|donut|doughnut|bagel|candy|\bcake\b|groceries/i],
+  ['entertainment', /\bparty\b|concert|movie|netflix|spotify|hulu|video ?games?|playstation|\bps[45]\b|xbox|nintendo|game console|\btv\b|television|tickets? to|sports? tickets|theme park|disney|karaoke|bowling|golf/i],
+  ['personal', /birthday|wedding|vacation|holiday|gym|clothes|clothing|shoes|sneakers|jewel|perfume|makeup|haircut|massage|\bpets?\b|puppy|for my (?:home|house|apartment|kid|son|daughter|wife|husband|partner|family)|personal(?! protective)/i],
+  ['furniture', /chair|desk|sofa|couch|decor|\brugs?\b|artwork|painting/i],
+  ['general office', /stationery/i],
   ['equipment service', /service contract|repair|maintenance|calibrat/i],
   ['core facility services', /\bcore\b|hours of|sequencing run|mass spec/i],
   ['publication costs', /publication|open access|page charge|article fee/i],
