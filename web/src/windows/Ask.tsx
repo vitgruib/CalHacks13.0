@@ -74,15 +74,22 @@ const headline: Record<Outcome['kind'], string> = {
   not_now: 'Not right now.',
 }
 
-type BuyAsk = { item: string; price: number; purpose: string; category: string; shared: boolean }
+// grantId: the grant the researcher chose to pay from; '' lets us pick.
+type BuyAsk = { item: string; price: number; purpose: string; category: string; shared: boolean; grantId: string }
+
+/** The grants a request is checked on: the chosen one, or all of them. */
+const pool = (db: Db, grantId: string): Db => grantId ? { ...db, grants: db.grants.filter(g => g.id === grantId) } : db
 
 function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: string) => void }) {
   const { submitRequest } = useStore()
   const me = useResearcher()
   const [why, setWhy] = useState(false)
   const facts = { ...ask, sharedWith: ask.shared ? db.grants.map(x => x.id) : [] }
-  const out = checkAsk(db, facts)
-  const checks = allChecks(db, facts)
+  const out = checkAsk(pool(db, ask.grantId), facts)
+  const checks = allChecks(pool(db, ask.grantId), facts)
+  // A chosen grant that can't take it, when another one could.
+  const auto = ask.grantId && out.kind !== 'yes' && out.kind !== 'manager' ? checkAsk(db, facts) : undefined
+  const better = auto && (auto.kind === 'yes' || auto.kind === 'manager') ? auto.grant : undefined
   const g = 'grant' in out ? out.grant : undefined
   const after = g ? spendable(g) - ask.price : 0
 
@@ -127,6 +134,7 @@ function Verdict({ db, ask, onSent }: { db: Db; ask: BuyAsk; onSent: (msg: strin
         <h2>{headline[out.kind]}</h2>
       </div>
       {body}
+      {better && <p className="ask-sub">Your <strong>{shortName(better)}</strong> grant could pay for it. Choose it below, or let us pick.</p>}
       <div className="ask-buttons">
         {send && <button type="button" className="ask-primary" onClick={onSend}>{send}</button>}
         <button type="button" className="ask-secondary" aria-expanded={why} onClick={() => setWhy(w => !w)}>{why ? 'Hide the checks' : 'See the checks'}</button>
@@ -158,11 +166,13 @@ export default function Ask() {
     const n = Math.round(Number(price))
     if (!item.trim() || !purpose.trim() || !(n > 0)) return
     const what = item.trim()
-    setAsk({ item: what.charAt(0).toUpperCase() + what.slice(1), price: n, purpose: purpose.trim(), category: guessCategory(`${what} ${purpose}`), shared: false })
+    setAsk({ item: what.charAt(0).toUpperCase() + what.slice(1), price: n, purpose: purpose.trim(), category: guessCategory(`${what} ${purpose}`), shared: false, grantId: '' })
     setTopic(null)
     setSent('')
   }
   const pausedGrants = db.grants.filter(paused)
+  const autoOut = ask && checkAsk(db, { ...ask, sharedWith: ask.shared ? db.grants.map(x => x.id) : [] })
+  const autoPick = autoOut && 'grant' in autoOut ? autoOut.grant : undefined
 
   return (
     <div className="ask">
@@ -199,7 +209,7 @@ export default function Ask() {
 
       {ask && !sent && (
         <>
-          <Verdict key={`${ask.item}|${ask.price}|${ask.purpose}|${ask.category}|${ask.shared}`} db={db} ask={ask} onSent={m => { setSent(m); setAsk(null); setItem(''); setPrice(''); setPurpose('') }} />
+          <Verdict key={`${ask.item}|${ask.price}|${ask.purpose}|${ask.category}|${ask.shared}|${ask.grantId}`} db={db} ask={ask} onSent={m => { setSent(m); setAsk(null); setItem(''); setPrice(''); setPurpose('') }} />
           <p className="ask-read">
             We read the kind of thing as{' '}
             <label className="ask-sr" htmlFor="ask-cat">Kind of thing</label>
@@ -207,6 +217,16 @@ export default function Ask() {
               {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </p>
+          {db.grants.length > 1 && (
+            <p className="ask-read">
+              Pay for it from{' '}
+              <label className="ask-sr" htmlFor="ask-grant">Grant</label>
+              <select id="ask-grant" value={ask.grantId} onChange={e => setAsk({ ...ask, grantId: e.target.value })}>
+                <option value="">{autoPick ? `whichever grant fits best (now ${shortName(autoPick)})` : 'whichever grant fits best'}</option>
+                {db.grants.map(g => <option key={g.id} value={g.id}>your {shortName(g)} grant</option>)}
+              </select>
+            </p>
+          )}
           {db.grants.length > 1 && (
             <p className="ask-read">
               <label><input type="checkbox" checked={ask.shared} onChange={e => setAsk({ ...ask, shared: e.target.checked })} />{' '}
