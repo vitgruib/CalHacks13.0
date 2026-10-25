@@ -105,13 +105,13 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   return (
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoices">
-        <button type="button" className={`iv-tab iv-tab-green${view === 'approved' ? ' on' : ''}`} aria-pressed={view === 'approved'} onClick={() => pick('approved')}>
-          Approved <span className="iv-count">{nApproved}</span>
-        </button>
         <button type="button" className={`iv-tab iv-tab-orange${view === 'action' ? ' on' : ''}`} aria-pressed={view === 'action'} onClick={() => pick('action')}>
           Need your action <span className="iv-count">{nAction}</span>
         </button>
         <button type="button" className="iv-tab iv-tab-blue" onClick={() => setForm({})}>Submit an invoice</button>
+        <button type="button" className={`iv-tab iv-tab-green${view === 'approved' ? ' on' : ''}`} aria-pressed={view === 'approved'} onClick={() => pick('approved')}>
+          Approved <span className="iv-count">{nApproved}</span>
+        </button>
       </div>
 
       {view === 'approved' && (nApproved === 0 ? <Empty>Nothing approved yet.</Empty> : <ul className="iv-list">{approvedSubs.map(card)}{approvedBills.map(bill)}</ul>)}
