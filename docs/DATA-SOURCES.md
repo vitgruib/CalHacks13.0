@@ -218,3 +218,47 @@ this data for its own grants, so GrantGuard would read it and drop the lag.
 CourtListener and SAM.gov are the two that could actually be built in a few
 hours: CourtListener strengthens the court-order story, and SAM.gov adds a
 rule judges would recognize.
+
+## 9. Left out on purpose: HHS TAGGS (talking point)
+
+**If a judge asks "why not TAGGS?"** — *"TAGGS is HHS's own grant
+tracking system. We looked at it and left it out: it records what HHS
+committed, not what it paid, so it can't tell us the money arrived. Its
+termination flags are unreliable enough that Grant Witness, which tracks
+this full-time, doesn't use them either. USAspending's payments answer the
+question we actually care about."*
+
+What TAGGS (Tracking Accountability in Government Grants System,
+taggs.hhs.gov) is: HHS's public database of award actions for every HHS
+grant, NIH included, updated more often than USAspending.
+
+Why we left it out:
+- **It records obligations, not payments.** TAGGS "tracks obligated grant
+  funds … at the transaction level" (HHS data quality document, read through
+  a search summary:
+  https://www.hhs.gov/sites/default/files/os_tracking_accountability_in_government_grants_system_dqdar.pdf).
+  Our freeze rule needs money actually paid, which only USAspending's
+  outlays give us. TAGGS would duplicate what RePORTER and USAspending
+  already say about amounts.
+- **Its termination signal is unreliable.** From Grant Witness's methodology
+  (https://grantwitness.org/nih/updates/methodology), verbatim:
+  - "TAGGS data does contain a signal of termination—a "TERMINATION" action
+    type—however, it is not always clear what this means."
+  - "Because TAGGS data only shows awards by FAIN and not full award number,
+    it is unclear when a "TERMINATION" event indicates only a supplement has
+    been terminated."
+  - "Sometimes, the "TERMINATION" flag is added to a deobligation event after
+    a termination as well."
+  - "when they were first introduced, we saw them back-filled to past actions"
+  - "we do not use the addition or removal of a "TERMINATION" flag in TAGGS
+    data as a signal for termination for NIH or AHRQ awards."
+- **Its terminated-grants PDF got worse.** Grant Witness parses HHS's weekly
+  PDF of terminated awards (`taggs.hhs.gov/Content/Data/HHS_Grants_Terminated.pdf`)
+  as one signal. HHS stopped adding to it and removed entries (pain point
+  01), and since 2026-02-20 it no longer carries full award numbers.
+- **Grant Witness already reads it for us.** Anything useful TAGGS says about
+  terminations already reaches us through the Grant Witness list.
+
+What we gave up: earlier notice of a new, cut or reduced obligation than
+USAspending gives. That's the case for adding it later. It still wouldn't
+replace USAspending, because it doesn't show payments.
