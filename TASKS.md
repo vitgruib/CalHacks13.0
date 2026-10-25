@@ -23,6 +23,7 @@ All three tracks are technical only. Presentation and submission work
 `HUMAN_TODO.md`.
 
 ## In progress
+- [ ] T100 [app] Researcher Ask and My requests on one page (asked by Ethan): Ask shows the researcher's plans and requests under the buy form and the grant questions; My requests leaves the researcher menu (its URL still opens it) — needs: — — done when: `npm --prefix web run check` passes; in the browser a researcher sends a request from Ask and sees it in Your requests on the same page — @ethan/claude-ask — owns: `web/src/windows/Ask.*`, `web/src/windows/Requests.tsx` (MyRequests only), `web/src/windows/registry.ts` (requests entry), `web/src/App.tsx` (researcher heading line); touches T28's files (Nathan, not claimed)
 - [ ] T41 [docs] Submission facts: DEMO-SCRIPT.md and DEVPOST-DRAFT.md say only what the code does (real grant IDs, reroute direction, the "Pick this source" step, simulated papers, no court-notice reading, scorecard numbers); no new marketing copy; `[TBD]`s that need a human stay marked — needs: — — done when: every claim checked against the code or README, Nathan reviews the diff — @nathan/claude-docs — owns: `docs/submission/DEMO-SCRIPT.md`, `docs/submission/DEVPOST-DRAFT.md`
 - [ ] T42 [qa] Integration check through the real UI: the README's 3-minute demo, clicked in the web app on a throwaway local database with the real worker — needs: — — done when: each demo step logged pass/fail with screenshots in PROGRESS; breakages become ★ tasks — @nathan/claude-qa — owns: nothing in the repo (scratch only)
 
