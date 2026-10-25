@@ -4,7 +4,7 @@ import { useState } from 'react'
 import type { Db } from '../data/types'
 import { grantHeading } from '../plain'
 import { Badge, Empty, money } from '../ui'
-import { AuditTrail, FindingList, OpenInvoice, StatusBadge } from './Findings'
+import { OpenInvoice, StatusBadge } from './Findings'
 import { check, parseAmount, type Draft, type Submission } from './model'
 import { demoSubmissions } from './demo'
 import SubmitForm from './SubmitForm'
@@ -15,7 +15,7 @@ const draftOf = (s: Submission): Draft => ({ vendor: s.vendor, invoiceNo: s.invo
 const NEXT: Record<Submission['status'], string> = {
   ready: 'The grant office is reviewing it. Nothing for you to do.',
   exception: 'The invoice agent paused payment. The grant office will review it or ask you for something.',
-  clarification: 'The grant office asked you a question. Revise and resubmit.',
+  clarification: 'The grant office asked you a question. Edit and resubmit.',
   escalated: 'It went to a higher approver. Nothing for you to do yet.',
   approved: 'Approved. Payment can go ahead.',
   rejected: 'Rejected. See the reason below; submit a corrected invoice if needed.',
@@ -38,7 +38,6 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   const all = useSubmissions()
   const mine = all.filter(s => s.researcher === name)
   const [form, setForm] = useState<{ edit?: Submission; seed?: Draft; seedKey?: string } | null>(null)
-  const [open, setOpen] = useState<string | null>(null)
   const [view, setView] = useState<'approved' | 'action' | 'submit' | null>(null)
 
   const submit = (d: Draft, r: ReturnType<typeof check>) => {
@@ -55,7 +54,6 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
     ]
     saveSubmission(base)
     setForm(null)
-    setOpen(base.id)
     setView('action')
   }
 
@@ -93,17 +91,8 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
         </header>
         <p className="iv-note">{g ? grantHeading(g) : s.grantId} · submitted {s.submittedOn}</p>
         <p className="iv-next"><strong>Next:</strong> {NEXT[s.status]}{(s.status === 'clarification' || s.status === 'rejected') && decision?.why && <> “{decision.why}”</>}</p>
-        <div className="iv-actions">
-          <button type="button" onClick={() => setOpen(open === s.id ? null : s.id)}>{open === s.id ? 'Hide details' : 'Details and history'}</button>
-          {(s.status === 'clarification' || s.status === 'rejected' || s.status === 'exception') && <button type="button" onClick={() => { setForm({ edit: s }); setView('submit') }}>Revise and resubmit</button>}
-        </div>
-        {open === s.id && (
-          <>
-            <h3 className="iv-h3">What the invoice agent found</h3>
-            <FindingList findings={s.findings} />
-            <h3 className="iv-h3">History</h3>
-            <AuditTrail audit={s.audit} />
-          </>
+        {(s.status === 'clarification' || s.status === 'rejected' || s.status === 'exception') && (
+          <div className="iv-actions"><button type="button" className="iv-edit" onClick={() => { setForm({ edit: s }); setView('submit') }}>Edit and resubmit</button></div>
         )}
       </li>
     )
@@ -120,7 +109,7 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
       {i.mismatch && <p className="iv-next"><strong>Why:</strong> {i.mismatch}</p>}
       {i.state === 'held' && (
         <div className="iv-actions">
-          <button type="button" className="primary" onClick={() => { setForm({ seed: draftFromBill(db, i), seedKey: i.id }); setView('submit') }}>Fix and resubmit</button>
+          <button type="button" className="iv-edit" onClick={() => { setForm({ seed: draftFromBill(db, i), seedKey: i.id }); setView('submit') }}>Edit and resubmit</button>
         </div>
       )}
     </li>

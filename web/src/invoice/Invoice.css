@@ -127,3 +127,7 @@
 .iv-page-head h1 { margin: 0; font-size: 26px; }
 .iv a.iv-go, .iv a.iv-go:hover, .iv a.iv-go:visited { color: #fff; }
 .iv a.iv-go svg { stroke: #fff; }
+
+/* Edit and resubmit: filled like a primary button but small and dark orange, so the three tabs stay the loudest. */
+.iv .iv-edit { background: #b45309; border: 1px solid #b45309; color: #fff; font-size: 13px; font-weight: 600; padding: 5px 14px; border-radius: 8px; cursor: pointer; transition: background .15s, transform .1s; }
+.iv .iv-edit:hover { background: #92400e; border-color: #92400e; transform: translateY(-1px); }
