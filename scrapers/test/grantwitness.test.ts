@@ -55,6 +55,25 @@ test('the_fund_tracker_reads_our_rows_with_the_statuses_we_wrote', async () => {
   assert.deepEqual(read.map((r) => [r.grantId, r.status]), grants.map((g) => [g.grantId, g.status]));
 });
 
+// The time switch: the real list, as it stood on a given day. K01HL173859's
+// row: Frozen 2025-04-08, Unfrozen (confirmed) 2026-09-17.
+const asOf = (day: string) =>
+  parseGrantWitnessCsv(readFileSync(SAVED, 'utf8'), { fetchedAt: '2026-10-24T08:13:52Z', savedCopy: true, asOf: day }).grants;
+
+test('as_of_a_day_before_the_disruption_the_grant_is_not_listed', () => {
+  assert.equal(asOf('2025-04-07').find((g) => g.grantId === 'K01HL173859'), undefined);
+});
+
+test('as_of_a_day_during_the_disruption_the_grant_is_canceled', () => {
+  assert.deepEqual(pick(asOf('2026-01-01').find((g) => g.grantId === 'K01HL173859')), {
+    status: 'canceled', listStatus: 'Frozen', terminatedOn: '2025-04-08', restoredOn: null, listedOn: '2025-04-08', fullAwardNumber: '5K01HL173859-03', supplement: null,
+  });
+});
+
+test('as_of_the_restoration_day_the_grant_has_its_current_status', () => {
+  assert.equal(asOf('2026-09-17').find((g) => g.grantId === 'K01HL173859')?.status, 'active');
+});
+
 function pick(g: ListedGrant | undefined) {
   if (!g) return undefined;
   const { status, listStatus, terminatedOn, restoredOn, listedOn, fullAwardNumber, supplement } = g;

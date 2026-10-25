@@ -12,6 +12,7 @@
 //   source     live | saved          GG_SCRAPE_SOURCE   (default live; falls back to saved on failure)
 //   grantIds   only these grants     GG_LAB_GRANTS      (comma-separated; default: every listed grant)
 //   outFile    local output file     GG_CANCELLATIONS_FILE (default scrapers/out/cancellations.json)
+//   asOf       YYYY-MM-DD            GG_AS_OF           (time switch: the real list as it stood that day; default today's list)
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
@@ -33,6 +34,7 @@ interface Input {
   csvUrl?: string;
   grantIds?: string[];
   outFile?: string;
+  asOf?: string;
 }
 
 async function download(url: string): Promise<string | null> {
@@ -60,6 +62,8 @@ const env = process.env;
 const source = (env.GG_SCRAPE_SOURCE as Input['source']) ?? input.source ?? 'live';
 const csvUrl = input.csvUrl ?? GRANT_WITNESS_CSV;
 const labGrants = env.GG_LAB_GRANTS ? parseGrantList(env.GG_LAB_GRANTS) : parseGrantList((input.grantIds ?? []).join(','));
+const asOf = env.GG_AS_OF || input.asOf || null;
+if (asOf && !/^\d{4}-\d{2}-\d{2}$/.test(asOf)) throw new Error(`asOf must be a day like 2025-08-15, not "${asOf}"`);
 const outFile = env.GG_CANCELLATIONS_FILE ?? input.outFile ?? (Actor.isAtHome() ? null : DEFAULT_OUT);
 
 let csv = source === 'live' ? await download(csvUrl) : null;
@@ -71,7 +75,7 @@ if (savedCopy) {
   fetchedAt = (JSON.parse(readFileSync(SAVED_COPY_META, 'utf8')) as { fetchedAt: string }).fetchedAt;
 }
 
-const parsed = parseGrantWitnessCsv(csv!, { fetchedAt, savedCopy });
+const parsed = parseGrantWitnessCsv(csv!, { fetchedAt, savedCopy, asOf });
 let rows = parsed.grants;
 if (labGrants.length) rows = rows.filter((row) => labGrants.includes(row.grantId));
 
@@ -86,6 +90,8 @@ const summary = {
   list: savedCopy ? `saved copy (${fetchedAt})` : csvUrl,
   csvRows: parsed.rowsRead,
   droppedRows: parsed.dropped,
+  asOf: asOf ?? 'today',
+  notYetListed: parsed.notYetListed,
   grantsListed: parsed.grants.length,
   labGrants: labGrants.length ? labGrants : 'all',
   rowsOut: rows.length,

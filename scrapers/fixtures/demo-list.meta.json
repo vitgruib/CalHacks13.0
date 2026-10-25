@@ -1,7 +1,0 @@
-{
-  "what": "GrantGuard demo list, NOT Grant Witness data: a CSV in Grant Witness's exact NIH download format (same 36 columns, same order, same value styles) so the Apify Actor can scrape it through its csvUrl input and the demo's cancellation comes out of a real Actor run.",
-  "format": "https://data.grantwitness.org/nih/dl-table.csv (header and the 23 other rows copied from it on 2026-10-24)",
-  "simulated": "Row 1, R01GM061721 (5R01GM061721-21): six columns changed to match the demo timeline in sim/build-seed.mjs: Current Status Disrupted, Detailed Status Terminated, Earliest Disruption 2026-03-10, Disruption Indicators 'Added to TAGGS PDF', Latest Restoration N/A, Restoration Indicators N/A. On the real list this grant was terminated 2025-07-31 and reinstated 2025-09-22 (Thakur v. Trump).",
-  "real": "Rows 2 to 24: the saved copy's 23 rows, verbatim from the live download, all 36 columns.",
-  "useWith": "Actor input csvUrl = https://raw.githubusercontent.com/vitgruib/CalHacks13.0/main/scrapers/fixtures/demo-list.csv"
-}

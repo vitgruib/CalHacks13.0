@@ -10,6 +10,14 @@
 // Restored grants are kept, not dropped: if the list only carried
 // cancellations, a grant that a court restored would vanish from it, and the
 // tracker (for which absence says nothing) would keep the stale "canceled".
+//
+// asOf (YYYY-MM-DD) is the time switch for test runs: the same real list, as
+// it stood that day, read off each row's own dates. Before the earliest
+// disruption the grant isn't listed; from it until the latest restoration it
+// is canceled (Terminated, or Frozen when it was later unfrozen); from the
+// restoration on it has its current status. The list keeps only the earliest
+// disruption and the latest restoration, so a grant cut, restored and cut
+// again shows its current status from that restoration on.
 
 import { parse } from 'csv-parse/sync';
 
@@ -40,6 +48,7 @@ export interface ListedGrant {
   reporterUrl: string | null;
   fetchedAt: string; // when the list was read (ISO)
   savedCopy: boolean; // true when read from the saved copy, not the live site
+  asOf: string | null; // the day the list is shown as of (time switch), or null for today's list
 }
 
 // Grant Witness "Detailed Status" → ours. Frozen funds can't be drawn, which
@@ -66,19 +75,22 @@ const date = (value: string | undefined): string | null => {
 export interface ParseOptions {
   fetchedAt: string;
   savedCopy: boolean;
+  asOf?: string | null;
 }
 
 export interface ParseResult {
   grants: ListedGrant[];
   rowsRead: number;
   dropped: number; // rows with no readable grant number or an unknown status
+  notYetListed: number; // rows whose disruption came after asOf (or has no date)
 }
 
 /** Parses Grant Witness's NIH CSV into one ListedGrant per core project number. */
-export function parseGrantWitnessCsv(csv: string, { fetchedAt, savedCopy }: ParseOptions): ParseResult {
+export function parseGrantWitnessCsv(csv: string, { fetchedAt, savedCopy, asOf = null }: ParseOptions): ParseResult {
   const records = parse(csv, { columns: true, skip_empty_lines: true, bom: true, relax_column_count: true }) as Record<string, string>[];
   const byGrant = new Map<string, ListedGrant>();
   let dropped = 0;
+  let notYetListed = 0;
 
   for (const r of records) {
     const number = parseGrantNumber(blank(r['Most Recent Full Award Number'])) ?? parseGrantNumber(blank(r['Most Recent FAIN']));
@@ -90,18 +102,31 @@ export function parseGrantWitnessCsv(csv: string, { fetchedAt, savedCopy }: Pars
     }
     const subaward = blank(r['Subaward ID']);
     const terminatedOn = date(r['Earliest Disruption']);
-    const restoredOn = date(r['Latest Restoration']);
+    let restoredOn = date(r['Latest Restoration']);
+    let restoredBy = blank(r['Restoration Indicators']);
+    let shown = { status, listStatus };
+    if (asOf) {
+      if (!terminatedOn || terminatedOn > asOf) {
+        notYetListed++;
+        continue;
+      }
+      if (restoredOn && restoredOn > asOf) {
+        shown = { status: 'canceled', listStatus: status === 'active' ? 'Frozen' : status === 'restored_by_court' ? 'Terminated' : listStatus };
+        restoredOn = null;
+        restoredBy = null;
+      }
+    }
     const grant: ListedGrant = {
       grantId: number.core,
-      status,
+      status: shown.status,
       url: GRANT_WITNESS_PAGE,
-      listedOn: status === 'canceled' ? terminatedOn : (restoredOn ?? terminatedOn),
+      listedOn: shown.status === 'canceled' ? terminatedOn : (restoredOn ?? terminatedOn),
       source: SOURCE,
       list: 'Grant Witness (NIH)',
-      listStatus,
+      listStatus: shown.listStatus,
       terminatedOn,
       restoredOn,
-      restoredBy: blank(r['Restoration Indicators']),
+      restoredBy,
       fullAwardNumber: blank(r['Most Recent Full Award Number']),
       supplement: number.supplement ?? (subaward ? subaward.replace(/^\d+/, '') || subaward : null),
       title: blank(r['Grant Title']),
@@ -109,6 +134,7 @@ export function parseGrantWitnessCsv(csv: string, { fetchedAt, savedCopy }: Pars
       reporterUrl: blank(r['RePORTER']),
       fetchedAt,
       savedCopy,
+      asOf,
     };
     // A grant listed both as the whole award and as a supplement: the whole
     // award's row speaks for the grant. A supplement-only listing is kept
@@ -117,5 +143,5 @@ export function parseGrantWitnessCsv(csv: string, { fetchedAt, savedCopy }: Pars
     if (!existing || (existing.supplement && !grant.supplement)) byGrant.set(grant.grantId, grant);
   }
 
-  return { grants: [...byGrant.values()], rowsRead: records.length, dropped };
+  return { grants: [...byGrant.values()], rowsRead: records.length, dropped, notYetListed };
 }

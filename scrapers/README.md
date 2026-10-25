@@ -54,16 +54,24 @@ Row shape (the tracker reads the first four fields; the rest are for people):
   the whole award's row. A grant whose only listing is a supplement is kept,
   with `supplement` set, because part of its money is affected.
 
-## Demo list (simulated, Grant Witness format)
+## Time switch (test runs)
 
-`fixtures/demo-list.csv` is a list in Grant Witness's exact download format
-(all 36 columns) for the demo: its R01GM061721 row is changed to the demo's
-timeline (terminated 2026-03-10, not restored yet); the other 23 rows are
-real. Point the Actor at it with the `csvUrl` input,
-`https://raw.githubusercontent.com/vitgruib/CalHacks13.0/main/scrapers/fixtures/demo-list.csv`,
-and the run gives R01GM061721 `canceled`, listed 2026-03-10. It is our data,
-not Grant Witness's: say so whenever it's shown. Details in
-`fixtures/demo-list.meta.json`.
+`asOf` (Actor input, or `GG_AS_OF` locally) shows the real list as it stood
+on a past day, read off each row's own dates: before the earliest disruption
+a grant isn't listed, until the latest restoration it's `canceled`
+(`listStatus` Terminated, or Frozen for a grant later unfrozen), and from the
+restoration on it has its current status. Each row carries `asOf`. The list
+keeps only the earliest disruption and the latest restoration, so a grant
+cut, restored and cut again shows its current status from that restoration.
+
+The lab's R01GM061721 is on the real list (terminated 2025-07-31, reinstated
+2025-09-22 under *Thakur v. Trump*), so:
+
+```bash
+GG_AS_OF=2025-07-30 GG_LAB_GRANTS=R01GM061721 npm --prefix scrapers run scrape   # not listed
+GG_AS_OF=2025-08-15 GG_LAB_GRANTS=R01GM061721 npm --prefix scrapers run scrape   # canceled
+GG_AS_OF=2025-09-22 GG_LAB_GRANTS=R01GM061721 npm --prefix scrapers run scrape   # restored_by_court
+```
 
 ## Run locally (no Apify token needed)
 
@@ -88,6 +96,7 @@ Options (Actor input, or env vars for local runs):
 | `grantIds` | `GG_LAB_GRANTS` (comma-separated) | whole list |
 | `outFile` | `GG_CANCELLATIONS_FILE` | `scrapers/out/cancellations.json` locally, none in the cloud |
 | `csvUrl` | none | Grant Witness NIH CSV |
+| `asOf` (YYYY-MM-DD) | `GG_AS_OF` | none: today's list |
 
 ## Demo data
 
