@@ -41,4 +41,4 @@ Unassigned, outside the tracks. Someone must own this. Prep is in
 | Anthropic keys, billing, limits | https://console.anthropic.com/settings/keys, `/billing`, `/limits` |
 | Apify token, usage | https://console.apify.com/settings/integrations, https://console.apify.com/billing |
 | SpacetimeDB install, docs | https://spacetimedb.com/install, https://spacetimedb.com/docs |
-- [ ] @ethan: turn on the live cancellation list on the VM worker (T59 demo time buttons): add `GG_LIVE_SOURCES=list`, `GG_APIFY_ACTOR=nathanqiu~nih-grant-cancellation-list`, `GG_LAB_GRANTS=R01GM061721,R21AI182745` and `APIFY_TOKEN=` (from `.env.local`) to `/etc/grantguard/agents.env`, then `sudo systemctl restart grantguard-agents`.
+- [x] @ethan: turn on the live cancellation list on the VM worker (T59 demo time buttons): add `GG_LIVE_SOURCES=list`, `GG_APIFY_ACTOR=nathanqiu~nih-grant-cancellation-list`, `GG_LAB_GRANTS=R01GM061721,R21AI182745` and `APIFY_TOKEN=` (from `.env.local`) to `/etc/grantguard/agents.env`, then `sudo systemctl restart grantguard-agents`.
