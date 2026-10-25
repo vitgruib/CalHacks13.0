@@ -1,5 +1,5 @@
-// Stands in for the 3D hero (T76) when hero/src/embed.tsx fails to load, and
-// shows while its chunk loads. Same contract as the embed: fills its parent,
+// Stands in for the 3D hero (T76) when hero/src/embed.tsx fails to load;
+// HeroLoading shows while its chunk loads. Same contract as the embed: fills its parent,
 // adds no global listeners, and its two labels call onEnter with a role, where
 // the embed shows them. The still is the very file the embed's own
 // still imports (hero/src/demos/a1/EmbedBar.tsx), so it is one cached image at
@@ -26,15 +26,36 @@ export function HeroStill() {
   )
 }
 
+/** The title and the pitch, where the embed sets them (hero/src/demos/a1/Hud.tsx EmbedHud). */
+function Copy() {
+  return (
+    <div className="hero-stub-copy">
+      <h1>Grant Test Auto</h1>
+      <p className="hero-stub-problem">Researchers spend 44% of their federally funded research time on administration.</p>
+      <p>AI agents do the grant office’s checking: status, balance, rules and invoices. Researchers do science, and the grant manager decides only the exceptions.</p>
+    </div>
+  )
+}
+
+/**
+ * While the embed's chunk loads: the copy over the bare stage, no still. That
+ * only happens on a page's first landing, when the embed opens on its crane's
+ * close-up, so a still of the end framing here would show the lab wide, then
+ * close, then wide again.
+ */
+export function HeroLoading() {
+  return (
+    <div className="hero-stub">
+      <Copy />
+    </div>
+  )
+}
+
 export function HeroStub({ onEnter }: HeroEmbedProps) {
   return (
     <div className="hero-stub">
       <HeroStill />
-      <div className="hero-stub-copy">
-        <h1>Grant Test Auto</h1>
-        <p className="hero-stub-problem">Researchers spend 44% of their federally funded research time on administration.</p>
-        <p>AI agents do the grant office’s checking: status, balance, rules and invoices. Researchers do science, and the grant manager decides only the exceptions.</p>
-      </div>
+      <Copy />
       {/* The two ways in sit over their plinths, where the embed puts them (hero 9925fa6). */}
       <button type="button" className="hero-stub-way lab" aria-label="Research lab: open the research portal" onClick={() => onEnter?.('researcher')}>Research lab</button>
       <button type="button" className="hero-stub-way net" aria-label="Grant manager network: open the grant manager portal" onClick={() => onEnter?.('grant_office')}>Grant manager network</button>

@@ -45,6 +45,10 @@ const menu = (role: Role) => allowed(role).filter(w => !w.hidden)
 const home = (role: Role) => menu(role).find(w => w.id === roles.find(r => r.id === role)?.home) ?? menu(role)[0]
 // `#grants/R01GM061721` opens the grants window on one grant.
 const fromHash = (role: Role, hash: string) => allowed(role).find(w => w.id === head(hash)) ?? home(role)
+/** A URL that opens on the landing; Boot.tsx shows it before the store connects. */
+export const opensLanding = (url: URL) => !url.hash.startsWith('#detail/') && !portalOf(url)
+/** Where a pick on the landing goes: the portal's home window, as switchPortal does. */
+export const entryUrl = (p: Portal) => urlFor(p, `#${home(roleOf(p)).id}`)
 
 export default function App() {
   const store = useStore()

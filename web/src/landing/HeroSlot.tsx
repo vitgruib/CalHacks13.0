@@ -5,7 +5,7 @@
 // (resolve.dedupe in vite.config.ts), because Vercel installs only web/.
 import { Component, lazy, Suspense, type ComponentType, type ReactNode } from 'react'
 import type { HeroEmbedProps } from '@hero/embed'
-import { HeroStill, HeroStub } from './HeroStub'
+import { HeroLoading, HeroStub } from './HeroStub'
 
 const found = import.meta.glob<{ default: ComponentType<HeroEmbedProps> }>('../../../hero/src/embed.tsx')
 const load = Object.values(found)[0]
@@ -27,7 +27,7 @@ export default function HeroSlot({ onEnter }: HeroEmbedProps) {
   if (!Embed) return stub
   return (
     <OrStub stub={stub}>
-      <Suspense fallback={<HeroStill />}>
+      <Suspense fallback={<HeroLoading />}>
         <Embed onEnter={onEnter} />
       </Suspense>
     </OrStub>
