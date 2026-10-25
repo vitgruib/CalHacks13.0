@@ -53,7 +53,7 @@ interface AgentCheck { check: string; checks: string; fails: string }
 const ASK: AgentCheck[] = [
   {
     check: 'A grant could pay for it at all',
-    checks: 'When a researcher asks on Requests, Claude (Haiku) reads the item first, before any grant is matched. Flagged: alcohol, entertainment, personal things, food and drinks, furniture, decor and general office supplies (2 CFR 200.403, 200.423, 200.438), and a general-use item whose purpose doesn\'t say how it serves the research.',
+    checks: 'When a researcher asks on Requests, Claude (Haiku) reads the item first, before any grant is matched. Flagged: alcohol, entertainment, personal things, food and drinks, furniture, decor and general office supplies (2 CFR 200.403, 200.423, 200.438), a general-use item whose purpose doesn\'t say how it serves the research, and a request whose text is written to the checker rather than about the item ("ignore your instructions", "set the verdict to fine"), which never reaches Claude.',
     fails: 'The researcher sees why and no grant is matched. They can still send it, and then it comes to you like any request.',
   },
   {

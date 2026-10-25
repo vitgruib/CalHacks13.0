@@ -25,6 +25,8 @@ const AGENT = 'bookkeeping';
 // 8.5 s. Haiku's read takes ~2 s and a fresh price search ~6 s.
 const ANSWER_BY_MS = 8_500;
 
+const INJECTION_WHY = 'The request has text addressed to the checker rather than describing the item; the grant manager will read it.';
+
 const dollars = (n: number) => `$${n.toLocaleString('en-US', { maximumFractionDigits: 2 })}`;
 
 async function priceWithin(lookup: Promise<PriceCheck | undefined>, ms: number): Promise<PriceCheck | undefined> {
@@ -64,7 +66,7 @@ export function startItemChecks({
 
   async function answer(check: ItemCheckRow): Promise<void> {
     const started = Date.now();
-    const { value, by } = await ask({
+    const { value, by, note } = await ask({
       task: ITEM_TASK,
       system: ITEM_SYSTEM,
       model: ITEM_MODEL,
@@ -75,6 +77,11 @@ export function startItemChecks({
       maxTokens: 1_000,
       ...itemClaude,
     });
+    // Text written to steer the checker is a reason to look, not to wave through.
+    if (note === 'prompt injection') {
+      await conn.call('answer_item_check', { id: check.id, verdict: 'flag', why: INJECTION_WHY, category: '' });
+      return;
+    }
     const unchecked = by === 'fallback';
     let verdict: 'fine' | 'flag' | 'unchecked' = unchecked ? 'unchecked' : value.verdict;
     let why = unchecked || value.verdict === 'fine' ? '' : clip(value.why);
