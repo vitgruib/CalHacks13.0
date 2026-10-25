@@ -1,6 +1,7 @@
 // The researcher's home. It does two things, and says so: ask to buy
 // something (a plain answer from the module's spending rules, sent to the
 // purchasing agent in one click), or one of four questions about the grants.
+// Their requests and plans are tracked underneath (My requests, merged in T100).
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { useStore } from '../data/store'
 import type { Db, PurchaseRequest } from '../data/types'
@@ -10,9 +11,13 @@ import {
 } from '../plain'
 import { money } from '../ui'
 import { firstNameOf, forResearcher, useResearcher, type Researcher } from '../people'
+import { MyRequests } from './Requests'
 import './Ask.css'
 
 type Topic = 'left' | 'end' | 'order' | 'paused'
+/** Scrolls to the researcher's requests further down this page. */
+const toMine = (e: { preventDefault(): void }) => { e.preventDefault(); document.getElementById('ask-mine')?.scrollIntoView({ behavior: 'smooth' }) }
+
 const TOPICS: { id: Topic; label: string }[] = [
   { id: 'left', label: 'How much money is left?' },
   { id: 'end', label: 'When do my grants end?' },
@@ -55,7 +60,7 @@ function TopicAnswer({ db, topic, me }: { db: Db; topic: Topic; me: Researcher }
     // Latest by day; for the same day, the one added last.
     const r = db.requests.filter(x => x.requesterName === me.name).reduce<PurchaseRequest | undefined>((best, x) => !best || x.day >= best.day ? x : best, undefined)
     if (!r) return <p>You haven't asked for anything yet.</p>
-    return <p><strong>{r.item}</strong> ({money(r.price)}, asked {longDate(r.day)}) is {requestState[r.state]}. {r.state !== 'submitted' && r.explanation} <a href="#requests">See all your requests</a></p>
+    return <p><strong>{r.item}</strong> ({money(r.price)}, asked {longDate(r.day)}) is {requestState[r.state]}. {r.state !== 'submitted' && r.explanation} <a href="#ask" onClick={toMine}>See all your requests</a></p>
   }
   const p = db.grants.filter(paused)
   if (p.length === 0) return <p>None of your grants are paused. You can buy on all of them.</p>
@@ -225,7 +230,7 @@ export default function Ask() {
         </form>
       </section>
 
-      {sent && <p role="status" className="ask-sent">{sent} <a href="#requests">See my requests</a></p>}
+      {sent && <p role="status" className="ask-sent">{sent} <a href="#ask" onClick={toMine}>See my requests</a></p>}
 
       {ask && !sent && (
         <>
@@ -255,6 +260,8 @@ export default function Ask() {
           <TopicAnswer db={db} topic={topic} me={me} />
         </section>
       )}
+
+      <div id="ask-mine"><MyRequests /></div>
     </div>
   )
 }

@@ -85,7 +85,7 @@ export default function App() {
             <nav className="sci-nav" aria-label="Main">
               {menu(role).map(w => (
                 <a key={w.id} href={`#${w.id}`} className={w === current ? 'active' : ''} aria-current={w === current ? 'page' : undefined}>
-                  {w.id === 'requests' ? 'My requests' : w.label}
+                  {w.label}
                 </a>
               ))}
             </nav>
@@ -96,7 +96,6 @@ export default function App() {
         </header>
         <main className="sci-main">
           <p className="sci-today">Today: {db.today}</p>
-          {current.id === 'requests' && <h1 style={{ marginBottom: 20 }}>My requests</h1>}
           <RoleContext.Provider value={role}>
             {/* keyed by researcher so drafts and notices never carry over to another portal */}
             <ResearcherContext.Provider value={researcher}><current.Component key={researcher.id} /></ResearcherContext.Provider>

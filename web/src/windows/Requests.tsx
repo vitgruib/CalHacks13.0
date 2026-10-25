@@ -251,9 +251,9 @@ const newestFirst = (requests: PurchaseRequest[]) => requests
   .sort((a, b) => b.r.day.localeCompare(a.r.day) || b.i - a.i)
   .map(x => x.r)
 
-/** A researcher's portal: their own plans and requests, tracked. Asking for one
- *  item happens on Ask. */
-function MyRequests() {
+/** A researcher's own plans and requests, tracked. Shown on Ask, under the
+ *  form that asks for one item. */
+export function MyRequests() {
   const { db, plans: all, deletePlan } = useStore()
   const me = useResearcher()
   const plans = all.filter(p => p.researcher === me.name)

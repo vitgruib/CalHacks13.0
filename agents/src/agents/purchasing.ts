@@ -304,7 +304,7 @@ function reasonStep(decision: Decision, facts: StepFacts): string {
     case 'price_high':
       return decision.note ?? 'Its price is far above the list price found for it, so the grant manager decides.';
     case 'purpose':
-      return `It isn't clear it is for the lab's research${decision.note ? ` (${decision.note})` : ''}, so the grant manager decides instead of the agent buying it. A push back saying what it's for gets it checked again.`;
+      return `It isn't clear it is for the lab's research${decision.note ? ` (${decision.note})` : ''}, so it needs the grant manager's approval; the agent won't buy it alone, even after a push back.`;
     case 'category_check':
       return decision.note ?? "Its kind of thing looks wrong and the rules would answer differently, so the grant manager decides.";
     case 'unplaced':
@@ -438,8 +438,8 @@ export function startPurchasing({
     return sanitizeRead(value, request, grants, fallback);
   }
 
-  // A light look before the agent buys alone, or promises to (T86). A request
-  // that doesn't show a research use is held; a kind of thing that looks wrong is
+  // A strict look before the agent buys alone, or promises to (T86). A request
+  // not plainly for the grant's research is held for the grant manager; a kind of thing that looks wrong is
   // held only when the rules would answer differently for the one it looks
   // like. With no Claude answer, nothing is held.
   async function concernOf(request: RequestRow, decision: Decision): Promise<{ reason: HoldReason; note: string } | undefined> {
@@ -450,8 +450,9 @@ export function startPurchasing({
       system: PURPOSE_SYSTEM,
       model: PURPOSE_MODEL,
       input: {
+        // No push backs: once flagged, only the grant manager clears it; a
+        // push back can't argue it past the check.
         request: { item: request.item, category: request.category, price: request.price, purpose: request.purpose },
-        pushBacks: pushBacks(request.id),
         grant: { id: grantId, title: grant?.title ?? '' },
         categories: CHECK_CATEGORIES,
       },
