@@ -1,0 +1,36 @@
+{
+  "task": "purchasing.explain",
+  "model": "claude-sonnet-5-5",
+  "savedAt": "2026-10-25T06:27:48.067Z",
+  "input": {
+    "request": {
+      "id": "rq-102",
+      "item": "Agar plates, 40 packs",
+      "category": "lab supplies",
+      "price": 1180,
+      "purpose": "Assay validation runs before the grant ends"
+    },
+    "action": "reroute",
+    "grantId": "R21AI182745",
+    "to": "R01GM061721",
+    "failed": [
+      {
+        "rule": "Not in the grant's last 90 days",
+        "detail": "R21AI182745 ends 2026-08-31, 77 days away.",
+        "auditCase": "NSF OIG audits of WVU and Delaware: supplies bought in a grant's last months were disallowed"
+      }
+    ],
+    "passed": [
+      "Grant is active and not frozen",
+      "Not in the grant's last 90 days",
+      "Enough truly available money",
+      "Category allowed",
+      "Under the card limit ($5,000)"
+    ],
+    "vendor": "MicroMedia",
+    "next": "Every rule passes on R01GM061721. Ordered from MicroMedia."
+  },
+  "answer": {
+    "explanation": "The $1,180 purchase of 40 packs of agar plates was rerouted from grant R21AI182745 to R01GM061721 because it failed the rule \"Not in the grant's last 90 days\": R21AI182745 ends 2026-08-31, 77 days away (NSF OIG audits of WVU and Delaware: supplies bought in a grant's last months were disallowed). Every rule passes on R01GM061721, so the order was placed with MicroMedia."
+  }
+}
