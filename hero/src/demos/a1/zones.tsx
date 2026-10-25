@@ -478,28 +478,33 @@ const NAME: Record<ZoneId, { text: string; label: string }> = {
 }
 const pinEls: Record<ZoneId, HTMLButtonElement | null> = { lab: null, net: null }
 const _p = new Vector3()
+const spot: Record<ZoneId, { x: number; y: number }> = { lab: { x: 0, y: 0 }, net: { x: 0, y: 0 } }
 
 /** In the Canvas: puts each name where its plinth's back edge is on screen, every frame (the crane moves the camera). */
 export function ZonePins() {
   const on = useZones()
   useFrame(({ camera, size }) => {
     if (!on) return
+    const tall = size.width / size.height < 0.85
     for (const id of ['lab', 'net'] as ZoneId[]) {
-      const el = pinEls[id]
-      if (!el) continue
-      let x = 0
-      let y = Infinity
+      const at = spot[id]
+      at.y = Infinity
       for (const e of EDGES[id]) {
         _p.copy(e).project(camera)
         const sy = ((1 - _p.y) / 2) * size.height
-        if (sy < y) {
-          y = sy
-          x = ((_p.x + 1) / 2) * size.width
+        if (sy < at.y) {
+          at.y = sy
+          at.x = ((_p.x + 1) / 2) * size.width
         }
       }
-      // Wide: just above the edge. Tall (the plinths stacked): astride it, as the gap between them is narrow.
-      const lift = size.width / size.height < 0.85 ? '-50%' : 'calc(-100% - 10px)'
-      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, ${lift})`
+    }
+    // Wide: both just above the higher of the two edges, in one line. Tall (the plinths stacked): each astride its own edge, as the gap between them is narrow.
+    const top = Math.min(spot.lab.y, spot.net.y)
+    for (const id of ['lab', 'net'] as ZoneId[]) {
+      const el = pinEls[id]
+      if (!el) continue
+      const y = tall ? spot[id].y : top
+      el.style.transform = `translate(${spot[id].x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, ${tall ? '-50%' : 'calc(-100% - 10px)'})`
     }
   })
   return null

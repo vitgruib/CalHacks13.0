@@ -261,8 +261,8 @@ export function Hud({ root }: { root: RefObject<HTMLDivElement | null> }) {
 
 /**
  * Inside another page (embed.ts) the dashboard steps aside and the scene takes
- * the whole box: the name, one line on the product and one on the replay sit
- * in the sky over it, and the two ways in are named over their plinths
+ * the whole box: the name, the problem and what the agents do about it sit in
+ * the sky over it, and the two ways in are named over their plinths
  * (zones.tsx ZoneLabels; Scene.tsx fits the scene under all of it). The way in is the scene itself;
  * the prompt's two phrases are the same two ways in for keys, screen readers
  * and anyone who would rather not aim, and they light their side of the scene.
@@ -272,8 +272,8 @@ export function EmbedHud({ root }: { root: RefObject<HTMLDivElement | null> }) {
     <div className="a-embed-copy" data-float="embed-copy">
       <header className="a-embed-head">
         <h1>Grant Test Auto</h1>
-        <p className="a-embed-sub">An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
-        <p className="a-lede">A simulated lab replaying a scripted story; the spending rules are the real ones.</p>
+        <p className="a-embed-sub">Researchers spend 44% of their federally funded research time on administration.</p>
+        <p className="a-embed-sol">AI agents do the grant office’s checking: status, balance, rules and invoices. Researchers do science, and the grant manager decides only the exceptions.</p>
       </header>
       <RootSync root={root} phone={false} />
     </div>

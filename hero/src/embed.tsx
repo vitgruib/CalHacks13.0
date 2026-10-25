@@ -80,8 +80,8 @@ function Still({ go }: { go: (role?: Role) => void }) {
         <div className="a-embed-copy">
           <header className="a-embed-head">
             <h1>Grant Test Auto</h1>
-            <p className="a-embed-sub">An AI grant office that keeps a lab’s spending inside its grants’ rules.</p>
-            <p className="a-lede">A still of the simulated lab; the spending rules are the real ones.</p>
+            <p className="a-embed-sub">Researchers spend 44% of their federally funded research time on administration.</p>
+            <p className="a-embed-sol">AI agents do the grant office’s checking: status, balance, rules and invoices. Researchers do science, and the grant manager decides only the exceptions.</p>
           </header>
         </div>
       </div>

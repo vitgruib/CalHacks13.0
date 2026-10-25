@@ -159,25 +159,26 @@
 }
 
 /* The still (embed.tsx Still): the names where the live view puts them, as a
-   share of the stage the stills were shot at (1440x864 wide, 390x808 tall). */
+   share of the stage the stills were shot at (1440x864 wide, 390x808 tall).
+   Wide, both share the higher plinth's top line. */
 .demo-a1 .a-still-pins .a1-zone-pin {
   transform: translate(-50%, 0);
 }
 .demo-a1 .a-still-pin-lab {
   left: 23%;
-  top: 35.8%;
+  top: 28.2%;
 }
 .demo-a1 .a-still-pin-net {
-  left: 68.8%;
-  top: 24.8%;
+  left: 69.3%;
+  top: 28.2%;
 }
 @media (max-width: 759px) {
   .demo-a1 .a-still-pin-lab {
-    left: 55.4%;
-    top: 48.4%;
+    left: 55.1%;
+    top: 50.4%;
   }
   .demo-a1 .a-still-pin-net {
-    left: 71.3%;
-    top: 19.4%;
+    left: 70.4%;
+    top: 22.2%;
   }
 }
