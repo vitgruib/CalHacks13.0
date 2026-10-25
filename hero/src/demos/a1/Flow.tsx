@@ -11,13 +11,13 @@
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
 import { Color, CylinderGeometry, InstancedMesh, Matrix4, MeshBasicMaterial, MeshStandardMaterial, Object3D, RingGeometry, SphereGeometry, Vector3, type Mesh } from 'three'
-import { feed, progress, useFlow } from '../../feed'
+import { PACE, feed, progress, useFlow } from '../../feed'
 import type { ItemKind, Outcome, Packet, Request } from '../../feed'
 import { ITEM_GEO, ITEM_KINDS, SLIP_GEO, TAG_GEO, TRAY_GEO } from './items3d'
 import { GLAZE, GRANT_COLOR, GROOVES, NET, PAL, grooveIndex, parkOf } from './layout'
 import { CLAY, SHEEN, liquid } from './mats'
 import { GLOW, LEG, clearRoutes, dock, groovePoint, grooveAt, handsOf, parkRoute, placeAt, pruneRoutes, routeOf, type Route } from './routes'
-import { fx, now, reducedMotion, ui } from './store'
+import { RULES_MAX, fx, newRun, now, reducedMotion, ui } from './store'
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 const lerp = (a: number, b: number, k: number) => a + (b - a) * k
@@ -138,12 +138,35 @@ function readingTone(p: Packet) {
 
 // ── Events: the moments ──────────────────────────────────────────────────
 
+/** A request's rule check begins: the pips and the parcel on the pod both read it from fx. */
+function startRun(id: string, total: number, start: number) {
+  const r = newRun(id, start, total)
+  fx.runs.set(id, r)
+  fx.runId = id
+  if (fx.runs.size > 12) for (const k of fx.runs.keys()) if (k !== id) {
+    fx.runs.delete(k)
+    break
+  }
+  return r
+}
+
 function FlowFx() {
   useFlow(e => {
     const t = now()
     if (e.type === 'reset') {
       clearAll()
       return
+    }
+    if (e.type === 'request' && !e.request.outcome && e.request.verdicts.length) startRun(e.request.id, e.request.verdicts.length, t)
+    if (e.type === 'rule') {
+      let r = fx.runs.get(e.requestId)
+      if (!r || (e.index === 0 && r.at[0] >= 0)) r = startRun(e.requestId, e.total, t - PACE.rule * (e.index + 1))
+      if (e.index < RULES_MAX) {
+        r.at[e.index] = t
+        r.pass[e.index] = e.verdict.pass ? 1 : 0
+      }
+      r.last = t
+      fx.runId = e.requestId
     }
     if (e.type === 'packet') {
       fx.pulses.set(e.packet.from, t)

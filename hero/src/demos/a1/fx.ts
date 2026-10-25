@@ -29,8 +29,28 @@ export interface Fig {
   arrived: boolean
 }
 
+/** Most rules a purchase is checked against at once (requests make 5 to 9). */
+export const RULES_MAX = 9
+
+/** One request's rule check at the purchasing pod: when it began and when each rule lit, pass or fail. */
+export interface Run {
+  req: string
+  start: number // feed time the checking began (the parcel landed)
+  total: number // rules in this check, at most RULES_MAX
+  at: Float64Array // feed time rule i lit, or -1
+  pass: Int8Array // 1 pass, 0 fail, -1 not yet
+  last: number // feed time of the latest rule
+}
+
+export function newRun(req: string, start: number, total: number): Run {
+  return { req, start, total: Math.min(RULES_MAX, Math.max(1, total)), at: new Float64Array(RULES_MAX).fill(-1), pass: new Int8Array(RULES_MAX).fill(-1), last: start }
+}
+
 export const fx = {
   ripples: [] as Ripple[],
+  runs: new Map<string, Run>(), // request id → its latest rule check (written by Flow, read by the pips and the parcel)
+  runId: '', // the request whose check the pips show
+
   reactions: new Map<string, Reaction>(), // researcher id → latest reaction
   pulses: new Map<string, number>(), // node id → feed time it last sent or received
   slosh: new Map<string, { at: number; amp: number }>(), // grant id → when its liquid was last disturbed
@@ -44,6 +64,8 @@ export const fx = {
     this.slosh.clear()
     this.holding.clear()
     this.parcels.clear()
+    this.runs.clear()
+    this.runId = ''
   },
 }
 

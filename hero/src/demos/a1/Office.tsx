@@ -21,14 +21,14 @@ import {
   type Group,
   type Mesh,
 } from 'three'
-import { feed, useFlow } from '../../feed'
+import { PACE, feed, progress } from '../../feed'
 import { kit, type Kit } from './kit'
 import { FUNDER, GLAZE, GRANT_COLOR, GROOVES, NET, NET_BOX, NET_X, PAL, R01, R21, VENDORS, type V3 } from './layout'
 import { CLAY, glass, liquid } from './mats'
 import { GrantManagerFigure } from './People'
 import { Pick } from './Parts'
 import { GLOW } from './routes'
-import { fx, now, reducedMotion, ui } from './store'
+import { RULES_MAX, fx, now, reducedMotion, ui } from './store'
 import { Zone } from './zones'
 
 const PI = Math.PI
@@ -276,73 +276,87 @@ const pipGeo = new CylinderGeometry(0.055, 0.055, 0.05, 16)
 const PIP_OFF = new Color('#8D96A1')
 const PIP_PASS = new Color(GLAZE.accept).offsetHSL(0, 0.05, 0.08)
 const PIP_FAIL = new Color(GLAZE.reject).offsetHSL(0, 0.05, 0.12)
+const PIP_CHECK = new Color('#E9DFC9') // dim cream: the rule being checked right now
 const o = new Object3D()
 const tc = new Color()
 const pipMat = new MeshBasicMaterial({ toneMapped: false })
 
-/** Rule checks at the purchasing pod: six pips around the rim, lit one by one. */
-const run = { req: '', at: -1e9, pass: new Int8Array(6).fill(-1) }
+const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
+const backOut = (x: number) => 1 + 2.70158 * (x - 1) ** 3 + 1.70158 * (x - 1) ** 2
+const POP = 260 // ms for a pip to pop when its rule lands
 
 function Pods() {
   const rings = useRef<(Mesh | null)[]>([])
   const pips = useRef<InstancedMesh>(null)
   const mats = useMemo(() => AGENTS.map(() => new MeshBasicMaterial({ color: IDLE, toneMapped: false })), [])
+  const ringK = useMemo(() => new Float32Array(AGENTS.length).fill(1.02), [])
   const still = useMemo(reducedMotion, [])
-  useFlow(e => {
-    if (e.type === 'reset') {
-      run.req = ''
-      run.pass.fill(-1)
-    }
-    if (e.type === 'rule') {
-      if (e.requestId !== run.req || e.index === 0) {
-        run.req = e.requestId
-        run.pass.fill(-1)
-      }
-      if (e.index < 6) run.pass[e.index] = e.verdict.pass ? 1 : 0
-      run.at = now()
-    }
-  })
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     const w = feed.getWorld()
     const t = now()
     const s = ui.get()
-    AGENTS.forEach((id, i) => {
+    const dt = Math.min(delta, 0.1)
+    // Colours ease (about 110 ms to settle) instead of jumping in one frame.
+    const kc = still ? 1 : 1 - Math.exp(-dt * 9)
+    for (let i = 0; i < AGENTS.length; i++) {
+      const id = AGENTS[i]
       const role = id.slice(2)
       let working = false
       let waiting = false
-      for (const p of w.packets) if (p.from === id || p.to === id) working = true
+      // Working means doing something now: a packet just leaving, or one about to land.
+      for (const p of w.packets) {
+        const k = progress(p, t)
+        if ((p.from === id && k < 0.25) || (p.to === id && k > 0.85)) working = true
+      }
       for (const h of w.holds) if (h.open && h.raisedBy === role) waiting = true
       if (id === 'a:purchasing') for (const r of w.requests) if (!r.outcome && r.verdicts.length) working = true
       const lit = s.hovered === id || s.selected === id
-      const m = mats[i]
-      if (waiting) {
-        const k = still ? 0.8 : 0.55 + 0.45 * Math.sin(clock.elapsedTime * 2.6)
-        m.color.copy(IDLE).lerp(WAIT, k)
-      } else if (working) m.color.copy(WORK)
-      else m.color.copy(IDLE)
-      if (lit) m.color.lerp(WORK, 0.35)
+      if (waiting) tc.copy(IDLE).lerp(WAIT, still ? 0.8 : 0.55 + 0.45 * Math.sin(clock.elapsedTime * 2.6))
+      else tc.copy(working ? WORK : IDLE)
+      if (lit) tc.lerp(WORK, 0.35)
+      mats[i].color.lerp(tc, kc)
+      ringK[i] += ((lit ? 1.06 : 1.02) - ringK[i]) * kc
       const ring = rings.current[i]
-      if (ring) ring.scale.setScalar(NET[id].r * (lit ? 1.06 : 1.02))
-    })
-    const P = pips.current
-    if (P) {
-      const fade = t - run.at > 2600 ? Math.max(0, 1 - (t - run.at - 2600) / 600) : 1
-      const n = NET['a:purchasing']
-      for (let i = 0; i < 6; i++) {
-        const a = (i / 6) * PI * 2 + PI / 2
-        o.position.set(n.at[0] + Math.cos(a) * 0.48, n.top - 0.03, n.at[1] + Math.sin(a) * 0.48)
-        o.rotation.set(0, 0, 0)
-        o.scale.setScalar(run.pass[i] >= 0 && fade > 0 ? 1.15 : 1)
-        o.updateMatrix()
-        P.setMatrixAt(i, o.matrix)
-        const v = run.pass[i]
-        tc.copy(PIP_OFF)
-        if (v >= 0) tc.lerp(v ? PIP_PASS : PIP_FAIL, fade)
-        P.setColorAt(i, tc)
-      }
-      P.instanceMatrix.needsUpdate = true
-      if (P.instanceColor) P.instanceColor.needsUpdate = true
+      if (ring) ring.scale.setScalar(NET[id].r * ringK[i])
     }
+    const P = pips.current
+    if (!P) return
+    // The rule pips: one per rule of the latest check (5 to 9), around the purchasing pod's rim.
+    const run = fx.runs.get(fx.runId)
+    const total = run ? run.total : 6
+    const fade = run && t - run.last > 2600 ? Math.max(0, 1 - (t - run.last - 2600) / 600) : 1
+    // The next rule to land pulses dim cream while it is being checked.
+    let lastLit = -1
+    if (run) for (let i = 0; i < total; i++) if (run.at[i] >= 0 && run.at[i] <= t) lastLit = i
+    const next = run && lastLit < total - 1 ? lastLit + 1 : -1
+    const ref = run ? (lastLit >= 0 ? run.at[lastLit] : run.start) : 0
+    const checking = next >= 0 && !still ? Math.sin(PI * clamp01((t - ref) / PACE.rule)) : 0
+    const n = NET['a:purchasing']
+    for (let i = 0; i < total; i++) {
+      const a = (i / total) * PI * 2 + PI / 2
+      o.position.set(n.at[0] + Math.cos(a) * 0.48, n.top - 0.03, n.at[1] + Math.sin(a) * 0.48)
+      o.rotation.set(0, 0, 0)
+      const v = run && run.at[i] <= t ? run.pass[i] : -1
+      let sc = 1
+      tc.copy(PIP_OFF)
+      if (v >= 0 && run) {
+        const age = t - run.at[i]
+        // Pop past full size with a little overshoot, then settle a touch proud of the rim.
+        const pop = still ? 1.15 : age < POP ? 1 + 0.35 * backOut(age / POP) : 1.15 + 0.2 * Math.exp(-(age - POP) / 140)
+        sc = 1 + (pop - 1) * fade
+        tc.lerp(v ? PIP_PASS : PIP_FAIL, fade * (still ? 1 : clamp01(age / 120)))
+      } else if (i === next) {
+        sc = 1 + 0.15 * checking
+        tc.lerp(PIP_CHECK, 0.9 * checking)
+      }
+      o.scale.setScalar(sc)
+      o.updateMatrix()
+      P.setMatrixAt(i, o.matrix)
+      P.setColorAt(i, tc)
+    }
+    P.count = total
+    P.instanceMatrix.needsUpdate = true
+    if (P.instanceColor) P.instanceColor.needsUpdate = true
   })
   return (
     <>
@@ -362,7 +376,7 @@ function Pods() {
           />
         )
       })}
-      <instancedMesh ref={pips} args={[pipGeo, pipMat, 6]} raycast={noRay} />
+      <instancedMesh ref={pips} args={[pipGeo, pipMat, RULES_MAX]} raycast={noRay} />
     </>
   )
 }
