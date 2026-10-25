@@ -57,7 +57,7 @@ Keys and settings are read from the repo root's `.env.local` (git-ignored).
 | `GG_SPACETIME_URI` | `ws://127.0.0.1:3000` | Server for `GG_DB=spacetime` |
 | `GG_SPACETIME_DB` | `grantguard` | Database name for `GG_DB=spacetime` |
 | `GG_STATE_DIR` | `agents/.state` | Where agent tokens are saved, per database. Tokens are credentials; git-ignored |
-| `GG_LIVE_SOURCES` | off | `1` = `npm start` reads RePORTER, USAspending and the cancellation list for the world's grants |
+| `GG_LIVE_SOURCES` | off | `1` = `npm start` reads RePORTER, USAspending and the cancellation list for the world's grants; `list` = only the cancellation list (the hosted worker, for the demo time buttons) |
 | `GG_SOURCES` | `live` | `live` = ask the sites, falling back to saved copies. `offline` = saved copies only |
 | `GG_CACHE_DIR` | `agents/cache` | Saved copies of every source answer (public data, committed) |
 | `GG_CONTACT_EMAIL` | none | Sent to Crossref and NCBI as the contact for their polite-use pools |

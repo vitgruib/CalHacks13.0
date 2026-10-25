@@ -57,11 +57,16 @@ if (demo && kind === 'local') {
   const lastDay = kind === 'local' ? memoryDay() : fileDay(database);
   // The sim world's grant IDs are real NIH grants, but its cancel/court/payment
   // timeline is simulated, so the government sources (which would report the
-  // real status) stay off unless asked for (GG_LIVE_SOURCES=1).
+  // real status) stay off unless asked for (GG_LIVE_SOURCES=1). =list reads
+  // only the cancellation list, for the demo time buttons (T59): live RePORTER
+  // says R21AI182745 ended, which would freeze the demo's other grant.
+  const live = process.env.GG_LIVE_SOURCES;
   const sources =
-    process.env.GG_LIVE_SOURCES === '1'
+    live === '1'
       ? [createReporterSource(), createUsaspendingSource(), createCancellationListSource()]
-      : [];
+      : live === 'list'
+        ? [createCancellationListSource()]
+        : [];
   const peek = await db.connect();
   const before = new Set(peek.rows('log').map((row) => row.id));
   peek.disconnect();

@@ -188,8 +188,9 @@ The tracker looks up only the lab's own grant IDs. Every answer is saved in
 `agents/cache/` (committed), so the agents also run offline. The Funds
 window shows "Sources last checked X ago" and a "Check now" button that runs
 a tracker check. With the government sources switched on
-(`GG_LIVE_SOURCES=1` and an Apify token), it also starts a fresh Apify run;
-the hosted worker keeps them off, because the demo's timeline is simulated.
+(`GG_LIVE_SOURCES=1` and an Apify token), it also starts a fresh Apify run.
+The hosted worker reads only the live cancellation list (`GG_LIVE_SOURCES=list`):
+the demo's timeline is simulated, and live RePORTER says R21AI182745 has ended.
 Demo time buttons under Check now (Before the cut 2025-07-30, After the cut
 2025-08-15, After the court 2025-09-22, Today) run the same check with the
 real cancellation list read as it stood that day. The pick stays in force
@@ -341,7 +342,7 @@ npm --prefix hero run dev                  # 3D hero mockups on port 5190 (outsi
 |---|---|---|
 | `GG_CLAUDE` | `cached`, `live`, `offline`, `off` | Saved answer else ask Claude and save it; always ask; saved answers only; code fallbacks only |
 | `GG_SOURCES` | `live`, `offline` | Ask the sites and fall back to saved copies; saved copies only |
-| `GG_LIVE_SOURCES` | off, `1` | `1` makes `npm start` read RePORTER, USAspending and the cancellation list |
+| `GG_LIVE_SOURCES` | off, `1`, `list` | `1` makes `npm start` read RePORTER, USAspending and the cancellation list; `list` reads only the cancellation list |
 | `GG_DB` | `local`, `spacetime` | The module in this process on `sim/seed.json`; a SpacetimeDB server (`GG_SPACETIME_URI`, `GG_SPACETIME_DB`) |
 | `VITE_BACKEND` | live, `local` | Web reads the module (`VITE_STDB_URI`, `VITE_STDB_DB`); web uses the bundled seed only |
 | `GG_SCRAPE_SOURCE` | `live`, `saved` | Scraper reads the live CSV; the saved copy |

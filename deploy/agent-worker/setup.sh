@@ -39,6 +39,12 @@ GG_CLAUDE=cached
 GG_MODEL=claude-haiku-5-5
 # ...but play the team's saved Sonnet answers first; Haiku only for new questions.
 GG_REUSE_SAVED=1
+# Demo time buttons (T59): read the live Grant Witness list through the Apify
+# Actor on Check now; the government sources stay off (simulated timeline).
+GG_LIVE_SOURCES=list
+GG_APIFY_ACTOR=nathanqiu~nih-grant-cancellation-list
+GG_LAB_GRANTS=R01GM061721,R21AI182745
+APIFY_TOKEN=
 # Agent tokens and caches live outside the checkout, so git pull never
 # conflicts with them and restarts keep the same three identities.
 GG_STATE_DIR=/var/lib/grantguard-agents/state
