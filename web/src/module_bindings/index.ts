@@ -62,6 +62,7 @@ import RegisterAgentReducer from "./register_agent_reducer";
 import RegisterPersonReducer from "./register_person_reducer";
 import RequestCheckReducer from "./request_check_reducer";
 import ResetWorldReducer from "./reset_world_reducer";
+import SaveInvoiceSubmissionReducer from "./save_invoice_submission_reducer";
 import SavePlanReducer from "./save_plan_reducer";
 import SetTodayReducer from "./set_today_reducer";
 import SubmitRequestReducer from "./submit_request_reducer";
@@ -80,6 +81,7 @@ import FollowUpRow from "./follow_up_table";
 import GrantRow from "./grant_table";
 import HoldRow from "./hold_table";
 import InvoiceRow from "./invoice_table";
+import InvoiceSubmissionRow from "./invoice_submission_table";
 import ItemCheckRow from "./item_check_table";
 import LogRow from "./log_table";
 import OrderRow from "./order_table";
@@ -222,6 +224,17 @@ const tablesSchema = __schema({
       { name: 'invoice_id_key', constraint: 'unique', columns: ['id'] },
     ],
   }, InvoiceRow),
+  invoiceSubmission: __table({
+    name: 'invoice_submission',
+    indexes: [
+      { accessor: 'id', name: 'invoice_submission_id_idx_btree', algorithm: 'btree', columns: [
+        'id',
+      ] },
+    ],
+    constraints: [
+      { name: 'invoice_submission_id_key', constraint: 'unique', columns: ['id'] },
+    ],
+  }, InvoiceSubmissionRow),
   itemCheck: __table({
     name: 'item_check',
     indexes: [
@@ -387,6 +400,7 @@ const reducersSchema = __reducers(
   __reducerSchema("register_person", RegisterPersonReducer),
   __reducerSchema("request_check", RequestCheckReducer),
   __reducerSchema("reset_world", ResetWorldReducer),
+  __reducerSchema("save_invoice_submission", SaveInvoiceSubmissionReducer),
   __reducerSchema("save_plan", SavePlanReducer),
   __reducerSchema("set_today", SetTodayReducer),
   __reducerSchema("submit_request", SubmitRequestReducer),

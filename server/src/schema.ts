@@ -227,6 +227,22 @@ const plan = table(
   }
 );
 
+/**
+ * A researcher's invoice submission (T112, was browser-only localStorage) and
+ * the grant office's decisions on it. The submission is JSON in the web's
+ * shape (web/src/invoice/model.ts), so both sides see the same one live.
+ */
+const invoiceSubmission = table(
+  { public: true },
+  {
+    id: t.string().primaryKey(), // sub-...
+    researcher: t.string(), // name, as on requests
+    status: t.string(), // ready | exception | clarification | escalated | approved | rejected
+    body: t.string(), // JSON: the whole submission, audit trail included
+    savedOn: t.string(),
+  }
+);
+
 const order = table(
   { public: true },
   {
@@ -392,6 +408,7 @@ const spacetimedb = schema({
   itemCheck,
   request,
   plan,
+  invoiceSubmission,
   order,
   approval,
   invoice,

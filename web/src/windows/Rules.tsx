@@ -15,8 +15,8 @@ interface SpendingRule { rule: string; checks: string; fails: string; source?: s
 const SPENDING: SpendingRule[] = [
   {
     rule: 'Grant is active and not frozen',
-    checks: 'The grant is active, or restored by a court and paid since. A canceled or disputed grant is frozen; a court order alone does not unfreeze it, only a payment does.',
-    fails: 'Flagged for you. When a payment unfreezes the grant, the flag clears and the request waits for your approval as usual.',
+    checks: 'The grant is active, or restored by a court and paid since. A canceled or disputed grant is frozen; a court order alone does not unfreeze it, only a payment does, or you unpausing it on its Funds card (with a reason that goes in the log).',
+    fails: 'Flagged for you. When a payment or your unpause unfreezes the grant, the flag clears and the request waits for your approval as usual.',
   },
   {
     rule: "Not in the grant's last 90 days",

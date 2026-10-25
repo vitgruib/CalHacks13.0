@@ -197,6 +197,15 @@ export interface PlanLine {
   purpose: string;
 }
 /** A researcher's experiment plan (T71). body and report are JSON in the web's shape. */
+/** An invoice a researcher submitted, as the web's Invoice page keeps it (T112). The worker doesn't read it. */
+export interface InvoiceSubmissionRow {
+  id: string;
+  researcher: string;
+  status: 'ready' | 'exception' | 'clarification' | 'escalated' | 'approved' | 'rejected';
+  body: string; // JSON: the whole submission, audit trail included
+  savedOn: string;
+}
+
 export interface PlanRow {
   id: string;
   researcher: string;
@@ -348,6 +357,7 @@ export interface Tables {
   itemCheck: ItemCheckRow;
   request: RequestRow;
   plan: PlanRow;
+  invoiceSubmission: InvoiceSubmissionRow;
   order: OrderRow;
   approval: ApprovalRow;
   invoice: InvoiceRow;
@@ -374,6 +384,7 @@ export const PRIMARY_KEYS = {
   itemCheck: 'id',
   request: 'id',
   plan: 'id',
+  invoiceSubmission: 'id',
   order: 'id',
   approval: 'id',
   invoice: 'id',
@@ -412,6 +423,8 @@ export interface Actions {
   raise_hold: { kind: HoldKind; refId: string; grantId?: string; title: string; why: string; evidence: Evidence[]; options: Choice[] };
   decide_hold: { holdId: bigint; choice: Choice; reason: string };
   unfreeze_grant: { grantId: string; reason: string };
+  /** A person saves an invoice submission (the whole JSON, with its audit trail); researcher and grant office share it (T112). */
+  save_invoice_submission: { id: string; body: string };
 
   // Fund tracker (bookkeeping agent).
   post_source_reading: { grantId: string; source: Source; status?: GrantStatus; awarded?: number; paid?: number; endDate?: string; url: string };

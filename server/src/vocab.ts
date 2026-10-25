@@ -22,6 +22,7 @@ export const STATUS_EVENT_KINDS = [
   'unfrozen',
 ] as const;
 export const FLAG_KINDS = ['sources_disagree', 'spend_while_canceled', 'court_order_no_payment'] as const;
+export const SUBMISSION_STATUSES = ['ready', 'exception', 'clarification', 'escalated', 'approved', 'rejected'] as const;
 export const CHECK_REASONS = ['check_now', 'before_money_moves'] as const;
 export const HOLD_KINDS = [
   'purchase',

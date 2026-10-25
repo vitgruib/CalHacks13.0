@@ -69,7 +69,7 @@ export interface Seed {
 }
 
 const DOMAIN_TABLES = [
-  'grant', 'statusEvent', 'sourceReading', 'flag', 'checkRequest', 'request', 'plan', 'order', 'approval',
+  'grant', 'statusEvent', 'sourceReading', 'flag', 'checkRequest', 'request', 'plan', 'invoiceSubmission', 'order', 'approval',
   'invoice', 'payroll', 'paymentRequest', 'followUp', 'reportPaper', 'hold', 'decision', 'log', 'counter',
 ] as const;
 

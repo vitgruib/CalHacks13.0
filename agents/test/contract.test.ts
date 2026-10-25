@@ -31,6 +31,7 @@ const COLUMNS: Record<TableName, string[]> = {
   decision: ['id', 'holdId', 'choice', 'reason', 'by', 'byIdentity', 'day', 'at'],
   log: ['id', 'day', 'at', 'actor', 'action', 'rule', 'reason', 'refId'],
   plan: ['id', 'researcher', 'ownedBy', 'status', 'grantId', 'experiment', 'total', 'overall', 'lines', 'body', 'report', 'savedOn', 'submittedOn', 'sentOn', 'decisionChoice', 'decisionReason', 'decisionDay'],
+  invoiceSubmission: ['id', 'researcher', 'status', 'body', 'savedOn'],
 };
 
 let world: TestWorld | undefined;
@@ -48,6 +49,9 @@ test('every_table_has_exactly_the_columns_contract_ts_describes', async () => {
   await scientist.call('ask_item_check', { item: 'Gloves', purpose: '', price: 40 });
   await scientist.call('save_plan', {
     id: 'pl-contract', status: 'draft', grantId: manager.rows('grant')[0].id, experiment: 'Contract shape', total: 0, overall: '', lines: [], body: '{}', report: '',
+  });
+  await scientist.call('save_invoice_submission', {
+    id: 'sub-contract', body: JSON.stringify({ id: 'sub-contract', researcher: 'priya', status: 'ready' }),
   });
   const hold = manager.rows('hold').find((row) => row.open && row.options.includes('ask_vendor'))!;
   await manager.call('decide_hold', { holdId: hold.id, choice: 'ask_vendor', reason: 'Checking the contract shape.' });

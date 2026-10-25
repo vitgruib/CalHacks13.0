@@ -9,7 +9,7 @@ import { Badge, Empty, money } from '../ui'
 import { demoSubmissions } from './demo'
 import { AuditTrail, BudgetCard, FindingList, OpenInvoice, StatusBadge } from './Findings'
 import { ledgerEntry, parseAmount, purchaseOrders, type Status, type Submission } from './model'
-import { record, saveSubmission, useSubmissions } from './store'
+import { useSubmissionActions, useSubmissions } from './store'
 
 type Choice = 'approve' | 'reject' | 'clarify' | 'escalate'
 const OFFICE = 'Grant manager'
@@ -23,6 +23,7 @@ const RESULT: Record<Choice, { status: Status; what: string }> = {
 
 function Decision({ s, blocks, today }: { s: Submission; blocks: number; today: string }) {
   const stored = useSubmissions()
+  const { record, saveSubmission } = useSubmissionActions()
   const [reason, setReason] = useState('')
   const [to, setTo] = useState('Principal investigator')
   const decided = s.status === 'approved' || s.status === 'rejected'

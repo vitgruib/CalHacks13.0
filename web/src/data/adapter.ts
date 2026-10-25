@@ -28,7 +28,7 @@ import type * as T from './types'
 
 /** Every table the windows read (the client subscribes to all of them). */
 export const WORLD_TABLES = [
-  'clock', 'grant', 'statusEvent', 'sourceReading', 'flag', 'request', 'plan', 'order', 'approval',
+  'clock', 'grant', 'statusEvent', 'sourceReading', 'flag', 'request', 'plan', 'invoiceSubmission', 'order', 'approval',
   'invoice', 'payroll', 'paymentRequest', 'followUp', 'reportPaper', 'hold', 'decision', 'log', 'checkRequest',
 ] as const
 

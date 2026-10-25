@@ -4,7 +4,7 @@
 // the Inbox's own card (`HoldCard`), as Requests and Invoices do for theirs:
 // the Inbox's menu button is hidden (T110). `#funds/<grant id>` opens Funds on
 // that grant's card.
-import { useEffect } from 'react'
+import { useEffect, useId, useState } from 'react'
 import SourceCheck from '../SourceCheck'
 import MoneyCharts from '../charts/MoneyCharts'
 import { useStore } from '../data/store'
@@ -13,6 +13,7 @@ import { Badge, Empty, Section, grantStatus, money, type Tone } from '../ui'
 import { SIM_NOTE, grantHeading } from '../plain'
 import EdgeGroup from '../EdgeGroup'
 import { edgeCaseOf, isEdgeGrant } from '../people'
+import { whyFrozen } from '../frozen'
 import { HoldCard, openHolds } from './Inbox'
 import './Funds.css'
 
@@ -122,6 +123,7 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
         <span className="funds-badges">
           {edgeCase && <Badge tone="neutral">Edge case: {edgeCase}</Badge>}
           <Badge tone={grantStatus(g).tone}>{grantStatus(g).label}</Badge>
+          {g.frozen && g.status !== 'ended' && <Badge tone="bad">Spending paused</Badge>}
         </span>
       }
     >
@@ -130,6 +132,7 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
         {daysLeft >= 0 && daysLeft <= 90 && <> <Badge tone="warn">last 90 days</Badge></>}
       </p>
 
+      {g.frozen && g.status !== 'ended' && <Unpause db={db} g={g} />}
       {holds.map(h => <HoldCard key={h.id} hold={h} embedded />)}
       {decided.map(h => (
         <p key={h.id} className="funds-decided">
@@ -140,6 +143,31 @@ function GrantCard({ g, db }: { g: Grant; db: Db }) {
 
       <MoneyCharts db={db} g={g} details />
     </Section>
+  )
+}
+
+/** A paused grant: why, as the researchers see it, and the grant manager's
+ *  unpause (unfreeze_grant), which reaches every portal (T112). */
+function Unpause({ db, g }: { db: Db; g: Grant }) {
+  const { unfreezeGrant } = useStore()
+  const [reason, setReason] = useState('')
+  const id = useId()
+  const ok = reason.trim() !== ''
+  return (
+    <div className="hold hold-embedded">
+      <header>
+        <h3 id={`${id}-title`}>Spending is paused for researchers</h3>
+      </header>
+      <p className="why"><strong>Why:</strong> {whyFrozen(db, g).map(c => c.text).join('; ')}.</p>
+      <div className="field">
+        <label htmlFor={id}>Unpause now? Your reason (required, goes in the log)</label>
+        <textarea id={id} rows={2} value={reason} onChange={e => setReason(e.target.value)} placeholder="e.g. NIH confirmed the award is live and payments resume this month" />
+      </div>
+      <div className="actions">
+        <button type="button" className="primary" disabled={!ok} onClick={() => { unfreezeGrant(g.id, reason); setReason('') }}>Unpause spending</button>
+        {!ok && <span className="hint">Type a reason to enable the button.</span>}
+      </div>
+    </div>
   )
 }
 

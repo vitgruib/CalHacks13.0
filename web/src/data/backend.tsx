@@ -16,7 +16,10 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         {children}
         <div className="backend-status" role="status">
           <span className="badge warn" title={offline}>Offline demo data</span>
-          <span className="backend-detail">{wantLocal ? 'Local mode: changes stay in this tab.' : `Server unreachable: ${offline}. Changes stay in this tab.`}</span>
+          <span className="backend-detail">
+            {wantLocal ? 'Local mode: changes stay in this tab.' : `Server unreachable: ${offline}. Changes stay in this tab and other browsers won't see them.`}
+            {!wantLocal && <> <button type="button" onClick={() => setOffline(null)}>Reconnect</button></>}
+          </span>
         </div>
       </LocalStoreProvider>
     )

@@ -442,3 +442,27 @@ test('the grant manager approves or returns a submitted plan, with a reason', ()
   expect(db().plan.id.find('pl-test').status).toBe('sent');
   expect(planRequests()).toHaveLength(2);
 });
+
+// ── Grant office ↔ researcher sync (T112) ─────────────────────────────────
+
+test('the grant manager unpauses a grant held by a court order with no payment', () => {
+  call('gm', mod.unfreeze_grant, { grantId: A, reason: 'NIH confirmed by phone that the award is live.' });
+  expect(db().grant.id.find(A)).toMatchObject({ status: 'restored_by_court', frozen: false });
+  expect(rows('flag').filter(f => f.grantId === A && f.kind === 'court_order_no_payment' && f.open)).toEqual([]);
+});
+
+test('an invoice a researcher submits is the same row the grant office decides on', () => {
+  const sub = { id: 'sub-1', researcher: 'Sofia Alvarez', status: 'ready', vendor: 'Fisher', amount: '640', audit: [] };
+  call('sci', mod.save_invoice_submission, { id: 'sub-1', body: JSON.stringify(sub) });
+  call('gm', mod.save_invoice_submission, { id: 'sub-1', body: JSON.stringify({ ...sub, status: 'approved' }) });
+  const row = db().invoiceSubmission.id.find('sub-1');
+  expect(row).toMatchObject({ researcher: 'Sofia Alvarez', status: 'approved' });
+  expect(JSON.parse(row.body).status).toBe('approved');
+});
+
+test('an invoice submission must name a known status and match its id', () => {
+  const sub = { id: 'sub-2', researcher: 'Sofia Alvarez', status: 'paid' };
+  expect(() => call('sci', mod.save_invoice_submission, { id: 'sub-2', body: JSON.stringify(sub) })).toThrow(/status must be one of/);
+  expect(() => call('sci', mod.save_invoice_submission, { id: 'sub-3', body: JSON.stringify({ ...sub, status: 'ready' }) })).toThrow(/id does not match/);
+  expect(() => call('bk', mod.save_invoice_submission, { id: 'sub-2', body: JSON.stringify({ ...sub, status: 'ready' }) })).toThrow(/only people/i);
+});

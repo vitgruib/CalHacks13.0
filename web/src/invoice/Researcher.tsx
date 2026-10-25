@@ -10,7 +10,7 @@ import { check, parseAmount, type Draft, type Submission } from './model'
 import { demoSubmissions } from './demo'
 import { approvedRequests, draftForRequest, type ApprovedRequest } from './requests'
 import SubmitForm from './SubmitForm'
-import { newSubmissionId, saveSubmission, useSubmissions } from './store'
+import { newSubmissionId, useSubmissionActions, useSubmissions } from './store'
 
 const draftOf = (s: Submission): Draft => ({ vendor: s.vendor, invoiceNo: s.invoiceNo, invoiceDate: s.invoiceDate, amount: s.amount, lines: s.lines, files: s.files, receiptFiles: s.receiptFiles ?? [], receipt: s.receipt, grantId: s.grantId, poId: s.poId, note: s.note })
 
@@ -46,6 +46,7 @@ function draftFromBill(db: Db, i: Db['invoices'][number]): Draft {
 
 export default function Researcher({ db, name }: { db: Db; name: string }) {
   const all = useSubmissions()
+  const { saveSubmission } = useSubmissionActions()
   const mine = all.filter(s => s.researcher === name)
   const [form, setForm] = useState<{ edit?: Submission; seed?: Draft; seedKey?: string; title?: string } | null>(null)
   const [view, setView] = useState<Menu | 'submit'>('requests')

@@ -35,6 +35,7 @@ import {
   PERSON_ROLES,
   SOURCES,
   STATUS_EVENT_KINDS,
+  SUBMISSION_STATUSES,
   oneOf,
   type AgentRole,
   type PersonRole,
@@ -383,6 +384,28 @@ export const save_plan = spacetimedb.reducer(
   }),
 );
 
+/**
+ * People only: save an invoice submission (T112). A researcher submits or
+ * resubmits one; the grant office records a decision on it. The body is the
+ * web's whole submission as JSON; its id, researcher and status must match.
+ */
+export const save_invoice_submission = spacetimedb.reducer({ id: t.string(), body: t.string() }, (ctx, { id, body }) => guard(() => {
+  const who = requirePerson(ctx, 'scientist', 'grant_manager');
+  if (!/^[\w-]{1,60}$/.test(id)) fail('A submission id is letters, digits and dashes.');
+  let s: { id?: unknown; researcher?: unknown; status?: unknown; vendor?: unknown; amount?: unknown };
+  try { s = JSON.parse(body); } catch { fail('The submission is not valid JSON.'); }
+  if (s.id !== id) fail('The submission\'s id does not match.');
+  if (typeof s.researcher !== 'string' || !s.researcher.trim()) fail('A submission names its researcher.');
+  const status = oneOf('status', SUBMISSION_STATUSES, String(s.status));
+  const old = ctx.db.invoiceSubmission.id.find(id);
+  const row = { id, researcher: s.researcher, status, body, savedOn: today(ctx) };
+  if (old) ctx.db.invoiceSubmission.id.update(row); else ctx.db.invoiceSubmission.insert(row);
+  if (!old || old.status !== status) {
+    const what = old ? `Invoice ${id}: ${old.status} → ${status}` : `${s.researcher} submitted invoice ${id}`;
+    writeLog(ctx, who, what, `${String(s.vendor ?? '') || 'Vendor'}, ${String(s.amount ?? '')}`, { refId: id });
+  }
+}));
+
 /** The researcher deletes a plan whose lines aren't requests yet. */
 export const delete_plan = spacetimedb.reducer({ id: t.string() }, (ctx, { id }) => guard(() => {
   const who = requirePerson(ctx, 'scientist');
@@ -658,7 +681,11 @@ export const unfreeze_grant = spacetimedb.reducer({ grantId: t.string(), reason:
   if (!reason.trim()) fail('A reason is required.');
   getGrant(ctx, grantId);
   ctx.db.statusEvent.insert({ id: 0n, grantId, day: today(ctx), kind: 'unfrozen', source: 'Payment system', summary: `Unfrozen early by the grant manager: ${reason}`, amount: undefined, at: ctx.timestamp });
-  for (const f of [...ctx.db.flag.grantId.filter(grantId)]) if (f.open && f.kind === 'sources_disagree') ctx.db.flag.id.update({ ...f, open: false });
+  // The grant manager's call settles what was holding it: sources disagreeing,
+  // or a court order with no payment yet.
+  for (const f of [...ctx.db.flag.grantId.filter(grantId)]) {
+    if (f.open && (f.kind === 'sources_disagree' || f.kind === 'court_order_no_payment')) ctx.db.flag.id.update({ ...f, open: false });
+  }
   writeLog(ctx, who, `Unfroze ${grantId} early`, reason, { refId: grantId });
   recomputeGrant(ctx, grantId, who);
 }));

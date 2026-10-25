@@ -7,6 +7,7 @@ import seed from '../../../sim/demo-seed.json'
 import { DbConnection } from '../module_bindings'
 import { toDb, toSourceCheck, WORLD_TABLES } from './adapter'
 import { applyAdvanceDays, applyInvoice, applyStatusEvent, Ctx, type ItemCheck, type Store } from './store'
+import type { Submission } from '../invoice/model'
 import type { Researcher } from '../people'
 import { planTotal, type Plan, type Report } from '../spendguard/assess'
 import { planLines, type PlanStatus, type SavedPlan } from '../spendguard/store'
@@ -14,7 +15,9 @@ import type { Db, PersonId, SourceCheck } from './types'
 
 export const STDB_URI: string = import.meta.env.VITE_STDB_URI || 'ws://localhost:3000'
 export const STDB_DB: string = import.meta.env.VITE_STDB_DB || 'grantguard'
-const CONNECT_TIMEOUT_MS = 5000
+// Covers the token, the WebSocket, registering and the first sync: a slow venue
+// network takes several seconds, and giving up means this tab stops syncing.
+const CONNECT_TIMEOUT_MS = 20_000
 // Haiku usually answers in a few seconds; past this Ask goes on to the grants unchecked.
 const ITEM_CHECK_TIMEOUT_MS = 20_000
 
@@ -93,6 +96,13 @@ function toPlans(db: DbConnection['db']): SavedPlan[] {
   })).sort((a, b) => b.savedOn.localeCompare(a.savedOn) || b.id.localeCompare(a.id))
 }
 
+/** The module's invoice submissions (T112) in the windows' shape; newest first. */
+function toSubmissions(db: DbConnection['db']): Submission[] {
+  return [...db.invoiceSubmission.iter()]
+    .map(r => JSON.parse(r.body) as Submission)
+    .sort((a, b) => b.submittedOn.localeCompare(a.submittedOn) || b.id.localeCompare(a.id))
+}
+
 const msg = (e: unknown) => (e instanceof Error ? e.message : String(e))
 
 export function LiveStoreProvider({ children, onFail, renderStatus }: {
@@ -103,6 +113,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
 }) {
   const [db, setDb] = useState<Db | null>(null)
   const [plans, setPlans] = useState<SavedPlan[]>([])
+  const [submissions, setSubmissions] = useState<Submission[]>([])
   const [sourceCheck, setSourceCheck] = useState<SourceCheck>({ last: null, pendingSince: null, asOf: null, grantAsOf: {} })
   const [status, setStatus] = useState<LiveInfo['status']>('live')
   const [notices, setNotices] = useState<LiveInfo['notices']>([])
@@ -128,7 +139,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
         const rebuild = () => {
           if (!synced || queued) return
           queued = true
-          queueMicrotask(() => { queued = false; if (!stopped) { setDb(toDb(c.db)); setSourceCheck(toSourceCheck(c.db)); setPlans(toPlans(c.db)) } })
+          queueMicrotask(() => { queued = false; if (!stopped) { setDb(toDb(c.db)); setSourceCheck(toSourceCheck(c.db)); setPlans(toPlans(c.db)); setSubmissions(toSubmissions(c.db)) } })
         }
         for (const name of WORLD_TABLES) {
           const t = c.db[name] as unknown as { onInsert(cb: () => void): void; onUpdate(cb: () => void): void; onDelete(cb: () => void): void }
@@ -142,6 +153,7 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
             setDb(next)
             setSourceCheck(toSourceCheck(c.db))
             setPlans(toPlans(c.db))
+            setSubmissions(toSubmissions(c.db))
             setStatus('live')
             // A wiped world: load the demo world so the windows have something.
             if (next.grants.length === 0) c.reducers.loadSeed({ json: JSON.stringify(seed) }).catch(e => notify(`Loading the demo seed failed: ${msg(e)}`))
@@ -268,6 +280,12 @@ export function LiveStoreProvider({ children, onFail, renderStatus }: {
       if (!reason.trim()) throw new Error('A reason is required.')
       call('Plan decision', () => conn().reducers.decidePlan({ id, choice, reason }))
     },
+    unfreezeGrant: (grantId, reason) => {
+      if (!reason.trim()) throw new Error('A reason is required.')
+      call('Unpausing the grant', () => conn().reducers.unfreezeGrant({ grantId, reason }))
+    },
+    submissions,
+    saveSubmission: s => call('Saving the invoice', () => conn().reducers.saveInvoiceSubmission({ id: s.id, body: JSON.stringify(s) })),
     loadDemoSeed: () => call('Loading the demo seed', () => conn().reducers.loadSeed({ json: JSON.stringify(seed) })),
   }
 

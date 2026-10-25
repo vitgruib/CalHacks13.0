@@ -3,6 +3,8 @@
 // live.tsx; backend.tsx picks between them (T17).
 import { createContext, useContext, useState, type ReactNode } from 'react'
 import seed from '../../../sim/demo-seed.json'
+import { clearLocalSubmissions, saveLocalSubmission, useLocalSubmissions } from '../invoice/local'
+import type { Submission } from '../invoice/model'
 import type { Researcher } from '../people'
 import { planLines, type SavedPlan } from '../spendguard/store'
 import type { Db, Decision, Invoice, PurchaseRequest, SourceCheck, StatusEvent } from './types'
@@ -47,6 +49,13 @@ export interface Store {
   /** Grant manager: approve a submitted plan (its lines become requests in the
    *  researcher's name) or return it, always with a reason. */
   decidePlan: (id: string, choice: 'approve' | 'return', reason: string) => void
+  /** Grant manager: unpause a frozen grant now, with a reason that goes in the
+   *  log (unfreeze_grant). Every portal sees it: the researcher can buy again. */
+  unfreezeGrant: (grantId: string, reason: string) => void
+  /** Invoice submissions (T112): what researchers sent and the grant office's decisions on them. */
+  submissions: Submission[]
+  /** A researcher submits or resubmits an invoice, or the grant office records a decision on one. */
+  saveSubmission: (s: Submission) => void
   /** Demo controls: replace the whole world with the demo seed (sim/demo-seed.json). Live, every open window sees it. */
   loadDemoSeed: () => void
 }
@@ -101,6 +110,22 @@ export function applyStatusEvent(d: Db, a: InjectStatusEventArgs): Db {
     grants: d.grants.map(x => (x.id === g.id ? next : x)),
     statusEvents: [...d.statusEvents, ...events],
     log: [...d.log, ...log],
+  }
+}
+
+/** The grant manager unpauses a frozen grant (as the module's unfreeze_grant). */
+export function applyUnfreeze(d: Db, grantId: string, reason: string): Db {
+  const g = d.grants.find(x => x.id === grantId)
+  if (!g) throw new Error(`No grant ${grantId}`)
+  if (!reason.trim()) throw new Error('A reason is required.')
+  const ev: StatusEvent = { id: nextId('se'), grantId, day: d.today, kind: 'unfrozen', source: 'Payment system', summary: `Unfrozen early by the grant manager: ${reason}` }
+  const settles = (f: Db['flags'][number]) => f.grantId === grantId && f.open && (f.kind === 'sources_disagree' || f.kind === 'court_order_no_payment')
+  return {
+    ...d,
+    grants: d.grants.map(x => (x.id === grantId ? { ...x, frozen: false, frozenReason: undefined } : x)),
+    flags: d.flags.map(f => (settles(f) ? { ...f, open: false } : f)),
+    statusEvents: [...d.statusEvents, ev],
+    log: [...d.log, { id: nextId('l'), day: d.today, actor: 'grant_manager', action: `Unfroze ${grantId} early`, reason, refId: grantId }],
   }
 }
 
@@ -240,13 +265,17 @@ export function LocalStoreProvider({ children }: { children: ReactNode }) {
     if (choice === 'approve') sendLines(row, p.by)
   }
 
+  const unfreezeGrant: Store['unfreezeGrant'] = (grantId, reason) => { applyUnfreeze(db, grantId, reason); setDb(d => applyUnfreeze(d, grantId, reason)) }
+  const submissions = useLocalSubmissions()
+
   const loadDemoSeed: Store['loadDemoSeed'] = () => {
     setDb(structuredClone(seed) as unknown as Db)
     setPlans([])
+    clearLocalSubmissions()
     setSourceCheck(seedCheck())
   }
 
-  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, loadDemoSeed }}>{children}</Ctx.Provider>
+  return <Ctx.Provider value={{ db, decide, submitRequest, checkItem, pushBack, injectStatusEvent, injectInvoice, advanceDays, sourceCheck, checkNow, plans, savePlan, deletePlan, decidePlan, unfreezeGrant, submissions, saveSubmission: saveLocalSubmission, loadDemoSeed }}>{children}</Ctx.Provider>
 }
 
 export function useStore(): Store {
