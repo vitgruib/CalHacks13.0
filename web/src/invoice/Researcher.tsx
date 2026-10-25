@@ -101,10 +101,10 @@ export default function Researcher({ db, name }: { db: Db; name: string }) {
   return (
     <div className="iv">
       <div className="iv-tabs" role="group" aria-label="Invoices">
+        <button type="button" className={`iv-tab iv-tab-blue${view === 'submit' ? ' on' : ''}`} aria-pressed={view === 'submit'} onClick={() => { setForm({}); setView(v => (v === 'submit' ? null : 'submit')) }}>Submit an invoice</button>
         <button type="button" className={`iv-tab iv-tab-orange${view === 'action' ? ' on' : ''}`} aria-pressed={view === 'action'} onClick={() => pick('action')}>
           Need your action <span className="iv-count">{nAction}</span>
         </button>
-        <button type="button" className={`iv-tab iv-tab-blue${view === 'submit' ? ' on' : ''}`} aria-pressed={view === 'submit'} onClick={() => { setForm({}); setView(v => (v === 'submit' ? null : 'submit')) }}>Submit an invoice</button>
         <button type="button" className={`iv-tab iv-tab-green${view === 'approved' ? ' on' : ''}`} aria-pressed={view === 'approved'} onClick={() => pick('approved')}>
           Approved <span className="iv-count">{nApproved}</span>
         </button>
